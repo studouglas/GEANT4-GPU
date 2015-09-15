@@ -1,0 +1,30 @@
+\documentclass[12pt]{article}
+
+\usepackage{xcolor} % for different colour comments
+
+%% Comments
+\newif\ifcomments\commentstrue
+
+\ifcomments
+\newcommand{\authornote}[3]{\textcolor{#1}{[#3 ---#2]}}
+\newcommand{\todo}[1]{\textcolor{red}{[TODO: #1]}}
+\else
+\newcommand{\authornote}[3]{}
+\newcommand{\todo}[1]{}
+\fi
+
+\newcommand{\wss}[1]{\authornote{magenta}{SS}{#1}}
+\newcommand{\ds}[1]{\authornote{blue}{ND}{#1}}
+
+% ======================= BEGIN DOCUMENT ========================== %
+\begin{document}
+
+\title{Problem Statement for ProjectName} 
+\author{Stuart Douglas, Matthew Pagnan, Rob Gorrie, Victor Reginado}
+\date{\today}
+	
+\maketitle
+
+Put your problem statement here.
+
+\end{document}
