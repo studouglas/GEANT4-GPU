@@ -1,30 +1,51 @@
 \documentclass[12pt]{article}
 
-\usepackage{xcolor} % for different colour comments
 
-%% Comments
+% Comments ------------------------------------------------
+\usepackage{xcolor}
 \newif\ifcomments\commentstrue
 
 \ifcomments
-\newcommand{\authornote}[3]{\textcolor{#1}{[#3 ---#2]}}
-\newcommand{\todo}[1]{\textcolor{red}{[TODO: #1]}}
+	\newcommand{\authornote}[3]{\textcolor{#1}{[#3 ---#2]}}
+	\newcommand{\todo}[1]{\textcolor{red}{[TODO: #1]}}
 \else
-\newcommand{\authornote}[3]{}
-\newcommand{\todo}[1]{}
+	\newcommand{\authornote}[3]{}
+	\newcommand{\todo}[1]{}
 \fi
 
 \newcommand{\wss}[1]{\authornote{magenta}{SS}{#1}}
 \newcommand{\ds}[1]{\authornote{blue}{ND}{#1}}
+% End Comments ---------------------------------------------
 
-% ======================= BEGIN DOCUMENT ========================== %
+
+% ============================ BEGIN DOCUMENT =============================== %
 \begin{document}
 
-\title{Problem Statement for ProjectName} 
-\author{Stuart Douglas, Matthew Pagnan, Rob Gorrie, Victor Reginado}
-\date{\today}
+\title{Problem Statement for GEANT4-GPU} 
+\author{Stuart Douglas (1214422), Matthew Pagnan (1208693),
+		\\ Rob Gorrie (1222547), Victor Reginado (1209975)}
 	
 \maketitle
 
-Put your problem statement here.
+
+\noindent
+\textbf{Description of Problem}\\
+GEANT-4 is a widely-used simulation program used to simulate particle
+interactions. There are currently several members of McMaster's Engineering
+Physics department that use the program, and are being limited by the 
+performance of the software. This means that they cannot simulate particle 
+interactions that take place over the course of minutes (or even seconds), and 
+they also can't simulate large numbers of particles.\\
+
+\noindent
+Increasing the runtime of the simulation or the number of particles would greatly increase the accuracy of their results, allowing the researchers to understand the systems they're modeling better. This is especially true when modelling complex systems, such as McMaster's nuclear reactor. Depending upon the level of success of the project, the solution could potentially benefit groups that use GEANT-4 outside of McMaster as well.\\
+
+\noindent
+\textbf{Stakeholders}\\
+\\
+
+\noindent
+\textbf{Context \& Environment}\\
+\\
 
 \end{document}
