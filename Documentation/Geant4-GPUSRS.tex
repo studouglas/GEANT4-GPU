@@ -40,15 +40,32 @@ We are using the Volere template. % Stuart
 % =================== Section ===================
  
 \section{Project Drivers}
+
 \subsection{Purpose of Project} % Matt
+\textbf{Project Background}\\
+Currently running GEANT4 simulations that require many particle takes a long time to compute when run on the CPU. By running the simulation on the GPU the user should be able to see a significant speed up in computation times\\
+\newline
+\textbf{Goal of the project}\\
+The goal of this project is to port the GEANT4 code to be able to run on the GPU.
+
 \subsection{Stakeholders} % Victor
 
 % =================== Section =================== 
 \section{Project Constraints}
 \subsection{Mandated Constraints} % Rob
-\subsection{Naming Conventions \& Terminology} % Stuart
-\subsection{Relevant Facts and Assumptions} %Matt
 
+\subsection{Naming Conventions \& Terminology} % Stuart
+
+\subsection{Relevant Facts and Assumptions} %Matt
+\textbf{Facts}
+\begin{itemize}
+	\item GEANT4 is programed using C++
+\end{itemize}
+\textbf{Assumptions}
+ \begin{itemize}
+	\item It is assumed that the user will have an understanding of particle physics
+	\item It is assumed that the user will know how to use GEANT4
+\end{itemize}
 % =================== Section =================== 
 \section{Functional Requirements}
 \subsection{The Scope of the Work} % Victor
@@ -62,21 +79,50 @@ We are using the Volere template. % Stuart
 \subsection{Usability and Humanity Requirements} % Rob
 \subsection{Performance Requirements} % Stuart
 \subsection{Operational and Environmental Requirements} % Matt
+\textbf{Expected Physical Environment}
+\begin{itemize}
+	\item The product shall be used by an engineering Physics professor, researcher or student
+	\item The user will be sitting down in a temperature controlled environment
+\end{itemize}
+\textbf{Requirements for interfacing with adjacent Systems}
+\begin{itemize}
+	\item The product shall work with the last four versions of GEANT4
+\end{itemize}
+\textbf{Productization Requirements}
+\begin{itemize}
+	\item The product shall be distributed as a ZIP file.
+	\item The product will be available on a public repo for users to download
+\end{itemize}
+\textbf{Release Requirements}
+\begin{itemize}
+	\item Later versions of the product that have been patch will be available on the public repo
+	\item Each release shall to cause previous features to fail.
+\end{itemize}
+
 \subsection{Maintainibility and Support Requirements} % Victor
 \subsection{Security Requirements} % Rob
 \subsection{Cultural Requirements} % Stuart
 \subsection{Legal Requirements} % Matt
-
+\textbf{Compliance Requirements}\\
+N/A\\
+\textbf{Standards Requirements}\\
+N/A\\
 % =================== Section =================== 
 \section{Project Issues}
 \subsection{Open Issues} % Victor
 \subsection{Off-the-Shelf Solutions} % Rob
 \subsection{New Problems} % Stuart
 \subsection{Tasks} % Matt
+The project life cycle will follow the deliverable outline for Computer Science 4ZP3. By April the project must be completed in its entirety. 
 \subsection{Migration to the New Product} % Victor
 \subsection{Risks} % Rob
 \subsection{Costs} % Stuart
 \subsection{User Documentation and Training} % Matt
+\begin{itemize}
+	\item Function descriptions shall be provided for every new function. 
+	\item There shall be .txt file accompanying the project that will explain to the user the changes as well as how to use the new functions
+	\item Users who know how to use GEANT4 should be able to easily use the new functions
+\end{itemize}
 \subsection{Waiting Room} % Victor
 \subsection{Ideas for Solutions} % Rob
 
