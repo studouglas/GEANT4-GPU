@@ -16,29 +16,39 @@
 \usepackage{enumerate}
 \usepackage{listings}
 \usepackage{titling}
-\usepackage[margin=1.4in]{geometry}
+\usepackage{tabularx}
+\usepackage{hyperref}
+\setlength\parindent{0pt} % cleaner look
 
-% Title
-\title{\Huge{GEANT-4 GPU} \LARGE{\\\vspace{7.5mm}\textbf{Software Requirements
- Specification}\\Version 0\vspace{10mm}}}
-\author{Stuart Douglas | 1214422\\Matthew Pagnan | 1208693\\Rob Gorrie |
- 1222547\\Victor Reginato | 1209975\vspace{10mm}}
-\date{\today}
+\title{
+	\LARGE GEANT-4 GPU Port:
+	\\\vspace{10mm}
+	\large \textbf{Software Requirements Specification}
+	\\Volere Template, Edition 16
+	\vspace{40mm}
+}
+\author{
+	Stuart Douglas -- 1214422
+	\\Matthew Pagnan -- 1208693
+	\\Rob Gorrie -- 1222547
+	\\Victor Reginato -- 1209975
+	\vspace{10mm}
+}
+\date{\vfill \textbf{Version 0}\\ \today}
 
 \begin{document}
+\pagenumbering{gobble} % start numbering after TOC
+
+% =================== Title Page =================== 
 \maketitle
 \newpage
 
+
 % =================== TOC =================== 
 \tableofcontents
-\newpage
-
-% =================== Section =================== 
-\section{Introduction}
-We are using the Volere template. % Stuart
+\pagenumbering{arabic}
 
 % =================== Section ===================
- 
 \section{Project Drivers}
 \subsection{Purpose of Project} % Matt
 \subsection{Stakeholders} % Victor
@@ -46,21 +56,74 @@ We are using the Volere template. % Stuart
 % =================== Section =================== 
 \section{Project Constraints}
 \subsection{Mandated Constraints} % Rob
-\subsection{Naming Conventions \& Terminology} % Stuart
-\subsection{Relevant Facts and Assumptions} %Matt
+
+\subsection{Naming Conventions \& Terminology}
+Throughout the document, ``the project'', ``the product'', and/or ``the software'' all refer to the modified GEANT-4 code that will run on a GPU. The ``existing software'' refers to the current GEANT-4 simulation program, including the modifications made by McMaster's Engineering Physics department to suit it to their needs.\\
+
+Refer to the following table for definitions of all domain-specific terms used.\\
+
+\begin{table}[h]
+\centering
+\begin{tabularx}{\textwidth}{lX}
+\hline
+Term & Description\\
+\hline
+GEANT-4 & open-source software toolkit used by stakeholders to simulate the passage of particles through matter\\
+GPU & graphics processing unit, well-suited to parallel computing tasks\\
+CUDA & parallel computing architecture for general purpose programming, developed by NVIDIA\\
+\hline
+\end{tabularx}
+\caption{Glossary}
+\end{table}
+
+\subsection{Relevant Facts and Assumptions} % Matt
+Placeholder
 
 % =================== Section =================== 
 \section{Functional Requirements}
 \subsection{The Scope of the Work} % Victor
 \subsection{Business Data Model \& Data Dictionary} % Rob
-\subsection{The Scope of the Product} % Stuart
+
+\subsection{The Scope of the Product}
+The following table outlines the use cases for the product. Click the PUC \# to go to its description.
+
+\begin{table}[h]
+\centering
+\begin{tabularx}{\textwidth}{|c|l|l|X|}
+\hline
+PUC \# & PUC Name & Actor(s) & Input/Output\\
+\hline\hline
+\ref{PUC_SimulatingParticles} & Simulating Particles & Researcher & Simulation parameters (in), Distribution of particle's locations (out)\\
+\hline
+\end{tabularx}
+\caption{Product Use Cases Summary}
+\end{table}
+
+Descriptions of each PUC, referenced by PUC \# are as follows.
+\begin{enumerate}
+\item \label{PUC_SimulatingParticles} The software will be used by researchers wishing to simulate large numbers of particles interactions with materials. The researcher sets simulation parameters, including the number of particles, their lifetime, and the material properties before running the simulation. On completion, the program gives back a map of where each particle travelled, so researchers can study where the particles are most probably to end up.
+\end{enumerate}
+
 \subsection{Functional Requirements} % Matt
+Placeholder
 
 % =================== Section =================== 
 \section{Non-functional Requirements}
 \subsection{Look and Feel Requirements} % Victor
 \subsection{Usability and Humanity Requirements} % Rob
-\subsection{Performance Requirements} % Stuart
+
+\subsection{Performance Requirements}\label{Req_Performance}
+
+\textbf{Requirement \#}: \ref{Req_Performance}\\
+
+\textbf{Description}: Decreasing the time it takes to run a simulation while maintaining identical results\\
+
+\textbf{Fit Criterion}: Running a simulation with a given set of input parameters should complete significantly faster on the product as compared to the existing software. Both should have identical outputs.\\
+
+\textbf{Dependencies}: None\\
+
+\textbf{History}: Created September 27, 2015
+
 \subsection{Operational and Environmental Requirements} % Matt
 \subsection{Maintainibility and Support Requirements} % Victor
 \subsection{Security Requirements} % Rob
