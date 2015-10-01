@@ -70,6 +70,7 @@
 
 % ================================= TOC ================================= %
 \tableofcontents
+\newpage
 \pagenumbering{arabic}
 
 % =============================== Section =============================== %
@@ -118,7 +119,7 @@ CUDA & parallel computing architecture for general purpose programming, develope
 	\item GEANT4 is programmed using C++
 \end{itemize}
 \textbf{Assumptions}
- \begin{itemize}
+\begin{itemize}
 	\item It is assumed that the user will have an understanding of particle physics
 	\item It is assumed that the user will know how to use GEANT4
 \end{itemize}
@@ -174,22 +175,14 @@ Placholder Text.
 {Req_SpeedLatency}
 {ReqType_Performance}
 {PUC_SimulatingParticles}
-{Decreasing the time it takes to run a simulation while maintaining identical results.}
-{Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Morbi commodo, ipsum sed pharetra gravida, orci magna rhoncus neque, id pulvinar odio lorem non turpis.}
+{Decrease the time it takes to run a particle simulation while mainting the same output.}
+{The entire purpose of the project is to improve the speed of the simulation.}
 {Running a simulation with a given set of input parameters should complete significantly faster on the product as compared to the existing software. Both should have identical outputs.}
 {Very High}
 {Created September 27, 2015}
 
 \subsubsection{Safety Critical Requirements}
-\requirement
-{Req_SafetyCritical}
-{ReqType_Performance}
-{PUC_SimulatingParticles}
-{Decreasing the time it takes to run a simulation while maintaining identical results.}
-{Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Morbi commodo, ipsum sed pharetra gravida, orci magna rhoncus neque, id pulvinar odio lorem non turpis.}
-{Running a simulation with a given set of input parameters should complete significantly faster on the product as compared to the existing software. Both should have identical outputs.}
-{Very High}
-{Created September 27, 2015}
+NA
 
 \subsubsection{Precision of Accuracy Requirements}
 \requirement
@@ -229,7 +222,7 @@ Placholder Text.
 {Req_Capacity}
 {ReqType_Performance}
 {PUC_SimulatingParticles}
-{Decreasing the time it takes to run a simulation while maintaining identical results.}
+{Increasing.}
 {Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Morbi commodo, ipsum sed pharetra gravida, orci magna rhoncus neque, id pulvinar odio lorem non turpis.}
 {Running a simulation with a given set of input parameters should complete significantly faster on the product as compared to the existing software. Both should have identical outputs.}
 {Very High}
@@ -337,34 +330,13 @@ Final Documentation (Revision 1) \hfill	April 1
 \subsection{Costs} % Stuart
 All software used in the project is open-source and/or available for free. Existing hardware will be used for development, so there are no associated monetary costs.\\
 
-Below are time estimates for each deliverable (as outlined in \ref{SubSec_Tasks}).
-\begin{table}[h]
-\centering
-\begin{tabular}{|p{0.35\textwidth}|p{0.06\textwidth}|p{0.5\textwidth}|}
-\hline
-Task & Time & Rationale\\
-\hline\hline
-Record of Proposed Project & 6 & Finished task in this amount of time.\\ 
-Problem Statement & 5 & Finished task in this amount of time.\\ 
-Requirements Document Rev 0 & 14 & Finished task in this amount of time.\\ 
-Proof of Concept Plan & 4 & Finished task in this amount of time.\\ 
-Test Plan Revision 0 & 4 & Finished task in this amount of time.\\ 
-Proof of Concept Demo & 4 & Finished task in this amount of time.\\ 
-Design Doc Revision 0 & 4 & Finished task in this amount of time.\\ 
-Revision 0 Demo & 4 & Finished task in this amount of time.\\ 
-User's Guide Revision 0 & 4 & Finished task in this amount of time.\\ 
-Test Report Revision 0 & 4 & Finished task in this amount of time.\\ 
-Final Demo Revision 1 & 4 & Finished task in this amount of time.\\ 
-Final Documentation Revision 1 & 4 & Finished task in this amount of time.\\ 
-\hline
-\end{tabular}
-\end{table}
+We have very clear and well-defined deadlines for each deliverable, and are in full confidence that we will meet each one. The time it takes for each deliverable will be variable, but the date of completion for each is concrete, as outlined in \ref{SubSec_Tasks}.
 
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{User Documentation and Training} % Matt
 \begin{itemize}
-	\item Function descriptions shall be provided for every new function. 
-	\item There shall be .txt file accompanying the project that will explain to the user the changes as well as how to use the new functions
+	\item Function descriptions shall be provided for every new function in the code
+	\item There shall be a thorough ReadMe file accompanying the project that will explain to the user the changes as well as how to use the new functions
 	\item Users who know how to use GEANT4 should be able to easily use the new functions
 \end{itemize}
 
