@@ -290,26 +290,51 @@ NA
 NA
 
 % ----------------------------- Sub Section ----------------------------- %
-\subsection{Operational and Environmental Requirements} % Matt
+\subsection{Operational and Environmental Requirements}\label{ReqType_Enviro} % Matt
 \subsubsection{Expected Physical Environment}
-\begin{itemize}
-\item The product shall be used by an engineering Physics professor, researcher or student
-\item The user will be sitting down in a temperature controlled environment
-\end{itemize}
+
+\requirement
+{Req_PhysEnviro}
+{ReqType_Enviro}
+{PUC_SimulatingParticles}
+{The product shall be used by and engineering physics professor, researcher or student who will be sitting down in a temperature controlled environment.}
+{The product should typically only be used in an office environment.}
+{95\% of all uses of the product will be used by engineering physics professors, researchers or students in sitting down in temperature controlled environments.}
+{High}
+{Created October 4, 2015}
+
 \subsubsection{Requirements for interfacing with adjacent Systems}
-\begin{itemize}
-\item The product shall work with the last four versions of GEANT4
-\end{itemize}
+\requirement
+{Req_BackwardsCompatible}
+{ReqType_Enviro}
+{PUC_SimulatingParticles}
+{The product shall work with the last four versions of GEANT4}
+{Backwards compatibility is a nice thing to have.}
+{At least the last four versions of GEANT4 will be able to run this product.}
+{Low}
+{Created October 4, 2015}
+
 \subsubsection{Productization Requirements}
-\begin{itemize}
-\item The product shall be distributed as a ZIP file.
-\item The product will be available on a public repo for users to download
-\end{itemize}
+\requirement
+{Req_Distro}
+{ReqType_Enviro}
+{PUC_SimulatingParticles}
+{The product will shall be distributed as a ZIP file, available on a public repository for users to download.}
+{Want to make the product easily available for users to get}
+{90\% of users should be able to acquire the product with out much trouble}
+{Low}
+{Created October 4, 2015}
+
 \subsubsection{Release Requirements}
-\begin{itemize}
-\item Later versions of the product that have been patch will be available on the public repo
-\item Each release shall to cause previous features to fail.
-\end{itemize}
+\requirement
+{Req_Release}
+{ReqType_Enviro}
+{PUC_SimulatingParticles}
+{Later versions of the product that have been patch will be available on the public repository. Each release shall not cause previous features to fail}
+{If the product needs to be patched, it should not break older features. It should also be available in the same location as where the product is acquired}
+{Upon patching the product, none of the previous features should fail.}
+{Medium}
+{Created October 4, 2015}
 
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Maintainibility and Support Requirements} % Victor
