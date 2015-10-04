@@ -1,11 +1,14 @@
 \documentclass[12pt]{article}
+
 % Packages
 \usepackage{enumerate}
 \usepackage{listings}
 \usepackage{titling}
 \usepackage{tabularx}
 \usepackage{hyperref}
+\usepackage{makecell}
 \setlength\parindent{0pt} % Cleaner look
+
 % Comments --------------------------------------------------------------------
 \usepackage{xcolor}
 \newif\ifcomments\commentstrue
@@ -15,9 +18,11 @@
 \newcommand{\wss}[1]{\authornote{magenta}{SS}{#1}}
 \newcommand{\ds}[1]{\authornote{blue}{DN}{#1}}
 % End Comments ---------------------------------------------------------------
+
 % Keep track of requirement numbers
 \newcounter{ReqNumCounter}
 \setcounter{ReqNumCounter}{0}
+
 % Requirement template -------------------------------------------------------
 \newcommand{\requirement}[8]{%
 \fbox{\parbox{\textwidth}{%
@@ -34,6 +39,7 @@
 \textbf{Priority}: #7 \hfill \textbf{History}: #8
 }}}
 % End Requirement template ---------------------------------------------------
+
 % Title Page -----------------------------------------------------------------
 \title{
 \LARGE GEANT-4 GPU Port:
@@ -51,18 +57,36 @@ Stuart Douglas -- 1214422
 }
 \date{\vfill \textbf{Version 0}\\ \today}
 % End Title Page -------------------------------------------------------------
+
 % ============================== BEGIN DOCUMENT ============================= %
 \begin{document}
 \pagenumbering{gobble} % start numbering after TOC
+
 % ============================== Title Page ============================= %
 \maketitle
 \newpage
+
 % ================================= TOC ================================= %
 \tableofcontents
 \newpage
 \pagenumbering{arabic}
+
+% =============================== Section =============================== %
+\section{Revision History}
+\begin{table}[h]
+\centering
+\caption{Revision History}
+\begin{tabular}{l|l|l}
+\Xhline{2\arrayrulewidth}
+\bf Description of Changes & \bf Author & \bf Date\\\hline
+Initial draft of document & Stuart, Matthew, Rob, Victor & 2015-10-05\\
+\Xhline{2\arrayrulewidth}
+\end{tabular}
+\end{table}
+
 % =============================== Section =============================== %
 \section{Project Drivers}
+
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Purpose of Project} % Matt
 \textbf{Project Background}\\
@@ -70,64 +94,81 @@ Currently running GEANT4 simulations that require many particle takes a long tim
 \newline
 \textbf{Goal of the project}\\
 The goal of this project is to port the GEANT4 code to be able to run on the GPU.
+
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Stakeholders} % Victor
+
 % =============================== Section =============================== %
 \section{Project Constraints}
+
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Mandated Constraints} % Rob
 There are global constraints put in place by the existing software, the stakeholders, and the structure of 4ZP6. The project must be built upon the existing GEANT4 code. The final product must be able to run any code/simulation that ran on the existing software. The software must run in parrallel on an NVIDIA GPU. Additionally, the final product needs to be completed by the end of April, 2016. If these global constraints are not met the final product is not acceptable.\\
+
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Naming Conventions \& Terminology} % Stuart
-Throughout the document, ``the project'', ``the product'', and/or ``the software'' all refer to the modified GEANT-4 code that will run on a GPU. The ``existing software'' refers to the current GEANT-4 simulation program, including the modifications made by McMaster's Engineering Physics department to suit it to their needs.\\
+Throughout the document, ``the project'', ``the product'', and/or ``the software'' all refer to the modified GEANT-4 code that will include the capability to be run on a GPU. The ``existing software'' refers to the current GEANT-4 simulation toolkit.\\
 \begin{table}[h]
 \centering
-\begin{tabularx}{\textwidth}{|l|X|}
-\hline
-Term & Description\\
+\caption{Glossary}
+\begin{tabularx}{\textwidth}{l|X}
+\Xhline{2\arrayrulewidth}
+\bf Term & \bf Description\\
 \hline
 GEANT-4 & open-source software toolkit used by stakeholders to simulate the passage of particles through matter\\
 GPU & graphics processing unit, well-suited to parallel computing tasks\\
-CUDA & parallel computing architecture for general purpose programming, developed by NVIDIA\\
-\hline
+GPGPU & concept of running ``general-purpose" computations on the GPU\\
+CUDA & parallel computing architecture for general purpose programming on GPU, developed by NVIDIA\\
+\Xhline{2\arrayrulewidth}
 \end{tabularx}
-\caption{Glossary}
 \end{table}
+
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Relevant Facts and Assumptions} %Matt
-\textbf{Facts}
+\subsubsection{Facts}
 \begin{itemize}
-\item GEANT4 is programmed using C++
+\item GEANT4 is programmed in C++
+\item GEANT4 runs simulations on CPUs
+\item Simulations run calculations on each particle independently
+\item Calculations on each particle are relatively simple probabilities
 \end{itemize}
-\textbf{Assumptions}
+
+\subsubsection{Assumptions}
 \begin{itemize}
-\item It is assumed that the user will have an understanding of particle physics
-\item It is assumed that the user will know how to use GEANT4
+\item The user will have a strong understanding of particle physics
+\item The user will know how to use GEANT4
 \end{itemize}
+
 % =============================== Section =============================== %
 \section{Functional Requirements}
+
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{The Scope of the Work} % Victor
+
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Business Data Model \& Data Dictionary} % Rob
+
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{The Scope of the Product}
 The following table outlines the use cases for the product. Click the PUC \# to go to its description.
+
 \begin{table}[h]
 \centering
-\begin{tabularx}{\textwidth}{|c|l|l|X|}
-\hline
-PUC \# & PUC Name & Actor(s) & Input/Output\\
-\hline\hline
-\ref{PUC_SimulatingParticles} & Simulating Particles & Researcher & Simulation parameters (in), Distribution of particle's locations (out)\\
-\hline
-\end{tabularx}
 \caption{Product Use Cases Summary}
+\begin{tabularx}{\textwidth}{c|l|l|X}
+\Xhline{2\arrayrulewidth}
+\bf PUC \# & \bf PUC Name & Actor(s) & \bf Input/Output\\
+\hline
+\ref{PUC_SimulatingParticles} & Simulating Particles & Researcher & Simulation parameters (in), Distribution of particle's locations (out)\\
+\Xhline{2\arrayrulewidth}
+\end{tabularx}
 \end{table}
+
 Descriptions of each PUC, referenced by PUC \# are as follows.
 \begin{enumerate}
 \item \label{PUC_SimulatingParticles} The software will be used by researchers wishing to simulate large numbers of particles interactions with materials. The researcher sets simulation parameters, including the number of particles, their lifetime, and the material properties before running the simulation. On completion, the program gives back a map of where each particle travelled, so researchers can study where the particles are most probably to end up.
 \end{enumerate}
+
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Functional Requirements} \label{ReqType_Functional}
 \requirement
@@ -135,8 +176,8 @@ Descriptions of each PUC, referenced by PUC \# are as follows.
 {ReqType_Functional}
 {PUC_SimulatingParticles}
 {Particle computations run on the GPU}
-{Design requirement, so that particle simulations run faster}
-{Benchmarking a program before and after implementing the GPU code should show simulation speed ups by at least 30 times.}
+{Design requirement, will allow particle simulations to run faster (requirement \ref{Req_SpeedLatency})}
+{Running the product with GPU computation enabled will result in all computations on particles being offloaded from the CPU (existing product) to the GPU (new product)}
 {Very High}
 {Created September 29, 2015}
 \\\\
@@ -146,8 +187,8 @@ Descriptions of each PUC, referenced by PUC \# are as follows.
 {ReqType_Functional}
 {PUC_SimulatingParticles}
 {Changing existing projects to run with new GPU functions should be easy}
-{Design requirement, so that the user is able to easily run old projects with GPU code. This will also allow existing users to already know how to use the new code.}
-{User should be able to fin and replace the names of their old functions with the new GPU functions. Upon recompilation of the project they should receive no errors.}
+{Design requirement, the user is able to easily choose to run old or new projects on the GPU.}
+{User should be able to quickly enable GPU computations by referencing the documentation. If their hardware is compatible, their project should run with no errors.}
 {High}
 {Created September 29, 2015}
 \\\\
@@ -156,9 +197,9 @@ Descriptions of each PUC, referenced by PUC \# are as follows.
 {Req_NoChangeOld}
 {ReqType_Functional}
 {PUC_SimulatingParticles}
-{Old projects should not be affected by the new code}
-{Design Requirement, don't want to break already existing code that works.}
-{All old projects should be able to run exactly the same as before including the GPU library.}
+{Existing projects should not be affected by the new code. By default, they will continue to run on the CPU.}
+{Design Requirement, need to ensure that users can continue to use GEANT-4 as before.}
+{Running an existing simulation should execute on the CPU by default as before with no performance regressions and identical results.}
 {High}
 {Created September 29, 2015}
 \\\\
@@ -167,17 +208,21 @@ Descriptions of each PUC, referenced by PUC \# are as follows.
 {Req_CompatableGPU}
 {ReqType_Functional}
 {PUC_SimulatingParticles}
-{Running the GPU code on a computer that does not have a compatible GPU card should not cause the simulation to crash, just have simulation run on CPU like before.}
-{Want GEANT4 GPU projects to still be able to run on as many computers as possible.}
-{Atleast 95\% of all computers running non-Nividia graphics cards should still be able to run simulations}
+{Trying to run the simulation on the GPU with a computer that does not have a compatible graphics card should be detected and cause it to run on CPU like before.}
+{New product should not limit the amount of users who can use GEANT-4}
+{Any computer that can currently run the existing product should be able to run the new product.}
 {Medium}
 {Created September 29, 2015}
+
 % =============================== Section =============================== %
 \section{Non-functional Requirements}
+
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Look and Feel Requirements} % Victor
+
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Usability and Humanity Requirements} % Rob
+
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Performance Requirements}\label{ReqType_Performance}
 \subsubsection{Speed and Latency Requirements}
@@ -190,6 +235,7 @@ Descriptions of each PUC, referenced by PUC \# are as follows.
 {Running a simulation with a given set of input parameters should complete significantly faster on the product as compared to the existing software. Both should have identical outputs.}
 {Very High}
 {Created September 27, 2015}
+
 \subsubsection{Safety Critical Requirements}
 NA
 
@@ -198,61 +244,51 @@ NA
 {Req_Precision}
 {ReqType_Performance}
 {PUC_SimulatingParticles}
-{Decreasing the time it takes to run a simulation while maintaining identical results.}
-{Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Morbi commodo, ipsum sed pharetra gravida, orci magna rhoncus neque, id pulvinar odio lorem non turpis.}
-{Running a simulation with a given set of input parameters should complete significantly faster on the product as compared to the existing software. Both should have identical outputs.}
-{Very High}
+{Results should have same accuracy whether simulation is run on CPU or GPU.}
+{If results are not as accurate as with the existing product then researchers will not be able to draw as strong conclusions.}
+{The results of a simulation should be identical on the new product as the existing one, given that the inputs are the same.}
+{High}
 {Created September 27, 2015}
+
 \subsubsection{Reliability and Availability Requirements}
 \requirement
 {Req_Reliability}
 {ReqType_Performance}
 {PUC_SimulatingParticles}
-{Decreasing the time it takes to run a simulation while maintaining identical results.}
-{Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Morbi commodo, ipsum sed pharetra gravida, orci magna rhoncus neque, id pulvinar odio lorem non turpis.}
-{Running a simulation with a given set of input parameters should complete significantly faster on the product as compared to the existing software. Both should have identical outputs.}
-{Very High}
+{The product should be at least as stable as the existing product.}
+{Researchers require an extremely stable product, we do not want to introduce any new crashes or bugs.}
+{Testing the product with a variety of simulations should never result in a crash.}
+{High}
 {Created September 27, 2015}
+
 \subsubsection{Robustness or Fault-Tolerance Requirements}
 \requirement
 {Req_Robustness}
 {ReqType_Performance}
 {PUC_SimulatingParticles}
-{Decreasing the time it takes to run a simulation while maintaining identical results.}
-{Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Morbi commodo, ipsum sed pharetra gravida, orci magna rhoncus neque, id pulvinar odio lorem non turpis.}
-{Running a simulation with a given set of input parameters should complete significantly faster on the product as compared to the existing software. Both should have identical outputs.}
-{Very High}
+{.}
+{.}
+{.}
+{High}
 {Created September 27, 2015}
+
 \subsubsection{Capacity Requirements}
 \requirement
 {Req_Capacity}
 {ReqType_Performance}
 {PUC_SimulatingParticles}
-{Increasing.}
-{Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Morbi commodo, ipsum sed pharetra gravida, orci magna rhoncus neque, id pulvinar odio lorem non turpis.}
-{Running a simulation with a given set of input parameters should complete significantly faster on the product as compared to the existing software. Both should have identical outputs.}
-{Very High}
+{Due to speed improvements (requirement \ref{Req_SpeedLatency}) a larger number of particles should be able to be simulated in the same period of time.}
+{Increasing the number of particles in the simulation will allow researchers to better simulate real-world interactions.}
+{A simulation running on the new product will be able to simulate a significantly larger number of particles in the same time as the same simulation on the existing product.}
+{High}
 {Created September 27, 2015}
+
 \subsubsection{Scalability Requirements}
-\requirement
-{Req_Scalability}
-{ReqType_Performance}
-{PUC_SimulatingParticles}
-{Decreasing the time it takes to run a simulation while maintaining identical results.}
-{Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Morbi commodo, ipsum sed pharetra gravida, orci magna rhoncus neque, id pulvinar odio lorem non turpis.}
-{Running a simulation with a given set of input parameters should complete significantly faster on the product as compared to the existing software. Both should have identical outputs.}
-{Very High}
-{Created September 27, 2015}
+NA
+
 \subsubsection{Longevity Requirements}
-\requirement
-{Req_Longevity}
-{ReqType_Performance}
-{PUC_SimulatingParticles}
-{Decreasing the time it takes to run a simulation while maintaining identical results.}
-{Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Morbi commodo, ipsum sed pharetra gravida, orci magna rhoncus neque, id pulvinar odio lorem non turpis.}
-{Running a simulation with a given set of input parameters should complete significantly faster on the product as compared to the existing software. Both should have identical outputs.}
-{Very High}
-{Created September 27, 2015}
+NA
+
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Operational and Environmental Requirements} % Matt
 \subsubsection{Expected Physical Environment}
@@ -274,28 +310,58 @@ NA
 \item Later versions of the product that have been patch will be available on the public repo
 \item Each release shall to cause previous features to fail.
 \end{itemize}
+
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Maintainibility and Support Requirements} % Victor
+
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Security Requirements} % Rob
+
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Cultural Requirements} % Stuart
 NA
+
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Legal Requirements} % Matt
 \subsubsection{Compliance Requirements}
 NA
 \subsubsection{Standards Requirements}
 NA
+
 % =============================== Section =============================== %
 \section{Project Issues}
+
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Open Issues} % Victor
+
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Off-the-Shelf Solutions} % Rob
+
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{New Problems} % Stuart
-This section will be updated with new problems as they come along.
+\subsubsection{Effects on the Current Environment}
+The new product will be designed as an opt-in addition to the existing product. That is, unless manually changed by the user, the program will execute identically as before, running on the CPU. The motivation for this is to ensure compatibility, as the programming environment for GPGPU programming is restricted to certain hardware. The current environment will not be affected by the changes unless the user specifically decides to use them.
+
+\subsubsection{Effects on the Installed Systems}
+Requirement \ref{Req_EasyChange} specifies the importance of creating a simple interface for the user to enable the changes in the new system, or revert to the previous one. Changes to the code will be isolated, and only used when they are manually enabled.
+
+\subsubsection{Potential User Problems}
+Due to the separation of the changes and the existing product, users will not negatively respond to the changes, indeed they won't even notice them unless actively looking. To use the new product's features, users will enable them and then execute the program in an identical manner to how the existing software works (requirement \ref{Req_EasyChange}).
+
+\subsubsection{Limitations of the Anticipated Implementation Environment That May Inhibit the New Product}
+To run the GPGPU computations, specific hardware is required (recent NVIDIA graphics card).
+
+\subsubsection{Follow-Up Problems}
+There are a number of potential situations that could lead to the product failing. We are confident that we will be able to succeed, however we realize that there is a possibility of failure, and have outlined the potential causes below.
+\begin{itemize}
+\item Learning curve for existing GEANT-4 codebase is too steep, cannot gain adequate understanding to implement changes in time constraints
+\item Porting existing algorithms to CUDA requires too much work, and we are not able to run the algorithms on a GPU within time constraints
+\item The current product's interface for the specific algorithms that will be ported is not well-enough defined
+\item The large models used in the simulation exceed memory limitations on the GPU, and cannot be run on existing hardware
+\item Performance gains from the GPU are negligible, due to the structure of the computations
+\item Numerical accuracy problems lead to different results from simulations run on the existing product vs. the new product
+\end{itemize}
+
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Tasks}\label{SubSec_Tasks} % Matt
 Record of Proposed Project \hfill September 18\\
@@ -310,10 +376,13 @@ User's Guide Revision 0 \hfill February 29\\
 Test Report Revision 0 \hfill March 21\\
 Final Demonstration (Revision 1) \hfill Exam period\\
 Final Documentation (Revision 1) \hfill April 1
+
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Migration to the New Product} % Victor
+
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Risks} % Rob
+
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Costs} % Stuart
 All software used in the project is open-source and/or available for free. Existing hardware will be used for development, so there are no associated monetary costs.\\
@@ -324,11 +393,14 @@ We have very clear and well-defined deadlines for each deliverable, and are in f
 \subsection{User Documentation and Training} % Matt
 \begin{itemize}
 	\item Function descriptions shall be provided for every new function in the code
-	\item There shall be a thorough ReadMe file accompanying the project that will explain to the user the changes as well as how to use the new functions
+	\item There shall be a thorough Read Me file accompanying the project that will explain to the user the changes as well as how to use the new functions
 	\item Users who know how to use GEANT4 should be able to easily use the new functions
 \end{itemize}
+
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Waiting Room} % Victor
+
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Ideas for Solutions} % Rob
+
 \end{document}
