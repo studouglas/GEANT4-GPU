@@ -147,6 +147,9 @@ CUDA & parallel computing architecture for general purpose programming on GPU, d
 
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Business Data Model \& Data Dictionary} % Rob
+Because of the nature of our product, all data that is relevant for operation is identical to the data germane to GEANT4. 
+This includes the world geometry of the simulation and properties of all particles (momentum, location, etc). Because our 
+software is concerned only with data specific to GEANT4, this section is not appicable. 
 
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{The Scope of the Product}
@@ -222,6 +225,33 @@ Descriptions of each PUC, referenced by PUC \# are as follows.
 
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Usability and Humanity Requirements} % Rob
+First and foremost, it should be noted that the software-as-is (GEANT4) has an exceptionally high knowledge requirement. There is a lot assumed about the abilities of GEANT4 users in order for the software to be used successfully. Some, but not all, of these abilities may pertain to:\\
+\begin{itemize}
+\item Thorough understanding of quantum mechanics
+\item anticipated comfort in advanced algebras
+\item ability to construct GEANT4 geometry
+\item cognizance of and comfort with GEANT4 input file structure
+\end{itemize}
+
+\subsubsection{Ease of Use Requirements}
+The product shall expect no more in ability of the user than GEANT4 does already. It should be easy to use for a 
+undergraduate student (or higher) of the physical sciences or nuclear/physical sciences who has already been trained 
+to use GEANT4.\\
+
+\subsubsection{Personalization and Internationalization Requirements}
+The software will be adjustable given technical constraints of the user, according to GPU specifics. The product will not, however, 
+be adjustable in terms of personal or national preferences. This processes involved in the software are in accordance with a strict 
+scientific standard. 
+
+\subsubsection{Learning Requirements}
+Though the average user of GEANT4 should have the prerequisite knowledge of an undergrad (or even graduate) university student or researcher, the learning curve expected for these users is relatively low. With that said, it is still technical software and does require training. The training time for someone who has the requisite knowledge is roughly 3 weeks.
+
+\subsubsection{Understandability and Politeness Requirements}
+Users of the product are expected to understand what the product will do for them and the analytics it offers into the problems they are trying to have.
+
+\subsubsection{Accessibility Requirements}
+There will not be specific accessibility constraints placed with respect to the product. Any person with the ability to perform adequetely in the academic setting, and with the ability to use shell based computers, will not have a problem with the software.
+
 
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Performance Requirements}\label{ReqType_Performance}
@@ -341,6 +371,20 @@ NA
 
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Security Requirements} % Rob
+\subsubsection{Access Requirements}
+All users have access to all parts of the product, as the product will be open-source.\\
+
+\subsubsection{Integrity Requirements}
+All data is stored and manipulated locally. Because of this, there will be no compromise on the integrity of data outside of physical hardware malfunctions.\\
+
+\subsubsection{Privacy Requirements}
+All data is stored and manipulated locally. Because of this, the privacy of said data is entirely at the discretion of the user. With that said, there will also be no local encryption on the output and input files used for the software.\\
+
+\subsubsection{Audit Requirements}
+NA\\
+
+\subsubsection{Immunity Requirements}
+The only aspect of the project at risk with respect to external software is performance. The user is held responsibile for ensuring that no external software is hogging the resources required for the project to run at optimal performance.\\
 
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Cultural Requirements} % Stuart
