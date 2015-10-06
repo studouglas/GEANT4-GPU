@@ -19,6 +19,8 @@
 \newcommand{\ds}[1]{\authornote{blue}{DN}{#1}}
 % End Comments ---------------------------------------------------------------
 
+\renewcommand\thesubsubsection{\thesection.\arabic{subsection}.\alph{subsubsection}}
+
 % Keep track of requirement numbers
 \newcounter{ReqNumCounter}
 \setcounter{ReqNumCounter}{0}
@@ -89,16 +91,17 @@ Initial draft of document & Stuart, Matthew, Rob, Victor & 2015-10-05\\
 
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Purpose of Project} % Matt
-\textbf{Project Background}\\
-Currently running GEANT4 simulations that require many particle takes a long time to compute when run on the CPU. By running the simulation on the GPU the user should be able to see a significant speed up in computation times\\
-\newline
-\textbf{Goal of the project}\\
+\subsubsection{Project Background}
+Currently running GEANT4 simulations that require many particle takes a long time to compute when run on the CPU. By running the simulation on the GPU the user should be able to see a significant speed up in computation times
+
+\subsubsection{Goal of the project}
 The goal of this project is to port the GEANT4 code to be able to run on the GPU.
 
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Stakeholders} % Victor
 The stakeholders that are currently involved with the project include: the project group, the supervisors of the project, as well as the McMaster Engineering Physics Department.
 
+<<<<<<< HEAD
 \begin{description}
  	\item[2.2a] \textbf{The Client} \\
 	The client(s) for the project is the Dr. Buijis and his Grad Student Wesley, representing the McMaster Engineering Physics Department.\\
@@ -126,18 +129,42 @@ The stakeholders that are currently involved with the project include: the proje
 \item[2.2h] \textbf{Maintenance Users and Service Technicians} \\
 	The users that would be maintaining the code (after the project is completed) will likely be graduate students of engineering physics. \\
 \end{description}
+=======
+\subsubsection{The Client}
+The client(s) for the project is the Dr. Buijis and his Grad Student Westly, representing the McMaster Engineering Physics Department. The clients proposed the project because they have invested interest in running GEANT-4 simulations more efficiently. They will be using the parallelized code to run and study nuclear simulations, and need the code to run much more quickly to obtain useful data.
+	
+\subsubsection{The Customer}
+The customer in this case also includes the client; and as such they will be the part of the end-user group that we will cater to.
+The customer is also other members of the Engineering Physics department who wish to run simulations using GEANT-4 as they also have use for the end product. The users will want to run simulations with many particles and particle collisions, the optimization of the code will allow for them to do this in a timely fashion.
+	
+\subsubsection{Other Stakeholders}
+The project group members hold stake in the successful completion of the project. If the project is done well, and the documentation is error free and concise, they are bound for high grades in their course.\\
 
+Collaborators and users of the GEANT-4 project could be potential stakeholders, but only if after the project is completed, they accept our contributions to GEANT-4.
+
+\subsubsection{The Hands-On Users of the Product}
+Undergraduate and graduate students as well as professors in the McMaster Engineering Physics Department would be hands on users of the product. 
+
+\subsubsection{Personas}
+Consider Matt Douglas, a graduate student in the Engineering Physics Department. Matt needs to see how a nuclear reactor would start given some specific starting conditions, and a close to realistic number of particles. Matt isn't particularly fluent in C, but he can manage to change some starting variables. Matt inputs his desired number of particles and specific starting conditions into a GEANT-4 simulation. The simulation runs for several hours before Matt realizes that it might be too much for his software and hardware setup. He finds a version of GEANT-4 written for NVIDEA GPU's that claims to speed up a simulation 	on average 400x. He installs this version of GEANT-4 and attempts his simulation again. This time it takes only a half hour for	his simulation to yield results.\\
+	
+The project will help not only graduate students like Matt, but undergraduates as well. It is a useful as a learning tool as well as for research projects.
+>>>>>>> origin/master
+
+\subsubsection{Priorities Assigned to Users}
+Priority will be given to Wesley, the grad student that proposed the project to Dr. Buijis. He will be the first and main user of GEANT-4 after it is running in parallel. 
 
 % =============================== Section =============================== %
 \section{Project Constraints}
 
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Mandated Constraints} % Rob
-There are global constraints put in place by the existing software, the stakeholders, and the structure of 4ZP6. The project must be built upon the existing GEANT4 code. The final product must be able to run any code/simulation that ran on the existing software. The software must run in parrallel on an NVIDIA GPU. Additionally, the final product needs to be completed by the end of April, 2016. If these global constraints are not met the final product is not acceptable.\\
+There are global constraints put in place by the existing software, the stakeholders, and the structure of 4ZP6. The project must be built upon the existing GEANT4 code. The final product must be able to run any code/simulation that ran on the existing software. The software must run in parallel on an NVIDIA GPU. Additionally, the final product needs to be completed by the end of April, 2016. If these global constraints are not met the final product is not acceptable.\\
 
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Naming Conventions \& Terminology} % Stuart
 Throughout the document, ``the project'', ``the product'', and/or ``the software'' all refer to the modified GEANT-4 code that will include the capability to be run on a GPU. The ``existing software'' refers to the current GEANT-4 simulation toolkit.\\
+
 \begin{table}[h]
 \centering
 \caption{Glossary}
@@ -394,6 +421,23 @@ NA
 
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Security Requirements} % Rob
+<<<<<<< HEAD
+=======
+\subsubsection{Access Requirements}
+All users have access to all parts of the product, as the product will be open-source.
+
+\subsubsection{Integrity Requirements}
+All data is stored and manipulated locally. Because of this, there will be no compromise on the integrity of data outside of physical hardware malfunctions.
+
+\subsubsection{Privacy Requirements}
+All data is stored and manipulated locally. Because of this, the privacy of said data is entirely at the discretion of the user. With that said, there will also be no local encryption on the output and input files used for the software.
+
+\subsubsection{Audit Requirements}
+NA
+
+\subsubsection{Immunity Requirements}
+The only aspect of the project at risk with respect to external software is performance. The user is held responsibile for ensuring that no external software is hogging the resources required for the project to run at optimal performance.
+>>>>>>> origin/master
 
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Cultural Requirements} % Stuart
