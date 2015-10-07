@@ -1,6 +1,7 @@
 \documentclass[12pt]{article}
 
 % Packages
+\usepackage{graphicx}
 \usepackage{enumerate}
 \usepackage{listings}
 \usepackage{titling}
@@ -101,35 +102,6 @@ The goal of this project is to port the GEANT4 code to be able to run on the GPU
 \subsection{Stakeholders} % Victor
 The stakeholders that are currently involved with the project include: the project group, the supervisors of the project, as well as the McMaster Engineering Physics Department.
 
-<<<<<<< HEAD
-\begin{description}
- 	\item[2.2a] \textbf{The Client} \\
-	The client(s) for the project is the Dr. Buijis and his Grad Student Wesley, representing the McMaster Engineering Physics Department.\\
-	The clients proposed the project because they have invested interest in running GEANT-4 simulations more efficiently. \\
-	They will be using the parallelized code to run and study nuclear simulations, and need the code to run much more quickly to 			obtain useful data. \\
-	
-  \item[2.2b] \textbf{The Customer} \\
-	The customer in this case also includes the client; and as such they will be the part of the end-user group that we will cater to.\\
-	The customers group also includes other members of the Engineering Physics department who wish to run simulations using GEANT-4. \\
-	The users will want to run simulations with many particles and particle collisions, the optimization of the code will allow for 			them to do this in a timely fashion. \\	
-	
-  \item[2.2c] \textbf{Other Stakeholders} \\
-	Collaborators and users of the GEANT-4 project could be potential stakeholders, but only if after the project is completed, they 	accept our contributions to GEANT-4. \\
-  \item[2.2d] \textbf{The Hands-On Users of the Product} \\
-	Undergraduate and graduate students as well as professors in the McMaster Engineering Physics Department would be hands 			on users of the product. 
- \item[2.2e] \textbf{Personas} \\
-	Consider Matt Douglas, a graduate student in the Engineering Physics Department. Matt needs to see how a nuclear reactor 			would start given some specific starting conditions, and a close to realistic number of particles. Matt isn't particularly fluent in 			C, but he can manage to change some starting variables. Matt inputs his desired number of particles and specific starting 			conditions into a GEANT-4 simulation. The simulation runs for several hours before Matt realizes that it might be too much for 			his software and hardware setup. He finds a version of GEANT-4 written for NVIDEA GPU's that claims to speed up a simulation 	on average 400x. He installs this version of GEANT-4 and attempts his simulation again. This time it takes only a half hour for 			his simulation to yield results. \\
-	The project will help not only graduate students like Matt, but undergraduates as well. It is a useful as a learning tool as well as 	for research projects. \\
- \item[2.2f] \textbf{Priorities Assigned to Users}\\
-	Highest priority will be given to key users which include: Graduate student's in engineering physics, and professors in 				engineering physics.\\
-	Secondary users are given lower priority and will not be catered to. Secondary users include people not affiliated with 				McMaster Engineering Physics. \\
-	Unimportant users include people not affiliated with McMaster or any other university or related industry. They are given no 			consideration when optimizing GEANT-4. \\	
-\item[2.2g] \textbf{User Participation} \\
-	The user participation will be done partly by the project members. The supervisor and overseeing graduate student will also be 		involved in giving feedback about the usability and performance of the software. \\
-\item[2.2h] \textbf{Maintenance Users and Service Technicians} \\
-	The users that would be maintaining the code (after the project is completed) will likely be graduate students of engineering physics. \\
-\end{description}
-=======
 \subsubsection{The Client}
 The client(s) for the project is the Dr. Buijis and his Grad Student Westly, representing the McMaster Engineering Physics Department. The clients proposed the project because they have invested interest in running GEANT-4 simulations more efficiently. They will be using the parallelized code to run and study nuclear simulations, and need the code to run much more quickly to obtain useful data.
 	
@@ -138,7 +110,7 @@ The customer in this case also includes the client; and as such they will be the
 The customer is also other members of the Engineering Physics department who wish to run simulations using GEANT-4 as they also have use for the end product. The users will want to run simulations with many particles and particle collisions, the optimization of the code will allow for them to do this in a timely fashion.
 	
 \subsubsection{Other Stakeholders}
-The project group members hold stake in the successful completion of the project. If the project is done well, and the documentation is error free and concise, they are bound for high grades in their course.\\
+The project group members hold stake in the successful completion of the project. If the project is done well, and the documentation is error free and concise, they are bound for high grades in their course.
 
 Collaborators and users of the GEANT-4 project could be potential stakeholders, but only if after the project is completed, they accept our contributions to GEANT-4.
 
@@ -149,7 +121,6 @@ Undergraduate and graduate students as well as professors in the McMaster Engine
 Consider Matt Douglas, a graduate student in the Engineering Physics Department. Matt needs to see how a nuclear reactor would start given some specific starting conditions, and a close to realistic number of particles. Matt isn't particularly fluent in C, but he can manage to change some starting variables. Matt inputs his desired number of particles and specific starting conditions into a GEANT-4 simulation. The simulation runs for several hours before Matt realizes that it might be too much for his software and hardware setup. He finds a version of GEANT-4 written for NVIDEA GPU's that claims to speed up a simulation 	on average 400x. He installs this version of GEANT-4 and attempts his simulation again. This time it takes only a half hour for	his simulation to yield results.\\
 	
 The project will help not only graduate students like Matt, but undergraduates as well. It is a useful as a learning tool as well as for research projects.
->>>>>>> origin/master
 
 \subsubsection{Priorities Assigned to Users}
 Priority will be given to Wesley, the grad student that proposed the project to Dr. Buijis. He will be the first and main user of GEANT-4 after it is running in parallel. 
@@ -201,13 +172,20 @@ CUDA & parallel computing architecture for general purpose programming on GPU, d
 
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{The Scope of the Work} % Victor
-\begin{description}
-\item[4.1a] \textbf{The Current Situation} \\
-	The project is currently at a point where it is able to run all necessary simulations. It is a fork of GEANT-4 called G4-STORK (Geant4 STOchastic Reactor Kinetics).\\
-\item[4.1b] \textbf{The Context of The Work} \\
-\item[4.1c] \textbf{Work Partitioning} \\
-\item[4.1d] \textbf{Specifying a Business Use Case (BUC)} \\
-\end{description}
+
+\subsubsection{The Current Situation}
+	The project is able to run all necessary simulations; it is a fork of GEANT-4 called G4-STORK (Geant4 STOchastic Reactor Kinetics). Currently, when the G4-STORK simulation is run with a large number of particles and collisions, The completed code will run all the same calculations, with more particles, and have the results in less time.
+\subsubsection{The Context of The Work}
+\begin{figure}[h]
+\includegraphics[width=6in]{WorkContextDiagram} 
+\end{figure} 
+%\includepdf[pages={-},width={500pt},height={700pt}]{WorkContextDiagram.pdf}
+%\includepdf[pages={-},width={500pt},height={700pt}]{WorkContextDiagram.pdf}
+\subsubsection{Work Partitioning}
+
+
+
+\subsubsection{Specifying a Business Use Case (BUC)}
 
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Business Data Model \& Data Dictionary} % Rob
@@ -278,28 +256,14 @@ Descriptions of each PUC, referenced by PUC \# are as follows.
 {Medium}
 {Created September 29, 2015}
 
-% =============================== Section =============================== %
-\section{Non-functional Requirements}
-
 % ----------------------------- Sub Section ----------------------------- %
-\subsection{Look and Feel Requirements}\label{ReqType_Look} % Victor
-\begin{description}
-\item[5.1a] \textbf{Appearance Requirements} \\
-\requirement
-{Req_CodeOrganization}
-{ReqType_Look}
-{PUC_SimulatingParticles}
-{The code should be well organized and appear readable to any who might want to edit the starting values of the particles.}
-{Revised code should not inhibit the modifying or reading GEANT-4}
-{Any person(s) who want to edit the code should be able to clearly see what is happening without having to format the code first.}
-{Medium}
-{Created October 6, 2015} 
-\\ \\
+\subsection{Look and Feel Requirements}% Victor
 
-\item[5.1b] \textbf{Style Requirements} \\
-NA \\
+\subsubsection{Appearance Requirements}
+The written code should be well commented and appropriately spaced ensure that it is easily maintainable and modifiable. When code is changed in order to better parallelize it, the changes should be noted and also minimize (if possible) the impact on readability.
+\subsubsection{Style Requirements}
+NA
 
-\end{description}
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Usability and Humanity Requirements} % Rob
 
@@ -421,8 +385,7 @@ NA
 
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Security Requirements} % Rob
-<<<<<<< HEAD
-=======
+
 \subsubsection{Access Requirements}
 All users have access to all parts of the product, as the product will be open-source.
 
@@ -437,7 +400,6 @@ NA
 
 \subsubsection{Immunity Requirements}
 The only aspect of the project at risk with respect to external software is performance. The user is held responsibile for ensuring that no external software is hogging the resources required for the project to run at optimal performance.
->>>>>>> origin/master
 
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Cultural Requirements} % Stuart
