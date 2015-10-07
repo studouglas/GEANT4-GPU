@@ -275,7 +275,54 @@ NA -- The scope of the project does not include any visual aspects. Simulations 
 {Created October 6, 2015}
 
 % ----------------------------- Sub Section ----------------------------- %
-\subsection{Usability and Humanity Requirements} % Rob
+\subsection{Usability and Humanity Requirements}}\label{ReqType_Usabil} % Rob
+
+\subsubsection{Ease of Use Requirements}
+\requirement
+{Req_Ease of Use}
+{ReqType_Usabil}
+{PUC_SimulatingParticles}
+{The functionality and procedures involved should be manageable for a university undergraduate (or higher) with experience in quantum mechanics, linear algebra, and computer programming.}
+{The software is extremely technical, and requires exposure and understanding to quantum physics and computer programming.}
+{Any given McMaster undergrad with experience in quantum mechanics, linear algebra, and computer programming should be able to learn to use the software.}
+{Medium}
+{Created October 6, 2015}
+
+\subsubsection{Personalization and Internationalization Requirements}
+\requirement
+{Req_Personalization and Internationalization}
+{ReqType_Usabil}
+{PUC_SimulatingParticles}
+{There will be no adjustments for personal and international preferences offered.}
+{The software follows a rigerous scientific standard.}
+{A given user with personal (non-technical) barriers to achieving complete satisfaction with the software will be responsible for overcoming such barriers.}
+{Medium}
+{Created October 6, 2015}
+
+\subsubsection{Learning Requirements}
+\requirement
+{Req_Learning}
+{ReqType_Usabil}
+{PUC_SimulatingParticles}
+{Utilization of the software should be learnable given 2-3 weeks of training.}
+{Although the prerequisite knowledge assumed of the user is massive, the learning curve for such a person is not.}
+{Any university undergraduate student with solid foundations in quantum mechanics and computer programming should be able to learn to operate the software in roughly 2 or 3 weeks.}
+{Medium}
+{Created October 6, 2015}
+
+\subsubsection{Understandability and Politeness Requirements}
+NA\\
+
+\subsubsection{Accessibility Requirements}
+\requirement
+{Req_Accessibility}
+{ReqType_Usabil}
+{PUC_SimulatingParticles}
+{The software should be accessible to any person who can learn and use a shell based operating system.}
+{Vision/reading/typing is required for the operation of the software, and there will be no accessibility alternatives offered.}
+{A blind university student who potentially has trouble using a shell based operating system may have trouble with the software.}
+{Medium}
+{Created October 6, 2015}
 
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Performance Requirements}\label{ReqType_Performance}
@@ -386,21 +433,52 @@ NA -- The product is to be completed by April 2016, and there are no plans to ex
 \subsection{Maintainability and Support Requirements} % Victor
 
 % ----------------------------- Sub Section ----------------------------- %
-\subsection{Security Requirements} % Rob
+\subsection{Security Requirements}\label{ReqType_Security} % Rob
 \subsubsection{Access Requirements}
-All users have access to all aspects of the product, as the product will be open-source.
+\requirement
+{Req_Access}
+{ReqType_Security}
+{PUC_SimulatingParticles}
+{All users have access to all aspects of the product.}
+{The product will be open-source.}
+{Any user should never fail to access some functionality of the product.}
+{High}
+{Created October 6, 2015}
 
 \subsubsection{Integrity Requirements}
-All data is stored and manipulated locally. Because of this, there will be no compromise on the integrity of data outside of physical hardware malfunctions.
+\requirement
+{Req_Integrity}
+{ReqType_Security}
+{PUC_SimulatingParticles}
+{There will be no compromise on the integrity of data outside of physical hardware malfunctions.}
+{All data is stored locally and unaltered.}
+{A user upon gathering input or output data should never find that their data has been compromised.}
+{High}
+{Created October 6, 2015}
 
 \subsubsection{Privacy Requirements}
-All data is stored and manipulated locally. Because of this, the privacy of said data is entirely at the discretion of the user. With that said, there will also be no local encryption on the output and input files used for the software.
+\requirement
+{Req_Privacy}
+{ReqType_Security}
+{PUC_SimulatingParticles}
+{The privacy of the data will be managed entirely by and at the discretion of the user.}
+{The data is stored and manipulated entirely locally.}
+{No user will ever find that their data has been shared without their discretion.}
+{High}
+{Created October 6, 2015}
 
 \subsubsection{Audit Requirements}
-NA -- The product does not store any persistent information.
 
 \subsubsection{Immunity Requirements}
-The only aspect of the project at risk with respect to external software is performance. The user is held responsible for ensuring that no external software is hogging the resources required for the project to run at optimal performance.
+\requirement
+{Req_Immunity}
+{ReqType_Security}
+{PUC_SimulatingParticles}
+{There will be no specific features to ensure immunity.}
+{The only impact external software can have on the program is a cut in performance.}
+{The user will be held responsible for ensuring that no external software is hogging the resources required for the project to run at optimal performance.}
+{Medium}
+{Created October 6, 2015}
 
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Cultural Requirements} % Stuart
