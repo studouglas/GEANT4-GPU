@@ -7,7 +7,6 @@
 \usepackage{tabularx}
 \usepackage{hyperref}
 \usepackage{makecell}
-\setlength\parindent{0pt} % Cleaner look
 
 % Comments --------------------------------------------------------------------
 \usepackage{xcolor}
@@ -20,6 +19,7 @@
 % End Comments ---------------------------------------------------------------
 
 \renewcommand\thesubsubsection{\thesection.\arabic{subsection}.\alph{subsubsection}}
+\setlength\parindent{0pt} % Cleaner look
 
 % Keep track of requirement numbers
 \newcounter{ReqNumCounter}
@@ -81,7 +81,7 @@ Stuart Douglas -- 1214422
 \begin{tabular}{l|l|l}
 \Xhline{2\arrayrulewidth}
 \bf Description of Changes & \bf Author & \bf Date\\\hline
-Initial draft of document & Stuart, Matthew, Rob, Victor & 2015-10-05\\
+Initial draft of document & Stuart, Matthew, Rob, Victor & 2015-10-07\\
 \Xhline{2\arrayrulewidth}
 \end{tabular}
 \end{table}
@@ -92,74 +92,47 @@ Initial draft of document & Stuart, Matthew, Rob, Victor & 2015-10-05\\
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Purpose of Project} % Matt
 \subsubsection{Project Background}
-Currently running GEANT4 simulations that require many particle takes a long time to compute when run on the CPU. By running the simulation on the GPU the user should be able to see a significant speed up in computation times
+Physics researchers use software simulations to model how particles interact with environments, and to determine the effects of these interactions. Members of McMaster's Engineering Physics department use GEANT-4 -- a simulation toolkit developed by CERN. McMaster's researchers have developed their own fork of the software, G4-STORK, designed to study McMaster's nuclear reactor. Currently, running G4-STORK simulations (as well as other GEANT-4 simulations) that require many particle takes a long time to compute when run on the CPU. This limits researchers to smaller number of particles than are realistic, and prevents them from seeing the effects of longer time periods.
 
 \subsubsection{Goal of the project}
-The goal of this project is to port the GEANT4 code to be able to run on the GPU.
+The goal of this project is to significantly increase the computation speed of G4-STORK simulations, which should transfer well to other GEANT-4 projects. Increasing the speed will allow researchers to use more accurate models, to see the effects of longer time periods on the particles, and to generally increase their productivity. This will be achieved by porting the algorithms that currently run on the CPU to the GPU, taking advantage of the parallel power of the GPU's many cores.
 
 % ----------------------------- Sub Section ----------------------------- %
-\subsection{Stakeholders} % Victor
-The stakeholders that are currently involved with the project include: the project group, the supervisors of the project, as well as the McMaster Engineering Physics Department.
+\subsection{Stakeholders}\label{SubSec_Stakeholders} % Victor
+The stakeholders that are currently involved with the project are:
+\begin{itemize}
+\item the project group
+\item the supervisors of the project (Dr. Adriaan Buijs and Dr. Emil Sekerenski)
+\item McMaster Engineering Physics Department, specifically grad student Wesley Holbrook
+\end{itemize}
 
-<<<<<<< HEAD
-\begin{description}
- 	\item[2.2a] \textbf{The Client} \\
-	The client(s) for the project is the Dr. Buijis and his Grad Student Wesley, representing the McMaster Engineering Physics Department.\\
-	The clients proposed the project because they have invested interest in running GEANT-4 simulations more efficiently. \\
-	They will be using the parallelized code to run and study nuclear simulations, and need the code to run much more quickly to 			obtain useful data. \\
-	
-  \item[2.2b] \textbf{The Customer} \\
-	The customer in this case also includes the client; and as such they will be the part of the end-user group that we will cater to.\\
-	The customers group also includes other members of the Engineering Physics department who wish to run simulations using GEANT-4. \\
-	The users will want to run simulations with many particles and particle collisions, the optimization of the code will allow for 			them to do this in a timely fashion. \\	
-	
-  \item[2.2c] \textbf{Other Stakeholders} \\
-	Collaborators and users of the GEANT-4 project could be potential stakeholders, but only if after the project is completed, they 	accept our contributions to GEANT-4. \\
-  \item[2.2d] \textbf{The Hands-On Users of the Product} \\
-	Undergraduate and graduate students as well as professors in the McMaster Engineering Physics Department would be hands 			on users of the product. 
- \item[2.2e] \textbf{Personas} \\
-	Consider Matt Douglas, a graduate student in the Engineering Physics Department. Matt needs to see how a nuclear reactor 			would start given some specific starting conditions, and a close to realistic number of particles. Matt isn't particularly fluent in 			C, but he can manage to change some starting variables. Matt inputs his desired number of particles and specific starting 			conditions into a GEANT-4 simulation. The simulation runs for several hours before Matt realizes that it might be too much for 			his software and hardware setup. He finds a version of GEANT-4 written for NVIDEA GPU's that claims to speed up a simulation 	on average 400x. He installs this version of GEANT-4 and attempts his simulation again. This time it takes only a half hour for 			his simulation to yield results. \\
-	The project will help not only graduate students like Matt, but undergraduates as well. It is a useful as a learning tool as well as 	for research projects. \\
- \item[2.2f] \textbf{Priorities Assigned to Users}\\
-	Highest priority will be given to key users which include: Graduate student's in engineering physics, and professors in 				engineering physics.\\
-	Secondary users are given lower priority and will not be catered to. Secondary users include people not affiliated with 				McMaster Engineering Physics. \\
-	Unimportant users include people not affiliated with McMaster or any other university or related industry. They are given no 			consideration when optimizing GEANT-4. \\	
-\item[2.2g] \textbf{User Participation} \\
-	The user participation will be done partly by the project members. The supervisor and overseeing graduate student will also be 		involved in giving feedback about the usability and performance of the software. \\
-\item[2.2h] \textbf{Maintenance Users and Service Technicians} \\
-	The users that would be maintaining the code (after the project is completed) will likely be graduate students of engineering physics. \\
-\end{description}
-=======
 \subsubsection{The Client}
-The client(s) for the project is the Dr. Buijis and his Grad Student Westly, representing the McMaster Engineering Physics Department. The clients proposed the project because they have invested interest in running GEANT-4 simulations more efficiently. They will be using the parallelized code to run and study nuclear simulations, and need the code to run much more quickly to obtain useful data.
+The clients for the project are the Dr. Buijs and his grad student Wesley Holbrook, representing the McMaster Engineering Physics Department. The clients proposed the project because they have invested interest in running G4-STORK simulations more efficiently. They will be using the parallelized code to run and study nuclear simulations, and require that the code executes much more quickly to obtain useful data.
 	
 \subsubsection{The Customer}
-The customer in this case also includes the client; and as such they will be the part of the end-user group that we will cater to.
+The customer in this case also includes the clients. As such they will be the part of the end-user group that we will cater to.
 The customer is also other members of the Engineering Physics department who wish to run simulations using GEANT-4 as they also have use for the end product. The users will want to run simulations with many particles and particle collisions, the optimization of the code will allow for them to do this in a timely fashion.
 	
 \subsubsection{Other Stakeholders}
 The project group members hold stake in the successful completion of the project. If the project is done well, and the documentation is error free and concise, they are bound for high grades in their course.\\
 
-Collaborators and users of the GEANT-4 project could be potential stakeholders, but only if after the project is completed, they accept our contributions to GEANT-4.
+Collaborators and GEANT-4 users external to McMaster could be potential stakeholders. If the software is successfully completed and the resulting performance improvements are significant, the changes will be submitted to the GEANT-4 repository. It is then up to the GEANT-4 group to decide if those contributions are accepted or not, and if they are then all users of GEANT-4 stand to benefit from them. However, they are not considered stakeholders throughout the development of the project, the focus is instead on those mentioned in \ref{SubSec_Stakeholders}.
 
 \subsubsection{The Hands-On Users of the Product}
-Undergraduate and graduate students as well as professors in the McMaster Engineering Physics Department would be hands on users of the product. 
+Graduate students and professors from the McMaster Engineering Physics Department will be hands-on users of the product. They will all have familiarity with the existing product. 
 
 \subsubsection{Personas}
-Consider Matt Douglas, a graduate student in the Engineering Physics Department. Matt needs to see how a nuclear reactor would start given some specific starting conditions, and a close to realistic number of particles. Matt isn't particularly fluent in C, but he can manage to change some starting variables. Matt inputs his desired number of particles and specific starting conditions into a GEANT-4 simulation. The simulation runs for several hours before Matt realizes that it might be too much for his software and hardware setup. He finds a version of GEANT-4 written for NVIDEA GPU's that claims to speed up a simulation 	on average 400x. He installs this version of GEANT-4 and attempts his simulation again. This time it takes only a half hour for	his simulation to yield results.\\
-	
-The project will help not only graduate students like Matt, but undergraduates as well. It is a useful as a learning tool as well as for research projects.
->>>>>>> origin/master
+Consider Matt Douglas, a graduate student in the Engineering Physics Department. Matt wants to study how particles in McMaster's nuclear reactor affect each other, given some specific starting conditions, and a very large number of particles. Matt knows how to use the existing G4-STORK program, but it will take weeks to run the computations. Matt inputs his desired number of particles and specific starting conditions into a G4-STORK simulation. He enables the GPU features of the new product, and successfully runs the simulation in a reasonable amount of time. He observes interesting results that would not have been feasible to obtain with the old product.\\
 
 \subsubsection{Priorities Assigned to Users}
-Priority will be given to Wesley, the grad student that proposed the project to Dr. Buijis. He will be the first and main user of GEANT-4 after it is running in parallel. 
+Priority will be given to Wesley Holbrook, the grad student that proposed the project to Dr. Buijs. He will be the primary user of G4-STORK as it is integral to his current research.
 
 % =============================== Section =============================== %
 \section{Project Constraints}
 
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Mandated Constraints} % Rob
-There are global constraints put in place by the existing software, the stakeholders, and the structure of 4ZP6. The project must be built upon the existing GEANT4 code. The final product must be able to run any code/simulation that ran on the existing software. The software must run in parallel on an NVIDIA GPU. Additionally, the final product needs to be completed by the end of April, 2016. If these global constraints are not met the final product is not acceptable.\\
+There are global constraints put in place by the existing software, the stakeholders, and the structure of 4ZP6. The project must be built upon the existing GEANT-4 code, which is used by G4-STORK to run the simulation. The final product must be able to run any code/simulation that ran on the existing software. The software must run in parallel on a NVIDIA GPU. Additionally, the final product needs to be completed by the end of April, 2016. If these global constraints are not met the final product is not acceptable.\\
 
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Naming Conventions \& Terminology} % Stuart
@@ -172,9 +145,11 @@ Throughout the document, ``the project'', ``the product'', and/or ``the software
 \Xhline{2\arrayrulewidth}
 \bf Term & \bf Description\\
 \hline
-GEANT-4 & open-source software toolkit used by stakeholders to simulate the passage of particles through matter\\
-GPU & graphics processing unit, well-suited to parallel computing tasks\\
-GPGPU & concept of running ``general-purpose" computations on the GPU\\
+GEANT-4 & open-source software toolkit used to simulate the passage of particles through matter\\\hline
+G4-STORK & (Geant-4 STOchastic Reactor Kinetics), fork of GEANT-4 developed by McMaster's Engineering Physics department to simulate McMaster's nuclear reactor\\\hline
+GPU & graphics processing unit, well-suited to parallel computing tasks\\\hline
+CPU & computer processing unit, general computer processor well-suited to serial tasks\\\hline
+GP-GPU & concept of running ``general-purpose" computations on the GPU\\\hline
 CUDA & parallel computing architecture for general purpose programming on GPU, developed by NVIDIA\\
 \Xhline{2\arrayrulewidth}
 \end{tabularx}
@@ -184,8 +159,8 @@ CUDA & parallel computing architecture for general purpose programming on GPU, d
 \subsection{Relevant Facts and Assumptions} %Matt
 \subsubsection{Facts}
 \begin{itemize}
-\item GEANT4 is programmed in C++
-\item GEANT4 runs simulations on CPUs
+\item GEANT-4/G4-STORK are programmed in C++
+\item GEANT-4/G4-STORK run simulations on the CPU
 \item Simulations run calculations on each particle independently
 \item Calculations on each particle are relatively simple probabilities
 \end{itemize}
@@ -193,7 +168,7 @@ CUDA & parallel computing architecture for general purpose programming on GPU, d
 \subsubsection{Assumptions}
 \begin{itemize}
 \item The user will have a strong understanding of particle physics
-\item The user will know how to use GEANT4
+\item The user will know how to use G4-STORK
 \end{itemize}
 
 % =============================== Section =============================== %
@@ -201,20 +176,22 @@ CUDA & parallel computing architecture for general purpose programming on GPU, d
 
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{The Scope of the Work} % Victor
-\begin{description}
-\item[4.1a] \textbf{The Current Situation} \\
-	The project is currently at a point where it is able to run all necessary simulations. It is a fork of GEANT-4 called G4-STORK (Geant4 STOchastic Reactor Kinetics).\\
-\item[4.1b] \textbf{The Context of The Work} \\
-\item[4.1c] \textbf{Work Partitioning} \\
-\item[4.1d] \textbf{Specifying a Business Use Case (BUC)} \\
-\end{description}
+\subsubsection{The Current Situation}
+The project, G4-STORK, is currently at a point where it is able to run all necessary simulations, on the CPU. The time to run these simulations is significant.
+
+\subsubsection{The Context of The Work}
+
+\subsubsection{Work Partitioning}
+
+\subsubsection{Specifying a Business Use Case (BUC)}
 
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Business Data Model \& Data Dictionary} % Rob
+NA -- The product does not store any data, and requires no data model.
 
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{The Scope of the Product}
-The following table outlines the use cases for the product. Click the PUC \# to go to its description.
+The following table outlines the use cases for the product.
 
 \begin{table}[h]
 \centering
@@ -252,7 +229,7 @@ Descriptions of each PUC, referenced by PUC \# are as follows.
 {PUC_SimulatingParticles}
 {Changing existing projects to run with new GPU functions should be easy}
 {Design requirement, the user is able to easily choose to run old or new projects on the GPU.}
-{User should be able to quickly enable GPU computations by referencing the documentation. If their hardware is compatible, their project should run with no errors.}
+{User should be able to quickly enable GPU computations after referencing the documentation. If their hardware is compatible, their project should run with no errors.}
 {High}
 {Created September 29, 2015}
 \\\\
@@ -283,23 +260,20 @@ Descriptions of each PUC, referenced by PUC \# are as follows.
 
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Look and Feel Requirements}\label{ReqType_Look} % Victor
-\begin{description}
-\item[5.1a] \textbf{Appearance Requirements} \\
+\subsubsection{Appearance Requirements}
+NA -- The scope of the project does not include any visual aspects. Simulations are run through the command line.
+
+\subsubsection{Style Requirements} 
 \requirement
 {Req_CodeOrganization}
 {ReqType_Look}
 {PUC_SimulatingParticles}
-{The code should be well organized and appear readable to any who might want to edit the starting values of the particles.}
-{Revised code should not inhibit the modifying or reading GEANT-4}
-{Any person(s) who want to edit the code should be able to clearly see what is happening without having to format the code first.}
+{The code should be well organized and appear readable to any who might want to edit it.}
+{Revised code should not inhibit the modifying or understanding of G4-STORK}
+{Any persons with an understanding of the existing project should be able to clearly understand the modified code.}
 {Medium}
-{Created October 6, 2015} 
-\\ \\
+{Created October 6, 2015}
 
-\item[5.1b] \textbf{Style Requirements} \\
-NA \\
-
-\end{description}
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Usability and Humanity Requirements} % Rob
 
@@ -310,14 +284,14 @@ NA \\
 {Req_SpeedLatency}
 {ReqType_Performance}
 {PUC_SimulatingParticles}
-{Decrease the time it takes to run a particle simulation while mainting the same output.}
+{Decrease the time it takes to run a particle simulation while maintaining the same output.}
 {The entire purpose of the project is to improve the speed of the simulation.}
 {Running a simulation with a given set of input parameters should complete significantly faster on the product as compared to the existing software. Both should have identical outputs.}
 {Very High}
 {Created September 27, 2015}
 
 \subsubsection{Safety Critical Requirements}
-NA
+NA -- The software is not used in safety critical environments. It is a tool for researchers to study particle interactions.
 
 \subsubsection{Precision of Accuracy Requirements}
 \requirement
@@ -342,15 +316,7 @@ NA
 {Created September 27, 2015}
 
 \subsubsection{Robustness or Fault-Tolerance Requirements}
-\requirement
-{Req_Robustness}
-{ReqType_Performance}
-{PUC_SimulatingParticles}
-{.}
-{.}
-{.}
-{High}
-{Created September 27, 2015}
+NA -- The product does not need to maintain standards during an unforseen event. It does not handle any sensitive data, and is not constantly required to be running by its users.
 
 \subsubsection{Capacity Requirements}
 \requirement
@@ -364,23 +330,23 @@ NA
 {Created September 27, 2015}
 
 \subsubsection{Scalability Requirements}
-NA
+NA -- The product will be used by single researchers, and is run locally on their machines.
 
 \subsubsection{Longevity Requirements}
-NA
+NA -- The product is to be completed by April 2016, and there are no plans to extend that lifetime.
 
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Operational and Environmental Requirements}\label{ReqType_Enviro} % Matt
-\subsubsection{Expected Physical Environment}
 
+\subsubsection{Expected Physical Environment}
 \requirement
 {Req_PhysEnviro}
 {ReqType_Enviro}
 {PUC_SimulatingParticles}
-{The product shall be used by and engineering physics professor, researcher or student who will be sitting down in a temperature controlled environment.}
+{The product shall be used by an Engineering Physics professor, researcher or student who will be sitting down in a temperature controlled environment.}
 {The product should typically only be used in an office environment.}
-{95\% of all uses of the product will be used by engineering physics professors, researchers or students in sitting down in temperature controlled environments.}
-{High}
+{95\% of all uses of the product will be used by Engineering Physics professors, researchers or students in sitting down in temperature controlled environments.}
+{Low}
 {Created October 4, 2015}
 
 \subsubsection{Requirements for interfacing with adjacent Systems}
@@ -388,9 +354,9 @@ NA
 {Req_BackwardsCompatible}
 {ReqType_Enviro}
 {PUC_SimulatingParticles}
-{The product shall work with the last four versions of GEANT4}
+{The product shall work with the last four versions of GEANT-4}
 {Backwards compatibility is a nice thing to have.}
-{At least the last four versions of GEANT4 will be able to run this product.}
+{At least the last four versions of GEANT-4 will be able to run this product.}
 {Low}
 {Created October 4, 2015}
 
@@ -399,8 +365,8 @@ NA
 {Req_Distro}
 {ReqType_Enviro}
 {PUC_SimulatingParticles}
-{The product will shall be distributed as a ZIP file, available on a public repository for users to download.}
-{Want to make the product easily available for users to get}
+{The product will available on a public repository along with clear instructions for installation}
+{Want to make the product easily available}
 {90\% of users should be able to acquire the product with out much trouble}
 {Low}
 {Created October 4, 2015}
@@ -410,21 +376,19 @@ NA
 {Req_Release}
 {ReqType_Enviro}
 {PUC_SimulatingParticles}
-{Later versions of the product that have been patch will be available on the public repository. Each release shall not cause previous features to fail}
-{If the product needs to be patched, it should not break older features. It should also be available in the same location as where the product is acquired}
-{Upon patching the product, none of the previous features should fail.}
+{New versions of the product that have been patched will be available on the public repository and shall not cause previous features to fail.}
+{Users should be encouraged to use the latest patch, and should be confident that updating won't negatively impact their work}
+{Each new patch of the product will not cause any previous features to fail.}
 {Medium}
 {Created October 4, 2015}
 
 % ----------------------------- Sub Section ----------------------------- %
-\subsection{Maintainibility and Support Requirements} % Victor
+\subsection{Maintainability and Support Requirements} % Victor
 
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Security Requirements} % Rob
-<<<<<<< HEAD
-=======
 \subsubsection{Access Requirements}
-All users have access to all parts of the product, as the product will be open-source.
+All users have access to all aspects of the product, as the product will be open-source.
 
 \subsubsection{Integrity Requirements}
 All data is stored and manipulated locally. Because of this, there will be no compromise on the integrity of data outside of physical hardware malfunctions.
@@ -433,22 +397,23 @@ All data is stored and manipulated locally. Because of this, there will be no co
 All data is stored and manipulated locally. Because of this, the privacy of said data is entirely at the discretion of the user. With that said, there will also be no local encryption on the output and input files used for the software.
 
 \subsubsection{Audit Requirements}
-NA
+NA -- The product does not store any persistent information.
 
 \subsubsection{Immunity Requirements}
-The only aspect of the project at risk with respect to external software is performance. The user is held responsibile for ensuring that no external software is hogging the resources required for the project to run at optimal performance.
->>>>>>> origin/master
+The only aspect of the project at risk with respect to external software is performance. The user is held responsible for ensuring that no external software is hogging the resources required for the project to run at optimal performance.
+
 
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Cultural Requirements} % Stuart
-NA
+NA -- The product is intended for a small number of stakeholders. All content is objective and scientific.
 
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Legal Requirements} % Matt
 \subsubsection{Compliance Requirements}
-NA
+NA -- The product does not store or access any user information. It does not need to comply with any legal standards.
+
 \subsubsection{Standards Requirements}
-NA
+NA -- There are no internal standards that are required to be met by the product.
 
 % =============================== Section =============================== %
 \section{Project Issues}
@@ -462,7 +427,7 @@ NA
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{New Problems} % Stuart
 \subsubsection{Effects on the Current Environment}
-The new product will be designed as an opt-in addition to the existing product. That is, unless manually changed by the user, the program will execute identically as before, running on the CPU. The motivation for this is to ensure compatibility, as the programming environment for GPGPU programming is restricted to certain hardware. The current environment will not be affected by the changes unless the user specifically decides to use them.
+The new product will be designed as an opt-in addition to the existing product. That is, unless manually changed by the user, the program will execute identically as before, running on the CPU. The motivation for this is to ensure compatibility, as the programming environment for GP-GPU programming is restricted to certain hardware. The current environment will not be affected by the changes unless the user specifically decides to use them.
 
 \subsubsection{Effects on the Installed Systems}
 Requirement \ref{Req_EasyChange} specifies the importance of creating a simple interface for the user to enable the changes in the new system, or revert to the previous one. Changes to the code will be isolated, and only used when they are manually enabled.
@@ -471,12 +436,12 @@ Requirement \ref{Req_EasyChange} specifies the importance of creating a simple i
 Due to the separation of the changes and the existing product, users will not negatively respond to the changes, indeed they won't even notice them unless actively looking. To use the new product's features, users will enable them and then execute the program in an identical manner to how the existing software works (requirement \ref{Req_EasyChange}).
 
 \subsubsection{Limitations of the Anticipated Implementation Environment That May Inhibit the New Product}
-To run the GPGPU computations, specific hardware is required (recent NVIDIA graphics card).
+To run the GP-GPU computations, specific hardware is required (recent NVIDIA graphics card).
 
 \subsubsection{Follow-Up Problems}
 There are a number of potential situations that could lead to the product failing. We are confident that we will be able to succeed, however we realize that there is a possibility of failure, and have outlined the potential causes below.
 \begin{itemize}
-\item Learning curve for existing GEANT-4 codebase is too steep, cannot gain adequate understanding to implement changes in time constraints
+\item Learning curve for existing G4-STORK codebase is too steep, cannot gain adequate understanding to implement changes in time constraints
 \item Porting existing algorithms to CUDA requires too much work, and we are not able to run the algorithms on a GPU within time constraints
 \item The current product's interface for the specific algorithms that will be ported is not well-enough defined
 \item The large models used in the simulation exceed memory limitations on the GPU, and cannot be run on existing hardware
@@ -515,8 +480,8 @@ We have very clear and well-defined deadlines for each deliverable, and are in f
 \subsection{User Documentation and Training} % Matt
 \begin{itemize}
 	\item Function descriptions shall be provided for every new function in the code
-	\item There shall be a thorough Read Me file accompanying the project that will explain to the user the changes as well as how to use the new functions
-	\item Users who know how to use GEANT4 should be able to easily use the new functions
+	\item There shall be a thorough Readme file accompanying the project that will explain to the user the changes as well as how to enable GPU computation
+	\item Users who know how to use G4-STORK should be able to easily run it on the GPU
 \end{itemize}
 
 % ----------------------------- Sub Section ----------------------------- %
