@@ -1,6 +1,7 @@
 \documentclass[12pt]{article}
 
 % Packages
+\usepackage{graphicx}
 \usepackage{enumerate}
 \usepackage{listings}
 \usepackage{titling}
@@ -114,7 +115,7 @@ The customer in this case also includes the clients. As such they will be the pa
 The customer is also other members of the Engineering Physics department who wish to run simulations using GEANT-4 as they also have use for the end product. The users will want to run simulations with many particles and particle collisions, the optimization of the code will allow for them to do this in a timely fashion.
 	
 \subsubsection{Other Stakeholders}
-The project group members hold stake in the successful completion of the project. If the project is done well, and the documentation is error free and concise, they are bound for high grades in their course.\\
+The project group members hold stake in the successful completion of the project. If the project is done well, and the documentation is error free and concise, they are bound for high grades in their course.
 
 Collaborators and GEANT-4 users external to McMaster could be potential stakeholders. If the software is successfully completed and the resulting performance improvements are significant, the changes will be submitted to the GEANT-4 repository. It is then up to the GEANT-4 group to decide if those contributions are accepted or not, and if they are then all users of GEANT-4 stand to benefit from them. However, they are not considered stakeholders throughout the development of the project, the focus is instead on those mentioned in \ref{SubSec_Stakeholders}.
 
@@ -177,10 +178,12 @@ CUDA & parallel computing architecture for general purpose programming on GPU, d
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{The Scope of the Work} % Victor
 \subsubsection{The Current Situation}
-The project, G4-STORK, is currently at a point where it is able to run all necessary simulations, on the CPU. The time to run these simulations is significant.
+The project, G4-STORK, is currently at a point where it is able to run all necessary simulations, on the CPU. Currently, when the G4-STORK simulation is run with a large number of particles or over a period of several seconds it takes a lot of computation time.
 
 \subsubsection{The Context of The Work}
-
+\begin{figure}[h]
+\includegraphics[width=\textwidth]{WorkContextDiagram} 
+\end{figure} 
 \subsubsection{Work Partitioning}
 
 \subsubsection{Specifying a Business Use Case (BUC)}
@@ -254,9 +257,6 @@ Descriptions of each PUC, referenced by PUC \# are as follows.
 {Any computer that can currently run the existing product should be able to run the new product.}
 {Medium}
 {Created September 29, 2015}
-
-% =============================== Section =============================== %
-\section{Non-functional Requirements}
 
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Look and Feel Requirements}\label{ReqType_Look} % Victor
@@ -401,7 +401,6 @@ NA -- The product does not store any persistent information.
 
 \subsubsection{Immunity Requirements}
 The only aspect of the project at risk with respect to external software is performance. The user is held responsible for ensuring that no external software is hogging the resources required for the project to run at optimal performance.
-
 
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Cultural Requirements} % Stuart
