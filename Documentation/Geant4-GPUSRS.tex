@@ -1,6 +1,7 @@
 \documentclass[12pt]{article}
 
 % Packages
+\usepackage[margin=1.2in]{geometry}
 \usepackage{graphicx}
 \usepackage{enumerate}
 \usepackage{listings}
@@ -70,16 +71,20 @@ Stuart Douglas -- 1214422
 \newpage
 
 % ================================= TOC ================================= %
+\newgeometry{bottom=1.1in, top=1.1in}
 \tableofcontents
 \newpage
 \pagenumbering{arabic}
+\restoregeometry
 
 % =============================== Section =============================== %
 \section{Revision History}
+All major edits to this document will be recorded in the table below.
+
 \begin{table}[h]
 \centering
 \caption{Revision History}
-\begin{tabular}{l|l|l}
+\begin{tabular}{|l|l|l|}
 \Xhline{2\arrayrulewidth}
 \bf Description of Changes & \bf Author & \bf Date\\\hline
 Initial draft of document & Stuart, Matthew, Rob, Victor & 2015-10-07\\
@@ -93,7 +98,7 @@ Initial draft of document & Stuart, Matthew, Rob, Victor & 2015-10-07\\
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Purpose of Project} % Matt
 \subsubsection{Project Background}
-Physics researchers use software simulations to model how particles interact with environments, and to determine the effects of these interactions. Members of McMaster's Engineering Physics department use GEANT-4 -- a simulation toolkit developed by CERN. McMaster's researchers have developed their own fork of the software, G4-STORK, designed to study McMaster's nuclear reactor. Currently, running G4-STORK simulations (as well as other GEANT-4 simulations) that require many particle takes a long time to compute when run on the CPU. This limits researchers to smaller number of particles than are realistic, and prevents them from seeing the effects of longer time periods.
+Physics researchers use software simulations to model how particles interact with environments, and to determine the effects of these interactions. Members of McMaster's Engineering Physics department use GEANT-4 -- a simulation toolkit developed by CERN. McMaster's researchers have developed their own fork of the software, G4-STORK, designed to study McMaster's nuclear reactor. Currently, running G4-STORK simulations (as well as other GEANT-4 simulations) that require many particles takes a long time to compute when run on the CPU. This limits researchers to smaller number of particles than are realistic, and prevents them from seeing the effects of longer time periods.
 
 \subsubsection{Goal of the project}
 The goal of this project is to significantly increase the computation speed of G4-STORK simulations, which should transfer well to other GEANT-4 projects. Increasing the speed will allow researchers to use more accurate models, to see the effects of longer time periods on the particles, and to generally increase their productivity. This will be achieved by porting the algorithms that currently run on the CPU to the GPU, taking advantage of the parallel power of the GPU's many cores.
@@ -104,18 +109,18 @@ The stakeholders that are currently involved with the project are:
 \begin{itemize}
 \item the project group
 \item the supervisors of the project (Dr. Adriaan Buijs and Dr. Emil Sekerenski)
-\item McMaster Engineering Physics Department, specifically grad student Wesley Holbrook
+\item McMaster Engineering Physics Department, specifically grad student Wesley Ford
 \end{itemize}
 
 \subsubsection{The Client}
-The clients for the project are the Dr. Buijs and his grad student Wesley Holbrook, representing the McMaster Engineering Physics Department. The clients proposed the project because they have invested interest in running G4-STORK simulations more efficiently. They will be using the parallelized code to run and study nuclear simulations, and require that the code executes much more quickly to obtain useful data.
+The clients for the project are the Dr. Buijs and his grad student Wesley Ford, representing the McMaster Engineering Physics Department. The clients proposed the project because they have invested interest in running G4-STORK simulations more efficiently. They will be using the parallelized code to run and study nuclear simulations, and require that the code executes much more quickly to obtain useful data.
 	
 \subsubsection{The Customer}
 The customer in this case also includes the clients. As such they will be the part of the end-user group that we will cater to.
 The customer is also other members of the Engineering Physics department who wish to run simulations using GEANT-4 as they also have use for the end product. The users will want to run simulations with many particles and particle collisions, the optimization of the code will allow for them to do this in a timely fashion.
 	
 \subsubsection{Other Stakeholders}
-The project group members hold stake in the successful completion of the project. If the project is done well, and the documentation is error free and concise, they are bound for high grades in their course.
+The project group members hold stake in the successful completion of the project. If the project is done well, and the documentation is error free and concise, they are bound for high grades in their course.\\
 
 Collaborators and GEANT-4 users external to McMaster could be potential stakeholders. If the software is successfully completed and the resulting performance improvements are significant, the changes will be submitted to the GEANT-4 repository. It is then up to the GEANT-4 group to decide if those contributions are accepted or not, and if they are then all users of GEANT-4 stand to benefit from them. However, they are not considered stakeholders throughout the development of the project, the focus is instead on those mentioned in \ref{SubSec_Stakeholders}.
 
@@ -126,7 +131,7 @@ Graduate students and professors from the McMaster Engineering Physics Departmen
 Consider Matt Douglas, a graduate student in the Engineering Physics Department. Matt wants to study how particles in McMaster's nuclear reactor affect each other, given some specific starting conditions, and a very large number of particles. Matt knows how to use the existing G4-STORK program, but it will take weeks to run the computations. Matt inputs his desired number of particles and specific starting conditions into a G4-STORK simulation. He enables the GPU features of the new product, and successfully runs the simulation in a reasonable amount of time. He observes interesting results that would not have been feasible to obtain with the old product.\\
 
 \subsubsection{Priorities Assigned to Users}
-Priority will be given to Wesley Holbrook, the grad student that proposed the project to Dr. Buijs. He will be the primary user of G4-STORK as it is integral to his current research.
+Priority will be given to Wesley Ford, the grad student that proposed the project to Dr. Buijs. He will be the primary user of G4-STORK as it is integral to his current research.
 
 % =============================== Section =============================== %
 \section{Project Constraints}
@@ -138,6 +143,9 @@ There are global constraints put in place by the existing software, the stakehol
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Naming Conventions \& Terminology} % Stuart
 Throughout the document, ``the project'', ``the product'', and/or ``the software'' all refer to the modified GEANT-4 code that will include the capability to be run on a GPU. The ``existing software'' refers to the current GEANT-4 simulation toolkit.\\
+
+\newpage % TODO: if text added/removed before this point, the table will fit
+% and we won't need to use this hack so the next section doesn't appear before the table
 
 \begin{table}[h]
 \centering
@@ -184,9 +192,9 @@ The project, G4-STORK, is currently at a point where it is able to run all neces
 \begin{figure}[h]
 \includegraphics[width=\textwidth]{WorkContextDiagram} 
 \end{figure} 
-\subsubsection{Work Partitioning}
 
-\subsubsection{Specifying a Business Use Case (BUC)}
+\subsubsection{Work Partitioning}
+All tasks will be divided equally among all members of the development team. The team will work together to initially define the interface for using the GPU to run calculations, and once that is completed each member will independently work on porting specific classes to the GPU. Testing will be done throughout the development by the developers. This ensures that all developers are able to easily debug their contributions.
 
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Business Data Model \& Data Dictionary} % Rob
@@ -502,13 +510,13 @@ NA -- There are no internal standards that are required to be met by the product
 \subsection{Off-the-Shelf Solutions} % Rob
 
 \subsubsection{Ready-Made Products}
-No full-fledged solution to the given problem has been implemented and distributed. There has been attempts, however, to solving certain portions of the problem. At the Helsinki Institute of Physics (HIP) in Geneva, Switzerland a team of three attempted to test the potential efficiency increase of porting GEANT4 code to a GPU and noted that although taking on the entire project would be difficult. They concluded that the GPU implemented would offer increases in performance.\\
+No fully-fledged solution to the given problem has been implemented and distributed. There have been attempts, however, to solving certain portions of the problem. At the Helsinki Institute of Physics (HIP) a team of three attempted to test the potential efficiency increase of porting GEANT-4 code to a GPU. They ported some small portions of GEANT-4, but determined that taking on the entire project would be difficult. Their conclusions supported the conjecture that running the code on a GPU would offer significant increases in performance.
 
 \subsubsection{Reusable Components}
-Although there is not any hard-copy code that can be reused, the team of three from HIP have published a research paper that will prove to yield information both useful and applicable to our solution.\\
+Although there is not any hard-copy code that can be reused, the team of three from HIP have published a research paper that may be used as a starting point for the current project.
 
 \subsubsection{Products That Can Be Copied}
-NA\\
+NA -- There are no existing products that can be copied.
 
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{New Problems}\label{SubSec_NewProbs} % Stuart
@@ -581,6 +589,7 @@ We have very clear and well-defined deadlines for each deliverable, and are in f
 
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Waiting Room} % Victor
+There are currently no plans for extended requirements for future releases.
 
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Ideas for Solutions} % Rob
