@@ -440,6 +440,15 @@ NA -- The product is to be completed by April 2016, and there are no plans to ex
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Maintainability and Support Requirements} % Victor
 
+\subsubsection{Maintenance Requirements}
+Baeause G4-STORK is open source, the code written can be maintained by anyone. The original developers will not be maintaining the code, it will have to be done by end users. 
+
+\subsubsection{Supportability Requirements}
+There will be a setup.txt file describing briefly how to add a function and set inital parameters. 
+
+\subsubsection{Adaptability Requirements}
+The completed project is expected to run on Fedora and OSx. 
+
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Security Requirements}\label{ReqType_Security} % Rob
 \subsubsection{Access Requirements}
@@ -505,6 +514,10 @@ NA -- There are no internal standards that are required to be met by the product
 
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Open Issues} % Victor
+\begin{itemize}
+\item The amount of time required to speedup all classes and libraries involved in G4-STORK is unknown, feasibility of project is in question
+\item The actual speedup of G4-STORK achievable is unknown it could be far less than desired
+\end{itemize}
 
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Off-the-Shelf Solutions} % Rob
@@ -560,6 +573,12 @@ Final Documentation (Revision 1) \hfill April 1
 
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Migration to the New Product} % Victor
+
+\subsubsection{Requirements for Migration to the New Product}
+Once the end product has been implemented, all new projects using G4-STORK running on GPU's will use the new code.
+
+\subsubsection{Data That Has to Be Modified or Translated for the New System}
+In order to take advantage of the GPU speedup, old projects will need to be modified to use the new classes written for GPU acceleration. 
 
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Risks} % Rob
