@@ -1,0 +1,265 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html401/loose.dtd">
+<html>
+<!-- Created on April, 15 2011 by texi2html 1.78 -->
+<!--
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people.
+Send bugs and suggestions to <texi2html-bug@nongnu.org>
+
+-->
+<head>
+<title>TOP-C (Task Oriented Parallel C/C++): A. Summary of TOP-C Commands</title>
+
+<meta name="description" content="TOP-C (Task Oriented Parallel C/C++): A. Summary of TOP-C Commands">
+<meta name="keywords" content="TOP-C (Task Oriented Parallel C/C++): A. Summary of TOP-C Commands">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.78">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+pre.display {font-family: serif}
+pre.format {font-family: serif}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: serif; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: serif; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.roman {font-family:serif; font-weight:normal;}
+span.sansserif {font-family:sans-serif; font-weight:normal;}
+ul.toc {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+
+<a name="Summary"></a>
+<a name="SEC59"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="topc_10.html#SEC58" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="topc_12.html#SEC60" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="topc_10.html#SEC58" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="topc.html#Top" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="topc_12.html#SEC60" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="topc.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="topc_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="topc_14.html#SEC62" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="topc_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h1 class="appendix"> A. Summary of &lsquo;<samp>TOP-C</samp>&rsquo; Commands </h1>
+
+<p><em>From <a href="topc_4.html#SEC15">The Main TOP-C Library Calls</a>.</em>
+</p><dl compact="compact">
+<dt> <code>void TOPC_init ( int *<var>argc</var>, char ***<var>argv</var> )</code></dt>
+<dt> <code>void TOPC_finalize ( void )</code></dt>
+<dd><p align="right">  Function
+</p></dd>
+<dt> <code>void TOPC_master_slave</code></dt>
+<dd><p>  ( TOPC_BUF (*<var>generate_task_input</var>)(),<br>&nbsp;&nbsp;    TOPC_BUF (*<var>do_task</var>)(void *input),<br>&nbsp;&nbsp;    TOPC_ACTION (*<var>check_task_result</var>)(void *input, void *output),<br>&nbsp;&nbsp;    void (*<var>update_shared_data</var>)(void *input, void *output)
+  <br>)
+</p><p align="right">  Function
+</p></dd>
+<dt> <code>TOPC_BUF TOPC_MSG ( void *<var>buf</var>, int <var>buf_size</var> )</code></dt>
+<dd><p align="right">  Function
+</p></dd>
+</dl>
+
+<br>
+<p><em>From <a href="topc_4.html#SEC16">Callback Functions for <code>TOPC_master_slave()</code></a>.</em>
+</p><dl compact="compact">
+<dt> <code>TOPC_BUF GenerateTaskInput ( void )</code></dt>
+<dd><p align="right">  Function
+</p></dd>
+<dt> <code>TOPC_BUF DoTask ( void *<var>input</var> )</code></dt>
+<dd><p align="right">  Function
+</p></dd>
+<dt> <code>TOPC_ACTION CheckTaskResult ( void *<var>input</var>, void *<var>output</var>)</code></dt>
+<dd><p align="right">  Function
+</p></dd>
+<dt> <code>void UpdateSharedData ( void *<var>input</var>, void *<var>output</var> )</code></dt>
+<dd><p align="right">  Function
+</p></dd>
+</dl>
+
+<br>
+<p><em>From <a href="topc_4.html#SEC17">Actions Returned by <code>CheckTaskResult()</code></a>.</em>
+</p><dl compact="compact">
+<dt> <code>Action TOPC_ACTION NO_ACTION</code></dt>
+<dd><p align="right">  Action
+</p></dd>
+<dt> <code>Action TOPC_ACTION UPDATE</code></dt>
+<dd><p align="right">  Action
+</p></dd>
+<dt> <code>Action TOPC_ACTION REDO</code></dt>
+<dd><p align="right">  Action
+</p></dd>
+<dt> <code>Action TOPC_ACTION CONTINUATION ( void *<var>next_input</var> )</code></dt>
+<dd><p align="right">  Action
+</p></dd>
+</dl>
+
+<br>
+<p><em>From <a href="topc_4.html#SEC18">TOP-C Utilities</a>.</em>
+</p><dl compact="compact">
+<dt> <code>TOPC_BOOL TOPC_is_up_to_date ( void )</code></dt>
+<dd><p align="right">  Function
+</p></dd>
+<dt> <code>int TOPC_rank ( void )</code></dt>
+<dd><p align="right">  Function
+</p></dd>
+<dt> <code>TOPC_BOOL TOPC_is_master ( void )</code></dt>
+<dd><p align="right">  Function
+</p></dd>
+<dt> <code>int TOPC_num_slaves ( void )</code></dt>
+<dd><p align="right">  Function
+</p></dd>
+<dt> <code>int TOPC_num_idle_slaves ( void )</code></dt>
+<dd><p align="right">  Function
+</p></dd>
+<dt> <code>int TOPC_node_count ( void )</code></dt>
+<dd><p align="right">  Function
+</p></dd>
+</dl>
+
+<br>
+<p><em>From <a href="topc_8.html#SEC47">Optimizing TOP-C Code for the Shared Memory Model</a>.</em>
+</p><dl compact="compact">
+<dt> <code>TOPC_thread_private</code></dt>
+<dd><p align="right">  Variable
+</p></dd>
+<dt> <code>TOPC_thread_private_t</code></dt>
+<dd><p align="right">  Type
+</p></dd>
+<dt> <code>void TOPC_ATOMIC_READ ( 0 ) { <var>... C code ...</var> }</code></dt>
+<dt> <code>void TOPC_ATOMIC_WRITE ( 0 ) { <var>... C code ...</var> }</code></dt>
+<dd><p align="right">  Function
+</p></dd>
+<dt> <code>void TOPC_BEGIN_ATOMIC_READ ( 0 )</code></dt>
+<dt> <code>void TOPC_END_ATOMIC_READ ( 0 )</code></dt>
+<dt> <code>void TOPC_BEGIN_ATOMIC_WRITE ( 0 )</code></dt>
+<dt> <code>void TOPC_END_ATOMIC_WRITE ( 0 )</code></dt>
+<dd><p align="right">  Function
+</p></dd>
+</dl>
+
+<br>
+<p><em>From <a href="topc_9.html#SEC54">Raw &lsquo;<samp>TOP-C</samp>&rsquo; interface: <code>raw_master_slave</code></a>.</em>
+</p><dl compact="compact">
+<dt> <code>void TOPC_raw_begin_master_slave</code></dt>
+<dd><p>          (<var>do_task</var>, <var>check_task_result</var>, <var>update_shared_data</var>)
+</p></dd>
+<dt> <code>void TOPC_raw_end_master_slave ()</code></dt>
+<dd><p align="right">  Function
+</p></dd>
+<dt> <code>void TOPC_raw_submit_task_input ( TOPC_BUF <var>input</var> )</code></dt>
+<dd><p align="right">  Function
+</p></dd>
+<dt> <code>TOPC_BOOL TOPC_raw_wait_for_task_result ()</code></dt>
+<dd><p align="right">  Function
+</p></dd>
+</dl>
+
+<br>
+<p><em>From <a href="topc_8.html#SEC41">Aborting Tasks</a>.</em>
+</p><dl compact="compact">
+<dt> <code>void TOPC_abort_tasks ( void )</code></dt>
+<dt> <code>TOPC_BOOL TOPC_is_abort_pending ( void )</code></dt>
+<dd><p align="right">  Function
+</p></dd>
+</dl>
+
+<br>
+<p><em>From <a href="topc_8.html#SEC40">Testing for Task Continuations and Redos</a>.</em>
+</p><dl compact="compact">
+<dt> <code>TOPC_BOOL TOPC_is_REDO ( void )</code></dt>
+<dt> <code>TOPC_BOOL TOPC_is_CONTINUATION ( void )</code></dt>
+<dd><p align="right">  Function
+</p></dd>
+</dl>
+
+<br>
+<p><em>From <a href="topc_8.html#SEC44">Using <code>TOPC_MSG_PTR()</code> to Avoid Copying Large Buffers</a>.</em>
+</p><dl compact="compact">
+<dt> <code>TOPC_BUF TOPC_MSG_PTR ( void *<var>buf</var>, int <var>buf_size</var> )</code></dt>
+<dd><p align="right">  Function
+</p></dd>
+</dl>
+
+<br>
+<p><em>From <a href="topc_5.html#SEC21">Command Line Options in TOP-C Applications</a>.</em>
+</p><dl compact="compact">
+<dt> <code>--TOPC-help&lsquo;<samp>[=&lt;0/1&gt;]</samp>&rsquo;</code></dt>
+<dd><p align="right">  [boolean, default: false]
+</p></dd>
+<dt> <code>--TOPC-verbose&lsquo;<samp>[=&lt;0/1&gt;]</samp>&rsquo;</code></dt>
+<dd><p align="right">  [boolean, default: false]
+</p></dd>
+<dt> <code>--TOPC-stats&lsquo;<samp>[=&lt;0/1&gt;]</samp>&rsquo;</code></dt>
+<dd><p align="right">  [boolean, default: false]
+</p></dd>
+<dt> <code>--TOPC-num-slaves&lsquo;<samp>=&lt;int&gt;</samp>&rsquo;</code></dt>
+<dd><p align="right">  [default: -1 (system-defined)]
+</p></dd>
+<dt> <code>--TOPC-slave-wait&lsquo;<samp>=&lt;int&gt;</samp>&rsquo;</code></dt>
+<dd><p align="right">  [default: 0]
+</p></dd>
+<dt> <code>--TOPC-slave-timeout&lsquo;<samp>=&lt;int&gt;</samp>&rsquo;</code></dt>
+<dd><p align="right">  [default: 1800 s]
+</p></dd>
+<dt> <code>--TOPC-trace&lsquo;<samp>=&lt;int: 0/1/2&gt;</samp>&rsquo;</code></dt>
+<dd><p align="right">  [trace (0: notrace, 1: trace, 2: user trace fncs, default: 2)]
+</p></dd>
+<dt> <code>--TOPC-procgroup&lsquo;<samp>=&lt;string&gt;</samp>&rsquo;</code></dt>
+<dd><p align="right">  [default: &quot;./procgroup&quot;]
+</p></dd>
+<dt> <code>--TOPC-safety&lsquo;<samp>=&lt;int: 0..20&gt;</samp>&rsquo;</code></dt>
+<dd><p align="right">  [default: 0]
+</p></dd>
+</dl>
+
+<br>
+<p><em>From <a href="topc_6.html#SEC31">Tracing Messages</a>.</em>
+</p><dl compact="compact">
+<dt> <code>int TOPC_OPT_trace</code></dt>
+<dt> <code>void (*)(void *input) TOPC_OPT_trace_input</code></dt>
+<dt> <code>void (*)(void *input, void *output) TOPC_OPT_trace_result</code></dt>
+</dl>
+
+
+
+<hr size="6">
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="topc_10.html#SEC58" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="topc_12.html#SEC60" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="topc.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="topc_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="topc_14.html#SEC62" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="topc_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<p>
+ <font size="-1">
+  This document was generated by <em>Gene Cooperman</em> on <em>April, 15 2011</em> using <a href="http://www.nongnu.org/texi2html/"><em>texi2html 1.78</em></a>.
+ </font>
+ <br>
+
+</p>
+</body>
+</html>

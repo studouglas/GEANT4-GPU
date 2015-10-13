@@ -1,0 +1,454 @@
+Getting Started
+======================================
+You can try the example under Examples/LinkedList by typing
+./marshalgen Examples/LinkedList/LinkedList.h
+
+LinkedList.h is the input file.  It is the header file containing the
+declaration of the target class (LinkedList) with Marshalgen
+annotations.
+
+ The output file, MarshaledLinkedList.h, will be generated in the same
+directory with the input file.  MarshaledLinkedList.h contains the
+marshaling/unmarshaling code for the class LinkedList.  Another file,
+LinkedList.msh, is also generated.  However, this is an intermediate
+file and is used only for debugging purpose.
+
+Notes on architecture
+======================================
+ The current version Marshalgen assumes:  the IEEE floating-point
+standard; a common byte ordering of integers and pointers; and a
+common format of structs or classes on the source and destination
+machines.
+
+A Simple Example
+======================================
+ Let's have a closer look inside the file LinkedList.h
+#include <stdio.h>
+#ifndef _LINKED_LIST_H
+#define _LINKED_LIST_H
+
+//MSH_BEGIN
+class LinkedList{
+public:
+  int head;        //MSH: primitive
+  LinkedList *next; //MSH: predefined_ptr
+public:
+  LinkedList(int = 0, LinkedList* = NULL);
+};
+//MSH_END
+
+#endif
+
+
+ The declaration of each struct or class to be marshaled (here is the
+class LinkedList) must be surrounded by "//MSH_BEGIN" and "//MSH_END".
+If there are multiple structs or classes in the same file, each should
+be surrounded by a seperate pair of "//MSH_BEGIN" and "//MSH_END".
+ The annotation right after the declaration of each data field
+describes how Marshalgen should marshal the data field.  All the
+annotations are in the format of "//MSH: annotation_type [options]" or
+"/* MSH: annotation_type [options] */".
+
+ The annotation "//MSH: primitive" tells Marshalgen to marshal the
+data field "int head" as a variable of primitive type.  This means that
+Marshalgen should perform a shallow copy of this data field to the
+buffer.
+ memcpy(marshalgen_buffer, &this->head, sizeof(this->head));
+
+ The annotation "//MSH: predefined_ptr" tells Marshalgen that the data
+field "LinkedList *next" is a pointer to an object of a predefined
+type.  "Predefined type" means that the user had already "defined"
+(using Marshalgen annotations) how Marshalgen should marshal the type
+(here is the class LinkedList).
+
+
+Using the generated marshaling/unmarshaling Code 
+======================================
+ The usage of the marshaling code for class LinkedList is shown in the
+file LinkedList.cpp.
+
+...
+#include "MarshaledLinkedList.h"
+int main(int argc,char** argv){
+  LinkedList* lst = new LinkedList(1,NULL);
+  // marshaling object "lst"
+  MarshaledLinkedList m(lst);
+
+  // m.getBuffer() returns the marshaled  buffer of "lst"
+  char* marshalBuffer = m.getBuffer();
+
+  // now we unmarshal (reconstruct a LinkedList object from the buffer)
+  MarshaledLinkedList m2(marshalBuffer);
+  LinkedList* lst2 = m2.unmarshal();
+  ...
+}
+
+ The marshaling/unmarshaling routines for the class LinkedList are
+generated in the class MarshaledLinkedList.  The header file
+"MarshaledLinkedList.h" is included at the beginning.
+
+ Note that all of the generated marshaling routines require the header
+file MarshaledObj.h. So, be sure to include the file MarshaledObj.h
+(available in the Marshalgen directory) in the include-path when
+compiling.
+
+To get the marshaled buffer for an object of type LinkedList (here, it is
+the object "lst"), one should first call the constructor of
+MarshaledLinkedList with the target object as the parameter.
+  MarshaledLinkedList m(lst);
+
+Then, the result buffer can be obtained by calling the function
+"m.getBuffer()", and the buffer size can be obtained by calling the
+function "m.getBufferSize()".
+
+ The unmarshaling process starts by calling the constructor of the
+class MarshaledLinkedList with the buffer as the parameter.
+  MarshaledLinkedList m2(marshalBuffer);
+
+The re-constructed object is then obtained by calling "m2.unmarshal()".
+
+
+Basic Annotations and Options
+======================================
+1/  PRIM_TYPE a; //MSH: primitive
+ This annotation tells Marshalgen that "a" is of a primitive type.
+Primitive type usually means the C primitive type: int, char, long,
+float, double, etc.  In general, one could use this annotation for any
+type PRIM_TYPE whose number of bytes needed to copy can be obtained via
+"sizeof(PRIM_TYPE)".
+ memcpy(marshalgen_buffer, &a, sizeof(PRIM_TYPE));
+
+2/  PRIM_TYPE *a; //MSH: primitive_ptr
+ This annotation tells Marshalgen that "a" is a pointer to a primitive
+type, and Marshalgen should copy the whole variable that the pointer
+points to, not just the pointer.
+ memcpy(marshalgen_buffer, a, sizeof(PRIM_TYPE));
+
+3/ CLASS_NAME b; //MSH: predefined
+ Marshalgen will marshal the object "b".  Marshalgen assumes that the
+user had already specified how to marshal the class "CLASS_NAME".
+Marshalgen then look inside the declaration of the class CLASS_NAME
+for the necessary annotations.
+
+4/ CLASS_NAME *b; //MSH: predefined_ptr
+ Marshalgen will marshal the object that "b" points to.  Marshalgen
+assumes that the user had already specified how to marshal the class
+"CLASS_NAME".  Marshalgen then look inside the declaration of the
+class CLASS_NAME for the necessary annotations.
+
+5/ PRIM_TYPE t; //MSH: transient
+ This annotation tells Marshalgen not to marshal/unmarshal this data
+field.  This is the same as having no annotation.
+
+6/ PRIM_TYPE* ptr; //MSH: ptr_shallow_copy
+ This annotation tells Marshalgen to copy only the pointer, not the
+value that the pointer points to.  This option is useful only when the
+object will be unmarshaled into an identical process with the same
+virtual addresses.
+
+7/ PRIM_TYPE a[N]; //MSH: ptr_to_index
+ This annotation tells Marshalgen to copy the whole array "a",
+including N elements.  Currently, this annotation only supports the
+case when PRIM_TYPE is a primitive type.
+
+8/ PRIM_TYPE *a; //MSH: ptr_as_array
+ This annotation allows the user to marshal an array pointed by "a".
+The user can specify the size and the type of each element of the
+array using the macros: $ELEMENT; $ELE_INDEX; $ELE_COUNT; $THIS.  For
+more details, see section "Advanced example A" below.
+
+9/ 
+//MSH_include_begin
+#define MY_MACRO
+#include "myincludefile.h"
+//MSH_include_end
+
+ Any C/C++ code between "//MSH_include_begin" and "//MSH_include_end"
+will be included in the beginning of each Marshalgen output files.
+This option allows the user to include their declarations in the
+generated marshaling/unmarshaling code.
+
+10/ //MSH_constructor: CONSTRUCTOR
+ When unmarshaling a buffer to reconstruct an object, Marshalgen needs
+to call the constructor of the object's class. By default, the default
+constructor (without any argument) will be called. If one prefers
+a particular constructor to be called when constructing the object,
+then one needs to put the constructor with proper number of arguments
+in CONSTRUCTOR.
+
+ For example, the following class has two constructors
+class Foo {
+  //MSH_constructor: Foo(1.0)
+  Foo(int v) {...}
+  Foo(float v) {...}
+}
+ If the one prefers the constructor "Foo(float v)" to be called, one
+should specify "Foo(1.0)" in the annotation "MSH_constructor". Note
+that only the number of arguments and the argument type is necessary
+to locate the correct constructor. The actual values of the arguments
+do not matter because later on the contents of the object will be
+overwritten with the information from the marshaling buffer anyway.
+
+ See the file Cat.h under directory Examples/Polymorphism for another example.
+
+11/ //MSH: manual
+ This annotation is useful when none of the Marshalgen's provided
+annotations fits the user's purpose.  The "//MSH:manual" annotation
+allows user to directly write customized marshaling and unmarshaling
+code for a particular field, using the macros $THIS, $$, and
+$SIZE. For more details, see section "Advanced example B".
+
+Annotations for polymorphism and templates
+======================================
+12/ //MSH_superclass : PARENT_CLASS
+ This annotation tells Marshalgen that the current class (the class
+contains this annotation) is a derived class from the class
+PARENT_CLASS.  When Marshalgen marshals an object of the current class,
+Marshalgen also needs to marshal the data fields that the current
+class inherits from the class PARENT_CLASS.  One must also
+annotate the class PARENT_CLASS seperately.
+ This annotation should not associate with any data field (i.e, it
+should be written seperately in one line).   
+
+13/ //MSH_derivedclass : CHILD_CLASS
+ This annotations tells Marshalgen to also marshal the data fields
+from the derived class of the current class. This annotations is
+particularly useful when the object declared as the parent type may
+actually have different derived types depending on a certain data
+field of the base class.
+  The annotation specifies which derived class needed to be marshaled
+together with the current class. This annotation does not associated
+with any data field. The syntax is: 
+/* MSH_derivedclass: PHRASE_1 | PHRASE_2 | .... */
+
+ where PHRASE_x can be the name of type, or a conditional command of format: 
+"(C_expression) => CONSTRUCTOR".
+
+C_expression is any C/C++ expresssion that returns a boolean
+value. CONSTRUCTOR is the constructor of the derived class one wants
+to marshal when C_expression is true.
+ At runtime, Marshalgen will evaluate the phrases from left to right,
+if the C_expression of a phrase returns boolean true, then Marshalgen will
+marshal the current object as the derived class specified in the
+corresponding constructor. The evaluation stops after the first phrase
+whose C_expression returns boolean true.
+
+ See "Advanced example C" for more details.
+
+
+Conditional command for type specification
+===========================================
+ In annotations such as "MSH: predefined", "MSH: ptr_as_array",
+"MSH_derivedclass" etc., one needs to specify a type. This type
+can either be the direct name of the type, or one can add the
+conditions under which a certain type is chosen.
+ The syntax of the conditional command is described in the description
+of the annotaion "MSH_derivedclass". The same syntax and usage apply
+for all other annotations where a specification of type is needed.
+
+
+Marshalgen macros, variables, and utilitie functions
+=========================================== 
+1) "$THIS"
+ refers to the current instance of the class that has the
+annotations.  This macro is often used in the C/C++ embedded code in
+the annotations.   
+2) "$$"
+ refers to the resulting buffer.  Marshalgen will copy marshal the
+values to this buffer and send this buffer over the network.  One
+can modify this buffer directly if needed.   
+3) "$SIZE"
+ refers to the size of the "$$" buffer.  
+4) $ELEMENT, $ELE_INDEX, $ELE_COUNT
+ See section "Advanced example A" for details.
+5) MSH_IsSameClass<T1,T2>
+ This C++ function returns true if T1 and T2 are of the same
+type. This function is defined in MarshaledObj.h (is included in every
+generated marshaling header files). MSH_IsSameClass<T1,T2> is
+particularly helpful when annotating templates.
+
+ For an example, see the example under Examples/Template .
+
+
+How to combine annotations from multiple files
+=======================================
+ In the below example, the annotation "Bar b; //MSH: predefined" in
+the class Foo (inside the file Foo.h) refers to the class Bar in
+another file (Bar.h).
+
+/** Foo.h **/
+//MSH_include_begin
+#include "MarshaledBar.h"
+//MSH_include_end
+
+//MSH_BEGIN
+class Foo {
+public:
+    int x;  //MSH: primitive
+    Bar b;  //MSH: predefined
+};
+//MSH_END
+
+
+/** Bar.h **/
+
+//MSH_BEGIN
+class Bar {
+public:
+    double *y; //MSH: primitive_ptr
+};
+//MSH_END
+
+ Marshalgen does not check for the existence of the referred classes
+when generating marshaling routines. However, the marshaling routine
+of the class Foo (generated in the file MarshaledFoo.h) will call the
+marshaling routine of the class Bar (generated in the file
+MarshaledBar.h) when marshaling the data field "Bar b". 
+Therefore, the header file for marshaling routine of the class Bar
+("MarshaledBar.h") should be included at the beginning of the file
+Foo.h (using the annotation "//MSH_include_begin and
+"//MSH_include_end" as shown).
+
+
+Advanced example A
+=======================================
+//MSH_BEGIN
+class Foo
+{
+public:
+   int count;
+   double *HC; /* MSH: ptr_as_array
+             [elementType: double]
+             [elementCount: { $ELE_COUNT = $THIS->count; }]
+             [elementGet: { $ELEMENT = $THIS->HC[$ELE_INDEX]; }]
+             [elementSet: { $THIS->HC[$ELE_INDEX] = $ELEMENT; }]
+   */
+}
+//MSH_END
+
+ In the above example, the annotation "/* MSH: ptr_as_array ...  */"
+tells Marshalgen that the data field "double *HC" is a pointer to an
+array, and the information necessary to marshal the data field is
+specified in the following options.
+
+i)  The option "[elementType: double]" tells Marshalgen
+ that each element of the array has the "double" type.  
+ii) The option "[elementCount: { $ELE_COUNT = $THIS->count; } ]"
+specifies how Marshalgen can obtain the size of the array in the
+number of elements (presumably the programmer maintains the correct
+size of the array "HC" in the data field "count").  The C++ code
+inside {...} is the code to be executed to obtain the array size.  The
+array size should be assigned to $ELE_COUNT, a variable used by
+Marshalgen.  The variable $THIS refers to the object to be marshaled.
+We would have liked to use "this" instead of "$THIS".  However, since
+the marshaling/unmarshaling routines are placed in a separate class,
+"this" would not refer to the object to be marshaled but to the
+instance of the class containing the marshaling/unmarshaling routines.
+
+ Similarly, the C++ code inside {...} of the options
+ "elementGet" and "elementSet" specify how Marshalgen can get
+ access to the marshaled object.  In the option "elementGet", $ELEMENT
+ refers to the object to be marshaled.  In the option 
+ "elementSet", $ELEMENT refers to the object that has been
+ reconstructed.  $ELEMENT is automatically assigned by Marshalgen.  
+ $ELE_INDEX refers to the index of the object in the array.  The variable
+ $ELE_INDEX is automatically assigned by Marshalgen.
+
+The options "elementGet" and "elementSet" are needed because sometimes
+the data field is not directly accessible from outside the class: the
+data field may be declared as "private" or "protected".  Since the
+annotation approach does not permit us to change the original code of
+the class, the marshaling/unmarshaling routines have to reside outside
+the class.  As a consequence, one has to provide Marshalgen with
+necessary code to access the data fields declared as "private" or
+"protected".
+
+
+Advanced example B
+=======================================
+ If none of the provided annotations fits the user's purpose, the user
+can write customized code to deal with each specific case.  Marshalgen
+provides this mechanism through the annotation "//MSH: manual".
+ See the example below:
+
+//MSH_BEGIN
+class MyString{
+public:
+    int length() { return len;}
+    int buffer() { return str;}
+    MyString(char* s){
+        int i=0;
+        //find the length of the string
+        while(s[i]!=0) i++;
+        len = i;
+        buffer = malloc(len);
+        memcpy(buffer,s,len);
+        *(buffer+len)='\0';
+    }
+
+protected:
+    int len;	// MSH: primitive
+    char* str;  /* MSH: manual
+		  { 
+             memcpy($$, $THIS->buffer, $THIS->length());
+		     *($$+$THIS->length()) = '\0'; 
+		  }
+		  { 
+             $THIS = new MyString($$);
+		  }
+	      { 
+		     $SIZE = $THIS->length(); 
+		  } */
+};
+//MSH_END
+
+ The "MSH: manual" annotation requires three fields.  The fields are
+defined inside "{...}" and are placed in the order: marshaling code,
+unmarshaling code, and code to determine buffer size.  One will
+write the code to handle the actions, which should manipulate the
+marshaling buffer $$ directly.
+
+
+
+Advanced example C
+=======================================
+ Consider the following class hierachy
+
+class Animal {
+   /* if "type" is "cat" then the object is of type Cat,
+     "type" is "dog" then the object is of type Dog. */
+   MyString type;
+}
+
+class Cat : public Animal{
+   float sleep_time;
+}
+
+class Dog : public Animal{
+   double weight;
+}
+
+ Cat and Dog are the derived types of the type Animal. Assume that the
+user knows that any object of type Animal would be either of type Cat
+or Dog depending on the value of the data field "type" of class
+Animal. Then whenever an object of type Animal is marshaled, the
+proper data fields from the derived class should also be marshaled.
+ The annotation for the base class Animal is as follows:
+
+// MSH_BEGIN
+class Animal {
+public:
+    MyString type;  /* MSH: predefined */
+
+    /* MSH_derivedclass:
+      ($THIS->type.equals("cat")) => Cat(0)
+      | ($THIS->type.equals("dog")) => Dog(0)
+     */
+};
+//MSH_END
+
+
+ In the above example, an object of type Animal will be marshaled as
+an object of type Cat if "($THIS->type.equals("cat"))" return the
+boolean true value. The object will be marshaled as an object of type
+Dog if "($THIS->type.equals("dog"))" is true.

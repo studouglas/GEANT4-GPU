@@ -1,0 +1,157 @@
+$Id:$
+-------------------------------------------------------------------
+
+     =========================================================
+     Geant4 - an Object-Oriented Toolkit for Simulation in HEP
+     =========================================================
+
+                      Category History file
+                      ---------------------
+This file should be used by G4 developers and category coordinators
+to briefly summarize all major modifications introduced in the code
+and keep track of all category-tags.
+It DOES NOT substitute the  CVS log-message one should put at every
+committal in the CVS repository !
+
+     ----------------------------------------------------------
+     * Reverse chronological order (last date on top), please *
+     ----------------------------------------------------------
+
+19-June-2015: G.Cosmo (externals-V10-00-15)
+- Updated to CLHEP-2.2.0.8:
+  o Avoid gcc-5 warnings on deprecated calls to auto_ptr in Utility headers.
+  o Switch off gcc-5 warning for unused variable in Randomize.h header.
+
+11-June-2015: G.Cosmo (externals-V10-00-10)
+- CLHEP: Moved static methods handling static data in G4RandGauss from inline
+  to source. Addressing problem report #1754.
+  Switch off warnings for deprecated calls to auto_ptr in Utility headers.
+
+9-April-2015: G.Cosmo
+- CLHEP: Fixed usage of std::abs() in RandGaussZiggurat source.
+
+12-December-2014: G.Cosmo
+- CLHEP: Fixed usage of std::abs() in RandGaussZiggurat header.
+- USolids: Use canonical form for operator=() in UPolycone.
+
+24-November-2014: G.Cosmo (externals-V10-00-08)
+- Updated to CLHEP-2.2.0.4:
+  o Fixed a type mismatch in Utility/memory.h,
+    reported as compilation warning on Windows/VC9.
+  o Use pragma in RanshiEngine.cc to ignore aggressive 32bit gcc compiler
+    warnings.
+  o Synchronised inlining of Hep3Vector::operator () (int i).
+
+14-November-2014: G.Cosmo (externals-V10-00-07)
+- Updated to CLHEP-2.2.0.3: moved definition of pi into SystemOfUnits.h
+  so that its hard-coded value is not defined twice.
+
+12-November-2014: G.Cosmo (externals-V10-00-06)
+- Removed unused 'tpmalloc' and 'memoryprotection' modules.
+- Update to CLHEP Hep3Vector to move operators 'operator()(int)' to be
+  inline and removed printout to improve CPU performance.
+
+30-October-2014: B.Morgan (externals-V10-00-05)
+- Update build of USolids library to ensure it is built for
+  the default global mode.
+
+29-October-2014: G.Cosmo (externals-V10-00-04)
+- Moved module from source/geometry/solids to source/externals.
+  Adapted scripts for optional external USolids library build.
+
+17-June-2014: G.Cosmo (externals-V10-00-03)
+- Updated to CLHEP-2.2.0.0: fixes for compilation warnings on clang compiler
+  for RanshiEngine.cc and MTwistEngine.cc.
+
+24-April-2014: G.Cosmo (externals-V10-00-02)
+- Corrected definition of 'thread_local' keyword in CLHEP module.
+
+09-April-2014: G.Cosmo (externals-V10-00-01)
+- Updated CLHEP module to version 2.2.0.0.b01.
+
+24-February-2014: G.Cosmo (externals-V10-00-00)
+- Removed deprecated 'register' qualifiers in implementation of CLHEP classes.
+
+14-November-2013: G.Cosmo (externals-V09-06-07, externals-V09-06-06)
+- Updated CLHEP module to version 2.1.4.1.
+
+20-August-2013: G.Cosmo (externals-V09-06-05)
+- Corrected CMakeLists.txt script in CLHEP module to have missing .icc
+  and .cdat files explicitly listed.
+
+19-April-2013: G.Cosmo (externals-V09-06-04)
+- Hack for making tracer.cxx application in memoryprotection module
+  compile on Mac/clang.
+
+19-April-2013: G.Cosmo (externals-V09-06-03)
+- More corrections for compilation warnings on gcc for tpmalloc
+  and memoryprotection modules.
+
+18-April-2013: G.Cosmo (externals-V09-06-02, externals-V09-06-01)
+- Moved 'tpmalloc' and 'memoryprotection' modules from global.
+- Fixed compilation errors and warnings (NOTE: "tracer" application
+  in memoryprotection does -not- compile yet!).
+- Adapted build setup (currently disabled).
+
+20-March-2013: G.Cosmo (externals-V09-06-00)
+- Moved G4 zlib module from visualization/externals.
+
+15-November-2012: G.Cosmo (externals-V09-05-04)
+- Updated CLHEP module to version 2.1.3.1.
+
+14-November-2012: G.Cosmo (externals-V09-05-03)
+- Updated CLHEP module to version 2.1.3.0.
+
+05-June-2012: G.Cosmo (externals-V09-05-02)
+- Updated CLHEP module to version 2.1.2.3.
+
+30-May-2012: G.Cosmo (externals-V09-05-01)
+- Additional correction for shadowed variable in CLHEP module.
+
+10-May-2012: G.Cosmo (externals-V09-05-00)
+- Updated CLHEP module to version 2.1.2.2.
+
+21-November-2011: G.Cosmo (externals-V09-04-11)
+- Use USE flags in main GNUmakefile for selection of packages,
+  for backwards compatibility.
+
+07-November-2011: G.Cosmo (externals-V09-04-10)
+- Updated CLHEP module to version 2.1.1.0.
+- Abilited possibility to force building of internal 'expat' module also
+  for Linux and Mac, through use of G4LIB_BUILD_EXPAT flag.
+
+27-September-2011: G.Cosmo (externals-V09-04-09)
+- More static symbols for DLL build of CLHEP module.
+
+20-September-2011: G.Cosmo (externals-V09-04-08)
+- Added missing export statements for static symbols required for DLL build
+  to CLHEP module.
+
+22-June-2011: B.Morgan (externals-V09-04-07)
+- Added CLHEp include dirs to GEANT4_BUILDTREE_INCLUDE_DIRS so that its
+  picked up from the buld tree when used.
+
+20-June-2011: B.Morgan (externals-V09-04-06)
+- Modified install of CLHEP headers to use Geant4 name on end of DESTINATION
+  as per changes in cmake-V09-04-06 (REQUIRES cmake-V09-04-06).
+
+14-June-2011: B.Morgan (externals-V09-04-05)
+- Tidied up CMakeLists.txt for G4clhep to use standard library target macro.
+
+2-June-2011: B.Morgan (externals-V09-04-04)
+- CMakeLists.txt : NEW file adding CMake build support to externals module.
+  CMake support added for clhep and expat modules.
+
+1-June-2011: G.Cosmo (externals-V09-04-03)
+- ixed trivial compilation warnings on gcc-4.6.0 in clhep module files
+  NonRandomEngine.h and Ranlux64Engine.cc for parameters defined but not used.
+
+24-May-2011: Gabriele Cosmo (externals-V09-04-02)
+- Added missing files in CLHEP built-in module.
+  Allow for generation of DLL library on Windows for it.
+
+11-May-2011: Gabriele Cosmo (externals-V09-04-01)
+- Added "clhep" module.
+
+20-April-2011: Gunter Folger (externals-V09-04-00)
+- Added "expat" module.

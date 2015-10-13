@@ -1,0 +1,131 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<!-- Created on October, 6  2004 by texi2html 1.65 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>TOP-C (Task Oriented Parallel C/C++): Using a Different MPI with TOP-C</TITLE>
+
+<META NAME="description" CONTENT="TOP-C (Task Oriented Parallel C/C++): Using a Different MPI with TOP-C">
+<META NAME="keywords" CONTENT="TOP-C (Task Oriented Parallel C/C++): Using a Different MPI with TOP-C">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.65">
+
+</HEAD>
+
+<BODY LANG="en" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC61"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_12.html#SEC60"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_14.html#SEC62"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_12.html#SEC60"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc.html#SEC_Top"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_14.html#SEC62"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_14.html#SEC62">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H1> C. Using a Different `<SAMP>MPI</SAMP>' with TOP-C </H1>
+<!--docid::SEC61::-->
+<P>
+
+`<SAMP>TOP-C</SAMP>' provides a built-in subset of MPI sufficient to run
+distributed applications.  If you prefer to use a different implementation
+of `<SAMP>MPI</SAMP>' with `<SAMP>TOP-C</SAMP>', this note describes how to do so.
+Examples for `<SAMP>MPICH</SAMP>', `<SAMP>LAM</SAMP>' and `<SAMP>IBM POE</SAMP>' are at the
+end of this section.  You should re-configure and re-build `<SAMP>TOP-C</SAMP>'
+using the same C/C++ compiler as that of your chosen MPI.
+</P><P>
+
+First test a `<SAMP>hello_world</SAMP>' MPI program
+for your chosen MPI implementation to make sure that the
+startup mechanism is well understood.
+</P><P>
+
+Many dialects of `<SAMP>MPI</SAMP>' provide their own wrapper around
+the C and C++ compiler.  For example, `<SAMP>LAM MPI</SAMP>' provides <CODE>mpicc</CODE>.
+If your dialect provides such a wrapper <CODE>mpicc</CODE>, then
+do <CODE>./configure --with-mpi-cc=mpicc</CODE> and <CODE>make</CODE>.  There is a similar
+configure flag, <CODE>--with-mpi-cxx</CODE>, for `<SAMP>C++</SAMP>'.
+</P><P>
+
+If you do use such a wrapper, you should use the same C compiler for
+the rest of `<SAMP>TOP-C</SAMP>'.  Hence, if <CODE>mpicc</CODE> uses <CODE>cc</CODE>,
+then configure with <CODE>env CC=cc ./configure --with-mpi-cc=mpicc
+--cache-file=/dev/null</CODE>.
+In general, you can always specify a non-default C and C++ compiler by
+specifying <CODE>CC=...</CODE> and <CODE>CXX=...</CODE>, respectively.
+</P><P>
+
+If your dialect does not provide such a wrapper, it is easy to create
+one by modifying the shell script below for your site.
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>#!/bin/sh
+gcc -I/usr/local/include $* -L/usr/local/lib -lmpi
+</pre></td></tr></table></P><P>
+
+These wrappers will enable <CODE>topcc</CODE> and <CODE>topc++</CODE> to work,
+but not <CODE>topc-config</CODE>.  If you also need <CODE>topc-config</CODE>,
+then you must modify <CODE>topc-config</CODE>.
+Determine the libraries used by your dialect of MPI.
+Then search for a string with <CODE>-ltopc-mpi</CODE> in
+`<TT>.../topc/bin/topc-config</TT>',
+and append to it your `<SAMP>libmpi</SAMP>'.  For example,
+append to <CODE>-ltopc-mpi</CODE> with <CODE>-L/usr/local/lib -lmpi</CODE>.
+</P><P>
+
+Finally, for many dialects of MPI, after compiling the MPI application,
+they may also require a special command at runtime to execute,
+such as <CODE>mpirun a.out</CODE>.
+In such cases, your `<SAMP>TOP-C</SAMP>' application must be treated similarly.
+</P><P>
+
+The following examples illustrate the configuration and use of
+MPI for other MPI implementations using 2 slaves and 1 master.
+<TABLE><tr><td>&nbsp;</td><td class=example><pre># IBM POE/AIX:
+  env CC=xlc CXX=xlC ./configure --with-mpi-cc=mpcc --with-mpi-cxx=mpCC
+  make; cd bin; ./topcc --mpi -qcpluscmt ../examples/parfactor.c
+  poe ./a.out 1234 --TOPC-stats -procs 3 -pgmmodel spmd
+</pre></td></tr></table></P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre># MPICH/Linux:
+  ./configure --with-mpi-cc=mpicc
+  make; cd bin; ./topcc --mpi ../examples/parfactor.c
+  mpirun -np 3 ./a.out --TOPC-stats 1234
+</pre></td></tr></table></P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre># LAM/Linux:
+  ./configure --with-mpi-cc=mpicc
+  make; cd bin; ./topcc --mpi ../examples/parfactor.c
+  mpirun -c 3 ./a.out -- --TOPC-stats 1234
+</pre></td></tr></table></P><P>
+
+<A NAME="Function Index"></A>
+<HR SIZE="6">
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_12.html#SEC60"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_14.html#SEC62"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_14.html#SEC62">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+by <I>Gene Cooperman</I> on <I>October, 6  2004</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+</FONT>
+
+</BODY>
+</HTML>

@@ -1,0 +1,552 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html401/loose.dtd">
+<html>
+<!-- Created on April, 15 2011 by texi2html 1.78 -->
+<!--
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people.
+Send bugs and suggestions to <texi2html-bug@nongnu.org>
+
+-->
+<head>
+<title>TOP-C (Task Oriented Parallel C/C++): 3. Overview of TOP-C/C++</title>
+
+<meta name="description" content="TOP-C (Task Oriented Parallel C/C++): 3. Overview of TOP-C/C++">
+<meta name="keywords" content="TOP-C (Task Oriented Parallel C/C++): 3. Overview of TOP-C/C++">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.78">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+pre.display {font-family: serif}
+pre.format {font-family: serif}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: serif; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: serif; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.roman {font-family:serif; font-weight:normal;}
+span.sansserif {font-family:sans-serif; font-weight:normal;}
+ul.toc {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+
+<a name="Overview"></a>
+<a name="SEC3"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="topc_2.html#SEC2" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC4" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="topc_2.html#SEC2" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="topc.html#Top" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="topc_4.html#SEC14" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="topc.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="topc_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="topc_14.html#SEC62" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="topc_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h1 class="chapter"> 3. Overview of &lsquo;<samp>TOP-C/C++</samp>&rsquo; </h1>
+
+<table><tr><td>&nbsp;</td><td><table class="cartouche" border="1"><tr><td>
+<pre class="display">                       &quot;Difficulty?&quot; exclaimed Ford. &quot;Difficulty?  What
+                   do you mean difficulty?  [The wheel is] the single
+                   simplest machine in the universe!&quot;  ...
+                       &quot;All right, Mr. Wiseguy,&quot;  she said,  &quot;you're so
+                   clever, you tell us what color it should be.&quot;
+                       from &quot;The Restaurant at the End of the Universe&quot;
+                       by Douglas Adams
+</pre></td></tr></table>
+</td></tr></table>
+
+<p>&lsquo;<samp>TOP-C</samp>&rsquo; has been designed especially to make it easy to parallelize
+<em>existing</em> sequential applications.  Toward this goal,
+&lsquo;<samp>TOP-C</samp>&rsquo; emphasizes:
+</p><ol>
+<li> ease of use (high level task-oriented abstraction);
+</li><li> latency tolerance; and
+</li><li> architecture independence (same application code for
+	shared and distributed memory).
+</li></ol>
+
+<p>A &lsquo;<samp>TOP-C</samp>&rsquo; application is compiled and run using <code>topcc</code>
+(similarly to <code>gcc</code>) or <code>topc++</code> (similarly to <code>g++</code>).
+For example, assuming a &lsquo;<tt>procgroup</tt>&rsquo; file in the current
+directory to specify the remote hosts for the slave processes,
+one executes:
+</p><table><tr><td>&nbsp;</td><td><pre class="example">  topcc --mpi parfactor.c
+  # or else:  topc++ --mpi parfactor.cc
+  ./a.out
+</pre></td></tr></table>
+
+<p>If a &lsquo;<samp>TOP-C</samp>&rsquo; application fails to link, check for a clash of
+symbol names.  All TOP-C symbols are of the form
+TOPC_*, COMM_*, MEM_*, MPI_*, MPINU_*, NO_ACTION, UPDATE, REDO, CONTINUATION,
+or NOTASK.
+</p>
+<p>For purposes of documentation, we will standardize on an explanation of
+<code>topcc</code>.  Wherever <code>topcc</code> is mentioned, the description is
+equally valid for <code>topc++</code>.
+</p>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top"><a href="#SEC4">3.1 Programmer's Model</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">            
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC12">3.2 Three Key Concepts for TOP-C</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">  
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC13">3.3 Distributed and Shared Memory Models</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">               
+</td></tr>
+</table>
+
+<hr size="6">
+<a name="Programmer-Model"></a>
+<a name="SEC4"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC3" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC5" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC3" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC3" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="topc_4.html#SEC14" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="topc.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="topc_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="topc_14.html#SEC62" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="topc_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h2 class="section"> 3.1 Programmer's Model </h2>
+
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top"><a href="#SEC5">3.1.1 Structure of a TOP-C Program</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">  
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC6">3.1.2 Four Callback Functions</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">     
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC7">3.1.3 Task Input and Task Output Buffers</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">                
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC11">3.1.4 The &lsquo;<samp>TOP-C</samp>&rsquo; Algorithm</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">         
+</td></tr>
+</table>
+
+<hr size="6">
+<a name="Structure-of-a-TOP_002dC-Program"></a>
+<a name="SEC5"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC4" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC6" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC3" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC4" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="topc_4.html#SEC14" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="topc.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="topc_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="topc_14.html#SEC62" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="topc_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h3 class="subsection"> 3.1.1 Structure of a TOP-C Program </h3>
+
+<p>A typical TOP-C application has the following structure:
+</p><table><tr><td>&nbsp;</td><td><pre class="example">#include &lt;topc.h&gt;
+... define four callback functions for TOPC_master_slave() ...
+int main( int argc, char **argv ) {
+  TOPC_init( &amp;argc, &amp;argv );
+  ...
+  TOPC_master_slave( GenerateTaskInput, DoTask, CheckTaskResult,
+                     UpdateSharedData )
+  ...
+  TOPC_finalize();
+}
+</pre></td></tr></table>
+
+<p>The program above is run with a master process and several slave processes
+operating with identical command line arguments and identical initial
+data (SPSD, or Single Program, Single Data).  Communication among processes 
+occurs only within the routine <code>TOPC_master_slave()</code>, during which
+execution can be called SPMD (Single Program, Multiple Data).  At the end
+of <code>TOPC_master_slave()</code>, execution returns to SPSD, although the
+master process may contain some additional process-private data.
+</p>
+<p><a href="topc_9.html#SEC54">&lsquo;<samp>TOP-C</samp>&rsquo; Raw Interface for Parallelizing Sequential Code</a> describes an alternative interface that is
+often useful for parallelizing existing sequential code.  However, for
+new applications, the standard interface will usually be cleaner.
+</p>
+<hr size="6">
+<a name="Four-Callback-Functions"></a>
+<a name="SEC6"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC5" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC7" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC3" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC4" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="topc_4.html#SEC14" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="topc.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="topc_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="topc_14.html#SEC62" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="topc_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h3 class="subsection"> 3.1.2 Four Callback Functions </h3>
+
+<p>In a &lsquo;<samp>TOP-C</samp>&rsquo; application, the programmer defines four callback
+functions and passes control to the &lsquo;<samp>TOP-C</samp>&rsquo; library through the
+following command.
+</p><table><tr><td>&nbsp;</td><td><pre class="example">  TOPC_master_slave(GenerateTaskInput, DoTask, CheckTaskResult,
+                    UpdateSharedData);
+</pre></td></tr></table>
+
+<p>Pictorially, TOP-C arranges for the flow of control among the four callback
+functions as follows:
+</p><table><tr><td>&nbsp;</td><td><pre class="example">      (ON MASTER)      task input
+   GenerateTaskInput() ----------&gt;
+
+
+  task input   (ON A SLAVE)  task output
+  -----------&gt; DoTask(input) -----------&gt;
+
+
+  task output     (ON MASTER)                    action
+  -----------&gt; CheckTaskResult(input, output) -----------&gt;
+
+
+if (action == UPDATE):
+  task input, task output      (ON ALL PROCESSES)
+  -----------------------&gt; UpdateSharedData(input, output)
+</pre></td></tr></table>
+
+<hr size="6">
+<a name="Task-Buffers"></a>
+<a name="SEC7"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC6" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC11" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC3" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC4" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="topc_4.html#SEC14" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="topc.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="topc_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="topc_14.html#SEC62" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="topc_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h3 class="subsection"> 3.1.3 Task Input and Task Output Buffers </h3>
+
+
+<p>A <em>task input</em> or <em>task output</em> is an arbitrary buffer of bytes
+of type <code>(void *)</code> in &lsquo;<samp>TOP-C</samp>&rsquo;.  The task buffers are arbitrary
+application-defined data structures, which are opaque to &lsquo;<samp>TOP-C</samp>&rsquo;.
+Note that in ANSI C, a void pointer is compatible with any other pointer type
+(such as <code>(struct task_input *)</code> and <code>(struct task_output *)</code>
+in the example below).
+</p>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top"><a href="#Defining-Task-Buffers">&bull; Defining Task Buffers</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">       
+</td></tr>
+<tr><td align="left" valign="top"><a href="#Marshaling">&bull; Marshaling</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">                  
+</td></tr>
+<tr><td align="left" valign="top"><a href="#Marshalgen">&bull; Marshalgen</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">                  
+</td></tr>
+</table>
+
+<a name="Defining-Task-Buffers"></a>
+<a name="SEC8"></a>
+<h4 class="subsubheading"> Defining Application Task Buffers </h4>
+
+<p>An application callback function returning a task input or task output
+must encapsulate it in a function, <code>TOPC_MSG( void *<var>buf</var>, int
+<var>buf_size</var> )</code>, which is then returned by the callback functions
+<code>GenerateTaskInput()</code> and <code>DoTask()</code>.  <code>TOPC_MSG()</code>
+internally allocates a copy of <var>buf</var>, and TOP-C later frees the copy
+automatically.  So, <var>buf</var> may be reused by the application program.
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">TOPC_BUF DoTask( struct task_input * inp ) {
+  struct task_output outp;
+  ...
+  outp = ...;
+  return TOPC_MSG( &amp;outp, sizeof(outp) );
+}
+</pre></td></tr></table>
+
+<p>The principle of memory allocation in &lsquo;<samp>TOP-C</samp>&rsquo; is that if an
+application allocates memory, then it is the responsibility of the
+application to free that memory.  <code>TOPC_MSG()</code> has the further
+property of copying its buffer argument to a separate &lsquo;<samp>TOP-C</samp>&rsquo; space
+(using a shallow copy), after which the application can free any memory it
+allocated.  This happens automatically in the above example,
+since <code>outp</code> is allocated on the stack.
+</p>
+<a name="Marshaling"></a>
+<a name="SEC9"></a>
+<h4 class="subsubheading"> Marshaling (Serialization) and Heterogeneous Architectures </h4>
+
+
+<p>If a heterogeneous
+architecture is used, there is an issue of converting data formats
+or <em>marshaling</em>.
+This is the application's responsibility.  For simple data formats
+(integers, floats or characters), such conversion can easily be done
+in an ad hoc manner.  Most C compilers use the IEEE binary
+floating point standard, and characters are almost always encoded
+in eight bit ASCII representation (or possibly in a standard Unicode
+format).  Although the byte ordering of integers is not standardized,
+the system calls <code>htonl()</code> and <code>ntohl()</code> are available
+to convert integers into 32 bit <em>network integers</em> that are
+portable across heterogeneous systems.
+</p>
+<p>For more complicated conversions, one can consider writing one's own
+marshaling routines or else using a standard package for marshaling
+such as the &lsquo;<samp>XDR</samp>&rsquo; library (RFC 1832, eXternal Data Representation),
+&lsquo;<samp>IDL</samp>&rsquo; (&lsquo;<samp>Corba</samp>&rsquo;), or &lsquo;<samp>SOAP</samp>&rsquo; (&lsquo;<samp>XML</samp>&rsquo;).
+</p>
+<a name="Marshalgen"></a>
+<a name="SEC10"></a>
+<h4 class="subsubheading"> Marshalgen, a Package for Marshaling </h4>
+
+<p>For complex C++ applications, we recommend tat you try out
+&lsquo;<samp>Marshalgen</samp>&rsquo; package.  A pointer to it is available from the TOP-C
+home page.  Since the C++ classes to be marshaled are already defined in
+&lsquo;<tt>.h</tt>&rsquo; files, Marshalgen asks th user simply to annotate those files
+with comments (for example, deep copying vs. shallow copying fo
+pointers).  &lsquo;<samp>Marshalgen</samp>&rsquo; also has support for such real world
+issues as marshalingsubclasses and templates, handling of polymorphism,
+etc.  The &lsquo;<samp>Marshalgen</samp>&rsquo; preprocessor then generates methods for a
+new marshaling class that know how to marshal and unmarshal the original
+class.
+</p>
+<a name="IDX1"></a>
+
+<hr size="6">
+<a name="The-TOP_002dC-Algorithm"></a>
+<a name="SEC11"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC7" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC12" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC3" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC4" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="topc_4.html#SEC14" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="topc.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="topc_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="topc_14.html#SEC62" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="topc_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h3 class="subsection"> 3.1.4 The &lsquo;<samp>TOP-C</samp>&rsquo; Algorithm </h3>
+
+<p>When there is only one slave, 
+The &lsquo;<samp>TOP-C</samp>&rsquo; algorithm can be summarized by the
+following C code.
+</p><table><tr><td>&nbsp;</td><td><pre class="example">{ void *input, *output;
+  TOPC_ACTION action;
+  while ( (input = GenerateTaskInput()) != NOTASK ) {
+     do {
+       output = DoTask(input);
+       action = CheckTaskResult(input, output);
+     } while (action == REDO);  /* REDO not useful for only one slave */
+     if (action == UPDATE) then UpdateSharedData(input, output);
+  }
+}
+</pre></td></tr></table>
+
+<p>On a first reading, it is recommended to skip the rest of this
+section until having read through Section <a href="topc_4.html#SEC17">Actions Returned by <code>CheckTaskResult()</code></a>.
+</p>
+<p>For a better understanding of the case of multiple
+slaves, this simplified excerpt from the &lsquo;<samp>TOP-C</samp>&rsquo; source code describes
+the &lsquo;<samp>TOP-C</samp>&rsquo; algorithm.
+</p><table><tr><td>&nbsp;</td><td><pre class="example">TOPC_BUF input, output;
+int num_idle_slaves = num_slaves;
+TOPC_ACTION action;
+
+while (TRUE) {
+  wait_until_an_idle_slave();
+  input = COMM_generate_task_input();
+  if (input.data != NOTASK.data) {
+    SUBMIT_TO_SLAVE:  output = DoTask(input.data);
+    num_idle_slaves--;
+  }
+  else if (num_idle_slaves &lt; num_slaves) // else insure progress condition
+    receive_task_output();               // by blocking until a slave replies
+  else break;
+} // termination condition:  _after_ all slaves idle, next input was NOTASK
+</pre></td></tr></table>
+
+<p>The code for <code>wait_until_an_idle_slave()</code> can be expanded as follows.
+</p><table><tr><td>&nbsp;</td><td><pre class="example">void wait_until_an_idle_slave() {
+  do {
+    while ( result_is_available(&amp;input, &amp;output) ) {
+      action = CheckTaskResult(input.data, output.data);
+      if (action == UPDATE)
+        UpdateSharedData(input.data, output.data);
+      if (action == REDO) /* Use updated shared data, when redoing */
+        SUBMIT_TO_SLAVE:  output = DoTask(input.data);
+      num_idle_slaves++;
+    } while (num_idle_slaves == 0);
+  }
+</pre></td></tr></table>
+
+<p>Note that the term <em>result</em> refers to an &lsquo;<samp>(input,output)</samp>&rsquo; pair.
+The routine <code>CheckTaskResult()</code> returns an <em>action</em>, which
+determines the
+control structure for a parallel algorithm.  A common definition is:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">TOPC_ACTION CheckTaskResult( void *input, void *output ) {
+  if (output == NULL) return NO_ACTION;
+  else if ( TOPC_is_up_to_date() ) return UPDATE;
+  else return return REDO; }
+</pre></td></tr></table>
+
+<p><code>TOPC_is_up_to_date()</code> returns true if and only if during the interval
+between when the task input was originally generated and when the task
+output was returned by the most recent slave, no other slave process had
+returned a task output during the interim that had caused the shared data
+to be modified through an <code>UPDATE</code> action.  An <code>UPDATE</code> action causes
+<code>UpdateSharedData()</code> to be invoked on each process.  Further
+discussion can be found in <a href="topc_4.html#SEC18">TOP-C Utilities</a>.
+</p>
+<hr size="6">
+<a name="Three-Key-Concepts-for-TOP_002dC"></a>
+<a name="SEC12"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC11" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC13" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC3" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC3" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="topc_4.html#SEC14" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="topc.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="topc_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="topc_14.html#SEC62" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="topc_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h2 class="section"> 3.2 Three Key Concepts for TOP-C </h2>
+
+
+<p>    The &lsquo;<samp>TOP-C</samp>&rsquo; programmer's model is based on three key concepts:
+</p><ol>
+<li>
+ <em>tasks</em> in the context of a master/slave architecture;
+</li><li>
+ global <em>shared data</em> with lazy updates; and
+</li><li>
+ <em><var>actions</var></em> to be taken after each task.
+</li></ol>
+
+<p>Task descriptions (task inputs) are generated on the master, and assigned to
+a slave.  The slave executes the task and returns the result to the master.
+The master may update its own private data based on the result, or it may
+update data on all processes.  Such global updates take place on each slave
+after the slave completes its current task.  Updates are <em>lazy</em> in
+that they occur only after a task completes, although it is possible to
+issue a non-binding request to &lsquo;<samp>TOP-C</samp>&rsquo; to abort the current tasks
+(<a href="topc_8.html#SEC41">Aborting Tasks</a>).
+A SPMD (Single Program Multiple
+Data) style of programming is encouraged.
+</p>
+<p>In both shared and distributed memory architectures, one must worry
+about the order of reads and writes as multiple slaves autonomously
+update data.  The utilities below are meant to ease that chore, by
+supporting the ease of the SPMD programming style, while still
+maintaining good efficiency and generality for a broad range of
+applications.  The software can easily be ported to a variety of
+architectures.
+</p>
+<hr size="6">
+<a name="Memory-Models"></a>
+<a name="SEC13"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC12" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="topc_4.html#SEC14" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC3" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC3" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="topc_4.html#SEC14" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="topc.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="topc_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="topc_14.html#SEC62" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="topc_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h2 class="section"> 3.3 Distributed and Shared Memory Models </h2>
+
+
+<p>&lsquo;<samp>TOP-C</samp>&rsquo; provides a single API to support three primary memory
+models: <em>distributed memory</em>, <em>shared memory</em> and
+<em>sequential memory</em>.  (The last model, sequential memory, refers to
+a single sequential, non-parallel process.)  On a first reading, one
+should think primarily of the distributed memory model (distributed
+nodes, each with its own private memory).  Most programs written for
+distributed memory will compile without change for sequential memory.
+&lsquo;<samp>TOP-C</samp>&rsquo; is designed so that the same application source code may
+operate efficiently both under distributed and under shared memory.  In
+order to also compile for shared memory hardware (such as SMP),
+additional hints to &lsquo;<samp>TOP-C</samp>&rsquo; may be necessary.
+</p>
+<p>In shared memory architectures, <em>all</em> data outside of the four
+callback functions is shared, by default.  Hence, an <code>UPDATE</code>
+action under shared memory causes only the master process to invoke
+<code>UpdateSharedData()</code>.  To avoid inconsistencies in the data, by
+default &lsquo;<samp>TOP-C</samp>&rsquo; arranges that no slave process may run
+<code>DoTask()</code> while <code>UpdateSharedData()</code> is running.
+&lsquo;<samp>TOP-C</samp>&rsquo; also provides support for finer levels of granularity
+through application-defined private variables and critical sections.
+Further discussion can be found in <a href="topc_8.html#SEC47">Optimizing TOP-C Code for the Shared Memory Model</a>.
+</p>
+<hr size="6">
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC3" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="topc_4.html#SEC14" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="topc.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="topc_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="topc_14.html#SEC62" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="topc_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<p>
+ <font size="-1">
+  This document was generated by <em>Gene Cooperman</em> on <em>April, 15 2011</em> using <a href="http://www.nongnu.org/texi2html/"><em>texi2html 1.78</em></a>.
+ </font>
+ <br>
+
+</p>
+</body>
+</html>

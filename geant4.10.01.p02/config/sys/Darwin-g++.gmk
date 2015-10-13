@@ -1,0 +1,185 @@
+#
+# ------ MacOS-X ------
+#                                 MacOS 10.8, 10.9 gcc-4.2
+#
+# Original author: Helmut Burkhardt - CERN
+#       Revisions: Guy Barrand - LAL
+#                  Gabriele Cosmo - CERN
+#                  Laurent Garnier - LAL
+#
+ifeq ($(G4SYSTEM),Darwin-g++)
+  CXX       := g++
+  CXXFLAGS  := -Wall -Wno-non-virtual-dtor -Wno-long-long
+# CXXFLAGS  += -Wunused-parameter -Winline -Wunreachable-code
+  CXXFLAGS  += -Wwrite-strings -Wpointer-arith -Woverloaded-virtual
+  CXXFLAGS  += -Wno-variadic-macros -Wshadow -pipe
+  ifdef G4USE_STD11
+    CXXFLAGS  += -std=c++11
+  endif
+# CXXFLAGS  += -stdlib=libstdc++
+  ifdef G4OPTIMISE
+    CXXFLAGS  += -O2
+    FCFLAGS   := -O2
+    CCFLAGS   := -O2
+  else
+    ifdef G4DEBUG
+      CXXFLAGS  += -g
+      FCFLAGS   := -g
+      CCFLAGS   := -g
+    endif
+  endif
+  ifdef G4PROFILE
+    CXXFLAGS  += -pg
+    FCFLAGS   += -pg
+    CCFLAGS   += -pg
+  endif
+  ifdef G4OPTDEBUG
+    CXXFLAGS  += -O2 -g
+    FCFLAGS   += -O2 -g
+    CCFLAGS   += -O2 -g
+  endif
+  ifdef G4LIB_BUILD_SHARED
+    CXXFLAGS  += -fPIC
+    FCFLAGS   += -fPIC
+    CCFLAGS   += -fPIC
+  endif
+  G4RUNPATHOPTION := -Wl,-rpath 
+  G4STATIC_MODE += -Wl,-force_load
+  FC := gfortran
+  FCFLAGS += -fno-automatic -fno-backslash -fno-second-underscore
+  LDFLAGS += -bind_at_load
+  FCLIBS := -lg2c -lnsl
+  SHEXT   := dylib
+  LOADLIBS += -lm
+  ifndef X11FLAGS
+    X11FLAGS  := -I/usr/X11R6/include
+  endif
+  ifndef X11LIBS
+    X11LIBS   := -L/usr/X11R6/lib  -lXmu -lXt -lXext -lX11 -lXi -lSM -lICE
+  endif
+  ifndef XMFLAGS
+    XMFLAGS   := -I/sw/include
+#   XMFLAGS   := -I/usr/X11R6/include          ##### some installations.
+  endif
+  ifndef XMLIBS
+    XMLIBS    := -L/sw/lib -lXm -lXpm
+#   XMLIBS    := -L/usr/X11R6/lib -lXm -lXpm   ##### some installations.
+  endif
+  ifndef XAWFLAGS
+    XAWFLAGS   := -I/sw/include
+#   XAWFLAGS   := -I/usr/X11R6/include         ##### some installations.
+  endif
+  ifndef XAWLIBS
+    XAWLIBS    := -lXaw
+  endif
+  DLDLIBS   := -ldl
+  ifndef OGLHOME
+    OGLHOME  := /usr/X11R6
+#   OGLHOME  := /System/Library/Frameworks/OpenGL.framework
+  endif
+  ifndef OGLFLAGS
+    OGLFLAGS  := -I$(OGLHOME)/include 
+#   OGLFLAGS := -I$(OGLHOME)/Headers 
+  endif
+  ifndef OGLLIBS
+    QTGLPATH  := $(shell test -f /System/Library/Frameworks/OpenGL.framework/OpenGL && echo "/System/Library/Frameworks/OpenGL.framework")
+    ifeq ($(QTGLPATH),/System/Library/Frameworks/OpenGL.framework)
+      DARWIN_VERSION = $(shell uname -r | sed 's/\([0-9]*\).[0-9]*.[0-9]*/\1/')
+      ifeq ($(DARWIN_VERSION),9)
+        # the following lines are for building on MacOSX 10.5 "Leopard"
+        OGLLIBS := -Wl,$(QTGLPATH)/Versions/A/Libraries/libGL.dylib -L$(OGLHOME)/lib -lGLU -lGL
+      else
+        # the following lines are for building on MacOSX > 10.5
+        OGLLIBS := -F/System/Library/Frameworks -framework OpenGL -framework AGL 
+        ifeq ($(G4VIS_USE_OPENGLX),1)
+          OGLLIBS += -L$(OGLHOME)/lib -lGLU -lGL
+        endif
+      endif
+    else
+      OGLLIBS := -L$(OGLHOME)/lib -lGLU -lGL
+    endif
+  endif
+
+# ---- Qt Setup block -------------------------------------------------------
+
+  ifndef QTHOME
+    QTHOME := /Library/Frameworks
+  endif
+  ifeq ($(QTHOME),/Library/Frameworks)
+    ifndef QTMOC
+      QTMOC      := /usr/bin/moc
+    endif
+    ifndef QTFLAGS
+      QTFLAGS   := -I $(QTHOME)/QtCore.framework/Headers 
+      QTFLAGS   += -I $(QTHOME)/QtGui.framework/Headers 
+      QTFLAGS   += -I $(QTHOME)/QtOpenGL.framework/Headers
+      QTFLAGS   += -I $(QTHOME)/include/Qt -I$(QTHOME)/include
+    endif
+    ifndef QTLIBPATH
+      QTLPATH  := $(QTHOME)
+    endif
+    QTLIBPATH  := -F$(QTLPATH)
+    QT_AS_FRAMEWORK := $(shell test -d $(QTLPATH)/QtCore.framework && echo yes)
+    ifndef QTLIBS
+      ifdef QT_AS_FRAMEWORK
+        QTLIBS    := $(QTLIBPATH) -framework QtCore -framework QtGui
+      else
+        QTLIBS    := -L$(QTLPATH) -lQtCore -lQtGui
+      endif   
+    endif
+    ifndef GLQTLIBS  
+      ifdef QT_AS_FRAMEWORK
+        GLQTLIBS    := $(QTLIBPATH) -framework QtCore -framework QtGui
+        GLQTLIBS    += -framework QtOpenGL
+      else
+        GLQTLIBS    := -L$(QTLPATH) -lQtCore -lQtGui -lQtOpenGL
+      endif   
+    endif
+  else
+    ifndef QTMOC
+      QTMOC      := $(QTHOME)/bin/moc
+    endif
+    QTLPATH  := $(QTHOME)/lib
+    ifndef QTFLAGS                          # Qt5
+      QTFLAGS   := -I $(QTLPATH)/QtCore.framework/Headers 
+      QTFLAGS   += -I $(QTLPATH)/QtGui.framework/Headers 
+      QTFLAGS   += -I $(QTLPATH)/QtWidgets.framework/Headers
+      QTFLAGS   += -I $(QTLPATH)/QtOpenGL.framework/Headers
+      QTFLAGS   += -I $(QTLPATH)/QtPrintSupport.framework/Headers
+      QTFLAGS   += -I $(QTHOME)/include/Qt -I$(QTHOME)/include
+    endif
+    ifndef QTLIBS
+       QTLIBS    := -F$(QTLPATH) -framework QtCore -framework QtGui
+       QTLIBS    += -framework QtWidgets -framework QtPrintSupport
+    endif   
+    ifndef GLQTLIBS  
+      GLQTLIBS    := -F$(QTLPATH) -framework QtCore -framework QtGui
+      GLQTLIBS    += -framework QtWidgets
+      GLQTLIBS    += -framework QtOpenGL -framework QtPrintSupport
+    endif   
+  endif
+
+#------ Wt Setup block ------------------------------------------------------
+
+  ifndef WTHOME
+    WTHOME := /usr
+  endif
+  WTFLAGS := -I$(WTHOME)/include/boost -I$(WTHOME)/include -DQT_NO_KEYWORDS 
+  WTLIBS  := -L$(WTHOME)/lib -lwt -lwtext -lwthttp  -lboost_signals  -L/usr/lib -lz -lssl -lcrypto
+
+#----------------------------------------------------------------------------
+
+  define build-granular-shared-lib
+    @libdir=`(cd $(@D);/bin/pwd)`; \
+     cd $(G4TMPDIR); \
+     $(CXX) -dynamiclib -single_module -undefined dynamic_lookup \
+         -o $$libdir/$(@F) $(INTYLIBS) *.o
+  endef
+  define build-global-shared-lib
+    @libdir=`(cd $(@D);/bin/pwd)`; \
+     cd $(G4TMP)/$(G4SYSTEM); \
+     $(CXX) -dynamiclib -single_module -undefined dynamic_lookup \
+         -o $$libdir/$(@F) $(INTYLIBS) $(foreach dir,$(SUBLIBS),$(dir)/*.o);
+  endef
+
+endif

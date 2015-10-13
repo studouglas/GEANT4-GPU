@@ -1,0 +1,492 @@
+$Id: History 90572 2015-06-04 09:32:32Z gcosmo $
+-------------------------------------------------------------------
+
+       ==========================================================
+       Geant4 - an Object-Oriented Toolkit for Physics Simulation
+       ==========================================================
+
+      History file for hadronic/models/parton_string/diffraction directory
+      -------------------------------------------------------------
+
+This file should be used to summarize modifications introduced in the 
+code and to keep track of all tags.
+
+     ---------------------------------------------------------------
+     * Please list in reverse chronological order (last date on top)
+     ---------------------------------------------------------------
+
+28-May-2015 A. Ribon       (hadr-string-diff-V10-00-17)
+- G4FTFModel : fixed energy non-conservation in nucleus-nucleus interactions
+  in the method SamplingNucleonKinematics.
+
+24-May-2015 V. Uzhinsky    (hadr-string-diff-V10-00-16)
+  Bug is fixed in G4FTFModel::SamplingNucleonKinematics for
+  hadron-nucleon interactions. fixed bug #1741
+
+18-May-2015 V. Uzhinsky
+- G4FTFParameters.cc 
+    A bug at Xnn calculations found by Alberto is fixed. The bug gives Xin=0 for projectile
+    nucleons in Nucl-Nucl interactions.
+
+22-Apr-2015 A. Ribon
+- G4FTFParticipants : added a new method to clean up the member vector.
+- G4FTFModel : using the above new method to release the memory allocated
+               in GetStrings().
+
+27-Nov-2014 V. Uzhinsky    (hadr-string-diff-V10-00-15)
+- Charge non-conservation is erased for meson-nucleus interactions
+  in G4Diffractive Excitation. It was caused by quark exchange.
+
+26-Nov-2014 A. Ribon       (hadr-string-diff-V10-00-14)
+- G4DiffractiveExcitation : use pole mass + 5*width as maximum mass for
+                            resonances.
+
+26-Nov-2014 A. Ribon       (hadr-string-diff-V10-00-13)
+- G4FTFModel : fixed a memory leak detected in test13.
+
+26-Nov-2014 A. Ribon       (hadr-string-diff-V10-00-12)
+- G4DiffractiveExcitation : replaced DBL_MAX with a very large mass, to avoid
+                            computations with DBL_MAX.
+
+19-Nov-2014 V. Uzhinsky    (hadr-string-diff-V10-00-11)
+- Bug connected with abnormal stable meson masses is fixed. Change of masses of particles in
+  quark-exchange processes is improved.
+
+  A problem of energy/momentum non-conservation in Xi- nucleus interactions is partly solved.
+  Energy/momentum is now conserved, but an acurate treatment of minimal difractive masses of
+  strange particles is needed. 
+
+19-Nov-2014 V. Uzhinsky    (hadr-string-diff-V10-00-10)
+- 2 bugs are fixed. The first one was connected with multiple quark exchanges in hA interactions
+  accompanated by string excitations. A status of such hadrons was not set in a right manner.
+  The second bug was in the determination of anti-alpha particle 4-momentum at stopping (at low
+  energy). All changes were marked "Uzhi 18 Nov. 2014".
+
+
+15-Nov-2014 V. Uzhinsky    (hadr-string-diff-V10-00-09)
+- Bug is fixed. It was connected with missing of treating of involved nucleons
+  of a projectile nucleus in FTFmodel (Case5 instead of Case 4).
+
+connected with annihilations of anti-delta isobars is erased. Now
+  G4FTFAnnihilation can treat the processes.
+  A fine tuning of parameters for Pi+P interactions is done.
+
+14-Nov-2014 V. Uzhinsky    (hadr-string-diff-V10-00-08)
+- Bug connected with annihilations of anti-delta isobars is erased. Now
+  G4FTFAnnihilation can treat the processes.
+  A fine tuning of parameters for Pi+P interactions is done.
+
+ 7-Nov-2014 V. Uzhinsky    (hadr-string-diff-V10-00-07)
+- Compilation bug is fixed for the tuned FTF model.
+
+ 6-Nov-2014 V. Uzhinsky    (hadr-string-diff-V10-00-06)
+- Tuned FTF model.
+
+ 2-Oct-2014 V. Uzhinsky    (hadr-string-diff-V10-00-05)
+-  Bug is fixed in G4DiffractiveSplitableHadron.cc where baryons are subdivided
+   into quark and diquark. Suppresion of uu-diquark in proton is also introduced.
+   Diquarks with identical quarks are now suppressed on 50 % (probability 1/6) except
+   baryon like Delta++ (uuu), Delta- (ddd) and so on.
+
+-  Parameters of FTF model are re-tuned in accordance with the hypothesis.
+   New paremeters are implemented in G4FTFParameters.cc
+
+-  Bug is fixed in G4DiffractiveExcitation.cc which leads to asymmetric rapidity
+   distributions in pp-interactions. Analogous bug can be with kinky strings.
+   It is not fount up to now. Thus, creation of the kinky strings is closed.
+
+17-Sep-2014 A. Ribon       (hadr-string-diff-V10-00-04)
+-  G4DiffractiveSplitableHadron : trying out Uzhinsky's idea, inspired
+   from instantons, of setting to 0 the probability of (uu)-diquark.
+
+12-Aug-2014 A. Ribon       (hadr-string-diff-V10-00-03)
+-  Postponed the previous, internal tag made by V. Uzhinsky.
+-  G4FTFModel : factorized the longest method, PutOnMassShell, 
+   without changing the results for hadron-nucleus, nucleus-nucleus,
+   anti_baryon-nucleus, and light anti_ion-nucleus interactions.
+
+30-May-2014 V. Uzhinsky    (hadr-string-diff-V10-00-02)
+-  Intermediate variant of FTFmodel is saved. The variant contents a
+   partially tuned process cross sections for pp-, Kp- and Pi p interactions.
+   Description of Pi p interactions is still unsattisfactory. The variant
+   has to work with LundStringFragmentation where Z^2 fragmentation function
+   is implemented for qq-fragmentations.
+
+23-May-2014 A. Ribon       (hadr-string-diff-V10-00-01)
+-  Fix bug #1550 : extend the vectors CandAQ, CandQ of G4FTFAnnihilation
+   in the case of one quark - anti-quark string, in order to correctly
+   handle antiproton - proton and antineutron - neutron annihilations.
+   Prepare also for Anti_Delta-- and Delta++ annihilation.
+
+21-May-2014 A. Ribon       (hadr-string-diff-V10-00-00)
+-  Set the minimum energy to apply ReggeonCascade at 2 GeV
+   (it was wrongly set to 5 GeV in G4 9.6.ref03, causing the bump at
+    5 GeV in the calorimeter visible energy of FTFP_BERT physics list).
+
+16-Oct-2013 A. Ribon       (hadr-string-diff-V09-06-18)
+-  Fixed a trivial warning error of the previous tag.
+
+16-Oct-2013 A. Ribon       (hadr-string-diff-V09-06-17)
+-  First, minor improvement of the code: clean-up, indentation,
+   removal of tabs and consistent use of spaces. 
+   Neither changes of the algorithms nor of the physics.
+
+31-Aug-2013 V. Uzhinsky    (hadr-string-diff-V09-06-16)
+-  Division by 0 is erased in FTF model (AdjustNucleons, cases 2 and 3)
+
+07-Aug-2013 A. Ribon       (hadr-string-diff-V09-06-15)
+-  Set Delta-isobar probability to 10%, as a compromise between better
+   agreement with thin-target data and smaller impact on hadronic shower
+   observables with respect to G4 9.6.ref06.
+
+02-Jul-2013 A. Ribon       (hadr-string-diff-V09-06-14)
+-  Replaced CLHEP::RandFlat with G4RandFlat in G4DiffractiveExcitation.cc.
+
+13-June-2012 V. Uzhinsky   (hadr-string-diff-V09-06-13)
+-  New parameterizations of FTF process cross sections are implemented.
+   25 % of Delta-isobar probability was returned.
+   A best description of exp. data on hP, hA interactions is reached.
+   Results of FTF become close to QGSM, especially for heavy targets.
+
+02-May-2013 A. Ribon       (hadr-string-diff-V09-06-12)
+-  For thread safety, replaced CLHEP::RandFlat with G4RandFlat in 
+   G4DiffractiveExcitation.cc and G4FTFAnnihilation.cc.
+
+21-Mar-2013 A. Ribon       (hadr-string-diff-V09-06-11)
+-  Fixed warning message in G4DiffractiveHHScatterer.
+
+14-Feb-2013 V. Uzhinsky    (hadr-string-diff-V09-06-10)
+-  Division by 0 erased in G4FTFAnnihilation for DbarPb
+   if(Prel2 <= 0. ) is inserted.
+
+ 8-Feb-2013 V. Uzhinsky    (hadr-string-diff-V09-06-09)
+-  Division by 0 erased in G4FTFParameters.cc for PbarP
+   X pion diffraction # 0.
+
+ 6-Feb-2013 A. Ribon    (hadr-string-diff-V09-06-08)
+-  Close writing of debugging information in G4FTFParameters.cc
+
+ 5-Feb-2013 V.Uzhinsky  (hadr-string-diff-V09-06-07)
+-  Annihilation at rest is improved.
+
+ 4-Feb-2013 V.Uzhinsky  (hadr-string-diff-V09-06-06)
+-  Warning message of G4FTFmodel (line 155) is erased.
+
+ 1-Feb-2013 V.Uzhinsky  (hadr-string-diff-V09-06-05)
+-  Bug is fixed in double delition of projectile nucleus
+
+30-Jan-2013 V.Uzhinsky  (hadr-string-diff-V09-06-04)
+-  Bug is fixed in reggeon cascading
+
+29-Jan-2013 V.Uzhinsky  (hadr-string-diff-V09-06-03)
+-  New attempt to implement nucl-nucl interaction simulation
+
+12-Jan-2013 V.Uzhinsky  (hadr-string-diff-V09-06-02)
+-  New attempt to implement nucl-nucl interaction simulation
+
+19-Dec-2012 V. Uzhinsky  (hadr-string-diff-V09-06-01)
+-  Unneeded print-out was closed. Stopping of particles in AA-interaction
+   below 2 GeV/N was blocked. Energy-momentum conservation in 
+   AA-interactions was recovered.
+
+18-Dec-2012 V. Uzhinsky  (hadr-string-diff-V09-06-00)
+-  An interface for a manipulation with nucleus-nucleus interactions was
+   improved. A low energy limit of FTF model is lowered. Adjust method was
+   essential extended. It is expected that there will not be problem with 
+   high energy interactions. Problem can be with anti-nuclei.
+
+21-Nov-2012 V. Uzhinsky   (hadr-string-diff-V09-05-19)
+-  Bug fixing.
+
+20-Nov-2012 V. Uzhinsky   (hadr-string-diff-V09-05-18)
+-  An interface for a manipulation with nucleus-nucleus interactions was
+   introduced, especially for treating remnants of projectile nuclei.
+
+27 September 2012, G.Cosmo
+=  Explicitly use inclusion of headers for system of units and physical
+   constants, in plan to remove implicit inclusion from globals.hh.
+
+15 August 2012, A.Ribon  (hadr-string-diff-V09-05-17)
+-  Coverity fixes in G4FTFParticipants.cc.
+
+14 August 2012, A.Ribon  (hadr-string-diff-V09-05-16)
+-  Coverity fixes in G4FTFParticipants.cc and G4FTFParameters.cc.
+
+25 July 2012, A.Ribon   (hadr-string-diff-V09-05-15)
+-  Coverity fixes in: G4FTFModel, G4FTFAnnihilation,
+   G4ElasticHNScattering, G4FTFParameters, G4FTFParticipants.
+
+17 July 2012, G.Folger   (hadr-string-diff-V09-05-14)
+-  fixes for coverity in G4DiffractiveSplitableHadron
+
+6 July 2012, V. Uzhinsky (hadr-string-diff-V09-05-13)
+- FTF parameters tunned: Wdelta 0.25 -> 0.05, Dcor 0.4 -> 0.3
+                         E* 75 -> 100 MeV
+-------------------------------------------------------
+21 June 2012, W.Pokorski  (hadr-string-diff-V09-05-12)
+- removed dependency on CHIPS in sources.cmake file
+-------------------------------------------------------
+
+20 June 2012, V. Uzhinsky (hadr-string-diff-V09-05-11)
+- Bug is fixed for K-minus interactions in FTFModel
+-------------------------------------------------------
+
+13 June 2012, V. Uzhinsky (hadr-string-diff-V09-05-10)
+- Bug is fixed for high energy anti-baryons in FTFModel
+-------------------------------------------------------
+
+12 June 2012, V. Uzhinsky (hadr-string-diff-V09-05-09)
+- Bug is fixed in PutOnMassShell in FTFModel
+- FTFModel operation is improved.
+-------------------------------------------------------------
+
+12 June 2012, G.Folger   (hadr-string-diff-V09-05-08)
+-  Fix sahdowing of variables, 
+    affected files:G4FTFParameters.{hh,cc},G4FTFModel.cc,G4DiffractiveExcitation.cc
+--------------------------------------------------------------------
+
+6 June 2012, V. Uzhinsky (hadr-string-diff-V09-05-07)
+- Diffraction dissociation of p/pi/k-mesons are improved.
+- Fit of exp. data on p/pi/k + H has been done.
+- Good results are obtained for h+A interactions.
+- New energy dependences are introduced for the diffraction
+  cross sections.
+- Quark exchange algorithm is improved. Strings with large masses
+  are now allowed to save thier masses.
+- Pt transfered in the excitation is increased up to 0.3 GeV/c.
+- String mass sampling for baryon like strings is changed.
+--------------------------------------------------------------------
+31 May 2012, W.Pokorski (hadr-string-diff-V09-05-06)
+---------------------------------------------------------------------
+ - slight change in the implementation of the static pointer for the 
+ cross sections (to make it safer)
+
+30 May 2012, W.Pokorski (hadr-string-diff-V09-05-05)
+---------------------------------------------------------------------
+ - making G4ChipsComponentXS static to avoid multiple instanciations
+
+25-May-2012, Gunter Folger   (hadr-string-diff-V09-05-04)
+-  Add ModelDescription in FTF
+-  Make copy ctor, =, ==, and != operators private without implementation
+-  add Modelname in Ctor
+
+21 May 2012, V.Uzhinsky (hadr-string-diff-V09-05-03)
+-  Improved diffraction dissociation is implemented
+
+--------------------------------------------------------
+21 May 2012, W.Pokorski (hadr-string-diff-V09-05-02)
+---------------------------------------------------------------------
+ - definitely removing G4ComponentCHIPShadronNuclearXS
+
+11 May 2012, W.Pokorski (hadr-string-diff-V09-05-01)
+---------------------------------------------------------------------
+ - G4FTFParameters uses the new G4ChipsComponentXS from 
+ hadronic/cross_sections
+
+May 5, 2012, Gunter Folger  ( ..trunk.. )
+- revert changes by Mikhail ( rev. r58261 )
+
+28 April 2012, M.Kosov                 (hadr-string-diff-V09-05-00)
+- hadronic/models/chiral_inv_phase_space moved to hadronic/chips
+
+22-November 2011, V. Uzhinsky& G.Folger (hadr-string-diff-V09-04-10)
+   Fix memory leak in G4FTFParticipants.cc
+
+1 November 2011, V. Uzhinsky (hadr-string-diff-V09-04-09)
+   AjustNucleusFor Annih was closed in Get String. It is need to think 
+   a little bit.
+
+27 October 2011, V. Uzhinsky (hadr-string-diff-V09-04-08)
+   2 bugs are fixed in FTFmodel and FTFparameters for anti-baryon.
+
+--------------------------------------------------------------------
+18 October 2011, A.Ribon  (hadr-string-diff-V09-04-07)
+---------------------------------------------------------------------
+   Added protection in G4FTFModel to avoid crash when using Fritiof
+   for nuclear capture of anti-protons at rest.
+
+2 July 2011, V. Uzhinsky (hadr-string-diff-V09-04-06)
+-----------------------------------------------------
+   Huge excitation energy is erased. It was connected with energetic
+   nucleons produced at the Reggeon cascading.
+
+17 June 2011, G.Folger    (hadr-string-diff-V09-04-05)
+---------------------------------------------------------------------
+   In G4DiffractiveExcitation, fix warning from gcc 4.6 on "unused" 
+    variable TestParticle from line 514 onwards; this is only assigned, 
+    but never used
+   
+10 June 2011, V. Uzhinsky (hadr-string-diff-V09-04-04)
+   Low energy limit of FTF is decreased.
+---------------------------------------------------------------------
+
+7 June 2011, V. Uzhinsky (hadr-string-diff-V09-04-03)
+  cmake is corrected.
+---------------------------------------------------------------------
+7 June 2011, V. Uzhinsky (hadr-string-diff-V09-04-02)
+  Some mistakes are erased with the cross-sections.
+---------------------------------------------------------------------
+
+2 June 2011, V. Uzhinsky (hadr-string-diff-V09-04-01)
+  Parameters of Kaon-Proton interactions are tuned in FTF.
+  CHIPS cross sections are used now in FTF for needed X's.
+  The corresponding class is created - G4ComponentCHIPShadronNuclearXS
+---------------------------------------------------------------------
+
+19 February 2011, V. Uzhinsky (hadr-string-diff-V09-04-00)
+    Energy-momentum conservation is improved in FTF annihilation.
+    A new method - "void G4FTFModel::AjustTargetNucleonForAnnihilation(
+                    G4VSplitableHadron *SelectedTargetNucleon) 
+    has been addded.
+-------------------------------------------------------
+15 Nov. 2010, V. Uzhinsky (hadr-string-diff-V09-03-04)
+FTF with tuned parameters for pA and PiA interactions.
+    Quark exchange is tuned.
+    Low mass string fragmentation is improved.
+    Reggeon cascade parameters are tuned.
+
+--------------------------------------------------------
+20 Sept. 2010, V, Uzhinsky (hadr-string-diff-V09-03-03)
+FTF with new tuned parameters of nuclear destrustion is implemented.
+The parameters were tuned using HARP-CDP data on p+Cu interactions.
+They will be re-tuned for heavy nuclei a little bit.
+
+----------------------------------------------------
+8 Sept 2010 G.Folger  (hadr-string-diff-V09-03-02)
+   G4FTFModel.cc: use integer interace of G4Nucleus     
+
+14 Jun 2010 G.Cosmo  (hadr-string-diff-V09-03-01)
+  Added missing virtual destructor to G4DiffractiveHHScatterer.
+   
+15 Dec 2009 V.Uzhinsky  (hadr-string-diff-V09-02-23)
+  Bug was fixed for Kaon + A interactions in G4DiffractiveExcitation.cc
+
+------------------------------------------------------------
+15 Dec 2009 G.Folger     (hadr-string-diff-V09-02-22)
+  G4FTFModel: In ctor, initialise NumberOfInvolvedNucleon
+
+14 Dec. 2009 V. Uzhinsky (hadr-string-diff-V09-02-21)
+  Momentum sampling in the reggeon cascade is improved.
+  More hard restrictions on the momentum are introdused.
+  Infinite loop is erased.
+  Arithmetical bag in kinky string is fixed.
+
+--------------------------------------------------------
+10 Dec. 2009 V. Uzhinsky (hadr-string-diff-V09-02-20)
+  Crush found by Alberto with AveragePt2=0 is erased in FTF.
+  Re-tag of hadr-string-diff-V09-03-00
+-----------------------------------------------------
+9 Dec. 2009 V. Uzhinsky (hadr-string-diff-V09-03-00)
+  Crush found by Alberto with AveragePt2=0 is erased in FTF.
+--------------------------------------------------------
+6 Dec. 2009 V.Uzhinsky (hadr-string-diff-V09-02-19) 
+   Sampling of kinky string momentum is improved
+  
+25 November 2009, V. Uzhinsky (hadr-string-diff-V09-02-18)
+   Memory leak is erased in FTF at the end.
+
+29 October 2009, V. Uzhinsky (hadr-string-diff-V09-02-17)
+   Warning meassage is erased for using slc5 compilator in FTFModel.cc
+
+25 October 2009, V. Uzhinsky (hadr-string-diff-V09-02-16)  
+   Excitation energy calculation of nuclear residuals is implemenred.
+   The interface to the G4PrecompoundModelInterface is improved.
+----------------------------------------------------------
+6 October 2009, V. Uzhinsky (hadr-string-diff-V09-02-15)
+   Compilation warning are erased.
+----------------------------------------------------------
+5 October 2009, V. Uzhinsky (hadr-string-diff-V09-02-14)
+   FTFP with tuned parameters of nuclear de-excitation.
+
+-----------------------------------------------------------
+19 Sept., 2009, V. Uzhinsky (hadr-string-diff-V09-02-13)
+   I have foggoten to open quasi-elastic scattering!
+   Now it is openned.
+----------------------------------------------------------
+17 Sept., 2009, V. Uzhinsky (hadr-string-diff-V09-02-12)
+   FTF parameters have been tunned on hN-interactions.
+   Binary reactions were introduced and checked.
+   Creation of s-channel Delta's was erased.
+
+-----------------------------------------
+6 August 2009, V. Uzhinsky (hadr-string-diff-V09-02-11)
+  Kaon A interactions are improved in FTFModel.
+----------------------------------------------------------
+6 August 2009, V. Uzhinsky (hadr-string-diff-V09-02-10)
+  A warning message at FTFmodel compilation connected with Xminus
+  initialisation was erased.
+----------------------------------------------------------
+5 August 2009, V.Uzhinsky (hadr-string-diff-V09-02-09)
+  Some additional warning found by Gabriela were erased.
+------------------------------------------------------------
+5 August 2009, V. Uzhinsky (hadr-string-diff-V09-02-08)
+  Warning meassages were erased at a compilation of FTF model
+-----------------------------------------------------------
+3 August 2009, V. Uzhinsky (hadr-string-diff-V09-02-07)
+   FTF model with the reggeon cascading was complited by
+   formation time for a following coupling with the binary model.
+-----------------------------------------------------------
+31 July 2009, V. Uzhinsky (hadr-string-diff-V09-02-06)
+   Inconsistency in G4FTFModel was erased thank to Gunter.
+
+----------------------------------------------------------
+31 July 2009, V. Uzhinsky (hadr-string-diff-V09-02-05)
+   The reggeon theory inspired model of duclear desctruction is
+   implemented for a simulation of low particle cascading.
+   The code can operate with Precompound model only.
+-------------------------------------------------------------------
+
+17 July V. Uzhinsky        (hadr-string-diff-V09-02-04)
+   A Status of nuclear nucleon involved in an interaction is introdused.
+   Status: 0 - spectator, 1 - primary involved nucleon, 2 - a nucleon
+   involved in the reggeon cascading, 3 - absorbed nucleon.
+
+   A connection between a participant nucleon and a nuclear nucleon was
+   introsuced in G4InteractionContent.
+
+   All of these allow to improve FTF model for pion obsorption on nuclei.
+   These required a lot of changes.
+---------------------------------------------------------
+
+10 July V. Uzhinsky        (hadr-string-diff-V09-02-03)
+Bug was fixed in G4FTFModel.cc thank to A. Ribon
+---------------------------------------------------------
+9 July 2009 V. Uzhinsky    (hadr-string-diff-V09-02-02)
+- Charge-exchange was implemented for pn->np 
+  elastic and inelastic interactions.
+- Pion absorption by a nucleon was implemented. 
+  See comments marked by Uzhi 07.07.09
+---------------------------------------------------------
+19 December 08 V. Uzhinsky (hadr-string-diff-V09-02-01)
+---------------------------------------------------------
+ Version of FTF suted for low energies (2-10 GeV/c)
+
+9 December 08, V. Uzhinsky (hadr-string-diff-V09-01-04)
+- Improvement of delete operators in FTF
+
+5 December 08, V. Uzhinsky (hadr-string-diff-V09-01-03)
+- Some objects did not erase in FTFModel desructor. These lead to memory 
+  leak.
+
+
+2 June 08, G.Folger 		(hadr-string-diff-V09-01-02)
+-  on branch geant4-09-01-patches_branch, fix compilation warning for unused 
+     variables in G4FTFModel.cc
+     
+
+
+??????????????????????????????      (hadr-string-diff-V09-01-01)
+
+31 March 2008 V. Uzhinsky           Tag : hadr-string-diff-V09-01-00
+- G4FTFParameters.cc and G4FTFParameters.hh were copied from G4FTFCrossSection
+  corresponding files.
+- New files - G4ElasticHNScattering have been added. They implement elastic 
+  scattering of hadron in intra-nuclear collisions in FTF model.
+- The corresponding changes have been done in G4FTFModel.cc and 
+  G4FTFParticipants.cc
+
+  
+24 Apr 2007 Gunter Folger  (hadr-string-diff-V08-02-00)
+-  merge in change done by ftf development.
+- Created History file.
+

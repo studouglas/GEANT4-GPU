@@ -1,0 +1,540 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<!-- Created on October, 6  2004 by texi2html 1.65 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>TOP-C (Task Oriented Parallel C/C++): Overview</TITLE>
+
+<META NAME="description" CONTENT="TOP-C (Task Oriented Parallel C/C++): Overview">
+<META NAME="keywords" CONTENT="TOP-C (Task Oriented Parallel C/C++): Overview">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.65">
+
+</HEAD>
+
+<BODY LANG="en" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC3"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_2.html#SEC2"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_3.html#SEC4"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_2.html#SEC2"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc.html#SEC_Top"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_4.html#SEC14"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_14.html#SEC62">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H1> 3. Overview of `<SAMP>TOP-C/C++</SAMP>' </H1>
+<!--docid::SEC3::-->
+<P>
+
+<TABLE><tr><td>&nbsp;</td><td class=display><pre style="font-family: serif">                       "Difficulty?" exclaimed Ford. "Difficulty?  What
+                   do you mean difficulty?  [The wheel is] the single
+                   simplest machine in the universe!"  ...
+                       "All right, Mr. Wiseguy,"  she said,  "you're so
+                   clever, you tell us what color it should be."
+                       from "The Restaurant at the End of the Universe"
+                       by Douglas Adams
+</pre></td></tr></table></P><P>
+
+`<SAMP>TOP-C</SAMP>' has been designed especially to make it easy to parallelize
+<EM>existing</EM> sequential applications.  Toward this goal,
+`<SAMP>TOP-C</SAMP>' emphasizes:
+<OL>
+<LI>ease of use (high level task-oriented abstraction);
+<LI>latency tolerance; and
+<LI>architecture independence (same application code for
+	shared and distributed memory).
+</OL>
+<P>
+
+A `<SAMP>TOP-C</SAMP>' application is compiled and run using <CODE>topcc</CODE>
+(similarly to <CODE>gcc</CODE>) or <CODE>topc++</CODE> (similarly to <CODE>g++</CODE>).
+For example, assuming a `<TT>procgroup</TT>' file in the current
+directory to specify the remote hosts for the slave processes,
+one executes:
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>  topcc --mpi parfactor.c
+  # or else:  topc++ --mpi parfactor.cc
+  ./a.out
+</pre></td></tr></table></P><P>
+
+If a `<SAMP>TOP-C</SAMP>' application fails to link, check for a clash of
+symbol names.  All TOP-C symbols are of the form
+TOPC_*, COMM_*, MEM_*, MPI_*, MPINU_*, NO_ACTION, UPDATE, REDO, CONTINUATION,
+or NOTASK.
+</P><P>
+
+For purposes of documentation, we will standardize on an explanation of
+<CODE>topcc</CODE>.  Wherever <CODE>topcc</CODE> is mentioned, the description is
+equally valid for <CODE>topc++</CODE>.
+</P><P>
+
+<BLOCKQUOTE><TABLE BORDER=0 CELLSPACING=0> 
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="topc_3.html#SEC4">3.1 Programmer's Model</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="topc_3.html#SEC12">3.2 Three Key Concepts for TOP-C</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="topc_3.html#SEC13">3.3 Distributed and Shared Memory Models</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+</TABLE></BLOCKQUOTE>
+<P>
+
+<A NAME="Programmer Model"></A>
+<HR SIZE="6">
+<A NAME="SEC4"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_3.html#SEC3"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_3.html#SEC5"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_3.html#SEC3"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_3.html#SEC3"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_3.html#SEC12"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_14.html#SEC62">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 3.1 Programmer's Model </H2>
+<!--docid::SEC4::-->
+<P>
+
+<BLOCKQUOTE><TABLE BORDER=0 CELLSPACING=0> 
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="topc_3.html#SEC5">3.1.1 Structure of a TOP-C Program</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="topc_3.html#SEC6">3.1.2 Four Callback Functions</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="topc_3.html#SEC7">3.1.3 Task Input and Task Output Buffers</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="topc_3.html#SEC11">3.1.4 The `<SAMP>TOP-C</SAMP>' Algorithm</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+</TABLE></BLOCKQUOTE>
+<P>
+
+<A NAME="Structure of a TOP-C Program"></A>
+<HR SIZE="6">
+<A NAME="SEC5"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_3.html#SEC4"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_3.html#SEC6"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_3.html#SEC3"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_3.html#SEC4"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_3.html#SEC12"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_14.html#SEC62">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 3.1.1 Structure of a TOP-C Program </H3>
+<!--docid::SEC5::-->
+<P>
+
+A typical TOP-C application has the following structure:
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>#include &#60;topc.h&#62;
+... define four callback functions for TOPC_master_slave() ...
+int main( int argc, char **argv ) {
+  TOPC_init( &#38;argc, &#38;argv );
+  ...
+  TOPC_master_slave( GenerateTaskInput, DoTask, CheckTaskResult,
+                     UpdateSharedData )
+  ...
+  TOPC_finalize();
+}
+</pre></td></tr></table></P><P>
+
+The program above is run with a master process and several slave processes
+operating with identical command line arguments and identical initial
+data (SPSD, or Single Program, Single Data).  Communication among processes 
+occurs only within the routine <CODE>TOPC_master_slave()</CODE>, during which
+execution can be called SPMD (Single Program, Multiple Data).  At the end
+of <CODE>TOPC_master_slave()</CODE>, execution returns to SPSD, although the
+master process may contain some additional process-private data.
+</P><P>
+
+<A HREF="topc_9.html#SEC54">9. `<SAMP>TOP-C</SAMP>' Raw Interface for Parallelizing Sequential Code</A> describes an alternative interface that is
+often useful for parallelizing existing sequential code.  However, for
+new applications, the standard interface will usually be cleaner.
+</P><P>
+
+<A NAME="Four Callback Functions"></A>
+<HR SIZE="6">
+<A NAME="SEC6"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_3.html#SEC5"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_3.html#SEC7"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_3.html#SEC3"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_3.html#SEC4"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_3.html#SEC12"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_14.html#SEC62">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 3.1.2 Four Callback Functions </H3>
+<!--docid::SEC6::-->
+<P>
+
+In a `<SAMP>TOP-C</SAMP>' application, the programmer defines four callback
+functions and passes control to the `<SAMP>TOP-C</SAMP>' library through the
+following command.
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>  TOPC_master_slave(GenerateTaskInput, DoTask, CheckTaskResult,
+                    UpdateSharedData);
+</pre></td></tr></table></P><P>
+
+Pictorially, TOP-C arranges for the flow of control among the four callback
+functions as follows:
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>      (ON MASTER)      task input
+   GenerateTaskInput() ----------&#62;
+
+
+  task input   (ON A SLAVE)  task output
+  -----------&#62; DoTask(input) -----------&#62;
+
+
+  task output     (ON MASTER)                    action
+  -----------&#62; CheckTaskResult(input, output) -----------&#62;
+
+
+if (action == UPDATE):
+  task input, task output      (ON ALL PROCESSES)
+  -----------------------&#62; UpdateSharedData(input, output)
+</pre></td></tr></table></P><P>
+
+<A NAME="Task Buffers"></A>
+<HR SIZE="6">
+<A NAME="SEC7"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_3.html#SEC6"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_3.html#SEC11"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_3.html#SEC3"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_3.html#SEC4"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_3.html#SEC12"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_14.html#SEC62">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 3.1.3 Task Input and Task Output Buffers </H3>
+<!--docid::SEC7::-->
+<P>
+
+<A NAME="IDX1"></A>
+<A NAME="IDX2"></A>
+</P><P>
+
+A <EM>task input</EM> or <EM>task output</EM> is an arbitrary buffer of bytes
+of type <CODE>(void *)</CODE> in `<SAMP>TOP-C</SAMP>'.  The task buffers are arbitrary
+application-defined data structures, which are opaque to `<SAMP>TOP-C</SAMP>'.
+Note that in ANSI C, a void pointer is compatible with any other pointer type
+(such as <CODE>(struct task_input *)</CODE> and <CODE>(struct task_output *)</CODE>
+in the example below).
+</P><P>
+
+<BLOCKQUOTE><TABLE BORDER=0 CELLSPACING=0> 
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="topc_3.html#SEC8">Defining Application Task Buffers</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="topc_3.html#SEC9">Marshaling (Serialization) and Heterogeneous Architectures</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="topc_3.html#SEC10">Marshalgen, a Package for Marshaling</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+</TABLE></BLOCKQUOTE>
+<P>
+
+<A NAME="Defining Task Buffers"></A>
+<A NAME="SEC8"></A>
+<H4> Defining Application Task Buffers </H4>
+<!--docid::SEC8::-->
+<P>
+
+An application callback function returning a task input or task output
+must encapsulate it in a function, <CODE>TOPC_MSG( void *<VAR>buf</VAR>, int
+<VAR>buf_size</VAR> )</CODE>, which is then returned by the callback functions
+<CODE>GenerateTaskInput()</CODE> and <CODE>DoTask()</CODE>.  <CODE>TOPC_MSG()</CODE>
+internally allocates a copy of <VAR>buf</VAR>, and TOP-C later frees the copy
+automatically.  So, <VAR>buf</VAR> may be reused by the application program.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>TOPC_BUF DoTask( struct task_input * inp ) {
+  struct task_output outp;
+  ...
+  outp = ...;
+  return TOPC_MSG( &#38;outp, sizeof(outp) );
+}
+</pre></td></tr></table></P><P>
+
+The principle of memory allocation in `<SAMP>TOP-C</SAMP>' is that if an
+application allocates memory, then it is the responsibility of the
+application to free that memory.  <CODE>TOPC_MSG()</CODE> has the further
+property of copying its buffer argument to a separate `<SAMP>TOP-C</SAMP>' space
+(using a shallow copy), after which the application can free any memory it
+allocated.  This happens automatically in the above example,
+since <CODE>outp</CODE> is allocated on the stack.
+</P><P>
+
+<A NAME="Marshaling"></A>
+<A NAME="SEC9"></A>
+<H4> Marshaling (Serialization) and Heterogeneous Architectures </H4>
+<!--docid::SEC9::-->
+<P>
+
+<A NAME="IDX3"></A>
+<A NAME="IDX4"></A>
+<A NAME="IDX5"></A>
+</P><P>
+
+If a heterogeneous
+architecture is used, there is an issue of converting data formats
+or <EM>marshaling</EM>.
+This is the application's responsibility.  For simple data formats
+(integers, floats or characters), such conversion can easily be done
+in an ad hoc manner.  Most C compilers use the IEEE binary
+floating point standard, and characters are almost always encoded
+in eight bit ASCII representation (or possibly in a standard Unicode
+format).  Although the byte ordering of integers is not standardized,
+the system calls <CODE>htonl()</CODE> and <CODE>ntohl()</CODE> are available
+to convert integers into 32 bit <EM>network integers</EM> that are
+portable across heterogeneous systems.
+</P><P>
+
+For more complicated conversions, one can consider writing one's own
+marshaling routines or else using a standard package for marshaling
+such as the `<SAMP>XDR</SAMP>' library (RFC 1832, eXternal Data Representation),
+`<SAMP>IDL</SAMP>' (`<SAMP>Corba</SAMP>'), or `<SAMP>SOAP</SAMP>' (`<SAMP>XML</SAMP>').
+</P><P>
+
+<A NAME="Marshalgen"></A>
+<A NAME="SEC10"></A>
+<H4> Marshalgen, a Package for Marshaling </H4>
+<!--docid::SEC10::-->
+<P>
+
+For complex C++ applications, we recommend tat you try out
+`<SAMP>Marshalgen</SAMP>' package.  A pointer to it is available from the TOP-C
+home page.  Since the C++ classes to be marshaled are already defined in
+`<TT>.h</TT>' files, Marshalgen asks th user simply to annotate those files
+with comments (for example, deep copying vs. shallow copying fo
+pointers).  `<SAMP>Marshalgen</SAMP>' also has support for such real world
+issues as marshalingsubclasses and templates, handling of polymorphism,
+etc.  The `<SAMP>Marshalgen</SAMP>' preprocessor then generates methods for a
+new marshaling class that know how to marshal and unmarshal the original
+class.
+</P><P>
+
+<A NAME="IDX6"></A>
+</P><P>
+
+<A NAME="The TOP-C Algorithm"></A>
+<HR SIZE="6">
+<A NAME="SEC11"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_3.html#SEC7"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_3.html#SEC12"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_3.html#SEC3"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_3.html#SEC4"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_3.html#SEC12"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_14.html#SEC62">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 3.1.4 The `<SAMP>TOP-C</SAMP>' Algorithm </H3>
+<!--docid::SEC11::-->
+<P>
+
+When there is only one slave, 
+The `<SAMP>TOP-C</SAMP>' algorithm can be summarized by the
+following C code.
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>{ void *input, *output;
+  TOPC_ACTION action;
+  while ( (input = GenerateTaskInput()) != NOTASK ) {
+     do {
+       output = DoTask(input);
+       action = CheckTaskResult(input, output);
+     } while (action == REDO);  /* REDO not useful for only one slave */
+     if (action == UPDATE) then UpdateSharedData(input, output);
+  }
+}
+</pre></td></tr></table></P><P>
+
+On a first reading, it is recommended to skip the rest of this
+section until having read through Section <A HREF="topc_4.html#SEC17">4.3 Actions Returned by <CODE>CheckTaskResult()</CODE></A>.
+</P><P>
+
+For a better understanding of the case of multiple
+slaves, this simplified excerpt from the `<SAMP>TOP-C</SAMP>' source code describes
+the `<SAMP>TOP-C</SAMP>' algorithm.
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>TOPC_BUF input, output;
+int num_idle_slaves = num_slaves;
+TOPC_ACTION action;
+
+while (TRUE) {
+  wait_until_an_idle_slave();
+  input = COMM_generate_task_input();
+  if (input.data != NOTASK.data) {
+    SUBMIT_TO_SLAVE:  output = DoTask(input.data);
+    num_idle_slaves--;
+  }
+  else if (num_idle_slaves &#60; num_slaves) // else insure progress condition
+    receive_task_output();               // by blocking until a slave replies
+  else break;
+} // termination condition:  _after_ all slaves idle, next input was NOTASK
+</pre></td></tr></table></P><P>
+
+The code for <CODE>wait_until_an_idle_slave()</CODE> can be expanded as follows.
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>void wait_until_an_idle_slave() {
+  do {
+    while ( result_is_available(&#38;input, &#38;output) ) {
+      action = CheckTaskResult(input.data, output.data);
+      if (action == UPDATE)
+        UpdateSharedData(input.data, output.data);
+      if (action == REDO) /* Use updated shared data, when redoing */
+        SUBMIT_TO_SLAVE:  output = DoTask(input.data);
+      num_idle_slaves++;
+    } while (num_idle_slaves == 0);
+  }
+</pre></td></tr></table></P><P>
+
+Note that the term <EM>result</EM> refers to an `<SAMP>(input,output)</SAMP>' pair.
+The routine <CODE>CheckTaskResult()</CODE> returns an <EM>action</EM>, which
+determines the
+control structure for a parallel algorithm.  A common definition is:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>TOPC_ACTION CheckTaskResult( void *input, void *output ) {
+  if (output == NULL) return NO_ACTION;
+  else if ( TOPC_is_up_to_date() ) return UPDATE;
+  else return return REDO; }
+</pre></td></tr></table></P><P>
+
+<CODE>TOPC_is_up_to_date()</CODE> returns true if and only if during the interval
+between when the task input was originally generated and when the task
+output was returned by the most recent slave, no other slave process had
+returned a task output during the interim that had caused the shared data
+to be modified through an <CODE>UPDATE</CODE> action.  An <CODE>UPDATE</CODE> action causes
+<CODE>UpdateSharedData()</CODE> to be invoked on each process.  Further
+discussion can be found in <A HREF="topc_4.html#SEC18">4.4 TOP-C Utilities</A>.
+</P><P>
+
+<A NAME="Three Key Concepts for TOP-C"></A>
+<HR SIZE="6">
+<A NAME="SEC12"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_3.html#SEC11"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_3.html#SEC13"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_3.html#SEC4"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_3.html#SEC3"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_4.html#SEC14"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_14.html#SEC62">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 3.2 Three Key Concepts for TOP-C </H2>
+<!--docid::SEC12::-->
+<P>
+
+<A NAME="IDX7"></A>
+<A NAME="IDX8"></A>
+<A NAME="IDX9"></A>
+<A NAME="IDX10"></A>
+<A NAME="IDX11"></A>
+</P><P>
+
+    The `<SAMP>TOP-C</SAMP>' programmer's model is based on three key concepts:
+<OL>
+<LI>
+ <EM>tasks</EM> in the context of a master/slave architecture;
+<LI>
+ global <EM>shared data</EM> with lazy updates; and
+<LI>
+ <EM><VAR>actions</VAR></EM> to be taken after each task.
+</OL>
+<P>
+
+Task descriptions (task inputs) are generated on the master, and assigned to
+a slave.  The slave executes the task and returns the result to the master.
+The master may update its own private data based on the result, or it may
+update data on all processes.  Such global updates take place on each slave
+after the slave completes its current task.  Updates are <EM>lazy</EM> in
+that they occur only after a task completes, although it is possible to
+issue a non-binding request to `<SAMP>TOP-C</SAMP>' to abort the current tasks
+(<A HREF="topc_8.html#SEC41">8.2 Aborting Tasks</A>).
+A SPMD (Single Program Multiple
+Data) style of programming is encouraged.
+</P><P>
+
+In both shared and distributed memory architectures, one must worry
+about the order of reads and writes as multiple slaves autonomously
+update data.  The utilities below are meant to ease that chore, by
+supporting the ease of the SPMD programming style, while still
+maintaining good efficiency and generality for a broad range of
+applications.  The software can easily be ported to a variety of
+architectures.
+</P><P>
+
+<A NAME="Memory Models"></A>
+<HR SIZE="6">
+<A NAME="SEC13"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_3.html#SEC12"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_4.html#SEC14"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_3.html#SEC3"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_3.html#SEC3"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_4.html#SEC14"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_14.html#SEC62">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 3.3 Distributed and Shared Memory Models </H2>
+<!--docid::SEC13::-->
+<P>
+
+<A NAME="IDX12"></A>
+<A NAME="IDX13"></A>
+<A NAME="IDX14"></A>
+</P><P>
+
+`<SAMP>TOP-C</SAMP>' provides a single API to support three primary memory
+models: <EM>distributed memory</EM>, <EM>shared memory</EM> and
+<EM>sequential memory</EM>.  (The last model, sequential memory, refers to
+a single sequential, non-parallel process.)  On a first reading, one
+should think primarily of the distributed memory model (distributed
+nodes, each with its own private memory).  Most programs written for
+distributed memory will compile without change for sequential memory.
+`<SAMP>TOP-C</SAMP>' is designed so that the same application source code may
+operate efficiently both under distributed and under shared memory.  In
+order to also compile for shared memory hardware (such as SMP),
+additional hints to `<SAMP>TOP-C</SAMP>' may be necessary.
+</P><P>
+
+In shared memory architectures, <EM>all</EM> data outside of the four
+callback functions is shared, by default.  Hence, an <CODE>UPDATE</CODE>
+action under shared memory causes only the master process to invoke
+<CODE>UpdateSharedData()</CODE>.  To avoid inconsistencies in the data, by
+default `<SAMP>TOP-C</SAMP>' arranges that no slave process may run
+<CODE>DoTask()</CODE> while <CODE>UpdateSharedData()</CODE> is running.
+`<SAMP>TOP-C</SAMP>' also provides support for finer levels of granularity
+through application-defined private variables and critical sections.
+Further discussion can be found in <A HREF="topc_8.html#SEC47">8.4 Optimizing TOP-C Code for the Shared Memory Model</A>.
+</P><P>
+
+<A NAME="Writing TOP-C Applications"></A>
+<HR SIZE="6">
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_3.html#SEC3"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_4.html#SEC14"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_14.html#SEC62">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+by <I>Gene Cooperman</I> on <I>October, 6  2004</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+</FONT>
+
+</BODY>
+</HTML>

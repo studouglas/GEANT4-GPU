@@ -1,0 +1,58 @@
+#
+# -------- DEC ---------    !!! not supported !!!
+#                         OSF V4.0, cxx C++ V6.1-027
+ifeq ($(G4SYSTEM),DEC-cxx)
+  CXX		:= cxx
+  ifdef G4OPTIMISE
+    CXXFLAGS	:= -O
+  else
+    ifdef G4DEBUG
+      CXXFLAGS	:= -gall
+      FCFLAGS	:= -g
+      CCFLAGS   := -g
+    endif
+  endif
+  CXXFLAGS	+= -ieee -timplicit_local
+  CXXFLAGS      += -std strict_ansi
+  SHEXT         := so
+  G4RUNPATHOPTION := -rpath
+  FC		:= f77
+  FCLIBS	:= -lUfor -lfor -lFutil -lots
+  LOADLIBS      += -lm -lstdc++
+  ifndef X11FLAGS
+    X11FLAGS  := -I/usr/include/X11/extensions -I/usr/include/X11
+  endif
+  ifndef X11LIBS
+    X11LIBS   := -lXmu -lXt -lXext -lX11
+  endif
+  ifndef XMFLAGS
+    XMFLAGS   :=
+  endif
+  ifndef XMLIBS
+    XMLIBS    := -lXm
+  endif
+  ifndef XAWFLAGS
+    XAWFLAGS   :=
+  endif
+  ifndef XAWLIBS
+    XAWLIBS    := -lXaw
+  endif
+  ifndef OGLFLAGS
+    OGLFLAGS  := -I$(OGLHOME)/include 
+#   OGLFLAGS  := -I/usr/include -I/usr/local/include
+  endif
+  ifndef OGLLIBS
+    OGLLIBS   := -L$(OGLHOME)/lib -lGLU -lGL
+#   OGLLIBS   := -lMesaGLU -lMesaGL
+  endif
+
+  define build-granular-shared-lib
+    @libdir=`(cd $(@D);/bin/pwd)`; \
+     cd $(G4TMPDIR); \
+     $(CXX) -shared -o $$libdir/$(@F) *.o
+  endef
+#  transform-RPath = 1
+  define build-global-shared-lib
+    @echo "Global shared Libraries not supported on $(G4SYSTEM)
+  endef
+endif

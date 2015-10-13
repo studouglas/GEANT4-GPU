@@ -1,0 +1,911 @@
+$Id: History 90703 2015-06-08 09:43:54Z gcosmo $
+-------------------------------------------------------------------
+
+     =========================================================
+     Geant4 - an Object-Oriented Toolkit for Simulation in HEP
+     =========================================================
+
+                      Category History file
+                      ---------------------
+This file should be used by G4 developers and category coordinators
+to briefly summarize all major modifications introduced in the code
+and keep track of all category-tags.
+It DOES NOT substitute the  CVS log-message one should put at every
+committal in the CVS repository !
+
+     ----------------------------------------------------------
+     * Reverse chronological order (last date on top), please *
+     ----------------------------------------------------------
+
+April 30, 2015 G.Cosmo                     geommng-V10-00-07
+- Removed unused data-member in G4LogicalVolume, and fixed minor
+  Coverity defect for unitialised member 'fBiasWeight' in constructor.
+- Use scoped enum for EnumSide in G4USolid.cc if c++11 enabled.
+
+April 29, 2015 J.Apostolakis
+- Added streaming operator <<() to G4AffineTransform.
+- Cosmetics to G4RegionStore header.
+
+March 3, 2015 G.Cosmo
+- Use accessors x(), y() and z() from UVector3, instead of directly accessing
+  its data-members.
+
+November 27, 2014 G.Cosmo                  geommng-V10-00-06
+- Fixed implementation of StreamInfo() for G4USolid.
+
+October 29, 2014 G.Cosmo                   geommng-V10-00-05
+- Moved G4USolid bridge class from internal USolids module.
+
+October 3, 2014 G.Cosmo                    geommng-V10-00-04
+- Moved constructor for partial voxels refinements from protected to public.
+
+September 25, 2014 W. Pokorski             geommng-V10-00-03
+- Some fixes in the default constructor for Root-I/O persistency.
+
+July 11, 2014 A. Dotti			   geommng-V10-00-02
+- Solves possible data-race condition in G4GeaomSplitter.
+
+April 10, 2014 G.Cosmo                     geommng-V10-00-01
+- Get rid of deprecated 'register' storage class specifier in source files.
+
+March 31, 2014 G.Cosmo                     geommng-V10-00-00
+- Fixed operator=() signature in G4LogicalSurface.
+
+December 2, 2013 A.Dotti                   geommng-V09-06-17
+- Correctly initialize shadow pointers in G4PhysicalVolume.
+
+December 2, 2013 M.Asai                    geommng-V09-06-16
+- Correctly initialize shadow pointers in G4LogicalVolume.
+
+November 30, 2013 M.Asai                   geommng-V09-06-15
+- Explicitely initialize data members of G4LVData.
+
+November 27, 2013 J.Apostolakis            geommng-V09-06-14
+- Fix in G4GeomSplitter::FreeSlave(): use free() to delete memory 
+   which was allocated with malloc().
+
+October 18, 2013, A. Dotti                 geommng-V09-06-13
+- Bug fixing in G4GeomSplitter::UseWorkspace method
+  check if offset pointer is assigned AND different from new value
+
+October 3, 2013 J.Apostolakis              geommng-V09-06-12
+- Cleanup of G4LogicalVolume, G4VPhysicalVolume
+     Moved long description of helper classes to end of headers.
+     Moved macros to icc file. 
+     Revised source code to use Get/Set methods in place of 'macros'
+      introduced with G4MT,  ie G4MT_rot etc
+- LogicalVolume: Added new methods, data member
+     * new methods AssignFieldManager, 
+     * Get/Set Solid( G4LVData, .) for potential performance improvement
+     * bool fChangedState.
+
+August 27, 2013 G.Cosmo                    geommng-V09-06-11
+- Added G4Ellipsoid among solids enabled for parameterisation.
+
+August 22, 2013 G.Cosmo                    geommng-V09-06-10
+- Added parameter to specify maximum number of overlap errors to report
+  in G4VPhysicalVolume::CheckOverlaps().
+
+August 21, 2013 G.Cosmo                    geommng-V09-06-09
+- Added methods G4VPhysicalVolume::VolumeType() and
+  G4LogicalVolume::CharacteriseDaughters() to be used by G4Navigator.
+
+July 29, 2013 T.Nikitina                   geommng-V09-06-08
+- Fix to G4VSolid::EstimateCubicVolume() to make proper use of specified
+  accuracy. Addressing problem report #1493.
+
+June 20, 2013 A.Dotti			   geommng-V09-06-07
+- Bug fix for MT: set static TLS pointer G4GeomSplitter::offset to 0 after
+  delete in split-class mechanism G4GeomSplitter::FreeSlave
+
+March 12, 2013 G.Cosmo                     geommng-V09-06-06
+- Removed thread-locality in obsolete G4VPhysicalVolume::GetObjectRotation()
+  implementation.
+
+March 12, 2013 G.Cosmo                     geommng-V09-06-05
+- Added public accessors for MT data to G4LogicalVolume, G4VPhysicalVolume
+  and G4Region.
+
+March 11, 2013 G.Cosmo                     geommng-V09-06-04
+- Redefined G4DLL_API to G4GEOM_DLL to avoid cases of macro redefinition.
+
+March 08, 2013  G.Cosmo                    geommng-V09-06-03, geommng-V09-06-02
+- Renamed G4MT macros to safer ID.
+- Moved MT data to protected in G4VPhysicalVolume.
+
+March 07, 2013  G.Cosmo                    geommng-V09-06-01
+- Added splitter class G4GeomSplitter from original MT transitory class
+  introduced in "global" module.
+- Added geomwdef.hh header including definition of G4DLL_API flag for
+  import/export of symbols for Windows DLL build.
+- Cleanup of code from MT automatic changes.
+
+December 02, 2012  J.Allison               geommng-V09-06-00
+- Removed NURBS.
+
+November 28, 2012  G.Cosmo                 geommng-V09-05-04
+- Get rid of explicit inclusion of costants header from meshdefs.hh.
+
+August 15, 2012  V.Ivantchenko             geommng-V09-05-03
+- Add base materials in G4Region::ScanVolumeTree() to the list of region
+  materials, when applicable.
+
+June 11, 2012  G.Cosmo                     geommng-V09-05-02
+- Explicitly use inclusion of headers for system of units and physical
+  constants, in plan to remove implicit inclusion from globals.hh.
+
+April 4, 2012  G.Cosmo                     geommng-V09-05-01
+- Fixed spurious cases of hidden variable visibility (-Wshadow
+  compilation option on gcc compiler).
+
+April 4, 2012  G.Cosmo                     geommng-V09-05-00
+- Extended one comment to G4VSolid header.
+
+August 24, 2011  G.Cosmo                   geommng-V09-04-04
+- Migrated to new G4Exception scheme for warnings and errors.
+- Defined scheme for warnings/errors coding:
+  + 1xxx for warnings, 0xxx for errors.
+  Code numbering:
+  + 0001: not supported or implemented features;
+  + 0002: invalid setup/construct;
+  + 0003: invalid run condition;
+  + 1001: incorrect setup; automatically adapted.
+  + 1002: notification.
+- Made default argument for G4RegionStore::UpdateMaterialList().
+
+August 10, 2011  M.Asai                    geommng-V09-04-03
+- Introducing parallel layered mass geometry. Material is now scanned for
+  all the regions in all defined worlds. Modified G4Region and G4RegionStore.
+
+May 12, 2011  G.Cosmo                      geommng-V09-04-02
+- Fixed trivial compilation warnings detected with gcc-4.6.0.
+
+March 31, 2011  G.Cosmo                    geommng-V09-04-01
+- Fix in G4LogicalVolume::AddDaughter() for proper propagation settings
+  of local field manager. Avoid forcing propagation to all daughters when
+  a local field manager is set already for the new daughter.
+  Addressing problem report #1183.
+
+March 21, 2011  G.Cosmo                    geommng-V09-04-00
+- Use internal G4 header for physical constants in meshdefs.h.
+
+October 19, 2010  G.Cosmo                  geommng-V09-03-05
+- Added Clone() virtual method to G4VSolid, to return a pointer to a
+  dynamically allocated copy of the solid. To be used by Geant4-MT.
+- Added copy-ctr and assignment operator to G4ReflectedSolid, now also
+  implementing the Clone() method.
+
+September 6, 2010  G.Cosmo                 geommng-V09-03-04
+- Fixed false-positive null forward case in G4SmartVoxelHeader.
+
+July 16, 2010  G.Cosmo                     geommng-V09-03-03
+- Fixed compilation errors for code within G4GEOMETRY_VOXELDEBUG flag
+  in G4GeometryManager and G4SmartVoxelHeader.
+- Added printout of voxel limits in G4SmartVoxelHeader::Buildnodes() and
+  removed protection on node width previously introduced.
+
+July 13, 2010  G.Cosmo                     geommng-V09-03-02
+- G4SmartVoxelHeader: added protection against rare cases of zero computed
+  node width in BuildNodes().
+
+July 2, 2010  G.Cosmo                      geommng-V09-03-01
+- G4LogicalSurface: added missing initialisation for 'theTransRadSurface'
+  data member. Made virtual destructor and constructors not inline.
+- G4ErrorTarget: added missing default initialisation of a data member.
+- G4SmartVoxelHeader: added return statement after exceptions in methods
+  BuildVoxelsWithinLimits() and BuildNodes(); fixed case of invalid iterator
+  in deletion of test slices in BuildVoxelsWithinLimits(); added protection
+  for cases of invalide number of nodes in RefineNodes(), and added return
+  statement after exceptions.
+- G4GeometryManager: restore cout precision after printing voxel statistics.
+- G4LogicalVolume: added return statement after exception in GetMass().
+- G4ReflectedSolid: moved reserve() statement for 'vertices' within null-check
+  condition in CalculateExtent() ...
+
+February 9, 2010  G.Cosmo                  geommng-V09-03-00
+- Fixed initialisation of min/max extent for mother and target volumes in
+  method BuildNodes() of G4SmartVoxelHeader.
+
+November 27, 2009  G.Cosmo                 geommng-V09-02-05
+- G4Region: added pointer to field-manager and associated accessor/modifier.
+
+November 6, 2009  G.Cosmo                  geommng-V09-02-04
+- G4VTouchable: moved inline vitual methods, constructor and destructor to
+  source, to avoid problem of memory alignment in allocation of derived objects.
+
+October 30, 2009  G.Cosmo                  geommng-V09-02-03
+- Clear possible excess capacity in node vectors in G4SmartVoxelHeader
+  BuildNodes() method. May reduce excess memory allocated in optimisation
+  in large detector setups, with slight time increase in initialisation for
+  geometry voxelisation.
+
+September 24, 2009  G.Cosmo                geommng-V09-02-02
+- Fixed implementation of G4LogicalVolume::TotalVolumeEntities() to become
+  invariant to call sequence.
+
+May 25, 2009  G.Cosmo                      geommng-V09-02-01
+- Fixed initialisation of min/max extent in method BuildReplicaVoxels() in
+  G4SmartVoxelHeader.
+
+April 16, 2009  G.Cosmo                    geommng-V09-02-00
+- Adopt 'const' references for strings as arguments/return-values in
+  G4LogicalSurface. Some minor cleanup...
+
+September 23, 2008  G. Cosmo               geommng-V09-01-08
+- G4VSolid: explicitely reserve memory for polygon vectors in clipping
+  algorithm to help reducing memory footprint. Courtesy of P.Elmer, CMS.
+
+September 10, 2008  G. Cosmo               geommng-V09-01-07
+- G4VSolid: promote copy-constructor and assignment operator to public
+  to cope with specific use-case in ATLAS (see problem report #1023).
+
+July 15, 2008  G.Cosmo                     geommng-V09-01-06
+- G4Region: re-introduced protection for setting of root-region flag to the
+  world volume in method RemoveRootLogicalVolume(), to cover case of explicit
+  deletion of stores in the user application for dynamic geometries setups.
+
+July 10, 2008  G.Cosmo                     geommng-V09-01-05
+- G4LogicalVolume, G4LogicalVolumeStore: modified logic for the deletion
+  of the root-region volumes, adding locking mechanism and automatically
+  de-registering the world default root-region.
+  Simplified Clean() method in the store, by removing unused and unnecessary
+  flag for logical-volumes notification.
+- Reinstated update of materials in G4Region::RemoveRootLogicalVolume()
+  to correct handling individual removal of root-region volumes and restore
+  proper setup state.
+
+May 16, 2008  G.Cosmo                      geommng-V09-01-04
+- G4Region: changed condition inside ScanVolumeTree() to check for the
+  existence of a valid material-scanner pointer to apply the material scan
+  instead of using the flag for nested structures.
+- G4GeometryManager: do not apply optimisation on the current volume if it
+  has been defined as a regular structure.
+- Addresses problem report #990 on suggestions by M.Mendenhall.
+
+March 13, 2008  G.Cosmo                    geommng-V09-01-03
+- Cleared compilation warnings in G4GeometryManager on gcc-4.3.0 for
+  ambiguous use of parentheses in condition statements.
+
+February 20, 2008  I.Hrivnacova            geommng-V09-01-02
+- Implemented missing protected copy-contructor and assignment operator
+  for G4VSolid.
+
+January 24, 2008  G.Cosmo                  geommng-V09-01-01
+- Added Shrink() method to G4SmartVoxelNode to shrink memory allocated
+  for the buffer of slices; to be used for studying ways of reducing memory
+  waste when building nodes in G4SmartVoxelHeader for large geometry setups.
+
+January 14, 2008  G.Cosmo                  geommng-V09-01-00
+- Added Reserve() method to G4SmartVoxelNode to reserve memory allocated
+  for the buffer of slices; to be used for studying ways of reducing memory
+  waste when building nodes in G4SmartVoxelHeader for large geometry setups.
+
+October 24, 2007  G.Cosmo                  geommng-V09-00-01
+- Fixed typo in forcing minimum number of points in method
+  G4VSolid::EstimateSurfaceArea(). Addresses problem report #981.
+
+July 16, 2007  G.Cosmo                     geommng-V09-00-00
+- Added dummy constructor and destructor to G4VPVParameterisation.
+
+June 19, 2007  G.Cosmo                     geommng-V08-03-03
+- Apply migration to <cmath> and std:: for G4ErrorCylSurfaceTarget and
+  G4ErrorPlaneSurfaceTarget implementations. Fixes compilation problems
+  detected on Windows VC++8.
+
+May 16, 2007  G.Cosmo                      geommng-V08-03-02
+- Introduced new classes for handling error propagation: G4ErrorTarget,
+  G4ErrorSurfaceTarget, G4ErrorTanPlaneTarget, G4ErrorPlaneSurfaceTarget,
+  G4ErrorCylSurfaceTarget (by P.Arce).
+- Coworks with tag "global-V08-03-02".
+
+May 11, 2007  G.Cosmo                      geommng-V08-03-01
+- Use call to G4GeometryTolerance instead of kCarTolerance where needed.
+- Requires tag "global-V08-03-00" and related tag set.
+
+April 26, 2007  M.Asai                     geommng-V08-03-00
+- Added forward declaration and pointer (with set/get methods) to
+  G4VUserSteppingAction, to allow for stepping actions defined at region.
+
+April 11, 2007  G.Cosmo                    geommng-V08-02-02
+- Added 'get' methods to stores for retrivial of volumes/solid by name.
+- Modified signature of G4VPhysicalVolume::CheckOverlaps() to introduce
+  ability of handling tolerances for overlaps.
+- Coworks with tag "geomvol-V08-02-02".
+
+March 20, 2007  G.Cosmo                    geommng-V08-02-01
+- Do not reset RegionRootFlag in RemoveRootLogicalVolume() if volume is the
+  world, since the volume itself may be already removed from the store if
+  G4LogicalVolumeStore::Clean() is called.
+
+January 31, 2007  G.Cosmo                  geommng-V08-02-00
+- Added flag for controlling verbosity to CheckOverlaps() method.
+  By default, verbosity is ON.
+
+November 30, 2006  G.Cosmo                 geommng-V08-01-08
+- Corrected deregistration and deletion of world default region, now
+  happening through G4RunManagerKernel. Affected codes: G4LogicalVolume
+  destructor and G4RegionStore::Clean() method.
+- Minor cleanup in the implementation of the other stores.
+
+November 8, 2006  G.Cosmo                  geommng-V08-01-07
+- Fixed compilation problems on SUN-CC for changes in the last tag.
+  Added inclusion of <sstream> header in G4ReflectedSolid.cc.
+
+November 6, 2006  J.Allison                geommng-V08-01-06
+- Fix in G4ReflectedSolid::CreatePolyhedron() for case of component that
+  does not have a G4Polyhedron representation.
+
+October 23, 2006  G.Cosmo                  geommng-V08-01-05
+- Replaced algorithm for EstimateSurfaceArea() in G4VSolid with more precise
+  method by M.Kosov based on skin surface estimation.
+
+October 19, 2006  G.Cosmo                  geommng-V08-01-04
+- Modified interface for GetSurfaceArea() to be similar to the one for
+  the computation of the geometrical volume, and allow the caching
+  mechanism.
+
+October 18, 2006  G.Cosmo                  geommng-V08-01-03
+- Added GetSurfaceArea() method to G4VSolid for approximated computation
+  of the surfare area of a shape.
+
+October 2, 2006  G.Cosmo                   geommng-V08-01-02
+- Removed debug printout in G4IdentityTrajectoryFilter implementation.
+
+September 18, 2006  G.Cosmo                geommng-V08-01-01
+- Added empty virtual method CheckOverlaps() to G4VPhysicalVolume to allow
+  for proper overloading from subclasses. Implementation returns always
+  'false', which the case for replicas.
+
+July 17, 2006  M.Asai                      geommng-V08-01-00
+- Fix a bug in G4Region.cc for nested parameterization.
+
+May 3, 2006  G.Cosmo                       geommng-V08-00-05
+- Modified G4VStoreNotifier class to be now a typedef of G4VNotifier which
+  is moved in the 'global' module. Adapted stores to the new configuration.
+- Requires tag "global-V08-00-02".
+
+May 2, 2006  G.Cosmo                       geommng-V08-00-04
+- Moved G4AssemblyTriplet class to 'volumes' module.
+- Requires tag "geomvol-V08-00-03".
+
+May 1, 2006  G.Cosmo                       geommng-V08-00-03
+- G4Region:
+  o Added inclusion of <algorithm> to resolve compilation error on WIN32-VC.
+  o Fixed compilation warning for unused variable.
+
+April 28, 2006  G.Cosmo                    geommng-V08-00-02
+- G4VPhysicalVolume: return 'const G4String&' for GetName() instead of a
+  string copy.
+
+April 4, 2006  G.Cosmo                     geommng-V08-00-01
+- G4Region:
+  + Support material scanning for nested parameterisations. Moved classes
+    G4VNestedParameterisation and G4VVolumeMaterialScanner from 'volumes'
+    module.
+  + Fixed implementation of utility method GetParentRegion() to return a
+    boolean flag as argument, to identify if parent region is unique or not.
+  + Simplified implementation of method BelongsTo(PV*).
+- Requires tag "geomvol-V08-00-02".
+
+April 3, 2006  G.Cosmo                     geommng-V08-00-00
+- Fix in G4SmartVoxelHeader::BuildNodes() to avoid rare cases of negative
+  extent returned by volumes due to malformed geometries or inaccurate
+  extent calculation.
+
+November 19, 2005  J.Apostolakis           geommng-V07-01-05
+- Revised G4VPVParameterisation:
+  + Changed signature of ComputeMaterial(), adding parent touchable pointer.
+    This refinement enables easy use of nested parameterisations.
+  + Additional methods allow nested parameterisation to be identified:
+      G4bool IsNested() const;
+    and to provide their material via new interface class:
+      G4VVolumeMaterialScanner* GetMaterialScanner(); 
+  + Suppressed temporary G4PhysicalTouchable class in volumes, not needed 
+    in the implementation any longer.
+
+November 11, 2005  J.Apostolakis           geommng-V07-01-04
+- Added methods to identify  Regular Structures in  Physical volume 
+  New pure virtual methods:
+    - IsRegularStructure()     ,  returns boolean 
+    - GetRegularStructureId()  ,  returns code for structure type
+
+November 9, 2005  G.Cosmo                  geommng-V07-01-03
+- Added fake default constructor for base types of volumes, solids and
+  regions, for usage of direct object persistency.
+- Migrated unit test TestAssemblyVolume to <sstring> from
+  deprecated <strstream>.
+
+October 28, 2005  M.Asai                   geommng-V07-01-02
+- Merged concept of "envelope" to G4Region for fast-parameterisation.
+
+September 15, 2005  V.Grichine             geommng-V07-01-01
+- Added concrete implementation for GetPointOnSurface() to G4ReflectedSolid.
+
+August 10, 2005  G.Cosmo                   geommng-V07-01-00
+- Added virtual method GetPointOnSurface() to G4VSolid to be implemented in
+  the concrete solids classed for returning a random-point uniformely
+  distributed on the surface.
+
+May 25, 2005  G.Cosmo                      geommng-V07-00-04
+- Fixed problem with previous tag, where version of G4LogicalVolume.cc was
+  not correct and untagged.
+- G4LogicalVolume::SetVisAttributes(const G4VisAttributes& VA): now creating
+  a copy of 'VA' on the heap. Temporary solution, until a proper 'store' for
+  visualization attributes will be implemented to take care of the memory
+  management.
+
+May 23, 2005  G.Cosmo                      geommng-V07-00-03
+- Modified comments in G4VSolid and G4BlockingList to overcome a limitation in
+  the scripts for the generation of the Software Reference Manual.
+
+Apr 13, 2005  G.Cosmo                      geommng-V07-00-02
+- Extended signatures for OpenGeometry() and CloseGeometry() to consider local
+  optimisation of a subtree of volumes. Voxelisation can now apply to just a
+  specific subtree if a physical volume is specified.
+
+Apr 02, 2005  M.Asai                       geommng-V07-00-01
+- Added protection against NULL material pointer for volumes belonging
+  to the tracking geometry in G4Region scanning.
+  Addresses problem report #735.
+
+Mar 23, 2005  J.Allison
+- Added test for Number-Of-Rotation-Steps in G4ReflectedSolid::GetPolyhedron().
+  Requires tag "greps-V07-00-02".
+
+Mar 22, 2005  J.Allison
+- G4ReflectedSolid: correction: changed AddThis to AddSolid.
+
+Mar 02, 2005  G.Cosmo                      geommng-V07-00-00
+- Added optional boolean argument 'propagate' to GetMass() to avoid
+  propagation of computation of masses to the daughter volumes (courtesy
+  of G.Santin). Propagation to daughters is done by default.
+
+Feb 18, 2005  M.Asai
+- Added G4UserLimits pointer to G4Region and added access from G4LogicalVolume.
+
+Dec 02, 2004  G.Cosmo                      geommng-V06-02-08
+- Implemented migration to <cmath> for standard mathematical functions.
+
+Nov 19, 2004  G.Cosmo                      geommng-V06-02-07
+- Added GetCopyNumber() method to G4VTouchable, clone of GetReplicaNumber().
+
+Nov 16, 2004  M.Asai                       geommng-V06-02-06
+- Fix in G4LogicalVolume::UpdateMaterial() for checking the existance of
+  root-region pointer for logical-volume. Fixes report #684.
+
+Nov 13, 2004  G.Cosmo                      geommng-V06-02-05
+- Added method TotalVolumeEntities() to G4LogicalVolume, returning the
+  total number of physical volumes (placed or replicated/parameterised)
+  included in the tree represented by the current logical volume.
+- Correction in the computation of mass for parameterised volumes.
+
+Nov 12, 2004  G.Cosmo                      geommng-V06-02-04
+- Added method GetMass() to G4LogicalVolume, returning the value in absolute
+  units of the mass of the logical volume tree. The mass is computed from the
+  estimated geometrical volume of each solid and material's density associated
+  to the logical volume and its daughters.
+  The returned value is cached and can be used for successive calls (default),
+  unless recomputation is forced by providing 'true' as the first boolean
+  argument in input. Computation should be forced if the geometry setup has
+  changed after the previous call. An optional argument to specify a material
+  is provided; it is implicitely used for geometrical parameterisations by
+  material.
+
+Oct 10, 2004  J.Allison                    geommng-V06-02-03
+- Added GetPolyhedron, a smart access function that creates a G4Polyhedron
+  on request and stores for future access.  A null pointer means "not
+  available".
+
+Sep 28, 2004  M.Asai                       geommng-V06-02-02
+- G4Region:
+  o Added map for storage of materials/cuts.
+  o Added methods for handling registration of couples in the map, finding
+    a couple according to a given material, clearing the map's storage.
+- G4LogicalVolume:
+  o Added method UpdateMaterial() to refresh a material/cut couple in
+    the corresponding region.
+
+Sep 22, 2004  G.Cosmo                      geommng-V06-02-01
+- Introduced virtual method GetCubicVolume() to G4VSolid, returning an
+  estimation of the solid volume in internal units. This method may be
+  overloaded by derived classes to compute the exact geometrical
+  quantity for solids where this is possible, or anyway to cache the
+  computed value. By default it uses the new protected method
+  EstimateCubicVolume(stat, eps) with fixed statistics and error
+  accuracy, and does not cache the computed value.
+
+Sep 02, 2004  G.Cosmo                      geommng-V06-02-00
+- Introduced abstract class G4VStoreNotifier to be optionally associated
+  to stores by the user for the notification of the registration and
+  deregistration of objects in the stores.
+- Added notification mechanism to volume, solid, and region stores.
+- Fixed G4RegionStore::Clean() to avoid deletion of world region.
+
+May 07, 2004  G.Cosmo                      geommng-V06-01-00
+- Imported G4ReflectedSolid class from solids/Boolean.
+- Added abstract factory G4VPVDivisionFactory defining interfaces
+  for the creation of volumes divisions (courtesy of I.Hrivnacova).
+- Coworks with tags: geomvol-V06-01-00, geomdiv-V06-01-00 and
+                     geom-bool-V06-01-00.
+
+Dec 01, 2003  P.Gumplinger                 geommng-V05-02-05
+- G4LogicalSurface[.hh.icc]: modified to use G4SurfaceProperty instead
+  of G4OpticalSurface. Requires tag "materials-V05-02-00".
+
+Nov 04, 2003  G.Cosmo                      geommng-V05-02-04
+- G4LogicalVolume.hh: added inclusion of assert.h required by .icc file.
+
+Nov 01, 2003  G.Cosmo                      geommng-V05-02-03
+- Code cleanup and headers inclusion review (replaced by forward
+  declarations where necessary).
+- G4VPVParameterisation: added G4Polycone and G4Polyhedra to list of
+  possible parameterisations by dimension.
+
+Oct 24, 2003  G.Cosmo                      geommng-V05-02-02
+- Migrated calls to G4Exception to new scheme.
+
+Oct 21, 2003  M.Asai                       geommng-V05-02-01
+- Introducing G4VUserRegionInformation class.
+- G4VPVParameterisation: added G4Orb. (V.Grichine)
+
+Sep 30, 2003  G. Cosmo                     geommng-V05-02-00
+- Logical reorganisation and restructure of modules.
+  Moved files to geometry/volumes:
+    G4AssemblyVolume[.hh.icc.cc]
+    G4PVParameterised[.hh.cc]
+    G4PVPlacement[.hh.cc]
+    G4PVReplica[.hh.cc]
+  Moved files to new module geometry/navigation:
+    G4DrawVoxels[.hh.cc]
+  Imported files from geometry/volumes:
+    G4BlockingList[.hh.icc.cc]
+    G4IdentityTrajectoryFilter[.hh.cc]
+    G4VCurvedTrajectoryFilter[.hh.cc]
+- G4VPhysicalVolume[.hh.icc.cc]:
+  o Removed pointer to mother physical volume and related accessor
+    methods: SetMother()/GetMother().
+  o Removed pure virtual method Setup(G4VPhysicalVolume*), no longer
+    necessary. Subclasses will require modification as well.
+- G4LogicalVolume.icc:
+  o Updated/fixed initialisation of data and fast-simulation manager
+    according to above changes.
+- G4SmartVoxelHeader.cc:
+  o Cleared usage of PV-Setup(), according to above changes.
+
+May 19, 2003  G. Cosmo                     geommng-V05-01-01
+- G4LogicalVolume.cc: notify removal of root-logical-volume from G4Region
+  in case of deletion of a logical-volume from the destructor, instead that
+  from DeRegister() method.
+- G4LogicalVolumeStore.cc: removed redundant check and call to
+  RemoveRootLogicalVolume() from Clean() method.
+- G4Region.cc: removed redundant calls to ScanVolumeTree() and
+  UpdateMaterials() from RemoveRootLogicalVolume() method.
+
+May 13, 2003  G. Cosmo                     geommng-V05-01-00
+- G4LogicalVolume: added method ClearDaughters() to be used for resetting
+  the list of daughters to a logical volume in the use-case when only the
+  physical volume store is cleared at run-time.
+- GVPhysicalVolume:
+  o Added pointer to mother logical volume (will replace in future releases
+    the pointer to mother physical volume) and related accessors.
+  o Standardised registration mechanism as daughter for constructor using
+    the pointer to the mother's PV.
+- G4PhysicalVolumeStore:
+  o Added notification mechanism to logical volumes in the Clean() method
+    to update the list of daughters.
+  o Update mother's LV list of daughters when deregistering a volume.
+- G4PVPlacement/Replica/Parameterised: standardised registration mechanism
+  as daughter for constructor using the pointer to the mother's PV.
+
+April 3, 2003  M. Dressel                  geommng-V05-00-09
+- G4LogicalVolume: added method for scanning recursively the volume tree
+  and retrieve if the current LV is ancestor of a given PV:
+    G4bool IsAncestor(const G4VPhysicalVolume*) const
+
+March 31, 2003  G. Cosmo                   geommng-V05-00-08
+- Fixed trivial strict pedantic warnings in G4VSolid.cc and G4PVPlacement.cc.
+
+March 24, 2003  G. Cosmo                   geommng-V05-00-07
+- G4Region.cc: fixed setting/resetting of regions in ScanVolumeTree().
+
+March 05, 2003  M. Asai                    geommng-V05-00-06
+- G4Region.cc: fix for scanning of parameterised materials.
+
+March 05, 2003  G. Cosmo                   geommng-V05-00-05
+- G4LogicalVolume.icc: added check for invalid geometry constructions.
+  Issue an exception if a placement is attempted in a volume already
+  containing a replicated daughter.
+- Cosmetic formatting changes in G4PVPlacement.cc and G4VPhysicalVolume.cc.
+
+February 07, 2003  G. Cosmo                geommng-V05-00-04
+- Added method FindOrCreateRegion() to G4RegionStore.
+- Added check in constructor of G4Region for existance of region in store.
+  In case a region with the given name already exists, throw a warning and
+  do not register it.
+
+January 30, 2003  G. Cosmo                 geommng-V05-00-03
+- Allow logical volume store to deregister root regions for logical volumes
+  deleted explicitely.
+  Modified files: G4logicalVolumeStore.cc, G4LogicalVolume[.hh.icc.cc].
+- G4Region.hh: moved ClearMaterialList() to public.
+
+January 15, 2003  G. Cosmo                 geommng-V05-00-02
+- Included fix in G4VSolid.cc introduced in "geommng-V04-01-06".
+
+January 14, 2003  M.Asai                   geommng-V05-00-01
+- Fix in src/G4Region.cc.
+  Does not include fix in "geommng-V04-01-06".
+
+December 16, 2002  G. Cosmo                geommng-V05-00-00
+- Merged branch "geant4-04-01-ref-02-cuts-branch" to HEAD.
+  Included development for 'cuts-by-region'; introduced new classes
+  G4Region and G4RegionStore. Modified G4LogicalVolume to handle recursive
+  propagation of regions to daughters.
+  Does not include fix in "geommng-V04-01-06".
+
+December 6, 2002  V. Grichine              geommng-V04-01-06
+- G4VSolid.cc: restored original conditions for extent clipping in
+  method ClipPolygon(). Makes unit tests run successfully.
+
+November 19, 2002  G. Cosmo                geommng-V04-01-05
+- G4GeometryManager[.cc]
+  o Fixed bug in initialisation of fine-grained timer
+    (courtesy of Helmut Burkhardt).
+
+November 09, 2002  G. Cosmo                geommng-V04-01-04
+- G4LogicalVolume.cc:
+  o Correction to propagation of the Field Manager to Daughter volumes:
+    it should be propagated to all daughters that do not have one -- not to all the
+    ones that have one already. Fixes bug report for field by logical volume.
+    (J.Apostolakis)
+
+October 28, 2002  G. Cosmo                 geommng-V04-01-03
+- G4VSolid[.hh.icc.cc]:
+  o Added pure virtual method StreamInfo() to stream contents of a solid
+    to a generic output stream.
+  o Added method DumpInfo() using StreamInfo() to dump contents to the
+    standard output.
+
+October 23, 2002  G. Cosmo                 geommng-V04-01-02
+- G4PVReplica.cc:
+  o Corrected order for check on illegal constructions, in constructor taking
+    a pointer to logical volume as mother volume.
+  o Improved output diagnostics.
+- G4PVParameterised.cc:
+  o Improved output diagnostics for check on illegal constructions.
+
+October 16, 2002  G. Cosmo                 geommng-V04-01-01
+- G4PVReplica.cc, G4PVParameterised.cc:
+  Added checks for illegal geometry contructions; contructors now verify unicity
+  of daughter volumes for replicas and parameterised volumes, as well as checks
+  for attempt to replicate/parameterise the world volume.
+
+October 4, 2002  G. Cosmo
+- G4PVParameterised[.hh.cc], G4PVPlacement[.hh.cc]:
+  Added new method IsParameterised() to enquire for existing parameterisation
+  for a placed volume.
+- G4PVReplica[.hh.cc], G4VPhysicalVolume[.hh.cc]:
+  Added methods IsParameterised() and GetMultiplicity() to enquire for existing
+  parameterisation of placed volume, and number of replicated volumes.
+
+September 11, 2002  G. Cosmo               geommng-V04-01-00
+- G4AssemblyVolume[.hh.icc.cc]:
+  o Fixed bug #409 concerning missing imprint counter method.
+  o Fixed bug #410 concerning the internal counting mechanism.
+    The fix involved the addition of a new data member fAssemblyID,
+    holding the instance ID of the given object derived from
+    class-wide counter. Corresponding accessor methods has been
+    added as well.
+- Updated unit test TestAssemblyVolume, to add call to G4RunManager
+  for resetting nagivator state in TstVADetectorConstruction.cc.
+
+June 24, 2002  G. Cosmo                    geommng-V04-00-08
+- G4AssemblyVolume[.hh.cc]:
+  o Moved accessors to assembly counters to public.
+  o Added support for user definable count base for generated physical volumes.
+  Fixes problem report #382.
+
+June 7, 2002  G. Cosmo                     geommng-V04-00-07
+- G4AssemblyVolume[.hh.cc]:
+  o Fixed inconsistent handling of input rotation matrices by caching them
+    with corresponding deallocation at destruction time.
+    Comments updated accordingly with a warning about foreseen changes
+    in methods' interfaces expected by next major release 5.0.
+  o Correctly handle cases when pointer to rotation matrix is zero.
+  o Updated unit test.
+
+May 17, 2002  G. Cosmo                     geommng-V04-00-06
+- Added ability to optionally optimise/non-optimise detector regions
+  using logical volumes:
+  o G4LogicalVolume:
+    - Introduced additional bool argument to constructor,
+      set to 'true' by default.
+    - Added method IsToOptimise() with corresponding bool flag attribute.
+  o G4GeometryManager:
+    - Adapted BuildOptimisations() method to consider optional optimisation
+      flag from G4LogicalVolume.
+
+May 15, 2002  G. Cosmo                     geommng-V04-00-05
+- G4SmartVoxelHeader:
+  o Added utility method GetParamAxis() to retrieve suggested axis for
+    optimisation of parametrised geometry.
+  o Enhanced BuildReplicaVoxels() to apply 3D voxelisation for non-consuming
+    nodes if undefined axis is specified for parametrised volumes. In such
+    case, optimisation for parameterised volumes is applied similarly to
+    normal placements.
+- G4PVReplica.cc: deal with 'kUndefined' EAxis.
+- Co-works with "global-V04-00-06".
+
+May 13, 2002  G. Cosmo                     geommng-V04-00-04
+- G4VSolid: use polygon clipping for limited voxel when != pAxis (V.Grichine).
+- G4GeometryManager: added method IsGeometryClosed() for detecting geometry
+  closed or open.
+- G4LogicalVolumeStore, G4PhysicalVolumeStore, G4SolidStore: added protection
+  to Clean() method for checking if geometry is closed.
+- G4SmartVoxelHeader.cc: cosmetics and formatting cleanup.
+
+April 19, 2002  G. Cosmo                   geommng-V04-00-03
+- Moved inline constructors/destructors to no inline.
+  Affected files: G4DrawVoxels[.hh.cc], G4SmartVoxelNode[.hh.cc],
+                  G4SmartVoxelProxy[.hh.cc], G4VoxelLimits[.hh.cc].
+- Enhanced behavior for destructors of volumes/solids stores.
+  o Added locking mechanism for preventing conflicts when destroying stores
+    and deregistering pointers. Now destructors of stores will also
+    explicitely delete pointers (and therefore allocated volumes/solids)
+    dynamically allocated in the user application.
+  o Added Clean() static method to volumes/solids stores to explicitely
+    delete pointed objects in the stores and clear all entries.
+  o Modified files: G4LogicalVolumeStore[.hh.cc], G4SolidStore[.hh.cc],
+                    G4PhysicalVolumeStore[.hh.cc].
+
+April 16, 2002  V. Grichine                geommng-V04-00-02
+- G4VSolid[.hh.cc]: fixed bug in G4VSolid::ClipPoligon() to consider
+  clipping related to a single axis.
+- G4VoxelLimits.cc: cosmetics changes and debug printouts ...
+
+February 26, 2002  G. Cosmo                geommng-V04-00-01
+- G4GeometryManager.cc: fixed handling of ios manipulators and precision to reset
+  to their original state in G4GeometryManager::ReportVoxelStats().
+  Fixes problem report #343.
+
+January 08, 2002  G. Cosmo                 geommng-V04-00-00
+- G4AffineTransform.icc: fixed trivial compilation warning for gcc-2.95.2.
+- Included latest cosmetics changes to TestAssemblyVolume/TstVADetectorConstruction.cc.
+
+November 23, 2001  G. Cosmo                geommng-V03-02-03
+- Initialise noNodes to 1 in G4SmartVoxelHeader::BuildNodes() in case
+  computed nodes for smartless happen to be zero (J.Apostolakis).
+
+November 08, 2001  G. Cosmo                geommng-V03-02-02
+- Fixed comments for reference manual in G4TouchableHandle.hh.
+ 
+October 26, 2001  G. Cosmo                 geommng-V03-02-01
+- Improved printout in G4GeometryManager::ReportVoxelStats().
+
+October 22, 2001  G. Cosmo                 geommng-V03-02-00
+- Added definition of G4TouchableHandle (R.Chytracek)
+- Added class G4SmartVoxelStat for statistics on geometry optimisation
+  of volumes through voxelisation (courtesy of D.C.Williams).
+- Modified G4GeometryManager to make use of G4SmartVoxelStat when run in
+  verbose mode.
+
+May 31, 2001  G. Cosmo                     geommng-V03-01-04
+- Adopt explicit initialisation for 'minExtents' and 'maxExtents'
+  in G4SmartVoxelHeader::BuildNodes(...), to allow porting on ObjectSpace STL.
+
+May 23, 2001  G. Cosmo                     geommng-V03-01-03
+- G4SmartVoxelHeader.cc: minor fix for removing pedantic warnings
+  detected on Linux-g++ with ISO/ANSI setup.
+
+May 03, 2001  G. Cosmo                     geommng-V03-01-02
+- G4DrawVoxels.cc: migration to STL vector according to changes in
+  graphics_reps module (greps-V03-01-01), now migrated as well.
+
+April 27, 2001  G. Cosmo                   geommng-V03-01-01
+- G4LogicalVolume.cc, G4SmartVoxelHeader.cc: fixed compilation warnings
+  on HP-UX, concerning potential uninitialised vector elements.
+
+April 20, 2001  G. Cosmo                   geommng-V03-01-00
+- Migration to STL vector:
+  o G4VSolid: migrated G4ThreeVectorList typedef.
+  o G4SolidStore, G4LogicalVolumeStore, G4PhysicalVolumeStore: migrated
+    inheritance from base collection of pointers.
+  o G4LogicalVolume: migrated data member "fDaughters".
+  o G4SmartVoxelHeader: migrated typedefs G4ProxyVector, G4NodeVector,
+    G4VolumeNosVector and G4VolumeExtentVector.
+  o G4SmartVoxelNode: migrated G4SliceVector typedef.
+
+March 07, 2001  G. Cosmo                   geommng-V03-00-01
+- G4PVPlacement.hh: corrected comments to constructor with G4RotationMatrix*
+  as argument, to correspond to specifications in the User's Manual.
+- G4AssemblyVolume.cc: corrected comments about unique PV identifiers
+  (by R.Chytracek).
+
+February 07, 2001  G. Cosmo                geommng-V03-00-00
+- Introduced first implementation of G4AssemblyVolume, a helper class to
+  combine several volumes together in an arbitrary way in the 3D space.
+  Added files: G4AssemblyVolume[.hh.icc.cc], G4AssemblyTriplet[.hh.icc]
+  (by R.Chytracek).
+- Added unit test suite for G4AssemblyVolume class: TestAssemblyVolume
+  (by R.Chytracek).
+
+December 04, 2000  G. Cosmo
+- Minor fix to private assignment operator.
+
+November 20, 2000  G. Cosmo                geommng-V02-00-04
+- Fixes to remove warnings from "-Wall -ansi -pedantic" g++ compiler options:
+  o commented out variables declared and not used.
+  o fixed declaration of variables used before being initialised.
+  o fixed order of initialisation of member data in constructors.
+  o fixed usage of unsigned-int (size_t) for array indeces.
+
+November 16, 2000  V.Grichine              geommng-V02-00-03
+- Fix in G4VSolid::CalculateClippedPoligonExtent(): removed assumption
+  that pMin<pMax by eliminating "else" condition. (D.Williams)
+
+November 9, 2000   G.Cosmo                 geommng-V02-00-02
+- Included test directory containing "voxel" test by L.Grainac.
+
+November 1, 2000   G.Cosmo                 geommng-V02-00-01
+- QA code revision and cleanup (+fixes from CodeWizard filtering):
+  o Added (private) declarations of copy constructor and assignment
+    operator where needed.
+  o Added "const" qualifier to accessor methods, wherever needed.
+  o Added equality check on operator= where needed.
+  o Made destructor "virtual" for classes having virtual methods,
+    wherever missing.
+  o Changed virtual functions to non-inline wherever's the case.
+  o Added "inline" qualifier to methods' declarations.
+  o Replaced usage of "do-loops" with "while-loops" in
+    G4VoxelLimits::ClipToLimits().
+  o General cosmetics
+
+September 11, 2000   G.Cosmo               geommng-V02-00-00
+- G4SolidStore.cc: fixed bug in destructor causing memory corruption at
+  application exit when Boolean solids are involved (bug #154).
+
+June 06, 2000   G.Cosmo                    geommng-V01-01-00
+- G4DrawVoxels.hh: removed line '#define G4DrawVoxelsDebug' left in place
+  accidentally in the code...
+
+April 20, 2000   G. Cosmo
+- Reorganised comments for the Software Reference Manual.
+- Moved inlined definition to .icc files, where needed.
+  Created: G4SmartVoxelHeader.icc, G4SmartVoxelNode.icc,
+           G4SmartVoxelProxy.icc, G4VoxelLimits.icc.
+
+April 11, 2000   J. Allison
+- Made virtual G4VisExtent G4VSolid::GetExtent() non-pure and implemented
+  a default in terms of CalculateExtent.
+
+January 19, 2000  G. Cosmo                 geommng-V01-00-00
+
+- Syncronized file versioning with HEAD (several CVS headers changed
+  due to the recent migration for ISO C++)
+
+January 19, 2000  J. Allison
+
+- G4DrawVoxels.cc: assured GetSlice(slice_no) is called for
+  slice_no < no_slices.
+
+November 30, 1999  G. Cosmo                geommng-V00-01-01a
+- G4DrawVoxels.cc:
+  Fixed initialization of (const G4VPhysicalVolume*) in method
+  GetAbsoluteTransformation(). Fix needed for NT/VC++ compiler.
+
+November 09, 1999  J. Apostolakis          geommng-V00-01-01
+- G4VPhysicalVolume:
+   i) Made G4RotationMatrix G4VPhysicalVolume::GetObjectRotation() const
+      non-inline and moved it to source file from inline file.
+  ii) Added GetObjectRotationValue() method.
+ iii) Minimal changes of comments for Software Ref. Manual in header file
+
+  [ Change i) caused problem with HP aCC compiler A.01.19.  Atlas 
+     was patching the code to try to get around this, but this 
+     resolution is much better ] 
+
+March 17, 1999  J. Apostolakis             geommng-01-00-02
+- G4AffineTransform.icc:  
+  Corrected a typo in InverseProduct (rzy->ryz) that caused the incorrect 
+  calculation of a compound transformation (if tf1.tz*tf2.ryz != 0).
+  This problem was seen in ATLAS code.

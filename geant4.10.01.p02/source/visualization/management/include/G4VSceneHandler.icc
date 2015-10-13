@@ -1,0 +1,140 @@
+//
+// ********************************************************************
+// * License and Disclaimer                                           *
+// *                                                                  *
+// * The  Geant4 software  is  copyright of the Copyright Holders  of *
+// * the Geant4 Collaboration.  It is provided  under  the terms  and *
+// * conditions of the Geant4 Software License,  included in the file *
+// * LICENSE and available at  http://cern.ch/geant4/license .  These *
+// * include a list of copyright holders.                             *
+// *                                                                  *
+// * Neither the authors of this software system, nor their employing *
+// * institutes,nor the agencies providing financial support for this *
+// * work  make  any representation or  warranty, express or implied, *
+// * regarding  this  software system or assume any liability for its *
+// * use.  Please see the license in the file  LICENSE  and URL above *
+// * for the full disclaimer and the limitation of liability.         *
+// *                                                                  *
+// * This  code  implementation is the result of  the  scientific and *
+// * technical work of the GEANT4 collaboration.                      *
+// * By using,  copying,  modifying or  distributing the software (or *
+// * any work based  on the software)  you  agree  to acknowledge its *
+// * use  in  resulting  scientific  publications,  and indicate your *
+// * acceptance of all terms of the Geant4 Software license.          *
+// ********************************************************************
+//
+//
+// $Id: G4VSceneHandler.icc 66373 2012-12-18 09:41:34Z gcosmo $
+//
+// 
+// John Allison  19th July 1996.
+
+inline G4VGraphicsSystem* G4VSceneHandler::GetGraphicsSystem () const {
+  return &fSystem;
+}
+
+inline G4int G4VSceneHandler::GetSceneHandlerId () const {
+  return fSceneHandlerId;
+}
+
+inline G4int G4VSceneHandler::GetViewCount () const {
+  return fViewCount;
+}
+
+inline
+G4double G4VSceneHandler::GetMarkerDiameter
+(const G4VMarker& marker, G4VSceneHandler::MarkerSizeType& sizeType) {
+  return GetMarkerSize (marker, sizeType);
+}
+
+inline
+G4double G4VSceneHandler::GetMarkerRadius
+(const G4VMarker& marker, G4VSceneHandler::MarkerSizeType& sizeType) {
+  return GetMarkerSize (marker, sizeType) / 2.;
+}
+
+inline G4int G4VSceneHandler::IncrementViewCount () {
+  return fViewCount++;
+}
+
+inline const G4String& G4VSceneHandler::GetName () const {
+  return fName;
+}
+
+inline void G4VSceneHandler::SetName (const G4String& name) {
+  fName = name;
+}
+
+inline G4Scene* G4VSceneHandler::GetScene () const {
+  return fpScene;
+}
+
+inline const G4ViewerList& G4VSceneHandler::GetViewerList () const {
+  return fViewerList;
+}
+
+inline G4VModel* G4VSceneHandler::GetModel () const {
+  return fpModel;
+}
+
+inline G4VViewer* G4VSceneHandler::GetCurrentViewer () const {
+  return fpViewer;
+}
+
+inline G4bool G4VSceneHandler::GetMarkForClearingTransientStore () const {
+  return fMarkForClearingTransientStore;
+}
+
+inline G4bool G4VSceneHandler::IsReadyForTransients () const {
+  return fReadyForTransients;
+}
+
+inline G4bool G4VSceneHandler::GetTransientsDrawnThisEvent () const {
+  return fTransientsDrawnThisEvent;
+}
+
+inline G4bool G4VSceneHandler::GetTransientsDrawnThisRun () const {
+  return fTransientsDrawnThisRun;
+}
+
+inline const G4Transform3D& G4VSceneHandler::GetObjectTransformation () const {
+  return fObjectTransformation;
+}
+
+inline void G4VSceneHandler::SetCurrentViewer (G4VViewer* pViewer) {
+  fpViewer = pViewer;
+}
+
+inline G4ViewerList& G4VSceneHandler::SetViewerList () {
+  return fViewerList;
+}
+
+inline void
+G4VSceneHandler::SetModel (G4VModel* pModel) {
+  fpModel = pModel;
+}
+
+inline void G4VSceneHandler::SetMarkForClearingTransientStore (G4bool mark) {
+  fMarkForClearingTransientStore = mark;
+}
+
+inline void G4VSceneHandler::SetTransientsDrawnThisEvent (G4bool drawn) {
+  fTransientsDrawnThisEvent = drawn;
+}
+
+inline void G4VSceneHandler::SetTransientsDrawnThisRun (G4bool drawn) {
+  fTransientsDrawnThisRun = drawn;
+}
+
+inline void G4VSceneHandler::SetObjectTransformation (const G4Transform3D& t) {
+  fObjectTransformation = t;
+}
+
+
+inline const G4Colour& G4VSceneHandler::GetColor (const G4Visible& visible) {
+  return GetColour (visible);
+}
+
+inline const G4Colour& G4VSceneHandler::GetTextColor (const G4Text& text) {
+  return GetTextColour (text);
+}

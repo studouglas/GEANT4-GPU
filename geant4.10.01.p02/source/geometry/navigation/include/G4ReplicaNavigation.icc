@@ -1,0 +1,222 @@
+//
+// ********************************************************************
+// * License and Disclaimer                                           *
+// *                                                                  *
+// * The  Geant4 software  is  copyright of the Copyright Holders  of *
+// * the Geant4 Collaboration.  It is provided  under  the terms  and *
+// * conditions of the Geant4 Software License,  included in the file *
+// * LICENSE and available at  http://cern.ch/geant4/license .  These *
+// * include a list of copyright holders.                             *
+// *                                                                  *
+// * Neither the authors of this software system, nor their employing *
+// * institutes,nor the agencies providing financial support for this *
+// * work  make  any representation or  warranty, express or implied, *
+// * regarding  this  software system or assume any liability for its *
+// * use.  Please see the license in the file  LICENSE  and URL above *
+// * for the full disclaimer and the limitation of liability.         *
+// *                                                                  *
+// * This  code  implementation is the result of  the  scientific and *
+// * technical work of the GEANT4 collaboration.                      *
+// * By using,  copying,  modifying or  distributing the software (or *
+// * any work based  on the software)  you  agree  to acknowledge its *
+// * use  in  resulting  scientific  publications,  and indicate your *
+// * acceptance of all terms of the Geant4 Software license.          *
+// ********************************************************************
+//
+//
+// $Id: G4ReplicaNavigation.icc 66356 2012-12-18 09:02:32Z gcosmo $
+//
+// 
+// class G4ReplicaNavigation Inline implementation
+//
+// --------------------------------------------------------------------
+
+// ********************************************************************
+// VoxelLocate
+// ********************************************************************
+//
+inline
+G4int
+G4ReplicaNavigation::VoxelLocate( const G4SmartVoxelHeader* pHead,
+                                  const G4ThreeVector& localPoint,
+                                  const G4int blocked ) const
+{
+  EAxis targetHeaderAxis;
+  G4double coord=0.;
+  G4double targetHeaderMin, targetHeaderMax;
+  G4double targetHeaderNodeWidth, targetNodePos;
+  G4int targetHeaderNoSlices, targetNodeNo;
+  
+  targetHeaderAxis = pHead->GetAxis();
+  targetHeaderNoSlices = pHead->GetNoSlices();
+  targetHeaderMin = pHead->GetMinExtent();
+  targetHeaderMax = pHead->GetMaxExtent();
+  targetHeaderNodeWidth = ( targetHeaderMax-targetHeaderMin )
+                          / targetHeaderNoSlices;
+
+  switch (targetHeaderAxis)
+  {
+    case kXAxis:
+      coord = localPoint.x();
+      break;
+    case kYAxis:
+      coord = localPoint.y();
+      break;
+    case kZAxis:
+      coord = localPoint.z();
+      break;
+    case kRho:
+      coord = localPoint.perp();
+      break;
+    case kPhi:
+      coord = localPoint.phi();
+      if ( (coord<0) && (coord<targetHeaderMin) ) coord += CLHEP::twopi;
+      break;
+    case kRadial3D:
+    default:
+      break;
+  }
+  targetNodePos = (coord-targetHeaderMin)/targetHeaderNodeWidth;
+  targetNodeNo = (G4int) targetNodePos;
+
+  if ( targetNodeNo==blocked )
+  {
+    targetNodeNo = (targetNodePos-targetNodeNo<0.5)
+                   ? targetNodeNo-1 : targetNodeNo+1;
+      
+    // Do not need to check range: If on outer edge of zeroth
+    // voxel & it is blocked => should have exited mother
+    // (or similar)       P.Kent
+    // assert(targetNodeNo>=0&&targetNodeNo<targetHeaderNoSlices);
+
+    if( (targetNodeNo<0) || (targetNodeNo>=targetHeaderNoSlices) )
+    {
+
+#ifdef G4DEBUG_NAVIGATION
+      G4cerr << " WARNING: assert in G4ReplicaNavigation::VoxelLocate " 
+             << " has failed : " << G4endl
+             << " (targetNodeNo>=0&&targetNodeNo<targetHeaderNoSlices) " 
+             << " targetNodeNo= " << targetNodeNo 
+             << " Number of Slices =  " << targetHeaderNoSlices << G4endl;
+#endif
+      // In the case of rotational symmetry and an extent over the
+      // whole 360 degrees, the above is not true and you can go from
+      // the last voxel to the zeroth and vice versa
+      //                                        H.Boie, April 30, 2001  
+      if ( (targetHeaderAxis==kPhi)
+           && (targetHeaderMin==0) && (targetHeaderMax==CLHEP::twopi) )
+      {
+        if ( targetNodeNo<0 ) 
+          targetNodeNo = targetHeaderNoSlices-1;
+        else if ( targetNodeNo>=targetHeaderNoSlices )
+          targetNodeNo = 0;
+      }
+      else 
+      {
+        if( targetNodeNo<0 )
+          targetNodeNo = 0;
+        else if ( targetNodeNo>=targetHeaderNoSlices )
+          targetNodeNo = targetHeaderNoSlices-1;
+      }
+    }
+  }
+  else
+  {
+    // Rounding protection
+    //
+    if ( targetNodeNo<0 )
+    {
+      targetNodeNo = 0;
+    }
+    else if ( targetNodeNo>=targetHeaderNoSlices )
+    {
+      targetNodeNo = targetHeaderNoSlices-1;
+    }
+  }
+  return targetNodeNo;
+}
+
+// ********************************************************************
+// LevelLocate
+// ********************************************************************
+//
+inline
+G4bool
+G4ReplicaNavigation::LevelLocate( G4NavigationHistory& history,
+                            const G4VPhysicalVolume* blockedVol,
+                            const G4int              blockedNum,
+                            const G4ThreeVector&,     // globalPoint
+                            const G4ThreeVector*,     // globalDirection
+                            const G4bool,             // pLocatedOnEdge
+                                  G4ThreeVector& localPoint )
+{
+  G4VPhysicalVolume *motherPhysical, *pPhysical;
+  G4LogicalVolume *motherLogical;
+  G4SmartVoxelHeader *motherVoxelHeader;
+  G4int nodeNo;
+
+  motherPhysical = history.GetTopVolume();
+  motherLogical = motherPhysical->GetLogicalVolume();
+  motherVoxelHeader = motherLogical->GetVoxelHeader();
+  pPhysical = motherLogical->GetDaughter(0);
+
+  if ( blockedVol==pPhysical )
+  {
+    nodeNo = VoxelLocate(motherVoxelHeader, localPoint, blockedNum);
+  }
+  else
+  {
+    nodeNo = VoxelLocate(motherVoxelHeader, localPoint);
+  }
+
+  ComputeTransformation(nodeNo, pPhysical, localPoint);
+  history.NewLevel(pPhysical, kReplica, nodeNo);
+  pPhysical->SetCopyNo(nodeNo); 
+
+  return true;
+}
+
+// ********************************************************************
+// SetPhiTransformation
+// ********************************************************************
+//
+inline
+void
+G4ReplicaNavigation::SetPhiTransformation( const G4double ang,
+                                                 G4VPhysicalVolume* pVol ) const
+{
+  G4RotationMatrix rm;
+  rm.rotateZ(ang);
+  if ( pVol )
+    *pVol->GetRotation() = rm;
+}
+
+// ********************************************************************
+// GetVerboseLevel
+// ********************************************************************
+//
+inline
+G4int G4ReplicaNavigation::GetVerboseLevel() const
+{
+  return fVerbose;
+}
+
+// ********************************************************************
+// SetVerboseLevel
+// ********************************************************************
+//
+inline
+void  G4ReplicaNavigation::SetVerboseLevel(G4int level)
+{
+  fVerbose = level;
+}
+
+// ********************************************************************
+// CheckMode
+// ********************************************************************
+//
+inline
+void  G4ReplicaNavigation::CheckMode(G4bool mode)
+{
+  fCheck = mode;
+}

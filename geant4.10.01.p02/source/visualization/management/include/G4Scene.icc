@@ -1,0 +1,108 @@
+//
+// ********************************************************************
+// * License and Disclaimer                                           *
+// *                                                                  *
+// * The  Geant4 software  is  copyright of the Copyright Holders  of *
+// * the Geant4 Collaboration.  It is provided  under  the terms  and *
+// * conditions of the Geant4 Software License,  included in the file *
+// * LICENSE and available at  http://cern.ch/geant4/license .  These *
+// * include a list of copyright holders.                             *
+// *                                                                  *
+// * Neither the authors of this software system, nor their employing *
+// * institutes,nor the agencies providing financial support for this *
+// * work  make  any representation or  warranty, express or implied, *
+// * regarding  this  software system or assume any liability for its *
+// * use.  Please see the license in the file  LICENSE  and URL above *
+// * for the full disclaimer and the limitation of liability.         *
+// *                                                                  *
+// * This  code  implementation is the result of  the  scientific and *
+// * technical work of the GEANT4 collaboration.                      *
+// * By using,  copying,  modifying or  distributing the software (or *
+// * any work based  on the software)  you  agree  to acknowledge its *
+// * use  in  resulting  scientific  publications,  and indicate your *
+// * acceptance of all terms of the Geant4 Software license.          *
+// ********************************************************************
+//
+//
+// $Id: G4Scene.icc 66373 2012-12-18 09:41:34Z gcosmo $
+//
+// 
+// Scene data  John Allison  19th July 1996.
+
+inline G4bool G4Scene::operator == (const G4Scene& scene) const {
+  return !(G4Scene::operator != (scene));
+}
+
+inline const G4String& G4Scene::GetName () const {
+  return fName;
+}
+
+inline G4bool G4Scene::IsEmpty () const {
+  return fRunDurationModelList.size () == 0;
+}
+
+inline const std::vector<G4Scene::Model>&
+G4Scene::GetRunDurationModelList () const {
+  return fRunDurationModelList;
+}
+
+inline const std::vector<G4Scene::Model>&
+G4Scene::GetEndOfEventModelList () const {
+  return fEndOfEventModelList;
+}
+
+inline const std::vector<G4Scene::Model>&
+G4Scene::GetEndOfRunModelList () const {
+  return fEndOfRunModelList;
+}
+
+inline const G4VisExtent& G4Scene::GetExtent () const {
+  return fExtent;
+}
+
+inline const G4Point3D& G4Scene::GetStandardTargetPoint () const {
+  return fStandardTargetPoint;
+}
+
+inline G4bool G4Scene::GetRefreshAtEndOfEvent () const {
+  return fRefreshAtEndOfEvent;
+}
+
+inline G4int G4Scene::GetMaxNumberOfKeptEvents() const {
+  return fMaxNumberOfKeptEvents;
+}
+
+inline G4bool G4Scene::GetRefreshAtEndOfRun () const {
+  return fRefreshAtEndOfRun;
+}
+
+inline void G4Scene::SetName (const G4String& name) {
+  fName = name;
+}
+
+inline std::vector<G4Scene::Model>& G4Scene::SetRunDurationModelList ()
+{
+  return fRunDurationModelList;
+}
+
+inline std::vector<G4Scene::Model>& G4Scene::SetEndOfEventModelList ()
+{
+  return fEndOfEventModelList;
+}
+
+inline std::vector<G4Scene::Model>& G4Scene::SetEndOfRunModelList ()
+{
+  return fEndOfRunModelList;
+}
+
+inline void G4Scene::SetRefreshAtEndOfEvent(G4bool refresh) {
+  fRefreshAtEndOfEvent = refresh;
+}
+
+inline void G4Scene::SetMaxNumberOfKeptEvents(G4int max) {
+  fMaxNumberOfKeptEvents = max;
+}
+
+inline void G4Scene::SetRefreshAtEndOfRun(G4bool refresh) {
+  fRefreshAtEndOfRun = refresh;
+}

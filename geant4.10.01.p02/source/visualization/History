@@ -1,0 +1,4555 @@
+$Id: History 89001 2015-03-17 11:47:01Z gcosmo $
+-------------------------------------------------------------------
+
+     =========================================================
+     Geant4 - an Object-Oriented Toolkit for Simulation in HEP
+     =========================================================
+
+                      Category History file
+                      ---------------------
+This file should be used by G4 developers and category coordinators
+to briefly summarize all major modifications introduced in the code
+and keep track of all category-tags.
+It DOES NOT substitute the  CVS log-message one should put at every
+committal in the CVS repository !
+
+     *************************************************************
+     * Note that modeling and test have their own History files. *
+     *************************************************************
+
+     ----------------------------------------------------------
+     * Reverse chronological order (last date on top), please *
+     ----------------------------------------------------------
+
+History file for visualization category
+---------------------------------------
+
+7th February 2015  Akinori Kimura (vis-V10-00-16)
+- gMocren: fixed bugs of checking string lengths.
+
+2nd February 2015  Gabriele Cosmo
+- Fix to sources.cmake scripts in various modules to include missing
+  dependency on external USolids library.
+
+16th December 2014  John Allison
+- Corrected sources.cmake to include missing files.
+
+28th November 2014  Laurent Garnier (vis-V10-00-15)
+- opengl-V10-00-28 :
+  o Fix refresh problem due to a bad threading management
+  o Fixes hidden marker field in Qt viewer properties.
+  o Fixes a bug whereby hidden markers are not respected if 2D objects
+    are drawn.
+  o Fix a compilation issue with Wt driver
+  o Fix some minor GUI visual issues
+  o Allow viewer properties/picking/scene tree to be accessible
+  from an external application
+  o Fix JIRA DEV-173 about using external application 
+- gMocren-V10-00-03
+  o fixed warnings according to COVERITY
+  o fixed STRING_OVERFLOW checks according to COVERITY
+- modeling-V10-00-12
+- visman-V10-00-30
+
+28th November 2014  John Allison  (vis-V10-00-14-JA-01)
+- modeling-V10-00-12: Tidied.
+- visman-V10-00-30: Get correct run manager in MT mode.
+- visman-V10-00-29: Fixed Coverity warning.
+
+26th November 2014  John Allison  (vis-V10-00-14-JA-00)
+- Private tag to assist merging wit MT vis-sub-thread version.
+
+21st November 2014  John Allison
+- visman-V10-00-28: Fix bug affecting file-writing viewers.
+
+20th November 2014  John Allison
+- visman-V10-00-27: Another go at fixing win7-vc12 compiler warnings.
+
+19th November 2014  John Allison
+- visman-V10-00-26: Fixed compiler warnings.
+
+17th November 2014  John Allison
+- visman-V10-00-25: Fixes for Coverity warnings.
+
+11th November 2014  John Allison
+- visman-V10-00-24: Improved /vis/scene/add/scale.
+
+8th November 2014  John Allison  (vis-V10-00-14)
+- visman-V10-00-23:
+  o Fixed spelling mistake in messages.
+  o Fixed win7-vc12 compiler warnings.
+
+7th November 2014  Laurent Garnier (vis-V10-00-12 - vis-V10-00-13)
+- opengl-V10-00-22 - opengl-V10-00-23
+
+30th October 2014  Laurent Garnier (vis-V10-00-10 - vis-V10-00-11)
+- visexternal-V10-00-03
+- opengl-V10-00-21
+
+30th October 2014  John Allison
+- visman-V10-00-21: Added informationals about /vis/scene/add/extent.
+
+29th October 2014  John Allison
+- visman-V10-00-20: Added /vis/scene/add/extent.
+  o Adds a dummy model with given extent to the current scene.
+    This can be used to provide an extent to the scene even if
+    no other models with extent are available. For example,
+    even if there is no geometry.
+
+22nd October 2014  John Allison  (vis-MT-branchpoint-00)
+- A tag made on the trunk from which vis-MT-branch-00 has been made.
+
+22nd October 2014  John Allison
+- modeling-V10-00-08: Get appropriate run manager in MT mode.
+- opengl-V10-00-19: Some developments by Laurent.
+
+1st October 2014  John Allison
+- visman-V10-00-18:
+  o G4VisManager: Split out some code in sequential version of EndOfEvent
+    in preparation for re-use in multi-threading mode.
+  o G4VisManager.cc and G4VSceneHandler.cc: Minor code improvements (Laurent).
+
+14th Aug 2014  John Allison  (vis-V10-00-09)
+- visman-V10-00-17: Changed default text size to 12 pixels.
+
+11th Aug 2014  John Allison  (vis-V10-00-08)
+- Re-tagged.  Needs greps-V10-00-06.
+
+11th Aug 2014  John Allison  (vis-V10-00-07)
+- modeling-V10-00-07: Added text size for axes labels.
+- visman-V10-00-16: Added text size control through /vis/set/textSize
+  for /vis/scene/add/axes and /vis/scene/add/scale.
+
+6th June 2014  Laurent Garnier (vis-V10-00-06)
+- opengl-V10-00-08 :
+  o G4OpenGLQtViewer: Fix a problem in viewer/set parameters
+
+5th June 2014  Laurent Garnier  (vis-V10-00-05)
+- opengl-V10-00-07 :
+  o Speed improvments by avoiding a dynamic_cast
+  o New Viewer parameters info panel (DEV-151)
+- gMocren-V10-00-01
+  o FIX Problem 1585 - Memory leak in G4GMocrenFile.cc
+- visexternal-V10-00-00
+  o Fix a bad text in G4OpenGL2PSAction
+
+27th May 2014  John Allison
+- visman-V10-00-10: /vis/specify and /vis/scene/add/logicalVolume:
+  o Added flag for drawing/suppressing axes.
+
+19th May 2014  John Allison  (vis-V10-00-04)
+- modeling-V10-00-05:
+  o Introduced G4TouchableDumpScene and G4PseudoScene.
+- visman-V10-00-09 - requires modeling-V10-00-05.
+- Added /vis/touchable/dump.  Dumps the G4Atts to G4cout.
+- Added parameter to /vis/scene/add/axes to suppress annotations.
+- G4VisCommands.cc: Fixed deprecated call to GetAttDefs.
+
+13th May 2014  John Allison  (vis-V10-00-03)
+- visman-V10-00-08, DAWN-V10-00-02, opengl-V10-00-05, openinventor-V10-00-01:
+  o Moved G4VisFeaturesOf* to appropriate sub-categories.
+— visman-V10-00-07:
+  o G4VisCommandsSceneAdd.cc:
+    . Added axes to /vis/scene/add/logicalVolume.
+    . Other small changes.
+  o G4VisManager.hh:
+    . GetInstance now public.
+    . Thus removed cross-subcategory friendships.
+
+6th March 2014  John Allison
+- modeling-V10-00-04: Protection of zero pointers.
+- visman-V10-00-04: Coverity fix.
+
+4th February 2014  John Allison  (vis-V10-00-02)
+- openinventor-V10-00-00:
+  o Fixed shadowing compilation warnings (Gabriele Cosmo).
+  o Improvements to G4OpenInventorXtExaminerViewer (Fred Jones).
+
+25th January 2014  John Allison  (vis-V10-00-01)
+- modeling-V10-00-02:
+  o GNUmakefile: Added dependency on run category.
+  o G4PhysicalVolumeModel: Improved constructor.
+- visman-V10-00-03:
+  o G4VisManager: Removed temporary model in Draw method for
+    G4VPhysicalVolume introduced in visman-V10-00-01.
+- opengl-V10-00-01:
+  o Improved protection of pointers.
+
+23rd January 2014  John Allison  (vis-V10-00-00)
+- modeling-V10-00-01:
+  o G4TrajectoriesModel: Add run ID.
+- visman-V10-00-02:
+  o Add run ID to G4Atts of user drawn trajectories.
+- opengl-V10-00-00:
+  o Improvements to class design and some bug fixes for picking.
+  o Some Qt fixes and improvements.
+
+13th January 2014  John Allison
+- modeling-V10-00-00: requires greps-V10-00-01:
+  o Migration and minor development.
+- visman-V10-00-01: requires modeling-V10-00-00:
+  o Migration and added protections.
+  o Used temporary models for Draw methods for G4VTrajectory and
+    G4VPhysicalVolume.
+
+10th December 2013  John Allison
+- visXXX-V10-00-00: G4XXXFile declared as G4VGraphicsSystem::fileWriter.
+- VRML-V10-00-00: VRML1/2File declared as G4VGraphicsSystem::fileWriter.
+
+9th December 2013  John Allison
+- visman-V10-00-00:
+  o Introduced G4VGraphicsSystem::fileWriter to allow special informational.
+  o Small bug fix for MT mode:
+- DAWN-V10-00-00: DAWNFILE declared as G4VGraphicsSystem::fileWriter.
+- gMocren-V10-00-00: gMocren declared as G4VGraphicsSystem::fileWriter.
+- vis-HepRep-V10-00-00:
+  o HepRep and HepRepFile declared as G4VGraphicsSystem::fileWriter.
+
+23rd November 2013  Joseph Perl  (vis-V09-06-37)
+- opengl-V09-06-11: Fixes for Qt
+- opengl-V09-06-10: Fixes for Qt
+- VRML-V09-06-05: Some changes as suggested by PVS
+- raytracer-V09-06-07: Some changes as suggested by PVS and Coverity
+- modeling-V09-06-22: Some changes as suggested by PVS
+- vistree-V09-06-01: Some changes as suggested by PVS
+- DAWN-V09-06-06: Some changes as suggested by PVS
+- visman-V09-06-27: Fix for end-of-run action accumulate
+- visman-V09-06-26: Fix for smooth trajectories in MT mode
+
+9th November 2013  Joseph Perl  (vis-V09-06-36)
+- visman-V09-06-25 Command parameter updates
+- DAWN-V09-06-05 Replaced deprecated calls to solids accessor methods
+- VRML-V09-06-04 Replaced deprecated calls to solids accessor methods
+
+7th November 2013 Laurent Garnier
+- opengl-V09-06-09:
+  o Fix the JIRA-Dev28 problem : Text displays in wrong position in Qt
+
+7th November 2013  John Allison
+- visman-V09-06-24: /vis/scene/add/date: Change positioning.
+
+7th November 2013  John Allison  (vis-V09-06-35)
+- visman-V09-06-23: Fix compilation error.
+
+6th November 2013  John Allison  (vis-V09-06-34)
+- modeling-V09-06-21: Tidying.
+- visman-V09-06-22: Further improvements to parameter guidance.
+
+4th November 2013  John Allison  (vis-V09-06-33)
+- visman-V09-06-21:
+  o Fixes event keeping for MT mode when end-of-event-action is "refresh".
+
+3rd November 2013  John Allison  (vis-V09-06-32)
+- visman-V09-06-20:
+  o Further improvements to event keeping and informationals.
+
+2nd November 2013  John Allison
+- visman-V09-06-19: Fixed event keeping in MT mode.
+
+1st November 2013  John Allison  (vis-V09-06-31)
+- Needs geom-specific-V09-06-22 and geomdiv-V09-06-04.
+- modeling-V09-06-20: Make use of G4GenericPolycone in G4ArrowModel.
+- visman-V09-06-18:
+  o Printing brought under control of verbosity flag.
+  o /vis/touchable/set/colour and several other commands:
+    . Parameter guidance may be called only once. So instances of
+      multiple calls to parameter guidance have been eliminated.
+      Any extended information that was in parameter guidance has
+      been moved to command guidance. This fixes a problem whereby
+      guidance information was being lost and fixes a crash in the
+      GAG interface.
+- opengl-V09-06-08: Lots of changes for Wt and OpenGL2 (Laurent).
+
+30th September 2013  John Allison  (vis-V09-06-30)
+- modeling-V09-06-19: Re-tagged after clean-up by Gunter and Mike.
+
+27th September 2013  Michael Kelsey  (vis-V09-06-29)
+- modeling-V09-06-18
+  o Try to resolve SVN "modified" warnings due to 'Id' string use.
+
+25th September 2013  John Allison  (vis-V09-06-28)
+- visman-V09-06-17:
+  o Vis commands are *not* be broadcast to threads.
+  o Fix crash in EndOfEvent for batch MT mode.
+
+24th September 2013  John Allison  (vis-V09-06-27)
+- visman-V09-06-16:
+  o /vis/reviewKeptEvents: Keep enabled state (ConcreteInstance pointer).
+  o Implemented IgnoreStateChanges.
+  o MT mode: Implemented maxNumberOfKeptEvents.
+
+21st September 2013  John Allison  (vis-V09-06-26)
+- modeling-V09-06-17: Fix compiler warnings.
+
+20th September 2013  John Allison  (vis-V09-06-25 needs greps-V09-06-11)
+- modeling-V09-06-16:
+  o G4MagneticFieldModel:
+  - Added $Id functionality.
+  - Allowed for scene with extent not necessarily equal in x, y and z.
+- visman-V09-06-15
+  o First implementation of multithreading visualisation:
+  o Drawing from user code is explicitly ignored.
+  o Events are kept until end of run, then drawn:
+    - this could mean a huge consumption of memory.
+    - to avoid this, "/vis/disable".
+  o Some debug statements remain for testing.
+- visman-V09-06-14 (M.Asai)
+  o Implementing IgnoreStateChanges() to be invoked from RayTracer and
+    other utilities that have their own event loop.
+- visman-V09-06-13 (M.Asai)
+  o Introducing G4VisManager::SetUpForAThread(). This method is invoked
+    by G4WorkerRunManager so that G4VisManager will get noticed at the
+    end of event of each worker thread.
+- raytracer-V09-06-02 to raytracer-V09-06-06:
+  o Developments for multithreading (M.Asai)
+  o Needs greps-V09-06-11.
+
+30th August 2013  John Allison  (vis-V09-06-24)
+- modeling-V09-06-15: - GNUmakefile: Added geometry/magneticfield/include.
+
+29th August 2013  John Allison  (vis-V09-06-23)
+- modeling-V09-06-14: Fixed a corrupted file (SVN glitch?).
+
+27th August 2013  John Allison  (vis-V09-06-22)
+- modeling-V09-06-13:
+  o G4MagneticFieldModel: Removed diagnostic print statements.
+
+26th August 2013  John Allison
+- modeling-V09-06-12:
+  o G4MagneticFieldModel: Variable no. of data points per half scene.
+- visman-V09-06-12:
+  o /vis/scene/add/magneticField:
+    . Added integer parameter: No. of data points per half scene.
+
+25th August 2013  John Allison
+- modeling-V09-06-11: G4MagneticFieldModel: Bug fix.
+
+24th August 2013  John Allison  (vis-V09-06-21)
+- visman-V09-06-11 and modeling-V09-06-09 (coworking)
+  o Removed G4FlavoredParallelWorldModel.
+
+18th August 2013  John Allison (vis-V09-06-20 requires greps-V09-06-06)
+- modeling-V09-06-08: Added skeleton G4MagneticFieldModel.
+- visman-V09-06-10: Added /vis/scene/add/magneticField.
+
+30th July 2013  John Allison  (vis-V09-06-19)
+- visman-V09-06-09: Fixes Bugs 1499 and 1503.
+
+17th June 2013  John Allison  (vis-V09-06-18)
+- gMocren-V09-06-06: Reverted snprintf to sprintf.
+  o snprintf not in cstdlib on Windows.
+  o Mark as "intentional" on next Coverity analysis.
+
+17th June 2013  John Allison  (vis-V09-06-17)
+- opengl-V09-06-06:
+  o Improvements for Wt and Qt5.
+  o Skeleton (null effect) implementation of GetPrivateVisAttributesModifiers.
+
+16th June 2013  Makoto Asai
+- raytracer-V09-06-01:
+  o Make G4RayTrajectory and G4RayTrajectoryPoint classes thread safe.
+
+16th June 2013  John Allison
+- modeling-V09-06-07: Small bug fix.
+- vis-HepRep-V09-06-06: Keep Coverity happy.
+
+15th June 2013  Akinori Kimura
+- gMocren-V09-06-05: Fixed warnings of Coverity.
+
+10th June 2013  John Allison
+- modeling-V09-06-06: G4ModelingParameters:
+  o Replaced PVNameCopyNoPathNotEqual by appropriate operator!=.
+  o Replaced VAMSNotEqual by appropriate operator!=.
+- visman-V09-06-07: G4ViewParameters.cc:
+  o Migrated to modeling-V09-06-06.
+
+10th June 2013  John Allison
+- visman-V09-06-06: G4VViewer:
+  o Added new virtual function:
+    virtual const std::vector<G4ModelingParameters::VisAttributesModifier>*
+    GetPrivateVisAttributesModifiers() const;
+    // So that privately accumulated vis attributes modifiers may be
+    // concatenated with the standard vis attributes modifiers for commands
+    // such as /vis/viewer/set/all and /vis/viewer/save.
+
+4th June 2013  John Allison  (vis-V09-06-16)
+- gMocren-V09-06-04 (Akinori Kimura): Fixed Coverity warnings.
+
+3rd June 2013  John Allison  (vis-V09-06-15)
+- visexternal-V09-06-04: One more try at compiling on Windows!
+
+2nd June 2013  John Allison  (vis-V09-06-14)
+- visexternal-V09-06-03:
+  o G4OpenGL2PSAction.cc: Added #include <cstdlib> and <cstring>.
+
+30th May 2013  John Allison  (vis-V09-06-13)
+- visexternal-V09-06-02: G4OpenGL2PSAction.cc: Added #include <limits>.
+
+29th May 2013  John Allison  (vis-V09-06-12)
+- modeling-V09-06-05: Bug fix for vis attribute modifying (VAM).
+- visman-V09-06-05: Improved safety, spelling and guidance.
+- openinventor-V09-06-04: SoCounterAction.cc: Coverity fix.
+
+26th March 2013  John Allison  (vis-V09-06-11)
+- modeling-V09-06-04: Improved G4Exception messages.
+- visXXX-V09-06-01, opengl-V09-06-04:
+  o Removed or commented out unused typedefs that give warnings
+    with gcc-4.8.0.
+- vis-HepRep-V09-06-05 (Ben Morgan): BUGFIX #1322: Fixes for zlib move.
+
+21st March 2013  Gabriele Cosmo  (vis-V09-06-10)
+- opengl-V09-06-03:
+  o G4OpenGLQtExportDialog : changed "TRUE" by "true".
+  o G4OpenGLViewer : added "const" on getWin...();
+    removed bad "printf" statement.
+  o G4OpenGLSceneHandler : Null pointer fix (thanks to XCode analyzer).
+- visexternals-V09-06-00:
+  o Moved G4zlib package to source/externals; updated build configuration
+    accordingly.
+- Requires co-working tag "externals-V09-06-00".
+
+15th March 2013  John Allison
+- openinventor-V09-06-03:
+  o Changed strlcpy back to strncpy.  Fixes SLC5 compilation error.
+    (Can't remember why I changed to strlcopy in the first place -
+     see 29th January.  Only OpenInventor was changed.)
+
+24th February 2013  John Allison  (vis-V09-06-09)
+- modeling-V09-06-03, visman-V09-06-04, vis-HepRep-V09-06-04,
+  openinventor-V09-06-02, gMocren-V09-06-03:
+  o Removed unused fields as warned by new clang compiler.
+
+29th January 2013  John Allison  (vis-V09-06-08)
+- VRML-V09-06-03, DAWN-V09-06-03, vis-HepRep-V09-06-03,
+  opengl-V09-06-02, openinventor-V09-06-01:
+  o More Coverity fixes and un-doing of some previous ones.
+
+29th January 2013  John Allison  (vis-V09-06-06)
+- Changed strncpy and strncat to strlcpy and strlcat.
+
+21st January 2013  John Allison  (vis-V09-06-05)
+- Eliminated snprintf.
+  o Not available on Windows.
+  o Reverted to sprintf.
+
+21st January 2013  John Allison  (vis-V09-06-04)
+- Added #include <cstdio> in files containing snprintf.
+
+12-14th January 2013  John Allison  (vis-V09-06-03)
+- visman-V09-06-01, DAWN-V09-06-02, vis-HepRep-V09-06-02, opengl-V09-06-01,
+  VRML-V09-06-01:
+  o Coverity fixes.
+- modeling-V09-06-01 and 02:
+  o Coverity fixes and new verbosity flag.
+- visman-V09-06-02 and 03:
+  o Fixed bug in /vis/scene/add/trajectories. 
+
+2nd December 2012  John Allison  (vis-V09-06-00)
+- Removed NURBS and references to i_mode:
+  modeling-V09-06-00
+  visman-V09-06-00
+  VRML-V09-06-00
+  vis-HepRep-V09-06-00
+  opengl-V09-06-00
+  openinventor-V09-06-00
+  visXXX-V09-06-00
+  gMocren-V09-06-00
+  vistree-V09-06-00
+  DAWN-V09-06-00
+  raytracer-V09-06-00
+
+17th November 2012  John Allison  (vis-V09-05-49)
+- visman-V09-05-47:
+  o Improved guidance on command directories.
+- openinventor-V09-05-17:
+  o Reverted to openinventor-V09-05-14.
+  o Fixed compiler warnings.
+
+13th November 2012  Laurent Garnier
+- opengl-V09-05-53:
+  o Fix bug #1385 on Linux at launch.
+
+5th November 2012  John Allison
+- openinventor-V09-05-16:
+  o Fixed libXpm linking problem.
+
+5th November 2012  Joseph Perl  (vis-V09-05-48)
+Rolling openinventor back to: openinventor-V09-05-14
+
+2nd November 2012  Joseph Perl  (vis-V09-05-47)
+-openinventor-V09-05-15:
+  o Fixed Coin3D dependency issue (FJ).
+-visman-V09-05-46:
+  o Tidied G4ViewParameters.hh (JA).
+- opengl-V09-05-51:
+  o Fixed bug in display-list-re-use algorithm.
+  o Fixed a possible problem in batch mode for Qt scene tree component.
+- opengl-V09-05-52:
+  o Fix bug #1368, Qt batch mode display a window and printEPS (JA and LG).
+
+1st November 2012  John Allison  (vis-V09-05-46)
+- opengl-V09-05-50:
+  o Fixed compiler warnings (FJ).
+  o Fixed bug in printEPS for batch (LG).
+
+31st October 2012  John Allison
+- openinventor-V09-05-14:  FWJ
+  o Fixed shadowed variables (compiler warnings).
+  o Corrected unrecoverable zoom-out when switching
+    to Perspective camera.
+  o Fixed incomplete mouse-over position readout.
+  o Added License and Disclaimer JA,
+
+30th October 2012  John Allison
+- visman-V09-05-45: Improved PrintAvailableGraphicsSystems.
+- opengl-V09-05-49:
+  o printSize, etc. (set by /vis/ogl/printSize, etc.) made static, i.e.,
+    applies to all OGL viewers.
+  o Corrected effect of toggle transparency pop-up action.
+
+29th October 2012  John Allison
+- visman-V09-05-44: G4VisCommandsSceneAdd.cc: /vis/scene/add/date:
+  o Added user-specified date-time as last argument(s) on command line.
+
+28th October 2012  Laurent Garnier
+- visexternal-V09-04-04 and visexternal-V09-04-05:
+  o 26th October 2012  Laurent Garnier, recorded 28th October JA.
+  o Remove create date in eps files (very useful to be able to compare them)
+
+27th October 2012  John Allison  (vis-V09-05-45)
+- visman-V09-05-43:
+  o Implemented the concept of a "fallback" graphics system.  Used only
+    Qt at present.  A Qt viewer will only work with a Qt session so if
+    for a user instantiates a non-Qt session we wish to avoid instantiating
+    a Qt viewer - instantiate, Xm, for example, instead.  (It's OK to
+    instantiate a Qt viewer in batch - no window is opened, but one can create
+    a scene, change view parameters and "/vis/ogl/printEPS" to get an
+    eps file in batch.)
+- opengl-V09-05-48:
+  o Solves problem of batch v. non-Qt session.
+  o Records changes to colour and visibility of touchables in
+    VisAttributesModifiers, so that they may be transmitted to other
+    viewers.
+  o Qt fixes.
+  o Bug fix: Hidden markers can now be handled on-the-fly, i.e., without
+    having to rebuild the display lists.
+
+24th October 2012  John Allison
+- modeling-V09-05-22 and visman-V09-05-42:
+  o Improvements for printing of parameters and att defs.
+
+18th October 2012  John Allison  (vis-V09-05-44)
+- visman-V09-05-41:
+  o Reverted to G4OpenInventorXt as the default OI for X Windows.
+  o Get G4OpenInventorXtExtended with "/vis/open OIXE".
+- openinventor-V09-05-12 (Frederick Jones):
+  o Bug fixes.
+  o Disabled initial auto setting to first viewpoint of the new
+    G4OpenInventorXtExaminerViewer.
+
+17th October 2012  John Allison  (vis-V09-05-43)
+- visman-V09-05-40:
+  o Added G4OpenInventorXtExtended and made it the default OI for
+    X Windows.
+- openinventor-V09-05-11:
+  o Encapsulated Fred's code in a new driver, G4OpenInventorXtExtended
+  (OIXE).
+- openinventor-V09-05-10 (Frederick Jones):
+  o G4OpenInventorXtExaminerViewer
+    . New class implements functional extensions to the 
+      Xt-based viewer.  A plug-in replacement for
+      SoXtExaminerViewer (the standard viewer provided
+      with Coin3d).
+  o G4OpenInventorXtViewer
+    . Instantiates G4OpenInventorXtExaminerViewer instead
+      of SoXtExaminerViewer.  Added some additional menu items.
+
+12th October 2012  John Allison  (vis-V09-05-42)
+- opengl-V09-05-47, co-works interfaces-V09-05-20:
+  o Introduced some trial code for capturing touchable colour changes.
+
+11th October 2012  John Allison
+- modeling-V09-05-21: Tidied.
+- visman-V09-05-39: Added /vis/viewer/save.
+
+9th October 2012  John Allison
+- modeling-V09-05-20: Tidied.
+- visman-V09-05-38: Fixed warnings.
+
+9th October 2012  John Allison  (vis-V09-05-41)
+- modeling-V09-05-19:
+  o Added some utility functions.
+- visman-V09-05-37:
+  o Completed /vis/touchable/set/ commands.
+
+8th October 2012  John Allison
+- modeling-V09-05-17 and modeling-V09-05-18:
+  o Further refinement for /vis/touchable/set/...
+- modeling-V09-05-16:
+  o Refined and added code for /vis/touchable/set/...
+
+7th October 2012  John Allison
+- modeling-V09-05-15: G4ModelingParameters:
+  o Added VisAttributesModifiers, enums and a nested class for communicating a
+    modification to the vis attributes for a specfic touchable defined by
+    PVNameCopyNoPath, to be used by new commands, /vis/touchable/set/...
+- visman-V09-05-36:
+  o Added the copying of VisAttributesModifiers to modeling parameters, ready
+    for use by new commands, /vis/touchable/set/...
+- visXXX-V09-05-04:
+  o Added test of VisAttributesModifiers to list checked for kernel visit.
+- openinventor-V09-05-09:
+  o Added test of VisAttributesModifiers to list checked for kernel visit.
+
+6th October 2012  John Allison
+- modeling-V09-05-14:
+  o G4PhysicalVolumeModel: Added SetBaseFullPVPath.  The base full path is the
+    full path of the top physical volume (actually the full path of the mother
+    of the top physical volume), so that even if a user issues
+    "/vis/drawVolume sub-detector", the full path includes the base full path,
+    i.e., the full path up to the world volume.
+- visman-V09-05-35:
+  o G4VisCommandSceneAdd.cc: G4VisCommandSceneAddVolume:
+    Pick up found full path from G4PhysicalVolumeSearchScene so that it can
+    be passed to G4PhysicalVolumeModel as a base, as described above.
+  o G4VSceneHandler: Deprecated NURBS to be removed at next major release.
+
+3rd October 2012  John Allison
+- visXXX-V09-05-03: Protected the case of G4LogicalVolumeModel.
+
+1st October 2012  John Allison  (vis-V09-05-40)
+- modeling-V09-05-13:
+  o G4TrajectoriesModel: Added GetAttDefs and CreateCurrentAttValues for event ID.
+- visman-V09-05-34: Added eventID to G4Atts for trajectories.
+- visman-V09-05-33: Explicitly include units header.
+- opengl-V09-05-43: Improved performance for hidden markers.
+- opengl-V09-05-42: Fixed compiler warning.
+- opengl-V09-05-41: Explicitly include units header.
+- opengl-V09-05-40: Fixed compiler warnings.
+
+27th September 2012  John Allison
+- opengl-V09-05-39: Improved display list re-use.
+
+27th September 2012  John Allison  (vis-V09-05-39)
+- opengl-V09-05-38: Fix for small bug and compiler warnings.
+
+27th September 2012  John Allison  (vis-V09-05-38, co-works interfaces-V09-05-16)
+- visman-V09-05-32:
+  o Added an extra refresh for auto-refresh viewers at end of run.
+- opengl-V09-05-37:
+  o Major re-design of scene and transient processing.
+
+26th September 2012  John Allison
+- visman-V09-05-31: G4ViewParameters: Added useful Set methods.
+- visman-V09-05-29: Added G4VViewer::RefreshView().
+
+25th September 2012  John Allison  (vis-V09-05-37, co-works interfaces-V09-05-15)
+- modeling-V09-05-11:
+  o G4ArrowModel.cc: Added protection (limited width to length/50).
+- visman-V09-05-28:
+  o /vis/scene/add/axes: Added protection (limited width of axes to length/50).
+- opengl-V09-05-35:
+  o  Tidied up.
+- opengl-V09-05-36:
+  o A fix in Qt.
+- openinventor-V09-05-08:
+  o Pick up default vis attributes if primitive has none.
+
+24th September 2012  John Allison
+- opengl-V09-05-34 - needs interfaces-V09-05-15:
+  o Material (for surface rendering) follows glColor at all times.
+  o Changed glColor3d to glColor4d throughout.
+
+6th September 2012  John Allison  (vis-V09-05-36, co-works interfaces-V09-05-12)
+- visman-V09-05-27:
+  o Removed multi-requested parameter guidance.  Collapsed guidance to one
+    long string with '\n' for new lines.  (G4UIparameter cannot cope with
+    multi-line guidance.)
+- opengl-V09-05-31:
+  o G4OpenGLSceneHandler and G4OpenGLStoredSceneHandler:
+    . Protected against null result of dynamic_cast on viewer (shouldn't happen!!).
+
+4th September 2012  John Allison
+- modeling-V09-05-10: Bug fix for G4LogicalVolumeModel.
+
+9th August 2012  John Allison  (vis-V09-05-35, co-works interfaces-V09-05-11)
+- Tagged.
+
+8th August 2012  John Allison
+- opengl-V09-05-29: Fixes "unused parameter" warning.
+
+8th August 2012  John Allison  (vis-V09-05-34, co-works interfaces-V09-05-09)
+- vis-HepRep-V09-05-06, openinventor-V09-05-06,
+  VRML-V09-05-05, gMocren-V09-05-05:
+  o Intercepted 2D primitives - JustWarning printed.
+- visman-V09-05-26:
+  o /vis/scene/add/frame: Fixed bug in SetParameterRange.
+- opengl-V09-05-28, coworks interfaces-V09-05-09:
+  o Big changes to Qt interface
+  o G4OpenGLStoredSceneHandler:
+    . Moved colour from display list to PO so that a sub-class may
+      modify through the new virtual function below.
+  o G4OpenGLStoredViewer:
+    . Added virtual void DisplayTimePOColourModification
+          (G4Colour&, size_t /*currentPOListIndex*/) {}
+      so that a sub-class may modify the colur/transparency.  (If the
+      transparency is modified the rendering may not be optimal since
+      the order of rendering is determined at POList construction time.)
+
+30th July 2012 Laurent Garnier
+- G4OpenGLQtViewer.cc :
+  o Add search widget in scene tree
+  o Double click now allow to change color/transparency
+
+23th July 2012 Laurent Garnier
+- G4OpenGLQtViewer.cc :
+  o Do not apply changes to other viewer when moving scene tree slider
+  o Fix a problem on scene tree with non touchable volumes
+ 
+19th July 2012  John Allison
+- G4OpenGLStored/ImmediateSceneHandler.cc:
+  o Disabled GL_DEPTH_TEST and GL_LIGHTING for 2D objects, but see...
+- G4OpenGLSceneHandler.cc:
+  o Disabled GL_DEPTH_TEST and GL_LIGHTING
+
+20th July 2012  John Allison
+- DAWN-V09-05-05:
+  o Implemented 2D text.
+  o Added print-once warnings for other 2D.
+
+17th July 2012  John Allison  (vis-V09-05-33, co-works interfaces-V09-05-08)
+- opengl-V09-05-27:
+  o Fix Linux compiler warnings.
+  o More Qt improvements.
+
+17th July 2012  John Allison  (vis-V09-05-32, co-works interfaces-V09-05-08)
+- visman-V09-05-25:
+  o Improved /vis/viewer/copyViewFrom: added lights direction and move.
+  o Moved fProcessing2D from G4OpenGLSceneHandler.
+- opengl-V09-05-26, co-works interfaces-V09-05-08:
+  o Fixed text layout in Qt.
+  o Improvements in Qt viewer.
+  o Improvements in X viewers:
+    . Now 3D text is hidden, when appropiate, by volumes drawn in surface mode.
+  o Moved fProcessing2D to G4VSceneHandler.
+  o Now may be used by all and any driver.
+
+13th July 2012 Laurent Garnier
+- G4OpenGLQtViewer : Updates in Scene tree viewer algorithm 
+  (speedup and fix transparency bug of 11th July).
+
+15th July 2012  John Allison
+- modeling-V09-05-09:
+  o Introduced G4ArrowModel.
+  o G4AxesModel: Re-implemented (uses G4ArrowModel).
+- visman-V09-05-24: Re-implemented:
+  o /vis/scene/add/arrow
+  o /vis/scene/add/axes
+
+11th July 2012 Laurent Garnier  (vis-V09-05-31, co-works interfaces-V09-05-08)
+- G4OpenGLQtViewer : Change Scene tree viewer algorithm
+
+9th July 2012  John Allison  (vis-V09-05-30)
+- Tagged.
+
+5th July 2012  Gabriele Cosmo
+- modeling-V09-05-08, visman-V09-05-23, opengl-V09-05-24,
+  raytracer-V09-05-05, DAWN-V09-05-04,  VRML-V09-05-04,
+  vis-HepRep-V09-05-04, gMocren-V09-05-04, :
+  o Explicitly use inclusion of headers for system of units and physical
+    constants, in plan to remove implicit inclusion from globals.hh.
+
+3rd July 2012  John Allison
+- raytracer-V09-05-04:
+  o Fixed some Coverity warnings.
+
+3rd July 2012  John Allison  (vis-V09-05-29)
+- opengl-V09-05-23, openinventor-V09-05-05:
+  o Fixed some Coverity warnings.
+- raytracer-V09-05-03:
+  o Tagged a fix: uses std::sqrt.
+
+2nd July 2012  John Allison
+- opengl-V09-05-22:
+  o Important bug-fix for non-display-list text (i.e., Qt).
+
+18th June 2012  John Allison  (vis-V09-05-28)
+- opengl-V09-05-21:
+  o Fix drawing of non-display-list text.
+
+16th June 2012  John Allison  (vis-V09-05-27)
+- opengl-V09-05-20:
+  o Fixes drawing of trajectories when no memory for display lists.
+  o Fixes cases of extra drawing, causing loss of trajectories.
+- opengl-V09-05-19:
+  o Added /vis/ogl/set/eventsDrawInterval.
+
+12th June 2012    John Allison  (vis-V09-05-26)
+- opengl-V09-05-18 (Laurent Garnier):
+  o Fixed shadow warnings where possible.
+  o Many warnings remain due to the use "s" and/or "sr" in Qt macros
+    and headers.  These will have to wait until CLHEP global variables
+    are fixed.
+
+10th June 2012  John Allison  (vis-V09-05-25)
+- vis-HepRep-V09-05-03: Fixed remaining shadow warnings.
+- Now all shadow warnings fixed except in Qt.
+
+8th June 2012  John Allison  (vis-V09-05-24)
+- DAWN-V09-05-03, raytracer-V09-05-02, vistree-V09-05-02, visXXX-V09-05-02,
+  gMocren-V09-05-03, openinventor-V09-05-04:
+  o Shadow clean.
+- vis-HepRep-V09-05-02, opengl-V09-05-17:
+  o Partial shadow clean.
+
+7th June 2012  John Allison
+- modeling-V09-05-07, visman-V09-05-22:
+  o Shadow clean.
+
+6th June 2012  John Allison  (vis-V09-05-23)
+- visman-V09-05-21: Fix compiler warning.
+
+5th June 2012  John Allison  (vis-V09-05-22)
+- visman-V09-05-20: Added /vis/scene/add/line(2D) and arrow(2D).
+
+3rd June 2012  John Allison
+- visman-V09-05-19: Coverity fixes.
+
+31st May 2012  John Allison
+- modeling-V09-05-06:
+  o Brought stray print statement under control of verbosity.
+  o Fixes bug report 1310.
+
+29th May 2012  John Allison  (vis-V09-05-21)
+- opengl-V09-05-16:
+  o Fixed bug in vis-V09-05-20.
+  o Implemented proper treatment of transparency in OpenGL stored mode
+    in the case that trajectories passed through or behind transparent
+    persistent objects (detector components).  Required proper ordering
+    of display list execution. 
+
+23rd May 2012  John Allison  (vis-V09-05-20)
+- Health Check 2012:
+  o Over the years we have added drivers and features and added fixes.
+    A health check revealed several instances of code duplication,
+    unnecessary screen refeshing, incorrect buffer switching
+    (necessitating extra refreshing), etc.  This tag is an attempt to
+    bring the basic vis algorithms up to full health and efficiency.
+    . visman-V09-05-18
+    and consequent changes to
+    . DAWN-V09-05-02
+    . visXXX-V09-05-01
+    . VRML-V09-05-03
+    . vis-HepRep-V09-05-01
+    . openinventor-V09-05-03
+    . opengl-V09-05-15
+
+22nd May 2012  John Allison  (vis-V09-05-19)
+- opengl-V09-05-14: Fixed Linux compiler warnings.
+
+22nd May 2012  John Allison  (vis-V09-05-18)
+- opengl-V09-05-13:
+  o Multiple fixes and improvements to Qt.
+  o Introduced depth of geometry slider.
+  o G4OpenGLStoredSceneHandler: Removed Set/Clear/Draw from EndModeling.
+
+22nd April 2012  John Allison  (vis-V09-05-17)
+- visman-V09-05-17: G4VisCommandsSceneAdd: Fixed compiler warnings.
+
+11th April 2012  John Allison
+- visman-V09-05-16: Added /vis/scene/activateModel.
+
+10th April 2012  John Allison  (vis-V09-05-16)
+- opengl-V09-05-12:
+  o G4OpenGLWin32Viewer.cc: Make it work for Win64 (Pere Mato).
+- openinventor-V09-05-02:
+  o G4OOpenInventorWinViewer.cc: Make it work for Win64 (Pere Mato).
+
+10th April 2012  John Allison  (vis-V09-05-15)
+- opengl-V09-05-11:
+  o X and Xm drivers: Implemented text layout and offset.
+  o G4OpenGLQtViewer : Many fixes.
+  o G4OpenGLXm classes: Change G4Exception id to opengl20xx.
+
+10th April 2012  John Allison  (vis-V09-05-14)
+- modeling-V09-05-05: Undid deleterious effect of modeling-V09-05-02!!
+- visman-V09-05-15: Migrated to G4Scene::Model.
+- visman-V09-05-14: Added
+  G4VisManager::RegisterRunDuration/EndOfEvent/EndOfRunUserVisAction.
+  Now you can register any number of named vis actions and associate
+  them with particular types of action.  They are added to the scene
+  with /vis/scene/add/userAction [<name>] (default all).
+- gMocren-V09-05-01: Migrated to G4Scene::Model.
+- vistree-V09-05-01: Migrated to G4Scene::Model.
+
+8th April 2012  John Allison
+- visman-V09-05-13: Added /vis/viewer/copyViewFrom.
+- visman-V09-05-12: Added /vis/set/colour and /vis/set/lineWidth
+
+4th April 2012  John Allison  (vis-V09-05-14)
+- modeling-V09-05-04:
+  o Added Get/SetType for all models (sub-classes of G4VModel).
+  o G4PhysicalVolumeModel: Draw only one replica if top volume.
+  o Other small improvements and fixes.
+- visman-V09-05-11: Many small improvements.
+- opengl-V09-05-10:
+  o X and Xm drivers: Implemented text layout and offet.
+
+2nd April 2012  John Allison, Laurent Garnier  (vis-V09-05-13)
+- opengl-V09-05-09: Introduce QT tree ("Scene" panel in G4UIQt session).
+
+28th March 2012  John Allison
+- VRML-V09-05-02: Protect debug statement.
+
+26th March 2012  John Allison  (vis-V09-05-12)
+- visman-V09-05-10:
+  o G4VisCommandsSet.cc: Added #include <cctype> for strict Windows compiler.
+
+23rd March 2012  John Allison  (vis-V09-05-11 - needs greps-V09-05-06)
+- visman-V09-05-09: Added /vis/set/textLayout.
+- modeling-V09-05-03: G4AxesModel: Augmented global description.
+
+21st March 2012  John Allison
+- visman-V09-05-08:
+  o Introduced concept of "current quantities" for use in vis commands.
+  o Added /vis/set/textColour, the first command in the series that
+    will allow the user to change the above current quantities for use by
+    subsequent commands.
+
+7th March 2012  John Allison  (vis-V09-05-10)
+- modeling-V09-05-02: G4CallbackModel: Add destructor.
+- visman-V09-05-07:
+  o Added /vis/scene/add/logo2D and text2D.
+  o Improved /vis/scene/add/axes, logo and scale:
+    . Size computed automatically by default.
+
+6th March 2012  John Allison
+- opengl-V09-05-08: Fix problem with persistent text.
+
+29th February 2012  John Allison  (vis-V09-05-09)
+- opengl-V09-05-07: Fixed minor problem with text:
+
+28th February 2012  John Allison  (vis-V09-05-08)
+- visman-V09-05-06: Migrated to G4VScenehandler::fObjectTransformation.
+- opengl-V09-05-06:
+  o Migrated to G4VScenehandler::fObjectTransformation.
+  o Improved rendering speed (Laurent Garnier).
+- DAWN-V09-05-01
+- VRML-V09-05-01: Migrated to G4VScenehandler::fObjectTransformation.
+- vis-HepRep-V09-05-00: Migrated to G4VScenehandler::fObjectTransformation.
+- gMocren-V09-05-00: Migrated to G4VScenehandler::fObjectTransformation.
+
+27th February 2012  John Allison  (visJAfpObjectTranformation)
+- Private tag of code before change of fpObjectTranformation.
+
+14th February 2012  John Allison
+- opengl-V09-05-05:
+  o Fixed bug in TO copy constructor that affected position of stored text.
+  o General tidy.
+
+13th February 2012  John Allison  (vis-V09-05-07)
+- visman-V09-05-05: Small improvement to /vis/scene/add/eventID.
+- opengl-V09-05-04: Fix compilation error with gcc 4.3.
+
+11th February 2012  John Allison  (vis-V09-05-06)
+- Needs global-V09-05-00 and greps-V09-05-05.
+- Merged vis-V09-05-04-2ndbranch (tag vis-V09-05-04-2ndbranch-08) to trunk.
+  Includes:
+  o visman-V09-05-04: essentially same as visman-V09-05-03.
+  o opengl-V09-05-03: Fixes text in Qt.  Other small improvements.
+
+11th February 2012  John Allison  (vis-V09-05-04-2ndbranch-08)
+- Tagged
+
+9th February 2012  John Allison
+- visman-V09-05-03:
+  o Added /vis/scene/add/date and /vis/scene/add/frame.
+  o /vis/scene/add/eventID: Added layout parameter.
+
+8th February 2012  John Allison
+- raytracer-V09-05-01: Adopt fix proposed by jasondet@gmail.com for
+  up-vector bug #1274.
+
+7th February 2012  John Allison
+- raytracer-V09-05-00: Fix up-vector bug #1274.  Also other small fixes.
+
+7th February 2012  John Allison  (vis-V09-05-04-2ndbranch-07)
+- Needs greps-V09-05-05: Fixes to copy constructors.
+- vis-V09-05-04-2ndbranch-opengl-06: Uses above copy contructors.
+
+7th February 2012  John Allison  (vis-V09-05-04-2ndbranch-06)
+- vis-V09-05-04-2ndbranch-opengl-05:
+  o PO/TOList: Changed G4Text* to G4TextPlus*.
+
+4th February 2012  John Allison  (vis-V09-05-04-2ndbranch-05)
+- Needs greps-V09-05-04 (G4Text copy constructor).
+- vis-V09-05-04-2ndbranch-opengl-04:
+  o PO/TOList: Changed G4TextModel* to G4Text*.
+  o Fixes a problem with TO text.
+
+2nd February 2012  John Allison  (vis-V09-05-04-2ndbranch-04)
+- vis-V09-05-04-2ndbranch-opengl-03:
+  o Removed glDrawBuffer(GL_FRONT) when no memory for display lists.
+  o G4OpenGLStoredViewer.cc:
+    . When re-using AddPrimitive, by-pass the stored AddPrimitive to
+      avoid making more display lists and other stuff in
+      AddPrimitivePreamble, etc.  Use
+        static_cast<G4OpenGLSceneHandler&>(fSceneHandler).
+          G4OpenGLSceneHandler::AddPrimitive(...).
+    . Fixes StoredQt text problem.
+
+1st February 2012  John Allison
+- vis-V09-05-04-2ndbranch-opengl-02: G4OpenGLStoredViewer::DrawDisplayLists:
+  o Some systems, notably Qt, re-use model->DescribeYourselfTo(sceneHandler)
+    but we don't want to create any further display lists, so...
+      G4bool tempMFDL = fG4OpenGLStoredSceneHandler.fMemoryForDisplayLists;
+      fG4OpenGLStoredSceneHandler.fMemoryForDisplayLists = false;
+  o But text problem has come back!!!
+
+31st January 2012  John Allison  (vis-V09-05-04-2ndbranch-03)
+- vis-V09-05-04-2ndbranch-opengl-01:
+  o G4OpenGLStoredQtViewer: Removed DrawText.  Fixes stored text problem.
+
+31st January 2012  John Allison  (vis-V09-05-04-2ndbranch-02)
+- vis-V09-05-04-2ndbranch-opengl-00:
+  o Special case text: skeleton.  Some systems, notabley Qt, process
+    text in a special way; it cannot be stored in display lists.  So the
+    text model pointer is stored in the PO/TO and processed separately.
+    (PO = Persistent object, TO = transient object.)  The nested classes
+    G4OpenGLStoredSceneHandler::PO and TO keep relevent information,
+    e.g., the display list index or, in this case, when relevant, a
+    pointer to the G4TextModel.
+
+30th January 2012  John Allison  (vis-V09-05-04-2ndbranch-01)
+- VRML-V09-05-00, DAWN-V09-05-00:
+  o Fixed Ubuntu warning about ignoring return value of system call.
+- vistree-V09-05-00:
+  o G4VTreeSceneHandler.hh:
+    . Removed empty implementations of Begin/EndPrimitives, so now
+      picks up the default (and correct non-empty default
+      implementations in G4VSceneHandler).  The problem is that
+      objectTransformation must be set to something.  This was causing a
+      G4Exception in G4VisManager::DrawT.
+
+13th January 2012  John Allison  (vis-V09-05-05)
+- DAWN-V09-05-00, VRML-V09-05-00:
+  o Fixed Ubuntu warnings about ignoring return value of system call.
+- visman-V09-05-02, opengl-V09-05-02 (Laurent Garnier):
+  o Fixes for Qt Stored text.
+
+12th January 2012  John Allison
+- vistree-V09-05-00: G4VTreeSceneHandler.hh:
+  o Removed empty implementations of Begin/EndPrimitives, so now
+    picks up the default (and correct non-empty default
+    implementations in G4VSceneHandler).  The problem is that
+    objectTransformation must be set to something.  This was causing a
+    G4Exception in G4VisManager::DrawT.
+
+3rd January 2012  John Allison  (vis-V09-05-04)
+- modeling-V09-05-01: Validates geometry in all worlds.
+
+3rd January 2012  John Allison  (vis-V09-05-03)
+- opengl-V09-05-01 and openinventor-V09-05-00:
+  o Removed #ifdef G4VIS... protection from header files so that they
+    can be used for a possible dynamic library.  Of course, the
+    protection remains on the implementation files.
+
+3rd January 2012  John Allison  (vis-V09-05-02)
+- visman-V09-05-01:
+  o /vis/scene/notifyHandlers:
+    . Downgraded "scene has changed" from WARNING to NOTE. 
+  o G4VisManager::EndOfEvent: Removed unwarranted DrawView.  It was
+    causing two copies of the geometry to be drawn.
+- visXXX-V09-05-00:
+  o Removed #ifdef ...XXXSG... protections.
+    . No longer any reliance on imported tree code; own tree code used. 
+- opengl-V09-05-00:
+  o Corrected treatment of colour for transient objects.
+  o G4OpenGLSceneHandler: Significant rationalisation.
+
+30th December 2011  John Allison  (vis-V09-05-01 co-works greps-V09-05-02)
+- modeling-V09-05-00: G4TrajectoriesModel::DescribeYourselfTo:
+  o Used Begin/EndDraw to improve drawing speed.
+    . Assumes all trajectories are drawn with the same transformation.
+      If not, a fatal exception with be raised in G4VisManager::DrawT.
+  o Changed FatalException to JustWarning in
+    G4AttributeFilterT<T>::AddInterval and AddValue.
+- visman-V09-05-00:
+  o G4VisManager: Implemented Begin/EndDraw(2D).
+    . Note that this forces all thus-bracketed Draw messages to have the
+      same transformation.  If an attempt to change the transformation
+      is detected, a fatal exception is raised.
+  o G4VSceneHandler: Added Get/SetObjectTransformation.
+  o Marker size bug fix.
+
+2nd December 2011  John Allison (vis-V09-05-00)
+- Corresponds to geant4-09-05-ref-00.
+- opengl-V09-04-26 and 27: CMake improvements (Ben Morgan).
+- opengl-V09-04-28: Qt fixes (Laurent Garnier).
+- openinventor-V09-04-03 and 04: CMake improvements (Ben Morgan).
+
+15th November 2011  John Allison (vis-V09-04-18)
+- opengl-V09-04-25: Fix compiler warning + cosmetics.
+
+14th November 2011  Gabriele Cosmo (vis-V09-04-17)
+- Tagged
+
+14th November 2011  John Allison and Laurent Garnier
+- visman-V09-04-12: Changed "Fatal" to "JustWarning" for non-existent model.
+- opengl-V09-04-23: Bug fix for Qt < 4.4 and warning message improvement.
+
+12th November 2011  John Allison
+- opengl-V09-04-22: Minor fixes, suppression of debug printing.
+
+11th November 2011 Joseph Perl (vis-V09-04-16)
+- tag global tag for release 9.5
+
+11th November 2011  John Allison
+- modeling-V09-04-05: Coverity fix.
+- visman-V09-04-10: Fixed compiler warnings.
+- visman-V09-04-11: Coverity fix.
+- opengl-V09-04-20: Fixed compiler errors and warnings.
+- opengl-V09-04-21: Coverity fix.
+- visXXX-V09-04-01: Fixed compiler warnings.
+
+10th November 2011  Laurent Garnier
+- visexternal-V09-04-03: Fixes to gl2ps.
+- visXXX-V08-04-01: Implemented simple ad hoc tree and removed include/tree.
+
+8th November 2011  Ben Morgan
+- openinventor-V09-04-02:
+  o source.cmake [BUGFIX #1196]: Added support for CMake build of OpenInventor 
+    driver (NB requires cotag cmake-V09-04-32).
+
+6th November 2011  Joseph Perl (vis-V09-04-15)
+- global tag for release 9.5
+- opengl-V09-04-19 backed off on release of tree viewer
+
+5th November 2011  Joseph Perl (vis-V09-04-14)
+- global tag for release 9.5
+- opengl-V09-04-17 fixed missing file from sources.cmake
+
+5th November 2011  Joseph Perl (vis-V09-04-13)
+- global tag for release 9.5
+- visman-V09-04-09 fixed missing file from sources.cmake
+
+5th November 2011  Joseph Perl (vis-V09-04-12)
+- global tag for release 9.5
+- On top of vis-V09-04-11:
+  o modeling-V09-04-04
+  o visman-V09-04-08
+  o vis-HepRep-V09-04-03
+  o vistest-V09-04-01
+  o opengl-V09-04-16
+
+4th November 2011  John Allison
+- visman-V09-04-08 (needs greps-V09-04-09):
+  o Added printing of available colours on nitialisation and in /vis/lst.
+- opengl-V09-04-15:
+  o Qt improvements.
+  o Use program loop to call display lists for "permanent objects"
+    (instead of using a "top display list").
+  o Fixed compilation warnings.
+
+30th October 2011  John Allison
+- modeling-V09-04-04:
+  o Fixed compiler warning.
+  o G4PhysicalVolumeModel: Added flag to G4PhysicalVolumeNodeID: true if drawn.
+- visman-V09-04-07:
+  o Added concept of default view parameters.
+  o These can be set in the vis manager for future operations either
+    by code or by command.
+  o Added /vis/default/hiddenEdge and /vis/default/style.
+
+28th October 2011  Joseph Perl
+- vis-HepRep-V09-04-03:
+  o Add /vis/heprep/scale and /vis/heprep/center
+
+26th October 2011  John Allison
+- vistest-V09-04-01: Minor improvements.
+
+25th October 2011  John Allison
+- vistest-V09-04-00: Minor improvements.
+
+25th October 2011  John Allison  (vis-V09-04-11-01 on vis-V09-04-11-branch)
+- OpenGL: Reworked AddPrimitive for G4Polymarker.
+
+25th October 2011  John Allison  (vis-V09-04-11)
+- Another interim tag.
+- Branch for Begin/EndDrawGroup development - vis-V09-04-11-branch.
+
+21st October 2011  John Allison  (vis-V09-04-10)
+- Interim tag:
+  o opengl-V09-04-14:
+    . Fixed circles/squares problem.
+    . Some work on ogl/print and gl2ps.
+  o visexternal-V09-04-02:
+    . gl2ps improvements.
+
+18th October 2011  John Allison  (vis-V09-04-09)
+- opengl-V09-04-13:
+  Xm: Fixed consistency and reset issue with control panels.
+  Stored mode: Improved efficiency for handling transients (trajectories).
+
+15th October 2011  John Allison
+- opengl-V09-04-12: Fixes to several problems:
+  o Failure to see complete drawing on Mac (missing trajectories).
+  o Slow drawing in Mac (reduced the frequency of glFlush).
+  o Inconsistent parameters on Xm panels.
+  o Sub-class parameters not being restet (introduced new virtual
+      function, ResetView).
+
+13th October 2011  Andrea Dotti
+- vis-HepRep-V09-04-02:
+  o Solving "variable set but not used" warning in GCC 4.6 
+
+11th October 2011  John Allison
+- visman-V09-04-06: G4VisCommandsViewer: Introduce RefreshIfRequired.
+
+10th October 2011  John Allison
+- visman-V09-04-05:
+  o G4VViewer: Added virtual function ResetView.
+  o Do not set auto-refresh for viewers that are not auto-refresh by default.
+
+8th October 2011  Akinori Kimura
+- gMocren-V09-04-02: Fixed Coverity defects.
+
+7th October 2011  John Allison
+- modeling-V09-04-03: Improve warning messages.
+- opengl-V09-04-11: Fixed compilation warnings.
+
+6th October 2011 Laurent Garnier
+- opengl-V09-04-10: Fixed one more compilation error on Windows.
+
+3rd October 2011 Laurent Garnier
+- opengl-V09-04-09: Fix Warning with DrawText and compilation error on Windows.
+
+25th September 2011  John Allison (vis-V09-04-08)
+- modeling-V09-04-02: Migrated to new G4Exception.
+- visman-V09-04-04:  Migrated to new G4Exception.  Also:
+  o G4VisCommandsSceneAdd.cc: When adding trajectories
+    (/vis/scene/add/trajectories) print attributes even if warnings
+    are suppressed.
+  o Added /vis/viewer/set/rotationStyle
+- opengl-V09-04-08: Migrated to new G4Exception.  Also:
+  o Fixed transparency problem.
+  o Improved first pass rendering speed (reduced use of glFlush).
+  o Fixed non-appearance of trajectories in Qt (added final glFlush).
+  o Many improvements in Qt.
+- vis-HepRep-V09-04-01: Migrated to new G4Exception.
+- vistree-V09-04-01: Migrated to new G4Exception.
+- gMocren-V09-04-01: Migrated to new G4Exception.
+
+17th June 2011 Ben Morgan (vis-V09-04-07)
+- opengl-V09-04-05 : Support added for CMake build of Xm and Win32 components.
+- raytracer-V09-04-04 : Changed to use new standard GEANT4_USE_RAYTRACER_X11
+  variable.
+
+17th June 2011  John Allison  (vis-V09-04-06)
+- opengl-V09-04-04: Re-instated cutaways in intersection mode.
+
+16th June 2011  John Allison  (vis-V09-04-05)
+- opengl-V09-04-03: L. Garnier:
+  o Fix conflict with qgl.h and GL/gh.h in include files
+
+2nd June 2011  John Allison  (vis-V09-04-04)
+- opengl-V09-04-02: Coverity warning fixes and Qt developments.
+- vistree-V09-04-00: GNUmakefile : Remove OpenGL/Qt stuff from Makefile
+- visXXX-V08-04-00: GNUMakefile : Remove G4VIS_BUILD.gmk use
+
+17th May 2010  John Allison  (vis-V09-04-03)
+- visman-V09-04-02: Fixed warnings, added G4Scene::SetName.
+- DAWN-V09-04-00: Fixed gcc-4.6.0 warning.
+- opengl-V09-04-01:
+  o Fixed numerous warnings.
+  o Several fixes for interoperablility between Qt, X and Xm.
+  o Qt improvemnts.
+  o Eliminate Qt3 code.
+
+6th April 2011 Laurent Garnier
+- G4OpenGLQtViewer add flag for batch mode. It works !
+
+14th March 2011, Laurent Garnier
+- Add Wt driver files
+- G4VisExecutive.icc, G4VisFeaturesOfOpenGL, G4OpenGL.hh : Add some modifications for Wt Driver
+- G4OpenGLQtMovieDialog.hh : Add protection against mix between slots/signals from Qt and Wt (boost)
+
+1st March 2011  John Allison
+- raytracer-V09-04-01: Fix bug introduced by fix to Coverity warnings
+- raytracer-V09-04-00:
+  o Trap recursive calls.
+  o Fix Coverity warnings.
+
+26th January 2011  Gabriele Cosmo  (vis-V09-04-02)
+- Fixed compilation error in OpenInventor SbPainterPS.cc introduced in
+  previous tag.
+- Fixed GNUmakefile in externals/gl2ps causing build failure.
+- Removed empty directories from main trunk.
+
+25th January 2011  John Allison  (vis-V09-04-01)
+- modeling-V09-04-01: Fixed unresolved reference.
+
+27th December 2010  John Allison  (vis-V09-04-00)
+- modeling-V09-04-00:
+  o Changed some exceptions from FatalError to JustWarnings.
+  o G4TrajectoryDrawerUtils.cc: Rework TimesValidity.
+- visman-V09-04-00:
+  o Improvements to /vis/scene commands.
+- opengl-V09-04-00, openinventor-V09-04-00:
+  o Fixed some Coverity warnings.
+- VRML-V09-04-00, visexternal-V09-04-00:
+  o GNUmakefile : Remove Qt stuff.
+
+15th November 2010  Joseph Perl (vis-V09-03-13)
+- Global Vis Tag. Candidate for Geant4 release 9.4
+- modeling-V09-03-05 - Fix for time-slicing problem.
+
+13th November 2010  Joseph Perl ((vis-V09-03-12)
+- Global Vis Tag. Candidate for Geant4 release 9.4
+
+13th November 2010  John Allison
+- opengl-V09-03-10: Added verbosity control.
+- visexternal-V09-03-03: Fix for VC++.
+- visman-V09-03-15: Code tidying.
+- vistree-V09-03-00: Tagged inclusion of CMake stuff.
+- All tags include CMake stuff.
+
+11th November 2010  Akinori Kimura
+- DAWN-V09-03-01, gMocren-V09-03-05, VRML-V09-03-01:
+  o Replaced G4cerr with G4cout and added verbosity control.
+
+10th November 2010  John Allison
+- openinventor-V09-03-02: Protected output with G4VisManager::confirmations.
+
+8th November 2010  John Allison  (vis-V09-03-11)
+- opengl-V09-03-09: Tidied display list limit.
+
+7th November 2010  John Allison  (vis-V09-03-10)
+- visman-V09-03-14:
+  o G4VisExecutive.icc: Inlined constructor.
+  o Fixed Coverity warnings.
+- visexternal-V09-03-02: Fixed Linux warnings.
+- vis-HepRep-V09-03-04: Fixed Linux warnings (Joseph).
+
+5th November 2010, John Allison
+- modeling-V09-03-04: Fixed Coverity warnings.
+- visman-V09-03-13: Fixed Coverity warnings.
+- visexternal-V09-03-01: Update gl2ps to 1.3.5 (Laurent).
+
+27th October 2010  John Allison
+- vistest-V09-03-01: Replaced MyPhysicsList by QGSP_BERT.
+- raytracer-V09-03-03/4: Changes to GNUmakefile (Gabriele Cosmo).
+
+8th October 2010  John Allison  (vis-V09-03-09 with co-working tags...)
+- Co-working tags: interfaces-V09-03-12 + config-V09-03-08
+- visman-V09-03-12:
+  o Added /vis/viewer/set/defaultColour and defaultTextColour.
+- opengl-V09-03-07/08:
+  o Improved kernel visit trigger.
+  o Time-slices fade to background colour.
+  o Many improvements to Qt.
+- openinventor-V09-03-01:
+  o Improved kernel visit trigger.
+- visXXX-V08-03-00:
+  o Improved kernel visit trigger.
+- visexternal-V09-03-00:
+  o G4OpenGL2PSAction : add new method to set viewport.
+- gMocren-V09-03-04:
+  o Added missing inclusion of <sstream>.
+
+15th June 2010  John Allison  (vis-V09-03-08)
+- visman-V09-03-10:
+  o Added virtual destructors to fix compilation warnings.
+  o Improved action after "/vis/geometry/..." commands.
+- raytracer-V09-03-02 (Gabriele Cosmo):
+  o Added virtual destructors to fix compilation warnings.
+
+4th June 2010  Joseph Perl  (vis-V09-03-07)
+- vis-HepRep-V09-03-02
+  o Added command renderCylAsPolygon- opengl-V09-03-07
+  o G4OpenGLImmediate/StoredQtViewer : Add protection against multiple
+  repaint call. Add protection against resizeGl with bad values
+
+3rd June 2010  John Allison
+- opengl-V09-03-06:
+  o Restored all behaviour-sensitive changes to geant4-09-03.
+- visman-V09-03-09:
+  o Fixed unchecked pointer.
+  o Changed /vis/scene/add/digiti[sz]ations to /vis/scene/add/digis.
+- opengl-V09-03-05:
+  o Restored some changes to geant4-09-03 to preserve behaviour.
+
+1st June 2010  John Allison
+- modeling-V09-03-03: Added default colours to G4TrajectoryDrawByParticleID.
+
+1st June 2010  John Allison  (vis-V09-03-06)
+- visman-V09-03-07:
+  o Made fVerbosity and GetVerbosity static (saves having to get vis
+    manager pointer).
+- gMocren-V09-03-03: Removed dependency on G4VisManager.
+
+30th May 2010  John Allison  (vis-V09-03-05)
+- Co-works greps-V09-03-02.
+- modeling-V09-03-02: Added G4DigiModel and G4DigiFilterFactories.
+- visman-V09-03-06:
+  o Added /vis/scene/add/digiti[sz]ations and /vis/filtering/digi.
+  o Added AddCompound(const G4VDigi&).
+- opengl-V09-03-04, gMocren-V09-03-02, VRML-V09-03-00, DAWN-V09-03-00,
+  raytracer-V09-03-01, vis-HepRep-V09-03-00:
+  o Added AddCompound(const G4VDigi&).
+
+29th May 2010  John Allison  (vis-V09-03-04)
+- Co-works greps-V09-03-01 and tracking-V09-03-03.
+- visman-V09-03-05:
+  o Introduced DispatchToModel without i_mode.
+  o Moved i-mode deprecation warnings to G4VTrajectory.
+  o Improved /vis/viewer/rebuild.
+- opengl-V09-03-03: Improvements.
+- raytracer-V09-03-00: Added DrawTrajectory() ready for i_mode migration.
+
+28th May 2010  John Allison  (vis-V09-03-03)
+- Co-works interfaces-V09-03-04.
+- visman-V09-03-03: Change order of flags to follow G4UIExecutive.
+- visman-V09-03-04: G4VisManager, G4VisExecutive:
+  Introduced optional verbosity string argument in constructor.  You
+  can now write, for example:
+    G4VisManager* visManager = new G4VisExecutive("quiet");
+  Note that the default is "warnings":
+    G4VisManager* visManager = new G4VisExecutive;
+- modeling-V09-03-01: Fixed unused parameter 'i_mode' warning.
+
+26th May 2010  John Allison  (vis-V09-03-02)
+- Co-working: intercoms-V09-03-01, interfaces-V09-03-03, greps-V09-03-00.
+- visman-V09-03-02: Added generic drivers: OGL, OGLI, OGLS, OI.
+- openinventor-V09-03-00: Protection against repeated initialisation.
+- opengl-V09-03-02: Some improvments with auto rotation mode.
+
+20th May 2010  John Allison  (vis-V09-03-01)
+- Co-working tags: intercoms-V09-03-01, interfaces-V09-03-02
+- opengl-V09-03-01:
+  o GNUMakefile, G4OpenGLQtViewer : Better inclusion of new tabs in UI part
+- visman-V09-03-01:
+  o Restore previous viewer after /vis/drawTree.
+
+11th May 2010  John Allison  (vis-V09-03-00)
+- visman-09-03-00: Print i_mode warnings.
+- modeling-V09-03-00:
+  o Replace polyhedra with solids for sections and cutaways.
+  o Trap use of i_mode and print warning.
+- opengl-V09-03-00:
+  o Many improvements to OpenGL Qt.
+  o Speed improvements for polymarkers (e.g., trajectories).
+  o Use generic section and cutaway algorithm.
+- gMocren-V09-03-01: printing improvement.
+- vistest-V09-03-00: Added printEPS to test19.g4m, as suggested by Laurent.
+
+22nd November 2009  Joseph Perl (vis-V09-02-12)
+- vis-HepRep-V09-02-03
+  o Changed messenger to a singleton.
+  o Added messenger commands to HepRepFile.
+  o Render G4Tubs as polygons if G4Tubs is not at a standard angle.
+
+22nd November 2009  John Allison
+- visman-V09-02-08: /vis/scene/add/trajectories rich:
+  o Added G4RichTrajectoryPoint().GetAttDefs() to informational.
+
+18th November 2009  Gabriele Cosmo
+- visexternal-V09-02-06:
+  o Added GLOBLIBS dependencies.
+  o Re-instated fix to gl2ps.cc (always #define GL2PS_HAVE_ZLIB).
+
+17th November 2009  John Allison  (vis-V09-02-11)
+- visman-V09-02-07:
+  o Many small bug fixes.
+  o Enhanced functionality for gMocren driver:
+    . Introduced the concept of end-of-run model.
+- opengl-V09-02-10: Fixes build problem with gl2ps on Windows.
+- openinventor-V09-02-03: Fixes build problem with gl2ps on Windows.
+- Tagged for vis tag.
+- visexternal-V09-02-05:
+  o gl2ps: Added dependency on zlib if G4LIB_BUILD_ZLIB is set.
+
+17th November 2009  Laurent Garnier
+- Allow arbitrary viewer deletion (fixes crash)
+
+17th November 2009  Gabriele Cosmo
+- GNUmakefile: Added SUBLIBS += G4gl2ps for OPENGL and OI.
+
+15th November 2009  John Allison
+- raytracer-V09-02-02: Formal tag to record fixing of bugzilla Problem 1072.
+
+6th November 2009  John Allison
+- vistest-V09-02-01: test19.cc: Use G4UIExecutive.
+
+3rd November 2009  John Allison  (vis-V09-02-10, greps-V09-02-03, digits_hits-V09-02-02)
+- gMocren-V09-02-01:
+  o Entrust AddEndOfEventModel to /vis/scene/add/psHits or hits.
+  o Fix compiler warnings.
+- opengl-V09-02-09: Fix compilation problems and protect Qt3.
+
+30th October 2009  John Allison
+- visman-V09-02-06: Added /vis/scene/add/psHits.
+
+23rd October 2009  John Allison  (vis-V09-02-09, greps-V09-02-02, digits_hits-V09-02-02)
+- visman-V09-02-05: Implemented default behaviour in
+  G4VSceneHandler::AddCompound (const G4THitsMap<G4double>&).
+
+22nd October 2009  John Allison  (vis-V09-02-08, greps-V09-02-02, digits_hits-V09-02-02)
+- modeling-V09-02-05: Added G4PSHitsModel for gMocren driver.
+- gMocren-V09-02-00: G4PSHitsModel moved to modelling.
+
+21st October 2009  John Allison  (vis-V09-02-07 coworks greps-V09-02-02)
+- greps-V09-02-02 adds new pure virtual function,
+  AddCompound (const G4THitsMap<G4double>&).  The following tags
+  accomodate:
+  o modeling-V09-02-04
+  o visman-V09-02-04
+  o DAWN-V09-02-00
+  o vis-HepRep-V09-02-02
+  o opengl-V09-02-08
+  o raytracer-V09-02-01
+  o VRML-V09-02-01
+  o visXXX-V09-02-00
+
+15st October 2009 Laurent Garnier
+ - G4OpenGLViewer.cc : Fix a problem with printing.
+
+13st October 2009 Laurent Garnier
+ - G4OpenGLQtViewer.cc/G4OpenGLStoreQtViewer.cc : Fix problems with 
+   mac OS X 10.6
+
+10th October 2009 Joseph Perl (vis-V09-02-06)
+- new global tag for vis, in preparation for  addition of gMocren file driver
+
+10th October 2009  John Allison
+- modeling-V09-02-03: Added G4PhysicalVolumeModelTouchable.  Used in
+  ComputeMaterial.  Effective for nested parameterisations.
+
+29th September 2009  John Allison  (allison20090929)
+- modeling-V09-02-02: Added warning if logical volume not defined.
+- visman-V09-02-03:
+  o Allow refresh in GeomClosed as well as Idle state.
+  o Fixed uninitialised pointers.
+  o G4VisManager.cc: Considerable tidy up.
+- opengl-V09-02-07:  Tagged work by Laurent Garnier:
+  o G4OpenGLXmViewer : Fix a wrong initialization introduce by the 
+    new way of handling window size hints (January 2009)
+  o G4OpenGLQtViewer : Ensure the GL frame size will be correct
+    by setting a 0 size margin around 
+  o G4OpenGLStoredQtViewer : Remove picking to true at initialisation
+- openinventor-V09-02-02:  Tagged work by Laurent Garnier:
+  o G4OpenInventorXt/WinViewer: Fix a wrong initialization introduce by the 
+    new way of handling window size hints (January 2009)
+  o Remove Geant4_gl2ps.h gl2ps.cc gl2ps.h which were copied in external/gl2ps
+    in february but forgot to remove them from OpenInventor
+- vistest-V09-02-00: Changed main program, test19.cc, to use G4UIExecutive.
+- VRML-V09-02-00: Tagged change of disclaimer on file headings (made long ago).
+
+16 September 2009  John Allison
+- raytracer-V09-02-00: Cosmetic adjustments and tagging.
+
+19 August 2009 Laurent Garnier
+ - RayTracer : Fix an bad use of fVP parameters [bugzilla Problem 1072]
+
+18 May 2009, Joseph Perl (vis-V09-02-05)
+- opengl-V09-02-04: add missing header to G4OpenGLViewerMessenger.hh
+
+15 May 2009, Joseph Perl (vis-V09-02-04)
+- opengl-V09-02-04: Improvements to GL and Qt, printing, redraw logic,
+  debug messages and fixes for compiler warnings
+- visman-V09-02-02:Added /vis/viewer/set/targetPoint,
+  improved end of run event keeping information
+- vis-HepRep-V09-02-00:resolve compilation errors reported by gcc-4.4.0
+
+14th May 2009  Laurent Garnier
+ - opengl-V09-02-04 Added /vis/ogl/set/printSize and /vis/ogl/set/printFilename
+
+13th May 2009  John Allison
+- visman-V09-02-02: Added /vis/viewer/set/targetPoint and minor
+  wording improvements.
+
+6 May 2009, Laurent Garnier
+ - G4OpenGLQtViewer.cc: Fix compilation warning and error with gcc4.4
+
+29 April 2009, John Allison (vis-V09-02-03)
+- visexternal-V09-02-04: Fix a circular dependency to G4OpenGL.
+
+28th April 2009, Laurent Garnier
+ - printEPS is now fully functionnal for X, Xm, Qt Win viewers.   
+
+27th April 2009  John Allison (vis-V09-02-02)
+- opengl-V09-02-03: Fix compiler warnings.
+- visexternal-V09-02-03: Fix compiler warnings.
+
+6th April 2009  Joseph Perl (vis-V09-02-01)
+- opengl-V09-02-02 : Improvments in order to use GL2PS for printing
+- openinventor-V09-02-01 : Improvments in order to use GL2PS for printing
+- visexternal-V09-02-02 :  Add GL2PS library in external (it was in 
+  OpenInventor before)
+
+14th March 2009  John Allison
+- visman-V09-02-01:
+  o Introduced /vis/initialize.
+  o G4VisManager.cc: /vis/verbose and /vis/initialize instantiated in
+    constructor so that a user may set verbosity before initialisation.
+  o G4VisExecutive.icc: made methods inline.
+
+5th March 2009, Laurent Garnier
+ - Now using Gl2PS method to do PS
+ - Add flag in GNUMakefile to compile in debug mode
+ - Remplacing glBitmap by GL_POINTS to draw marker : Speed improvment
+  and gl2ps can now draw Markers.
+
+25th February 2009  John Allison
+- modeling-V09-02-01 - needs greps-V09-02-01:
+  o G4ModelApplyCommandsT: Added visManager->NotifyHandlers() after
+    application (Apply) of all commands.  Forces update of all viewers
+    after a change of model, e.g., trajectory colour, point size, etc.
+- visman-V09-02-00 - needs greps-V09-02-01:
+  o G4VisManager: Implemented NotifyHandlers.  A user may notify scene
+    handlers (G4VGraphicsScene objects) that the scene has changed so
+    that they may rebuild their graphics database, if any, and redraw
+    all views.
+
+24th February 2009  John Allison
+- modeling-V09-02-00 - needs greps-V09-02-00:
+  o Added setAux/StepPtsSizeType commands (candidates: "none world screen").
+  o Added unit to setAux/StepPtsSize for SizeType == world.
+
+16 February 2009, Laurent Garnier
+ - Creation of this gl2ps library in order to have a gl2ps for all viewers.
+ - GNUMakefile : Add the gl2ps external library
+ - Some modifications in GNUMakefile for gl2ps. Packages OpenInventor,
+   OpenGL had also been modified for gl2ps.
+
+22th January 2009  Laurent Garnier
+- Fix bug in ratio and geometry on X/Xm/Qt/Win32 viewers. Now Could 
+  pass XString like 400x600-0+0 to viewers and set position and location.
+
+21st November 2008  Joseph Perl  (vis-V09-01-06)
+- visman-V09-01-05: Trap recursive use of /vis/reviewKeptEvents.
+- modeling-V09-01-01: Improve message.
+- opengl-V09-01-03: Many changes to add Qt support.
+
+30th April 2008  John Allison  (vis-V09-01-05)
+- visman-V09-01-04: Fixes more gcc-4.3.0 compiler warnings.
+- openinventor-V09-01-01: Fixes more gcc-4.3.0 compiler warnings.
+
+28th April 2008  John Allison  (vis-V09-01-04)
+- visman-V09-01-03: Cosmetic improvements.
+- opengl-V09-01-02: Tidied.
+
+4th April 2008  John Allison  (vis-V09-01-03, needs greps-V09-01-03)
+- Back on HEAD.  Contains vis-V09-01-00.
+- visman-V09-01-02: Fixed gcc-4.3.0 compiler warnings.
+- opengl-V09-01-01:
+  o Fixed gcc-4.3.0 compiler warnings.
+  o Fixed DBL_MAX problem in 2D drawing.
+  o A lot of Qt development.
+- openinventor-V09-01-00): Fixed most gcc-4.3.0 compiler warnings.
+- raytracer-V09-01-00): Fixed gcc-4.3.0 compiler warnings.
+- vistest-V09-01-01: Zero thickness of box for 2D drawing.
+
+30th January 2008  John Allison  (vis-V09-01-02)
+- Bug fix tag (re-instated G4DAWNFILE) on branch vis-V09-00-03-branch.
+- DOES NOT CONTAIN vis-V09-01-00 STUFF.
+
+29th January 2008  John Allison  (vis-V09-01-01)
+- visman-V09-01-01: Re-instated G4DAWNFILE (somehow got lost!!)
+
+4th January 2008  John Allison  (vis-V09-01-00 with greps-V09-01-00)
+- Draw2D capability, already available for G4Text, extended to:
+  G4Circle, G4Polyhedron, G4Polyline, G4Polymarker, G4Square.
+  o modeling-V09-01-00: Adapted to new BeginPrimitives2D signature.
+  o visman-V09-01-00: Implemented extended 2D interface.
+  o opengl-V09-01-00: Implemented extended 2D interface.
+  o vis-HepRep-V09-01-00: Adapted to new BeginPrimitives2D signature.
+  o vistest-V09-01-00: MyEventAction: Added 2D polyhedron.
+
+19th November 2007 Joseph Perl  (vis-V09-00-03)
+- visman-V09-00-02: Replace references to Wired3 in command guidance
+- vis-HepRep-V09-00-01: Adjust geometry hierarchy for parallel worlds.
+- opengl-V09-00-04: Added GEANT4_QT_DEBUG flag to more places
+
+13th November 2007  John Allison  (vis-V09-00-02)
+- Removed OpenGL Qt files from tag.  File are still at head - need fixing.
+
+10th November 2007  John Allison  (vis-V09-00-01)
+- opengl-V09-00-01: Minor improvements in design and messaging.
+- modeling-V09-00-00: Minor improvements in messaging.
+- visman-V09-00-01:Minor improvement in messaging.
+
+10th July 2007  John Allison  (vis-V09-00-00)
+- visman-V09-00-00: Remove redundant method declarations and minor tidies.
+
+14th June 2007  John Allison  (vis-V08-03-07)
+- raytracer-V08-03-01: Fixed memory leak in G4RayTracer.
+
+30th May 2007  John Allison  (vis-V08-03-06)
+- modeling-V08-03-02: Fixed gcc-4.2.0 warning.
+
+30th May 2007  John Allison  (vis-V08-03-05)
+- modeling-V08-03-01: Fix for SUN.
+
+25th May 2007  John Allison  (vis-V08-03-04)
+- opengl-V08-03-03: Fixed gcc-4.1.2 compiler warnings.
+
+25th May 2007  John Allison  (vis-V08-03-03)
+- visman-V08-03-01: Improved error trapping and big fix.
+- opengl-V08-03-02: Improved error trapping.
+
+24th May 2007  John Allison  (vis-V08-03-02)
+- opengl-V08-03-01: Fixes for SUN.
+
+22nd May 2007  John Allison  (vis-V08-03-01)
+- modeling-V08-03-00: Simplified G4Atts for Physical Volume Path.
+- vis-HepRep-V08-03-00: Fixed memory leak in G4HepRepFile.
+- raytracer-V08-03-00: Fixed for dubious ValGrind diagnostic.
+
+16th May 2007  John Allison  (vis-V08-03-00)
+- visman-V08-03-00: Fix for Windows compiler.
+- opengl-V08-03-00: Fix compiler warnings and bug fixes in opengl-V08-02-06.
+
+8th May 2007  John Allison
+- opengl-V08-02-06: /vis/ogl/printEPS should work for all viewers.
+
+4th April 2007  John Allison  (vis-V08-02-04)
+- visman-V08-02-04: Bug fix for zero pointer in G4VscenHamdler::LoadAtts.
+- opengl-V08-02-05: Implemented picking for OGLSX (as well as OGLIX).
+
+3rd April 2007  John Allison  (vis-V08-02-03)
+- modeling-V08-02-02: Added further information on volume G4Atts.
+- visman-V08-02-03: Added /vis/viewer/set/picking.  Picking is "false"
+  by default, except for Open Inventor.
+- opengl-V08-02-04:
+  o Implemented picking for OGLIX.
+  o Some reorganisation of display list construction to fix rare bug\
+    in Display-by-Time feature
+- openinventor-V08-02-02: Picking is "true" by default for OI.
+
+25th March 2007  John Allison  (vis-V08-02-02)
+-  modeling-V08-02-01: Added solid dump and volume transformation to G4Atts.
+- visman-V08-02-02:
+  o Removed G4GAGTree.
+  o Removed /vis/scene/add/eventID (once again) from /vis/drawVolume.
+- opengl-V08-02-03: Fix compiler warnings.
+- vistree-V08-02-01: Removed GAGTree.
+- openinventor-V08-02-01): Added scale factor to list of changes
+  requiring kernel visit, and some rationalisation.
+
+11th January 2007  John Allison  (vis-V08-02-01)
+- visman-V08-02-01:
+  o Added /vis/abortReviewKeptEvents.
+  o /vis/reviewKeptEvents: Improved guidance.
+  o Bug fix: /vis/open in /vis/reviewKeptEvents loop.
+  o Reduced WARNING noise.
+
+9th January 2007  John Allison
+- opengl-V08-02-01:
+  o Implemented bitmap markers (for MarkerSizeType == screen).
+  o Bug fix: Added missing break in X colormap lookup routine.
+
+5th January 2007  John Allison  (vis-V08-02-00 - needs greps-V08-02-00)
+- modeling-V08-02-00 (needs greps-V08-02-00):
+  o Bug fix: Correct treatment of ForcedLineSegmentsPerCircle when clipping.
+- visman-V08-02-00:
+  o G4VSceneHandler:
+    ~ Introduced utility LoadAtts for G4AttValues and G4AttDefs.
+    ~ Improved other utilities (changed signature of GetLineWidth).
+  o Introduced /vis/geometry/set/forceLineSegmentsPerCircle.
+  o Re-introduced /vis/scene/add/eventID into /vis/drawVolume (removed
+    in visman-V08-01-16 for release 8.2).
+  o Other minor improvements.
+- opengl-V08-02-00:
+  o Followed change of signature of GetLineWidth in visman-V08-02-00.
+- openinventor-V08-02-00: Moved LoadAtts to vis management.
+- raytracer-V08-02-00: Bug fix: use of window size hints.
+- vistree-V08-02-00: Bug fix: Format of total mass.
+- vistest-V08-02-00: test19.cc: Refined usage.
+
+12th December 2006  Gabriele Cosmo
+- visman-V08-01-16: Commented command "vis/scene/add/eventID" forcing
+  event ID to scene in G4VisCommandsCompound.cc.
+
+11th December 2006  John Allison
+- Tree: Trapped sequential G4PVPlacements.
+
+25th November 2006  John Allison  (vis-V08-01-17)
+- visman-V08-01-15: Follow change of behaviour of G4StateManager and
+  minor message corrections.
+
+22nd November 2006  John Allison  (vis-V08-01-16)
+- visman-V08-01-14: Fixed /vis/reviewKeptEvents for "stored" viewers.
+
+21st November 2006  John Allison  (vis-V08-01-15)
+- visman-V08-01-13:
+  o Fixed double drawing of event.
+  o Restored old verbosity and printing interface (for obsolete user vis
+    managers).
+  o Fixed compiler warnings.
+- opengl-V08-01-09: Fixed compiler warnings.
+
+17th November 2006  Joseph Perl (vis-V08-01-14)
+- vis-HepRep-V08-01-04:
+  o Omit Pos and Aux attributes for hits.
+  o Protect against null Region (as in parallel geometries).
+- raytracer-V08-01-02
+  o Deprecate /vis/rayTracer/backgroundColour.
+
+16th November 2006  John Allison
+- modeling-V08-01-15: More protection for parallel worlds.
+- visman-V08-01-12:
+  o /vis/scene/notifyHandlers: Refreshes only auto-refresh viewers.
+    (Warning of scene change issued for other viewers.)
+
+15th November 2006  John Allison  (vis-V08-01-13)
+- visman-V08-01-11: First implementation of /vis/reviewKeptEvents.
+
+14th November 2006  Joseph Perl
+- vis-HepRep-V08-01-03: Improve handling of Trajectory Points.
+
+14th November 2006  John Allison  (vis-V08-01-12)
+- modeling-V08-01-14: Merged modeling-V08-01-13-branch onto main branch:
+  o Added G4Event pointer to modeling parameters.
+- visman-V08-01-10: Merged visman-V08-01-08-branch onto main branch:
+  o Visualisation of parallel worlds.
+  o Event refreshing (events are re-drawn on change or refresh of viewer).
+- raytracer-V08-01-01: Merged raytracer-V08-01-00-branch onto main branch:
+  o Followed change to G4Scene.
+- vistest-V08-01-05: Added G4EllipticalCone.
+
+13 November 2006 Joseph Perl
+- vis-HepRep-V08-01-02: Corrected handling of Hits that come via AddSolids.
+
+5th November 2006  John Allison  (vis-V08-01-11)
+- modeling-V08-01-13: Further, hopefully, complete, protection against
+  zero materials pointer.
+- vis-HepRep-V08-01-01, openinventor-V08-01-04, vistree-V08-01-02,
+  visXXX-V08-01-06: Protected against zero material pointer.
+- visman-V08-01-09: Tidy warning messages.
+
+3rd November 2006  John Allison
+- modeling-V08-01-12: Protected against zero material pointer.
+
+-----------------------------------------------
+3rd November 2006  John Allison  (vis-V08-01-10)
+- Needs greps-V08-01-10 for bug fix in G4Visible.
+- Needs tracking-V08-01-05 for new storeTrajectory command.
+- Committed tracking-V08-01-05.  Now required by vis. 
+  o Augmented /tracking/storeTrajectory.  Now takes integer parameter:
+    0 : Don't Store trajectories.
+    !=0 : Store trajectories.
+    1 : Choose G4Trajectory as default.
+    2 : Choose G4SmoothTrajectory as default.
+    3 : Choose G4RichTrajectory as default.
+  o All trajectories:
+    ~ Protect points container pointer in destructor.
+    ~ Make G4AttDef descriptions more concise.
+  o G4RichTrajectory:
+    ~ Bug fix: Create G4AttValues for user-defined creator process.
+  o G4VTrajectory: Improved ShowTrajectory.
+- visman-V08-01-08: Activated /vis/scene/add/trajectories with "rich" and
+  "smooth".  Needs tracking-V08-01-05.
+- modeling-V08-01-11: Improved protections.
+- vistest-V08-01-04: Removed MyTrackingAction (use storeTrajectory instead.)
+
+2nd November 2006  John Allison
+- modeling-V08-01-10: G4HitsModel: Added GetCurrentHit.
+- openinventor-V08-01-03: Extended picking to hits.
+
+-------------------------------------------------------------------------
+1st November 2006  John Allison  (vis-V08-01-09; co-works greps-V08-01-09)
+- modeling-V08-01-09: Minor rationalisation.
+- visman-V08-01-07:
+  o /vis/scene/add/trajectories: Allow string parameters "rich" and "smooth".
+    (Not yet activated - awaiting tags in tracking.)
+- openinventor-V08-01-02:
+  o Follow changes to greps-V08-01-09: G4AttCheck/Holder rationalisation.
+- vis-HepRep-V08-01-00: Minor rationalisation.
+- opengl-V08-01-08: Replace /vis/oglx/set/printEPS by /vis/oglx/printEPS.
+- vistree-V08-01-01: ASCIITree: Added printing of material name.
+- vistest-V08-01-03: Added G4Polycone and some G4Atts to an event action box.
+
+26th October 2006  John Allison
+- openinventor-V08-01-01:
+  o Print G4AttValues of solids and trajectories on picking.
+- modeling-V08-01-08: Cosmetics.
+
+-------------------------------------------------------------------------
+24th October 2006  John Allison  (vis-V08-01-08; co-works greps-V08-01-08)
+- opengl-V08-01-07:
+  o Calculate light front horizon properly.
+  o Improve refresh behaviour for /vis/opengl commands.
+- visXXX-V08-01-04; co-works greps-V08-01-08:
+  o Follow change to G4VisAttributes in greps-V08-01-08.
+
+-------------------------------------------------
+19th September 2006  John Allison  (vis-V08-01-07)
+- modeling-V08-01-07:
+  o G4ModelingParameters: Added ExplodeCentre
+  o Fix for Mac XCode 2.0 problem.
+- visman-V08-01-06:
+  o G4ViewParameters: Added ExplodeCentre.
+  o Bug fix in /vis/geometry/set/colour.
+- opengl-V08-01-06: Improved display-by-time feature.
+
+---------------------------------------------------------------------------
+15th September 2006  John Allison  (vis-V08-01-06 - coworks greps-V08-01-04)
+- modeling-V08-01-06
+  o Implemented explode factor(radial move) feature for top level drawn
+    volumes.  John Allison
+  o Add attribute based trajectory drawing & filtering, and attribute
+    based hit filtering.  Jane Tinsley
+- visman-V08-01-05
+  o Added /vis/viewer/clone and /vis/viewer/set/explodeFactor.  John Allison
+  o Add attribute based trajectory drawing & filtering, and attribute
+    based hit filtering.  Jane Tinsley
+
+13th September 2006  John Allison
+- visXXX-V08-01-03: Improved G4Att printing and checking.
+
+4th September 2006  John Allison
+- visman-V08-01-04: Added commands for cutaways.
+- opengl-V08-01-05: Implemented cutaways.
+
+----------------------------------------------
+30th August 2006  John Allison  (vis-V08-01-05)
+- modeling-V08-01-05:
+  o Implemented code for augmented /vis/scene/add/volume (subtraction
+    *and* intersection of clipping volume).
+  o Equipped for generic sectioning (DCUT) and cutaways.
+  o Improved DrawWithTime.
+- visman-V08-01-03:
+  o Added /vis/viewer/set/globalLineWidthScale.
+  o Augmented /vis/scene/add/volume to include intersection of clipping volume.
+  o Added G4VSceneHandler::CreateSection/CutawayPolyhedron to exploit generic
+    sectioning (DCUT) and cutaways.  Currently not activated due to
+    instabilities in BooleanProcessor.
+- opengl-V08-01-04:
+  o Implemented line width.
+  o Switched off back face culling when clipping so that the inside of
+    volumes can be seen.
+  o Added position and colour to /vis/ogl/set/displayHeadTime.
+  o Added /vis/ogl/set/displayLightFront.
+  
+29th August 2006  John Allison
+- openinventor-V08-01-00: Kernel visit rationalisation.
+- visXXX-V08-01-02: Minor tidying.
+
+-------------------------------------------------------------------------
+26th August 2006  John Allison  (vis-V08-01-04 - requires greps-V08-01-03)
+- modeling-V08-01-04:
+  o Fixed compilation warning.
+  o Follow G4VFilter const change.
+
+16th August 2006  John Allison
+- modeling-V08-01-03: Improved robustness of time slicing.
+
+----------------------------------------------
+16th August 2006  John Allison  (vis-V08-01-03)
+- opengl-V08-01-03:
+  o Fixed Solaris compilation problem.
+  o Added /vis/ogl/set/fade and displayHeadTime.
+
+-----------------------------------------------
+14th August 2006  John Allison  (vis-V08-01-02)
+- modeling-V08-01-02: Added trajectory time slicing.
+- visman-V08-01-02: Friendship extended to new OpenGL messengers.
+- opengl-V08-01-02:
+  o Implemented display-by-time.
+  o Added /vis/ogl/set/startTime and endTime.
+- raytracer-V08-01-00: Improved robustness under vis manager control.
+- vistest-V08-01-02: Added MyTrackingAction - uses G4RichTrajectory.
+
+17th July 2006  John Allison
+- opengl-V08-01-01: Added /vis/oglx/set/printEPS.
+
+---------------------------------------------
+10th July 2006  John Allison  (vis-V08-01-01)
+- Co-works with greps-V08-01-01.
+- modeling-V08-01-01:
+  o Rationalised G4VModel and G4ModelingParameters.
+  o G4PhysicalVolumeModel:
+    ^ Removed Establish/DecommissionSpecials to conform with
+      greps-V08-01-01.
+    ^ Rationalised G4Atts: Added GetAttDefs/CreateAttValues.
+- visman-V08-01-01:
+  o Removed Establish/DecommissionSpecials to conform with greps-V08-01-01.
+  o Respect rationalised G4ModelingParameters.
+  o Added GetNoOfSides that respects forced line segments per circle.
+- G4VisCommandsScene.cc: Spelling correction.
+- DAWN-V08-01-00: Respects forced line segments per circle.
+- visXXX-V08-01-01: Gets solid's G4Atts created by G4PhysicalVolumeModel.
+- vistest-V08-01-01: SetForceLineSegmentsPerCircle(100) for G4Sphere.
+
+--------------------------------------------------------------------
+3rd July 2006  John Allison  (vis-V08-01-00 - needs greps-V08-01-00)
+- modeling-V08-01-00: Added G4Atts for solids.  (Needs greps-V08-01-00.)
+- visman-V08-01-00:
+  o /vis/scene/transientsAction: Added max number of events parameter.
+  o Added /vis/viewer/clearTransients.
+  o Improved /vis/list.
+  o (Commented out) code for event copying.
+- opengl-V08-01-00:
+  o Eliminated redundant variable, doublebuffer.
+  o Implemented FinishView in all viewers.
+- vistree-V08-01-00: ASCIITree: Layout improvement.
+- visXXX-V08-01-00: General tidy and improvement to XXXFile.
+- vistest-V08-01-00: Protect against zero run manager pointer.
+
+---------------------------------------------
+12th June 2006  John Allison  (vis-V08-00-13)
+- DAWN-V08-00-04: Fixed rewind and file closure on exit.
+- VRML-V08-00-02: Fixed rewind and file closure on exit.
+
+------------------------------------------
+8th June 2006 John Allison (vis-V08-00-12)
+- visman-V08-00-23: Fixed bug in /vis/scene/endOfRunAction.
+
+-------------------------------------------
+7th June 2006  John Allison (vis-V08-00-11)
+- modeling-V08-00-14: Added protection for zero vis atts.
+- visman-V08-00-22: Zeroed modeling parameters pointer after use.
+
+-------------------------------------------
+6th June 2006  John Allison (vis-V08-00-10)
+- modeling-V08-00-13: Fixes for Sun and bug fix in G4PhysicalVolumeModel.
+- visman-V08-00-21: /vis/viewer/create: Fixed view params copy to self.
+
+------------------------------------------
+4th June 2005  Joseph Perl (vis-V08-00-09)
+- Global tag for Geant4 release 8.1
+- Corresponds to the following subdirectory tags:
+- DAWN-V08-00-03
+- vis-HepRep-V08-00-04
+- visman-V08-00-20
+- modeling-V08-00-12
+- opengl-V08-00-08
+- openinventor-V08-00-05
+- raytracer-V08-00-04
+- vistest-V08-00-08
+- vistree-V08-00-04
+- VRML-V08-00-01
+- visXXX-V08-00-04
+
+2nd June 2006  Joseph Perl
+- vis-HepRep-V08-00-03: Improvements to HepRepFile.
+
+2nd June 2006  John Allison
+- DAWN-V08-00-03: Handle file closing in DAWNFILE destructor.
+- VRML-V08-00-01: Protect zero model pointer.
+
+30th May 2006  Joseph Perl
+- opengl-V08-00-08: Fixed buffering problem in Win32.
+
+--------------------------------------------
+25th May 2006  John Allison  (vis-V08-00-08)
+- visman-V08-00-19:
+  o Changed re-computation of transients default to "off".
+  o Indent printing of models plus other minor improvements.
+- modeling-V08-00-11: Indent printing of models, fix trivial compiler warnings.
+- vistest-V08-00-07: Removed standalone - moved to
+  examples/extended/visualization.
+
+22nd May 2006  John Allison
+- modeling-V08-00-10:
+  o Remove dependency on Run.
+  o Protect zero pointer in output of G4ModelingParameters.
+- visman-V08-00-18:
+  o Remove G4Scene:Clear().  (Not used.)
+  o Require Idle state for transient re-computation.
+  o Reduce dependency on Run.  (Still used for transient re-computation.)
+  o /vis/.../list commands: Default verbosity changed to "warnings".
+- vis-HepRep-V08-00-02: Remove dependency on Run.
+
+--------------------------------------------
+12th May 2006  John Allison  (vis-V08-00-07)
+- Needs run-V08-00-02 and event-V08-00-03.
+- Main features:
+  o Protect against non-instantiation of run manager.
+  o Final refinements for re-computation of transients.
+  o G4OpenGLWin32Viewer: Fixed buffer swapping behaviour.
+- visman-V08-00-16:
+  o Added /vis/list and /vis/scene/add/eventID.
+  o Final refinements for event/run reprocessing (re-computation of
+    transients).
+- modeling-V08-00-09:
+  o Removed dependency on G4RunManager.
+  o G4CallbackModel: Added G4VGraphicsScene argument to operator().
+- opengl-V08-00-06: G4OpenGLWin32Viewer: Fixed buffer swapping behaviour.
+- raytracer-V08-00-04: SetRecomputeTransients(false).
+- raytracer-V08-00-03: Moved G4RayShooter class to Event category.
+- vistest-V08-00-06: Uses /vis/scene/add/eventID.
+
+----------------------------------------------
+21st April 2006  John Allison  (vis-V08-00-06)
+- Main features:
+  o Improved protection for null models and parameters.
+  o Improved trajectory drawing.
+  o Improved re-computation of transients in OpenGL.
+- modeling-V08-00-08:
+  o Improved protection for null models and parameters.
+  o Add context to trajectory drawers.
+  o Add generic drawer, G4TrajectoryGenericDrawer.
+- visman-V08-00-15: Improved protection for null models and parameters.
+- DAWN-V08-00-02: Improved protection for null models and parameters.
+- vis-HepRep-V08-00-01: Improved protection for null models and parameters.
+- raytracer-V08-00-02): 
+  o Relies on improved protection for null models and parameters.
+- vistree-V08-00-04: Improved protection for null models and parameters.
+- visXXX-V08-00-04: Improved protection for null models and parameters.
+- vistest-V08-00-05: Tidied.
+
+28th April 2006  John Allison
+- Co-working tags:
+  o opengl-V08-00-05: Fixes re-computation of transients in stored viewers.
+  o visman-V08-00-14: Includes changes that improve behaviour of
+    double buffered and interactive viewers when recomputing
+    transients.
+
+----------------------------------------------
+24th April 2006  John Allison  (vis-V08-00-05)
+- visman-V08-00-13:
+  o Fix bug #861.
+  o Print available models on initialisation.
+- modeling-V08-00-07:
+  o Add Print method to G4VModelFactory.
+  o Fix warnings on Linux.
+- opengl-V08-00-04: Fixed compilation problem on Windows.
+
+---------------------------------------------------------------------
+19th April 2006  John Allison (vis-V08-00-04 - needs greps-V08-00-02)
+- Main features:
+  o Implementation of 2D text in base classes and concrete implementation
+    of same in OpenGL.
+  o Continued migration to direct access to G4PhysicalVolumeModel.
+  o Addition of Trajectory Filter Models (Jane Tinslay).
+- visman-V08-00-12 (needs greps-V08-00-02):
+  o Implemented Draw2D(const G4Text&).
+  o Implemented Begin/EndPrimitives2D.
+  o Migrated to direct access to G4PhysicalVolumeModel.
+  o Introduced G4VisFilterManager.hh to manager filtering
+- modeling-V08-00-06:
+  o Upgrade to greps-V08-00-02 and minor improvements.
+  o Added G4TrajectoryFilterFactories and G4TrajectoryParticleFilter
+- DAWN-V08-00-01: Migrated to direct access to G4PhysicalVolumeModel.
+- vis-HepRep-V08-00-00: Migrated to direct access to G4PhysicalVolumeModel.
+- opengl-V08-00-03:
+  o Implemented Begin/EndPrimitives2D.
+  o Migrated to direct access to G4PhysicalVolumeModel.
+- vistree-V08-00-03:
+  o G4GAGTreeSceneHandler: Migration to direct access to G4PhysicalVolumeModel.
+- visXXX-V08-00-03: Improvement of legibility.
+- openinventor-V08-00-04: Use cmath instead of math.h.
+- vistest-V08-00-04: Added drawing of 2D text.
+
+----------------------------------------------
+28th March 2006  John Allison  (vis-V08-00-03)
+- visman-V08-00-11:
+  o Introduces trajectory drawing manager.
+  o G4VisExecutive: Adds G4TrajectoryDrawByOriginVolumeFactory.
+  o Corrects logic of transients re-computation:
+  o Unifies treatment of bools in commands.
+- modeling-V08-00-05:
+  o Introduces G4TrajectoryDrawByOriginVolume.
+  o Part migration away from EstablishSpecials mechanism.
+- vistree-V08-00-02 (needs modeling-V08-00-05):
+  o Made compatible with modeling-V08-00-05. 
+  o Migration away from EstablishSpecials mechanism.
+- openinventor-V08-00-03: Much improvement in logic.
+- visXXX-V08-00-02: Added G4XXXFile, G4XXXStored, G4XXXSG.
+- vistest-V08-00-03: Modernised and improved.
+
+----------------------------------------------
+14th March 2006  John Allison  (vis-V08-00-02)
+- opengl-V08-00-02: Refinement of display list handling.
+- vistree-V08-00-01: G4VTree and G4ASCIITree: Minor improvements to
+  readability of code.
+- modeling-V08-00-04: Added output operator<< for PVNodeID.
+
+13th March 2006  John Allison
+- visman-V08-00-10: Fixes recomputation of transients when changing drivers.
+
+---------------------------------------------
+8th March 2006  John Allison  (vis-V08-00-01)
+- visman-V08-00-09: Small bug fix to vis-V08-00-00.
+
+6th March 2006  John Allison  (vis-V08-00-00)
+- Collected tags below.  Main features since Release 8.0:
+  o Added /vis/scene/transientsAction.  The default is "rerun", i.e.,
+    when the viewer requests, the previous event or run will be
+    processed again with the original random number seed so that
+    transients (trajectories, hits, user drawing, etc.) are
+    reconstructed.  Thus, transients are "remembered" and may be
+    copied between graphics systems.  Turn off with
+    "/vis/scene/transientsAction none".
+  o Introduced /vis/geometry/... for editing vis attributes of
+    geometry volumes.
+  o For developers:
+    * Migration from use of Establish/DecommisionSpecials.
+    * Drawn path available.
+
+6th March 2006  John Allison
+- visman-V08-00-08: Added /vis/scene/transientsAction.
+
+3rd March 2006  John Allison
+- vistest-V08-00-02: Added test of transient handling.
+
+16th February 2006  John Allison
+- modeling-V08-00-03: For future removal of Establish/DecommisionSpecials.
+
+9th February 2006  John Allison
+- visman-V08-00-07: First implementation of refresh end-of-event.
+
+8th February 2006  John Allison
+- modeling-V08-00-02: Added DrawingStyle to G4ModelingParameters and fixed
+  bug in culling of covered daughters
+- visman-V08-00-06 (needs modeling-V08-00-02): Made use of
+  G4ModelingParameters::DrawingStyle.
+- vistree-V08-00-00: Fixed bug in treatment of repeated replicas.
+- visXXX-V08-00-01: Improved handling of DrawnPVPath.
+
+3rd February 2006  John Allison
+- visman-V08-00-05: Introduced /vis/geometry/...
+
+30th January 2006  John Allison
+- openinventor-V08-00-01: Implemented drawn volume path.
+
+26th January 2006  John Allison
+- raytracer-V08-00-01: Minor improvements.
+- vistest-V08-00-01: Improved ray tracer; commented about voxelisation crash.
+- modeling-V08-00-01: G4PhysicalVolumeModel: Added drawn volume path
+  capability.
+- visXXX-V08-00-00: Uses drawn volume path.  Needs modeling-V08-00-01
+  and visman-V08-00-04.
+- 3 co-working tags due to removal of fModified:
+  o visman-V08-00-04: Removed fModified plus minor improvements.
+  o opengl-V08-00-01: Removed fModified plus tidying.
+  o openinventor-V08-00-00: Removed fModified.
+
+----------------------------------------------------------------------
+The tags below since Release 8.0 were collected in geant4-08-00-ref-01
+and geant4-08-00-ref-02.
+
+23rd January 2006  John Allison
+- DAWN-V08-00-00: Rewind output file in ClearView.  Avoids duplicate
+  geometries in output file.
+- VRML-V08-00-00: As above.
+
+11th January 2006  John Allison
+- vistest-V08-00-00: Added twisted solids and improved Perspective example.
+- visman-V08-00-02: Minor improvements.
+- raytracer-V08-00-00: Reorganisation (needs visman-V08-00-02).
+- opengl-V08-00-00: Improved efficiency; made G4OpenGLXmViewerMessenger smart.
+- modeling-V08-00-00: Changed last remaining G4Transform3D::Identity to
+  G4Transform3D().
+
+9th January 2006  John Allison
+- visman-V08-00-00: geant4-08-00-ref-00 + reversal of change of 22nd
+  November 2005: fMarkForClearingTransientStore(true) initially now.
+- visman-V08-00-01: Improved /vis/scene/notifyHandlers, improved warning
+  messages and some bug fixes, including visman-V08-00-00.
+
+----------------------------------------------
+4th December 2005  Joseph Perl (vis-V07-01-10)
+- Global tag for Geant4 release 8.0
+- Corresponds to the following subdirectory tags:
+- externals: geant4-07-01-ref-05
+- FukuiRenderer: geant4-07-01-ref-05
+- HepRep: geant4-07-01-ref-05
+- management: visman-V07-01-10
+- modeling: modeling-V07-01-07
+- OpenGL: opengl-V07-01-09
+- OpenInventor: openinventor-V07-01-04
+- RayTracer: raytracer-V07-01-08
+- test: vistest-V07-01-04
+- Tree: vistree-V07-01-01
+- VRML: geant4-07-01-ref-05
+- XXX: visXXX-V07-01-02
+
+29th November 2005  Jane Tinslay (vis-V07-01-09)
+- Make G4VisManager::RegisterModelFactories() non-pure for 
+  backwards compatibility.
+- Add information message to G4VisManager::DispatchToModel
+  when default trajectory model is used.
+- Removed names of unused paramaters to stop compiler warnings:
+  G4VModelCommand.hh, G4ModelCommandsDrawByCharge.cc,
+  G4ModelCommandsDrawByParticleID.cc, G4VRTScanner.hh
+
+25th November 2005  Joseph Perl (vis-V07-01-08)
+- Global tag for Geant4 release 8.0
+- Corresponds to the following subdirectory tags:
+- externals: geant4-07-01-ref-05
+- FukuiRenderer: geant4-07-01-ref-05
+- HepRep: geant4-07-01-ref-05
+- management: visman-V07-01-09
+- modeling: modeling-V07-01-05
+- OpenGL: opengl-V07-01-09
+- OpenInventor: openinventor-V07-01-03
+- RayTracer: raytracer-V07-01-06
+- test: vistest-V07-01-04
+- Tree: vistree-V07-01-01
+- VRML: geant4-07-01-ref-05
+- XXX: visXXX-V07-01-02
+
+22nd November 2005  John Allison
+- vistest-V07-01-04: Added G4Tet and PerspectiveVisAction. Refined G4Polyhedra.
+- opengl-V07-01-08: Added G4OpenGLXmViewerMessenger. Corrected text position.
+- vistree-V07-01-01: Refined guidance and printing.
+- visXXX-V07-01-02: Simplified guidance.
+- modeling-V07-01-03: Implemented radial replicas for G4Tubs.
+
+18th November 2005  John Allison
+- raytracer-V07-01-06: merged developments to the head, including RayTracerX.
+
+18th November 2005  Joseph Perl  (vis-V07-01-07)
+- Minor modification of geant4-07-01-ref-05 to facilitate acceptance
+  of greps-V07-01-09 and tracking tracking-V07-01-02.  As with
+  vis-V07-01-06, it should subsequently simply be ignored.
+
+15th November 2005  Guy Barrand
+- openinventor-V07-01-03: Background, scaling and window positioning.  Also
+  reading and wroting of .iv files.
+
+14th November 2005  John Allison (vis-V07-01-06)
+- Minor modification of vis-V07-01-03 + vis-HepRep-V07-01-04 (to avoid
+  warnings on Sun), i.e., it excludes all development since then. This
+  tag is purely to facilitate acceptance of greps-V07-01-09.  To
+  achieve this, the modification was made on a branch -
+  vis-V07-01-03-branch - of just one file, namely G4VisManager.hh.
+  This should subsequently simply be ignored.
+
+13th November 2005  John Allison
+- visman-V07-01-08: Added XGeometryString and background opacity parameter.
+- opengl-V07-01-07: Implemented window placing (XGeometryString) in OGL*X.
+
+24th October 2005  John Allison
+- modeling-V07-01-02: Added trajectory models.
+- visman-V07-01-07: Added methods for managing trajectory models.
+
+20th October 2005  Joseph Perl (vis-V07-01-05)
+- New Global Vis Tag.
+- Includes head of everything except RayTracer and OpenInventor.
+- Requires geant4-07-01-ref-03 plus the following:
+- graphics_reps: greps-V07-01-06
+- intercoms: intercoms-V07-01-01
+- event: event-V07-01-0
+- run: run-V07-01-02
+
+13th October 2005  John Allison (vis-V07-01-04)
+- Implemented non-uniform scaling in management and OpenGL.
+- Implemented arbitrary background in management, OpenGL and RayTracer.
+- Migrated to <sstream>.
+- The above consists of:
+  o vistest-V07-01-03: Migrated to <sstream> plus minor changes.
+  o DAWN-V07-01-00: Migrated to <sstream>.
+  o vis-HepRep-V07-01-03: Migrated to <sstream>.
+  o opengl-V07-01-06: Migrated to <sstream>, non-uniform scaling, any
+    background.
+  o vistree-V07-01-00: Migrated to <sstream>, fixed bug in mass calculations.
+  o visXXX-V07-01-01: Migrated to <sstream>.
+  o modeling-V07-01-01: Migrated to <sstream>.
+  o visman-V07-01-05: Migrated to <sstream>, non-uniform scaling, any
+    background.
+
+12th October 2005  John Allison (vis-V07-01-03)
+- G4VisCommandsViewer.cc: Trapped zero viewer pointer in /vis/viewer/update
+  (bug found by system test of vis-V07-01-02).
+
+2nd Oct 2005  Joseph Perl (vis-V07-01-02)
+  Same as vis-V07-01-01 but with earlier raytracer tag:
+  raytracer-V07-01-02
+
+30th Sep 2005  Joseph Perl (vis-V07-01-01)
+  New global tag for Vis.  Corresponds to vis-V07-01-00 plus:
+  vistest-V07-01-02
+  visman-V07-01-04
+  raytracer-V07-01-03
+  modeling-V07-01-00
+  opengl-V07-01-05
+  openinventor-V07-01-02
+  visXXX-V07-01-00
+  vis-HepRep-V07-01-01
+
+30th September 2005  Joseph Perl (raytracer-V07-01-03)
+New tag to include change Makoto made an hour after V07-01-02 was tagged.
+Change seems to just involve passing pWorld to material list where no argument was passed in previous version.
+
+29th September 2005  John Allison  (opengl-V07-01-05)
+- Added G4OpenGLViewerDataStore to facilitate access of viewer data by
+  scene handler.
+- Re-implemented transparency button in OpenGLXm.
+
+New tags to be included 16th Sep 2005 (JA):
+  o visman-V07-01-03:
+    + Issue "/tracking/storeTrajectory 1" on /vis/scene/add/trajectories.
+    + Warning: Attempt to add volume to a scene already containing the world.
+    + Error: Logical volume model must be only volume model in scene.
+  o visman-V07-01-04: Simplified use of ConcreteInstance..
+  o raytracer-V07-01-02: Bug fix (black holes).
+  o vistest-V07-01-02: Added a G4AttValue with time.
+
+To be included:
+  o visman-V07-01-01: Introduced (optional) second pass over scene.
+  o visman-V07-01-02: Added /vis/viewer/set/whiteBackground.
+                      Added RayTracerX to G4VisExecutive.
+  o modeling-V07-01-00: Fixed (non-)culling of transparent volumes.
+  o opengl-V07-01-01: Half-way implementation of transparency.
+  o opengl-V07-01-02: "Better algorithm" for transparency.
+  o opengl-V07-01-03: Bug fix.
+  o opengl-V07-01-04: Fixed hidden line removal.
+  o vis-HepRep-V07-01-00 (4 August 2005 Mark Donszelmann)
+  o openinventor-V07-01-01 (1st August 2005  Gabriele Cosmo)
+  o openinventor-V07-01-02: Corrected treatment of edgeflags.
+  o raytracer-V07-01-01: Protected RayTracerX by G4VIS macro.
+  o visXXX-V07-01-00: Improved guidance for rendering polyhedron objects.
+  o vistest-V07-01-01: RayTracerX instantiation removed - now in
+                       G4VisExecutive.
+
+20th July 2005  John Allison (vis-V07-01-00)
+- opengl-V07-01-00: Introduced smooth shading.  Also window size hints for Xm.
+- openinventor-V07-01-00: Changed Geant4_SoPolyhedron to construct
+    from G4Polyhedron.  Functionality unchanged.
+- visman-V07-01-00: Protected new viewer pointer.
+- vistest-V07-01-00
+- Removed top level README files.  (All wisdom now transferred
+    properly to User Guides.)
+
+17th July 2005  John Allison
+- raytracer-V07-01-00: Introduced RayTracerX.
+
+7th June 2005  John Allison (vis-V07-00-19)
+- visXXX-V07-00-00: Fixed compiler warnings.
+- visman-V07-00-02: bug fix.
+- modeling-V07-00-02: bug fix.
+- Incorporates vis-gmk-V07-00-00 - a fix for addition of zlib to
+  SUBLIBS and SUBDIRS (Gabriele)
+
+2nd June 2005  Joseph Perl (vis-V07-00-18)
+- Candidate tag for release.
+- Includes Mark's additional changes for HepRep2.
+- Includes Mark's fix for gcc-4.0 compilation.
+
+2nd June 2005  Joseph Perl (vis-V07-00-17)
+- Candidate tag for release.  May or may not be final.
+- Undid Gabriele's fix to G4HepRepFileSceneHandler.cc.
+
+2nd June 2005  John Allison
+- Removed scene handler count and made small cosmetic improvements.
+
+2nd June 2005  Joseph Perl (vis-V07-00-16)
+- Incorporate improvements to HepRepFile and HepRepXML
+
+30th May 2005  John Allison  (vis-V07-00-15)
+- opengl-V07-00-03: Fixed compilation problem in OpenGL on SUN.
+- HepRepFile: Fixed bug introduced in ClearTransientStore. (Joseph Perl)
+
+27th May 2005  John Allison
+- DAWN-V07-00-00, VRML-V07-00-00:
+    Fixed bug introduced in ClearTransientStore.
+- openinventor-V07-00-00 and 01:
+    fixes for CLHEP and marker sizes.
+- vis-HepRep-V07-00-01 and vis-zlib-V07-00-00  (Mark Donszelmann)
+    Migration to G4LIB_BUILD_ZLIB and some developments.
+- management:
+  o Reduced text size of scale annotation to 12 pixels.
+  o Fixed default values in /vis/scene/add/text.
+
+12th May 2005  John Allison
+- Moved zlib to externals/zlib.
+
+6th May 2005  John Allison  (vis-V07-00-14)
+- OpenGL: fixed bug (views not refreshed - opengl-V07-00-02).
+- Improved ASSCIITree guidance.
+- G4VisExecutive: Replaced printing of available graphics systems.
+  Now corresponds to behaviour of most old examples vis managers.
+- Fixed some pedantic warnings from gcc 4.
+- G4PhysicalVolumeModel: SetCopyNo of replicas and paramaterised
+  volumes (modeling-V07-00-00).
+
+5th May 2005  John Allison
+- Introduced zlib directory.
+
+22nd April 2005  John Allison
+- OpenGL: Implemented text for X-Windows viewers (opengl-V07-00-00/1).
+
+10th April 2005  John Allison  (visman-V07-00-00)
+- G4VisCommandsSceneAdd.cc: 2nd attempt to fix access to fpVisManager
+  from nested class for SUN.
+
+16th March 2005  John Allison  (vis-V07-00-13)
+- G4VisCommandsSceneAdd.cc: fixed access to fpVisManager from nested class.
+- For gcc 2.95.2: Fixed G4String return for viewer commands.
+- Added constructor and virtual destructor to G4VUserVisAction.
+
+15th March 2005  John Allison  (vis-V07-00-12)
+- Added return type G4int to G4ViewParameters::SetNoOfSides and
+  G4ModelingParameters::SetNoOfSides.  They return no. of sides, i.e.,
+  sides per circle in polyhedron contruction, that are actually set;
+  there is a lower limit of 12.
+- G4PhysicalVolumeModel: bug fix: no. of rotation steps correctly applied.
+
+10th March 2005  John Allison  (vis-V07-00-11)
+- Reviewed all vis commands.  Improved guidance, simplified and
+  rationalised the commands.
+
+9th March 2005  John Allison
+- Removed "remove" and "edit" commands.
+- G4VisManager: removed "Delete" methods. (Removing or deleting an
+  existing scene, scene handler or viewer is very messy and not
+  necessary.  When a user creates a new one, he/she may leave the old
+  one around without harm.  It may be left unused or selected again later
+  if the user wants.)
+- Removed automatic parameter candidate specification for commands
+  that take an argument that is a scene, scene handler or viewer
+  name - it is checked in SetNewValue methods.  (The code was just
+  too complicated and, anyway, the result hindered, rather than
+  helped the user, because it restricted the parameter values and
+  mis-typing gave obscure messages.  Now the messages are clearer and,
+  as the guidance points out, the list of possible names can be
+  obtained with a "list" command.)
+- Made "list" commands flag current items.
+- Improved guidance for /vis/scene commands.  Still to do (groan!):
+    /vis/scene/add
+    /vis/sceneHandler
+    /vis/viewer
+
+9th March 2005  John Allison  (vis-V07-00-10, needs greps-V07-00-01)
+- Refined logo and scale.
+- Improved physical volume clipping.
+- G4VisManager: Added default G4Transform3D::Identity to
+  objectTransformation argument in Draw methods.
+
+4th March 2005  John Allison  (vis-V07-00-09)
+- Added first implementation of cutaway - a clipping box for physical
+  volume tree:
+    vis/scene/add/volume ! ! ! box km 0 1 0 1 0 1
+  (Does not seem properly to clip volumes wholly inside clipping volume.)
+
+3rd March 2005  John Allison  (vis-V07-00-08)
+- Introduced /vis/scene/add/logo.
+- Added Set methods to G4VModel.
+- Added argument to G4CallbackModel::operator()(const G4Transform3D&) so that
+  the model could implement a given transformation.  Provided default for
+  G4VUserVisAction::(const G4Transform3D& = G4Transform3D::Identity).
+- Improved guidance for:
+    compound commands
+    ASCIITree commands
+- Used std::istrstream::istrstream(std::string) throughout.
+
+23rd February 2005  John Allison  (vis-V07-00-07)
+- Protected scene handlers for the case of the drawing of solids NOT
+  from a physical volume tree:
+    G4FRSceneFunc.icc
+    G4OpenGLSceneHandler.cc
+    G4OpenGLStoredSceneHandler.cc
+    G4ASCIITreeSceneHandler.cc
+    G4GAGTreeSceneHandler.cc
+- Fixed a problem with ClearTransientStore.  ClearTransientStore
+  should restrict itself to its job.  In the following files,
+  ClearTransientStore also redraws the view.  In other places, a draw
+  command often follows, so it is not needed here.  In fact it can
+  cause a double recursive descent into DrawView, so the existing code
+  has been commented out (JA - 23/Jan/05):
+    G4FRSceneFunc.icc
+    G4HepRepFileSceneHandler.cc
+    G4OpenGLImmediateSceneHandler.cc
+    G4OpenGLStoredSceneHandler.cc
+    G4VRML1SceneHandlerFunc.icc
+    G4VRML2SceneHandlerFunc.icc
+    G4XXXSceneHandler.cc
+- Removed (commented out) some code that forced extra kernel visits,
+  purportedly to overcome a problem in OpenGLStored methods.  Let's
+  fix OpenGL if necessary:
+    G4VSceneHandler.cc
+    G4VViewer.cc
+- Commented out SetView and ClearView in /vis/viewer/refresh:
+    G4VisCommandsViewer.cc
+- Changed signature of G4VViewer::SetNeedKernelVisit(G4bool) for compatibility.
+
+19th February 2005  John Allison  (vis-V07-00-06 with greps-V07-00-00)
+- Added G4VUserVisAction and G4CallbackModel.
+- Implemented /vis/scene/add/userAction.
+- Fixed bug in /vis/viewer/update (check existence of scene handler and scene).
+
+15th February 2005  John Allison  (vis-V07-00-05)
+- Introduced drawing of readout geometry for logical volumes.
+- For drawing of logical volumes, introduced boolean flags to control 
+  drawing of:
+    o boolean components (if any)
+    o voxels (if any) (note: voxels are not created until start of run)
+    o readout geometry (if any)
+- Augmented commands /vis/specify and /vis/scene/add/logicalVolume to use
+  above flags.
+- G4ASCIITree: Added printing of names of sensitive detector (if any) and
+  readout geometry (if any).
+
+15th February 2005  John Allison  (vis-V07-00-04)
+- Updated READMEs for G4VisExecutive.  Removed references to OPACS.
+
+9th February 2005  John Allison  (vis-V07-00-03)
+- Migration from AddThis to AddSolid and AddCompound: fixed previously
+  missed FukuiRendererSceneHander.
+
+4th February 2005  John Allison  (vis-V07-00-02)
+- Introduced G4VisExecutive.  MyVisManager deprecated.
+
+27th January 2005  John Allison  (vis-V07-00-01, needs intercoms-V07-00-00)
+- Migration from AddThis to AddSolid and AddCompound.
+- AddSolid: Methods for adding solids to the scene handler.  They
+  must always be called in the triplet PreAddSolid, AddSolid and
+  PostAddSolid.  The transformation and visualization attributes
+  must be set by the call to PreAddSolid.  A possible default
+  implementation is to request the solid to provide a G4Polyhedron
+  or similar primitive - see, for example, G4VSceneHandler.
+- AddCompound: Methods for adding "compound" GEANT4 objects to the scene
+  handler.  These methods may either (a) invoke "user code" that
+  uses the "user interface", G4VVisManager (see, for example,
+  G4VSceneHandler in the Visualization Category, which for
+  trajectories uses G4VTrajectory::DrawTrajectory, via
+  G4TrajectoriesModel in the Modeling Category) or (b) invoke
+  AddPrimitives below (between calls to Begin/EndPrimitives) or (c)
+  use graphics-system-specific code or (d) any combination of the
+  above.
+
+26th January 2005  John Allison  (vis-V07-00-00)
+- G4VisManager:: removed optional argument
+  const G4Transform3D& objectTransformation = G4Transform3D::Identity
+  from Draw methods for a hit and trajectory.
+- Trapped illegal nesting of Begin/EndPrimitives.
+- Added fpCurrentMaterial to G4VSceneHandler and relevant derived
+  classes and models for work with G4PhysicalVolumeModel via
+  EstablishSpecials.  So now, the material is also available (in addition
+  to current depth, logical and physical volum) during drawing of geometry
+  items.
+- Changed ASCIITree to use G4VSolid::GetCubicVolume and
+  G4LogicalVolume::GetMass.
+- Changed G4PhysicalVolumeMassScene to use G4VSolid::GetCubicVolume.
+- Improved guidance for /vis/viewer/set/hiddenMarker.
+- G4VisCommandsViewerSet: made Up and Viewpoint vectors unit for safety.
+- Some additions to test area.
+
+10th December 2004 Gabriele Cosmo (vis-V06-02-09)
+- Replaced M_PI with CLHEP's pi.
+
+7th December 2004 Joseph Perl (vis-V06-02-08)
+- Tagged right after migration to cmath
+- All occurences of include <math.h> have now become include <cmath>.
+- All math functions are now prefaced with std::
+
+7th December 2004 Joseph Perl (vis-V06-02-07)
+- Tagged right before migration to cmath
+
+26th November 2004 Joseph Perl (vis-V06-02-06)
+- Tagged for release 7.0.
+- Made from vis-V06-02-05
+- plus opengl-V06-02-07 by John Allison
+- plus vis-HepRep-V06-02-02 by Mark Donszelmann
+- plus openinventor-V07-00-00 by Guy Barrand
+
+18th November 2004  John Allison
+- Included opengl-V06-02-07.
+
+11th November 2004  John Allison  (vis-V06-02-05)
+- Made use of smart method GetPolyhedron for solids.  This greatly
+  speeds 2nd and subsequent drawings when kernel access is required.
+- Rationalised use of EstablishSpecials: functionality moved to base class.
+- Removed use of obsolete G4Polymarker::line.
+
+22nd September 2004  John Allison  (vis-V06-02-04)
+- Moved Doxyfile to management.  doxygen output to tmp area.
+- modeling-V06-02-01 - small fixes.
+- vistree-V06-02-01 - small fixes.
+- opengl-V06-02-06 - Trap non-regular polyhedra and other small changes.
+- DAWN-V06-02-00 - Improve diagnostic on trapping non-regular polyhedra.
+- vistest-V06-02-02: refined rotated tube test.
+
+13th September 2004  John Allison  (vis-V06-02-03)
+- vistree-V06-02-00: Improved ASCIITree:
+  verbosity >= 3: prints volume, density of all volumes in hierarchy.
+  verbosity >= 4: calculates the mass of the complete geometry tree taking
+    into account daughters up to the depth specified for each physical
+    volume in the current scene.  Culling is ignored so that all volumes
+    are processed.  The calculation is quite tricky, since it involves
+    subtracting the mass of that part of the mother that is occupied by
+    each daughter and then adding the mass of the daughter, and so on
+    down the heirarchy.  Uses G4PhysicalVolumeMassScene - see below.
+  Added option to write to file (/vis/ASCIITree/set/outFile).
+- modeling-V06-02-00: Added G4PhysicalVolumeMassScene and improvements
+  to G4PhysicalVolumeModel.  See modeling/History for more details.
+- Removed obsolete file: G4VisToOldVisCommands.hh
+- Corrected mistake in /vis/viewer/set/*Vector commands.
+- Augmented ParameterisedBox and rotated a tracker tube in test directory.
+- Brought README.built_in_commands up to date for Geant4 6.2.  Removed all
+  references to old commands.'
+
+3rd August 2004  John Allison
+- Rationalised vis command code (uses G4UIcommand static conversion
+  functions where possible).
+- Removed G4ViewParameters::DrawingStyle GetDrawingStyle (const
+  G4Visible&).  Instead, developer has to:
+    // Get vis attributes - pick up defaults if none.
+    const G4VisAttributes* pVA =
+      fpViewer -> GetApplicableVisAttributes (v.GetVisAttributes ());
+  where v is the visible object (polyline, circle, polyhedron, etc.), and:
+    // Get view parameters that the user can force through the vis
+    // attributes, thereby over-riding the current view parameter.
+    G4ViewParameters::DrawingStyle drawing_style = GetDrawingStyle (pVA);
+    G4bool isAuxEdgeVisible = GetAuxEdgeVisible (pVA);
+  Most developers do this anyway, so the removed routine was redundant
+  and resulting code is more efficient and transparent.  To get
+  colour, the developer can pick up directly from the vis attrributes,
+  pVA, obtained as above:
+    const G4Colour& c = pVA -> GetColour ();
+  or use a slightly less efficient method:
+    const G4Colour& c = GetColour (v);
+  where v is the visible object.
+  Note that for text, the developer must use a different procedure,
+  since the default text colour is determined by the default text vis
+  attributes, which may be specified independent of default vis
+  attributes of other types of visible objects.  A function,
+  GetTextColour, is provided and the recommended use is:
+    const G4Colour& c = GetTextColour (text);  // Picks up default if none.
+- Rationalised use of vis attributes in OpenGL and XXX.
+
+28th July 2004  John Allison  (vis-V06-02-02 with greps-V06-02-00)
+- Implemented force auxiliary edge visible feature of G4VisAttributes.
+- Included openinventor-V06-02-00 (minor revision - Guy Barrand).
+
+23rd July 2004  John Allison
+- Added auxiliary edge visible flag to G4ViewParameters and a new
+  command, /vis/viewer/set/auxiliaryEdge.  (Auxiliary edges are not
+  genuine edges of the volume.  They may be in a curved surface made
+  out of polygons, for example, or in plane surface of complicated
+  shape that has to be broken down into simpler polygons.
+  HepPolyhedron breaks all surfaces into triangles or quadrilaterals.
+  There will be auxiliary edges for any volumes with a curved surface,
+  such as a tube or a sphere, or a volume resulting from a Boolean
+  operation.  Normally, they are not shown, but sometimes it is useful
+  to see them.  In particular, a sphere, because it has no egdes, will
+  not be seen in wireframe mode in some graphics systems unless this
+  flag is turned on.)
+
+16th July 2004  John Allison
+- Refined forced wireframe algorithm - *always* force wireframe even
+  if hidden line removal is specified.
+- opengl-V06-02-04.
+
+15th July 2004  John Allison
+- Small improvement to G4XXX (sample graphics system).
+
+14th July 2004  John Allison  (vis-V06-02-01)
+- Removed deprecated commands:
+    /vis/viewer/show               (use /vis/viewer/update)
+    /vis/viewer/lightsThetaPhi     (use /vis/viewer/set/lightsThetaPhi)
+    /vis/viewer/lightsVector       (use /vis/viewer/set/lightsVector)
+    /vis/viewer/viewpointThetaPhi  (use /vis/viewer/set/viewpointThetaPhi)
+    /vis/viewer/viewpointVector    (use /vis/viewer/set/viewpointVector)
+  (See geant4/source/visualization/README.built_in_commands for list
+  of current commands.)
+- Tidied guidance for /vis/viewer/set.
+- Included opengl-V06-02-03 (cosmetic).
+
+14th July 2004  John Allison  (vis-V06-02-00)
+- opengl-V06-02-02 and vistest-V06-02-01:
+  Hidden line *and/or* hidden surface removal now work for OGL*X and OGL*Xm.
+
+1st July 2004  John Allison
+- Correction to guidance of /vis/viewer/set/hiddenEdge.
+- Small improvement to README of /vis/scene/add/axes.
+- vistest-V06-02-00.
+- opengl-V06-02-00.
+- visman-V06-02-00: Fix for porting on gcc-3.4.0: made ProcessView()
+  public, since used as private friend (Gabriele Cosmo).
+
+9th June 2004  Gabriele Cosmo  (vis-V06-01-03)
+- Adopt G4DLLIMPORT/G4DLLEXPORT technique to handle extern simbols for
+  allowing support of DLLs on Windows.
+- Minor correction in modeling/GNUmakefile for GLOBLIBS definition.
+- Coworks with "global-V06-01-02b".
+
+7th June 2004  Gabriele Cosmo  (vis-V06-01-02)
+- Includes "vis-HepRep-V06-01-04".
+- Export extern symbols for allowing support of DLLs on Windows.
+  Modified files: G4RayTrajectory.hh, G4RayTrajectoryPoint.hh.
+- GNUmakefiles: added definition of GLOBLIBS for DLLs support on Windows.
+- Coworks with "global-V06-01-02a".
+
+9th April 2004  John Allison  (vis-V06-01-01 + interfaces-V06-01-00)
+- Tagged OpenGL as below.  Joint with interfaces-V06-01-00.
+
+7th April 2004  Guy Barrand
+- visualization/OpenGL/* : use the G4OpenGL.hh file.
+- Added : visualization/OpenGL/include/G4OpenGL.hh to encapsulate
+  the include of gl/gl.h and gl/glu.h that may be platform dependant.
+  It permits to rm some #ifdef WIN32 spread in the code. It opens also
+  the way to the usage of the Apple OpenGL on a Mac.
+
+14 March 2004 Joseph Perl (vis-V06-00-01)
+- HepRepFile handle duplicate ShowView.
+- HepRepFile improve layering and hierarchy for hits.
+
+17th February 2004  John Allison  (opengl-V06-00-00)
+- Fixed bug #581: wrong order of statements in
+  G4OpenGLXViewer::~G4OpenGLXViewer (see bug report).
+
+1st December 2003  John Allison
+- Added checks and minor improvment of behaviour at end of event and run:
+  o G4VisManager::EndOfRun: added check on MarkForClearingTransientStore.
+  o G4VisCommandsScene.cc: For "/vis/scene/endOf[Event|Run]Action refresh",
+    SetMarkForClearingTransientStore(true).
+
+27th November 2003  John Allison  (vis-V05-02-06)
+- Added /vis/scene/endOfRunAction.
+- Includes vis-HepRep-V05-02-08.
+- G4VisManager: Removed PrintAllGraphicsSystems and
+  PrintInstalledGraphicsSystems.  They are difficult to maintain and
+  are anyway not used.  (There remains PrintAvailableGraphicsSystems,
+  which is much used, and iterates over instantiated graphics systems
+  and needs no maintenance.)
+
+20th November 2003  John Allison  (vis-V05-02-05)
+- Re-submitted.  Includes vis-HepRep-05-02-07: fixes compiler issues and
+  other minor fixes.
+
+14th November 2003  John Allison  (vis-V05-02-04)
+- Includes vis-HepRep-05-02-03: new HepRep XML driver for HepRep Version 2.
+- Bug fix in G4VisManager::EndOfEvent.
+
+12th November 2003  John Allison
+- Bug in /vis/scene/add/volume: requestedDepthOfDescent now correctly
+  propagated to "world" volume.
+- modeling-V05-02-02: G4PhysicalVolumeModel: CalculateExtent always
+  searches complete hierarchy.
+- Change initialisation of G4VSceneHandler so that there is always a
+  clear on first drawing  - fMarkForClearingTransientStore(true).
+- Removed redundant code from G4VisManager::::EndOfRun.
+
+6th November 2003  John Allison  (vis-V05-02-03)
+- management:
+  o G4VisManager: improved handling of auto refresh at end of event and run.
+  o G4VisCommandsScene: improved endOfEventAction and improved guidance.
+  o GNUmakefile: rationalised.
+- GNUmakefile: removed G4LIBDIR and G4TMPDIR.
+- RayTracer/GNUmakefile: rationalised (raytracer-V05-02-04).
+- Tree: improved printing.
+- G4VRML2SceneHandlerFunc: changed const char* pv_name to G4String pv_name.
+- G4XXXViewer: improved comments.
+- modeling: GNUmakefile: rationalised (modeling-V05-02-01).
+- test: changed MyPhysicsList to follow kernel changes.
+
+4th November 2003  Gabriele Cosmo  (vis-V05-02-02)
+- Includes removal of OPACS module.
+- Includes "modeling-V05-02-00".
+
+17th October 2003  Guy Barrand
+- OPACS being (for long) deprecated, remove OPACS related things
+  in Geant4 repository.
+
+4th October 2003  Gabriele Cosmo  (vis-V05-02-01)
+- Modified GNUmakefiles:
+  o added dependency to new module "geometry/navigation".
+  o replaced "digits+hits" with "digits_hits".
+- Coworks with "geometry-V05-02-00" and "digits_hits-V05-02-00".
+
+22nd September 2003  John Allison  (vis-V05-02-00, greps-V05-02-00)
+- Incorporates raytracer-V05-02-01 (needs greps-V05-02-00) - see
+  RayTracer/History:
+  o Introduced G4VRTScanner.
+  o Added /vis/rayTracer/backgroundColour.
+- Introduced Doxygen documentation for management, OpenGL and test.
+- Improved guidance for /vis/scene/notifyHandlers.
+- OpenGL: Cosmetic change to regularise names.
+
+2nd September 2003  John Allison
+- Fixed pedantic warnings etc. in test suite - see test/History.
+
+2nd June 2003  John Allison  (vis-V05-01-01)
+- Small fix for pedantic warnings in RayTracer.
+
+30th May 2003  John Allison  (vis-V05-01-00 - does not include HepRep below)
+- Improved README.built_in_commands.  Removed unlikely-to-be-implemented
+  commands.
+- Eliminated pedantic warnings.
+
+28th February 2003  Joseph Perl
+- Minor Fix to HepRep - see History file.
+
+20th January 2003  John Allison
+- Changed "/vis/scene/add/trajectories [<drawing-mode>]" so that if
+  the command is issued more than once on any given scene, the last
+  command takes effect, i.e., so that the last value of drawing-mode
+  takes effect.
+
+17th February 2003 Satoshi Tanaka (vis-V05-00-01)
+- A Small bug fixing of VRML2 driver 
+ (Explicit cast from G4String to char* in G4VRML2SceneHandlerFunc.icc).
+
+24th January 2003  Joseph Perl
+- Fixes to HepRep - see History file.
+
+20th January 2003  John Allison  (vis-V05-00-00, co-works intercoms-V05-00-00)
+- Incorporated openinventor-V05-00-00: Removed erroneous additional
+  transformation.
+- Added G4VisManager::Draw methods for hits and trajectories.
+
+11th December 2002  John Allison  (vis-V04-01-10)
+- Fix for SUN-CC warnings: AddThis hides the virtual function...
+- Fix memory leak in RayTracer.
+- Fixed /vis/scene/add/trajectories command.
+- Some fixes in HepRep.
+
+4th December 2002  Makoto Asai (vis-V04-01-09)
+- Migration to new G4ApplicationState
+
+27th November 2002  John Allison  (vis-V04-01-08)
+- Fixes to HepRep - see History file.
+- Added RegisterGraphicsSystem (new G4HepRep) in MyVisManager.cc.
+- Fix (removal) of ambiguous G4VVisCommand::GetNewDoubleValue.
+- Added /vis/viewer/set/globalMarkerScale.
+- Improved algorithm of CompareForKernelVisit on OpenGL and OpenInventor.
+
+21st November 2002  Gabriele Cosmo  (vis-V04-01-07)
+- Corrections to HepRep module to allow porting on egcs compiler
+  (M.Donszelmann).
+- Patched access to static data in G4VisCommandsSceneAdd.cc, G4VisManager.cc
+  and G4FlavoredParallelWorldModel.cc to allow porting on Windows DLLs.
+  It requires co-working with tags "greps-V04-01-04" and "intercoms-V04-01-02".
+
+15th November 2002  Mark Donszelmann  (vis-V04-01-06)
+- HepRep2 driver implemented.
+
+11th November 2002  John Allison  (vis-V04-01-05)
+- Corrected inclusion of G4OpenGLXViewer #ifdef X_DRIVER for Windows
+  and other small changes in OpenGL (opengl-V04-01-02).
+- Added integer argument to /vis/scene/add/trajectories [drawing-mode].
+  drawing-mode is passed to DrawTrajectory.  See also modeling-V04-00-00.
+- Fixed bug in G4VisManager wich lead to zero G4VModel pointer.
+- Improved hamdling of models.
+- Corrected G4RayTracer.cc devide-by-zero (raytracer-V04-00-01).
+- VRML: bug fixing for marker size (*.icc files) (VRML-V04-01-00).
+- Samll improvements to README.built_in_commands.
+- Improved sample driver XXX.
+
+1st November 2002  John Allison (vis-V04-01-04 with...)
+geant4/source/tracking       tracking-V04-01-03
+geant4/source/intercoms      intercoms-V04-01-00
+geant4/source/graphics_reps  greps-V04-01-01
+geant4/source/digits+hits    digits+hits-V04-01-01
+
+Oct 28, 2002, J.Allison  (vis-traj03, co-works with...
+geant4/source/tracking       traj03 (head as of Tue Oct 29 15:42:14 UTC 2002)
+geant4/source/intercoms      intercoms-V04-01-00 (ditto)
+geant4/source/graphics_reps  greps-V04-01-01 (ditto)
+geant4/source/digits+hits    hits-traj03 (*not* the head)
+- Changed G4XXXSceneHandler.cc for map of G4AttDefs, and improved.
+
+17th October 2002  John Allison (vis-V04-01-03 with...)
+- Coworking tags are:
+    geant4/source/tracking       traj02
+    geant4/source/intercoms      intercoms-V04-00-04
+    geant4/source/graphics_reps  greps-V04-01-00
+    geant4/source/digits+hits    hits-traj02
+- More changes for AddThis(const G4VTrajectory&) and (const G4VHit&).
+- Minor corrections to warning messages, etc.
+- Improved end of run behaviour for non-post-processing graphics
+  systems by changing false to true in G4VisManager::EndOfRun
+  fpSceneHandler->SetMarkForClearingTransientStore(true);
+- Further corrections/improvements in OpenGLWin32 - not yet complete.
+
+17th October 2002  John Allison (vis-V04-01-02 with intercoms-V04-01-00)
+- Added two new pure virtual functions to G4VGraphicsScene:
+    AddThis(const G4VTrajectory&)
+    AddThis(const G4VHit&)
+
+16th October 2002  John Allison  (vis-traj01 co-works with tracking tag traj01)
+- Tag for changes in G4VTrajectory, etc. (raytracer-V04-00-00).
+
+16th October 2002  John Allison  (vis-V04-01-01)
+- Fix for WIN32.  Now compiles but viewer not implemented.  (opengl-V04-01-01)
+- Small improvement to README.built_in_commands.
+
+1st Sept 2002  Satoshi Tanaka  (vis-V04-01-00)
+- Precision control of g4_XX.prim files generated by 
+  the DAWNFILE/DAWN-Network drivers. 
+
+   Example:
+     setenv  G4DAWNFILE_PRECISION   9
+
+  The precision number is used as:
+
+      sprintf( string, "%*.*g", (precision+8), precision, value)
+
+  The default precision is also changed from 6 to 9.
+
+24th June 2002  John Allison
+- Further cosmetic changes in G4OpenGL for DEC compiler (opengl-V04-01-00).
+
+24th June 2002  Gabriele Cosmo  (vis-V04-00-10)
+- Exclude latest changes to OpenGL driver (opengl-V04-00-03), causing compilation
+  errors on some platforms (DEC-cxx).
+
+23th June 2002  Satshi Tanaka  (vis-V04-00-09)
+- Bug fixes in G4VRMLXFileSceneHandlerFunc.icc
+- Protection of VRML-Newtork drivers for Windows platform.
+  (The compilation is skipped in the Windows platform.)
+
+19th June 2002  John Allison  (vis-V04-00-08)
+- Cosmetic changes in G4VRML2FileSceneHandler.cc and G4VRML2SceneHandler.cc
+  (Gabriele)
+
+10th June 2002  John Allison
+- Cosmetic changes for SUN-CC in G4OpenGLXmConvenienceRoutines.cc
+  (opengl-V04-00-03).
+- Improvement to /vis/scene/add/logicalVolume guidance.
+
+6th June 2002  John Allison
+- Cosmetic changes for GNU compiler in G4OpenGLXViewer.cc (opengl-V04-00-02).
+
+8th May 2002  John Allison (vis-V04-00-07)
+- Minor changes to warning messages and README.built_in_commands.
+- Added test fro G4EllipticalTube to test/src/MyDetectorConstruction.cc.
+
+1st May 2002  John Allison (vis-V04-00-06)
+- Deprecated /vis/viewer/set/autoRefresh.
+
+26th April 2002  Makoto Asai (vis-V04-00-05)
+- Corresponds to the changes in intercoms-V04-00-00
+- Affected files :
+   G4VisManager.cc G4VisCommandsViewer.cc G4VisCommandsCompound.cc
+
+22nd April 2002  John Allison (vis-V04-00-04)
+- Prevent copying of autoRefresh status with /vis/viewer/set/all command.
+- Corrected out of date advice about /vis/set/culling, etc.
+- Workaround for pseudo-parallel/orthogonal projection in Ray Tracer.
+
+28th February 2002  John Allison (vis-V04-00-03)
+- Updated OpenGL to compile (but not run) on Windows (opengl-V04-00-01).
+- Removed redundant code in GNUmakefiles in OPACS, OpenGL, OpenInventor, VRML.
+- Improved README.adding_graphics_system.
+
+23rd February 2002  John Allison (vis-V04-00-02)
+- Bug fix in modeling, which was causing nested calls to Begin/EndPrimitives.
+
+4th February 2002  Joseph Perl  (vis-V04-00-01)
+- HepRep: Check for missing hierarchy layers in HepRepXMLWriter.
+  (Not strictly needed since have a culled layer check in SceneHandler,
+  but may be useful in other applications of HepRepXMLWriter).
+
+3rd February 2002  Joseph Perl
+- HepRep: Detect transient data by testing for
+  !fpCurrentPV || fReadyForTransients
+  rather than just fReadyForTransients
+
+1st February 2002  Joseph Perl
+- Improvements to HepRep:
+- Defer file opening until first real HepRepType is to be written.
+- Moved HepRep code from AddThis to AddPrimitive.
+- Add additional levels to hierarchy if any appear to have been
+  removed by culling.
+- Add visibility attribute.
+
+29th January 2002  Joseph Perl
+- Relocate HepRep file-opening logic to constructor and ShowView
+  (had been in SetView).
+
+28th January 2002  vis-V03-02-23 Joseph Perl
+- Improvements to HepRep:
+- Produce hierarchical output rather than flat HepRepType structure.
+- Handle trajectories as well as detector geometry.
+- Output files now named G4Data<n>.heprep where n increments with each open.
+
+14th January 2002  vis-V03-02-22 Joseph Perl
+- Corrected handling for already open file in HepRepXMLWriter.
+
+01th December 2001 vis-V03-02-21 Satoshi Tanaka
+- Code refinements in FukuiRenderer/ directory:
+  * Noisy warnings for Linux-g++ are suppressed.
+    (%lg ==> %g etc)
+  * G4FRSceneFunc.icc is moved from /src to /include
+
+29th November 2001  John Allison
+- Fixed some pedantic warnings and a bug thrown up by such in OpenGL.
+
+28th November 2001  Gabriele Cosmo (visman-V03-02-00 in management only).
+- Fixed pointer initialisation for porting on VC++ in G4VisCommandsSceneAdd.cc.
+
+21st November 2001  John Allison  (vis-V03-02-20)
+- Fixed G4std bug in G4HepRepFileSceneHandler.hh.
+- Fixed "hides the virtual function" warnings from G4HepRepFileSceneHandler.
+- Change to comments in G4XXXSceneHandler.hh.
+
+19th November 2001  John Allison  (vis-V03-02-19 needs config-V03-02-09+)
+- Cosmetic changes to HepRep.
+
+16th November 2001  John Allison
+- Added G4XXXDEBUG to XXX dummy system.
+
+14th November 2001  John Allison
+- Fixed bug in G4VisManager::EndOfEvent.
+- Moved code from G4VisManagerRegisterMessengers.cc to G4VisManager.cc and
+  removed G4VisManagerRegisterMessengers.cc.
+
+14th November 2001  Guy Barrand
+- OpenInventor : move HEPVis/SoWindow under vis/OpenInventor/G4SoWindow
+  to prepare HEPVis/6.0. (HEPVis/SoWindow will disappear from HEPVis/6.0).
+
+14th November 2001  John Allison
+- Added README.built_in_commands.
+
+13th November 2001  Satoshi Tanaka
+- visualization/README file is updated, adding minimal description
+  on the HepRepFile driver. 
+
+12th November 2001  John Allison  (vis-V03-02-18 needs config-V03-02-09)
+- Fixed some warnings and one error from gcc-2.95.2.
+- HepRep Type names now come from Physical Volume names (Joseph Perl).
+- Added many HepRep Attributes for other volume properties (Joseph Perl).
+
+13th Nov 2001 (JST)  Hajime Yoshida and Minamimoto (vis-V03-02-17)
+- Updation of G4RTJpegMaker.cc for Windows platform (raytracer-V03-02-01). 
+
+7th November 2001  John Allison  (vis-V03-02-16 needs config-V03-02-09)
+- Corrected compilation error.
+
+6th November 2001  John Allison  (vis-V03-02-15 needs config-V03-02-09)
+- Added /vis/viewer/flush = refresh + update.
+- Moved /vis/viewer/lights and viewpoint to /vis/viewer/set.
+- Added /vis/viewer/set/upThetaPhi and upVector.
+- Added refresh|flush option to /vis/scene/notifyHandlers.
+- Moved HepRepFile classes to HepRep/ directory and removed HepRep classes
+  therein.
+
+1st October 2001  Joseph Perl
+- Added first version of pure C++ HepRep driver, HepRepFile.
+  See HepRep/README for details.
+
+10th September 2001  John Allison  (needs greps-V03-02-04)
+- (Non-standard tag JA-RAEOE.) 
+
+10th September 2001  John Allison  (not tagged but needs greps-V03-02-04)
+- Added BeginOfRun, BeginOfEvent and EndOfRun to G4VisManager, invoked via
+  G4VisStateDependent.
+- Improved handling of refresh-at-end-of-event.  All scene handlers need to
+  implement ClearTransientStore and ensure rebuilding of permanent store if
+  necessary.
+- Auto-refresh (notifyHandlers) after attaching scene.
+- Changed default colour of scale to red and fixed a couple of small bugs in
+  the implementation of AddPrimitive(G4Scale).
+- Improved verbosity guidance.
+- Improved /vis/scene/add/scale guidance (needs greps-V03-02-04).
+- Removed /vis/viewer/refresh from compound commands.
+- Capitalised 'R' in /vis/viewer/set/autoRefresh.
+
+29th August 2001  John Allison/Joseph Perl  (vis-V03-02-14)
+- Needs config-V03-02-06.
+- First developers release of HepRep graphics driver.
+
+24th August 2001  Joseph Perl  (vis-V03-02-13-00)
+- First inclusion of HepRep graphics driver.
+
+24th August 2001  John Allison  (vis-V03-02-13)
+- Fixed bugs in G4VisManager::GeometryHasChanged.
+- Separated out G4Scene::CalculateExtent.
+- Improved robustness and timeliness of invocation of some commands.
+- Improved READMEs.
+- Reduced warnings from OpenGL - see OpenGL/History.
+- Cosmetic changes to test.
+- Added explicit invocation of base class methods to avoid warnings about
+  hiding of base class methods.
+
+17th August 2001  John Allison  (vis-V03-02-12)
+- Coworks with greps-V03-02-02 and intercoms-V03-02-04.
+- Added G4VisManager::Draw(const G4Scale&,...  Needs intercoms-V03-02-04.
+- Added template graphics system XXX.
+- Improved verbosity guidance.
+
+14th August 2001  John Allison  (vis-V03-02-11)
+- Coworks with greps-V03-02-02 and intercoms-V03-02-03.
+- Moved default value G4Transform3D::Identity of argument from
+  G4VSceneHandler::BeginPrimitives to
+  G4VGraphicsScene::BeginPrimitives.  Needs intercoms-V03-02-03.
+- Fixed bug in G4VSceneHandler::AddPrimitive(const G4Scale&).  Needs
+  greps-V03-02-02.
+- Added sceneHandler.Begin/EndPrimitives messages to models (long
+  standing bug!).
+- Removed "dummy" graphics systems in G4VisManager.cc.
+- Improved robustness of some commands, particularly
+  /vis/scene/notifyHandlers.
+- Improved support for multiple viewers (but see OpenGL/History).
+
+11th August 2001  John Allison  (vis-V03-02-10-01)
+- Implemented /vis/scene/endOfEventAction.
+
+9th August 2001  John Allison  (vis-V03-02-10-00)
+- Note: non-standard tag to indicate internal use only.
+- Added /vis/scene/create at start of compound command /vis/open to avoid
+  warnings.
+- Removed G4ModelingParameters::hierarchy.  It is no longer used.  The
+  textual or graphical representation of the geometry hierarchy is now
+  done in G4xxxTree classes in visua;ization/Tree.
+- Removed /vis/scene/notifyHandlers from
+  G4VVisCommandScene::UpdateVisManagerScene - too much updating going on.
+  It was leading to recursive refreshing/updating.
+- Implemented auto-refresh at end of event.  (See also OpenGL/History.)
+  Introduced G4VSceneHandler::Get/SetMarkForClearingTransientStore for
+  postponed (lazy) clearing of transients (e.g., trajectories) from store
+  (graphical database) and view.  The mark is set at the end of
+  G4VisManager::EndOfEvent and the actual clearing is done in:
+    void G4VisManager::ClearTransientStoreIfMarked(){
+      // Assumes valid view.
+      if (fpSceneHandler->GetMarkForClearingTransientStore()) {
+        fpSceneHandler->SetMarkForClearingTransientStore(false);
+        fpSceneHandler->ClearTransientStore();
+      }
+    }
+  which is called at the start of each G4VisManager::Draw and the beginning
+  of G4VisManager::EndOfEvent.  Thus the picture stays from the end of all
+  drawing for the event until the first drawing of the next event.
+    
+5th August 2001  John Allison
+- Small refinements to printing under new verbosity control.
+
+4th August 2001  John Allison  (vis-V03-02-10)
+- Re-implemented verbosity control.  Output statements wherever possible
+  are controlled by the verbosity in a simple graded message scheme:
+    enum Verbosity {
+      quiet,         // Nothing is printed.
+      startup,       // Startup and endup messages are printed...
+      errors,        // ...and errors...
+      warnings,      // ...and warnings...
+      confirmations, // ...and confirming messages...
+      parameters,    // ...and parameters of scenes and views...
+      all            // ...and everything available.
+    };
+  Note that the G4VisManager member object name and type have changed:
+    Verbosity             fVerbosity;  // New.
+    const G4int           fVerbose;
+    // fVerbose is kept for backwards compatibility for some user
+    // examples.  (It is used in the derived user vis managers to print
+    // available graphics systems.)  It is initialised to 1 in the
+    // constructor and cannot be changed.
+
+3rd August 2001  John Allison
+- Added README.quick, a quick installation guide.
+
+30th July 2001  John Allison  (vis-V03-02-09)
+- Eliminated view parameters from G4VisManager.  Now, each view maintains its
+  own parameters.  Can be copied from one view to another with:
+    /vis/viewer/set/all <from-viewer-name>
+    Copies view parameters from from-viewer to current viewer.
+    Affects current viewer.
+- Removed redundant methods from G4VisManager, mostly to do with old-style
+  commands.
+
+27th July 2001  John Allison  (vis-V03-02-08)
+- Needs config-V03-02-01.
+- Introduced environment variable G4VIS_NONE that, if set, no visualization
+  drivers are built and no vis libraries are built, not even
+  libG4vis_management.  (libG4modeling is still built.)  The C-pre-processor
+  variables G4VIS_BUILD and G4VIS_USE are *not* set.
+- Removed the need to specify environment variables for visualization drivers
+  which do not need external packages or libraries, namely :
+      G4VIS_BUILD_DAWNFILE_DRIVER
+      G4VIS_BUILD_RAYTRACER_DRIVER
+      G4VIS_BUILD_VRMLFILE_DRIVER
+      G4VIS_BUILD_ASCIITREE_DRIVER
+      G4VIS_BUILD_GAGTREE_DRIVER
+    with associated G4VIS_USE environment variables:
+      G4VIS_USE_DAWNFILE
+      G4VIS_USE_RAYTRACER
+      G4VIS_USE_VRMLFILE
+      G4VIS_USE_ASCIITREE
+      G4VIS_USE_GAGTREE
+  For backwards compatibility, unless G4VIS_NONE is set, the corresponding
+  C-pre-processor variables are automatically set.  Also, the C-pre-processor
+  variables G4VIS_BUILD and G4VIS_USE are set.
+- As before, environment variables for other drivers still need positive
+  setting of their G4VIS_BUILD and G4VIS_USE environment variables.  In this
+  category are:
+      G4VIS_BUILD_DAWN_DRIVER
+      G4VIS_BUILD_OPACS_DRIVER
+      G4VIS_BUILD_OPENGLX_DRIVER
+      G4VIS_BUILD_OPENGLWIN32_DRIVER
+      G4VIS_BUILD_OPENGLXM_DRIVER
+      G4VIS_BUILD_OIX_DRIVER
+      G4VIS_BUILD_OIWIN32_DRIVER
+      G4VIS_BUILD_VRML_DRIVER
+    with associated G4VIS_USE environment variables:
+      G4VIS_USE_DAWN
+      G4VIS_USE_OPACS
+      G4VIS_USE_OPENGLX
+      G4VIS_USE_OPENGLWIN32
+      G4VIS_USE_OPENGLXM
+      G4VIS_USE_OIX
+      G4VIS_USE_OIWIN32
+      G4VIS_USE_VRML
+  In this case G4VIS_NONE must *not* be set.
+- Fixed unchecked pointer in G4VSceneHandler::ClearStore().
+
+25th July 2001  John Allison  (vis-V03-02-07)
+- Improved access to models (modeling-V03-02-03).
+- Made G4VSceneHandler::fpModel non-const G4VModel* for convenience.
+- Improved checks and warning messages in /vis/scene/add/scale.
+
+24th July 2001  John Allison  (vis-V03-02-06)
+- Needs greps-V03-02-01 for small interface change to G4Scale.
+- Includes modeling-V03-02-02.
+- Force rebuild of graphics "stores" (graphical databases) and, if
+  auto-refresh is true, refresh of all views
+  (/vis/scene/notifyHandlers) after an addition to scene.
+- Improvements to /vis/scene/add/scale:
+  o Added colour.
+  o Assigned a genuine extent.
+
+23rd July 2001  John Allison  (vis-V03-02-05 is non existent - sorry!!!)
+- Improved /vis/scene/add/scale.
+- Improved auto-refreshing.
+
+21st July 2001  John Allison  (vis-V03-02-04)
+- Added /vis/scene/add/scale.  Needs greps-V03-02-00 and intercoms-V03-02-02.
+
+19th July 2001  Satoshi Tanaka  (vis-V03-02-03)
+- Modification of G4DAWNFILEViewer.cc
+- PostScript command "showpage" is always added to g4_XX.eps
+  so that it is printable. (It can also be inserted into
+  LaTeX documents.
+
+18th July 2001  John Allison  (vis-V03-02-02)
+- Ensured rotation and translation of replica is restored (modeling-V03-02-00)
+  (fixes crashes in replica tracking).
+
+14th July 2001  John Allison  (vis-V03-02-01)
+- Included raytracer-V03-02-00 (minor cosmetics).
+- Minor changes in G4OpenGLXViewer.cc to eliminate pedantic ISO C++ warnings.
+- Merged vis-V03-02-patch01 (below) to head.
+- Included new disclaimer.
+
+14th July 2001  John Allison (vis-V03-02-patch01 in branch geant4-03-02-branch)
+- Fixed crash in optimised mode: added Initialise() to viewers so
+  that windows are opened after viewers are fully constructed.
+
+10th July 2001  John Allison  (vis-V03-02-00)
+- Removed old-style commands.
+- Removed maintenance of G4VisManager's G4ViewParameters object (this
+  will be removed soon).
+- Merged vis-V03-02-patch00 (below) to head.
+
+10th July  John Allison  (vis-V03-02-patch00 in branch geant4-03-02-branch)
+- Corrected mistake which could cause crash if user specified a non-
+  existent scene handler in /vis/sceneHandler/remove.
+
+19th June 2001  Satoshi Tanaka (vis-V03-01-07)
+-OS dependence is removed from the DAWN-network driver.
+ * gethostname() removed
+ * G4SocketConfig.hh and G4SocketMacro.hh are removed.
+- Now "setenv G4DAWN_HOST_NAME hostname" is mandatory to use 
+  the DAWN-network driver.
+
+15th June 2001  John Allison
+- Added GAGTree to G4VisManager.cc, MyVisManager.cc.  Need corresponding
+  changes in config.
+
+15th June 2001  John Allison (vis-V03-01-06)
+- Added 2nd template argument (less) to sets in G4ASCIITreeSceneHandler and
+  G4GAGTreeSceneHandler.
+
+15th June 2001  Satoshi Tanaka (vis-V03-01-05)
+- The  first committing of GAGTree driver.
+- Other files in ./Tree/ are the same as vis-V03-01-04.
+
+5th June 2001  John Allison (vis-V03-01-04)
+- Moved re-useable code from G4ASCIITree to G4VTree.
+- Made sure all pointers in G4VisManager are initialised on construction.
+
+4th June 2001  John Allison
+- G4ASCIITree: Added logical volume name and solid name and type under
+  verbosity control.
+- G4ASCIITree: Forced culling off so that all volumes are seen, even if
+  "invisible".
+
+29th May 2001  John Allison
+- Small clean up in test directory.
+
+25th May 2001  John Allison
+- Bug fix in G4ASCIITree.cc: initialise fVerbosity(0).
+
+24th May 2001  John Allison  (vis-V03-01-03)
+- Added missing files G4ASCIITreeMessenger.hh/cc.
+- Bug fix in G4ASCIITreeMessenger.cc: currentAsDefault = true.
+- Drivers in alphabetical order in MyVisManager.cc.
+
+23rd May 2001  John Allison
+- Eliminated Linux pedantic warnings, except FukuiRenderer, VRML and OPACS.
+
+22nd May 2001  John Allison
+- Refined ASCIITree.
+
+21st May 2001  John Allison (vis-V03-01-02)
+- Minor bug corrections (mostly to fix things that used to work with the
+  old /vis~/ commands but ceased to work with the new /vis/commands:
+  o If a scene is empty at drawing time, the "world" is added.
+  o Window size hint now works for OpenGL.
+- Fixed some minor warnings for strict C++ (size_t, etc.).
+
+18th May 2001 John Allison
+- Removed unnecessary virtual inheritance of G4VViewer in G4RayTracerViewer.
+- Introduced verbosity to ASCIITree.
+- Proper deletion of directories in G4VisManagerRegisterMessengers.
+
+15th May 2001 John Allison
+- Fixed bug in name of /vis/viewer/set/sectionPlane command.
+
+3rd May 2001 John Allison (vis-V03-01-01)
+- Changes for greps-V03-01-01 (elimination of RW).
+- Improvements in /vis/scene/add/volume.
+- Added /vis/drawTree.
+
+10th April 2001  John Allison (vis-V03-01-00)
+- Added two new commands:
+    /vis/scene/add/text
+    /vis/scene/add/axes
+- Added first version of ASCIITree to dump geometry hierarchy to
+  standard output as ASCII stream.
+  This requires two new environment variables:
+    G4VIS_BUILD_ASCIITREE_DRIVER
+    G4VIS_USE_ASCIITREE
+  and config-V03-01-00.
+
+2nd April 2001  John Allison
+- Tidied OpenGL (opengl-V03-00-01) - see OpenGL/History.
+
+2nd April 2001  John Allison  (vis-V03-00-09)
+- Fixed some warnings from DEC cxx.
+
+15th March 2001  John Allison  (vis-V03-00-08)
+- Changed rotation of phi-replicas in G4PhysicalVolumeModel.cc to
+  ensure correspondence with rule that phi=0 bisects the replica.
+  WARNING: Prior to this fix the graphics did NOT correspond to the
+  replica navigation.  If you have been relying on the graphics to
+  position daughter volumes in a phi-replica, navigation will have
+  been incorrect, possibly without causing a crash.  The above fix
+  will change the apparent position as shown by the graphics and you
+  will have to correct the positioning of daughters.  Make sure the
+  diaghters are all properly enclosed within the replica.  Graphics
+  and navigation now correspond,
+
+7th March 2001  John Allison  (vis-V03-00-07)
+- Cosmetic corrections for ISO compliance.
+
+23rd February 2001  John Allison  (vis-V03-00-06)
+- Removed all references to RogueWave.
+
+4th February 2001  John Allison  (vis-V03-00-05)
+- Reverted to /vis/viewer commands updating vis manager's view parameters.
+  Otherwise this can have a big effect on users if old commands are still
+  being used.  Let's schedule this change for the next version of Geant4.
+- Added the following new commands:
+  /vis/enable [true|false]
+  /vis/disable
+  /vis/verbose [<verbosity-integer>]
+  /vis/viewer/set/lineSegmentsPerCircle  [<number-of-sides-per-circle>]
+  /vis/viewer/set/sectionPlane ...
+  Only /vis/scene/add/text and /vis/scene/add/axes to go!!!
+
+4th February 2001  John Allison  (vis-V03-00-04)
+- /vis/viewer commands no longer update vis manager's view parameters.
+- Most /vis~/ copmmands give DEPRECATED warning, except:
+  /vis~/draw/axes
+  /vis~/draw/text
+  /vis~/set/section_plane
+  /vis~/set/sides
+  /vis~/set/verbose
+  which have still to be re-implemented.  All /vis~/ commands are still
+  available through /vis/ for the time being.  (Window size hint no longer
+   works.)
+- Added "auto refresh" to view parameters.
+- Added "default" view parameters to viewers.
+- Made OpenGL viewers "auto refresh" by default.
+- Added:
+  /vis/viewer/set/autoRefresh
+  /vis/viewer/set/projection
+- Added compound command:
+  /vis/drawView [<theta-deg>] [<phi-deg>]
+                [<pan-right>] [<pan-up>] [<pan-unit>]
+                [<zoom-factor>]
+                [<dolly>] [<dolly-unit>]
+
+4th February 2001  John Allison  (vis-V03-00-03)
+- Added several new vis commands:
+  /vis/viewer/dolly
+  /vis/viewer/dollyTo
+  /vis/viewer/lightsThetaPhi
+  /vis/viewer/lightsVector
+  /vis/viewer/pan
+  /vis/viewer/panTo
+  /vis/viewer/viewpointThetaPhi
+  /vis/viewer/viewpointVector
+  /vis/viewer/zoom
+  /vis/viewer/zoomTo
+  /vis/viewer/set/hiddenMarker
+  /vis/viewer/set/lightsMove
+
+3rd February 2001  John Allison  (vis-V03-00-02)
+- Tidied for CodeWizard.  Small changes to many files in management, modeling
+  and OpenGL.
+
+1st February 2001  John Allison  (vis-V03-00-01)
+- Fixed cause of crash when setting viewpoint before creating scene (Bug #157).
+  Solution: SetView no longer called when view parameters are changed.  In
+  any case it's called just before drawing, whixh is the right place.
+- Fixed /vis/set/sides problem (Satoshi Tanaka) (Bug #204).
+  Solution: Update view's view parameters in /vis/set/sides - had somehow
+  been overlooked.
+
+25th January 2001  John Allison
+- Added protection against empty G4Polyhedron objects.
+   FukuiRenderer/src/G4FRSceneFunc.icc
+   OPACS/src/G4GoSceneHandler.cc
+   OpenGL/src/G4OpenGLSceneHandler.cc
+   OpenInventor/src/G4OpenInventorSceneHandler.cc
+   VRML/src/G4VRML1SceneHandlerFunc.icc
+   VRML/src/G4VRML2SceneHandlerFunc.icc
+
+25th January 2001  John Allison  (opengl-V03-00-00)
+- Fixed Bug #120.  Implemented running re-calculation of up-vector in
+  the case of "object rotation" (lights move with camera) to prevent
+  "flipping" of view when camera passes through up-vector.  Note that
+  the default is "camera rotation" (lights do not move with camera,
+  i.e., remain fixed relative to object) so the default is that this
+  "flipping" can happen.  To set "object rotation" (lights move with
+  camera) use /vis/lights/move_with_camera true (soon to be
+  /vis/viewer/set/lights move-with-camera) or click "Object" radio
+  button on Rotation Panel in OpenGLXm mode.
+- Changed some objects to references for efficiency.  E.g.:
+  const G4Vector3D& vp = pView->fVP.GetViewpointDirection ().unit ();
+
+18th January 2001  John Allison
+- Corrected G4PhysicalVolumeModel.  This corrects a bug whereby the
+  requested drawing of a physical volume and its decendants starting
+  at a depth greater than 2 was incorrectly positioned on the screen.
+- /vis/scene/include commands withdrawn - use equivalent commands
+  /vis/scene/add.
+- OpenGL: cosmetic and minor performance improvements.
+
+16th January 2001  John Allison  (vis-03-00-00)
+- All vis commands "available" in all G4 states.
+- Other small cosmetic changes to commands.
+- OpenGL: square and circle markers correctly rendered.
+  Note: subsequent rotations in stored mode also rotate these markers.
+- Some small changes to test  - see test/History.
+
+2nd November 2000  Gunter Folger  (vis-V02-00-02)
+- Added targets includes and clean_libs to visualization/GNUmakefile.
+
+18th October 2000  John Allison  (vis-V02-00-01)
+- G4PhysicalVolumeModel: protected against volumes without material.
+- Removed /vis/viewer/update from compound commands /vis/drawVolume
+  and /vis/specify.
+- Updated comments in G4VisManagerRegisterMessengers.cc.
+
+19th August 2000  John Allison  (vis-V02-00-00)
+- Fixed bug in /vis/lights/direction - now does not refresh view.
+- Corrected "scene" where it should read "scene handler" in some
+  comments and output statements.
+
+3rd July 2000  John Allison
+- Explicitly initialised all data members of G4ViewParameters in constructor.
+
+9th June 2000  John Allison  (vis-V01-01-06)
+- Tagged for system testing.
+
+8th June 2000  Guy Barrand
+- OPACS/src/G4GoSceneHandler.cc : correct polyhedron 
+  wire-frame in order to remove some edges. Now the
+  rendering is the same than for OpenGL driver.
+   This was requested for long by ALICE, and had been
+  requested for ATLAS by Gaston Parrour recently.
+
+7th June 2000  John Allison
+- /vis/viewer/update preferred, synonym /vis/viewer/show deprecated.
+
+7th June 2000  Makoto Asai
+- Fix the flip view of RayTracer.
+
+2nd June May 2000  John Allison
+- Forced /control/verbose 2 for compound commands.
+
+20th May 2000  John Allison
+- Bug fix in G4PhysicalVolumeModel for replicas (Guy Barrand).
+
+26 May 2000  Guy Barrand
+- management/src/G4VisCommandsScene.
+  Protect against a null pointer for aScene in NotifyHandlers::SetNewValue.
+- OPACS/src/G4WoViewer.cc :
+  Change camera name checking so that a viewer created
+  by the GUI (Wo) could be hooked.
+- OPACS/src/G4GoSceneHandler.cc :
+  Change circle rendering.
+- OpenInventor/G4OpenInventorSceneHandler : protect against null pointers.
+
+22nd May 2000  John Allison  (vis-V01-01-05)
+- Many bug fixes from in OpenGL (opengl-V01-01-00) - see OpenGL/History.  Main
+  features:
+  o workaround for bug in Mesa which slowed OpenGLXm (Guy Barrand).
+  o multiple OpenGLXm windows no longer cause crash on exit (Guy).
+- modeling-V01-01-00: Added G4VTreeGraphicsScene (DTREE).
+- G4Scene::IsEmpty if empty of RunDurationModels - VisManager adds world in
+  this case.
+
+18th/19th May 2000  John Allison
+- Introduced some /vis/viewer/set commands.
+- /vis/scene/include/trajectories changed to /vis/scene/add/trajectories.
+  Similarly hits.  (Old commands kept but deprecated.)
+- G4ViewParameters.cc: bug fix in density culling printing.
+- G4VisCommandsSceneHandler.cc: bug fix in /vis/sceneHandler/create.
+- G4VisManagerRegisterMessengers.cc: improved comments.
+
+18th May 2000  John Allison  vis-V01-01-04
+- Included DAWN-V01-01-04: Automatic filename incrementation is made default.
+
+15th May 2000  John Allison
+- Added compound commands /vis/open, /vis/drawVolume and /vis/specify.
+- /vis/viewer/reset now resets *all* view parameters.
+- Fixed double application of transformation in /vis/scene/add/volume.
+- Fixed verbosity parameter in /vis/scene/list.
+- Made G4BoundingSphereScene::PreAddThis non-inline.
+
+13th May 2000  John Allison
+- Redefined current target point to be *relative* to standard target point.
+  (No longer necessary to initialize current target point in G4VViewer
+  constructor.  The fix of 4th May is reversed.)
+
+11th May 2000  Satoshi Tanaka vis-V01-01-03
+- In G4DAWNFILEViewer.cc, 
+  <       strcpy( fPSViewer, "ghostview" );
+  ---
+  > //    strcpy( fPSViewer, "ghostview" );
+  >       strcpy( fPSViewer, "gv" );
+
+
+4th May 2000  John Allison
+- Tidied comments in G4VisManagerRegisterMessengers.cc.
+- Initialize current target point in G4VViewer constructor.
+- Re-implemented /vis/viewer/reset to change view parameters of
+  viewer directly.
+
+2nd May 2000  John Allison  vis-V01-01-02
+- Added /vis/viewer/reset.
+- G4VSceneHandler, G4VViewer, G4OpenGLXmMainMenubarCallbacks: corrected
+  some name anomolies - "scene" was still being used in places where it
+  meant "scene handler".
+- G4VViewer: added GetShortName(), corrected SetName(...).
+- G4ViewParameters.hh: improved class description.
+- G4VisManager: added ViewerShortName(...) and GetViewer(...) utilities.
+- G4RayTracer: set out-of-world ray to black.
+- G4RayTracerViewer: corrected trapping of orthogonal projection.
+- Some minor enhancements to tests.
+
+27th April 2000  Gabriele Cosmo
+- Removed unnecessary #include "G4Transform.hh" from VRML.  (Since
+  geometry-V01-01-02 G4Transform.hh no longer exists.)  
+
+27th April 2000  John Allison
+- Updated README file.
+
+12th April 2000  John Allison  vis-V01-01-01
+- Made G4PhysicalVolumeModel::DescribeSolid virtual.
+- G4PhysicalVolumeModel::DescribeSolid no longer deals with composite
+  solids - now programmed into CompositeSolid::CreatePolyhedron, where
+  CompositeSolid means G4IntersectionSolid, G4SubtractionSolid and
+  G4UnionSolid.
+- G4PhysicalVolumeModel::DescribeSolid no longer deals with displaced
+  solids - now programmed into G4DisplacedSolid::CreatePolyhedron.
+- Added G4LogicalVolumeModel::DescribeSolid, which explicitly adds
+  components of composite solids as white forced-wireframe objects.
+- Removed unnecessary #includes from G4VSceneHandler.hh which required
+  consequent inclusion in many other scene handlers and viewers.
+
+7th April 2000  John Allison  vis-V01-01-00
+- Modified GNUmakefiles for restructured geometry.
+
+29th February 2000  John Allison  vis-V01-00-06
+- Changed `char*' to `const char*' in G4FRClientServer::Err(...).
+
+28th February 2000  John Allison
+- Cosmetic improvements to G4RayTracerSceneHandler.hh and G4RayTracerViewer.hh.
+
+24th February 2000  John Allison
+- Minor inmprovement of messages from /vis/viewer/refresh.
+- Cosmetic tidying in G4OpenGLViewer.cc.
+- Added protection for null viewer in G4RTSteppingAction.cc and
+  G4RayTrajectory.cc.
+- Corrected for zoom, etc., in G4RayTracerViewer.cc.
+
+23rd February 2000  John Allison
+- Added G4RayTracerSceneHandler and Viewer.
+- Some modifications to other RayTracer routines for vis compliance.
+- (Note: headAngle still not right - ray traced views are sometimes tipped.)
+
+23rd February 2000  John Allison  vis-V01-00-05
+- Includes raytracer-V01-00-01a which is original version plus fixes for
+  ISO compliance.
+
+21st February 2000  John Allison
+- /vis/viewer/refresh no longer invokes ShowView().
+- G4VViewer: introduced data member fShortName.
+- Added G4RTSteppingAction and G4RayTrajectory to list of G4VisManager's
+  friends.
+- Improved G4VisManager::CreateSceneHandler() and CreateViewer() and
+  handling of error in G4VisCommandSceneHandler::Create() and
+  G4VisCommandViewer::Create().
+- OpenGL: char* becomes const char*.  Small output text improvement.
+- test: some changes for Ray Tracer.  Boolean intersection instead of union.
+
+02 February 2000  Guy Barrand
+- OPACS/src/G4XoViewer.cc : change WaitForNotify signature to 
+  be able to compile with DEC-cxx 6.1.
+
+vis-V01-00-04 29th January 2000  Satoshi Tanaka
+- CVS tag is assigned to the Makoto's committing below.
+
+29th January 2000  Makoto Asai
+- Introduction of G4RayTracer (visualization/RayTracer/...)
+- Migration of G4RayTracer
+  affected files :
+    visualization/GNUmakefile
+    visualization/management/include/MyVisManager.cc
+    visualization/management/src/G4VisManager.cc
+  affected files in other directory :
+    config/G4VIS_BUILD.gmk
+    config/G4VIS_USE.gmk
+
+vis-V01-00-03  17th January 2000  John Allison
+- Added protection for no voxelisation in G4LogicalVolumeModel.cc.
+- Changed endl to G4endl in G4VisCommandsViewer.cc and G4GoSceneHandler.cc.
+
+14th January 2000  John Allison
+- Added protection for no viewer in G4VisCommandsViewer.cc.
+
+vis-V01-00-02  11th January 2000  John Allison
+- General handling of displaced solid (G4PhysicalVolumeModel).
+- Introduced /vis/viewer/show (/vis/viewer/update is synonym).
+- Improved printing in /vis/camera/reset.
+
+vis-V01-00-01  27th December 1999  Satoshi Tanaka
+- VRML-V01-00-00 27th December 1999  Satoshi Tanaka
+- G4endl ==> "\n" for fDest objects ... for ISO standard C++ compiler
+
+vis-V01-00-00  16th December 1999  John Allison
+- (Note: NOT FOR SYSTEM TESTING - this tag still has problems with
+   displaying logical volumes and text.)
+- Added /vis/viewer/refresh.
+- Rationalised command lists for keeping parameter lists up to date,
+  G4VVisCommand::sceneNameCommands, etc.
+- Added AddThis(const G4Polycone&), etc., to prevent hiding warnings.
+- Developments in test - see test/History.
+
+vis-V00-01-14a  7th December 1999  John Allison
+- Added `class' keyword in friend statement in G4VisStateDependent.hh
+  to keep HP happy.
+
+vis-V00-01-14  6th December 1999  John Allison
+- Invert rotation of boolean component in G4PhysicalVolumeModel.cc.
+
+vis-V00-01-13  Satoshi TANAKA  Dec 01, 1999
+- DAWN-V00-01-08
+- Removed implicit casting from the previous updation
+
+vis-V00-01-12  Satoshi TANAKA  Nov 30, 1999
+- DAWN-V00-01-06
+- Fixing improper definition of alpha1, alpha2
+
+vis-V00-01-11  29th November 1999  John Allison
+- Introduced helper class G4VisStateDependent to decouple G4VisManager from
+  G4StateManager, G4RunManager, etc.
+- Archived old directoris inside test subdirectory.
+
+vis-V00-01-10  25th November 1999  John Allison
+- Adapted relevant header files of modeling and management for
+  Software Reference Manual.
+
+vis-V00-01-09  23th November 1999  Satoshi Tanaka
+- Protection to ill-defined G4Trap in AddThis() 
+
+vis-V00-01-08  10th November 1999  John Allison
+- Added capability of viewing Boolean solids - coworks with geometry-V00-01-01.
+- Fixed bug in G4VViewer to maintain proper status of fNeedKernelVisit.
+- Added Boolean solids to test/src/MyDetectorConstruction.cc.
+- Added circle to represent end of step in test/src/MySteppingAction.cc.
+
+vis-V00-01-07  5th November  John Allison
+- Added /vis/viewer/update [<viewer-name>].
+- Some groundwork for /vis/scene/edit.
+- Added additional check in G4VisManager::IsValidView().
+- G4VSceneHandler::ClearStore() invokes fpViewer -> NeedKernelVisit().
+  (After a clear of the graphical database it is necessary to do this.
+  So if a derived class redefines, it must still invoke this base
+  class method.
+- G4Scene::AddRunDurationModel(), AddWorldIfEmpty(), AddEndOfEventModel():
+  avoid duplicate models and flag with G4bool return argument.
+- G4VisCommandsSceneAdd: respect the above G4bool return value.
+- G4Scene::AddRunDurationModel(): remove temporary workaround for old CLHEP
+  non-const problem.
+- Added 3rd template argument of map (to keep Sun CC 4.2 happy) in
+  G4OpenGLStoredSceneHandler.hh and G4OpenInventorSceneHandler.hh.
+- G4OpenGLStoredSceneHandler::ClearStore() and
+  G4OpenInventorSceneHandler::ClearStore() invoke base class function
+  G4VSceneHandler::ClearStore().
+
+VRML-V00-01-01 4th November 1999  Satoshi Tanaka
+- Introduction of VRMLBeginModeling() for new vis commands  
+- Updation and tagging of visualization/VRML/
+  and this History file 
+
+DAWN-V00-01-04  04th November 1999 Satoshi TANAKA  
+- Protection to AddPrimitive( G4NURBS )
+- Updation and tagging of visualization/FukuiRenderer/
+  and this History file
+
+DAWN-V00-01-03  02nd November 1999 Satoshi TANAKA
+- Updation and tagging of visualization/FukuiRenderer/
+  and this History file
+- Environmental variable G4DAWN_MULTI_WINDOW is	
+  renamed to G4DAWNFILE_MULTI_WINDOW for DAWN-file driver.
+  (G4DAWN_MULTI_WINDOW	still works for a while.)
+
+DAWN-V00-01-02  01st November 1999 Satoshi TANAKA
+- Updation and tagging of visualization/FukuiRenderer/
+  and this History file
+- Separation of BeginModeling() and FRBeginModeling().
+  Co-workable with /run/beamOn with the new vis commands.
+
+29 Oct 1999  Guy Barrand
+- Modify  G4Xo.cc to not load G4Xo.xrm resource file.
+  Resource must be grouped in some g4.xrm file.
+
+vis-V00-01-06  25th October 1999  John Allison
+- No longer update view parameters in /vis/scene/add/volume, etc.
+- Change G4RWTValHashDictionary to G4std::map in G4OpenGLStoredSceneHandler
+  and G4OpenInventorSceneHandler (needs global-V00-01-03).
+
+11 Oct 1999  Guy Barrand
+- G4GoSceneHandler.cc/G4GoSceneHandler::EndPrimitives : modify
+  the logic of setting the OMatrix for Go objects in order
+  to avoid the usage of the CLHEP/Rotation.getAngleAxis that
+  clearly has precision problem on some platforms (at least 
+  Linux and HP-UX).
+
+vis-V00-01-05  4th October 1999  John Allison
+- Implemented /vis/scene/add/logicalVolume.
+- Added G4LogicalVolumeModel.
+- Augmented G4PhysicalVolumeModel so G4LogicalVolumeModel could inherit.
+- Updated G4BoundingSphereScene and G4PhysicalVolumeSearchScene to
+  implement extra virtual functions in G4VSceneHandler interface.
+- Moved virtual destructor G4VModel::~G4VModel to non-inline implementation.
+- Tidied G4VSceneHandler.
+
+vis-V00-01-04 30 Sep 1999  Satoshi Tanaka
+- RW/STL dependence was removed from VRML 1.0 driver
+
+15 Sep 1999  Guy Barrand
+- Modify  G4OpenGLStoredSceneHandler.cc to compile on Linux-g++ with STL.
+
+vis-V00-01-03  27th August  John Allison
+- Modified GNUmakefile to prevent building of global libraries.
+
+vis-V00-01-02  27th August  John Allison
+- Eliminate residual references to G4Ray.
+- Improved some informational printing in G4VisManager::IsValidView.
+- G4Vis
+Manager::SetCurrentGraphicsSystem no longer gives spurious warnings.
+- Improved README (change `gmake global' to plain `gmake').
+
+vis-V00-01-01 26th August Satoshi TANAKA
+- Protection for invalid calling of BeginModeling
+- .DAWN.history ==> .DAWN_1.history 
+   **** It means DAWN version 3.80a or  after is  required ***
+
+vis-V00-01-00  24th August Satoshi TANAKA
+- Improved README.
+
+vis-01-00-15a  3rd July 1999  John Allison
+- Improved README (Guy).
+- Corrected a fprintf statement in G4OpenGLXViewer::spewWireframeEPS.
+
+vis-01-00-15  29th June 1999  John Allison
+- Moved #include <rw/tvhdict.h> from G4OpenGLSceneHandler.hh to .cc.
+- Corrected #ifdef G4VIS_BUILD_OPENGL_DRIVER in G4OpenGLXViewer.hh.
+
+vis-01-00-14  19th June 1999  John Allison
+- Removed references to G4Ray from GNUmakefile.
+- Archived (cvs removed) all G4Ray files.
+- Cosmetic change to an output statement in G4VisToOldVisCommands.cc/
+
+vis-01-00-13  1st June 1999  John Allison
+- Updated README for May Release (Satoshi, John).
+- Removed G4Ray from tag.
+
+31 Mai 1999  Guy Barrand
+- G4XoViewer : remove enabling/disabling XoCamera popup menu logic. 
+  In some situation (N03) we were loosing the XoCamera popup menu. 
+- G4XoViewer : correct ClearStore, ClearTransientStore.
+
+vis-01-00-12a  26th May 1999  John Allison
+- G4TrajectoriesModel.cc: (*TC) [iT] -> DrawTrajectory ();
+
+vis-01-00-12  25th May 1999  John Allison
+- Moved global operator != to member function.
+- Updated OPACS to handle "ClearTransientStore" (Guy).
+
+vis-01-00-11  12th May 1999  Guy Barrand
+- G4VSceneHandler : ClearTransientStore.
+- G4VisCommandsSceneHandler : protect against a null pointer.
+- OpenInventor : use HEPVis/SoWindow to create windows (needed 
+  on NT). Implement the a "transient scene graph" for "event"
+  things. Use fXxx convention for fields.
+- G4TrajectoriesModeling : do not draw a "marker" at each step by default. 
+
+vis-01-00-10  10th May 1999  John Allison
+- Acted upon Code Wizard reports.  Mainly made destructors virtual.
+
+vis-01-00-09  28th April 1999  John Allison
+- Changes for UserAction classes.
+
+vis-01-00-08  John Allison
+- Changes by Paulo Mora de Freitas for decoupling vis from parameterisation.
+
+18th April 1999  John Allison
+- Added "defined" after || in VRML1(1)(File).hh.  (Some preprocessors
+  give an error without it.)
+
+vis-01-00-07  15th April 1999  John Allison
+- Replaced visualization/test/GNUmakefile by a simple one using binmake.gmk.
+- Added CPPFLAGS += -I$(G4BASE)/intercoms/include to some GNUmakefiles ready
+    for the move of G4VGraphicsScene to intercoms.
+
+vis-01-00-06  29th March 1999  John Allison
+- Platform dependency fix in G4VisCommandsScene.cc.
+
+vis-01-00-05  7th February 1999  John Allison
+- management: - Added /vis/scene/notifyHandlers.
+              - Added virtual functions AddThis (const G4Polycone and
+                G4Polyhedra to G4VSceneHandler
+              - Moved some code from G4VisManager to G4Scene::AddWorldIfEmpty.
+              - Various refinements and bug fixes.
+- modeling: Augmented G4PhysicalVolumeSearchScene and G4BoundingSphereScene
+            See modeling/History.
+- OpenGL: - Corrected edgeCount check for triangles in
+            G4OpenGLSceneHandler::AddPrimitive (const G4Polyhedron&).
+          - Added (long unsigned int) cast in G4OpenGLXmRotationCallbacks.cc.
+          - Added SetView and ShowView to G4OpenGLXViewer:
+              // To force change of context...
+              void G4OpenGLXViewer::SetView () {
+                glXMakeCurrent (dpy, win, cx);
+                G4OpenGLViewer::SetView ();  
+              }
+              // Hopefully to get better flushing in DEC OpenGL...
+              void G4OpenGLXViewer::ShowView () {
+                glXWaitGL ();
+                glFlush ();
+              }
+
+
+vis-01-00-04 11th January 1999  John Allison
+- Completed change of names from scene to sceneHandler, view to viewer.
+- Vis manager and scene handlers now keep pointer to scene, rather than a copy.
+- G4SceneList now a simple G4RWTPtrOrderedVector.
+- /vis/camera/reset now resets viewpoint direction and up vector.
+
+vis-01-00-03 10th January 1999  John Allison
+- Added flags for viewing geom, hits, digis to G4ModelingParameters.
+
+vis-01-00-02  9th January 1999  John Allison
+- Changed Scene to SceneHandler, View to Viewer.
+
+vis-01-00-01  6th January 1999  John Allison
+- Made G4VisManager::GetInstance() private to prevent inadvertent misuse.
+- Removed #include GNU_GCC - no longer necessary for egcs.
+- Continued developing the new commands.
+
+vis-00-04-04  16th December 1998  John Allison
+- test/GNUmakefile for Linux-g++
+- test/test19.cc - removed g4templates.hh
+- OpenGL - reverted to 100%.
+
+vis-00-04-03  9th December 1998  John Allison
+- Made /vis/ commands from /vis~/.  The idea is to maintain backwards
+  compatibility while allowing us to "deprecate" the old commands over
+  a period of time.  Some of these /vis/ commands respond with "superceded",
+  i.e., superceded by new commands, but still available in /vis~/.
+- OpenGL viewing volume increased by 20% to prevent corners being clipped.
+
+- 08/12/98 : G.Barrand : OpenInventor : due to 
+  huge load problems on various platforms, init only
+  the HEPVis things that are needed.
+
+vis-00-04-02  30th November 1998  Satoshi Tanaka
+- G4VRMLFILE_DEST_DIR for customising out file name - see VRML/History.
+
+29th November 1998
+- Added CPPFLAGS += -I....electromagnetic/utils/include to test/GNUmakefile.
+- Added fName to G4SceneData.
+
+vis-00-04-01  25th November 1998  John Allison.
+- G4Ray/GNUmakefile update for move of files in particles.
+- Added const G4VisAttributes* fpDefaultVisAttributes and access
+  functions to G4ModelingParameters.
+- Reverted to default assignment operator and copy constructor for
+  G4ModelingParameters and G4ViewParameters.
+- G4PhysicalVolumeModel can now handle invisible daughters.
+- More new /vis/ commands - depends on intercoms-00-04-01.
+- G4VScene passes DefaultVisAttributes* to ModelingParameters.
+
+vis-00-03-07  23rd November 1998  John Allison.
+- modeling/GNUmakefile update for move of files in particles (Hisaya).
+- Removed semi-colon in G4BoundingSphereScene.cc.
+
+vis-00-03-06  9th November 1998  John Allison.
+- Small change to a message in G4VisManager.
+- VRML refinement - see VRML/History.
+- Needs greps-00-03-03.
+
+vis-00-03-05b  9th November 1998  John Allison.
+- Merged 6th November changes with vis-00-03-05a
+- Bug fix in G4VisManager::IsValidView for batch running.
+- Needs greps-00-03-03.
+
+vis-00-03-05a  9th November 1998  Satoshi Tanaka
+- VRML 2.0 Visualization driver is added to 
+  management/include/MyVisManager.cc.
+
+vis-00-03-05  9th November 1998  Satoshi Tanaka
+- VRML 2.0 Visualization driver is commited:
+ (1) Generatin of VRML 2.0 format files to describe Geant4 simulation.
+ (2) Interactive displaying of physiccal-volume names and copy numbers
+ (3) Interactive displaying of hit positions (displayed strings are
+     costomizable.
+ (4) Wireframe drawing style of Geant4 visualization is reflected as
+     transparency = 0.7.  This value is customizable.
+     If transparency is 1.0, drawing of detector geometry is skipped,
+     and hits can be picked easily.
+
+6th November 1998  John Allison
+- Implemented basic /vis/viewer commands.
+- Added `const G4String& name' argument to G4VScene and G4VView constructors.
+
+vis-00-03-04  30th October 1998  John Allison
+- Tagged.
+
+29th October 1998  Guy Barrand
+- G4OpenGLXView.hh, G4OpenGLXmView.cc, G4OpenGLXmWindowHandlingCallbacks.cc
+  in order that things compile and compile without warnings on HP/aCC
+
+14th October 1998  John Allison
+- Augmented the new /vis/ commands.  Still not complete but they
+  co-work with the old commands.
+- Changed char* fName to G4String fName in G4VScene and G4VView.
+  Consequent changes in G4OpenGLView.  Also OpenInventor?  Etc.
+
+11th October 1998 Andy Walkden
+- added (not a very good) version of hidden lines removal code. This code 
+  suffers from depth buffering artefacts. glPolygonOffset is a feature of 
+  OpenGL version 1.1, and can help overcome depth buffer problems. The code 
+  to utilise glPolygonOffset is committed, but commented out, as it doesn't 
+  seem to work with the version of Mesa available on rsplus currently. My 
+  ideal strategy is to enable depth testing, draw the model as lines, enable 
+  filled polygon offsetting (glPolygonOffset(1.0 /*offset scale factor*/, 
+  2/*offset bias*/); glEnable (GL_POLYGON_OFFSET_FILLED);) then draw the 
+  model as filled polygons. The offsetting should just add `2' (in window 
+  coordinates, I think) onto the z value of all vertices relating to filled 
+  polygons, thus dismissing the conflict between almost identical z values 
+  for lines and filled polygon edges.
+
+vis-00-03-03 9th October 1998  John Allison
+- G4VisManager inherits G4VStateDependent.  This is used to draw
+  end-of-event models.
+
+4th October 1998 Andy Walkden
+- Added ability for all G4OpenGLX derived graphics systems to produce
+  vectored PostScript hardcopy. Facility for `automated screen dump'
+  (i.e. pixmap output) still kept, as some rasterization features
+  don't make it into the vectored PostScript output (such as haloing
+  effects). Facility currently available via G4OpenGLXm by clicking
+  `Miscellany' then `Create .eps file', to get a popup printing
+  window.
+
+vis-00-03-02a  26th September 1998  
+- DAWNFILE driver is made platform dependent.
+  (It is now compilable both at both Unix and NT without necessity
+   of C macros like WIN32.)
+
+vis-00-03-02  25th September 1998  
+- DAWNFILE driver is ported to VC++
+
+vis-00-03-01  24th September 1998  John Allison
+- Eliminated G4VPhysicalVolume* fpWorld data memebr from G4VisManager.
+
+22th September 1998 Guy Barrand.
+- Correct modeling, management, G4Ray /GNUmakefile to have
+  correct digits+hits includes.
+
+19th September 1998 Guy Barrand.
+- Due to a correction in globals.h restore correct code
+  so that OpenInventor files compile correctly on NT.
+
+vis-00-02-06  31st August 1998  John Allison
+- Added G4VModel::Validate() and in subclasses.
+- Reverted to default copy constructir and assignment operator in G4SceneData.
+- Implemented G4VisManager::GeometryHasChanged().
+- Switched on echoing of commands and history mechanism in test19.g4m.
+
+vis-00-02-05  27th August 1998  John Allison
+- Added G4HitsModel and G4TrajectoriesModel.
+- Added /vis/scene/include/hits and trajectories, and some bug fixes.
+
+vis-00-02-04  22nd August 1998  John Allison
+- Many changes in modeling - see modeling/History.
+- New commands: /vis/scene/create, list, add/volume, add/ghosts.
+
+vis-00-02-03a  20th August 1998  John Allison
+- Restored some code in G4SceneData.cc
+- Fixed syntax bug in G4PhysicalVolumeSearchScene.hh
+
+vis-00-02-03  14th August 1998  John Allison
+- Added G4VisManager::GeometryHasChanged() - run manager can notify change.
+- Removed AddRun(Event)DurationModelToCurrentSceneData - no longer used.
+- Some bug corrections in visualization/OpenGL (Guy Barrand - see
+  vis blackboard for details).
+- Some protection added in visualization/OPACS (do.)
+- Created visualization/test/OPACS (do.)
+
+12th August 1998  John Allison
+- More new commands - not fully functional yet.
+
+11th August 1998  Guy Barrand
+- G4OpenInventor : remove uneccesary includes.
+
+vis-00-02-02b  11th August  Satoshi Tanaka
+- AddPrimitive() for polymarker are implemented in DAWN and VRML drivers.
+
+vis-00-02-02a  9th August  John Allison
+- Small bug fix in G4VisCommandsScene.cc.
+
+vis-00-02-02  9th August  John Allison
+- Changed '.' to '-' in scene/view names.
+- Began introduction of new /vis/ commands.
+- Consequent changes to test - see test/History.
+
+7th August  Guy Barrand.
+- OPACS : use G4VView name to build widget names.
+- OPACS : use new interactor parenting logic.
+- OpenGL, OpenInventor, G4Ray : clean compilation warnings for OSF1/cxx, HP/aCC.
+
+7th August  John Allison/Satoshi Tanaka/Guy Barrand.
+- Added G4<driver>Scene::AddPrimitive (const G4Polymarker&) to keep
+  compilers happy.
+
+vis-00-02-01  6th August  John Allison
+- Created G4VisManagerRegisterMessengers.cc.
+- Bug fix in G4VisManager: now follows change of world volume after
+  /vis~/clear/scene.
+- OpenInventor: Correct some upper -> lower case mess (Guy Barrand)
+- G4RayView: syntax bug fixes.
+
+4th August 1998 Andy Walkden
+I made some changes to OpenGL code...
+The changes are (i) to tidy up some redundant hidden line 
+removal function calls, (ii) to put some hidden line removal 
+code in G4OpenGLScene::AddPrimitive(G4Polyhedron) and 
+(iii) to add an option to generate an encapsulated postscript 
+file of the current view in OpenGLXm. There is now a button 
+in the Miscellany pulldown of the main menubar to bring up 
+a shell in which you can specify a filename, colour or black 
+and white and request the creation of a .eps file. The 
+code is to be found in G4OpenGLXView, and so is not bound 
+to the Xm user. Also it needs fixing for some Mesa 
+implementations, and the HP CDE environment manages to stuff 
+things up when rendering to a pixmap (although CDE makes a 
+mess of most other things as well, so this isn't
+disastrous).
+
+
+vis-00-01-08  21th July 1998  John Allison
+- Removed automatic refresh from /vis/camera/reset in G4VisCommandsCamera.cc.
+
+vis-00-01-07b  21th July 1998  Satoshi Tanaka
+- Revised G4FRSCENE::SendBoundingBox() so that 
+  zooming polycy of  DAWN drivers becomes consistent with 
+  OpenGL drivers
+
+vis-00-01-07  20th July 1998  John Allison
+- Corrected bug in G4VisManager::IsViewValid to trap drawing commands
+  before geometry is available.
+
+vis-00-01-06  19th July 1998  John Allison
+- Default culling: culling - on, culling of invisible objects - on.
+- set/drawing_style does *not* change culling flags.
+- Minor bug fixes.
+
+vis-00-01-05  15th July 1998  John Allison
+- Cleaned up after name changes.
+- Minor bug fixes.
+
+vis-00-01-04  7th July 1998  Guy Barrand
+- Introduced interactivity.gmk into GNUmakefiles.
+
+vis-00-01-03  6th July 1998  John Allison
+- Changes for interface restructuring.
+- Simplified MyVisManager.
+
+vis-00-01-02  5th July 1998  John Allison
+- Changed visualization/GNUmakefile to use globlib.gmk.
+- Updated README for geant4beta.
+- Changed /vis~/draw/Ghosts to /vis~/draw/ghosts.
+
+vis-00-01-01  4th July 1998  John Allison
+- Moved G4VIS_BUILD.gmk and G4VIS_USE.gmk to geant4beta/config.
+- Changed /vis/ to /vis~/.
+
+3rd July 1998  John Allison
+- Small changes to test - see test/History.
+- Tidied.
+- Removed GNUmakefile.G4VIS_USE and make_list.sh.
+
+30th June 1998 - Paulo & Marc
+- added the G4FlavoredParallelWorldModel.hh file to 
+  visualization/modeling/include;
+- added the /vis~/draw/Ghosts [particle name] command
+  in the G4VisManMessDraw.cc file;
+- added 
+  CPPFLAGS += -I$(G4BASE)/geometry/magneticfield/include and
+  CPPFLAGS += -I$(G4BASE)/processes/parameterisation/include
+  lines to GNUmakefile to compile G4VisManMessDraw.cc.
+
+geant4beta
+============================================================
+geant4alpha
+
+vis-00-06-09  26th June 1998  John Allison
+- OPACS and Open Inventor - something about widget parents (GB)
+- Removed /new_vis/ commands.
+
+vis-00-06-08a  26th June 1998 Satoshi Tanaka
+- Updated G4VIS_USE.gmk
+- (1) Macro -DG4VIS_USE_DAWNFILE is made properly set
+- (2) G4VIS_USE_DAWN_ is renamed to G4VIS_USE_DAWN_OR_DAWNFILE
+- (3) G4VIS_USE_VRML_ is renamed to G4VIS_USE_VRML_OR_VRMLFILE
+
+vis-00-06-08  22nd June 1998  John Allison
+- Changed G4BASE = ../.. to G4BASE = $(shell (cd ../..; pwd))
+- Changed GNUmakefile.G4VIS_BUILD to G4VIS_BUILD.gmk
+
+vis-00-06-07  19th June 1998  John Allison
+- Defined G4_SOLVE_VIS_TEMPLATES in G4VIS_USE.gmk.  Needs
+  the head version of GNUmakefile.architecture.
+- Consequential changes (improvements) to template handling in test19.cc
+- Some minor improvements in modeling.
+
+vis-00-06-06  11th June 1998  John Allison
+- Fixes to test_utils - see test/History.
+- Improvements in modeling - see modeling/History.
+
+vis-00-06-05  11th June 1998  Satoshi Tanaka
+- In G4VisManMessDraw.cc and G4VisManMessSet.cc , ...
+  //    G4double unit = G4UIcommand::valueOf (unitString);
+        G4double unit = G4UnitDefinition::GetValueOf (unitString);
+
+vis-00-06-04  10th June 1998  John Allison
+- Created G4VIS_USE.gmk to replace GNUmakefile.G4VIS_USE.
+- Changed test/GNUmakefile to use G4VIS_USE.gmk.
+- Separate libraries are now default in GNUmakefile.
+- Committed an interim version of README.
+- Moved G4BoundingSphereScene from management to modeling.
+- First attempt at defining the "scene" as lists of models.
+- Removed some unnecessary checks in G4VisManMess*.
+
+vis-00-06-03  27th May   1998  Satoshi Tanaka
+- DAWNFILE driver is added. It is to generate g4.prim file
+  under the current directory.  And make DAWN or DAVID invoke 
+  using the g4.prim file as an input. For details, see the blackboard 
+  document.
+
+21st May 1998 Andy Walkden
+- Added hidden line removal code to G4OpenGLView. HLR utilises OpenGL's
+  stencil buffer, but still the drawn lines are a little fragmented
+  (an effect seen often when depth buffering is used to resolve pixel
+  rendering disputes). 
+- HLR requires wireframe rendering, filled polygon rendering and then wireframe
+  rendering again. Hence, three visits to the kernel help to slow HLR
+  rendering right down.
+
+vis-00-06-02  20th May   1998  Satoshi Tanaka
+- Added G4VisFeaturesOfDAWNFILE.hh, cc
+- Revised visualization/GNUmakefile, GNUmakefile.G4VIS_BUILD,
+  GNUmakefile.G4VIS_USE
+- These are for DAWNFILE driver in preparation, which enables to
+  invoke DAVID directly from Geant4.
+
+vis-00-06-01a 20th May   1998  Satoshi Tanaka
+- code refinement of FukuiRenderer driver
+
+vis-00-06-01  29th April 1998  John Allison
+- Introduced non-pure virtual functions
+  Establish/DecommissionSpecials (G4PhysicalVolumeModel&) in
+  G4VGraphicsScene with implementation of the former in G4VScene.
+  Modified G4PhysicalVolumeModel to use it; also protected
+  G4PhysicalVolumeModel against non-implementation of
+  Establish/DecommissionSpecials.
+- Template instantiations in G4RayView made exclusive to GNU_GCC
+- Some minor changes under test - see test/History.
+
+27th April 1998 Andy Walkden
+- altered OpenGLView's structure a little. Now, G4OpenGLXmView is a
+  type of (inherits from) G4OpenGLXView.
+- made code for haloing effects common to all OpenGL views.
+- changed XUnmapWindow in G4OpenGLXView::~G4OpenGLXView to XDestroyWindow
+  (idea of Guy's)
+
+27th April 1998 Guy Barrand
+- vis/OPACS : remove Begin/EndModeling in G4GoScene.
+
+vis-00-05-06  23rd April 1998  John Allison
+- Changed test19.mac to test19.g4m and consequent change in test19.cc.
+- Fixed order of linking vis-a-vis -lG4track and -lG4tracking (GB).
+- Fixed inadvertent bug in test_utils/src/MyPhysicsList.cc.
+- Bug fix in G4OpenGLXmConvenienceRoutines.cc (GB).
+
+vis-00-05-05  21st April 1998  John Allison
+- Added run-time command line argument: test19 [<session-type>] [<verbosity>]
+- Removed #if GNU_GCC from template instantiation requests in test19.cc.
+- Added fDefaultTextVisAttributes to G4ViewParameters.
+- Added G4VScene::GetTextColour (changed G4FukuiRendererScene, G4GoScene and
+  G4OpenInventorScene.
+- Changed default view parameters: culling on and invisible object culling on.
+- Tidied CreateScene/View.
+- Continued BaBar development.
+
+15th April 1998  John Allison
+- Added test/EucIntfce/, test/Bogus/ and test/babar_utils/ for BaBar test code.
+  Also a new main() in BaBarCallListTest.cc.  Also a data file call_list.dat.
+  See babar_utils/README.
+- Camera commands, except spin and orbit, no longer initiate draw.
+- Text is blue for time being (visible on black or white background.)
+
+15th April 1998 : Guy Barrand
+- From discussion with John and Simone G4VToolkit 
+  has been renamed to G4VInteractorManager.
+
+vis-00-05-04a  11th April 1998  Satoshi Tanaka
+- Code improvements in DAWN driver
+- (1) View parameters are sent to DAWN only at drawing times.
+- (2) Way of getting marker size are made simpler by using
+-     G4VScene::GetMarkerRadius ()  etc.
+
+vis-00-05-04  8th April 1998  John Allison
+- Small bug fix - then tag for Easter.
+
+HEAD  6th April 1998  John Allison
+- Added error printing to G4OpenGLScene::AddPrimitive (const G4Text& text).
+- Added /vis~/draw/text.
+- Added units to /vis~/draw/axes.
+- Began the job of restructuring vis commands; so there is a new class
+  G4VisCommandsCameraMessengers for starters!
+
+HEAD  4th April 1998  John Allison
+- Removed automatic drawing after /vis~/set commands.  Now an explicit
+  redraw is necessary, but it allows you to change parameters during
+  building a view.  For example to superimpose projected hits on a
+  section:
+    /vis~/clear/view
+    /vis~/set/section_plane on 0 0 20 cm 0 0 1
+    /vis~/draw/current
+    /vis~/set/section_plane off
+    /run/beamOn
+- Fixed small bug in OpenGL for section drawing.
+- Made some small improvements in G4ViewParameters.
+
+vis-00-05-03  4th April 1998  John Allison
+- Re-engineered maintenance of current depth, etc.  Needed new method
+  G4VGraphicsScene::BeginModeling (G4PhysicalVolumeModel&) in
+  graphics_reps.  The result is much cleaner model and modeling
+  parameters classes.  Also, the current depth, physical volume and
+  logical volume are immediately available as protected pointers in
+  G4VScene.
+- Required G4VScene::Begin/EndModeling to be invoked from subclass.
+- Introduced G4NullModel to hold modeling parameters.  This avoids
+  having to create a G4VModel for each graphics primitive.
+
+HEAD  3rd April 1998  John Allison
+- Added GetMarkerDiameter/Radius to G4VScene.
+- Bug fix in G4VScene::GetMarkerSize.
+- Removed GetCurrentPhysicalVolume from G4PhysicalVolumeModel - now in
+  G4ModelingParameters (but might move again soon!).
+- test/GNUmakefile now uses "$(MAKE) separate" for vis libraries.
+- test19 recognises argument "1" as a verbose flag value.
+
+HEAD April 2, 98 G.Barrand
+- Modifications for Win32/NT.
+- G4VIS_BUILD_[OIX, OIWIN32]_DRIVER, G4VIS_USE_[OIX, OIWIN32]
+
+vis-00-05-02  26th March 1998  John Allison
+- Added GetMarkerSize to G4VScene.
+- Made ~G4VisManager virtual.
+- Added current logical volume and current physical volume to working
+  space in modeling parameters.  So it is no longer necessary to cast
+  to G4PhysicalVolumeModel; all such casts removed.
+- Moved nested classes out of G4RayView.
+
+HEAD March 24, 98 G.Cosmo
+- Modified G4VisManMessExpert.cc to correctly use random numbers
+  by calling directly G4UniformRand().
+
+HEAD March 24, 98 G.Barrand
+- GNUmakefile : MAKESHLIB changed in G4MAKESHLIB
+
+vis-00-05-01a  24 March 1998  Satoshi Tanaka
+- Geometry tree can be obtained by, e.g., 
+  % grep PVName g4.prim > g4.tree
+
+vis-00-05-01  23rd March 1998  John Allison
+- Made RegisterGraphicsSystems pure virtual.
+- Added verbose level control to printing at initialization.
+- Fixed (hopefully) bug in scene deletion.
+- Made AddPrimitive (const G4Text/Circle/Square) pure virtual.
+  (Had to add dummy void G4VRML1SCENE::AddPrimitive (const G4Text&).)
+- Made AddPrimitive (const G4Polymarker&) virtual again.
+- Opened some .hh files to G4VIS_USE flags.
+- Removed Pre/PostAddThis from some graphics systems (not OPACS, OI).
+- First implementation of G4ModelingParameters::hierarchy (DTREE).
+- Added Get Global/Current Tag/Description to G4VModel.
+- Introduced "working space" in G4ModelingParameters for geometry depth.
+- Relocated some template instantiation requests (might give trouble on DEC).
+
+vis-00-04-05a  16th March 1998  Satoshi Tanaka
+- DAWN driver outputs physical-volume names and copy number.
+
+vis-00-04-05  5th March 1998  John Allison
+- Added G4Text/Circle/Square in G4RayScene.hh.
+- Added G4Text/Circle/Square in G4BoundingSphereScene.hh.
+- Made AddPrimitive (const G4Polymarker&) non-virtual in G4VScene.hh.
+
+HEAD  5th March 1998  Andy Walkden
+- Implemented G4Circle/Square.
+- Added haloing to OpenGLXm "value added" options.
+
+HEAD  5th March 1998  S.Sadilov
+- visualization/GNUmakefile - using $OUT_LIB intoduced in
+  GNUmakefile.architecture
+- visualization/management/GNUmakefile - compiling G4VisManMessSet.cc
+  without optimization on WinNT
+
+vis-00-04-04a  5th March 1998  Satoshi TANAKA
+- Environmental variables  to customized DAWN driver is
+  renamed from DAWN_... to G4DAWN_...
+- Default mode of DAWN driver is  EPS mode, i.e. 
+  mode in which EPS files are generated.
+
+vis-00-04-04  4th March 1998  John Allison
+- First tag with modeling under visualization.
+  Here's what you need to do...
+    cd prototype
+    cvs update -A -d -P modeling
+    cd visualization
+    cvs update -r vis-00-04-04 -d -P
+  Change the following lines in your GNUmakefile...
+    CPPFLAGS += -I../../visualization/modeling/include
+    LDFLAGS  += -L../../visualization/modeling/$(G4SYSTEM)
+    Remove: @cd ../../modeling      &&   $(MAKE)
+
+vis-00-04-03  4th March 1998  John Allison
+- Last tag with modeling at same level as visualization.
+- Renamed near and far (VC++ keywords) in G4ViewParameters.cc.
+- Removed unnecessary #include <strstream.h> or adapted for WIN32.
+
+vis-00-04-02b  22nd February 1998  Satoshi Tanaka
+- Split G4VIS_BUILD_VRML1_DRIVER into G4VIS_BUILD_VRML_DRIVER 
+                                 and  G4VIS_BUILD_VRMLFILE_DRIVER.
+- Split G4VIS_USE_VRML1          into G4VIS_USE_VRML           
+                                 and  G4VIS_USE_VRMLFILE.
+
+vis-00-04-02a  18th February 1998  John Allison
+- Bug fix in G4RayView!
+
+vis-00-04-02  18th February 1998  John Allison
+- Introduced /vis~/set/section_plane.
+
+vis-00-04-01  13th February 1998  John Allison
+- Made messengers compatible with the new style.
+
+vis-00-03-02a  3rd February 1998  John Allison
+- Bug fix for 02.
+- Changed GNUmakefile to use processes sub-libraries.
+
+vis-00-03-02  2nd February 1998  John Allison
+- Modernised messengers.
+
+vis-00-03-01a 29th January 1998  John Allison
+- Tagged a few improvement in OpenGL
+
+vis-00-03-01 26th January 1998  John Allison
+- Old environment variables abandoned - see visualization/README.
+- G4VisManager is now instantiated *and* deleted in main().
+- G4VisRegisterGraphicsSystem.icc replaced by
+  MyVisManager::RegisterGraphicsSystems as a way - now optional - of
+  a user overriding the default graphics system registration.
+
+Januray 20 , 98 G. Barrand
+
+- Implement object rotation in OPACS driver
+  
+Januray 19 , 98 G. Barrand
+
+- Correct OpenInventor code so that it is ANSI-C++
+  and then compiles with OSF1/cxx, HP-UX/aCC.
+
+7th January 1998  John Allison
+- Restructuring to use modeling category.
+
+December 19, 97 G. Cosmo - (alpha03)
+
+- 1st December 1997 - John Allison.
+- This is interim code for testing by the visualization
+  group and it will be tagged soon.  You must update to the
+  head of graphics_reps and visualization simulatanouesly.
+  It coworks (I hope - it's difficult to be 100% sure about
+  this since I have a few changes for other categories in
+  the pipeline - see previous email) with:
+    digits+hits              digi-00-02-01
+    events+tracks            event-00-02-01
+    geometry                 HEAD
+    global                   global-00-02-01
+    intercoms                intercoms-00-02-01
+    interfaces               interfaces-00-02-01
+    particle+matter          piim-00-02-01
+    run                      run-00-02-01
+    track                    track-00-02-01
+    tracking                 tracking-00-02-01
+- Addition of:
+    visualization/GNUmakefile.transition_to_G4VIS_BUILD
+    visualization/GNUmakefile.transition_to_G4VIS_USE
+    visualization/GNUmakefile.vis_cppflags_for_G4VIS_USE
+  to turn the existing environment variables into the
+  to-be-adopted G4VIS_... variables - see visualization/test/README.
+- Consequent changes to other visualization GNUmakefiles.
+- New way of instantiating graphics systems:
+  Set the appropriate environment variables and include and
+  compile G4VisRegisterGraphicsSystems.icc in your main():
+    ...
+    #include G4VisRegisterGraphicsSystems.icc
+    ...
+    main() {
+      ...
+- Added G4VisFeaturesOfXXX files which simple return a G4String.
+ (Guy, Jeff, would you like to join this scheme?)
+- Added commands /vis~/delete/scene and /vis~/delete/view.
+- Added /vis~/show/view to test19.odb.
+
+vis-00-02-01 to vis-00-02-05a not logged!!!
+
+vis-00-01-02  13th July 1997  John Allison
+- Consolidation of previous tag.
+
+vis-00-01-01  8th June 1997  John Allison
+- First systematic tag.
+- G4Ray introduced.

@@ -1,0 +1,1159 @@
+$Id: History 90710 2015-06-08 10:06:27Z gcosmo $
+-------------------------------------------------------------------
+
+     =========================================================
+     Geant4 - an Object-Oriented Toolkit for Simulation in HEP
+     =========================================================
+
+                      Category History file
+                      ---------------------
+This file should be used by G4 developers and category coordinators
+to briefly summarize all major modifications introduced in the code
+and keep track of all category-tags.
+It DOES NOT substitute the  CVS log-message one should put at every
+committal in the CVS repository !
+
+     ----------------------------------------------------------
+     * Reverse chronological order (last date on top), please *
+     ----------------------------------------------------------
+
+April 15th, 2015 G.Cosmo                  - geomvol-V10-00-10
+- Simplified implementation in G4NavigationHistoryPool to make use of simple
+  stack of free entries. Pre-allocate size of vectors and inlined GetLevels().
+
+April 8th, 2015 A.Dotti
+- Updated unit-tests to new G4Exception signature.
+
+December 12th, 2014 G.Cosmo               - geomvol-V10-00-09
+- Use canonical form for copy-ctor and operator=() in G4GRSSolid, G4GRSVolume,
+  G4LogicalBorderSurface and G4LogicalSkinSurface.
+
+December 11th, 2014 G.Cosmo
+- Avoid post-increment in G4NavigationLevelRep::AddAReference().
+
+December 5th, 2014 M.Asai
+- G4NavigationHistoryPool - Move printout from the destructor to the
+  dedicated Print() method.
+
+November 13th, 2014 G.Cosmo               - geomvol-V10-00-08
+- Restored constructors/destructor for G4TouchableHistory - derived class
+  to be not inline.
+- Restored also non-inline constructors/destructors for G4NavigationHistory
+  and G4NavigationLevel (the last apparently responsible for crashes on SLC5
+  in the allocation).
+
+November 3rd, 2014 G.Cosmo                - geomvol-V10-00-07
+- Moved constructors, destructors and assignment operators for
+  G4NavigationHistory, G4NavigationLevel, G4NavigationLevelRep and
+  G4TouchableHistory to be inline, for CPU optimisation
+  (courtesy of S.Wenzel).
+
+October 18th, 2014 A.Dotti                - geomvol-V10-00-06
+- Corrected possible data race (reported by DRD) in 
+  G4PVReplica::InitialiseWorker().
+
+June 11th, 2014 G.Cosmo                   - geomvol-V10-00-05
+- Corrected implementation of copy-constructor and assignment-operator
+  for G4NavigationHistory, to provide exact copy for size of the
+  histories-level vector.
+
+June 10th, 2014 G.Cosmo                   - geomvol-V10-00-04
+- Avoid un-necessary clearing of navigation history levels in
+  G4NavigationHistory destructor.
+
+May 14th, 2014 G.Cosmo                    - geomvol-V10-00-03
+- Introduced pool G4NavigationHistoryPool for storage and reuse of
+  navigation history levels collections.
+  Disabled use of G4EnhancedAllocator in G4NavigationHistory accordingly.
+- Use G4Allocator for dynamic allocations of G4NavigationHistory objects.
+
+April 10th, 2014 G.Cosmo                  - geomvol-V10-00-02
+- Get rid of deprecated 'register' storage class specifier in source files
+
+March 31st, 2014 G.Cosmo                  - geomvol-V10-00-01
+- Corrected signature of operator=() for G4LogicalBorder/SkinSurface.
+
+February 14th, 2014 G.Cosmo               - geomvol-V10-00-00
+- Minor cleanup and optimisation to G4EnhancedAllocator.
+- Code cleanup in G4GeometryWorkspace and G4GeometryWorkspacePool.
+
+November 19th, 2013 J.Apostolakis         - geomvol-V09-06-20
+- Fix(es) for issues identified by Coverity:
+  G4GeometryWorkspace: initialisation of data member.
+  G4GeometryWorkspacePool: fixed implementation of singleton.
+
+November  8th, 2013 J.Apostolakis         - geomvol-V09-06-19
+- Cleanup: reduced verbosity of G4GeometryWorkspace by making it optional.  
+  Added Set/Get Verbose methods to toggle and view it.
+
+November  7th, 2013 J.Apostolakis         - geomvol-V09-06-18
+- Restored the ability to 'clone' Nested Parameterisations.
+   This allows the use of Nested Parameterizations with MT.
+   This precaution is not needed - 'good' user code will cope with 
+   the changing of target solid in each thread.
+  Note: The restriction on parameterizations which use multiple types
+   of solids remains. 
+
+November  1st, 2013 G.Cosmo               - geomvol-V09-06-17
+- Restored use of G4EnhancedVecAllocator in G4NavigationHistory for
+  sequential mode.
+
+October 18th, 2013 J.Apostolakis          - geomvol-V09-06-16
+- G4GeometryWorkspace: Add new method CloneReplicaSolid, to 
+  ensure that the solid for each Replica is separate object.
+
+October 17th, 2013 J.Apostolakis, A.Dotti - geomvol-V09-06-15
+- Cleanup of the code removing unnecessary lines of codes and comments
+- G4GeometryWorkspacePool::CreateWorkspace
+  Do not create a second object G4GeometryWorkspace'.
+- Fixed Singleton G4GeometryWorkspacePool - for thread safe creation
+  of object. 
+
+  G4GeometryWorkspacePool: CreateWorkspace will not create a second 
+   object G4GeometryWorkspace (in the same thread)
+  Fixed Singleton G4GeometryWorkspacePool - for thread safe creation 
+   of object. 
+
+October 4th, 2013 J.Apostolakis - geomvol-V09-06-14
+- Retag due to issue with testing (needed to ensure use of geommng-V09-06-12)
+  Co-works with geommng-V09-06-12 and geom-specific-V09-06-19.
+
+October 4th, 2013 J.Apostolakis - geomvol-V09-06-13
+- Separated functionality for Solids (PCone/PHedra Sides) from 
+  G4GeometryWorkspace into separate class G4SolidsWorkspace in 
+  solids/specific.  Needed to satisfy dependence issue.
+  Co-works with geommng-V09-06-12 and geom-specific-V09-06-18.
+
+October 3rd, 2013 J.Apostolakis - geomvol-V09-06-12
+- Added new classes G4GeometryWorkspace - to create and manage MT objects.
+  and G4GeometryWorkspacePool which keeps Workspace objects. 
+- Small improvements and description in G4GeometryWorkspace.
+
+September 17th, 2013 G.Cosmo - geomvol-V09-06-10
+- Test: use G4EnhancedVecAllocator in G4NavigationHistory only in MT mode.
+
+September 16th, 2013 I.Hrivnacova - geomvol-V09-06-09
+- Removed thread-local specification for G4LogicalBorderSurfaceTable and
+  G4LogicalSkinSurfaceTable, as now supposed to be shared.
+
+August 22nd, 2013 G.Cosmo - geomvol-V09-06-08
+- Added parameter to specify maximum number of overlap errors to report.
+  Adapted code in CheckOverlaps() in G4PVPlacement and G4PVParameterised
+  to take into account the threshold.
+
+April 2nd, 2013 G.Cosmo - geomvol-V09-06-07
+- More optimisation to G4LogicalBorderSurface and G4LogicalSkinSurface
+  in the use of static tables.
+
+March 18th, 2013 G.Cosmo - geomvol-V09-06-06
+- More cleanup from MT changes in G4TouchableHistory.
+
+March 12th, 2013 A.Dotti - geomvol-V09-06-05
+- Added missing implementation of member function GetSubInstanceManager()
+  in G4PVReplica.
+
+March 12th, 2013 G.Cosmo - geomvol-V09-06-04
+- Added public accessors for MT data to G4PVReplica.
+
+March 11th, 2013 G.Cosmo - geomvol-V09-06-03
+- Fixed accessors adding check for existance of static surface table.
+
+March 10th, 2013 G.Cosmo - geomvol-V09-06-02
+- Redefined G4DLL_API to G4GEOM_DLL to avoid cases of macro redefinition.
+
+March 8th, 2013 G.Cosmo - geomvol-V09-06-01
+- Renamed G4MTTransitory to G4GeomSplitter. Adapted G4PVReplica.
+- More cleanup of MT changes in G4PVReplica split class and other classes:
+  G4NavigationLevel, G4NavigationLevelRep, G4TouchableHistory,
+  G4LogicalBorderSurface and G4LogicalSkinSurface.
+
+February 12th, 2013 J.Apostolakis - geomvol-V09-06-00
+- G4TouchableHistory: inspected changes for Geant4-MT.
+  Took out unneeded calls that initialised allocator in many methods.
+  Only the call in new() is needed, and is kept.
+  Cleared extra code introducing a performance penalty and also complicating
+  the code without reason.
+  Note: constructors cannot check that the Allocator is initialised.
+        They could be called first to create an object which was created
+        in a different way (e.g. on the stack, via new(prealloc) or new[ ] ).
+
+January 13th, 2013 A.Dotti
+- Introduced changes for thread-safety from G4MT prototype.
+  Classes with Allocator: all methods now initialising allocator pointer.
+  Revised key classes, to separate the part of the state which is
+  thread-dependent (changed in event loop), including: 
+  G4LogicalVolume, G4PhysicalVolume, G4PVReplica, G4PVPlacement.
+
+November 6th, 2012 G.Cosmo - geomvol-V09-05-02
+- Fix in G4EnhancedVecAllocator for porting on AIX.
+
+May 14th, 2012 G.Cosmo - geomvol-V09-05-01
+- Fixed spurious cases of hidden variable visibility, detected with
+  '-Wshadow' compilation option on gcc compiler.
+
+April 2nd, 2012 G.Cosmo - geomvol-V09-05-00
+- Corrected GNUMakefile for spurious inclusion path.
+
+August 24th, 2011 G.Cosmo - geomvol-V09-04-01
+- Migrated to new G4Exception scheme for warnings and errors.
+- Defined scheme for warnings/errors coding:
+  + 1xxx for warnings, 0xxx for errors.
+  Code numbering:
+  + 0001: not supported or implemented features;
+  + 0002: invalid setup/construct;
+  + 0003: invalid run condition;
+  + 1001: incorrect setup; automatically adapted.
+  + 1002: notification.
+
+July 15th, 2011 G.Cosmo - geomvol-V09-04-00
+- Use WIN32 instead of G4LIB_BUILD_DLL as flag for choosing enhanced
+  allocator in G4NavigationHistory.
+
+December 15th, 2010 G.Cosmo - geomvol-V09-03-09
+- Use normal allocator if building on Windows.
+
+September 6th, 2010 G.Cosmo - geomvol-V09-03-08
+- Fixed false-positive cases for initialization in copy-constructor of
+  G4GRSSolid amd G4GRSVolume.
+
+Jul 5th, 2010       G.Cosmo - geomvol-V09-03-07
+- G4GRSSolid, G4GRSVolume: safer initialisation in copy constructor.
+- G4PVPlacement, G4PVReplica: added fake initialisation for all members in
+  specialized constructor for I/O persistency. Added fake return statements
+  after exceptions.
+- G4NavigationHistory: restore original implementation for constructor.
+
+Apr 23rd, 2010      G.Cosmo - geomvol-V09-03-06
+- Corrected initialisation of dummy copy-ctor in G4EnhancedVecAllocator,
+  fixing compilation problem on WIN32-VC.
+
+Apr 22nd, 2010      G.Cosmo - geomvol-V09-03-05
+- Make use of specialized allocator for handling internal vector in
+  G4NavigatorHistory, globally controlling the memory pool.
+  Measured ~2% average run-time speed-up.
+
+Apr 15th, 2010      G.Cosmo - geomvol-V09-03-04
+- Combine use of G4Allocator for vectors in G4NavigationHistory with use
+  of assign().
+
+Apr 13th, 2010      G.Cosmo - geomvol-V09-03-03
+- Added Reset() method to G4ReflectionFactory for clearing maps of
+  constituent and reflected volumes.
+
+Apr 9th, 2010       G.Cosmo - geomvol-V09-03-02
+- Use more elegant solution in G4NavigationHistory copy-ctor. Adopt assign().
+
+Mar 31th, 2010      G.Cosmo - geomvol-V09-03-01
+- Restore original vector allocation, but adopt simple loop copy within
+  copy-constructor. Should provide slight performance improvement and keep
+  locality.
+
+Dec 11th, 2009      G.Cosmo - geomvol-V09-03-00
+- Use G4Allocator for vectors in G4NavigationHistory, to optimise memory
+  management and reduce fragmentation.
+
+Nov 6th, 2009       G.Cosmo - geomvol-V09-02-04
+- Moved inline constructors to source for G4TouchableHistory, to avoid problems
+  of memory alignment in allocation.
+
+Nov 3rd, 2009       G.Cosmo - geomvol-V09-02-03
+- Use G4Allocator for dynamic allocation of G4TouchableHistory objects.
+  Should reduce the number of direct calls to malloc and memory fragmentation.
+  Measured an average improvement of 3-5% in CPU speed, and same memory
+  footprint.
+
+Sep 22nd, 2009      G.Cosmo - geomvol-V09-02-02
+- Added missing implementation for composing G4AssemblyVolume constructor.
+
+Sep 21st, 2009      G.Cosmo - geomvol-V09-02-01
+- Fix in G4PVParameterised::CheckOverlaps() to not modify daughter volume
+  transformation matrix for application to points in the daughter's frame.
+  Adopt Inverse() instead of Invert() in call to G4AffineTransform.
+  Addresses problem report #1078.
+
+Aug 3rd, 2009       G.Cosmo - geomvol-V09-02-00
+- Get rid of unnecessary call to Reset() in G4NavigationHistory destructor.
+- Some code formatting...
+
+Nov 13th, 2008      G.Cosmo - geomvol-V09-01-03
+- Corrected singleton definition for G4ReflectionFactory.
+- Return 'const G4String&' instead of copy in GetVolumesNameExtension().
+
+Aug 19th, 2008      G.Cosmo - geomvol-V09-01-02
+- Restored names of methods DumpInfo() to G4LogicalSkinSurface and
+  G4LogicalBorderSurface.
+
+Jul 16th, 2008      P.Gumplinger - geomvol-V09-01-01
+- Change the name of the method DumpInfo() to DumpTableInfo()
+  in G4LogicalSkinSurface and G4LogicalBorderSurface.
+
+Feb 4th, 2008       I.Hrivnacova - geomvol-V09-01-00
+- Fixed problem of double-deletion of rotation matrix in destructor
+  of G4AssemblyVolume.
+
+Nov 16th, 2007      G.Cosmo - geomvol-V09-00-01
+- Added inline specification to methods in G4AssemblyTriplet class.
+
+Oct 12th, 2007      P.Gumplinger - geomvol-V09-00-00
+- Minor cleanup: moved typedef to begin of include files and rename to
+  theSkinSurfaceTable in G4LogicalBorderSurface and G4LogicalSkinSurface classes.
+- Added explicit initialisation of first volume entry to zero in
+  G4TouchableHistory constructor, to ensure correct behavior for 'out-of-world'
+  touchable handle. (J.Apostolakis)
+
+May 11th, 2007      G.Cosmo - geomvol-V08-03-00
+- Use call to G4GeometryTolerance instead of kCarTolerance in
+  G4ReflectionFactory.
+- Requires tag "global-V08-03-00" and related tag set.
+
+Apr 11th, 2007      G.Cosmo - geomvol-V08-02-02
+- More extensions to the CheckOverlaps() algorithm:
+  o Added possibility to define a tolerance for reporting overlaps; added
+    new argument to signature, by default tolerance is set to zero.
+  o Optimised implementation for detecting daughter volumes which are
+    totally overlapping.
+  o Added check on current volume to optimise and correctly handle the
+    case of explicit call of the method when geometry is constructed.
+
+Mar 23rd, 2007      G.Cosmo - geomvol-V08-02-01
+- Extended CheckOverlaps() algorithm, detect also cases of daughter volumes
+  which are totally overlapping. Made warning message message more clear.
+
+Jan 31st, 2007      G.Cosmo - geomvol-V08-02-00
+- Added flag for controlling verbosity to CheckOverlaps() method for
+  G4PVPlacement and G4PVParameterised. By default, verbosity is ON.
+- Requires tag "geommng-V08-02-00".
+
+Nov 10th, 2006      G.Cosmo - geomvol-V08-01-00
+- Use 'direct' rotation/translation instead of 'frame' rotation/translation
+  in concrete CheckOverlaps() method of G4PVPlacement and G4PVParameterised
+  volumes. Fixes a problem reported for wrong transformation associated
+  to overlap-check in displaced boolean solids (V.Grichine).
+- Updated unit test 'testG4NavigationHistory': added test for NULL
+  navigation-history (J.Apostolakis).
+
+May 5th, 2006       G.Cosmo - geomvol-V08-00-04
+- G4AssemblyVolume:
+  o Corrected decomposition of transformation in G4AssemblyVolume.
+  o Added methods GetVolumesIterator() and TotalImprintedVolumes() for
+    accessing the list of physical-volumes imprinted
+  o Cleaned up comments and descriptions.
+- Corrected conditions for overlap check in G4PVPlacement constructors.
+
+May 2nd, 2006       G.Cosmo - geomvol-V08-00-03
+- G4AssemblyVolume: now G4AssemblyVolume can support assembly of assemblies
+  and reflections. Reviewed and modified MakeImprint() methods to act
+  recursively (kind contribution of I.Hrivnacova).
+- Extended overlaps check also for reflection of placements.
+- Moved G4AssemblyTriplet class from 'management' module.
+- Protect against checking overlaps on world volume placement ...
+- Requires tag "geommng-V08-00-04".
+
+Apr 4th, 2006       G.Cosmo - geomvol-V08-00-02
+- Moved G4VNestedParameterisation and G4VVolumeMaterialScanner classes to
+  'management' module, to support material scanning in G4Region.
+- Requires tag "geommng-V08-00-01".
+
+Mar 15th, 2006      G.Cosmo - geomvol-V08-00-01
+- G4AssemblyVolume: added default boolean argument to MakeImprint()
+  methods to allow for optional check for overlaps of constituent volumes.
+
+Dec 20th, 2005      G.Cosmo - geomvol-V08-00-00
+- G4AssemblyVolume: fixed initialisation of names for placed volumes
+  which was corrupted after migration to <sstream> as side effect.
+
+Nov 24th, 2005      J. Apostolakis - geomvol-V07-01-05
+- Revised implementation of G4VNestedParameterisation,
+  taking out use of G4PhysicalTouchable.
+- Added implementations of virtual methods to identify materials 
+  for nested parameterisations.
+- Removed G4PhysicalTouchable helper class.
+
+Nov 16th, 2005      J. Apostolakis - geomvol-V07-01-04
+- Corrections to tag below:
+  o Fixed G4PVPlacement's IsRegularStructure() method.
+  o Added missing methods for regular-structures to G4PhysicalTouchable.
+
+Nov 11th, 2005      J. Apostolakis - geomvol-V07-01-03
+- Added methods to identify regular structures in physical-volume derived
+  classes (replicas, parameterised volumes, placements). 
+  New virtual methods implemented:
+   - IsRegularStructure()     [from G4VPhysicalVolume, defined in Replica]
+   - GetRegularStructureId()
+  Note that G4PVPlacement always return 'false' and 0 respectively.
+  New method defined for Replicas:
+   - SetRegularStructureId()  virtual 
+
+Nov 9th, 2005       G. Cosmo - geomvol-V07-01-02
+- Added fake default constructor for concrete types of volumes (placements,
+  parameterised and replica), for usage of direct object persistency.
+- Implemented migration to <sstream> for affected classes: G4AssemblyVolume.
+
+Oct 19th, 2005      G. Cosmo - geomvol-V07-01-01
+- Introduced first implementation for optional check of overlaps at
+  construction to G4PVPlacement and G4PVParameterised volumes. Default
+  resolution of 1000 points is defined for the check.
+  The check is disabled by default.
+- Introduced method CheckOverlaps(p) for placements and parameterised
+  volumes. The resolution for the check can be specified providing the
+  number of points wished to be generated.
+- Updated unit test for G4ReflectedSolid.
+
+Jul 25th, 2005      G. Cosmo - geomvol-V07-01-00
+- Cleanup and fixes in use of inline methods in G4VNestedParameterisation
+  and G4PhysicalTouchable.
+
+Jun 14th, 2005      J. Apostolakis - geomvol-V07-00-01
+- Added G4VNestedParameterisation with ability to use parent information
+  to compute/change material.
+- Added G4PhysicalTouchable class to enable this type of parameterisation.
+  This class is an implementation class only, and its name especially
+  and potentially other aspect is/are likely to be changed.   
+  ---> A revision of the interface of G4VPVParamerisation can provide this
+       capability in future, in a simpler way.
+  This tag coworks with "geomnav-V07-00-00". 
+
+Jun 6th, 2005       G. Cosmo - geomvol-V07-00-00
+- Moved constructors/destructors and operators for G4NavigationLevelRep
+  and G4NavigationLevel to .cc file and not inlined.
+
+Dec 2nd, 2004       G. Cosmo - geomvol-V06-02-01
+- Implemented migration to <cmath> for standard mathematical functions.
+
+Sep 7th, 2004       G. Cosmo - geomvol-V06-02-00
+- G4ReflectionFactory.cc: added automatic reflection for visualization
+  attributes, biasing weights and regions associated to the logical volume.
+
+Jun 9th, 2004       G. Cosmo - geomvol-V06-01-03
+- Adopt G4DLLIMPORT/G4DLLEXPORT technique to handle extern simbols for
+  allowing support of DLLs on Windows.
+- Coworks with "global-V06-01-02b".
+
+Jun 7th, 2004       G. Cosmo - geomvol-V06-01-02
+- Export extern symbols for allowing support of DLLs on Windows.
+  Modified files: G4NavigationLevel.icc, G4NavigationLevelRep.icc.
+- Coworks with "global-V06-01-02a".
+
+May 19th, 2004      G. Cosmo - geomvol-V06-01-01
+- Added CleanSurfaceTable() static methods in G4LogicalBorderSurface and
+  G4LogicalSkinSurface classes for the clearing of the surface tables in
+  case of dynamic geometries (by T.MacPhail).
+
+May 13th, 2004      G. Cosmo - geomvol-V06-01-00
+- Imported G4ReflectionFactory and unit test 'testG4ReflectedSolid' from
+  module "solids/Boolean".
+- Enhanced G4ReflectionFactory to support reflection of divided volumes
+  (courtesy of I.Hrivnacova). Added Divide(...) set of methods.
+- Coworks with tags: geommng-V06-01-00, geomdiv-V06-01-00 and
+                     geom-bool-V06-01-00.
+
+March 4th, 2004     G. Cosmo - geomvol-V06-00-01
+- G4NavigationHistory.icc: fixed bug in NewLevel() causing segmentation
+  violation for cases of geometry with deep nested levels. Fixes problem
+  report #597. (Thanks to A.Zoglauer who reported this)
+
+January 19th, 2004  G. Cosmo - geomvol-V06-00-00
+- G4AssemblyVolume.cc: fixed initial value for 'numberOfDaughters' of
+  imprinted volumes copy-numbers. Fixes problem report #566.
+
+December 5th, 2003  G. Cosmo - geomvol-V05-02-08
+- G4TouchableHistory.cc: added initialisation of allocators for navigation
+  levels, moved from G4TransportationManager, where they were introduced
+  as workaround for solving static initialisation a long time ago.
+
+December 4th, 2003  G. Cosmo - geomvol-V05-02-07
+- G4NavigationHistory[.icc.cc]: fixed redundant calls and initialisations.
+- G4NavigationLevel.icc, G4NavigationLevelRep.icc: fixed implementation of
+  operator=() for inlining.
+
+December 1st, 2003  G. Cosmo - geomvol-V05-02-06
+- G4LogicalBorderSurface[.hh.icc.cc], G4LogicalSkinSurface[.hh.icc.cc]:
+  o modified to use G4SurfaceProperty instead of G4OpticalSurface.
+    Requires tag "materials-V05-02-00".
+    Requires tag "geommng-V05-02-05".
+- Updated unit tests to use derived navigator.
+
+November 17th, 2003  G. Cosmo - geomvol-V05-02-05
+- Added protection to placement and replica constructors for cases
+  where a volume is placed inside itself.
+
+November 10th, 2003  G. Cosmo - geomvol-V05-02-04
+- Migrated unit tests to new G4Navigator interface.
+
+November 2nd, 2003  G. Cosmo - geomvol-V05-02-03
+- Code cleanup and headers inclusion review (replaced by forward
+  declarations where necessary).
+
+October 23rd, 2003  G. Cosmo - geomvol-V05-02-02
+- Migrated calls to G4Exception to new scheme.
+
+September 30th, 2003  G. Cosmo - geomvol-V05-02-01
+- Logical reorganisation and restructure of modules.
+  Moved files to geometry/management:
+    G4BlockingList[.hh.icc.cc]
+    G4IdentityTrajectoryFilter[.hh.cc]
+    G4VCurvedTrajectoryFilter[.hh.cc]
+  Moved files to new module geometry/navigation:
+    G4AuxiliaryNavServices[.hh.icc.cc]
+    G4GeometryMessenger[.hh.cc]
+    G4Navigator[.hh.icc.cc]
+    G4NormalNavigation[.hh.icc.cc]
+    G4ParameterisedNavigation[.hh.icc.cc]
+    G4PropagatorInField[.hh.icc.cc]
+    G4ReplicaNavigation[.hh.icc.cc]
+    G4TransportationManager[.hh.icc.cc]
+    G4VoxelNavigation[.hh.icc.cc]
+  Imported files from geometry/management:
+    G4AssemblyVolume[.hh.icc.cc]
+    G4PVParameterised[.hh.cc]
+    G4PVPlacement[.hh.cc]
+    G4PVReplica[.hh.cc]
+- Removed implementation of method Setup() and updated initialisation of
+  data, according to changes in the base class G4VPhysicalVolume.
+  Affected classes: G4PVPlacement, G4PVReplica.
+- Updated GNUmakefile in test directory.
+
+September 12th, 2003  J. Apostolakis - geomvol-V05-02-00
+- G4PropagatorInField.cc:
+  o Made optional the printing of information on 'looping' particles.
+    It is now controlled by the verbose flag.
+    Addresses CMS request in problem report #509.
+
+June 25th, 2003     G. Folger - geomvol-V05-01-04
+- Added disclaimer of liability where needed.
+
+June 21st, 2003     J. Apostolakis - geomvol-V05-01-03
+- G4PropagatorInField (the tag requires "field-V05-01-05"):
+  Likeliest to cause effect on Users is this:
+  *************************************************************************
+  * Changed default value of "maximum step count" to 1,000 (from 10,000)  *
+  *   --> this may cause more particles to be recognised to loop earlier, *
+  *          as this parameter controls this too.                         *
+  *************************************************************************
+  Also neccessary fixes and improvements:
+   1) Added new method FindAndSetFieldManager() to find the current field manager 
+        and set it for the Propagator.
+   2) Added new method SetDetectorFieldManager(), 
+         so as to have it updated when the global field manager is changed.
+   3) Added new state variable to insure that the current field Manager 
+         has been set for the current step
+      The flag ensures that the method FindAndSetFieldManager() is always
+      called once for each call to ComputeStep().
+ - G4TransportationManager: corrected the method SetFieldManager().
+   It now messages the current global PropagatorInField to notify it 
+ - Changes from "g4std" to <std> incorporated.
+
+May 26th, 2003      J. Apostolakis - geomvol-V05-01-02
+- G4PropagatorInField:  use safety in G4PropagatorInField.
+    (Adds to the state of this class).
+  Reinstates the changes in "geomvol-V04-01-08"
+
+May 20th, 2003      G. Cosmo - geomvol-V05-01-01
+- G4GeometryMessenger[.hh.cc]:
+  o Added new commands for controlling geometry overlaps: added recursion
+    to line_test and cylinder_test; added possibility to customise the
+    resolution and shape of grid/cylinder for the test; added ability to
+    select depth of recursion in the geometry tree.
+  o Added explicit call to OpenGeometry() in method CheckGeometry() to
+    force cleanup of voxelisation when command navigator/reset is called.
+- Coworks with tag "geomver-V05-01-00" for geometry/verification.
+- Does NOT include changes in "geomvol-V04-01-08".
+
+May 8th, 2003       G. Cosmo - geomvol-V05-01-00
+- G4PropagatorInField.cc: fix in ComputeStep() to avoid step computation
+  if proposed step length is too small (less than kCarTolerance).
+  Fixes problem report #485.
+- Does NOT include changes in "geomvol-V04-01-08".
+
+Mar 31st, 2003      G. Cosmo - geomvol-V05-00-03
+- Fixed trivial strict pedantic warnings.
+- Does NOT include changes in "geomvol-V04-01-08".
+
+Mar 17th, 2003      G. Cosmo - geomvol-V05-00-02
+- G4Navigator[.hh.cc]: added 'inline' specifier in declaration of
+  method LocateGlobalPointAndUpdateTouchableHandle().
+  Removed redundant calculation of localPoint in method
+  LocateGlobalPointWithinVolume()
+- G4GeometryMessenger[.hh.cc]: added UI command for setting navigator
+  verbosity at run-time (/geometry/navigator/verbose [n], n in [0..4]).
+- G4ReplicaNavigation.icc: fixed debug statement in VoxelLocate().
+- G4VoxelNavigation.cc: fixed debug statement in destructor.
+- Does NOT include changes in "geomvol-V04-01-08".
+
+Mar 5th, 2003       G. Cosmo - geomvol-V05-00-01
+- G4NavigationHistory.icc: fix in  methods Clear() and SetFirstEntry().
+  Correctly initialise navigation levels. Resolves discrepancy in the
+  copy number assigned to the world volume, if retrieved through the
+  touchable or explicitely through the physical volume.
+- Does NOT include changes in "geomvol-V04-01-08".
+
+Feb 6th, 2003       G. Cosmo - geomvol-V05-00-00
+- Fix in G4GeometryMessenger to check for geometry closed when commands
+  are applied. Command /geometry/navigator/reset and test commands apply
+  only when system is in "Idle" state.
+- G4VCurvedTrajectoryFilter[.hh.cc]: fixed initialisation of data member
+  in constructor. Fixed comments layout for Software Reference Manual.
+- G4IdentityTrajectoryFilter[.hh.cc]: fixed comments layout for
+  Software Reference Manual.
+- Does NOT include changes in "geomvol-V04-01-08".
+
+Nov 30th, 2002      S. Sadilov - geomvol-V04-01-09
+- Small correction on the top of "geomvol-V04-01-07a" in files: 
+    G4IdentityTrajectoryFilter.cc 
+    G4VCurvedTrajectoryFilter.cc 
+  to fix cout/G4cout, endl/G4endl mistakes.
+- Does NOT include changes in "geomvol-V04-01-08".
+
+Nov 29th, 2002      J. Apostolakis - geomvol-V04-01-08
+- G4PropagatorInField:  use safety in G4PropagatorInField.
+    (Adds to the state of this class).
+
+Nov 29th, 2002      S. Sadilov - geomvol-V04-01-07a
+- Minor corrections (cout/G4cout, endl/G4endl) to files
+  G4IdentityTrajectoryFilter.cc G4VCurvedTrajectoryFilter.cc 
+
+Nov 27th, 2002      G. Cosmo - geomvol-V04-01-07
+- G4BlockingList.cc: fixed initialisation of fBlockTagNo to 1.
+  Fixes warnings reported by Valgrind to G4BlockingList, G4VoxelNavigation
+  and G4ParameterisedNavigation.
+
+Nov 19th, 2002      J. Generowicz - geomvol-V04-01-06
+- Created G4IdentityTrajectoryFilter, making G4VCurvedTrajectoryFliter
+  truly abstract.
+
+Nov 8th, 2002       J. Generowicz
+- Introduced G4VCurvedTrajectoryFilter, and gave PIF means of
+  manipulating and communicating with it.
+
+Oct 29th, 2002       J. Apostolakis - geomvol-V04-01-05
+- G4PropagatorInField
+  Re-introduced memory of Charge Mass and Momentum into PropagatorInField,
+  in order for it to message the correct ChordFinder at each step with this
+  information.  It now does this task.
+
+Aug  6th, 2002       G. Cosmo - geomvol-V04-01-04
+- Formatting cleanup in source implementation files.
+
+Jul 29th, 2002       G. Cosmo - geomvol-V04-01-03
+- G4PropagatorInField[.hh.icc.cc]:
+  Restored call to GetChordFinder()->SetChargeMomentumMass() in method
+  SetChargeMomentumMass(), as was originally in release 4.1.
+  All modifications introduced in tag "geomvol-V04-00-11" have now been removed.
+
+Jul 29th, 2002       G. Cosmo - geomvol-V04-01-02
+- G4PropagatorInField.cc:  (J.Apostolakis)
+  o Restored ComputeStep() as it was before tag "geomvol-V04-00-11", by
+    removing call to GetChordFinder()->SetChargeMomentumMass().
+    This call was responsible for failure of unit tests, where no field strength
+    was observed in some cases.
+  o Set 'fNoZeroStep' to zero if (fNoZeroStep > fAbandonThreshold_NoZeroSteps)
+    at the end of ComputeStep(). Fixes problem report from P.M.DeFreitas
+    occurring in Mokka (Tesla), when reading primaries from their Pythia files.
+- G4PropagatorInField[.hh.cc]:
+  o Removed not-implemented constructor taking G4Navigator* as argument.
+  o Get rid of static const data for default epsilonStep size.
+  o Initialise all data members in constructor !
+  o Code cleanup.
+
+Jul 24th, 2002       G. Cosmo - geomvol-V04-01-01
+- Removed static initialisations of data of G4FieldManager.
+  Coworks with tag "field-V04-01-01".
+
+Jul 23rd, 2002       G. Cosmo - geomvol-V04-01-00
+- Some code cleanup and cosmetics...
+
+Jun 18th, 2002       J. Apostolakis - geomvol-V04-00-11
+- G4PropagatorInField.cc
+  o Fix for messaging incorrect ChordFinder with Mass, Charge, Momentum. 
+   ( Problem seen for multiple FieldManagers - reported by Grahame Blair )
+
+Jun 13th, 2002       J. Apostolakis - geomvol-V04-00-10
+- G4Navigator.cc
+  o Fix for navigation problem (dereference null volume pointer) in exampleN05
+     caused by ExitNormal fix. 
+
+Jun  3rd, 2002       G. Cosmo - geomvol-V04-00-09
+- G4Navigator[.hh.icc.cc]:
+  o Cosmetics for Software Reference Manual and formatting.
+  o Fixed few cases of endl/G4endl mystypes...
+
+May 31st, 2002 	    J. Apostolakis - geomvol-V04-00-08
+- G4Navigator.cc:
+  o Corrections for problem report #351, #284 concerning ExitNormal:
+     - using Daugther's solid preferentially (if applicable)
+     - adjusting fEntering/fEnteredDaugther in LocateGlobalPointAndSetup
+         to enable this 
+     - correcting location of point for which exit normal is requested
+         for 'non-convex point' on solid boundary
+  Thanks to Bryan Tipton (tipton@krl.caltech.edu),
+            Antonis Papanestis (antonis.papanestis@cern.ch)
+       and  Peter Gumplinger for their demonstrations of the delicate problem.
+
+May 15th, 2002      G. Cosmo - geomvol-V04-00-07
+- G4ParameterisedNavigation:
+  o Introduced 3D voxelisation technique for parameterised volumes with
+    unspecified axis. Changed to become subclass of G4VoxelNavigation and
+    adopt the same voxel location algorithms for optimised navigation.
+- G4VoxelNavigation:
+  o Changed to become base class for optimised navigation.
+  o Cosmetics and reformatting.
+- G4NormalNavigation.icc, G4ReplicaNavigation.icc, G4VoxelNavigation.icc:
+  o Minor optimisations.
+  o Cosmetics and reformatting.
+- G4Navigator.cc:
+  o Invoke specific VoxelLocate call for parameterised navigation.
+- Co-works with "global-V04-00-06" and "geommng-V04-00-05".
+
+Apr 19th, 2002      G. Cosmo - geomvol-V04-00-06
+- Moved inline constructors and destructors to no inline.
+  Affected files: G4BlockingList[.icc,cc], G4NavigationHistory[.icc,.cc],
+                  G4PropagatorInField[.hh.icc.cc].
+
+Apr 3rd, 2002       G. Cosmo - geomvol-V04-00-05
+- G4GeometryMessenger[.hh.cc]: added new commands to exploit more features of the
+  G4GeomTestVolume class for detecting geometry overlaps:
+  o /geometry/test/grid_test - runs the default grid test, same as "run".
+  o /geometry/test/recursive_test - runs the grid test in recursive mode.
+  o /geometry/test/cylinder_test - to shoot lines in a cylindrical pattern.
+  o /geometry/test/line_test - to shoot a line according to position and direction.
+
+Mar 22nd, 2002 	     J. Apostolakis - geomvol-V04-00-04
+- G4PropagatorInField: added Set/Get methods for MaximumEpsilonStep
+
+Feb 20th, 2002       G. Cosmo - geomvol-V04-00-03
+- G4GeometryMessenger.cc: fixed local variable name not to clash with
+  class data member.
+
+Jan 21st, 2002 	     J. Apostolakis - geomvol-V04-00-02
+- G4Navigator: reset blocked volume when locating 'within volume',
+    after ensuring that it does not get called when 
+    ComputeSafety() is at a boundary.
+   --> Fix for cases of longstanding 'Point P is Inside' errors.
+
+Jan 10th, 2002       G. Cosmo - geomvol-V04-00-01
+- Activated mechanism in GNUmakefile for allowing compilation with
+  G4DEBUG_FIELD or G4DEBUG_NAVIGATION flags. Replaced DEBUG with
+  G4DEBUG_NAVIGATION in G4Navigator.cc.
+
+Jan  8th, 2002       J. Apostolakis - geomvol-V04-00-00
+- G4AuxiliaryNavServices
+  o Fixed it so that it only considers whether a (Point,Direction) 'ray' if
+    it is on the surface (it was mistakenly also checking those inside, and
+    rejecting them.)
+    [ This erroneous condition occurred frequently in the new usage of Locate 
+      with Direction to initialise a step.  
+      It's unclear if it occurred also at other times.]
+
+Jan 8th, 2002        G. Cosmo
+- Fixed compilation problems and warnings on unit tests.
+  (G.Cosmo, R.Chytracek)
+
+Dec 11th, 2001       G. Cosmo - geomvol-V03-02-08
+- G4Navigator:
+  o Added kNormal and Copy Number to NewLevel (Navigation Level) for
+    Normal Navigation
+    Now all TouchableHistory objects should have a valid entry in ReplicaNumber:
+    - in the case of a placement volume it will be the copy number
+    - in replicated volumes it will be the replica number
+  o Commented out fix introduced in geomvol-V03-02-05.
+
+Dec 11th, 2001       J. Apostolakis - geomvol-V03-02-07
+- G4Navigator:
+  o Undoing the fix in geomvol-V03-02-05 -- because of problems in 
+    several tests (mostly large N tests). 
+    ----> Must resolve these !! <----
+
+Dec  8th, 2001       J. Apostolakis - geomvol-V03-02-06
+- G4PropagatorInField:
+  o additional thresholds for No of steps, + get/Set methods
+  o Modified choice of subsequent step size in case of Zero step
+    - decrease quickly at first to try to ensure that the first/second
+      "re-steps" are enough in most cases.
+    - utilise addition threshold parameters (for # of steps)
+      to slow down the rate of decrease of the step size
+      for the 'difficult' cases which do not converse after
+      a few steps.                           
+
+Dec  6th, 2001       J. Apostolakis - geomvol-V03-02-05
+- G4Navigator:
+  Fix for Locate Global Point Within Volume: clear state
+  variables (that had erroneously been forgotten).
+
+Dec  6th, 2001       R. Chytracek - geomvol-V03-02-04
+- G4Navigator:
+  o Fixed mirroring of the input argument for global direction into
+    local variable in LocateGlobalPointAndSetup().
+  o Cosmetics for the Software Reference Manual in .hh file.
+
+Dec  4th, 2001       J. Apostolakis - geomvol-V03-02-03
+- G4Navigator:
+  o Modified the interface
+    - creating a new ResetState method (that only reset state - not stack)
+    - adding a new optional argument to LocateGlobalPointAndSetup method 
+    - adding direction argument to LGPAS w/ touchable history 
+  o Modified the implementation 
+    - to reset its state when touchable history is used to re-initialise it
+    - to use the direction in LocateGlobalPointAndSetup methods!
+- G4PropagatorInField:
+  o Added use of new Largest Acceptable Step data member.
+  o Protected, in reseting of Proposed Step length, against
+    making it bigger in cases where several zero steps seen.
+  o Several debugging prints added. (only in G4Verbose, ...)
+
+Nov 28th, 2001       J. Apostolakis - geomvol-V03-02-02
+- Added GetCurrentFieldManager method to PropagatorInField
+- Incorporates additions seen in "geomvol-V03-02-00a/b/c"
+   and in "geomvol-V03-02-01". 
+- This tag is required by the new tag "transport-V03-02-06" in Transportation.
+
+Oct 18th, 2001       J. Apostolakis - geomvol-V03-02-01
+- Added a new 'maximum' epsilon value in G4PropagatorInField,
+  as some ill-conditions appear to be due to large proposed relative errors.
+  NOTE: does NOT include changes in "geomvol-V03-02-00a/b/c".
+
+Nov 8th, 2001        G. Cosmo - geomvol-V03-02-00c
+- Added handles for reference counting: G4GRSSolidHandle, G4GRSVolumeHandle,
+  G4TouchableHistoryHandle.
+- Modified G4Navigator for reference counted touchables. Introduced new methods
+  CreateTouchableHistoryHandle() and LocateGlobalPointAndUpdateTouchableHandle(...).
+- New unit tests testG4ParameterisedMaterial.cc and testG4TouchableHandle.cc.
+
+Nov 1st, 2001        G. Cosmo - geomvol-V03-02-00b
+- G4GeometryMessenger.cc: fixed definition of unit category for tolerance.
+
+Oct 24th, 2001       G. Cosmo - geomvol-V03-02-00a
+- Moved G4GeomTestMessenger from geometry/verification to geometry/volumes.
+  Renamed to G4GeometryMessenger.
+- GeometryMessenger: renamed directory to geometry/test. Added directory
+                     geometry/navigator. Added geometry/navigator/reset command
+                     for resetting navigation history and position.
+- G4PropagatorInField.icc: fixed warning on Linux-g++....
+
+Oct 18th, 2001       J. Apostolakis - geomvol-V03-02-00
+- Corrected the initialisation of fEpsilonMin in G4PropagatorInField 
+   constructor, which was forgotten.
+
+May 31st, 2001       G. Cosmo - geomvol-V03-01-08
+- Fixed usage of 'fabs', which belongs to global scope, NOT in std
+  namespace. Detected by compilation error on DEC ISO/ANSI setup.
+- G4VoxelNavigation.icc: initialised data-member in initialiser list of
+  constructor with explicit initialisation to dummy values to allow porting
+  on ObjecSpace STL.
+
+May 23rd, 2001       J. Apostolakis - geomvol-V03-01-07
+- Added methods to Set the minimum epsilon (relative accuracy) to
+  Propagator In Field.
+
+May 23rd, 2001       J. Apostolakis - geomvol-V03-01-06
+- Added new parameter to Propagator In Field, 
+  fEpsilonMin which is the minimal relative accuracy for MF driving.
+
+May 23rd, 2001       J. Apostolakis - geomvol-V03-01-05
+- Moved Delta Intersection and One Step from PropagatorInField to Field Manager.
+- Modified G4TransportationManager.cc to initialise default values accordingly.
+  (Incorporating changes into a tag, finally, after fix to G4FieldManager 
+  constructors. ) 
+o This tag requires and co-works with field-V03-01-01.
+  This now ENABLES the use of different Field Managers for different parts of
+  the detector.  First implementation allows a volume that has a field
+  manager to override the global one.  
+  Note: All field managers currently must refer to fields in global coordinates
+o New ability: to set the delta accuracy parameters differently in different
+  volumes (even while maintaining the same field as the global one!).  
+
+May 23rd, 2001       G. Cosmo - geomvol-V03-01-04
+- Fixes in G4ReplicaNavigation for bug reports #253 and #254:
+  o in VoxelLocate(...), treated particular case of rotational symmetry
+    with extent over 360 degrees (courtesy of H.Boie).
+  o in DistanceToOutPhi(...), fix to correctly handle cases where the
+    starting point is on boundary of replicas and direction is along boundary.
+
+May 15th, 2001       G. Cosmo - geomvol-V03-01-03
+- G4AuxiliaryNavServices::CheckPointOnSurface(): added additional check to resolve
+  endless looping of G4Navigator in case the track is passing through a point, edge
+  or surface shared by two solids.
+  This problem occured when G4Navigator was trying to transport a particle when
+  exiting a solid. Transportation will now perform a few zero steps and continues
+  stepping instead of looping around the same point. Fixes problem report #185.
+
+April 27th, 2001     G. Cosmo - geomvol-V03-01-02
+- G4VoxelNavigation.icc: fixed compilation warnings on HP-UX, concerning
+  potential uninitialised vector elements.
+
+April 20th, 2001     G. Cosmo - geomvol-V03-01-01
+- Updated unit tests to conform to recent STL vector migration.
+
+April 17th, 2001     G. Cosmo - geomvol-V03-01-00
+- Migration to STL vector:
+  o Modified classes:
+    G4VoxelNavigation, G4NavigationHistory, G4BlockingList,
+    G4LogicalSkinSurface, G4LogicalBorderSurface.
+  o Removed GetIndex() and table-index data from G4LogicalSkinSurface
+    and G4LogicalBorderSurface.
+
+March 19th, 2001     J. Apostolakis - geomvol-V03-00-03
+- G4PropagatorInField: 
+     Modified to use new (not obsolete) methods of G4FieldTrack. 
+     Deleted old/obsolete ComputeStep method 
+         (that was being used only for testing purposes, but
+          could not be used anymore after change to Momentum Integration.)
+
+March 12th, 2001     G. Cosmo - geomvol-V03-00-02
+- G4ReplicaNavigation::ComputeStep(): apply push of kCarTolerance to ourStep
+  in case the proposed step is zero.
+
+February 23rd, 2001  G. Cosmo - geomvol-V03-00-01
+- Restored original 0.5 shift for kPhi transformation in ComputeTransformation()
+  methods, as original specifications from P.Kent impose.
+- Fixed bug in ComputeTransformation(const G4int rNo, G4VPhysicalVolume* pVol)
+  where 'pVol' was NOT passed to SetPhiTransformation() in the kPhi case (!).
+
+February 15th, 2001  G. Cosmo - geomvol-V03-00-00
+
+- Fix in G4ReplicaNavigation::ComputeTransformation(...) for kPhi case.
+  Removed shift of 0.5 to center of replica volume to conform with original
+  specifications for replica transformations in Phi.
+- Cosmetics in G4ReplicaNavigation.cc.
+
+November 20th, 2000  G. Cosmo - geomvol-V02-00-01
+
+- Fixes to remove warnings from "-Wall -ansi -pedantic" g++ compiler options:
+  o commented out variables declared and not used.
+  o fixed declaration of variables used before being initialised.
+  o fixed order of initialisation of member data in constructors.
+  o fixed usage of unsigned-int (size_t) for array indeces.
+
+November 1st, 2000   G. Cosmo - geomvol-V02-00-00
+
+- QA code revision and cleanup (+fixes from CodeWizard filtering):
+  o Added (private) copy constructor and assignment operator where needed.
+  o Added "const" qualifier to accessor methods, wherever needed.
+  o Added equality check on operator= where needed.
+  o Made destructor "virtual" for classes having virtual methods,
+    wherever missing.
+  o Changed virtual functions to non-inline wherever's the case.
+  o Changed return value to be "const" pointer to functions:
+    - G4LogicalBorderSurface::GetVolume1()
+    - G4LogicalBorderSurface::GetVolume2()
+    - G4LogicalSkinSurface::GetLogicalVolume()
+  o G4NavigationHistory: moved kHistoryMax and kHistoryStride to
+    geomdefs.hh and made static constants. Reorganised comments.
+  o G4VoxelNavigation: moved kNavigatorVoxelStackMax in geomdefs.hh.
+    Changed "do-loops" with "while-loops" where convenient.
+  o Added "inline" qualifier to methods' declarations.
+  o General cosmetics
+
+June     2nd, 2000  J. Apostolakis - geomvol-V01-01-02
+
+include/G4PropagatorInField.hh,icc
+  o Moved Delta Intersection and Delta One Step to FieldManager
+     (from Propagator in Field),  to allow them to differ over the detector.
+
+G4TransportationManager.cc
+  o Changed static variable for above (default values).
+
+
+May     17th, 2000   G. Cosmo - geomvol-V01-01-01
+
+G4ReplicaNavigation.cc:
+- Added check to returned safety value in DistanceToOut(). Zero is
+  returned if the computed velue is less than kCarTolerance.
+- Introduced temporary fix to ComputeStep() in the first step computation
+  for replica boundaries. 'ourStep' is not set to the computed 'sampleStep'
+  if 'sampleStep' happens to be zero.
+  This fix helps to get rid of infinite loops when a point is on a
+  shared surface of a replica or on a shared vertex; a more definitive
+  solution to the problem is needed for the correct replica location.
+
+May     16th, 2000   J. Apostolakis
+
+G4PropagatorInField[.hh.icc]:
+- Added implementations for SetDeltaOneStep and SetDeltaIntersection.
+
+May      9th, 2000   J. Apostolakis - geomvol-V01-01-00
+
+Improvements in G4PropagatorInField  incorporating include file fixes
+in geometry-V01-01-02
+[ ie: Introduced kCarTolerance for check over taken step length and
+TruePathLength in G4PropagatorInField::ComputeStep(). ]
+
+May      8th, 2000   J. Apostolakis - geomvol-fieldImprove1
+
+Internal tag for version that improves the behavior of the field.
+[ it does not include the changes of geometry-V01-01-02 ]
+
+May      5th, 2000   J. Apostolakis 
+
+G4PropagatorInField improvements modifying:
+ i) the comparison for detecting probable loop condition
+      - to accomodate solids that (wrongly) return small finite answer instead
+        of zero for Distance on surface.  [ can probably be reversed eventually]
+ii) the condition for exit from while (sufficient path length) to
+    avoid making a very small final step :  used the tolerance.
+
+April 25th, 2000   G. Cosmo
+
+- Reorganised comments for the Software Reference Manual.
+- Moved inlined definition to .icc files, where needed.
+  Created: G4LogicalBorderSurface.icc and G4LogicalSkinSurface.icc.
+- Removed obsolete G4Transform class. Removed files:
+  G4Transform[.hh.icc].
+
+January 19th, 2000   G. Cosmo - geomvol-V01-00-00
+
+Sycronized files versions with HEAD after ISO-C++ migration.
+(essentially CVS headers changes). Left out only G4Navigator[.hh.cc].
+
+December 2nd, 1999   G. Cosmo - geomvol-V00-01-02
+
+G4TransportationManager: Fixed definition of the singleton to conform
+    to the canonical implementation. Moved default constructor from private
+    to protected and added call to G4Exception in case of multiple instances
+    through derived classes.
+
+November 26th, 1999   J. Apostolakis - geomvol-V00-01-01
+
+G4TouchableHistory: Moved GetTranslation and GetRotation from inline file 
+    to source file -- as they use static variables in the methods themselves.
+        --> cannot be handled by new HP aCC compiler
+
+G4PropagatorInField: Initialised fVerboseLevel in constructor. (omision)
+        --> on WinNT 4.0sp4 / VC++ 6.0  it was given value of 1 not 0.
+
+November 10th, 1999   J. Apostolakis - geomvol-01-01-01b
+
+Modified test/GNUmakefile to make it use fully-granular libraries.
+New test code in testG4Volumes for Object/Frame Rotation/Translation.
+
+October  29th, 1999   J. Apostolakis - geomvol-01-01-01a
+
+Moved initialisation of static data members of G4PropagatorInField 
+  fDefault_Delta_Intersection_Val
+  fDefault_Delta_One_Step_Value 
+to G4TransportationManager.cc, to ensure correct order initialisation 
+of static (class) data members 
+
+G4PropagatorInField warning message about integration inaccuracy 
+now printed (for a maximum of 10 times) and in Verbose. 
+
+July     27th, 1999   J. Apostolakis - geomvol-01-01-02
+
+Modified G4Navigator to distinguish Candidate volume from Blocked volume
+
+July     27th, 1999   J. Apostolakis - geomvol-01-01-01
+
+Tagged  --- here ??? ---
+
+July     27th, 1999   J. Apostolakis
+G4PropagatorInField:
+Added instance variables to keep track of "abnormal" case - which caused loop:
+
+  This is induced when a step at a boundary goes into one volume
+    - but in that volume it encounters an intermediate boundary
+      and when the step is subdivided it finds a zero step.
+   Then it looped between the volumes
+
+This is corrected by finding this problem (#subsequent zero steps > threshold)
+and attempting ever smaller trial steps until it succeeds.
+
+->  it was not done for the first step
+
+July     27th, 1999   J. Apostolakis
+
+G4PropagatorInField:
+  Made DeltaIntersection and DeltaOneStep instance variables (not class var.)
+  Added Get/Set methods.   Old  values of are now the defaults.
+
+
+July      1st, 1999   J. Apostolakis - field-01-00-06a
+
+In G4PropagatorInField   --> method LocateIntersectionPoint():
+
+  Integration inaccuracies cause an internal step's mid-point and endpoint
+    to be further apart than their curve length difference.  (Unphysical)
+
+  In order to compensate, we re-compute the step's endpoint.  [ This also
+    requires modification in G4ChordFinder::ApproxCurvePointV  ]
+
+A better solution would be to re-start/re-structure the loop to handle this
+sort of case.   But this would be a more major change ...
+
+May      19, 99      J.Apostolakis, F. Behner
+
+   In G4Navigator: Changed cout -> G4cout
+		   Changed protection for printing of Physical volume name:
+		    (because of warning on SUN;  same functionality)
+
+
+   In G4NavigationLevel, created an optional operator delete(void *, void *)
+    this is accepted by DEC, and not accepted by SUN, HP
+    new flag created in architecture for protection: ~ G4NO_ISO_DELETES 
+
+May      17, 99      J. Allison.
+   In G4NavigationLevel, changed operator new(size_t, G4NavigationLevel *)
+   to operator new(size_t, void *) because the former is not accepted
+   by Sun CC 4.2 (with STL Interface.)
+
+May       3, 99      J. Apostolakis 
+   testG4ReplicaNavigation.cc
+      Changed comparison of doubles, to give it a tolerance.  
+
+April     8, 99      (committed & recorded J. Apostolakis  May 3rd)
+   G4NavigationLevel.{hh,icc}: Minor Changes 
+      added const to copy constructor and
+      new 'new' operator with size_t - for STL use with preallocated containers" 
+
+
+March    19, 99      J. Apostolakis        geomvol-01-00-03
+
+   New tag for replica fix.
+
+
+March    18, 99      J. Apostolakis
+
+   A fix for looping in Replicas:
+        In the case where a zero step is done in Replicas, we must allow
+    ReplicaNavigator to handle the case itself - or else we loop.
+
+March    11, 99      J. Apostolakis
+
+   G4GRSVolume.icc: corrected G4Exception messages.
+
+February 18, 99      J. Apostolakis        
+
+ include/G4VoxelNavigation.hh
+ src/G4VoxelNavigation.cc    : overwrote versions 1.2 with production version
+      --->  when changes are refined and retested, they could be reincorporated
+
+February 17, 99      J. Apostolakis        geomvol-01-00-02
+
+ Moved G4PropagatorInField here from magneticfield to remove correct
+  dependency.
+
+February 15, 99      J. Apostolakis        geomvol-01-00-01
+
+   Only fixes in G4Navigator's incorporated.
+   GNUmakefile corrected (for SUN-CC).
+
+January      99,     J. Apostolakis
+
+Fix for ComputeSafety in Navigator:                              G4Navigator.cc
+            the voxel information that was used was incorrect       v 1.3
+                -> it resulted in wrong value of safety
+
+
+December     98                                   geant4-00-RandD
+
+ include/G4VoxelNavigation.hh
+ src/G4VoxelNavigation.cc    : versions 1.2 are trial versions from beta "head"
+
+December     98                                   
+
+Trial fix for navigation in replicas                             G4Navigator.cc
+                                                                    v 1.2
+         (a problem persists with this version)
+
+
+December     98                                   geant4-00
+
+   Code moved: production tag from beta repository.

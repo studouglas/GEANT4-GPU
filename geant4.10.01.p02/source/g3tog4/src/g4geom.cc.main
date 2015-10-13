@@ -1,0 +1,26 @@
+// This code implementation is the intellectual property of
+// the GEANT4 collaboration.
+//
+// By copying, distributing or modifying the Program (or any work
+// based on the Program) you indicate your acceptance of this statement,
+// and all its terms.
+//
+// $Id: g4geom.cc.main 67982 2013-03-13 10:36:03Z gcosmo $ 
+//
+//   g4geom
+//
+//   Use the geometry code built by G3->G4 conversion to create the
+//   Geant4 geometry
+//
+//   T. Wenaus  LLNL  6/95
+//
+#include "G3toG4.hh"
+#include "G4GeometryManager.hh"
+void G3toG4code();
+void G3G4init();
+int main(int argc, char* argv[])
+{
+    G3toG4code();
+    G4GeometryManager::GetInstance()->CloseGeometry();
+    return 0;
+}

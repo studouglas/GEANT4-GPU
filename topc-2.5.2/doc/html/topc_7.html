@@ -1,0 +1,314 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<!-- Created on October, 6  2004 by texi2html 1.65 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>TOP-C (Task Oriented Parallel C/C++): Performance and Long Jobs</TITLE>
+
+<META NAME="description" CONTENT="TOP-C (Task Oriented Parallel C/C++): Performance and Long Jobs">
+<META NAME="keywords" CONTENT="TOP-C (Task Oriented Parallel C/C++): Performance and Long Jobs">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.65">
+
+</HEAD>
+
+<BODY LANG="en" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC34"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_6.html#SEC33"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_7.html#SEC35"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_6.html#SEC27"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc.html#SEC_Top"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_8.html#SEC39"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_14.html#SEC62">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H1> 7. Performance and Long Jobs </H1>
+<!--docid::SEC34::-->
+<P>
+
+<BLOCKQUOTE><TABLE BORDER=0 CELLSPACING=0> 
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="topc_7.html#SEC35">7.1 Dropping Slow or Dead Slaves</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="topc_7.html#SEC36">7.2 Strategies for Greater Concurrency</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="topc_7.html#SEC37">7.3 Improving Performance</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="topc_7.html#SEC38">7.4 Long Jobs and Courtesy to Others</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+</TABLE></BLOCKQUOTE>
+<P>
+
+<A NAME="Dropping Slow or Dead Slaves"></A>
+<HR SIZE="6">
+<A NAME="SEC35"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_7.html#SEC34"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_7.html#SEC36"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_7.html#SEC34"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_7.html#SEC34"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_8.html#SEC39"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_14.html#SEC62">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 7.1 Dropping Slow or Dead Slaves </H2>
+<!--docid::SEC35::-->
+<P>
+
+When TOP-C recognizes a dead slave the master terminates communication with
+that slave, and resubmits the task of that slave to a different slave.
+(Currently, as of TOP-C 2.5.0, if a slave dies near the end of a computation
+and after all tasks have been generated, TOP-C may fail to recognize
+that slave.)
+</P><P>
+
+It is sometimes unclear whether a slave process is dead or slower than
+others.  Even a slow slave process may hurt overall performance by
+causing delays for other processes.
+TOP-C internally declares a slave process to be "slow" if there are N
+slaves, and if 3*N other tasks return after the given slave task is "due".
+If a slow slave has not returned by <VAR>slave-timeout</VAR> seconds
+(see <A HREF="topc_5.html#SEC21">5.2 Command Line Options in TOP-C Applications</A>), then
+the slave is considered dead.  The master process sends no further tasks
+to that slave, and sends a replicate of the original task to a new
+slave.
+</P><P>
+
+<A NAME="Strategies for Greater Concurrency"></A>
+<HR SIZE="6">
+<A NAME="SEC36"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_7.html#SEC35"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_7.html#SEC37"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_7.html#SEC34"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_7.html#SEC34"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_8.html#SEC39"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_14.html#SEC62">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 7.2 Strategies for Greater Concurrency </H2>
+<!--docid::SEC36::-->
+<P>
+
+<DL COMPACT>
+<DT>Strategy 1:  SEMI-INDEPENDENT TASKS:
+<DD>    Define tasks so that most task outputs do not require any update.
+    This is always the case for trivial parallelism (when tasks are
+    independent of each other).  It is also often the case for many
+    examples of search and enumeration problems.
+</DL>
+<P>
+
+<DL COMPACT>
+<DT>Strategy 2:  CACHE PARTIAL RESULTS:
+<DD>    Inside <CODE>DoTask()</CODE> and <CODE>UpdateSharedData()</CODE>, save partial
+    computations in global private variables.  Then, in the event of a
+    <CODE>REDO</CODE> action, `<SAMP>TOP-C</SAMP>' guarantees to invoke
+    <CODE>DoTask()</CODE> again on the
+    original slave process or slave thread.  That slave may then use
+    previously computed partial results in order to shorten the required
+    computation.  Note that pointers on the slave to input and output
+    buffers from previous <CODE>UPDATE</CODE> actions and from the original task
+    input will no longer be valid.  The slave process must copy
+    any data it wishes to cache to global variables.
+    In the case of the shared memory model, those global variables must be
+    thread-private.  (see section <A HREF="topc_8.html#SEC49">8.4.2 Thread-Private Global Variables</A>)
+    Note the existence of <CODE>TOPC_is_REDO()</CODE> for testing for a <CODE>REDO</CODE>
+    action.
+</DL>
+<P>
+
+<DL COMPACT>
+<DT>Strategy 3:  MERGE TASK OUTPUTS:
+<DD>    Inside <CODE>CheckTaskResult()</CODE>, the master may merge two or more task
+    outputs in an application independent way.  This may avoid the
+    need for a <CODE>REDO</CODE> action, or it may reduce the number of required
+    <CODE>UPDATE</CODE> actions.
+</DL>
+<P>
+
+<A NAME="Improving Performance"></A>
+<HR SIZE="6">
+<A NAME="SEC37"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_7.html#SEC36"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_7.html#SEC38"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_7.html#SEC34"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_7.html#SEC34"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_8.html#SEC39"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_14.html#SEC62">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 7.3 Improving Performance </H2>
+<!--docid::SEC37::-->
+<P>
+
+<A NAME="IDX98"></A>
+<A NAME="IDX99"></A>
+<A NAME="IDX100"></A>
+<A NAME="IDX101"></A>
+</P><P>
+
+If your application runs too slowly due to excessive time for communication,
+consider running multiple slave processes on a single processor.  This
+allows one process to continue computing while another is communicating
+or idle waiting for a new task to be generated by the master.
+</P><P>
+
+If communication overhead or idle time is still too high, consider if it is
+possible to increase the granularity of your task.  TOP-C can
+aggregating several consecutive tasks as a single larger
+task to be performed by a single process.  This amortizes the network
+latency of a single network message over several tasks.
+For example, you can do combine 5 tasks
+by invoking `<SAMP>--TOPC-aggregated-tasks=5</SAMP>' on
+the command line of the application.  Alternatively, execute the statement:
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>  TOPC_OPT_aggregated_tasks=5;
+</pre></td></tr></table>before <CODE>TOPC_master_slave()</CODE>.
+In this situation, the five task outputs will also be bundled
+as a single network message.  Currently (TOP-C 2.5.0), this
+works only if all tasks return <CODE>NO_ACTION</CODE>.  TOP-C will signal
+an error if <CODE>TOPC_OPT_aggregated_tasks</CODE> &#62; 1 and any action
+other than <CODE>NO_ACTION</CODE> is returned.
+</P><P>
+
+Other useful techniques that may improve performance of certain
+applications are:
+<OL>
+<LI>
+  set up multiple slaves on each processor (if slave processors
+        are sometimes idle)
+<LI>
+  re-write the code to bundle a set of tasks as a single task
+        (to improve the granularity of your parallelism)
+</OL>
+<P>
+
+<DL COMPACT>
+<DT>PERFORMANCE ISSUE FOR MPI:
+<DD>If you have a more efficient version of `<SAMP>MPI</SAMP>' (perhaps a vendor version
+tuned to your hardware), consider replacing <CODE>LIBMPI</CODE> in
+`<TT>.../top-c/Makefile</TT>' by your vendor's `<TT>limbpi.a</TT>' or
+`<TT>libmpi.so</TT>', and delete or modify the the <CODE>LIBMPI</CODE> target in the
+`<TT>Makefile</TT>'.
+Alternatively, see the appendix,
+<A HREF="topc_13.html#SEC61">C. Using a Different `<SAMP>MPI</SAMP>' with TOP-C</A>,
+for a more general way to use a different MPI dialect.
+</DL>
+<DL COMPACT>
+<DT>PERFORMANCE ISSUE FOR SMP (POSIX threads):
+<DD>Finally under `<SAMP>SMP</SAMP>', there is an important performance issue
+concerning the interaction of `<SAMP>TOP-C</SAMP>' with the operating system.
+First, the vendor-supplied compiler, <CODE>cc</CODE>, is recommended over
+<CODE>gcc</CODE> for `<SAMP>SMP</SAMP>', due to specialized vendor-specific
+architectural issues.  Second, if a thread completes its work before
+using its full scheduling quantum, the operating system may yield the
+CPU of that thread to another thread -- potentially including a thread
+belonging to a different process.  There are several ways to defend
+against this.  One defense is to insure that the time for a single task
+is significantly longer than one quantum.  Another defense is to ask the
+operating system to give you at least as many "run slots" as you have
+threads (slaves plus master).  Some operating systems use
+<CODE>pthread_setconcurrency()</CODE> to allow an application to declare this
+information, and `<SAMP>TOP-C</SAMP>' invokes <CODE>pthread_setconcurrency()</CODE>
+where it is available.  However, other operating systems may have
+alternative ways of tuning the scheduling of threads, and it is
+worthwhile to read the relevant manuals of your operating system.
+</DL>
+<P>
+
+<A NAME="Long Jobs"></A>
+<HR SIZE="6">
+<A NAME="SEC38"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_7.html#SEC37"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_8.html#SEC39"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_7.html#SEC34"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_7.html#SEC34"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_8.html#SEC39"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_14.html#SEC62">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 7.4 Long Jobs and Courtesy to Others </H2>
+<!--docid::SEC38::-->
+<P>
+
+<A NAME="IDX102"></A>
+<A NAME="IDX103"></A>
+</P><P>
+
+In the distributed memory model, infinite loops and broken socket
+connections tend to leave orphaned processes running.
+In the `<SAMP>TOP-C</SAMP>' distributed memory model,
+a slave times out if a task lasts longer than
+a half hour or if  the master does not reply
+in a half hour.
+This is implemented with the UNIX system call, <CODE>alarm()</CODE>.
+</P><P>
+
+A half hour (1800 seconds) is the default timeout period.
+The command line option <CODE>--TOPC-slave-timeout=<VAR>num</VAR></CODE>
+allows one to change this default.  If <VAR>num</VAR> is 0,
+then there is no timeout and `<SAMP>TOP-C</SAMP>' makes no calls
+to <CODE>SIGALRM</CODE>.
+</P><P>
+
+The application writer may also find some of the following UNIX system calls
+useful for allowing large jobs to coexist with other applications.
+<DL COMPACT>
+<DT><CODE> setpriority(PRIO_PROCESS,getpid(),<VAR>prio</VAR>) </CODE>
+<DD><CODE>#include &#60;unistd.h&#62;<BR>
+#include &#60;sys/resource.h&#62;</CODE><BR>
+--- <VAR>prio</VAR> = 10 still
+        gives you some CPU time.  <VAR>prio</VAR> = 19 means that any job of
+        higher priority always runs before you.  Place in <CODE>main()</CODE>.
+<DT><CODE> setrlimit(RLIMIT_RSS, &#38;<VAR>rlp</VAR>) </CODE>
+<DD><CODE>#include &#60;sys/resource.h&#62;<BR>
+struct rlimit rlp;<BR>
+rlp.rlim_max = rlp.rlim_cur = <VAR>SIZE</VAR>;</CODE><BR>
+--- <VAR>SIZE</VAR> is RAM limit (bytes).  If your system has
+        significant paging, the system will prefer to keep your process
+        from growing beyond SIZE bytes of resident RAM.  Even if you set
+        nice to priority 20, this is still important.  Otherwise you may
+        cause someone to page out much of his or her job in your favor during
+        one of your infrequent quantum slices of CPU time.  Place in
+        <CODE>main()</CODE>.  (Not all operating systems enforce this request.)
+</DL>
+<P>
+
+<A NAME="Advanced Features"></A>
+<HR SIZE="6">
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_7.html#SEC34"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_8.html#SEC39"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_14.html#SEC62">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+by <I>Gene Cooperman</I> on <I>October, 6  2004</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+</FONT>
+
+</BODY>
+</HTML>

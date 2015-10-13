@@ -1,0 +1,102 @@
+//
+// ********************************************************************
+// * License and Disclaimer                                           *
+// *                                                                  *
+// * The  Geant4 software  is  copyright of the Copyright Holders  of *
+// * the Geant4 Collaboration.  It is provided  under  the terms  and *
+// * conditions of the Geant4 Software License,  included in the file *
+// * LICENSE and available at  http://cern.ch/geant4/license .  These *
+// * include a list of copyright holders.                             *
+// *                                                                  *
+// * Neither the authors of this software system, nor their employing *
+// * institutes,nor the agencies providing financial support for this *
+// * work  make  any representation or  warranty, express or implied, *
+// * regarding  this  software system or assume any liability for its *
+// * use.  Please see the license in the file  LICENSE  and URL above *
+// * for the full disclaimer and the limitation of liability.         *
+// *                                                                  *
+// * This  code  implementation is the result of  the  scientific and *
+// * technical work of the GEANT4 collaboration.                      *
+// * By using,  copying,  modifying or  distributing the software (or *
+// * any work based  on the software)  you  agree  to acknowledge its *
+// * use  in  resulting  scientific  publications,  and indicate your *
+// * acceptance of all terms of the Geant4 Software license.          *
+// ********************************************************************
+//
+//
+// $Id: G4ParticleTable.icc 73711 2013-09-09 09:57:29Z gcosmo $
+//
+// 
+// ------------------------------------------------------------
+//      implement new version for using STL map instaed of RW PtrHashedDictionary
+//                                       28 ct., 99  H.Kurashige
+
+
+inline  
+ void G4ParticleTable::SetVerboseLevel(G4int value )
+{ 
+  verboseLevel = value; 
+}
+
+inline 
+ G4int G4ParticleTable::GetVerboseLevel() const 
+{ 
+  return verboseLevel; 
+}
+
+
+inline 
+ const G4String& G4ParticleTable::GetKey(const G4ParticleDefinition *particle) const
+{
+  return particle->GetParticleName();
+}
+
+inline 
+ G4ParticleDefinition* G4ParticleTable::FindAntiParticle(G4int aPDGEncoding)
+{
+  return FindParticle( FindParticle(aPDGEncoding)->GetAntiPDGEncoding() );
+}
+
+inline 
+ G4ParticleDefinition* G4ParticleTable::FindAntiParticle(const G4String& particle_name)
+{
+  G4int pcode = FindParticle(particle_name) -> GetAntiPDGEncoding();
+  return FindParticle(pcode);
+}
+
+inline 
+ G4ParticleDefinition* G4ParticleTable::FindAntiParticle(const G4ParticleDefinition *particle)
+{
+  G4int pcode = particle -> GetAntiPDGEncoding();
+  return FindParticle(pcode);
+}
+
+inline 
+ G4bool  G4ParticleTable::contains(const G4ParticleDefinition *particle) const
+{
+ return contains(GetKey(particle));
+}
+
+inline
+ void G4ParticleTable::SetReadiness(G4bool val)
+{
+  readyToUse = val;
+}
+
+inline
+ G4bool G4ParticleTable::GetReadiness() const
+{
+  return readyToUse;
+}
+
+inline
+ G4ParticleDefinition* G4ParticleTable::GetGenericIon() const
+{
+  return genericIon;
+}
+
+inline 
+ void G4ParticleTable::SetGenericIon(G4ParticleDefinition* gi)
+{
+  genericIon = gi;
+}

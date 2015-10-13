@@ -1,0 +1,291 @@
+//
+// ********************************************************************
+// * License and Disclaimer                                           *
+// *                                                                  *
+// * The  Geant4 software  is  copyright of the Copyright Holders  of *
+// * the Geant4 Collaboration.  It is provided  under  the terms  and *
+// * conditions of the Geant4 Software License,  included in the file *
+// * LICENSE and available at  http://cern.ch/geant4/license .  These *
+// * include a list of copyright holders.                             *
+// *                                                                  *
+// * Neither the authors of this software system, nor their employing *
+// * institutes,nor the agencies providing financial support for this *
+// * work  make  any representation or  warranty, express or implied, *
+// * regarding  this  software system or assume any liability for its *
+// * use.  Please see the license in the file  LICENSE  and URL above *
+// * for the full disclaimer and the limitation of liability.         *
+// *                                                                  *
+// * This  code  implementation is the result of  the  scientific and *
+// * technical work of the GEANT4 collaboration.                      *
+// * By using,  copying,  modifying or  distributing the software (or *
+// * any work based  on the software)  you  agree  to acknowledge its *
+// * use  in  resulting  scientific  publications,  and indicate your *
+// * acceptance of all terms of the Geant4 Software license.          *
+// ********************************************************************
+//
+//
+// $Id: G4PhysicsVector.icc 83009 2014-07-24 14:51:29Z gcosmo $
+//
+// 
+//---------------------------------------------------------------
+//      GEANT 4 class source file
+//
+//  G4PhysicsVector.icc
+//
+//  Description:
+//    A physics vector which has values of energy-loss, cross-section, 
+//    and other physics values of a particle in matter in a given 
+//    range of the energy, momentum, etc.
+//    This class serves as the base class for a vector having various 
+//    energy scale, for example like 'log', 'linear', 'free', etc.
+//
+//---------------------------------------------------------------
+
+//extern G4GLOB_DLL G4ThreadLocal G4Allocator<G4PhysicsVector> *fpPVAllocator;
+
+//---------------------------------------------------------------
+/*
+inline
+ void* G4PhysicsVector::operator new(size_t)
+{ 
+  if (!fpPVAllocator) fpPVAllocator = new G4Allocator<G4PhysicsVector>;
+  return (void*)fpPVAllocator->MallocSingle();
+}
+
+//---------------------------------------------------------------
+
+inline
+ void G4PhysicsVector::operator delete(void* aVector)
+{
+  fpPVAllocator->FreeSingle((G4PhysicsVector*)aVector);
+}
+*/
+//---------------------------------------------------------------
+
+inline
+ G4double G4PhysicsVector::operator[](const size_t binNumber) const
+{
+  return  dataVector[binNumber];
+}
+
+//---------------------------------------------------------------
+
+inline
+ G4double G4PhysicsVector::operator()(const size_t binNumber) const
+{
+  return dataVector[binNumber];
+}
+
+//---------------------------------------------------------------
+
+inline
+ G4double G4PhysicsVector::Energy(const size_t binNumber) const
+{
+  return binVector[binNumber];
+}
+
+//---------------------------------------------------------------
+
+inline
+ G4double G4PhysicsVector::GetMaxEnergy() const
+{
+  return edgeMax;
+}
+
+//---------------------------------------------------------------
+
+inline 
+ size_t G4PhysicsVector::GetVectorLength() const
+{
+  return numberOfNodes;
+}
+
+//---------------------------------------------------------------
+
+inline
+ G4double G4PhysicsVector::GetValue(G4double theEnergy, G4bool&) const 
+{
+  size_t idx=0;
+  return Value(theEnergy, idx);
+}
+
+//------------------------------------------------
+
+inline
+ G4double G4PhysicsVector::LinearInterpolation(size_t idx, G4double e) const
+{
+  // Linear interpolation is used to get the value. Before this method
+  // is called it is ensured that the energy is inside the bin
+  // 0 < idx < numberOfNodes-1
+  
+  return dataVector[idx] +
+         ( dataVector[idx + 1]-dataVector[idx] ) * (e - binVector[idx])
+         /( binVector[idx + 1]-binVector[idx] );
+}
+
+//---------------------------------------------------------------
+
+inline
+ G4double G4PhysicsVector::SplineInterpolation(size_t idx, G4double e) const
+{
+  // Spline interpolation is used to get the value. Before this method
+  // is called it is ensured that the energy is inside the bin
+  // 0 < idx < numberOfNodes-1
+
+  static const G4double onesixth = 1.0/6.0;
+
+  // check bin value
+  G4double x1 = binVector[idx];
+  G4double x2 = binVector[idx + 1];
+  G4double delta = x2 - x1;
+
+  G4double a = (x2 - e)/delta;
+  G4double b = (e - x1)/delta;
+   
+  // Final evaluation of cubic spline polynomial for return   
+  G4double y1 = dataVector[idx];
+  G4double y2 = dataVector[idx + 1];
+
+  G4double res = a*y1 + b*y2 + 
+        ( (a*a*a - a)*secDerivative[idx] +
+          (b*b*b - b)*secDerivative[idx + 1] )*delta*delta*onesixth;
+
+  return res;
+}
+
+//---------------------------------------------------------------
+
+inline 
+ G4double G4PhysicsVector::Interpolation(size_t idx, G4double e) const
+{
+  G4double res;
+  if(useSpline) { res = SplineInterpolation(idx, e); }
+  else          { res = LinearInterpolation(idx, e); }
+  return res;
+}
+
+//---------------------------------------------------------------
+
+inline 
+ void G4PhysicsVector::PutValue(size_t binNumber, G4double theValue)
+{
+  dataVector[binNumber] = theValue;
+}
+
+//---------------------------------------------------------------
+
+inline 
+ G4bool G4PhysicsVector::IsFilledVectorExist() const
+{
+  G4bool status=false;
+
+  if(numberOfNodes > 0) { status=true; }
+  return status;
+}
+
+//---------------------------------------------------------------
+
+inline 
+ G4PhysicsVectorType G4PhysicsVector::GetType() const
+{
+  return type;
+}
+
+//---------------------------------------------------------------
+
+// Flag useSpline is "true" only if second derivatives are filled 
+inline 
+ void G4PhysicsVector::SetSpline(G4bool val)
+{
+  if(val) {
+    if(0 == secDerivative.size() && 0 < dataVector.size()) { 
+      FillSecondDerivatives(); 
+    }
+  } else {
+    useSpline = false;
+    secDerivative.clear();
+  }
+}
+
+//---------------------------------------------------------------
+
+inline
+void G4PhysicsVector::SetVerboseLevel(G4int value)
+{
+   verboseLevel = value;
+}
+
+//---------------------------------------------------------------
+
+inline
+G4int G4PhysicsVector::GetVerboseLevel(G4int)
+{
+   return verboseLevel;
+}
+
+//---------------------------------------------------------------
+
+inline 
+size_t G4PhysicsVector::FindBinLocation(G4double theEnergy) const
+{
+   size_t bin;
+   if(type == T_G4PhysicsLogVector) {
+     bin = size_t(G4Log(theEnergy)/dBin - baseBin);
+     if(bin + 2 > numberOfNodes) { bin = numberOfNodes - 2; }
+     else if(bin > 0 && theEnergy < binVector[bin]) { --bin; }
+     else if(bin + 2 < numberOfNodes && theEnergy > binVector[bin+1]) 
+            { ++bin; }
+   } else if(type == T_G4PhysicsLinearVector) {
+     bin = size_t( theEnergy/dBin - baseBin ); 
+     if(bin + 2 > numberOfNodes) { bin = numberOfNodes - 2; }   
+     else if(bin > 0 && theEnergy < binVector[bin]) { --bin; }
+     else if(bin + 2 < numberOfNodes && theEnergy > binVector[bin+1]) 
+            { ++bin; }
+   } else {
+     bin = 0;
+     size_t bin2;
+     size_t bin3 = numberOfNodes - 1;
+     while (bin != bin3 - 1) {
+       bin2 = bin + (bin3 - bin + 1)/2;
+       if (theEnergy > binVector[bin2]) { bin = bin2; }
+       else { bin3 = bin2; }
+     }
+/*
+// Bin location proposed by K.Genser (FNAL)
+// V.I. Usage of this algorithm provides identical results
+// no CPU advantage is observed in EM tests
+// if new validation information will be known this code may be used
+     G4PVDataVector::const_iterator it =
+       std::lower_bound(binVector.begin(), binVector.end(), theEnergy);
+     bin = it - binVector.begin() - 1;
+*/
+   }
+   return bin;
+}
+
+//---------------------------------------------------------------
+
+inline size_t G4PhysicsVector::FindBin(G4double e, size_t idx) const
+{
+  size_t id = idx;
+  if(e < binVector[1]) { 
+    id = 0; 
+  } else if(e >= binVector[numberOfNodes-2]) { 
+    id = numberOfNodes - 2; 
+  } else if(idx >= numberOfNodes || e < binVector[idx] 
+            || e > binVector[idx+1]) { 
+    id = FindBinLocation(e); 
+  }
+  return id;
+}
+
+//---------------------------------------------------------------
+
+inline
+ G4double G4PhysicsVector::Value(G4double theEnergy) const
+{
+  size_t idx=0;
+  return Value(theEnergy, idx);
+}
+
+//---------------------------------------------------------------

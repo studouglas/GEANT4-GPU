@@ -1,0 +1,265 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<!-- Created on October, 6  2004 by texi2html 1.65 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>TOP-C (Task Oriented Parallel C/C++): TOP-C Raw Interface</TITLE>
+
+<META NAME="description" CONTENT="TOP-C (Task Oriented Parallel C/C++): TOP-C Raw Interface">
+<META NAME="keywords" CONTENT="TOP-C (Task Oriented Parallel C/C++): TOP-C Raw Interface">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.65">
+
+</HEAD>
+
+<BODY LANG="en" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC54"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_8.html#SEC53"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_9.html#SEC55"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_8.html#SEC39"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc.html#SEC_Top"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_10.html#SEC58"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_14.html#SEC62">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H1> 9. `<SAMP>TOP-C</SAMP>' Raw Interface for Parallelizing Sequential Code </H1>
+<!--docid::SEC54::-->
+<P>
+
+There are instances when tasks are most naturally generated deep
+inside nested loops.  Often, this occurs in parallelizing existing
+sequential applications.
+In such circumstances, it may be difficult to
+re-write the code to create a function <CODE>GenerateTaskInput()</CODE>, since
+that would require turning the loops inside out.  (If you don't know what this
+refers to, then you probably don't need the raw interface.)
+</P><P>
+
+On a first reading, you may wish to first look at the example for
+either a `<SAMP>for</SAMP>' loop or `<SAMP>while</SAMP>' loop, depending on the type of
+loop that you are parallelizing.  Then return to the formal
+descriptions of the `<SAMP>TOP-C</SAMP>' raw functions.  This chapter assumes
+familiarity with the basic concepts of <A HREF="topc_3.html#SEC3">3. Overview of `<SAMP>TOP-C/C++</SAMP>'</A> and <A HREF="topc_4.html#SEC14">4. Writing `<SAMP>TOP-C</SAMP>' Applications</A>.
+</P><P>
+
+<BLOCKQUOTE><TABLE BORDER=0 CELLSPACING=0> 
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="topc_9.html#SEC55">9.1 `<SAMP>TOP-C</SAMP>' raw functions</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="topc_9.html#SEC56">9.2 Parallelizing `<SAMP>for</SAMP>' Loops</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="topc_9.html#SEC57">9.3 Parallelizing `<SAMP>while</SAMP>' Loops</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+</TABLE></BLOCKQUOTE>
+<P>
+
+<A NAME="TOPC-C raw functions"></A>
+<HR SIZE="6">
+<A NAME="SEC55"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_9.html#SEC54"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_9.html#SEC56"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_9.html#SEC54"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_9.html#SEC54"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_10.html#SEC58"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_14.html#SEC62">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 9.1 `<SAMP>TOP-C</SAMP>' raw functions </H2>
+<!--docid::SEC55::-->
+<P>
+
+<A NAME="IDX138"></A>
+<DL>
+<DT><U>Function:</U> void <B>TOPC_raw_begin_master_slave</B>
+<DD>          (<VAR>do_task</VAR>, <VAR>check_task_result</VAR>, <VAR>update_shared_data</VAR>)
+<A NAME="IDX139"></A>
+<DT><U>Function:</U> void <B>TOPC_raw_end_master_slave</B> <I>()</I>
+<DD>        This behaves like master_slave, with
+        <CODE>TOPC_raw_submit_task_input(<VAR>input</VAR>)</CODE> serving
+        the role of <CODE>GenerateTaskInput()</CODE>.  The slave blocks inside
+        <CODE>TOPC_raw_begin_master_slave()</CODE> and executes `<SAMP>do_task()</SAMP>' and
+        `<SAMP>update_shared_data()</SAMP>' until the master executes
+        <CODE>TOPC_raw_end_master_slave()</CODE>.  At that time, the slave
+        unblocks.  The slave does nothing inside
+        <CODE>TOPC_raw_end_master_slave()</CODE>.
+</DL>
+</P><P>
+
+<A NAME="IDX140"></A>
+<DL>
+<DT><U>Function:</U> void <B>TOPC_raw_submit_task_input</B> <I>( TOPC_BUF <VAR>input</VAR> )</I>
+<DD>        Invoked by master between <CODE>TOPC_raw_begin_master_slave()</CODE>
+        and <CODE>TOPC_raw_end_master_slave()</CODE>;  Typical usage is:
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>     <CODE>TOPC_raw_submit_task_input(TOPC_MSG(&#38;<VAR>input_data</VAR>,
+                                         sizeof(<VAR>input_data</VAR>)) );</CODE>
+</pre></td></tr></table>        The argument, <VAR>input</VAR>, corresponds to what would be returned by
+        <CODE>GenerateTaskInput()</CODE> in the routine <CODE>TOPC_master_slave()</CODE>.
+        <VAR>input</VAR> will be processed by <CODE>DoTask()</CODE> and its siblings,
+        just as in <CODE>TOPC_master_slave()</CODE>).
+        There can be multiple occurrences of
+        <CODE>TOPC_raw_submit_task_input()</CODE>.
+</DL>
+</P><P>
+
+<A NAME="IDX141"></A>
+<DL>
+<DT><U>Function:</U> TOPC_BOOL <B>TOPC_raw_wait_for_task_result</B> <I>()</I>
+<DD>        Invoked by master between <CODE>TOPC_raw_begin_master_slave()</CODE> and
+        <CODE>TOPC_raw_end_master_slave()</CODE>;
+        If no tasks are outstanding, returns false immediately.  Otherwise, it
+        blocks until a task does return.  It calls application
+	callback, <CODE>CheckTaskResult()</CODE>, and then returns true.
+</DL>
+</P><P>
+
+<A NAME="Parallelizing For Loops"></A>
+<HR SIZE="6">
+<A NAME="SEC56"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_9.html#SEC55"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_9.html#SEC57"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_9.html#SEC54"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_9.html#SEC54"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_10.html#SEC58"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_14.html#SEC62">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 9.2 Parallelizing `<SAMP>for</SAMP>' Loops </H2>
+<!--docid::SEC56::-->
+<P>
+
+Assume that we are parallelizing a code fragment of the following form.
+The variables <CODE>i</CODE> and <CODE>j</CODE> will be the input to
+<CODE>DoTask()</CODE>, and any data structures indexed by <CODE>i</CODE> and
+<CODE>j</CODE> (for example <CODE>array</CODE> in <CODE>array[i][j]</CODE>) will be
+part of the shared data.
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>  float array[ROWS][COLS];
+  ...
+    for ( i = 0; i &#60; 10; i++ ) {
+      for ( j = 0; j &#60; 10; j++ ) {
+        /* do_task: */ ...
+        /* update:  */ array[i][j] = ...;
+      }
+    }
+</pre></td></tr></table></P><P>
+
+Assume that the labels <CODE>do_task</CODE> and <CODE>update</CODE> above
+correspond to the callback functions <CODE>DoTask()</CODE> and
+<CODE>UpdateSharedData()</CODE>.  Then the code is parallelized below.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>  float array[ROWS][COLS];
+  typedef struct {int i_val; int j_val;} input_t;
+  void *DoTask(input_t *buf) {
+    int i = (*buf).i_val, j = (*buf).j_val;
+    /* do_task: */ ...
+  }
+  void *CheckTaskResult(input_t *buf, output_t *buf2) {
+    /* update:  */ array[i][j] = ...;
+    return NO_ACTION;
+  }
+  main(int argc, char **argv) {
+    TOPC_init( &#38;argc, &#38;argv );
+    TOPC_raw_begin_master_slave(DoTask, CheckTaskResult,
+                                UpdateSharedData);
+    if (TOPC_is_master()) {
+      for ( i = 0; i &#60; 10; i++ ) {
+        for ( j = 0; j &#60; 10; j++ ) {
+          input_t input;
+          input.i_val = i; input.j_val = j;
+          TOPC_raw_submit_task_input( TOPC_MSG(&#38;input, sizeof(input)) );
+        }
+      }
+    } TOPC_raw_end_master_slave();
+    TOPC_finalize();
+  }
+</pre></td></tr></table></P><P>
+
+<A NAME="Parallelizing While Loops"></A>
+<HR SIZE="6">
+<A NAME="SEC57"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_9.html#SEC56"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_10.html#SEC58"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_9.html#SEC54"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_9.html#SEC54"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_10.html#SEC58"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_14.html#SEC62">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 9.3 Parallelizing `<SAMP>while</SAMP>' Loops </H2>
+<!--docid::SEC57::-->
+<P>
+
+Assume that we are parallelizing a code fragment of the following form
+and <CODE>input</CODE> is a pointer.
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>  while ( (input = next_input()) != NULL ) {
+    /* do_task: */ ...
+    /* update:  */ ...
+  }
+</pre></td></tr></table></P><P>
+
+Assume that the labels <CODE>do_task</CODE> and <CODE>update</CODE> above
+correspond to the callback functions <CODE>DoTask()</CODE> and
+<CODE>UpdateSharedData()</CODE>.  Then the code is parallelized below,
+where <CODE>input_size</CODE> must be specified by the application before it
+is used.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>  TOPC_init( &#38;argc, &#38;argv );
+  TOPC_raw_begin_master_slave(DoTask, CheckTaskResult,
+                              UpdateSharedData);
+  if (TOPC_is_master()) {
+    while ( (input = next_input()) != NULL
+            || TOPC_raw_wait_for_task_result() ) {
+      TOPC_raw_submit_task_input( TOPC_MSG(input, input_size) );
+    }
+  } TOPC_raw_end_master_slave();
+  TOPC_finalize();
+</pre></td></tr></table></P><P>
+
+Note that the code inside the <EM>raw begin/end block</EM> is executed
+only by the master in the code above.
+</P><P>
+
+If the buffer, <CODE>input</CODE>, contains pointers to other data, then you
+will need to <EM>marshal</EM> the data before calling <CODE>TOPC_MSG()</CODE>.
+See section <A HREF="topc_3.html#SEC7">Marshaling and Heterogeneous Architectures</A>.
+</P><P>
+
+<A NAME="Acknowledgements"></A>
+<HR SIZE="6">
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_9.html#SEC54"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_10.html#SEC58"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_14.html#SEC62">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+by <I>Gene Cooperman</I> on <I>October, 6  2004</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+</FONT>
+
+</BODY>
+</HTML>

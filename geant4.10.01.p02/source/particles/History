@@ -1,0 +1,1540 @@
+$Id: History 88959 2015-03-16 16:49:02Z gcosmo $
+-------------------------------------------------------------------
+
+     =========================================================
+     Geant4 - an Object-Oriented Toolkit for Simulation in HEP
+     =========================================================
+
+                      Category History file
+                      ---------------------
+This file should be used by G4 developers and category coordinators
+to briefly summarize all major modifications introduced in the code
+and keep track of all category-tags.
+It DOES NOT substitute the  CVS log-message one should put at every
+committal in the CVS repository !
+
+     ----------------------------------------------------------
+     * Reverse chronological order (last date on top), please *
+     ----------------------------------------------------------
+
+- 16 Feb. 2015 Hisaya Kurashige (particles-V10-00-28)
+- Add gamma-gamma, omega-gamma modes to EtaPrime 
+  and update braching ratio
+
+- 18 Nov. 2014 Makoto Asai (particles-V10-00-27)
+- Fix G4IonTable to delete thread-local string objects.
+
+- 17 Nov. 2014 Makoto Asai (particles-V10-00-26)
+- Fix G4ParticleTable to make sure all dynamically created ions to
+  be deleted at the end of the program.
+
+- 23 Oct. 2014 Andrea Dotti - John Apostolakis (particles-V10-00-25)
+- Revised G4ParticlesWorkspace to use new G4TWorkspacePool from global
+- Requires global-V10-00-39
+
+- 23 Oct. 2014 Andrea Dotti - John Apostolakis (particles-V10-00-24)
+- Introduced workspace class for particle definition
+- Revised G4PDefSplitter class to add utility methods  
+
+- 11 Oct. 2014 Hisaya Kurashige (particles-V10-00-23)
+- Remove FindIon/GetIon methods from G4ParticleTable
+
+- 23 Sep. 2014 Hisaya Kurashige (particles-V10-00-22)
+- Remove unused class of G4IsomerTable (G4NuclideTable is used)
+
+- 12 Sep. 2014 Hisaya Kurashige (particles-V10-00-21)
+- Update mass, width and lifetime according to PDG2014
+
+- 19 Aug. 2014 Makoto Asai (particles-V10-00-20)
+- Re-tag for testing.
+
+- 18 Aug. 2014 Makoto Asai (particles-V10-00-19)
+- Fix G4IonTable and G4NuclideTable so that now G4NuclideTable
+  object can be created without preloading any ion.
+
+- 18 Jul. 2014 Andrea Dotti (particles-V10-00-18)
+- Revert code changes in G4IonTable to logic of tag -16 
+  New logic is not clear, issues to be solved with time 
+  and we prefer to do it later. Keep previous bug-fix
+  code even if now has no effect.
+
+- 18 Jul. 2014 Andrea Dotti 
+- Bug fixing: ensure size methods  check null pointer condition 
+  for G4NuclideTable::fIsotopeList and return zero
+
+- 18 Jul. 2014 Makoto Asai (particles-V10-00-17)
+- G4IonTable - Introducing PrepareNuclideTable() method to allow
+  creating G4NuclideTable object without preloading any ions.
+
+- 11 Jul. 2014 Andrea Dotti (particles-V10-00-16)
+- Solve data-race condition in G4PDefSplitter
+
+- 07 Jul. 2014 Makoto Asai (particles-V10-00-15)
+- G4IonTable.cc - Fill decay channels when an ion is created on 
+  the fly to avoid race condition issue in multithreaded mode.
+  Addressing to bug report #1651.
+
+- 14 Jun. 2014 Hisaya Kurashige (particles-V10-00-14)
+- fix problems in the three-body decay in G4PhaseSpaceDecayChannel
+
+- 13 Jun. 2014 Hisaya Kurashige (particles-V10-00-13)
+- Fix the bug of mass width in G4VDecayChannelFIlleDuaghters
+
+- 12 Jun. 2014 Alberto Ribon (particles-V10-00-12)
+- G4PhaseSpaceDecayChannel: fix bug of momentum non-conservation
+  in the two-body decay
+
+- 31 May 2014 Hisaya Kurashige (particles-V10-00-11)
+- Fix bugs in G4ExcitedMesonConstructor (missing pi + eta mode in DecayTable)
+- G4PhaseSpaceDecayChannel takes in to account mass width of daughter particles
+  and gives the dynamical mass according to Breit-Wigner distribution
+
+- 27 May 2014 Hisaya Kurashige (particles-V10-00-10)
+- Add daughters_width in G4VDecayChannel
+
+- 25 May 2014 Hisaya Kurashige (particles-V10-00-08)
+- Fix Coverity Defects in G4PrimaryParticle, G4DecayTableMessenger
+- Add a new constructor in G4DynamicParticle
+
+- 06. May. 2014 Gabriele Cosmo (particles-V10-00-07)
+- Use G4ThreadLocalStatic in G4PDefSplitter.
+
+- 27. Mar. 2014 Hisaya Kurashige (particles-V10-00-06)
+- Fix Coverity defects in G4NuclideTable.cc and G4IonTable.cc
+
+- 26. Mar. 2014 Tatsumi Koi (particles-V10-00-05)
+-Fix lack of Cl35 ground state in NuclideTable2
+-Fix lack of "*std::log(2.0)" in some comparison of threshold time
+
+- 25. Feb. 2014 Hisaya Kurashige (particles-V10-00-04)
+- Add G4Exception in G4ElectronOcuppancy::AddElectron()
+- Life time is given from mass width for pi0 and sigma0
+
+- 24. Feb. 2014 Hisaya Kurashige (particles-V10-00-03)
+- Fix compiler warnings in G4IonTable::GetLifetime() 
+
+- 22. Feb. 2014 Hisaya Kurashige (particles-V10-00-02)
+- Update particle properties for PDG2013 and fix bugs
+ - Fix PDG code for f0(1370) 10221-->30221
+ - Update muon life time, mass and width
+ - Update quark mass and width
+ - Update pi0 life and width
+ - Update eta mass and width
+ - Update f0(500) mass, width and name (was f0(600))
+ - Update rho0 mass
+ - Update f0(980) mass
+ - Update f1(1285) mass and width
+ - Update eta(1405) mass and width
+ - Update K0s life and width
+ - Update K0* mass and width
+ - Update D0,AntiD0, D+/- mass
+ - Update Ds+/- mass
+ - Update B0,AntiB0, B+/- mass
+ - Update Bs0,AntiBs0 mass width and life
+ - Update Bc+/-0 mass width and life
+ - Update Etac mass width and life
+ - Update Neutron width and life
+ - Update Sigma_b+/- mass and  width
+ - Update N(1650) width
+ - Update N(1700) width
+ - Update N(1720) width
+ - Update delta(1232)- width
+ - Update delta(1600) width
+ - Update delta(1620) width
+ - Update delta(1905) mass and width
+ - Update delta(1910) mass and width
+ - Update delta(1920) width
+ - Update delta(1930) mass
+ - Update Sigmac0,Sigmac++  mass and width
+ - Update AntiLambda_b  mass ,width and life
+ - Update Sigma_b+/-  mass ,width and life
+ - Update Xi_b0/-  mass ,width and life
+ - Fix baryon number for AntiLambda_b, AntiLambda_c
+
+- 21. Feb. 2014  Makoto Asai (particles-V10-00-01)
+- G4ParticleDefinition::DumpTable() displays correct stability
+  information for a general ion as long as it is known to
+  G4NuclideTable. Addressing to bug report #1560.
+
+- 28. Jan. 2014  Makoto Asai (particles-V10-00-00)
+- Fix G4ParticleTable::GetParticle(G4int) method.
+
+- 27. Nov. 2013  Gabriele Cosmo (particles-V09-06-64)
+- Correction in G4PDefSplitter::FreeSlave() to use free() instead of
+  delete for releasing offset.
+- Fix in G4ExcitedBaryonConstructor::GetCharge() and in
+  G4ExcitedMesonConstructor::GetCharge() to replace G4ThreadLocal
+  specification with 'static const' for local variable; also fixing
+  compilation error in MT mode on the icc compiler.
+
+- 21. Nov. 2013  Hisaya Kurashige (particles-V09-06-63)
+- Fix defects by Coverity
+   G4NuclideTable.cc G4ParticleTable.cc G4VDecayChannel.cc 
+   G4IonTable.cc G4IsomerTable.cc
+   
+- 5. Nov. 2013  Hisaya Kurashige (particles-V09-06-62)
+- Fix G4NeutronBetaDecayChannel (Bug #1532)
+
+- 30. Oct. 2013  Makoto Asai (particles-V09-06-61)
+- Fix the static access method to G4NuclideTable that has caused 
+  a problem on Windows.
+
+- 28. Oct. 2013  Makoto Asai (particles-V09-06-60)
+- Correct the energy tolerance for G4IonTable::FindIon(Z,A,E).
+
+- 25. Oct. 2013  Makoto Asai (particles-V09-06-59)
+- Fix search logic in G4NuclideTable.
+
+- 25. Oct. 2013  Makoto Asai (particles-V09-06-58)
+- Additional cout for the case G4IsotopeProperty is not found.
+
+- 25. Oct. 2013  Makoto Asai (particles-V09-06-57)
+- Temporary tag.
+
+- 25. Oct. 2013  Makoto Asai (particles-V09-06-56)
+- Remove unnecessary G4cout.
+
+- 24. Oct. 2013  Makoto Asai (particles-V09-06-55)
+- Protect G4IonTable against rare cases when only the excited states are
+  preloaded while the ground state with non-zero epsilon energy is
+  created on the fly.
+
+- 24. Oct. 2013  Makoto Asai (particles-V09-06-54)
+- Fix G4IonTable so that it properly uses iosomer levels defined by 
+  G4NuclideTable even if other physics processes may set their own
+  isomer tables.
+
+- 23. Oct. 2013  Michael Kelsey
+- Add new G4Phonon{Long,TransSlow,TransFast} particles to bosons/ category.
+  These will NOT be built as part of G4BosonConstructor; user physics lists
+  must create them explicitly.
+
+- 23. Oct. 2013  Makoto Asai (particles-V09-06-53)
+- Fixed uninitialized pointer.
+- Extend G4NuclideTable class to allow reading a data file if needed.
+
+- 22. Oct. 2013  Makoto Asai (particles-V09-06-52)
+- Introducing G4NuclideTable class. Ground state and isomer are
+  pre-loaded from this table before the first beamOn.
+
+- 21. Oct. 2013  Makoto Asai (particles-V09-06-51)
+- Naming convention of isomers and general excited nuclides has been
+  unified. They always appear with excitation energy in unit of keV.
+
+- 1. Oct. 2013  Makoto Asai (particles-V09-06-50)
+- Protect a G4PhaseSpaceDecayChannel::current_parent_mass to be
+  thread local.
+
+- 9. Sep. 2013  Makoto Asai (particles-V09-06-49)
+- Remove split class mechanism from G4VDecayChannel class.
+
+- 8. Sep. 2013  Makoto Asai (particles-V09-06-48)
+- G4ParticleTable: Update thread-local disctionaries when a particle
+  is created during an event loop.
+
+- 6. Sep. 2013  Makoto Asai (particles-V09-06-47)
+- Fix the use of Mutex in G4IonTable.
+
+- 5. Sep. 2013  Makoto Asai (particles-V09-06-46)
+- Particle table and ion table in the master thread are properly updated
+  even if a particle is instantiated during an event loop.
+
+- 1. Sep. 2013  Makoto Asai (particles-V09-06-45)
+- Ditto for Linux and Windows.
+
+- 1. Sep. 2013  Makoto Asai (particles-V09-06-44)
+- Further protection.
+
+- 31. Aug. 2013  Makoto Asai (particles-V09-06-43)
+- G4ParticleDefinition::SetProcessManager() now checks the readiness of
+  TLS pointer and sets it up if it isn't. This fix is required for unit
+  tests that do not use Run Manager.
+
+- 28. Aug. 2013  Makoto Asai (particles-V09-06-42)
+- Retagged.
+
+- 28. Aug. 2013  Makoto Asai (particles-V09-06-41)
+- Split class mechanism of G4ParticleDefinition has been changed. Now all
+  general ions share the object ID with GenericIon so that TLS pointers
+  to G4ProcessManager are not created for such ions.
+
+- 15. Aug. 2013  Makoto Asai (particles-V09-06-40)
+- G4IonTable.cc: Fix the initialiaztion of IsomerTableList for
+  worker thread.
+
+- 14. Aug. 2013  Makoto Asai (particles-V09-06-39)
+- ParticleTableIterator skips general ions unless it is reset with 
+  "false" as its parameter.
+- Add warning message if a process manager is to be registered to
+  a particle during the event loop.
+- G4ParticleMessenger : /particle/createAllIon and /particle/createAllIsomer
+  won't propagate to worker threads as all ions and isomers are created
+  in the master thread and particle table and ion table of worker threads
+  inherit those of masther thread.
+
+- 3. Aug. 2013 Hisaya Kurashige (particles-V09-06-38)
+- Do not copy IsotopeTable of G4Iontable to Worker thread
+- Clean up methods of G4ParticleTable 
+
+- 31 July 2013  Dennis Wright (particles-V09-06-37)
+- Add GetIon(Z,A,level) to G4ParticleTable
+
+- 29. Jul. 2013 Hisaya Kurashige (particles-V09-06-36)
+- Revert EncodingDictionary in G4ParticleTable
+
+- 29. Jul. 2013 Hisaya Kurashige (particles-V09-06-35)
+- Add DNA particles for setting isGeneralIon flag in G4Ions constructor 
+
+- 26. Jul. 2013 Hisaya Kurashige (particles-V09-06-34)
+- Fix bug in  G4ParticlePropertyTable::SetParticleProperty [Problem1506]
+- Fix G4IonTable::WorkerG4IonTable() (process manager was added for proton) 
+- Fix G4ParticleTable::WorkerG4ParticleTable() (fIterator was not created)
+- G4IsomerTbale::isomerTable is changed to static const (was static G4ThreadLocal)
+- G4NucleiPropertiesTableAME03 and G4NucleiPropertiesTheoreticalTable 
+  are changed to static const (was static G4ThreadLocal)
+- Add isomer level to G4IsonTable::GetNucleusMass 
+- Add G4ParticleDefinition::IsGeneralIon method
+- Add G4Exception for G4IonTable::CreateIon methods with excited energy
+  (This method will be removed in the next releasae)
+- Remove ShortLivedDictionary and EncodingDictionary in G4ParticleTable
+
+- 11. Jul. 2013 Gabriele Cosmo (particles-V09-06-33)
+- Simplified use of allocator for G4DynamicParticle.
+
+- 01. Jul. 2013 Makoto Asai (particles-V09-06-32)
+- Generic ions except GenericIon itself no longer use /run/particle/addProcessManager
+  UI command to make the shallow copy of process manager.
+
+- 20. Jun. 2013 Andrea Dotti (particles-V09-06-31)
+- Bug fix for MT: set static TLS pointer G4PDefSplitter::offset to 0 after
+  delete in split-class mechanism G4PDefSplitter::FreeSlave
+
+- 11. Jun. 2013 Makoto Asai (particles-V09-06-30)
+- Fix for MT: change ions and isomers to be created after BuildPhysics()
+  so that they properly inherit the process manager of GenericIon.
+
+- 08. Jun. 2013 Hisaya Kurasige (particles-V09-06-29)
+- Fix the name of Upsilon meson.
+
+- 29. May  2013 Gabriele Cosmo, Andrea Dotti (particles-V09-06-28)
+- Revert back changes done by V.I. in G4IonTable::FindIon(), which turned
+  out to be wrong.
+- Consistently use wrappers and typedefs from G4Threading for pthreads
+  functions and types in G4ParticleTable and G4IonTable, to allow for porting
+  on Windows.
+- Add back initialization of light (anti-)ions static variables. Now
+  enabled only for MT and introduced initialization method called by 
+  MTRunManager. Should also solve performance loss observed in global
+  tag ref-04c.
+
+- 23. May  2013 Vladimir Ivantchenko
+- G4IonTable: modified FindIon(), when find an ion use continue instead
+  of break.
+
+- 05. May  2013 Hisaya Kurashige (particles-V09-06-25i, -27)
+  (-26 tag is removed and reverted back as -27 tag)
+- Add G4IsomerTable to create isomers (including ground state)
+- Modify GetIon methods with isomer level 
+  - the ion name has isomer level in the bracket (only for excited state)	
+  !!NOTE  
+    - GetIon methods with excited enregy can be used still (as before)
+    - If no isomers with matched excitation energy is found in IsomerTable,
+      an ion will be created with isomer level = 9 
+      and the ion name has excited energy in the bracket   
+- G4IonTable::CreateIon() is now can be used in Pre_init state
+
+- 02. May  2013 Hisaya Kurashige (particles-V09-06-22)
+- Add Isomer Level to G4Ions
+   - Assign level = 0 for ground state
+   - Assign level = 1 for excited states except for giving its level explicitly 
+   - Add level = 0 in constructors for light ions (proton, deuteron ....etc))  
+- Add following methods of using isomer level to GetIon 
+  !!NOTE  Currently these methods are relevant only for isomer level ==0 (ground state)
+  - G4ParticleDefinition* GetIon(G4int Z, G4int A, G4int lvl=0);
+  - G4ParticleDefinition* GetIon(G4int Z, G4int A, G4int L, G4int lvl);
+- Modify following methods. The last argument is now interpreted to Isomer level
+  - static G4int GetNucleusEncoding
+  - static G4bool GetNucleusByEncoding
+- Add Isomer Level to G4IsotopeProperty and add following methods to G4VIsotopeTable
+  - void              DumpTable(G4int Zmin=1, G4int Zmax=118);
+  - const G4String&   GetName() const;
+- Add /particle/createAllIsomer commnd for future (currently it gives NO effects)
+- Modify G4IsotopeMagneticMomentTable to deal with isomer level.
+ - Modify G4IsotopeMagneticMoment.table
+
+- 29. Apr. 2013 Hisaya Kurashige (particles-V09-06-21)
+- Fix a bug to avoid creatiing ions with same name
+ 
+- 27. Apr. 2013 Hisaya Kurashige (particles-V09-06-20)
+- Modify G4IonTable::GetIonName to use a static TLS for the ostringstream object.
+
+- 27. Apr. 2013 Hisaya Kurashige (particles-V09-06-19)
+- Modify G4IonTable::GetIon and CreateIon
+  - remove string comparison in GetIon 
+  - compare excited energy with precion of 0.1 keV in GetIon
+  - set excitation energy consistent with mass and AtomicMass in CreateIon  
+- Modify element name for Z>111
+
+- 23. Apr. 2013 Hisaya Kurashige (particles-V09-06-17)
+- Fix bug in G4IonTable::FindIon for light ions
+
+- 10. Apr. 2013 Hisaya Kurashige (particles-V09-06-16)
+- remove G4Exceptions which added in G4ParticleTable
+  (it is not problem.)
+
+- 9. Apr. 2013 Hisaya Kurashige (particles-V09-06-15)
+- Merged developents from 09 to 12
+- remove G4cerr 
+- Modify G4IonTable::FindIon to remove EnergyTorelance
+
+- 4. Apr. 2013 A. Ribon (particles-V09-06-14)
+- Reproducibility fix in G4IonTable: re-use an already created ion
+  only if the excitation energy is the same (no tolerance).
+
+- 2. Apr. 2013 A. Dotti (particles-V09-06-13)
+- Merging with particles-V09-06-08
+(lost modification from 09 to 12)
+
+- 2. Apr. 2013 Hisay Kurashige (particles-V09-06-12)
+- Fix bug of using ProcessManager in G4ParticleDefinition
+- Fix bug in leptons
+
+- 30 Mar. 2013 Hisay Kurashige (particles-V09-06-11)
+- Fix bug of using thePDGMass
+
+- 26 Mar. 2013 Hisay Kurashige (particles-V09-06-10)
+- Fix bugs in leptons for setting magnetic moment
+
+- 23 Mar. 2013 Hisay Kurashige (particles-V09-06-09)
+- Fix bugs in G4MuonPlus for setting magnetic moment
+- Update magnetic moment for proton and charged leptons.
+- Add G4Excepen if G4ParticleDefintion::CalculateAnomaly is invoked
+
+- 21 Mar. 2013 A. Dotti (particles-V09-06-08)
+- Adding G4ParticleDefinition::SetMasterProcessManager method needed for MT
+
+- 14 Mar. 2013 G.Cosmo (particles-V09-06-07)
+- Simplified implementation for IsIon() and IsAntiIon() in G4IonTable.
+  Use workaround for local thread-local pointers.
+
+- 12 Mar. 2013 G.Cosmo (particles-V09-06-06)
+- Added public accessors for MT data to G4ParticleDefinition and
+  G4VDecayChannel.
+
+- 11 Mar. 2013 G.Cosmo (particles-V09-06-05)
+- Redefined G4DLL_API to G4PART_DLL to avoid cases of macro redefinition.
+
+- 08 Mar. 2013 G. Cosmo (particles-V09-06-04)
+- Moved G4MTTransitoryParticle class from "global" to management module
+  and renamed to G4PDefSplitter.
+- Adapted split classes (G4ParticleDefinition and G4VDecayChannel) to the
+  change and made code cleanup.
+- Code cleanup from MT changes on most classes under management.
+
+- 25 Feb. 2013 A. Dotti (particles-V09-06-03)
+- Removed "extern" lockCount and particleTable global variables, they are now static
+  data member of the G4ParticleTable class (needed for G4MT)
+
+- 25 Feb. 2013 H.Kurashige (particles-V09-06-02)
+- Update trunk to geant4-09-06-ref-02 for following files 
+  in order to resolve compiler errors 
+   G4DynamicParticle.icc G4DynamicParticle.cc G4IonTable.cc G4ParticleTable.cc
+   
+- 24 Feb. 2013 H.Kurashige (particles-V09-06-01)
+- Remove unused variable of thePDGiSpin from G4PDGCodeChecker
+
+- 9 Sep. 2012 G.Cosmo (particles-V09-05-07)
+- Fix constructor of G4PhaseSpaceDecayChannel
+
+- 13 Jun. 2012 G.Cosmo (particles-V09-05-06)
+- Explicitly use inclusion of headers for system of units and physical
+  constants, in plan to remove implicit inclusion from globals.hh.
+
+- 25 May. 2012 G.Cosmo (particles-V09-05-05)
+- Fixed trivial cases of variable shadowing.
+
+- 24 May. 2012 H.Kurashige (particles-V09-05-04)
+- Fix the problem in G4PhaseSpaceDecayChannel
+  (dynamic mass is cached in the object and used following decays)A
+
+- 14 May. 2012 H.Kurashige (particles-V09-05-03)
+- Add protection to call G4ParticleRemoveAllParticles in readyToUse state
+- Add protection to call clear for G4IonTable and G4ShortlivedTable  in readyToUse state
+- Add protection to call Remove for G4ParticleTable and related tables in readyToUse state
+- Add protection to call destructor of G4ParticleDefinition in readyToUse state
+
+- 29 Apr. 2012 H.Kurashige (particles-V09-05-02)
+- Fixed assignemt operator of G4DecayProducts
+
+- 21 Apr. 2012 H.Kurashige (particles-V09-05-01)
+- Fixed the bug in decay table for k_star-
+
+- 4 Apr. 2012 H.Kurashige (particles-V09-05-00)
+-  Modify G4eDecayProduct to use std::vector instead of fixed size array
+   (remove limitation of number of daughters)
+
+- 23 Nov. 2011 P.Gumplinger (particles-V09-04-22)
+- this is a correction of a comment only; credit should go to
+  D. Mingming in G4MuonRadiativeDecayChannelWithSpin.hh
+
+- 12 Nov. 2011 H.Kurashige (particles-V09-04-21)
+- Fix obsolete G4Exception in G4DynamicParticle
+
+- 12 Nov. 2011 H.Kurashige (particles-V09-04-20)
+- Fixed bug in G4IsotopeMagneticMoment constructors
+
+- 8 Nov. 2011 H.Kurashige (particles-V09-04-19)
+- Fixed bugs reported by Coverity
+  (Most of them are 'Missing assignement operator')
+
+- 17 Oct. 2011 H.Kurashige (particles-V09-04-18)
+- fix minor bugs reported by Coverity 
+
+- 22 Aug. 2011 P.Gumplinger (particles-V09-04-17)
+- fix the scale of som0 in G4MuonRadiativeDecayChannelWithSpin.cc
+
+- 22 Aug. 2011 P.Gumplinger (particles-V09-04-16)
+- fix coding errors in G4MuonRadiativeDecayChannelWithSpin.cc
+- should be 12.0*(x*y*(1.0-y)......); 2.0*ns+nv-nt and
+- som0 = (som00+som01)/y
+- then sample according to: } while (G4UniformRand()*177.0 > som0);
+- Thanks to M. Ding, Tsinghua Univ.
+
+- 22 Aug. 2011  H.Kurashige (particles-V09-04-15)
+- Adding B-baryons, Bc mesons, Upsiron and Etac
+- Update particle life time  according to PDG2011
+- Fix a bug of making comment lines in G4HtmlPPReporter 
+
+- 3 Aug. 2011  H.Kurashige (particles-V09-04-12)
+- Update particle mass/width according to PDG2011
+-Fix UNINIT_CTOR in G4PrimaryParticle
+
+- 2 July 2011  H.Kurashige (particles-V09-04-11)
+- Fixed bugs of uninitialized values in CTOR of G4PrimaryParticle and G4PrimaryVertex
+
+- 27 June 2011 G.Cosmo (particles-V09-04-10)
+- Moved GetParticleName() and FindParticle() methods in G4ParticleTable
+  to be non-inline (defining multiple return statements).
+
+- 18 June 2011 H.Kurashige (particles-V09-04-09)
+- Fix bug of setting momentum direction in G4PrimaryParticle
+- Add copy constructor of G4PrimaryParticle and G4PrimaryVertex
+- Fix Print method of G4PrimaryVertex
+- Clean up codes of G4PrimaryParticle and G4PrimaryVertex
+
+- 16 June 2011 H.Kurashige (particles-V09-04-08)
+- Fix bug in G4PrimaryParticle by adding pointer check before using 
+  GetPDGMass and GetPDGCode.
+- Add BetaDecay for anti_neutron. (Revert to particles-V09-04-06)
+ 
+- 14 June 2011 M.Asai (particles-V09-04-07)
+- Temporaly remove BetaDecay for anti_neutron for the patch release.
+  
+- 13 June  2011 H.Kurashige (particles-V09-04-06)
+- Modify G4PrimaryParticle to have kinetic energy and momentum direction 
+  instead of momentum only.
+
+- 20 May 2011 Ben Morgan (particles-V09-04-05)
+- CMakeLists.txt : Added G4PARTICLE_ALLOC_EXPORT compiler definition via 
+  add_definitions so all submodules pick it up.
+
+- 14 May 2011  Hisaya Kurashige  (particles-V09-04-04)
+- Fix energy of proton and neutrino in G4NeutronBetaDecayChannel
+
+- 13 May 2011  Hisaya Kurashige  (particles-V09-04-03)
+-  Fix compiler warning in G4TauLeptonicDecayChannel.cc 
+
+- 22 Mar. 2011  Hisaya Kurashige  (particles-V09-04-02)
+- Fix  G4ParticleDefinition::SetApplyCutsFlag() to remove warning messages for proton 
+
+- 16 Mar. 2011  Hisaya Kurashige  (particles-V09-04-01)
+- Modify PDGCodeChecker to allow PDG codei for neutron balls
+- Fix problems reported by Coverity
+  
+- 26 jan. 2011  Hisaya Kurashige  (particles-V09-04-00)
+- Register BetaDecay for anti_neutron 
+  though anti_neutron keeps as "stable" with finite life time
+- Clean up G4Exception (Define error_code)
+
+- October 30  2010  Hisaya Kurashige (particles-V09-03-15)
+- Fix bugs of uninitialized variables (reported by Coverity)
+
+- October 27  2010  Gabriele Cosmo (particles-V09-03-14)
+- Restored DLL setup as originally. Withdrawn changes in last tag.
+
+- October 19  2010  Gabriele Cosmo (particles-V09-03-13)
+- Replaced G4PARTICLES_ALLOC_EXPORT flag with G4ALLOC_EXPORT for DLL exported
+  symbols.
+
+- October 16  2010  Hisaya Kurashige (particles-V09-03-12)
+- Fix bugs in G4IonTable::IsIon
+ (anti nuclei were identified as normal ions and contained in the IonTable)
+
+- October 11  2010  Hisaya Kurashige (particles-V09-03-11)
+- Modify reporttParticleTable
+- Fix particle type for anti_alpha 
+- Modify G4ParticleDefiniton::Dump to print AtomicNumber/Mass
+- Fix a bug in G4PDGCodeChecker for anti_nuclei
+
+- October 9  2010  Hisaya Kurashige (particles-V09-03-10)
+- Remove anti_nuclei from shortlived
+- Add anti_nuclei classes under hadrons/ions 
+- Fix G4IonTable::IsLightIon method (neutron,genericIon are not light ions)
+- Add G4IonTable::IsLightAntiIon, G4IonTable::GetLightAntiIon
+
+- October 1  2010  Hisaya Kurashige (particles-V09-03-09)
+- Update mass/width of  muons, taus, mesons, and baryons biased on PDG2010 
+- Fixed signature for std::pair in G4IonTable source code for compliance
+  to ISO/C++ Standard. (Sep. 3 by G.Cosmo)
+
+- August 12  2010    Hisaya Kurashige (particles-V09-03-08)
+- Add G4DynamicParticle::GetParticleDefinition giving 'const' pointer
+
+- August 10  2010    Hisaya Kurashige (particles-V09-03-07)
+- Clean up codes
+  (Use const pointer of G4ParticleDefinition as possible)
+
+- July 20  2010    Hisaya Kurashige (particles-V09-03-06)
+- Fix a bug in G4ExcitedMesonConstructor::Add3PiMode
+
+- June 16  2010    Peter Gumplinger  (particles-V09-03-05)
+- G4MuonRadiativeDecayChannelWithSpin.cc: correct a sign error in 
+  front of the som01 term; Pmu is -1 for mu+ and hence already 
+  takes care of the sign in equ. (70) of TWIST Technote 55"
+
+- June 11  2010    Hisaya Kurashige  (particles-V09-03-04)
+- Add anti-nuclei as shortlived
+
+- May 20 2010    Hisaya Kurashige  (particles-V09-03-03)
+- Fix problems that error messages appear in cout not in cerr 
+
+- May 13 2010    Hisaya Kurashige  (particles-V09-03-02)
+- Clean up codes of G4Dynamicparticle ctors (M.Kelsey)
+
+- Apr. 20 2010    Hisaya Kurashige  (particles-V09-03-01)
+- revert destructor of G4DynamicParticle to non-virtual
+ (It was changed to virtual by mistake in particles-V09-03-00)
+
+- Apr. 19 2010    Hisaya Kurashige  (particles-V09-03-00)
+- Allow creation of shortlived particles other than 'PreInit' state
+- ElectronOccupancy in G4DynamicParticle is created on demand 
+  (i.e. not created at the construction of G4DynamicParticle but 
+   created when AddElectron/RemoveElectron are invoked)
+
+- Nov 20 2009     Laurent Desorgher (particles-V09-02-17)
+- Add Geant4 disclaimer to  G4AdjointProton and Adjoint-light ions
+
+- Nov 06 2009     Hisaya Kurashige (particles-V09-02-16)
+- Add G4AdjointProton and Adjoint-light ions (Laurent)
+
+- Oct 21 2009     Hisaya Kurashige (particles-V09-02-15)
+- Change G4ElectronOccupancies::MaxSizeOfOrbit to 10
+
+- Oct 9 2009     Hisaya Kurashige (particles-V09-02-14)
+- Fix small difference of mass of  taus, mesons, and baryons between PDG2009
+
+- Oct 8 2009     Hisaya Kurashige (particles-V09-02-13)
+- Fix mass of anti baryons (Sigmac, Lambdac) and anti-diquarks A
+
+- Sep 23 2009     Hisaya Kurashige (particles-V09-02-12)
+- Fix a bug in G4IonTable::FIndIon 
+   (use multimap instead of map)
+- Fix a bug in G4IonTable::CreateIon 
+   (remove deleteion of G4IsotopeProperty* pointer)
+
+- Sep 16 2009     Hisaya Kurashige (particles-V09-02-11)
+- Add check on application state in the constructor of G4ParticleDefinition
+- Use sstream instead of strstrem in test/checkParticles
+
+- Sep 14 2009     Hisaya Kurashige (particles-V09-02-10)
+- Clean up codes for DecayChannels and so on
+
+- Aug 05 2009     Hisaya Kurashige (particles-V09-02-09)
+- Fix a bug that A nad Z of neutron are not defined
+- Fix handling of PDG encoding for proton in G4IonTable 
+
+- Aug 03 2009     Hisaya Kurashige (particles-V09-02-08)
+- Remove G4NucleiPropertiesTable
+- Modify G4IonTable::IsIon
+ 
+- July 31 2009     Hisaya Kurashige (particles-V09-02-07)
+- Use STL map for G4IonTable
+- Add G4IonTable::CreateAllIon() method
+- Add /particle/createAllIon command
+
+- May  5 2009      P.Gumplinger (particles-V09-02-06)
+- ascertain that the absolute of the argument to boost is <1.0
+  in G4MuonRadiativeDecayChannelWithSpin.cc
+
+- May. 2 2009      H.Kurashige  (particles-V09-02-05)
+- Add G4NuclearProperty::GetNuclearMass(const G4int A, const G4int Z)
+- Fix bugs in  electron mass calculation and move it to G4NucleiPropertiesTableAME03
+- Add  printMassTable in test 
+
+- Apr. 29 2009      H.Kurashige  (particles-V09-02-04)
+- Clean up comments in G4NucleiPropertiesTableAME03 
+
+- Apr. 7 2009      H.Kurashige  (particles-V09-02-03)
+- Migrate to use G4NucleiPropertiesTableAME03 instead of G4NucleiPropertiesTable
+- Introduce  G4NucleiPropertiesTableAME03 to use AME 03 mass table (T.Koi) 
+
+- Apr. 2 2009      H.Kurashige  (particles-V09-02-02)
+- Use std::fabs() instead of abs()
+
+- Feb. 27 2009      H.Kurashige  (particles-V09-02-01)
+- Update masses of light ions
+
+- Jan. 29 2009      H.Kurashige  (particles-V09-02-00)
+- include fixes in "partman-V09-02-00" and CalculateAnomaly method
+
+- Jan. 28 2009      G.Cosmo
+- Optimised G4IonTable::IsIon() implementation for usage of strings
+  (on kind suggestion of P.Elmer, CMS).
+  Fix included in tag "partman-V09-02-00", which excludes the last change
+  introduced to G4ParticleDefinition, just below.
+
+- Nov. 14 2008      H.Kurashige 
+- Add G4ParticleDefinition::CalculateAnomaly method
+
+- Nov. 13 2008      H.Kurashige (particles-V09-01-13)
+- Fix magnetic moment for leptons
+
+- Nov. 10 2008      H.Kurashige (particles-V09-01-12)
+- Fix particle name of G4AdjointPositron 
+
+- Nov. 06 2008      H.Kurashige (particles-V09-01-11)
+- Adding new sub-directory of adjoint and adjoint-particles (Laurent)
+
+- Oct. 28 2008      H.Kurashige (particles-V09-01-10)
+- Add methods of taking A nd Z arguments as G4double G4NucleiProperties
+
+- Oct. 23 2008      H.Kurashige (particles-V09-01-09)
+- Add G4NucleiProperties::IsInStableTable  
+  (as a replace of G4NucleiPropertiesTable::IsInTable) 
+- Change G4NucleiProperties::GetBindingEnergy as 'public'
+- Change G4NucleiProperties::GetMassExcess as 'public'
+
+- Oct. 22 2008      H.Kurashige (particles-V09-01-08)
+- Fix using raw number of elecrtron mass in calculation of magnetic moment for e+/- 
+
+- Oct. 22  2008    H.Kurashige (particles-V09-01-07)
+- Hide all methods of getting mass of nucleus except for G4NucleiProperties::GetNuclearMass()
+- Cash pointers/masses of light nuclei in G4NucleiProperties
+- Add a table of sum of masses of orbital electrons and their binding energy  in G4NucleiProperties
+
+- Sep.  18  2008    H.Kurashige (particles-V09-01-06)
+- update mass/width according PDG2008
+
+- Sep.  17  2008    H.Kurashige (particles-V09-01-05)
+- Avoid direct comparison with string in G4IonTable::IsIon()
+
+- August 08  2008    H.Kurashige (particles-V09-01-04)
+- Modify G4HtmlPPReporter
+
+- June 08  2008      H.Kurashige (particles-V09-01-03)
+- Add /particle/verbose command for setting verbose level for the ParticleTable
+- The initial verbose level of the ParticleTable is set to 1 
+- The verbose level of the ParticleDefinition at the construction 
+  is set same as the ParticleTable 
+
+- Mar. 21  2008      H.Kurashige (particles-V09-01-02)
+- Modify  implementaion of G4ParticleTable::Remove() and
+  G4ParticleTable::RemoveAllParticles() so that particle 
+  definition objects are deleted in these methods.
+  Users are responsible to delete particle objetcs.
+- Add G4ParticleTable::DeleteAllParticles() to 
+  remove and delete all particles in the list.
+ 
+- Mar. 20  2008      H.Kurashige (particles-V09-01-01)
+- Modify implementaion of G4ParticleTable::Remove() method
+  (delete the particle as same way as RemoveAllParticles() method)
+- Fix bugs in G4Iontable::Remove() and G4ShortLivedTable::Remove()
+- Fix bugs in G4ParticleTable::RemoveAllParticles() method
+  (G4Iontable and G4ShortLivedTable should not be deleted in this method)  
+ 
+- Mar. 06  2008      H.Kurashige (particles-V09-01-00)
+- Modify proton mass equal to proton_mass_c2 from CLHEP
+ (DIFFERFENCE is 10 eV)
+
+- Check if the atmic number should be less than 999 for G4IonTable  
+- Add class/method  name in printouts 
+
+- Oct. 29  2007    P.Gumplinger (particle-V09-00-02)
+- Add G4PionRadiativeDecayChannel, G4MuonRadiativeDecayChannelWithSpin
+
+- Oct. 06  2007    H.Kurashige (particles-V09-00-01)
+- Add units in messages  
+
+- Sep. 14  2007    H.Kurashige (particles-V09-00-00)
+- Add G44HyperNucleiProperties
+- Add GetIon/FindIon methods for hyper-nuclei in ParticleTable
+- Modify G4PDGCodeChecker to check PDG code for  nuclei
+- remove const from return value of G4ParticleTable::GetIonTable
+  in order to allow users to use G4IonTable::GetIon methods directly. 
+
+- May. 30  2007    H.Kurashige (particles-V08-03-01)
+- Fix G4PDGCodeChecker::GetQuarkFlavor
+
+- May.  12 2007    H.Kurashige (particles-V08-03-00)
+- Add check against sqrt(negative) in G4DecayProducts
+- Add deletion of IsotopeTableList in the destructor in G4IonTable
+
+- Mar.  16 2007    H.Kurashige (particles-V08-02-01)
+- Update magnetic moment for leptons
+- Add magnetic moment in G4IsotopeProperty
+- Allow registration of several isotope property  table in G4IonTable 
+- Add G4IsotopeMagneticMomentTable  and datda file of G4IsotopeMagneticMoment.table 
+- Allow any Z,A combination (A>=Z) for G4IonTable::GetIon
+
+- Mar.  11 2007    H.Kurashige (particles-V08-02-00)
+- Added magnetic momnet in G4ParticleDefinition and G4DynamicParticle
+   (co-work with  track-V08-02-00) 
+
+- Nov. 15, 2006    H.Kurashige (particles-V08-01-05)
+- Optimize G4IonTable::IsLightIon
+ 
+- Oct. 13, 2006    H.Kurashige (particles-V08-01-04)
+- Update mass/width/encoding to match with PDG2006
+- Introduce PDG encoding for nuclei
+
+- Oct. 1, 2006    H.Kurashige (particles-V08-01-03)
+- Add  G4Exception of Warning if sum of daughter mass exceeds parent mass in G4PhaseSpaceDecayChannel 
+- Modify GetMass and GetCharge of G4PrimaryParticle to return PDG mass and charge 
+  if users do not specify them
+
+- Sep. 25, 2006    H.Kurashige (particles-V08-01-02)
+- Fix the bug in k2(1770) decay 
+
+- Sep. 5, 2006    H.Kurashige (particles-V08-01-01)
+- Fix the bug of not filling quark contents without G4VERBOSE   
+   in G4ParticleDefinition constructor
+
+- Jun. 27, 2006    M.Asai (particles-V08-01-00)
+-  Code polish of G4PrimaryVertex
+
+- Apr. 28  , 2006  H.Kurashige (particles-V08-00-05)
+-  Fix memory leak in G4MuonDecayChannel.cc 
+
+- Apr. 3 , 2006  H.Kurashige (particles-V08-00-04)
+-  Update mass/width for resonance particle
+-  G4ParticleTable::RemoveAllParticles() is invoked in the destructor of G4ParticleTable
+
+- Mar. 29, 2006  H.Kurashige (particles-V08-00-03)
+- The name N(2090) is named back to N(2080) to avoid inconsistency  
+   with the  im_r_matrix model
+ 
+- Mar. 26, 2006  H.Kurashige (particles-V08-00-02)
+- G4Ions is defined as the base class of all nuclei
+   - G4GenericIon and all light ion classes (including proton and neutron)
+      are derived from G4Ions
+   - GetAtomicMass() and GetAtomicNumber() of G4ParticleDefinition 
+      is changed to non-virtual 
+   - AtomicMass and AtomicNumber() are set in G4Ions Constructor
+- All particles are deleted in G4ParticleTable::RemoveAllParticles()
+- Update particles to match with PDG2005
+  - Update name and PDG code for some resonaces
+  - Update mass/width for resonance particle 
+  - Update mass/width/life for heavy flavor particle 
+  - Update mass/life/decay modes for tau+- 
+
+- Feb 24, 2006  H.Kurashige (particles-V08-00-01)
+- AtomicNumber and AtomicMass are defined for G4GenericIon
+   (this modification is the bug fix for registration of G4RadioactiveDecay
+   to G4GenericIon )
+
+- Jan 1, 2006  M.Asai (particles-V08-00-00)
+- Bug fix in G4ParticleDefinition.
+
+- Nov 18, 2005  M.Asai (particles-V07-01-04)
+- Migration to <sstream>.
+
+- Nov 15, 2005  M.Asai (particles-V07-01-03)
+- Enforce G4ParticleTable::SetReadiness().
+
+- Nov 10, 2005  M.Asai (particles-V07-01-02)
+- Bringing back particles-V07-00-01 tag.
+
+- Aug 27, 2005  H.Kurashige (particles-V07-01-01)
+- Prohibit G4IonTable::CreateIon in PreInit status 
+
+- May 30, 2005  M.Asai (particles-V07-00-04)
+- Drop particles-V07-00-01 tag and collect developments in later tags in 02 and 03.
+
+- May 05, 2005  M.Asai (particles-V07-00-03)
+- Add neutrino energy spectrum in MuonDecayChannel (Jurgen)
+- G4ParticleDefinition now uses G4cerr instead of cerr.
+
+- Mar 24, 2005  M.Asai (particles-V07-00-02)
+- Moved G4PrimaryParticle, G4PrimaryVertex, G4VUserPrimaryParticleInformation and
+  G4VUserPrimaryVertexInformation from event category to particles/management.
+- Default value of mass of G4PrimaryParticle has been changed to -1 instead of 0.
+- GetPDGcode() method is added to G4DynamicParticle.
+
+- Mar 17, 2005  M.Asai (particles-V07-00-01)
+- Tag to make all non-static particle definitions on stage.
+
+- Jan 27, 2005  M.Asai (particles-V07-00-00)
+- Make G4UnknownParticle non-static to avoid unnecessary linking without its
+  definition in the physics list.
+
+- Dec 2, 2004  H.Kurashige  (particles-V06-02-05)
+- migration to cmath
+
+- Sep 17, 2004  P.Gumplinger (particles-V06-02-04)
+- Introducing G4MuonDecayChannelWithSpin class.
+- Does NOT include changes introduced with "particles-V06-02-03".
+
+- Sep 01, 2004  M.Asai (particles-V06-02-03)
+- All particles except shortlived become direct instances of G4particleDefinition class.
+- Intermediate level abstract classes except G4VShortLivedParticle are eliminated.
+- Classes with particle names (e.g. G4Gamma) are no longer derived from G4ParticleDefinition nor
+  intermediate level abstract classes (e.g. G4VLepton), but they are now utility classes which
+  return corresponting pointer of G4particleDefinition. These classes instantiate corresponding
+  G4particleDefinition objects at the first access to these classes, if and only if corresponding
+  particles have not yet instantiated elsewhere (typically by the user).
+
+- Aug 31, 2004  M.Asai (particles-V06-02-02)
+- G4Exception is added to G4ParticleTable to prohibit its use before
+  G4VUserPhysicsList is instantiated and set to G4RunManager.
+
+- Jul 26, 2004  H.Kurashige (particles-V06-02-01)
+- Remove obsolete dependency to G4Material from G4ParticleDefinition and related class 
+
+- Jul 07, 2004  M.Asai (particles-V06-02-00)
+- Introducing G4UnknownParticle class.
+
+- Jun 11, 2004  G.Cosmo (particles-V06-01-01)
+- Use global flag G4PARTICLES_ALLOC_EXPORT to export extern symbols for DLLs.
+  Modified granular GNUmakefiles and rearranged usage of extern symbols
+  in classes in "management" module.
+
+- Jun 07, 2004  G.Cosmo (particles-V06-01-00)
+- Use G4extern for allowing support of DLLs on Windows. Modified files:
+  G4DecayProducts.hh, G4DynamicParticle.icc, G4ElectronOccupancy.hh.
+- GNUmakefile: added definition of GLOBLIBS for DLLs support on Windows.
+- Coworks with "global-V06-01-02a".
+
+- Mar 11, 2004  H.Kurashige (particles-V06-00-02)
+- Add G4VParticlePropertyRetriever 
+- Add G4TextPPReporter and G4TextPPRetriever
+
+
+- Feb 12, 2004  H.Kurashige (particles-V06-00-01)
+- update mass and width to meet with PDG 2002 data
+
+- Dec 12, 2003  H.Kurashige (particles-V06-00-00)
+- Fixed initialization problems in G4NuclearPropertiesTable
+ -- Add initialization of indexArray 
+ -- Remove the static member of theInstance
+
+- Oct 30, 2003  H.Kurashige (particles-V05-02-06)
+- Fixed compiler warning in G4HtmlReporter.cc 
+
+- Oct 21, 2003  M.Asai (particles-V05-02-05)
+- Change null type pointer in G4DynamicParticle to G4PrimaryParticle
+
+- Sep 22, 2003  
+- Add new category of particles/utils
+- Fixed Anti-particle PDG code for Gluon
+
+- Sep 19, 2003  H.Kurashige (particles-V05-02-04)
+- Move classes related Cuts into processes/cuts category
+- Remove obsolete cut methods
+
+- Sep 12, 2003  M.Asai (particles-V05-02-02)
+- Add DecayProperTime to deep copy of G4DecayProduct.
+- Add G4ParticlePropertyData and G4ParticlePropertyTable,
+   which provide functionality to acess properties in G4ParticleDefinition (Hisaya)
+- Change number of NumberOfQuarkFlavor to 6 (Hisaya)
+ 
+- Aug 22, 2003  H.Kurasige (particles-V05-02-01)
+- G4DynamicParticle.cc: fixed memory leak for 'theElectronOccupancy'
+  in assignment operator.
+
+- Aug 11, 2003  M.Asai (particles-V05-02-00)
+- Add one void pointer to G4DynamicParticle for the sake of maintaining links between
+  pre-assigned decay products and corresponding primary particle. This pointer is used
+  by G4EventManager.
+
+- Jun 19, 2003  V.Ivantchenko
+- G4DynamicParticle.cc: use condition m^2<0.001MeV^2 to identify massless
+  particles (tag partman-V05-01-02).
+
+- Jun 18, 2003  G.Cosmo
+- G4ProductionCutsTable.cc: removed usage of G4USE_STD_NAMESPACE after
+  migration from G4std (tag partman-V05-01-01).
+
+- Jun 12, 2003  V.Ivantchenko
+- G4DynamicParticle.cc: fix in constructors for the calculation of masses
+  to avoid negative values result of precision loss when massless particles
+  (like photons) are treated. Fixes problem report #489.
+
+- May 22, 2003     (particles-V05-01-02)  M.Asai
+- Added one utility method to G4ProductionCuts.hh
+
+- May 20, 2003     (particles-V05-01-01)  H.Kurashige
+- fixed "unused varibles" 
+ 
+- Apr 29, 2003     (particles-V05-00-10)  H.Kurashige 
+- fixed bugs in retreiving cut info in binary mode
+
+- Apr 11, 2003     (particles-V05-00-09)  M.Asai
+- Embed a string of file version to physics table file
+- Recover ApplyCutsFlag
+- Some clean up for release
+
+- Apr 02, 2003     (particles-V05-00-08)  M.Asai
+- Recover obsolete set/get methods of G4ParticleWithCuts to G4ParticleDefinition.
+
+- Mar 11, 2003     (particles-V05-00-07)  H.Kurashige
+- Modify G4DynamicParticle to fix the pi-0 decay problem
+- Change G4ParticleWithCuts to alias of G4ParticleDefinition
+
+- Mar 11, 2003     (particles-V05-00-06)
+- Implement Store/Retreive Cut in G4ProductionCutsTable
+- Remove Set/Get Cuts methods from G4ParticleDefintion
+- Remove inclusion of G4ParticleWithCuts
+- G4ProductionCuts contains cuts only for gamma and e+/-
+
+- Feb 18, 2003     (particles-V05-00-05)
+- Add Particle SubType for ions    (H.Kurashige)
+- Add Particle SubType for ions    (H.Kurashige)
+
+- Jan 24, 2003     (particles-V05-00-04)
+- Fix in G4ProductionCutsTable::DumpCouples(). Added increment to
+  material iterator when dumping materials (V.Ivantchenko).
+
+- Jan 21, 2003     (particles-V05-00-03)
+- Fix for cuts-per-region in management/src/G4IonTable.cc
+
+- Jan 14, 2003     (particles-V05-00-02)
+- Fixes for cuts-per-region
+
+- Jan 7, 2003      (particles-V05-00-01)
+- Instant fixes for new 'cuts-by-region'
+  Corrected files :
+     management/include/G4VRangeToEnergyConverter.hh
+     management/src/G4ProductionCutsTable.cc
+     management/src/G4RToEConvForElectron.cc
+     management/src/G4RToEConvForGamma.cc
+     management/src/G4RToEConvForPositron.cc
+     management/src/G4VRangeToEnergyConverter.cc
+
+- Dec 16, 2002     (particles-V05-00-00)
+- Merged branch "geant4-04-01-ref-02-cuts-branch" to HEAD.
+  Included development for 'cuts-by-region'; changes should be
+  transparent to existing design:
+  o Removed concrete implementation of method 'CalcEnergyCuts( const G4Material* )'
+    from affected particles.
+  o Removed ComputeLoss(), BuildRangeVector() from G4Electron and G4Positron.
+  o Added classes G4MaterialCutsCouple, G4ProductionCuts, G4ProductionCutsTable,
+    G4RToEConvForAntiNeutron, G4RToEConvForAntiProton, G4RToEConvForElectron,
+    G4RToEConvForGamma, G4RToEConvForNeutron, G4RToEConvForPositron,
+    G4RToEConvForProton, G4VRangeToEnergyConverter - in processes/management.
+  o Modified G4ParticleDefinition and G4ParticleWithCuts to handle new cuts scheme.
+  o Added dependency on geometry/volumes in management/GNUmakefile.
+
+- Dec 4, 2002      (particles-V04-01-03)
+- Migration to new G4ApplicationState
+
+- Nov 21, 2002     (particles-V04-01-02)
+- Fixed G4VDecayChannel::GetNoName() for porting WIndows DLL lib.
+
+- Nov 20, 2002     (particles-V04-01-01)
+- Fixed Warning in G4VDecayChannel::FillDaughters (partman-V04-01-01)
+- Update Mass Width for resonace particles (shortlived-V04-01-01)
+ 
+- May 30, 2002     (particles-V04-01-00)
+- Fixed PDG codes for k0_star(1430), a0(1450) and f0(1370) (shortlived-04-01-00)
+- 
+
+- May 30, 2002     (particles-V04-00-03)
+- Fixed a bug in  G4NeutronBetaDecayChannel
+- Fixed warnings in G4NucleiProperties
+
+- Mar 28, 2002     (particles-V04-00-02)
+- Fixed a bug in  G4TauLeptonicDecayChannel (partman-V04-00-01)
+
+- Mar 08, 2002     (particles-V04-00-01)
+- Added G4TauLeptonicDecayChannel for tau leptonic decay (partman-V04-00-00)
+- Changed tau decay channels to use G4TauLeptonicDecayChannel (leptons-V04-00-00)
+
+- Feb 12, 2002     H.Kurashige (particles-V04-00-00)
+- Fixed bugs in the decay table for G4KaonMinus (hadrons-V04-00-00)
+
+- Nov 19, 2001    H.Kurashige (particles-V03-02-10)
+- remove extra semi-colon and comments from G4Gamma.hh
+
+- Oct 30, 2001    H.Kurashige (particles-V03-02-09)
+- TAG FOR CUT FOR MATERIAL -
+-------- partman-V03-02-09
+-------- bosons-V03-02-09
+-------- leptons-V03-02-09
+-------- hadrons-V03-02-09
+- Modify CalcEnergyCuts method
+
+- Oct 25, 2001    H.Kurashige (particles-V03-02-08)
+- TAG FOR CUT FOR MATERIAL -
+- STL migartion in test directory 
+- Corrected typo in guidance text in G4ParticleMessenger.cc (Gabriele)
+ 
+- Oct 25, 2001    H.Kurashige (particles-V03-02-07)
+- TAG FOR CUT FOR MATERIAL -
+------- bosons-V03-02-07
+------- leptons-V03-02-07
+------- hadrons-V03-02-07
+- Remove SetCut and add CalcEnergyCuts
+
+- Oct 20, 2001    H.Kurashige (particles-V03-02-06)
+- TAG FOR CUT FOR MATERIAL -
+------- partman-V03-02-06
+- Fixed bugs in G4ParticleWithCuts::UseProton 
+-  Fixed bugs in G4ParticleWithCuts::RestoreCuts
+------- bosons-V03-02-06
+- Fixed bugs in G4Gamma::BuildAbsorptionLengthVector   by Hisaya
+
+- Oct 15, 2001   H.Kurashige (particles-V03-02-04)
+- TAG FOR CUT FOR MATERIAL -
+------- partman-V03-02-04
+------- hadrons-V03-02-03
+------- bosons-V03-02-03
+------- leptons-V03-02-03
+------- shortlived-V03-02-02 
+- Remove "static" Set/GetCuts methods
+- Introduce "Different cut in range for different material"  
+- Remove static inline methods
+
+  
+- Sep 20, 2001  H.Kurashige (particles-V03-02-03)
+------- partman-V03-02-03
+- Modify to use G4Material::GetNumberOfMaterials 
+ 
+- Sep 19, 2001  H.Kurashige (particles-V03-02-02)
+------- partman-V03-02-02
+------- hadrons-V03-00-02
+------- bosons-V03-00-02
+------- leptons-V03-00-02
+- Modify for STL migration for materials 
+
+- Sep 18, 2001  H.Kurashige (particles-V03-02-01)
+------- partman-V03-02-01
+- Added G4NeutronBetaDecayChannel
+- Allow MassDifference in case of nucleon decay ()
+------- hadrons-V03-00-01
+- Added G4NeutronBetaDecayChannel to G4Neutron
+
+- July 31, H.Kurashige (particles-V03-02-00)
+- Fixed bugs in copy constructor of G4DecayProduct (partman-V03-02-00)
+
+- May 18, 01 G.Cosmo (particles-V03-01-00)
+- Cleared pedantic warnings from Linux-g++ ISO/ANSI setup.
+
+- Apr. 03, 01 H.Kurashige (particles-V03-00-04)
+------- partman-V03-00-04
+- Fixed bugs in G4ParticleDefinition::GetPDGIsospin()
+- Fixed element name in G4IonTable
+- Added special treatment for Lamdas in G4PDGCodeChecker
+------- shortlived-V03-00-01
+- Added a0(980),f0(400-1200), f0(980)
+- Fixed PDG encoding for excited Lambdas
+
+-  Mar. 09, 01 H.Kurashige   (particles-V03-00-03)
+------- partman-V03-00-03
+- Added RestoreCuts methods to G4ParticleWithCuts 
+  and G4ParticleDefinition 
+------ hadrons-V03-00-01, leptons-V03-00-01, -bosons-V03-00-01
+- Added RestoreCuts methods 
+
+-  Mar. 05, 01 H.Kurashige   (particles-V03-00-02)
+------- partman-V03-00-02
+- Fixed a bug in G4DynamicParticle::SetDefinition() 
+- STL migration for G4ParticleWithCuts::BuildLossTable()
+
+-  Feb. 28, 01 H.Kurashige  (particles-V03-00-01)
+------- partman-V03-00-01
+- Fixed a bug in calculation of electron energy in G4MuonDecayChannel. 
+
+-  Jan 18, 01 H.Kurashige 
+------- partman-V03-00-00 (particles-V03-00-00)
+-  Add thePreAssignedDecayTime to G4DynamicParticle 
+
+-  Oct 19 , 00 HKurashige (particles-V02-00-01)
+------- partman-V02-00-02
+-  Some bug fixes according to CodeWizard's suggestion (HK)
+ 
+-  Oct 17 , 00 H.Kurashige (particles-V02-00-00)
+ ------- partman-V02-00-01
+- Added const to G4DynamicParticle::GetPreAssignedDecayProducts (HK)
+ ------- partman-V02-00-00
+- Added G4IonTable::GetElementNumber (HK)
+- Added comment  in case of G4Exception in G4IonTable.cc (HPW)
+ ------- hadrons-V02-00-00
+-  Added neutron life time (HK)
+-  Fixed stable flag for G4PionMinus (HK)
+
+-  May 29, 00 H.Kurashige (particles-V01-01-01b)
+------ partman-V01-01-00b
+- Fixed problem using pow in G4VDecayChannel::GetAngularMomentum()
+
+
+-  May 12, 00 H.Kurashige (particles-V01-01-01)
+------ partman-V01-01-00
+- Added GetAngularMomentum (H.Weber)
+
+- Mar 17, 00 H.Kurashige (particles-V01-01-00)
+------ shortlived-V01-00-02
+- Fixed PDG code for anti-particle of "rho0"
+
+- Feb 27, 00 H.Kurashige (particles-V01-00-01)
+------ hadrons-V01-00-01
+- Set particle sub-type for barions and mesons
+------ bosons-V01-00-00
+- Set particle sub-type 
+------ leptons-V01-00-00
+- Set particle sub-type 
+------ shortlived-V01-00-01
+- Set particle sub-type 
+- Added SetMultipletName to G4ExcitedBaryons/G4ExcitedMesons
+- Added GetMultipletName to G4ExcitedBaryons/G4ExcitedMesonsConstructor
+------ partman-V01-00-03
+- Added sub-type information in G4ParticleDefinition::DumpTable
+
+- Feb 25, 00 H.Kurashige (particles-V01-00-00)
+------ partman-V01-00-02
+- Remove implementation for RW from G4ParticleTable and related.
+- Remove implementation for RW from G4DecayTable
+- Added ParticleSubType in ParticleDefinition
+------ shortlived-V01-00-00
+- Added "rho0" in G4ShortLivedConstructor
+------ hadrons-V01-00-00
+- Removed G4RhoPlus, G4RhoZero, and G4RhoMinus class
+- Removed G4RhoZero from G4MesonConstructor.cc
+- Added GetAtomicNumber() and GetAtomicMass() to G4VIon, G4Proton, and G4Neutron.
+
+
+- Feb 04, 00 H.Kurashige
+------ partman-V01-00-01
+- Bug fix in G4NucleiProperties 
+
+- Jan 24, 00 H.Kurashige
+------ partman-V01-00-00
+-  Added G4IsotopeProperty* G4VIsotopeTable::GetIsotope(G4int Z, G4int A, G4double E)
+- Fixed some bugs in G4IonTable::CretaeIon()
+
+- Dec 06, 99 H.Kurashige
+------ partman-V00-01-07
+- Bug fix in G4IonTable::elementName[] 
+
+- Nov 07, 99 H.Kurashige (particles-V00-01-02)
+------ partman-V00-01-06
+- Bug fix in G4DynamicTable::RemoveElectron
+- Change G4USE_STL_MAP flag into G4USE_STL
+
+- Nov 03, 99   G.Cosmo 
+- Modified top-level GNUmakefile to fix G4barions to G4baryons for
+  the "gmake global" target.
+
+- Oct 29, 99   H.Kurashige 
+------ hadrons-V00-01-01
+- Fixed particle name for G4RhoPlus
+----- partman-V00-01-05
+- Implement STL map version of G4ParticleTable (G4USE_STL_MAP flag)
+- Adding comments for Software Reference Manual
+
+- Oct 20, 99   H.Kurashige (particles-V00-01-01)
+----- partman-V00-01-04 tag
+- Bug fixes in G4PDGCodeChecker and G4IonTable
+
+- Oct 13, 99  H.Kurashige (particles-V00-01-00b)
+----- partman-V00-01-03 tag
+- Bug fix in G4NucleiProperties  (Hisaya)
+
+- Oct 8, 99 H.Kurashige (particles-V00-01-00a)
+------ hadrons-V00-01-00a tag ( Oct. 7)
+- Reanme G4Bayon.cc B4Baryon.cc 
+
+- Oct 7, 99 J.Allison
+- Changed name of library G4barions to G4baryons.
+
+- Oct 6, 99 H.Kurashige (particles-V00-01-00)
+----- shortlived-V00-01-01 tag
+- Change 'static const  G4String' array to  'static const char*' array (Hisaya)
+----- partman-V00-01-02 tag
+- New naming scheme for ions in G4IonTable::GetIonName()
+- Modified G4IonTable::GetIon methods and related 
+- Added  G4VIsotopeTable and G4IsotopeProperty (Hisaya)
+- Bug fix in G4NucleiProperties  (Vicente)
+
+- Oct 3, 99 H.Kurashige
+------ shortlived-V00-01-00,hadrons-V00-01-00 tag
+- Rename 'Barion' into 'Baryon' (Hisaya)
+
+- Aug 20, 99 H.Kurashige
+----- partman-V00-01-01 tag
+- Added theDynamicalCharge and theElectronOccupancy in G4DynamicParticle (Hisaya)
+- Modified G4IonTable::GetIon methods and related (Hisaya)
+- Added G4ElectronOccupancy class (Hisaya)
+- Added G4PDGCodeChecker and modified G4ParticleDefinition::FillQuarkContents (Hisaya) 
+- Added G4NucleiPropertiesTheoreticalTable to describe excess Masses from Meyer-Swiatecky fromula (Vicente)
+- Modified G4NucleiProperties and G4NucleiPropertiesTable  (Vicente)
+
+- June 16, 99 H.Kurashige 
+- Fixed a bug in G4VDecayChannel::FillDaughters (partman-01-00-11)
+- Fixed a branching ratio for b1(1235) in G4ExcitedMesonConstructor
+					  (shortlived-01-00-06)
+
+- June 16, 99 H.Kurashige (particles-01-00-08a)  
+- Fixed a bug of initialization for massKdiff and widthKdiff in G4ExcitedMeson Constructor.cc (shortlived-01-00-05)
+
+- June 10, 99 H.Kurashige (particles-01-00-08)  
+- Fixed a bug in  G4ParticleWithCuts::CalcEnergyCuts(G4double aCut)
+                  (partman-01-00-10) 
+- Fixed mass, width, encoding for some resonaces (shortlived-01-00-04)
+- Added mass width for relatively long life particles
+                  (leptons-01-00-02, hadrons,01-00-02)
+
+- June 8, 99 H.Kurashige (particles-01-00-07, shortlived-01-00-03)
+- Fixed Sigma(2040) mass in G4ExcitedSigmaConstructor 
+
+- May 26, 99  J.Allison (partman-01-00-09)
+- In G4NucleiProperties.hh (Vicente Lara):
+  Added GetNuclearMass, GetBindingEnergy
+  Corrected GetMassExcess.
+- In G4NucleiPropertiesTabel.hh:
+  Added GetNuclearMass (VL).
+  Changed G4String to const char* in (JA):
+    static const char*& GetName(G4int Z, G4int A);
+    static const char* Name[nEntries];
+    static const char* noName;
+- Split G4NucleiPropertiesTable.cc into G4NucleiPropertiesTableA.cc
+  and G4NucleiPropertiesTableA.cc (JA).
+- G4DecayTable.cc: Added inclusion of globals.hh to make it
+  self-consistent (Gabriele, May 25).
+
+- May 19, 99  H.Kurashige (partman-01-00-08)
+- In G4ParticleTable destructor, use clear() and remove destruction of keys 
+
+- May 18, 99  J.Allison
+- In G4ParticleTable destructor, #ifdef G4USE_STL use clearAndDestroy().
+- Bug fixed in GetAtomicMass due to substraction of electron mass for get
+  the nuclear masses - Vicente Lara.
+
+- May  6, 99 H.Kurashige (partman-01-00-07)
+- Fix a bug in G4DynamicParticle
+- Fix bugs in G4IonTable::GetNucleusMass
+
+- Apr. 23, 99  H.Kurashige (particles-01-00-06, partman-01-00-06,
+			    shortlived-01-00-02)
+- Retrieve modification for the correct mass formulae of ions
+  (particles-01-00-04,05,05a does not include bug fixes in particles-01-00-03)
+- Set G4ParticleTable::RemoveAllParticles as "protected"
+- Bug fixes in G4ExcitedMesonConstructor::ConstructMeson
+
+- Apr. 16, 99  H.Kurashige (particles-01-00-05a, partman-01-00-05a)
+-  Fixed a bug in G4ParticleWithCuts to ensure unit independence (Laszlo)
+
+- Apr. 15, 99  H.Kurashige (particles-01-00-05, partman-01-00-05)
+-  Added invocation of G4VUserPhysicsList::BuildPhysicsTable for ions created on the fly (G4IonTable::GetIon)
+-  Removed comment out statements in G4ParticleDefinition constructor
+
+- Apr. 13,99  H.Kurashige (particles-01-00-04, partman-01-00-04, 
+			   leptons-01-00-01,   bosons-01-00-01,
+			   hadrons-01-00-01, shortlived-01-00-01)
+- Clean up codes  H.Kurashige
+
+
+- Apr. 2,99   H.Kurashige (particles-01-00-03, partman-01-00-03)
+- Fixed mass fomulae in G4IonTable 
+
+- Feb 6, 99   H.Kurashige (particles-01-00-02 ,partman-01-00-02)
+- Migrate G4ParticleTypes.hh into process/management
+- Remove using G4ParticleMomentum
+
+- Feb 4, 99  H.Kurashige (particles-01-00-01)
+- Re-fixed bugs in destrction of ions  (Hisaya)
+
+- Dec. 15, 98 H.Kurashige(particles-00-04-08)
+- Fixed bugs in destrction of ions  (Hisaya)
+
+- Dec 11, 98  H.Kurashige (particles-00-04-07a)
+- Fixed bugs in G4IonTable::GetIonMass (Hisaya)
+
+- Dec. 10, 98 H.Kurashige (particles-00-04-06)
+- Fixed bugs in G4NuclearProperties::GetAtomicMass (Hisaya)
+
+- Dec 9, 98 H.Kurashige (particles-00-04-05)
+- Modified G4NuclearProperties::GetAtomicMass (Vicente)
+- Modified G4IonTable::GetIonMass (Hisaya)
+  (partman-00-04-05)
+
+- Dec 5, 98 H.Kurashige (particles-00-04-04)
+- Added G4GenericIon for Process List (partman-00-04-04,hadrons-00-04-01)
+
+- Dec 2, 98 H.Kurashige (particles-00-04-03)
+- Added G4ParticleTypes.hh in management/include. Moved from
+  global/management/include. (G.Cosmo) (partman-00-04-03)
+- Added mechanism to prevent multiple instanciation of resonaces (Hisaya)
+  (shortlived-00-04-03)
+
+- Nov 25, 98   H.Kurashige (particles-00-04-02)
+- Fixed bugs in shortlived particle table (shortlived-00-04-02)
+- More modification for E ~= p, i.e., photons in G4DynamicParticles
+- Added command of /particle/find in G4ParticleMessenger
+- Modified cut scheme for G4Ions
+  (partman-00-04-02)
+
+- Nov 20, 98   J.Allison (particles-00-04-01a)
+- Protected G4DynamicParticles::Set4Momentum sqrt for E ~= p, i.e., photons.
+
+- Nov 18, 98   H.Kurashige (particles-00-04-01)    
+- Changed G4VDecayChannel::DecayIt for treating dynamical mass (Hisaya)    
+- Migreted G4NucleiPropoerties from /processes/hadronic                    
+  to get precise mass for ions    (Hisaya)                                 
+  (partman-00-04-01)                                                       
+- Fixed minor bugs in G4ShortLivedConstructor (Hisaya)                     
+  (shortlived-00-04-01)                                                    
+
+- Nov 17, 98  John Allison and Hans-Peter Wellisch
+- SetApplyCutsFlag(false) in G4ParticleWithCuts constructor.
+- Initialise cuts at construction of G4Ions.
+
+- Nov 14, 98   H.Kurashige (particles-00-03-05)
+- Fixed a bug in G4ParticleWithCuts::CalcEnergyCuts
+- Suppress messages in construction of static objects (partman-00-03-06) 
+
+- Nov 13, 98   H.Kurashige (particles-00-03-04)
+- Fixed bugs in G4ParticleTable::Remove() (partman-00-03-04)
+- Fixed bugs in resonace constuctors (shortlived-00-03-04)
+  
+- Nov 8, 98    H.Kurashige (particles-00-03-03)
+- Fixed bugs in deletion of IonTable 
+- Modified G4PprticleWithCuts not to use EnergyLossTable 
+  (partman-00-03-03)
+- Chnage some enum numbers to public member  for SUN complier
+  (shortlived-00-03-03)
+
+-Oct 27, 98   H.Kurashige (particles-00-03-02)
+- Added higher excited  mesons (f0, a1, a2, K1, K2 etc.)
+  (shortlived-00-03-02)
+- Modified encoding rule for resonances  
+- Added four bodys decay in G4PhaseSpaceDecayChannel
+  (partman-00-03-02)
+
+-Oct 16, 98   H.Kurashige (particles-00-03-01)
+- Added higher excited baryons (N*, delta*, sigma* lambda* and xi*)
+  (shortlived-00-03-01)
+- Added rho+, rho-   (hadrons-00-03-01)
+- Modified encoding rule for resonances  (partman-00-03-01)
+
+-Sep 25, 98  H.Kurashige (particles-00-02-03)
+- reverted static methods for getting the particle pointer as inlined
+- modified PDG encoding of Xi_c 
+     (leptons-00-02-02, bosons-00-02-03, hadrons-00-02-02 )
+- modified G4ParticleTable to improve search by encoding ( partman-00-02-03 )
+
+-Aug 26, 98  H.Kurashige (particles-00-02-02)
+- Fixed sum bugs (bosons-00-02-02, partman-00-02-02)
+
+-Aug 10, 98  H.Kurashige (particles-00-02-01)
+- modified G4ParticleTable::FindIon (partman-00-02-01)
+- changed all static methods for getting the particle pointer as non-inlined   
+   tagged with following sub-directories
+        leptons:        leptons-00-02-01
+        bosons:         bosons-00-02-01
+        hadrons:        hadrons-00-02-01
+
+July 20, 98  H.Kurashige (particles-00-01-07)
+- fixed comnands in G4ParticleMessenger
+
+July 19, 98  H.Kurashige (particles-00-01-06)
+- tagged 
+
+July 12, 98  H.Kurashige (particles-00-01-05)
+- modified G4IonTable::GetIon (partman-00-01-04)
+
+July 10, 98  98 H.Kurashige (particles-00-01-04)
+- fixed G4ShortLivedConstructor.cc (shortlived-00-01-02)
+
+July 8, 98 H.Kurashige (particles-00-01-03)
+- fixed G4ShortLivedConstructor.cc
+- removed G4MaterialTable.hh and G4ElementVector.hh
+- fixed G4ParticlePropertyMessenger
+- tagged with following sub-directories
+        management:     partman-00-01-03
+        leptons:        leptons-00-01-02
+        bosons:         bosons-00-01-02
+        hadrons:        hadrons-00-01-02
+	shortlived:	shortlived-00-01-01
+
+July 6, 98 H.Kurashige (partman-00-01-01)
+- modified G4ParticleWithCuts
+- modified G4ParticleTable
+
+July 1, 98 H.Kurashige (particles-00-07-01)
+- add G4shortlived.a in GNUmakefile
+- tagged with following sub-directories
+	management:	partman-00-07-03
+	leptons:	leptons-00-07-01
+	bosons:		bosons-00-07-01
+	hadrons:	hadrons-00-07-01
+	shorrtlived:	shortlived-00-07-03
+
+June 28,  98 H.Kurashige
+- add shortlived directory for G4VShortLivedParticle and its derived classes
+- add G4Ions for nucleus in management
+- add G4TonTable and G4ShortLivedTable and modify G4ParticleTable
+- modify G4ParticleDefinition
+
+June 27,  98 L. Felawka
+- remove particle "Helium3" (duplicate particle "He3" already exists)
+
+June 26,  98 L. Felawka
+- add new particle: "Helium3" (type hadron/ion)
+
+June 23,  98 H.Kurashige (paricles-06-03)
+- fix bugs in G4ParticleWithCuts by Laszlo (partman-06-05)
+- modification for new SetCuts by Hisaya
+		 (hadrons-06-03,bosons-06-01,leptons-06-01)
+
+June 18 , 98 H.Kurashige (partman-00-06-04)
+- fix bugs in initialization of G4PaarticleWithCuts
+
+June 8, 98 H.Kurashige (partman-00-06-03)
+- add GetEnergyThreshold method in G4ParticleDefinition
+
+June 7, 98 H.Kurashige (partman-00-06-02)
+- remove theKillProcess from G4DynamicParticle
+
+June 7, 98 H.Kurashige (partman-00-06-01)
+- modify in order to avoid dependencies to process category
+  remove invocation of G4VProcess::BuildPhysicsTable in G4ParticleWithCuts::SetCuts
+  remove aggregation of G4ProcessManagerMessenger in G4PaerticleMessenger
+
+April 25, 98 H.Kurashige (hadrons-06-01)
+- Added G4He3 and fixed some parameters in ions
+
+April 21, 98 G.Cosmo (particles-00-05-01)
+- Tagged.
+
+April 08, 98 G.Cosmo
+- Added fixes for DEC-cxx 6.0 compiler, related to for-loop index
+  declarations. List of modified files:
+  management/G4DecayProducts.cc .hh, G4DecayTable.cc, G4KL3DecayChannel.cc
+             G4ParticleWithCuts.cc, G4PhaseSpaceDecayChannel.cc,
+             G4VDecayChannel.cc
+  leptons/G4Electron.cc
+
+March 24, 98 G.Barrand
+- GNUmakefile : MAKESHLIB changed in G4MAKESHLIB
+
+January 28, 98 S. Sadilov
+- For Win/NT port in GNUmakefile used $OUT_LIB introduced in 
+  GNUmakefile.architecture as positional qualifier for creating 
+  composite-library.
+
+January 28, 98 H.Kurashige - (particles-00-03-01)
+January 24, 98 H.Kurashige - (partman-03-01) 
+January 24, 98 H.Kurashige - (hadrons-03-01) (leptons-03-01) (bosons-03-01)
+December 19, 97 G. Cosmo - (alpha03)
+
+- Created.

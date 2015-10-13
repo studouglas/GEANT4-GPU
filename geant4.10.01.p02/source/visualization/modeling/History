@@ -1,0 +1,880 @@
+$Id: History 87360 2014-12-01 16:07:16Z gcosmo $
+-------------------------------------------------------------------
+
+     =========================================================
+     Geant4 - an Object-Oriented Toolkit for Simulation in HEP
+     =========================================================
+
+                      Category History file
+                      ---------------------
+This file should be used by G4 developers and category coordinators
+to briefly summarize all major modifications introduced in the code
+and keep track of all category-tags.
+It DOES NOT substitute the  CVS log-message one should put at every
+committal in the CVS repository !
+
+     ----------------------------------------------------------
+     * Reverse chronological order (last date on top), please *
+     ----------------------------------------------------------
+
+History file for visualization/modeling
+---------------------------------------
+
+28th November 2014  John Allison  (modeling-V10-00-12)
+- G4TrajectoriesModel.cc: Tidied.
+
+29th October 2014  Makoto Asai (modeling-V10-00-11)
+- G4TrajectoriesModel.cc: Further fix.
+
+27th October 2014  Makoto Asai (modeling-V10-00-10)
+- G4TrajectoriesModel.cc: Protect against incorrect casting if G4RunManager
+  base class is used in multithreaded Geant4 installation.
+
+22nd October 2014  Laurent Garnier  (modeling-V10-00-09 require greps-V10-00-08)
+- G4ModelingParameters.cc
+  o Change constant in .cc nSidesMin by GetMinLineSegmentsPerCircle() in the G4VisAttribute
+
+22nd October 2014  John Allison  (modeling-V10-00-08)
+- G4TrajectoriesModel.cc: Get appropriate run manager in MT mode.
+
+11th August 2014  John Allison  (modeling-V10-00-07)
+- Corrected date. modeling-V10-00-06 should be August.
+
+9th July 2014  John Allison  (modeling-V10-00-06)
+- G4AxesModel: Added a parameter for text size.  (Default 10 pixels.)
+- G4TrajectoryDrawerUtils.cc and G4TouchableDumpScene.cc:
+  o Fixed small memory leak.  (AttValues must be deleted by the user
+    after use.)
+
+19th May 2014  John Allison  (modeling-V10-00-05)
+- Introduced G4TouchableDumpScene.
+- Introduced G4PseudoScene.  The following now inherit it:
+  o G4PhysicalVolumeSearchScene
+  o G4BoundingSphereScene
+  o G4TouchableDumpScene
+- G4PhysicalVolumeModel
+  o Allow instantiation of an empty model via the default constructor so
+    that it can be used, for example, to get the G4AttDefs.  If it
+    proves to be a problem we might have to disallow it again, but it is
+    unlikley to be used except by visualisation experts.  See, for example,
+    /vis/list, where it is used simply to get a list of G4AttDefs
+  o Introduced Abort - all further geometry traversal is stopped.  (This
+    is useful in G4TouchableDumpScene - once the required touchable is found
+    there is no need to continue.)
+  o Tidied.
+
+6th March 2014  John Allison  (modeling-V10-00-04)
+- G4PhysicalVolumeModel.cc:
+  o More careful protection of zero pointers in constructor.
+
+26th January 2014  John Allison  (modeling-V10-00-02)
+- GNUmakefile: Added dependency on run category.
+- G4PhysicalVolumeModel:
+  o Augmented constructor to set sensible values of some data members,
+    namely fpCurrentPV, fpCurrentLV, fpCurrentMaterial and
+    fpCurrentTransform, so that CreateCurrentAttValues gives the G4Atts
+    of the top volume if called without any further processing.
+
+23rd January 2014  John Allison  (modeling-V10-00-01)
+- G4TrajectoriesModel:
+  o Add run ID.
+  o Initialise fRunID and fEventID to -1.
+
+13th January 2014  John Allison  (modeling-V10-00-00)
+- Requires greps-V10-00-01.
+- G4TrajectoryDrawByAttribute:
+  o Migrated to operator<< for const reference G4AttDefs map.
+- G4TrajectoriesModel:
+  o Added SetCurrentTrajectory and SetEventID.
+
+15th November 2013  John Allison  (modeling-V09-06-22)
+- Some changes as suggested by PVS.
+
+6th November 2013  John Allison  (modeling-V09-06-21)
+- G4ArrowModel.cc: Tidied.
+
+30th October 2013  Tatiana Nikitina  (modeling-V09-06-20)
+- Make use of G4GenericPolycone in G4ArrowModel.
+  Coworks with tag "geom-specific-V09-06-22".
+
+30th September 2013  John Allison  (modeling-V09-06-19)
+- Re-tagged after clean-up by Gunter and Mke.
+
+27th September 2013  Michael Kelsey (modeling-V09-06-18)
+- G4MagneticFieldModel.hh:  Remove expanded '$'Id'$' value and re-commit to
+  (hopefully!) synchronize SVN state and eliminate "Modified" warnings in
+  CDash.
+
+21st September 2013  John Allison  (modeling-V09-06-17)
+- G4MagneticFieldModel: Fix compiler warnings.
+
+20th September 2013  John Allison  (modeling-V09-06-16)
+- G4MagneticFieldModel: Added '$'Id'$' functionality.
+
+2nd September 2013  John Allison
+- G4MagneticFieldModel.cc:
+  o Allowed for scene with extent not necessarily equal in x, y and z.
+
+30th August 2013  John Allison  (modeling-V09-06-15)
+- GNUmakefile: Added geometry/magneticfield/include.
+
+29th August 2013  John Allison  (modeling-V09-06-14)
+- G4MagneticFieldModel.cc: Fixed a corrupted file (SVN glitch?).
+
+27th August 2013  John Allison  (modeling-V09-06-13)
+- G4MagneticFieldModel:
+  o Removed diagnostic print statements.
+  o Note: Remaining print statements need converting to G4Exception.
+
+26th August 2013  John Allison  (modeling-V09-06-12)
+- G4MagneticFieldModel: Variable no. of data points per half scene.
+
+25th August 2013  John Allison  (modeling-V09-06-11)
+- G4MagneticFieldModel: Bug fix.
+
+25th August 2013  John Allison  (modeling-V09-06-10)
+- G4MagneticFieldModel: First attempt.
+
+24th August 2013  John Allison  (modeling-V09-06-09 coworks visman-V09-06-11)
+- Removed G4FlavoredParallelWorldModel.
+
+18th August 2013  John Allison  (modeling-V09-06-08 requires greps-V09-06-06)
+- Added skeleton G4MagneticFieldModel.
+
+16th June 2013  John Allison  (modeling-V09-06-07)
+- G4ModelingParameters: Small bug fix to previous tag.
+
+10th June 2013  John Allison  (modeling-V09-06-06)
+- G4ModelingParameters:
+  o Replaced PVNameCopyNoPathNotEqual by appropriate operator!=.
+  o Replaced VAMSNotEqual by appropriate operator!=.
+
+29th May 2013  John Allison  (modeling-V09-06-05)
+- G4PhysicalVolumeModel.cc: Bug fix for vis attribute modifying (VAM).
+  (The boolean copyForVAM was not being reset after use.)
+
+26th March 2013  John Allison  (modeling-V09-06-04)
+- G4TrajectoryDrawByAttribute.cc: Improved G4Exception messages.
+
+24th February 2013  John Allison  (modeling-V09-06-03)
+- G4FlavoredParallelWorldModel:
+  o Removed unused field as warned by new clang compiler.
+
+14th January 2013  John Allison  (modeling-V09-06-02)
+- G4ArrowModel, G4AxesModel:
+  o Coverity fixes.
+
+12th January 2013  John Allison  (modeling-V09-06-01)
+- Coverity fixes:
+  o G4PhysicalVolumeModel, G4TrajectoriesModel.
+- Added verbosity flag for G4PhysicalVolumeSearchScene to reduce verbiage:
+  o G4PhysicalVolumeModel, G4PhysicalVolumeSearchScene.
+
+2nd December 2012  John Allison  (modeling-V09-06-00)
+  o Removed NURBS and references to i_mode.
+
+24th October 2012  John Allison  (modeling-V09-05-22)
+- G4ModelingParameters:
+  o Added fVisAttributesModifiers to operator<< and operator!=.
+  o Added static functions VAMSNotEqual and PVNameCopyNoPathNotEqual to
+    facilitate the above.
+- G4PhysicalVolumeModel:
+  o Allowed default constructor.  fpTopPV defaults to 0, checked with
+    G4Exception(…FatalException…) in DescribeYourselfTo.  This allows
+    one to instantiate a dummy so that one can print AttDefs, for example.
+
+11th October 2012  John Allison  (modeling-V09-05-21)
+- G4PhysicalVolumeModel and G4ModelingParameters:
+  o Tidying. 
+
+9th October 2012  John Allison  (modeling-V09-05-20)
+- G4PhysicalVolumeModel and G4ModelingParameters:
+  o Moved code for converting PVPath to the simpler version from
+    G4PhysicalVolumeModel (in modeling-V09-05-19) to a new
+    constructor of G4ModelingParameters::VisAttributesModifier.
+
+9th October 2012  John Allison  (modeling-V09-05-19)
+- G4PhysicalVolumeModel:
+  o Added GetFullPVNameCopyNoPath, which converts fFullPVPath into a
+    simpler (full) path for G4ModelingParameters and G4ViewParameters.
+
+8th October 2012  John Allison  (modeling-V09-05-18)
+- G4PhysicalVolumeModel.cc: Removed debug printing.
+- G4ModelingParameters.cc: Improved operator<< for PVNameCopyNoPath.
+
+8th October 2012  John Allison  (modeling-V09-05-17)
+- G4ModelingParameters:
+  o Further refinement to interface for /vis/touchable/set/...
+  o Added operator<< for PVNameCopyNoPath.
+
+8th October 2012  John Allison  (modeling-V09-05-16)
+- G4ModelingParameters:
+  o Refined interface for /vis/touchable/set/...
+- G4PhysicalVolumeModel:
+  o Added code for /vis/touchable/set/...
+
+7th October 2012  John Allison  (modeling-V09-05-15)
+- G4ModelingParameters:
+  o Added enums and a nested class for communicating a modification to the vis
+    attributes for a specfic touchable defined by PVNameCopyNoPath, to be used
+    by new commands, /vis/touchable/set/...
+
+6th October 2012  John Allison  (modeling-V09-05-14)
+- G4PhysicalVolumeModel:
+  o Added SetBaseFullPVPath.  The base full path is the full path of the top
+    physical volume (actually the full path of the mother of the top physical
+    volume), so that even if a user issues "/vis/drawVolume sub-detector", the
+    full path includes the base full path, i.e., the full path up to the world
+    volume.
+- G4PhysicalVolumeSearchScene:
+  o Added GetFoundFullPVPath.
+ 
+1st October 2012  John Allison  (modeling-V09-05-13)
+- G4PhysicalVolumeModel:: GetAttDefs: Small bug fix.
+- G4TrajectoriesModel:
+  o Added fEventID;
+  o Added GetAttDefs and CreateCurrentAttValues for event ID.
+
+28th September 2012  Gabriele Cosmo  (modeling-V09-05-12)
+- Explicitly include units header in G4ArrowModel.cc.
+
+25th September 2012  John Allison  (modeling-V09-05-11)
+- G4ArrowModel.cc:
+  o Added protection, limited width to length/50.
+
+4th September 2012  John Allison  (modeling-V09-05-10)
+- G4LogicalVolumeModel:
+  o Added G4bool Validate(G4bool){return true;} - i.e., always valid.
+  o Correct spelling of name.
+- G4PhysicalVolumeModel.cc: Minor improvement to a message.
+
+15th July 2012  John Allison  (modeling-V09-05-09)
+- Introduced G4ArrowModel.
+- G4AxesModel: Re-implemented (uses G4ArrowModel).
+
+5th July 2012  Gabriele Cosmo  (modeling-V09-05-08)
+- Explicitly use inclusion of headers for system of units and physical
+  constants, in plan to remove implicit inclusion from globals.hh.
+
+7th June 2012  John Allison  (modeling-V09-05-07)
+- Shadow clean.
+
+31st May 2012  John Allison  (modeling-V09-05-06)
+- G4TrajectoryOriginVolumeFilter.cc:
+  o Brought stray print statement under control of verbosity.
+  o Fixes bug report 1310.
+
+10th April 2012  John Allison  (modeling-V09-05-05)
+- G4CallbackModel: It ws a bad idea to delete function in destructor
+  (see 7th March).  OK to delete, but catastrophe when you try to use
+  it a second time, for example, when model is replaced by same model.
+
+4th April 2012  John Allison  (modeling-V09-05-04)
+- Tagged.
+
+30th March 2012  John Allison
+- G4PhysicalVolumeModel.cc:
+  o If top volume is a replica or a parameterised, only draw first one.
+
+26th March 2012  John Allison
+- G4VModel: Added Get/SetType. The sub-class should set its type,
+  which could be the class name, or, in the case of G4CallBackModel,
+  it could be the type of object it is coding.
+- G4PhysicalVolumeModel: Added GetFullPVPath.
+
+23rd March 2012  John Allison  (modeling-V09-05-03)
+- G4AxesModel: Augmented global description to allow more than one
+  set of axes to be added to scene if significantly different.
+
+7th March 2012  John Allison  (modeling-V09-05-02)
+- G4CallbackModel: Delete function in destructor.  (Good practice
+  to delete all stuff created on the heap.)
+
+3rd January 2012  John Allison  (modeling-V09-05-01)
+- Tagged.
+
+30th December 2011  John Allison
+- G4PhysicalVolumeModel::Validate: Searches also in parallel worlds.
+
+30th December 2011  John Allison  (modeling-V09-05-00)
+- G4TrajectoriesModel::DescribeYourselfTo:
+  o Used Begin/EndDraw to improve drawing speed.
+  o Assumes all trajectories are drawn with the same transformation.
+    If not, a fatal exception with be raised in G4VisManager::DrawT.
+
+12th November 2011  John Allison
+- G4AttributeFilterT<T>::AddInterval and AddValue:
+  o Relaxed exception in case of already existing interval/value.
+  o Changed from Fatal to JustWarning.
+  o In that case, return with no action.
+
+11th November 2011  John Allison  (modeling-V09-04-05)
+- G4VTrajectoryModel.hh: Coverity fix.
+
+30th October 2011  John Allison  (modeling-V09-04-04)
+- G4ModelApplyCommandsT: Fixed compiler warning.
+- G4PhysicalVolumeModel: Added flag to G4PhysicalVolumeNodeID: true if drawn.
+
+27th September 2011  John Allison  (modeling-V09-04-03)
+- G4PhysicalVolumeModel::Validate: Strengthen case for issuing warnings so
+  that warning not issued in normal case.
+- Added some files to svn::ignore.
+
+25th September 2011  John Allison  (modeling-V09-04-02)
+- G4PhysicalVolumeModel: Tidied
+
+16th September 2011  John Allison
+- Migrated to new G4Exception.
+
+25th January 2011  John Allison  (modeling-V09-04-01)
+- G4TrajectortDrawerUtils.cc:
+  o Fixed unresolved reference.
+  o Tidied.
+
+27th December 2010  John Allison  (modeling-V09-04-00)
+- Tagged.
+
+11th December 2010  John Allison
+- G4AttributeFilterT.hh, G4TrajectoryDrawByAttribute.cc:
+  o Changed some exceptions from FatalError to JustWarnings.
+- G4TrajectoryDrawerUtils.cc:
+  o Rework TimesValidity.
+
+14th November 2010  John Allison  (modeling-V09-03-05)
+- G4TrajectoryDrawerUtils.cc:Fixed time-slicing problem.
+
+5th November 2010  John Allison  (modeling-V09-03-04)
+- G4PhysicalVolumeModel.cc: Fixed Coverity warning.
+
+1st June 2010  John Allison  (modeling-V09-03-03)
+- G4TrajectoryDrawByParticleID.cc: Set some defaults:
+    Set("gamma", "green");
+    Set("e-", "red");
+    Set("e+", "blue");
+    Set("pi+", "magenta");
+    Set("pi-", "magenta");
+    Set("proton", "cyan");
+    Set("neutron", "yellow");
+
+30th May 2010  John Allison  (modeling-V09-03-02)
+- Added G4DigiModel and G4DigiFilterFactories.
+- G4BoundingSphereScene, G4PhysicalVolumeMassScene,
+  G4PhysicalVolumeSearchScene:
+  o Added AddCompound(const G4VDigi&).
+
+28th May 2010  John Allison  (modeling-V09-03-01)
+- G4TrajectoryDrawByAttribute.cc, G4TrajectoryDrawByCharge.cc,
+  G4TrajectoryDrawByOriginVolume.cc, G4TrajectoryDrawByParticleID.cc:
+  o Fixed unused parameter 'i_mode' warning.
+
+11th May 2010  John Allison  (modeling-V09-03-00)
+- G4ModelingParameters, G4PhysicalVolumeModel:
+  o Replace polyhedra with solids for sections and cutaways.
+- G4TrajectoriesModel: Trap use of i_mode and print warning.
+- G4VTrajectoryModel and derived classes G4TrajectoryDrawBy*:
+  o Introduce Draw method *not* containing i_mode.
+- G4TrajectoryDrawerUtils:
+  o Remove default (0) for i_mode arguments.
+  o Introduce functions without i_mode.
+  o Comment out unused DrawLineAndPoints function.
+  o Trap use of i_mode and print warning.
+
+27th April 2010 Laurent Garnier
+- G4trajectoryDrawerUtils :
+  o Optimisation when drawing lines
+
+4th November 2009  John Allison
+- G4PSHitsModel:
+  o Now intended as end-of-run model.
+  o Picks up hits from G4ScoringManager instead of event.
+
+22nd October 2009  John Allison  (modeling-V09-02-05 coworks greps-V09-02-02)
+- Added G4PSHitsModel for gMocren driver.
+- G4PhysicalVolumeModel.cc: Makes use of HepPolyhedronProcessor.
+
+21st October 2009  John Allison  (modeling-V09-02-04 coworks greps-V09-02-02)
+- G4BoundingSphereScene, G4PhysicalVolumeMassScene,
+  G4PhysicalVolumeSearchScene:
+  o Added empty AddCompound (const G4THitsMap<G4double>&) methods.
+
+10th October 2009  John Allison  (modeling-V09-02-03)
+- G4PhysicalVolumeModel: Added G4PhysicalVolumeModelTouchable.  Used in
+  ComputeMaterial.  Effective for nested parameterisations.
+
+29th September 2009  John Allison  (modeling-V09-02-02)
+- G4PhysicalVolumeModel.cc: Added warning if logical volume not defined.
+
+25th February 2009  John Allison  (modeling-V09-02-01 - needs greps-V09-02-01)
+- G4ModelApplyCommandsT: Added visManager->NotifyHandlers() after
+  application (Apply) of all commands.  Forces update of all viewers
+  after a change of model, e.g., trajectory colour, point size, etc.
+
+24th February 2009  John Allison  (modeling-V09-02-00 - needs greps-V09-02-00)
+- Added setAux/StepPtsSizeType commands (candidates: "none world screen").
+- Added unit to setAux/StepPtsSize for SizeType == world.
+
+27th July 2008  John Allison  (modeling-V09-01-01)
+- G4PhysicalVolumeSearchScene.cc: Cosmetic improvement to a message.
+
+4th January 2008  John Allison  (modeling-V09-01-00)
+- Adapted to new BeginPrimitives2D signature.
+
+10th November 2007  John Allison  (modeling-V09-00-00)
+- Minor improvement in warning message after change of geometry.
+
+30th May 2007  John Allison  (modeling-V08-03-02)
+- Removed warnedAboutIMode from G4TrajectoryDrawerUtils.hh.  It was
+  used only in G4TrajectoryDrawerUtils.cc and gave warnings about
+  being unused in other .cc files that inculded
+  G4TrajectoryDrawerUtils.hh.  warnedAboutIMode is now a static in
+  G4TrajectoryDrawerUtils.cc.
+
+30th May 2007  John Allison  (modeling-V08-03-01)
+- Fix for SUN.
+
+22nd May 2007  John Allison  (modeling-V08-03-00)
+- Simplified G4Atts for Physical Volume Path.
+
+3rd April 2007  John Allison  (modeling-V08-02-02)
+- G4PhysicalVolumeModel: Added full volume path information and
+  transformed axes to G4Atts.
+
+25th March 2007  John Allison  (modeling-V08-02-01)
+- G4PhysicalVolumeModel: Added solid dump and volume transformation to G4Atts.
+
+5th January 2007  John Allison  (modeling-V08-02-00 - needs greps-V08-02-00)
+- G4PhysicalVolumeModel.cc: Bug fix:
+  o Correct treatment of ForcedLineSegmentsPerCircle when clipping.
+
+16th November 2006  John Allison  (modeling-V08-01-15)
+- Added protection for parallel worlds (zero region pointer).
+
+14th November 2006  John Allison  (modeling-V08-01-14)
+- Merged modeling-V08-01-13-branch onto main branch.
+
+8th November 2006  John Allison  (modeling-V08-01-13-00)
+- On modeling-V08-01-13-branch.
+- Added G4Event pointer to modeling parameters.
+- G4TrajectoriesModel and G4HitsModel: use the above (G4VSceneHandler
+  supplies).
+
+5th November 2006  John Allison  (modeling-V08-01-13)
+- Further, hopefully, complete, protection against zero materials pointer.
+
+3rd November 2006  John Allison  (modeling-V08-01-12)
+- G4PhysicalVolumeModel.cc: Protected against zero material pointer.
+
+3rd November 2006  John Allison  (modeling-V08-01-11)
+- G4Trajectories/HitsModel.cc: Protected against zero pointers from
+  collections.
+
+2nd November 2006  John Allison  (modeling-V08-01-10)
+- G4HitsModel: Added GetCurrentHit.
+
+1st November 2006  John Allison  (modeling-V08-01-09)
+- G4VModel: Removed warning messages from the virtual functions
+  GetCurrentDescription and GetCurrentTag so that there is no longer
+  a message if the concrete class does not implement.  The implementation
+  in G4VModel, which is used by default, is simply to return the global
+  description and tag.
+- Removed GetCurrentDescription and GetCurrentTag from models for which the
+  concept of "current" makes no sense or is not used:
+    G4AxesModel, G4HitsModel, G4LogicalVolumeModel, G4ScaleModel, G4TextModel.
+- G4ModelCommandsT: Minor corrections to guidance.
+
+26th October 2006  John Allison  (modeling-V08-01-08)
+- G4PhysicalVolumeModel: Changed CreateAttValues to CreateCurrentAttValues.
+- G4TrajectoriesModel: Added GetCurrentTrajectory.
+
+------------------------------------------------------
+19th September 2006  John Allison  (modeling-V08-01-07)
+- G4ModelingParameters: Added ExplodeCentre
+- G4PhysicalVolumeModel.cc: Programmed ExplodeCentre.
+
+17th September 2006 Jane Tinslay
+- Shift an assert from G4AttributeFilterT to G4AttFilterUtils - was
+  causing problems with XCode 2.0
+
+------------------------------------------------------
+15th September 2006  John Allison  (modeling-V08-01-06)
+- G4PhysicalVolumeModel.ccChanged "Bookkeeping" to "Physics
+
+14th September 2006 Jane Tinslay
+- Fixes for sun
+
+13th September 2006  John Allison
+- G4ModelingParameters: Improved setting and access to explode factor.
+- G4PhysicalVolumeModel.cc: 
+  o Implemented explode factor(radial move) feature for top level drawn
+    volumes.
+- G4TrajectoriesModel.cc: Improved debug checking and printing of G4Atts.
+- G4ModelCommandUtils.hh, G4ModelCommandsT.hh:
+  o  Re-instate setTimeSliceInterval command.
+
+12th September 2006 Jane Tinslay
+- Add attribute based trajectory drawing & filtering, and attribute based
+  hit filtering
+
+---------------------------------------------------
+27th August 2006  John Allison  (modeling-V08-01-05)
+- G4ModelingParameters: Added warning flag and section/cutaway polyhedron.
+- G4PhysicalVolumeModel:
+  o Acts on warning flag from G4ModelingParameters.
+  o Added enum ClippingMode {subtraction, intersection};
+  o Equipped for generic sectioning (DCUT) and cutaways.
+- G4TrajectoryDrawerUtils::DrawWithTime:
+  o Made use of G4VisAttributes time range.
+  o Tidied.
+
+26th August 2006  John Allison  (modeling-V08-01-04 - requires greps-V08-01-03)
+- G4TrajectoryDrawerUtils.cc: Fixed compilation warning.
+
+25th August 2006 Jane Tinslay
+- Follow G4VFilter const change (requires greps-V08-01-03).
+
+16th August 2006  John Allison  (modeling-V08-01-03)
+- G4TrajectoryDrawerUtils.cc: Improved robustness of time slicing.
+- G4ModelCommandsT.hh: In class G4ModelCmdSetTimeSliceInterval: 
+  cmd->SetUnitCategory("Time").
+- G4TrajectoriesModel.cc: Improved debug statement.
+
+14th August 2006  John Allison  (modeling-V08-01-02)
+- G4ModelApplyCommandsT.hh: Added G4ModelCmdApplyDoubleAndUnit.
+- G4ModelCommandsT.hh: Added G4ModelCmdSetTimeSliceInterval.
+- G4VisTrajContext: Added TimeSliceInterval.
+- G4TrajectoryModelFactories: Instantiated G4ModelCmdSetTimeSliceInterval.
+- G4TrajectoryDrawerUtils.cc: Added time slicing.
+
+10th July 2006  John Allison  (modeling-V08-01-01)
+- Co-works with greps-V08-01-01.
+- G4VModel: Removed GetG4PhysicalVolumeModel.
+- G4ModelingParameters:
+  o Removed RepStyle, ViewGeom, ViewHits and ViewDigis (not used).
+  o Reduced number of constructors.
+- G4PhysicalVolumeModel:
+  o Removed Establish/DecommissionSpecials to conform with greps-V08-01-01.
+  o Rationalised G4Atts: Added GetAttDefs/CreateAttValues.
+
+3rd July 2006  John Allison  (modeling-V08-01-00)
+- Needs greps-V08-01-00.
+- G4PhysicalVolumeModel::G4PhysicalVolumeNodeID: Added GetNonCulledDepth.
+- G4PhysicalVolumeModel.cc: Also added G4Atts for solids.
+- G4TrajectoriesModel.cc: Added debug code.
+
+7th June 2006  John Allison (modeling-V08-00-14)
+- G4PhysicalVolumeModel.cc: Added protection for zero vis atts.
+
+6th June 2006  John Allison (modeling-V08-00-13)
+- G4TrajectoryChargeFilter.cc: Added #include <sstream> for Sun compiler.
+- G4PhysicalVolumeModel::Validate: Relaxed requirement for modeling parameters.
+  (Caused crash after change of geometry.)
+
+2nd June 2006 Joseph Perl (modeling-V08-00-12)
+- G4VisTrajContext: change default of point sizes from 0 to 2
+
+30th May 2006 Jane Tinslay
+- Add G4TrajectoryChargeFilter and G4TrajectoryOriginVolumeFilter
+
+25th May 2006  John Allison  (modeling-V08-00-11)
+- G4VModelFactory.hh: Indent printing of models.
+- G4ModelApplyCommandsT.hh: Fix trivial compiler warnings.
+
+22nd May 2006  John Allison  (modeling-V08-00-10)
+- Remove dependency on Run.
+- G4ModelingParameters.cc: Protect operator<< for zero fpDefaultVisAttributes.
+
+12th May 2006  John Allison  (modeling-V08-00-09)
+- G4TrajectoriesModel and G4HitsModel: Removed dependency on G4RunManager.
+  Uses G4RunManagerKernel.  Needs event-V08-00-01.
+- G4CallbackModel: Added G4VGraphicsScene argument to operator().
+
+4th May 2006  Joseph Perl  (modeling-V08-00-08)
+- Add missing assert to G4VTrajectoryModel needed by Windows.
+
+4th May 2006  John Allison
+- Improved protection for null models and parameters.
+
+2nd May 2006 Jane Tinslay
+- Add context to trajectory drawers. Intended to replace imode. 
+  Allows to configure default drawing style for lines, step and 
+  auxiliary points. For example, colours, visibility, point sizes, 
+  fill styles..
+- Add generic drawer, G4TrajectoryGenericDrawer. Draws all trajectories 
+  in the same style, based on its default context.
+- Update generic commands
+- Add verbose to drawers
+
+21st April 2006 Jane Tinslay  (modeling-V08-00-07)
+- Get rid of some warning messages from G4ModelCommandsT 
+  when compiling on Linux
+- Add Print method to G4VModelFactory
+
+19th April 2006  John Allison  (modeling-V08-00-06 - needs greps-V08-00-02)
+- G4BoundingSphereScene.hh, G4PhysicalVolumeMassScene.hh and
+  G4PhysicalVolumeSearchScene.hh;  Added dummy Begin/EndPrimitives2D
+  for greps-V08-00-02.
+- G4PhysicalVolumeModel.cc: Improved legibility and efficiency of
+  culling algorithm.
+
+28th March 2006 Jane Tinslay (jst28032006)
+- Add G4TrajectoryFilterFactories and G4TrajectoryParticleFilter
+  for trajectory filtering. 
+- Add more generic commands to G4ModelCommandsT
+
+28th March 2006  John Allison (modeling-V08-00-05)
+- G4PhysicalVolumeMassScene and G4PhysicalVolumeSearchScene:
+  o Removed EstablishSpecials.
+- G4PhysicalVolumeModel:
+  o GetTopPhysicalVolume, GetCurrentPV, GetCurrentLV,
+    GetCurrentMaterial: return non-const pointers.  (It has proved
+    impossibly difficult to deal with const pointers.)
+  o Modified for new G4PhysicalVolumeSearchScene constructor.
+- G4BoundingSphereScene: Removed use of GetG4PhysicalVolumeModel (uses
+  dynamic cast instead).
+
+24th March 2006 Jane Tinslay (jst24032006)
+- Add G4bool visibility parameter to trajectory draw 
+  models "Draw" method.
+ 
+16th March 2006 Jane Tinslay (jst16032006)
+- Template commands and colour map used in trajectory models
+- Introduce G4TrajectoryDrawByOriginVolume
+
+14th March 2006  John Allison (modeling-V08-00-04)
+- G4PhysicalVolumeModel::G4PhysicalVolumeNodeID: Added output operator<<.
+
+16th February 2006  John Allison (modeling-V08-00-03)
+- G4PhysicalVolumeModel: Minor enhancements to facilitate future
+  removal of Establish/DecommisionSpecials.
+
+8th February 2006  John Allison (modeling-V08-00-02)
+- Added DrawingStyle to G4ModelingParameters.
+- G4PhysicalVolumeModel: Fixed bug in culling of covered daughters and
+  improved readability of culling algorithm.
+
+26th January 2006  John Allison (modeling-V08-00-01)
+- G4PhysicalVolumeModel: Added capability of maintaining path of the
+  current drawn (non-culled) volume in terms of drawn (non-culled)
+  ancesters.  See G4PhysicalVolumeModel.hh for detailed description.
+- Removed some unnecessary data members and other small tidying.
+
+11th January 2006  John Allison (modeling-V08-00-00)
+- G4NullModel.cc: Changed G4Transform3D::Identity to G4Transform3D().
+
+2nd December 2005  Joseph Perl (modeling-V07-01-07)
+- Change "G4String inline" to "inline G4String" to correct compiler
+  warning in G4VTrajectoryModel.hh.
+
+30th November 2005  Gabriele Cosmo (modeling-V07-01-06)
+- Trivial fix to G4VModel for support of CLHEP-2.0.X series.
+
+28th November 2005  Jane Tinslay
+- Remove names of unused parameters to stop compiler warnings
+
+24th November 2005  John Allison (modeling-V07-01-05)
+- Set initial values for originalRMin, originalRMax to satisfy compiler
+
+23rd November 2005  Joseph Perl  (modeling-V07-01-04)
+- Tagged in preparation for Geant4 8.0
+
+23rd November 2005 Jane Tinslay
+- Enhanced trajectory implementation
+
+22nd November 2005  John Allison (modeling-V07-01-03)
+- Implemented radial replicas for G4Tubs.
+- Changed G4Transform3D::Identity to G4Transform3D().
+
+24th October 2005  John Allison (modeling-V07-01-02)
+- Added: G4VTrajectoryModel, G4VTrajectoryModelMaker, G4TrajectoryModelMaker
+  and G4TrajectoryTestModel.
+- G4VModel: cosmetic changes.
+
+13th October 2005  John Allison (modeling-V07-01-01)
+- Migrated to <sstream>.
+
+13th September 2005  John Allison (modeling-V07-01-00)
+- Fixed (non-)culling of transparent volumes.
+
+7th June 2005  John Allison (modeling-V07-00-02)
+- G4PhysicalVolumeModel: fixed case of off-origin volume.
+- G4TextModel: Further small improvement.
+
+31st May 2005  John Allison  (modeling-V07-00-01)
+- G4TextModel: Improved global tag for better identification.
+
+6th May 2005  John Allison  (modeling-V07-00-00)
+- G4PhysicalVolumeModel: SetCopyNo of replicas and paramaterised volumes.
+
+3rd March 2005  John Allison  (vis-V07-00-08)
+- Added Set methods to G4VModel.
+- Added argument to G4CallbackModel::operator()(const G4Transform3D&) so that
+  the model could implement a given transformation.  Provided default for
+  G4VUserVisAction::(const G4Transform3D& = G4Transform3D::Identity).
+
+11th November 2004  John Allison  (vis-V06-02-05)
+- Made use use of smart method GetPolyhedron for solids.  This greatly
+  speeds 2nd and subsequent drawings when kernel access is required.
+
+22nd September 2004  John Allison  (modeling-V06-02-01)
+- Changed use of deprecated G4VPhysicalVolume::GetRotation to GetRotationValue.
+- Fixed memory leak in G4PhysicalVolumeMassScene.
+
+13th September 2004  John Allison  (modeling-V06-02-00)
+- Added G4PhysicalVolumeMassScene.  From the header file:
+// Calculates the mass of a geometry tree taking into account daughters
+// up to the depth specified in the G4PhysicalVolumeModel.  Culling is
+// ignored so that all volumes are seen.
+//
+// The calculation is quite tricky, since it involves subtracting the
+// mass of that part of the mother that is occupied by each daughter and
+// then adding the mass of the daughter, and so on down the heirarchy.
+//
+// Usage for a given G4PhysicalVolumeModel* pvModel:
+//   G4PhysicalVolumeMassScene massScene;
+//   massScene.EstablishSpecials (*pvModel);
+//   pvModel->DescribeYourselfTo (massScene);
+//   G4double volume = massScene.GetVolume();
+//   G4double mass = massScene.GetMass();
+//   massScene.Reset();
+// See, for example, G4ASCIITreeSceneHandler::EndModeling().
+- Added some access functions to G4PhysicalVolumeModel:
+    GetTopPhysicalVolume, GetRequestedDepth, SetRequestedDepth.
+- Protected GetPhysicalVolumeModel when all volumes "invisible".
+
+12th November 2003  John Allison  (modeling-V05-02-02)
+- CalculateExtent always searches complete hierarchy.
+
+6th November 2003  John Allison  (modeling-V05-02-01, vis-V05-02-03)
+- GNUmakefile: rationalised.
+
+3rd November 2003  Gabriele Cosmo  (modeling-V05-02-00, vis-V05-02-02)
+- Added inclusion of G4VSolid.hh in G4LogicalVolumeModel.cc to make it self
+  consistent after header review in geometry category.
+
+4th October 2003  Gabriele Cosmo  (vis-V05-02-01)
+- GNUmakefile:
+  o added dependency to new module "geometry/navigation".
+  o replaced "digits+hits" with "digits_hits".
+- Coworks with "geometry-V05-02-00" and "digits_hits-V05-02-00".
+
+22nd September 2003  John Allison  (vis-V05-02-00, greps-V05-02-00)
+- Removed a redundant comment.
+
+20th November 2002  Gabriele Cosmo  (modeling-V04-01-00)
+- Fixed access to static data (requires "greps-V04-01-04") in
+  G4FlavoredParallelWorldModel.cc, to allow porting on Windows DLLs.
+
+11th November 2002  John Allison  (modeling-V04-00-00)
+- Added fDrawingMode data member to G4TrajectoriesModel.
+
+24th October 2002  John Allison (vis-V04-01-03)
+- Changes for AddThis(const G4VTrajectory&) and (const G4VHit&).
+
+23rd February 2002  John Allison (vis-V04-00-02)
+- Removed Begin/EndPrimitives from G4HitsModel and
+  G4TrajectoriesModel.  This was causing nested calls to
+  Begin/EndPrimitives (and thus to glNewList/EndList in OpenGL stored
+  mode), since the trajectories and hits Draw methods themselves have
+  Begin/EndPrimitives.
+
+24th August 2001  John Allison  (vis-V03-02-13)
+- Intoduced argument for printing in G4VModel::Validate(G4bool warn).
+- Changed default return value in G4VModel::Validate(G4bool) to true.
+- Invoke CalculateExtent after successful geometry change in
+  G4PhysicalVolumeModel::Validate, and other bug fixes..
+
+14th August 2001  John Allison  (vis-V03-02-11)
+- Added sceneHandler.Begin/EndPrimitives messages to models (long
+  standing bug!).
+
+9th August 2001  John Allison  (vis-V03-02-10-00)
+- Removed G4ModelingParameters::hierarchy.  It is no longer used.  The
+  textual or graphical representation of the geometry hierarchy is now
+  done in G4xxxTree classes in visua;ization/Tree.
+
+25th July 2001  John Allison  (modeling-V03-02-03)
+- Added G4VModel::GetG4PhysicalVolumeModel().
+- Added G4VModel* argument to G4BoundingSphereScene constructor.
+  Both the above are to facilitate access to a model, if it exists, and
+  to invoke methods of G4PhysicalVolumeModel if it is one.
+- Added code to curtail G4PhysicalVolumeModel search in G4BoundingSphereScene.
+
+24th July 2001  John Allison  (modeling-V03-02-02)
+- Added G4VModel::SetExtent(const G4VisExtent&).
+- Cosmetic improvements to G4BoundingSphereScene.
+- Augmented G4ScaleModel::fGlobalTag.
+
+21st July 2001  John Allison  (modeling-V03-02-01)
+- Added G4ScaleModel.
+- Fixed bug in G4BoundingSphereScene::::Accrue().
+- Also a few cosmetic changes.
+
+18th July 2001  John Allison  (modeling-V03-02-00)
+- Ensured rotation and translation of replica is restored.
+
+3rd February 2001  John Allison  (vis-V03-00-02)
+- Tidied for CodeWizard.
+
+29th May 2000  John Allison
+- Moved code for maintaining depth, physical and logical volume
+  pointers from VisitGeometryAndGetVisReps to DescribeAndDescend to
+  handle daughters of replicas correctly (Guy Barrand).
+
+22nd May 2000  John Allison  (modeling-V01-01-00)
+- Added G4VTreeGraphicsScene (DTREE).
+- Commented out pVPV->SetCopyNo(n) on Makoto's advice in
+  G4PhysicalVolumeModel.cc.
+
+vis-V01-01-01  12th April 2000  John Allison
+- Made G4PhysicalVolumeModel::DescribeSolid virtual.
+- G4PhysicalVolumeModel::DescribeSolid no longer deals with composite
+  solids - now programmed into CompositeSolid::CreatePolyhedron, where
+  CompositeSolid means G4IntersectionSolid, G4SubtractionSolid and
+  G4UnionSolid.
+- G4PhysicalVolumeModel::DescribeSolid no longer deals with displaced
+  solids - now programmed into G4DisplacedSolid::CreatePolyhedron.
+- Added G4LogicalVolumeModel::DescribeSolid, which explicitly adds
+  components of composite solids as white forced-wireframe objects.
+
+vis-V00-01-10  25th November 1999  John Allison
+- Adapted header files of modeling for Software Reference Manual.
+
+vis-01-00-05  7th February 1999  John Allison
+
+vis-01-00-05  7th February 1999  John Allison
+- Added list facility to G4PhysicalVolumeSearchScene.
+- Added virtual functions AddThis (const G4Polycone and G4Polyhedra to
+  G4BoundingSphereScene and G4PhysicalVolumeSearchScene.
+
+vis-00-04-01  25th November 1998  John Allison.
+- Added const G4VisAttributes* fpDefaultVisAttributes and access
+  functions to G4ModelingParameters.
+- Reverted to default assignment operator and copy constructor for
+  G4ModelingParameters.
+- G4PhysicalVolumeModel can now handle invisible daughters.
+
+31st August 1998  John Allison
+- Added G4VModel::Validate() and in subclasses.
+
+vis-00-02-05  27th August 1998  John Allison
+- Added G4HitsModel and G4TrajectoriesModel.
+
+vis-00-02-04  22nd August 1998  John Allison
+- Made G4Transform3D fTransform a member of G4VModel (instead of pointer).
+- Reversed order of parameters in G4VModel constructor.
+- Much bug fixing.
+
+vis-00-06-06  11th June 1998  John Allison
+- G4PhysicalVolumeModel handles parametrised solids and materials.
+
+vis-00-06-04  10th June 1998  John Allison
+- Moved G4BoundingSphereScene from management to modeling.
+- Added G4Transform3D data member.
+
+modeling-00-04-01  4th March 1998  John Allison
+- Last tag before moving to visualization.
+- Removed G4ModelingParameters:: from G4ModelingParameters.hh constructor.
+
+27th January 1998  John Allison
+- New (temporay?) category.
+- Incorporates modeling code which was in G4VScene.

@@ -1,0 +1,441 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html401/loose.dtd">
+<html>
+<!-- Created on April, 15 2011 by texi2html 1.78 -->
+<!--
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people.
+Send bugs and suggestions to <texi2html-bug@nongnu.org>
+
+-->
+<head>
+<title>TOP-C (Task Oriented Parallel C/C++): 6. Debugging and Tracing</title>
+
+<meta name="description" content="TOP-C (Task Oriented Parallel C/C++): 6. Debugging and Tracing">
+<meta name="keywords" content="TOP-C (Task Oriented Parallel C/C++): 6. Debugging and Tracing">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.78">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+pre.display {font-family: serif}
+pre.format {font-family: serif}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: serif; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: serif; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.roman {font-family:serif; font-weight:normal;}
+span.sansserif {font-family:sans-serif; font-weight:normal;}
+ul.toc {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+
+<a name="Debugging-and-Tracing"></a>
+<a name="SEC27"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="topc_5.html#SEC26" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC28" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="topc_5.html#SEC19" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="topc.html#Top" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="topc_7.html#SEC34" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="topc.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="topc_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="topc_14.html#SEC62" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="topc_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h1 class="chapter"> 6. Debugging and Tracing </h1>
+
+
+<p>If the difficulty is that the application fails to start in the distributed
+memory model (using <code>topcc --mpi</code>), then read
+<a href="topc_5.html#SEC25">If Slaves Fail to Start</a>, for some
+debugging techniques.  Note also that TOP-C ignores SIGPIPE.  This is
+because TOP-C employs the SO_KEEPALIVE option, and the master process
+would otherwise die if a slave process were to die.  SO_KEEPALIVE
+is needed for robustness when slave processes execute long tasks without
+communicating with the master process.
+The rest of this section assumes that the
+application starts up correctly.
+</p>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top"><a href="#SEC28">6.1 Debugging by Limiting the Parallelism</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">  
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC29">6.2 Debugging with &lsquo;<samp>--TOPC-safety</samp>&rsquo;</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">  
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC30">6.3 TOP-C and POSIX signals</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">            
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC31">6.4 Tracing Messages</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top"> 
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC32">6.5 Stepping Through a Slave Process with &lsquo;<samp>gdb</samp>&rsquo;</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top"> 
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC33">6.6 Segmentation faults and other memory problems</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top"> 
+</td></tr>
+</table>
+
+<hr size="6">
+<a name="Debugging-by-Limiting-Parallelism"></a>
+<a name="SEC28"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC27" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC29" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC27" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC27" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="topc_7.html#SEC34" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="topc.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="topc_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="topc_14.html#SEC62" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="topc_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h2 class="section"> 6.1 Debugging by Limiting the Parallelism </h2>
+
+<p>First, compile and link your code
+using <code>topcc --seq --TOPC-safety=20 -g -O0</code>,
+and make sure that your application works correctly sequentially.  Only after
+you have confidence in the correctness of the sequential code, should you
+begin to debug the parallel version.
+</p>
+<p>If the application works correctly in sequential mode, one should debug
+in the context of a single slave.  It is convenient to declare the
+remote slave to be <code>localhost</code> in the &lsquo;<tt>procgroup</tt>&rsquo; file, in order
+to minimize network delays and so as not to disturb users of
+other machines.  In this case, the code is &ldquo;almost&rdquo;
+sequential.  An easy way to do this is:
+</p><table><tr><td>&nbsp;</td><td><pre class="example">  topcc --mpi --TOPC-num-slaves=1 -g -O0
+</pre></td></tr></table>
+
+<p>Next, one should test on two slaves, and finally all possible slaves.
+</p>
+<hr size="6">
+<a name="Debugging-with-_002d_002dTOPC_002dsafety"></a>
+<a name="SEC29"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC28" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC30" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC27" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC27" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="topc_7.html#SEC34" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="topc.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="topc_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="topc_14.html#SEC62" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="topc_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h2 class="section"> 6.2 Debugging with &lsquo;<samp>--TOPC-safety</samp>&rsquo; </h2>
+
+
+<p>The command-line option &lsquo;<samp>--TOPC-safety=<var>val</var></samp>&rsquo; provides assistance
+for debugging parallel programs.  At higher values of <var>val</var>,
+optimizations that do not change the correctness of the program are
+converted to safer equivalents.  A good strategy is to
+test if &lsquo;<samp>--TOPC-safety=20</samp>&rsquo; causes the bug to go away, and if so,
+progressively lower <var>val</var> toward zero, until the bug reappears.
+The value at which the bug reappears indicates what &lsquo;<samp>TOP-C</samp>&rsquo;
+optimization feature is not being used correctly.  If the bug still
+exists at &lsquo;<samp>--TOPC-safety=20</samp>&rsquo;, one should next try compiling
+with the &lsquo;<samp>--seq</samp>&rsquo; flag and use a debugger to debug the sequential code.
+</p>
+<p>The effects due to different safety levels are subject to change.
+To see the current effects, invoke any TOP-C application as follows
+</p><table><tr><td>&nbsp;</td><td><pre class="example">  ./a.out --TOPC-help --TOPC-verbose
+</pre></td></tr></table>
+<p>and you will see something like:
+</p><table><tr><td>&nbsp;</td><td><pre class="example">  safety: &gt;=0: all; &gt;=2: no TOP-C memory mgr (uses malloc/free);
+  &gt;=4: no TOPC_MSG_PTR; &gt;=8: no aggreg.;
+  &gt;=12: no TOPC_abort_tasks; &gt;=14: no receive thread on slave;
+  &gt;=16: default atomic read/write for DoTask, UpdateSharedData;
+   =19: only 2 slaves; &gt;=20: only 1 slave
+  (AGGREGATION NOT YET IMPLEMENTED)
+</pre></td></tr></table>
+
+<p>Values higher than 4 cause <code>TOPC_MSG_PTR()</code> to act as
+if <code>TOPC_MSG()</code> was called instead.
+Values higher than 12 cause <code>TOPC_abort_tasks()</code> to have no effect.
+Values higher than 14 imply that a single thread in the slave process
+must receive messages and execute <code>DoTask()</code>.  Normally,
+&lsquo;<samp>TOP-C</samp>&rsquo; arranges to overlap communication and computation on the
+slave by setting up a separate thread to receive and store messages from
+the master.
+Values higher than 15 imply that &lsquo;<samp>TOP-C</samp>&rsquo; will use malloc instead
+of trying to do its
+own memory allocation (which is optimized for &lsquo;<samp>TOP-C</samp>&rsquo; memory
+patterns).
+Values higher than 16 imply that all of <code>DoTask</code> acts as
+if a read lock was placed around it, and all of <code>UpdateSharedData</code>
+has a write lock placed aound it.  (This has an effect only
+in the shared memory model where calls to <code>TOPC_ATOMIC_READ/WRITE</code>
+are ignored.)
+At values of 19 and 20, the number of slaves is reduced to
+2 and to 1, regardless of the setting of &lsquo;<samp>--TOPC-num-slaves</samp>&rsquo;
+and the specification in a &lsquo;<tt>procgroup</tt>&rsquo; file.
+</p>
+<hr size="6">
+<a name="TOP_002dC-and-POSIX-signals"></a>
+<a name="SEC30"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC29" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC31" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC27" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC27" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="topc_7.html#SEC34" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="topc.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="topc_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="topc_14.html#SEC62" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="topc_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h2 class="section"> 6.3 TOP-C and POSIX signals </h2>
+
+<p>If an application handles its own signals, this can create a clash
+with the TOP-C.
+In the distributed memory model (&ndash;mpi), &lsquo;<samp>TOP-C</samp>&rsquo; will create its own
+signal handlers for <code>SIGALRM</code>.  This is used in conjunction with
+<code>alarm()</code> to eventually kill runaway
+slave processes.  In addition, if using &lsquo;<samp>MPINU</samp>&rsquo;,
+the built-in MPI subset, &lsquo;<samp>TOP-C</samp>&rsquo; will create its own handler
+for <code>SIGPIPE</code>.  This is in order to allow the master
+process to detect dead sockets, indicating dead slaves.
+Finally, for short periods, &lsquo;<samp>MPINU</samp>&rsquo;
+will disable the use of <code>SIGINT</code> around calls to <code>select()</code>.
+Nevertheless, if a SIGINT is sent during this period, TOP-C will pass the
+signal on to the original SIGINT handler of the application.
+</p>
+<p>&lsquo;<samp>TOP-C</samp>&rsquo; does not modify signal handlers in the sequential (&ndash;seq)
+or shared memory (&ndash;pthread) models.  Furthermore, if a different
+MPI (other than MPINU) is used with TOP-C, TOP-C will only handle
+<code>SIGALRM</code>.  However, the other MPI may handle signals itself.
+See section <a href="topc_13.html#SEC61">Using a Different &lsquo;<samp>MPI</samp>&rsquo; with TOP-C</a>.
+</p>
+<hr size="6">
+<a name="Tracing-Messages"></a>
+<a name="SEC31"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC30" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC32" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC27" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC27" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="topc_7.html#SEC34" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="topc.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="topc_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="topc_14.html#SEC62" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="topc_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h2 class="section"> 6.4 Tracing Messages </h2>
+
+
+<p>If a bug appears as one moves to greater parallelism, one should trace
+messages between master and slaves (for any number of slaves).
+This is the default, and it can be enabled on the command line with:
+</p><table><tr><td>&nbsp;</td><td><pre class="example">  ./a.out --TOPC-trace=2 <var>args</var>
+</pre></td></tr></table>
+<p>The variable <code>TOPC_OPT_trace</code> can be set in the code to
+dynamically turn tracing on (1 or 2) and off (0) during a single run.
+A trace value of 2 causes &lsquo;<samp>TOP-C</samp>&rsquo; to invoke the application-defined
+trace functions pointed to by
+<code>TOPC_OPT_trace_input/result</code>.  If the application has not
+defined trace functions, or if <code>TOPC_OPT_trace</code> is 1, then
+the &lsquo;<samp>TOP-C</samp>&rsquo; default trace functions are invoked.
+All message traces
+are displayed by the master at the time that the master sends or
+receives the corresponding message.
+</p>
+<dl>
+<dt><u>Variable:</u> void (*)(void *input) <b>TOPC_OPT_trace_input</b>
+<a name="IDX25"></a>
+</dt>
+<dt><u>Variable:</u> void (*)(void *input, void *output) <b>TOPC_OPT_trace_result</b>
+<a name="IDX26"></a>
+</dt>
+<dd><p>         Global pointer (default is <code>NULL</code>) to function returning
+         <code>void</code>.  User can
+         set it to his or her own trace function to print out
+         data-specific tracing information in addition to generic
+         message tracing of <code>TOPC_trace</code>.
+</p></dd></dl>
+<table><tr><td>&nbsp;</td><td><pre class="example">EXAMPLE:  if you pass integers via <code>TOPC_MSG()</code>, define
+  <code>TOPC_trace_input()</code> as:
+         void mytrace_input( int *input ) {
+           printf(&quot;%d&quot;,*input);
+         }
+         TOPC_OPT_trace_input = mytrace_input;
+</pre></td></tr></table>
+
+<p>Note that the term &lsquo;<samp>result</samp>&rsquo; in <code>TOPC_OPT_trace_result</code>
+refers to an &lsquo;<samp>(input, output)</samp>&rsquo; pair.
+</p>
+<hr size="6">
+<a name="Stepping-Through-a-Slave"></a>
+<a name="SEC32"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC31" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC33" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC27" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC27" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="topc_7.html#SEC34" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="topc.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="topc_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="topc_14.html#SEC62" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="topc_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h2 class="section"> 6.5 Stepping Through a Slave Process with &lsquo;<samp>gdb</samp>&rsquo; </h2>
+
+
+<p>If you find the master hanging, waiting for a slave message, then the
+probable cause is that <code>DoTask()</code> is doing something bad (hanging,
+infinite loop, bus/segmentation error, etc.).  First try to isolate the
+bug using a symbolic debugger (e.g. &lsquo;<samp>gdb</samp>&rsquo;) and the sequential memory
+model.  If your intended application is the shared memory model, you can also
+use &lsquo;<samp>gdb</samp>&rsquo; to set a breakpoint in your &lsquo;<samp>DoTask</samp>&rsquo; routine
+or at the &lsquo;<samp>TOP-C</samp>&rsquo; invocation, <code>do_task_wrapper</code>.
+</p>
+<p>If the bug only appears in the distributed memory model, you can still
+symbolically debug <code>DoTask()</code> using &lsquo;<samp>gdb</samp>&rsquo; (the GNU C debugger)
+and its <code>attach</code> command
+(see <a href="../gdb/Running.html#Running">(gdb)Running</a> section `Attach' in <cite>The GNU debugger</cite>),
+which allows you to attach and debug a separate running process.  This
+lets you debug a running slave, if it is running o the same processor.
+For this strategy, you will want the slave to delay executing to give
+you time to execute gdb and attach on the remote host or remote thread.
+The command line option &lsquo;<samp>--TOPC-slave-wait=30</samp>&rsquo; will force
+the slave to wait 30 seconds before processing.
+</p>
+<p>In applying this debugging strategy to an application &lsquo;<samp>./a.out</samp>&rsquo;,
+one might see:
+</p><table><tr><td>&nbsp;</td><td><pre class="example">  [ Execute ./a.out in one window for master process ]
+  gdb ./a.out
+  (gdb) run --TOPC-trace=1 --TOPC-safety=19 --TOPC-slave-wait=30 <var>args</var>
+
+  [ In a second window for a slave process on a different host, now type: ]
+  ps
+    ...
+    1492  p4 S    0:00 a.out <var>args</var> localhost 6262 -p4amslave
+  gdb a.out
+  ...
+  (gdb) break do_task_wrapper
+    Breakpoint 1 at 0x80492ab: file ...
+    [ `break slave_loop' is also useful.  This calls do_task_wrapper ]
+  (gdb) attach 1492
+    Attaching to program `a.out', process 1492
+    0x40075d88 in sigsuspend ()
+  [ After 30 sec's, traced messages in master window appear, ]
+  [ for slave, type: ]
+  (gdb) continue
+    Continuing.
+    Breakpoint 1, DoTask (input=0x805dc50) at ...
+
+  [ Continue stepping through master and slave processes in 2 windows ]
+</pre></td></tr></table>
+
+<p>If you try to <em>attach</em> to a second slave process after attaching
+to a first slave process, &lsquo;<samp>gdb</samp>&rsquo; will offer to kill your first
+slave process.  To avoid this situation, remember to execute <code>detach</code>
+before attaching a second slave process.
+</p>
+<hr size="6">
+<a name="Segmentation-faults"></a>
+<a name="SEC33"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC32" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="topc_7.html#SEC34" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC27" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC27" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="topc_7.html#SEC34" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="topc.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="topc_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="topc_14.html#SEC62" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="topc_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h2 class="section"> 6.6 Segmentation faults and other memory problems </h2>
+
+
+<p>Memory bugs are among the most difficult to debug.
+If you suspect such a bug (perhaps because you are using <code>TOPC_MSG_PTR</code>),
+and you fail to free previously malloc'ed memory, that is a memory leak.
+If you access a buffer after freeing it, this may cause
+a segmentation error at a later stage in the program.
+</p>
+<p>If you suspect such a bug (and maybe you should if nothing else
+worked), it is helpful to use a <em>malloc or memory debugger</em>.
+An excellent recent memory debugger is
+&lsquo;<samp>valgrind</samp>&rsquo;<a name="DOCF2" href="topc_fot.html#FOOT2">(2)</a>.
+&lsquo;<samp>valgrind</samp>&rsquo; can be directly applied to an application binary,
+without recompilation or relinking.
+</p>
+<p>An older debugger is &lsquo;<samp>efence</samp>&rsquo;,<a name="DOCF3" href="topc_fot.html#FOOT3">(3)</a>
+<code>topcc</code>
+provides direct support for &lsquo;<samp>efence</samp>&rsquo;.
+&lsquo;<samp>TOP-C</samp>&rsquo; will link with the efence library if <code>--efence</code>
+is passed to <code>topcc</code> or <code>topc++</code>.
+</p><table><tr><td>&nbsp;</td><td><pre class="example">  topcc --efence ...
+</pre></td></tr></table>
+<p>This causes all calls to <code>malloc</code> and <code>free</code> to
+be intercepted by the &lsquo;<samp>efence</samp>&rsquo; version.
+Modify the line <code>LIBMALLOC=</code> in <code>topcc</code> or <code>topc++</code>
+if you use a different library.
+</p>
+<hr size="6">
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC27" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="topc_7.html#SEC34" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="topc.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="topc_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="topc_14.html#SEC62" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="topc_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<p>
+ <font size="-1">
+  This document was generated by <em>Gene Cooperman</em> on <em>April, 15 2011</em> using <a href="http://www.nongnu.org/texi2html/"><em>texi2html 1.78</em></a>.
+ </font>
+ <br>
+
+</p>
+</body>
+</html>

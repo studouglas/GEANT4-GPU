@@ -1,0 +1,609 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<!-- Created on October, 6  2004 by texi2html 1.65 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>TOP-C (Task Oriented Parallel C/C++): Compiling and Invoking TOP-C Applications</TITLE>
+
+<META NAME="description" CONTENT="TOP-C (Task Oriented Parallel C/C++): Compiling and Invoking TOP-C Applications">
+<META NAME="keywords" CONTENT="TOP-C (Task Oriented Parallel C/C++): Compiling and Invoking TOP-C Applications">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.65">
+
+</HEAD>
+
+<BODY LANG="en" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC19"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_4.html#SEC18"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_5.html#SEC20"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_4.html#SEC14"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc.html#SEC_Top"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_6.html#SEC27"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_14.html#SEC62">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H1> 5. Compiling and Invoking `<SAMP>TOP-C</SAMP>' Applications </H1>
+<!--docid::SEC19::-->
+<P>
+
+A `<SAMP>TOP-C</SAMP>' application can be compiled once, and then linked to your
+choice of a run-time library for either a sequential, distributed memory
+or shared memory architecture.  The two shell scripts `<TT>bin/topcc</TT>'
+and `<TT>bin/topc++</TT>' are used instead of `<SAMP>gcc</SAMP>' and `<SAMP>g++</SAMP>' (or
+other C/C++ compilers).
+</P><P>
+
+<BLOCKQUOTE><TABLE BORDER=0 CELLSPACING=0> 
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="topc_5.html#SEC20">5.1 Compiling TOP-C Applications</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="topc_5.html#SEC21">5.2 Command Line Options in TOP-C Applications</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="topc_5.html#SEC22">5.3 Invoking a TOP-C Application in Sequential Memory</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="topc_5.html#SEC23">5.4 Invoking a TOP-C Application in Distributed Memory</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="topc_5.html#SEC26">5.5 Invoking a TOP-C Application in Shared Memory</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+</TABLE></BLOCKQUOTE>
+<P>
+
+<A NAME="Compiling TOP-C Applications"></A>
+<HR SIZE="6">
+<A NAME="SEC20"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_5.html#SEC19"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_5.html#SEC21"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_5.html#SEC19"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_5.html#SEC19"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_6.html#SEC27"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_14.html#SEC62">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 5.1 Compiling TOP-C Applications </H2>
+<!--docid::SEC20::-->
+<P>
+
+<A NAME="IDX43"></A>
+<A NAME="IDX44"></A>
+<A NAME="IDX45"></A>
+</P><P>
+
+The TOP-C application file must contain
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>    #include &#60;topc.h&#62;
+</pre></td></tr></table>It must make calls to
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>    TOPC_init(...);
+    TOPC_master_slave(...);
+    TOPC_finalize();
+</pre></td></tr></table>as describe in <A HREF="topc_3.html#SEC5">3.1.1 Structure of a TOP-C Program</A>.  The
+application file is compiled by one of:
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>    topcc --seq <VAR>myfile.c</VAR>
+    topcc --mpi <VAR>myfile.c</VAR>
+    topcc --pthread <VAR>myfile.c</VAR>
+</pre></td></tr></table>according to whether the target computer architecture will be sequential
+(`<SAMP>--seq</SAMP>':  single processor), distributed memory (`<SAMP>--mpi</SAMP>':
+networked CPU's), or shared memory (`<SAMP>--pthread</SAMP>':  SMP or other
+shared memory architecture with a POSIX threads interface).
+<CODE>topcc</CODE> is a substitute for <CODE>cc</CODE> or <CODE>gcc</CODE>,
+and creates an `<SAMP>a.out</SAMP>' file.
+(Similarly, <CODE>topc++</CODE> exists as a substitute for <CODE>c++</CODE> or
+<CODE>g++</CODE>.)
+There are man files,
+<TABLE><tr><td>&nbsp;</td><td class=display><pre style="font-family: serif">    `<TT>doc/topcc.1</TT>',   `<TT>doc,topc++.1</TT>'
+</pre></td></tr></table>with further information on <CODE>topcc</CODE> and <CODE>topc++</CODE>.
+If installed, <CODE>man topcc</CODE> and <CODE>man topc++</CODE> exist.
+</P><P>
+
+The same object file may be relinked to use different `<SAMP>TOP-C</SAMP>' memory
+models without recompiling the object file.
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>    topcc -c <VAR>myapp.c</VAR>
+    topcc --seq -o <VAR>myapp-seq</VAR> <VAR>myapp.o</VAR>
+    topcc --mpi -o <VAR>myapp-mpi</VAR> <VAR>myapp.o</VAR>
+</pre></td></tr></table></P><P>
+
+For large applications, it may be preferable to directly invoke
+the `<SAMP>TOP-C</SAMP>' libraries and include files.  For such
+situations, <CODE>topc-config</CODE> exists.  The following
+is exactly equivalent to <CODE>topcc --mpi myfile.c</CODE>
+(assuming you configured `<SAMP>TOP-C</SAMP>' using <CODE>gcc</CODE>).
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>    gcc `topc-config --cflags` --mpi myfile.c `topc-config --libs`
+</pre></td></tr></table>Type <CODE>topc-config</CODE> with no arguments for a full set of
+command line options.
+</P><P>
+
+For the rest of this chapter, we standardize our description for
+<CODE>topcc</CODE>.  However, <CODE>topc++</CODE> is equally valid wherever
+<CODE>topcc</CODE> is mentioned.
+</P><P>
+
+<A NAME="Command Line Options"></A>
+<HR SIZE="6">
+<A NAME="SEC21"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_5.html#SEC20"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_5.html#SEC22"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_5.html#SEC19"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_5.html#SEC19"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_6.html#SEC27"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_14.html#SEC62">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 5.2 Command Line Options in TOP-C Applications </H2>
+<!--docid::SEC21::-->
+<P>
+
+<A NAME="IDX46"></A>
+<A NAME="IDX47"></A>
+<A NAME="IDX48"></A>
+<A NAME="IDX49"></A>
+<A NAME="IDX50"></A>
+<A NAME="IDX51"></A>
+<A NAME="IDX52"></A>
+<A NAME="IDX53"></A>
+<A NAME="IDX54"></A>
+<A NAME="IDX55"></A>
+<A NAME="IDX56"></A>
+<A NAME="IDX57"></A>
+<A NAME="IDX58"></A>
+<A NAME="IDX59"></A>
+<A NAME="IDX60"></A>
+<A NAME="IDX61"></A>
+<A NAME="IDX62"></A>
+<A NAME="IDX63"></A>
+</P><P>
+
+TOP-C searches for TOP-C parameters in the following locations, in order:
+<OL>
+<LI>values of variables <CODE>TOPC_OPT_xxx</CODE> in the application code
+	before <CODE>TOPC_init()</CODE>
+<LI>the file `<TT>.topcrc</TT>' in the home directory
+<LI>the environment variable <CODE>TOPC_OPTS</CODE>
+<LI>arguments on the command line in the form <CODE>--TOPC-xxx</CODE>
+</OL>
+The file `<TT>.topcrc</TT>' and the environment variable <CODE>TOPC_OPTS</CODE>
+specify parameters
+in the same format as on the command line.  Later assignments of an
+option override earlier assignments.
+<P>
+
+For a brief synopsis of application command line options, type:
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>    topcc <VAR>myapp.c</VAR>
+    ./a.out --TOPC-help
+    [ OR FOR MORE INFORMATION:  ./a.out --TOPC-help --TOPC-verbose  ]
+</pre></td></tr></table></P><P>
+
+Currently, this will display the following.
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>Usage:  ./a.out [TOPC_OPTION ...] [OTHER_OPTIONS ...]
+
+  where TOPC_OPTION is one of:
+--TOPC-help<CODE>[=&#60;0/1&#62;]</CODE>        display this message   [default: false]
+--TOPC-stats<CODE>[=&#60;0/1&#62;]</CODE>       print stats before &#38; after [default: false]
+--TOPC-verbose<CODE>[=&#60;0/1&#62;]</CODE>     set verbose mode       [default: false]
+--TOPC-num-slaves<CODE>=&#60;int&#62;</CODE>    number of slaves (sys-defined default) 
+                                                   [default: -1]
+--TOPC-aggregated-tasks<CODE>=&#60;int&#62;</CODE> number of tasks to aggregate 
+                                                   [default: 1]
+--TOPC-slave-wait=<CODE>&#60;int&#62;</CODE>    secs before slave starts (use w/ gdb attach)
+                                                   [default: 0]
+--TOPC-slave-timeout=<CODE>&#60;int&#62;</CODE> dist mem: secs to die if no msgs, 0=never
+                                                   [default: 1800]
+--TOPC-trace<CODE>=&#60;int&#62;</CODE>         trace (0: notrace, 1: trace, 2: user trace fncs.) 
+                                                   [default: 2]
+--TOPC-procgroup<CODE>=&#60;string&#62;</CODE>  procgroup file (--mpi)
+                                                   [default: "./procgroup"]
+--TOPC-topc-log<CODE>=&#60;string&#62;</CODE>   NOT IMPL: log file for TOPC output ("-" = stdout) 
+                                                   [default: "-"]
+--TOPC-safety=<CODE>&#60;int&#62;</CODE>        [0..20]: higher turns off optimizations,
+                         (try with --TOPC-verbose) [default: 0]
+</pre></td></tr></table></P><P>
+
+For each option, `<SAMP>--TOPC-<VAR>PARAM</VAR></SAMP>', there is a corresponding
+C/C++ variable, <CODE>TOPC_OPT_<VAR>PARAM</VAR></CODE>.  This variable is of type
+<CODE>int</CODE> or <CODE>(char *)</CODE>.  If the application program sets the value
+before a call to <CODE>TOPC_init()</CODE>, these variables will act as
+defaults.  For example, to turn off tracing by default, write:
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>int main( int argc, char *argv[] ) {
+  TOPC_OPT_trace = 0;
+  TOPC_init( &#38;argc, &#38;argv );
+  ...
+}
+</pre></td></tr></table></P><P>
+
+The option `<SAMP>--TOPC-trace</SAMP>' causes the task input and task output
+to be traced and printed as they are passed across the network.  The action of
+a task is also printed.  If an application is called with
+`<SAMP>--TOPC-trace=2</SAMP>' (default) and if the variables
+<CODE>TOPC_OPT_trace_input</CODE> and <CODE>TOPC_OPT_trace_result</CODE> are set
+to pointers to
+functions then those functions are called, and they may print additional
+information.
+<CODE>TOPC_OPT_trace_input</CODE> must be set to a function of one
+variable:  <CODE>void * <VAR>input</VAR></CODE>.
+<CODE>TOPC_OPT_trace_result</CODE> must be set to a function of two
+variables:  <CODE>void * <VAR>input</VAR>, void * <VAR>output</VAR></CODE>.
+When using C++, the function pointers must be cast to
+<CODE>TOPC_trace_input_ptr</CODE> or <CODE>TOPC_trace_result_ptr</CODE>
+before being assigned to <CODE>TOPC_OPT_trace_input</CODE> or
+<CODE>TOPC_OPT_trace_result</CODE>, respectively.
+For an example, see `<TT>examples/parfactor.c</TT>' in the TOP-C distribution.
+</P><P>
+
+The option `<SAMP>--TOPC-stats</SAMP>' prints statistics (running times,
+etc.) and
+information about the conditions of an invocation of a TOP-C application
+before and after a run.
+The option `<SAMP>--TOPC-verbose</SAMP>' (set by default) displays TOP-C
+warnings.  With --TOPC-help, it provides additional information.
+</P><P>
+
+For the usage of `<SAMP>--TOPC-procgroup</SAMP>',
+see <A HREF="topc_5.html#SEC23">5.4 Invoking a TOP-C Application in Distributed Memory</A>.
+That section also explains on what hosts the slaves run
+when `<SAMP>--TOPC-num-slaves</SAMP>' indicates a different number of
+slaves than the `<TT>procgroup</TT>' file.
+</P><P>
+
+For the usage of `<SAMP>--TOPC-aggregated-tasks</SAMP>',
+see <A HREF="topc_7.html#SEC37">7.3 Improving Performance</A>.
+For the usage of `<SAMP>--TOPC-slave-wait</SAMP>', see
+<A HREF="topc_6.html#SEC32">6.5 Stepping Through a Slave Process with `<SAMP>gdb</SAMP>'</A>.
+For the usage of `<SAMP>--TOPC-safety</SAMP>', see
+<A HREF="topc_5.html#SEC21">5.2 Command Line Options in TOP-C Applications</A>.
+For the usage of the other options, see the <A HREF="topc_16.html#SEC64">Concept Index</A>.
+</P><P>
+
+`<SAMP>TOP-C</SAMP>' recognizes <CODE>--</CODE> as terminating all option processing,
+according to standard UNIX conventions.
+</P><P>
+
+<A NAME="Invoking a TOP-C Application in Sequential Memory"></A>
+<HR SIZE="6">
+<A NAME="SEC22"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_5.html#SEC21"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_5.html#SEC23"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_5.html#SEC19"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_5.html#SEC19"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_6.html#SEC27"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_14.html#SEC62">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 5.3 Invoking a TOP-C Application in Sequential Memory </H2>
+<!--docid::SEC22::-->
+<P>
+
+<A NAME="IDX64"></A>
+<A NAME="IDX65"></A>
+<A NAME="IDX66"></A>
+</P><P>
+
+For example,
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>    topcc --seq -g -O0 <VAR>myfile.c</VAR>
+</pre></td></tr></table>compiles a sequential version for debugging using <CODE>gdb</CODE>
+(see section `Summary' in <CITE>The GNU debugger</CITE>), for example.
+This is usually a first step in debugging a TOP-C application, since
+sequential debugging is easier than parallel debugging.
+</P><P>
+
+<A NAME="Invoking a TOP-C Application in Distributed Memory"></A>
+<HR SIZE="6">
+<A NAME="SEC23"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_5.html#SEC22"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_5.html#SEC24"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_5.html#SEC19"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_5.html#SEC19"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_5.html#SEC26"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_14.html#SEC62">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 5.4 Invoking a TOP-C Application in Distributed Memory </H2>
+<!--docid::SEC23::-->
+<P>
+
+<A NAME="IDX67"></A>
+<A NAME="IDX68"></A>
+<A NAME="IDX69"></A>
+</P><P>
+
+Linking using the `<SAMP>--mpi</SAMP>' option (default) allows an application to
+execute using a distributed memory model of networked processors.  The
+`<SAMP>TOP-C</SAMP>' distribution includes a subset MPI<A NAME="DOCF1" HREF="topc_fot.html#FOOT1">(1)</A>
+implementation `<SAMP>MPINU</SAMP>', sufficient to run `<SAMP>TOP-C</SAMP>'
+applications.
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>  topcc --mpi <VAR>myapp.c</VAR>
+  ./a.out
+</pre></td></tr></table>The application must then create the remote slave processes at runtime.
+If you use `<SAMP>MPINU</SAMP>' (the default configuration of `<SAMP>TOP-C</SAMP>',
+then the remote slave processes are specified by a `<TT>procgroup</TT>' file.
+Otherwise, the startup mechanism depends on your `<SAMP>MPI</SAMP>' implementation.
+</P><P>
+
+<BLOCKQUOTE><TABLE BORDER=0 CELLSPACING=0> 
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="topc_5.html#SEC24">5.4.1 Writing Procgroup Files for `<SAMP>MPINU</SAMP>'</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="topc_5.html#SEC25">5.4.2 If Slaves Fail to Start</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+</TABLE></BLOCKQUOTE>
+<P>
+
+<A NAME="Procgroup Files"></A>
+<HR SIZE="6">
+<A NAME="SEC24"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_5.html#SEC23"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_5.html#SEC25"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_5.html#SEC22"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_5.html#SEC23"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_5.html#SEC26"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_14.html#SEC62">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 5.4.1 Writing Procgroup Files for `<SAMP>MPINU</SAMP>' </H3>
+<!--docid::SEC24::-->
+<P>
+
+<A NAME="IDX70"></A>
+<A NAME="IDX71"></A>
+<A NAME="IDX72"></A>
+<A NAME="IDX73"></A>
+<A NAME="IDX74"></A>
+</P><P>
+
+`<SAMP>MPINU</SAMP>' is built into the default configuration of the
+`<SAMP>TOP-C</SAMP>' library and uses the `<SAMP>procgroup</SAMP>' mechanism to specify
+slave processes.  (If you prefer to use a different `<SAMP>MPI</SAMP>' dialect,
+`<SAMP>TOP-C</SAMP>' will work, but `<TT>src/Makefile.in</TT>' must be modified,
+and that `<SAMP>MPI</SAMP>' dialect may use a different mechanism for
+introducing slave processes.)
+</P><P>
+
+When the application binary is executed under the default, it looks at
+the current directory for a file,
+<TABLE><tr><td>&nbsp;</td><td class=display><pre style="font-family: serif">    `<TT>procgroup</TT>'
+</pre></td></tr></table>The <VAR>procgroup file</VAR> determines the number and location of the slave
+processes.  The <VAR>procgroup file</VAR> need only be visible from the
+master process.  If one prefers, one can specify an alternate
+<VAR>procgroup file</VAR> via the syntax as in the following example:
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>    ./a.out --TOPC-procgroup=../myprocgroup.big
+</pre></td></tr></table></P><P>
+
+The `<SAMP>TOP-C</SAMP>' distribution includes a file `<TT>bin/procgroup</TT>' as an
+example of the  procgroup format.
+The file must contain a line:
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>    local 0
+</pre></td></tr></table>for the master process.  It must also contain a line for each slave
+process in one of the following forms:
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>    hostname 1 <VAR>full_pathname</VAR>
+    hostname 1 -
+    hostname 1 ./<VAR>relative_pathname</VAR>
+    hostname 1 ../<VAR>relative_pathname</VAR>
+</pre></td></tr></table>where <CODE>hostname</CODE> is the remote host.  
+The pathname <CODE>-</CODE> means to use the same pathname for the slave
+on the remote host as for the master on the current host.
+A relative pathname, such as <CODE>./a.out</CODE> or <CODE>../new_arch/a.out</CODE>,
+specifies a pathname relative to the pathname of the binary of
+the master on the current host.
+</P><P>
+
+Most of the time, it is simplest to just include a full pathname
+or else <CODE>-</CODE> in the `<TT>procgroup</TT>' file.  The relative pathnames are
+useful for a shared filesystem with binaries compiled for
+different architectures.  For example, the procgroup file might include
+relative paths `<TT>../sparc/a.out</TT>', `<TT>../alpha/a.out</TT>' and
+`<TT>../linux/a.out</TT>'.
+If you invoke `<TT>full_path/sparc/a.out</TT>', this will yield a master
+running `<TT>full_path/sparc/a.out</TT>' and three slaves running
+each of the three architectures.
+</P><P>
+
+The full principles are as follows.
+Let SLAVE_PATH be the path of the slave as given in the procgroup file,
+and let MASTER_DIR be the directory of the master process as invoked on
+on the command line. 
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>SLAVE_PATH absolute:
+  slave binary image is SLAVE_PATH
+SLAVE_PATH relative and MASTER_DIR absolute:
+  slave binary image is MASTER_DIR/SLAVE_PATH
+SLAVE_PATH relative and MASTER_DIR relative:
+  slave binary image is $PWD/MASTER_DIR/SLAVE_PATH
+SLAVE_PATH is - and master process invoked on command line as MASTER_BIN:
+  slave binary image is MASTER_BIN  (if MASTER_BIN is absolute path)
+  or $PWD/MASTER_BIN (if MASTER_BIN is relative path)
+If the procgroup line contains command line arguments,
+  those command line arguments are passed to the slave application
+  as its first arguments, and any arguments on the master command
+  line are appended to the list of arguments.
+</pre></td></tr></table>TOP-C assumes that your
+application does not change the working directory before
+calling <CODE>TOPC_init()</CODE>.
+</P><P>
+
+By default, `<SAMP>TOP-C</SAMP>' uses the procgroup file in the current directory.
+You can choose an explicit procgroup file via a program
+variable, <CODE>TOPC_OPT_procgroup="/project/myprocgroup";</CODE>, or via a
+command-line option,
+<CODE>/project/sparc/app --TOPC-procgroup=/project/myprocgroup</CODE>.
+See section <A HREF="topc_5.html#SEC21">5.2 Command Line Options in TOP-C Applications</A>.
+</P><P>
+
+If the command line option `<SAMP>--TOPC-num-slaves=<VAR>int</VAR></SAMP>'
+is given, and if <VAR>int</VAR> is less than the number of
+slaves in the `<TT>procgroup</TT>' file, then `<SAMP>TOP-C</SAMP>' will
+use the first <VAR>int</VAR> slaves from the file.  If <VAR>int</VAR>
+is more than the number of slaves in the `<TT>procgroup</TT>' file,
+then `<SAMP>TOP-C</SAMP>' will use all of the given slaves, and then
+create additional processes on the remote hosts, by
+returning to the beginning of the `<TT>procgroup</TT>' file and
+re-reading the list of slave host/binaries until <VAR>int</VAR>
+slaves have been created in all.
+</P><P>
+
+It is recommended to use only <CODE>localhost</CODE> during initial
+development.
+</P><P>
+
+<A NAME="IDX75"></A>
+</P><P>
+
+The environment variable, <CODE>SSH</CODE> (default value <CODE>ssh</CODE>) is used to
+invoke the remote host.  If, for example, your site uses <CODE>rsh</CODE>
+instead of <CODE>ssh</CODE>, the following code, when executed
+before <CODE>TOPC_init()</CODE> will produce this effect.
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>  putenv("SSH=rsh");
+</pre></td></tr></table>Alternatively, type <CODE>SSH=rsh</CODE> (sh/bash, etc.) or
+<CODE>setenv SSH rsh</CODE>
+(csh/tcsh, etc.) in the UNIX shell before invoking the TOP-C application.
+</P><P>
+
+<A NAME="Slaves Fail to Start"></A>
+<HR SIZE="6">
+<A NAME="SEC25"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_5.html#SEC24"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_5.html#SEC26"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_5.html#SEC22"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_5.html#SEC23"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_5.html#SEC26"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_14.html#SEC62">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 5.4.2 If Slaves Fail to Start </H3>
+<!--docid::SEC25::-->
+<P>
+
+<A NAME="IDX76"></A>
+<A NAME="IDX77"></A>
+<A NAME="IDX78"></A>
+<A NAME="IDX79"></A>
+<A NAME="IDX80"></A>
+</P><P>
+
+If some slave processes start, but not others, then try executing
+the following simple program.
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>#include "topc.h"
+int main(int argc, char *argv) {
+  char host[100];
+  printf("%s connecting ...\n", gethostname(host, 99));
+  TOPC_init(&#38;argc, &#38;argv);
+  printf("... %s connected.\n", gethostname(host, 99));
+  TOPC_finalize();
+}
+</pre></td></tr></table></P><P>
+
+If the slave processes fail to start up or fail to respond to the master
+and if you are using `<SAMP>MPINU</SAMP>' (default configuration of `<SAMP>TOP-C</SAMP>',
+ one other debugging resource is available.
+If an application fails to start up, then `<SAMP>TOP-C</SAMP>' leaves in
+the `<TT>/tmp</TT>' directory a file
+<TABLE><tr><td>&nbsp;</td><td class=display><pre style="font-family: serif">    `<TT>/tmp/mpinu-ssh.$$</TT>'
+</pre></td></tr></table>where <CODE>$$</CODE> is the process id.  The file shows the commands that
+`<SAMP>TOP-C/mpinu</SAMP>' tried to use to start up the slave process.  By
+examining and even manually executing those commands from the terminal,
+one can often deduce the difficulty in creating the slave processes.
+</P><P>
+
+Test the ability of your computer facility to execute remote processes
+<EM>without passwords</EM> by typing:  <CODE>ssh REMOTE_HOST pwd</CODE>.
+If the problem is that <CODE>ssh</CODE> is not working, try setting
+the environment variable <CODE>SSH</CODE> to <CODE>ssh</CODE> or other site-specific
+setting.
+See section <A HREF="topc_5.html#SEC24">5.4.1 Writing Procgroup Files for `<SAMP>MPINU</SAMP>'</A>.
+</P><P>
+
+If you are using <CODE>ssh</CODE> (default if the environment variable
+<CODE>SSH</CODE> is not set), and if it requires a password then the following
+commands within UNIX may allow ssh to operate on your local cluster
+without passwords.
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>ssh-keygen -t dsa       [accept default values]
+ssh-keygen -t rsa       [accept default values]
+cat ~/.ssh/id*.pub &#62;&#62; ~/.ssh/authorized_keys
+</pre></td></tr></table>For security, be sure that ~/.ssh has no read permission for other users.
+</P><P>
+
+<A NAME="Invoking a TOP-C Application in Shared Memory"></A>
+<HR SIZE="6">
+<A NAME="SEC26"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_5.html#SEC25"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_6.html#SEC27"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_5.html#SEC23"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_5.html#SEC19"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_6.html#SEC27"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_14.html#SEC62">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 5.5 Invoking a TOP-C Application in Shared Memory </H2>
+<!--docid::SEC26::-->
+<P>
+
+<A NAME="IDX81"></A>
+<A NAME="IDX82"></A>
+<A NAME="IDX83"></A>
+</P><P>
+
+Linking using the `<SAMP>--pthread</SAMP>' option allows an
+application to execute using POSIX threads.
+Note that the `<SAMP>TOP-C</SAMP>' memory model for shared memory has some small
+variations from the distributed memory model.
+The largest potential
+source of incompatibility is if your <CODE>DoTask()</CODE> routine modifies
+any global or static variables.  If so, such variables will
+need to be declared <EM>thread private</EM>.
+Check your source code to see if this
+affects you.
+</P><P>
+
+Second, if you encounter insufficient performance, you may consider
+experimenting with <EM>fine grain thread parallelism</EM>.  The default
+`<SAMP>TOP-C</SAMP>' algorithm for shared memory allows <CODE>UpdateSharedData()</CODE>
+to begin executing only after each current invocation of <CODE>DoTask()</CODE>
+completes.  This can be modified by an application for
+finer grain parallelism.  See section <A HREF="topc_8.html#SEC47">Optimizing TOP-C Code for the Shared Memory Model</A>, for details in either of the above cases.
+</P><P>
+
+Note also that while a `<SAMP>TOP-C</SAMP>' application object file can usually be
+linked using an arbitrary `<SAMP>TOP-C</SAMP>' memory model without recompiling,
+there are some circumstances where you may first need to recompile the
+application source using <CODE>topcc --pthread</CODE>.
+</P><P>
+
+<A NAME="Debugging and Tracing"></A>
+<HR SIZE="6">
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_5.html#SEC23"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_6.html#SEC27"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_14.html#SEC62">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+by <I>Gene Cooperman</I> on <I>October, 6  2004</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+</FONT>
+
+</BODY>
+</HTML>

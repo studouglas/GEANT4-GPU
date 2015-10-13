@@ -1,0 +1,353 @@
+$Id: History 86973 2014-11-21 11:57:27Z gcosmo $
+-------------------------------------------------------------------
+
+     =========================================================
+     Geant4 - an Object-Oriented Toolkit for Simulation in HEP
+     =========================================================
+
+                      Category History file
+                      ---------------------
+This file should be used by G4 developers and category coordinators
+to briefly summarize all major modifications introduced in the code
+and keep track of all category-tags.
+It DOES NOT substitute the  CVS log-message one should put at every
+committal in the CVS repository !
+
+     *************************************************************
+     * Note that modeling and test have their own History files. *
+     *************************************************************
+
+     ----------------------------------------------------------
+     * Reverse chronological order (last date on top), please *
+     ----------------------------------------------------------
+
+History file for Ray Tracer category
+---------------------------------------
+
+20th November 2014  Makoto Asai (raytracer-V10-00-00)
+- Fixes for Coverity.
+
+15th November 2013  John Allison (raytracer-V09-06-07)
+- Some changes as suggested by PVS.
+- Fixes for Coverity.
+
+20th September 2013 Gabriele Cosmo (raytracer-V09-06-06)
+- Fixed GNUmakefile. Added dependency on "run" category...
+
+19th September 2013 Makoto Asai (raytracer-V09-06-05)
+- Removed unused variable in G4RTPrimaryGeneratorAction.hh.
+
+19th September 2013 Makoto Asai (raytracer-V09-06-04)
+- Both G4TheRayTracer and G4TheMTRayTracer invoke G4VVisManager::IgnoreStateChanges()
+  method to avoid unnecessary state-change handling.
+- Co-working with greps-V09-06-10.
+
+17th September 2013 Makoto Asai (raytracer-V09-06-03)
+- Introducing G4TheMTRayTracer that is multi-threaded. 
+- Co-working with run-V09-06-100 and greps-V09-06-09.
+
+15th September 2013 Makoto Asai (raytracer-V09-06-02)
+- Move data member of G4RTSteppingAction static. Preparation toward
+  making G4TheRayTracer class multi-threaded.
+
+16th June 2013  Makoto Asai (raytracer-V09-06-01)
+- Make G4RayTrajectory and G4RayTrajectoryPoint classes thread safe.
+
+2nd December 2012  John Allison  (raytracer-V09-06-00)
+- Removed NURBS and references to i_mode.
+
+5th July 2012  Gabriele Cosmo  (raytracer-V09-05-05)
+- Explicitly use inclusion of headers for system of units and physical
+  constants, in plan to remove implicit inclusion from globals.hh.
+
+3rd July 2012  John Allison  (raytracer-V09-05-04)
+- Fixed some Coverity warnings.
+
+3rd July 2012  John Allison  (raytracer-V09-05-03)
+- Tagged a fix: uses std::sqrt.
+
+8th June 2012  John Allison  (raytracer-V09-05-02)
+- Shadow clean.
+
+8th February 2012  John Allison  (raytracer-V09-05-01)
+- G4RayTracerViewer.cc, G4TheRayTracer.hh/cc:
+  Adopt fix proposed by jasondet@gmail.com to fix Bug #1274.
+- G4RayTracerViewer.cc:
+  o Move window size hints to constructor from SetView, so that
+    NColumn/Row are never changed, even if window size hints change
+    (e.g., as a result of /vis/viewer/set/all).  It is not possible to
+    change NColumn/Row after instantiation.
+- G4TheRayTracer.cc:
+  o Ensure unit vector for the ray shooter.  (Otherwise it can cause a
+    G4Exception in G4ParticleChange::CheckIt.)
+
+7th February 2012  John Allison  (raytracer-V09-05-00)
+- G4RayTracerViewer.cc:
+  o G4RayTracerViewer::SetView: Fix up-vector bug #1274.
+  o Move window size hints to constructor from SetView, so that
+    NColumn/Row are never changed, even if window size hints change
+    (e.g., as a result of /vis/viewer/set/all).  It is not possible to
+    change NColumn/Row after instantiation.
+- G4TheRayTracer.cc:
+  o Ensure unit vector for the ray shooter.  (Otherwise it can cause a
+    G4Exception in G4ParticleChange::CheckIt.)
+
+17th June 2011 Ben Morgan (raytracer-V09-04-04)
+- sources.cmake : Changed to use GEANT4_USE_RAYTRACER_X11 variable.
+
+24th May 2011 Ben Morgan (raytracer-V09-04-03)
+- sources.cmake : Added additional includes, definitions and link libraries
+  to build X11 component of RayTracer, if it's enabled by the user.
+  CMake functionality added to trunk at revision 49996.
+
+20th May 2011  Ben Morgan (raytracer-V09-04-02)
+- CMakeLists.txt : Added G4VIS_ALLOC_EXPORT compiler definition via 
+  add_definitions so it's applied to all sources in this module. We
+  don't add this definition at the visualization category level because
+  only raytracer uses it. It can be moved higher later.
+
+2nd March 2011  John Allison (raytracer-V09-04-01)
+- Fix bug introduced by fix to Coverity warnings.
+
+1st March 2011  John Allison (raytracer-V09-04-00)
+- G4RayTracerViewer::DrawView: Trap recursive calls, thus avoiding
+  warning messages for each pixel when endOfEventAction is "refresh".
+  EndOfEventAction is not relevant for Ray Tracer.  At the present
+  time, Ray Tracer takes no notice of the scene.  Perhaps in future,
+  it will, but G4RayTracerViewer should still ignore those recursive
+  calls.
+- Fix Coverity warnings.
+
+23, December L. Garnier 
+- GNUmakefile : Remove OpenGL/Qt stuff from Makefile
+
+27th October 2010  Gabriele Cosmo (raytracer-V09-03-04)
+- Restored DLL setup as originally. Withdrawn changes in last tag.
+
+19th October 2010  Gabriele Cosmo (raytracer-V09-03-03)
+- Replaced G4VIS_ALLOC_EXPORT flag with G4ALLOC_EXPORT for DLL exported
+  symbols.
+
+14th June 2010  Gabriele Cosmo  (raytracer-V09-03-02)
+- Added missing virtual destructor to G4VRTScanner, G4RTXScanner and
+  G4RTSimpleScanner.
+
+30th May 2010  John Allison  (raytracer-V09-03-01)
+- G4RayTracerSceneHandler: Added AddCompound(const G4VDigi&).
+
+29th May 2010  John Allison  (raytracer-V09-03-00)
+- G4RayTrajectory.hh: Added DrawTrajectory() ready for i_mode migration.
+
+15th November 2009  John Allison  (raytracer-V09-02-02)
+- Formal tag to record fixing of bugzilla Problem 1072.
+  o There is no change of source code.
+  o This was actullay fixed in raytracer-V09-02-00, which is already accepted.
+
+21st October 2009  John Allison  (raytracer-V09-02-01 coworks greps-V09-02-02)
+- Added AddCompound (const G4THitsMap<G4double>&) methods.
+  o Prevents warnings about hiding - calls G4VSceneHandler base class.
+
+16 September 2009  John Allison  (raytracer-V09-02-00)
+- Cosmetic adjustments and tagging.
+
+19 August 2009 Laurent Garnier
+- G4RayTracerViewer.cc, G4RayTracerXViewer.cc : Fix an bad use of fVP
+  parameters [bugzilla Problem 1072]
+
+18 August 2009 Laurent Garnier
+- G4RayTracerXViewer, G4RTXScanner : Fix a crash introduce by the 
+  new way of handling window size hints (January 2009)
+
+4th April 2008  John Allison  (raytracer-V09-01-00)
+- Fixed gcc-4.3.0 compiler warnings.
+
+14th June 2007  John Allison  (raytracer-V08-03-01)
+- Fixed memory leak in G4RayTracer (wrapper class).
+
+22nd May 2007  John Allison  (raytracer-V08-03-00)
+- Fixed for dubious ValGrind diagnostic showing apparent memory leak in
+  G4RTSimpleScanner and G4RTXScanner.
+
+5th January 2007  John Allison  (raytracer-V08-02-00)
+- Bug fix: use of window size hints.
+
+17th November 2006  Joseph Perl  (raytracer-V08-01-02)
+- Deprecate /vis/rayTracer/backgroundColour.
+- Hasn't worked for some time anyway.
+- Users are instead referred to /vis/viewer/set/background.
+
+14th November 2006  John Allison  (raytracer-V08-01-01)
+- Merged raytracer-V08-01-00-branch onto main branch.
+
+11th November 2006  John Allison  (raytracer-V08-01-00-00)
+- Followed change to G4Scene.
+
+14th August 2006  John Allison  (raytracer-V08-01-00)
+- G4RayTracerSceneHandler.cc: Added world to dummy scene to improve
+  robustness when under control of vis manager.
+
+12th May 2006  John Allison  (raytracer-V08-00-04)
+- SetRecomputeTransients(false).
+
+10th May 2006  Makoto Asai (raytracer-V08-00-03)
+- Remove G4RayShooter class to Event category.
+
+21st April 2006  John Allison  (raytracer-V08-00-02)
+- Relies on improved protection for null models and parameters.
+
+26th January 2006  John Allison  (raytracer-V08-00-01)
+- G4RayTracerSceneHandler: Improved handling of dummy scene.
+- G4TheRayTracer: Advance work for possible inclusion of
+  anti-aliasing.  Currently no change of functionality.
+
+11th January 2006  John Allison  (raytracer-V08-00-00)
+- Reorganisation (needs visman-V08-00-02):
+  o Allowed multiple ray tracers.
+  o Separated out the original ray tracer into G4TheRayTracer, to be
+    used by viewers.
+  o Made G4RTMessenger a smart singleton that queries the vis manager
+    for tracers.
+  o Caused G4RayTracer to instantiate a default ray tracer if the user
+    wants to use /vis/rayTracer commands without the benefit of the
+    vis system (scene handlers and viewers).
+
+4th December 2005  Makoto Asai (raytracer-V07-01-08)
+- Correct initialization of G4RTTrackingAction and G4RTSteppingAction
+
+28th November 2005  Jane Tinslay (raytracer-V07-01-07)
+- Remove names of unused parameters to stop compiler warnings
+
+18th November 2005  John Allison  (raytracer-V07-01-06)
+- Merged in raytracer-V07-01-04 - see below.
+- Implemented window positioning.
+
+28th October 2005  Makoto Asai (raytracer-V07-01-05)
+- Working tag for merging "envelope" into G4Region.
+- This tag does not contain raytracer-V07-01-04 tag that might be
+  already done by J. Allison but does not yet appear on this file.
+
+13th October September 2005  John Allison (raytracer-V07-01-04)
+(On branch raytracer-V07-01-01-branch; changes *not* merged into head -
+need to cvs update -j raytracer-V07-01-02 -j raytracer-V07-01-01-branch.)
+- Migrated to <sstream>.
+- Default background black - can be changed by /vis/viewer/set/background.
+- GNUmakefile: Removed temporary CPPFLAGS += -DG4VIS_BUILD_RAYTRACERX_DRIVER.
+
+30th September 2005  Joseph Perl (raytracer-V07-01-03)
+New tag to include change Makoto made an hour after V07-01-02 was tagged.
+Change seems to just involve passing pWorld to material list where no argument was passed in previous version.
+
+16th September 2005  John Allison (raytracer-V07-01-02)
+(On branch raytracer-V07-01-01-branch; changes merged into head.)
+- Bug fix (black holes): Made small epsilon push into world to ensure inside.
+
+20th July 2005  John Allison (raytracer-V07-01-01)
+- Protected RayTracerX by G4VIS macro.
+
+17th July 2005  John Allison (raytracer-V07-01-00)
+- Introduced RayTracerX.  RayTracerX opens an X window and builds up
+  the picture, refining it gradually.  Already calculated pixels are
+  not recalculated, so it is as efficient as a top-to-bottom raster
+  scan.  It produces a jpeg file as well, just like RayTracer.
+
+11th June 2004  Gabriele Cosmo  (raytracer-V06-01-00)
+- Use global flag G4VIS_ALLOC_EXPORT to export extern symbols for DLLs.
+  Modified GNUmakefile and rearranged usage of extern symbols in classes.
+
+12th November 2003  Mark Donszelmann
+- GNUmakefile: added Modeling/include directory to compile on Windows.
+
+6th November 2003  John Allison  (raytracer-V05-02-04, vis-V05-02-03)
+- GNUmakefile: rationalised.
+
+4th October 2003  Gabriele Cosmo  (raytracer-V05-02-03)
+- GNUmakefile:
+  o added dependency to new module "geometry/navigation".
+  o replaced "digits+hits" with "digits_hits".
+- Coworks with "geometry-V05-02-00" and "digits_hits-V05-02-00".
+
+25th September 2003  Hisaya Kurashige  (raytracer-V05-02-02)
+- Modify GNUmakefile to use processes/cuts category 
+
+18th September 2003  John Allison  (raytracer-V05-02-01, greps-V05-02-00)
+- Introduced G4VRTScanner and its default concrete implementation,
+  G4RTSimpleScanner.  It controls the shooting order of rays.
+- Added new command /vis/rayTracer/backgroundColour.
+
+4th August 2003  Makoto Asai  (raytracer-V05-02-00)
+- Migrate to the changes with "Cuts per region"
+
+18th June 2003  Gabriele Cosmo  (raytracer-V05-01-01)
+- Removed usage of G4USE_STD_NAMESPACE in G4RTJpegMaker.cc, after
+  migration from G4std.
+
+30th May 2003  Makoto Asai  (raytracer-V05-01-00)
+- Fix pedantic warning message.
+
+11th December 2002  John Allison  (vis-V04-01-10)
+- Fix for SUN-CC warnings: AddThis hides the virtual function...
+- Fix memory leak in RayTracer.
+
+11th November 2002  Hajime Yoshida and Minamimoto (raytracer-V04-00-01)
+- Corrected G4RayTracer.cc devide-by-zero.
+
+16th October 2002  John Allison  (raytracer-V04-00-00)
+- Tag for changes in G4VTrajectory, etc.
+
+22nd April 2002  John Allison
+- Workaround for pseudo-parallel/orthogonal projection in Ray Tracer.  It is
+  perspective projection with *very* small field angle (perMillion).
+
+22nd Nov 2001   Gabriele Cosmo  (raytracer-V03-02-02)
+- G4RTJpegMaker.cc: added check on ISO compliance for binary mode on
+  file streamsi, to allow compilation on non-ISO compilers.
+
+13th Nov 2001   Hajime Yoshida and Minamimoto (raytracer-V03-02-01)
+- Updation of G4RTJpegMaker.cc for Windows platform.
+
+14th July 2001  John Allison  (raytracer-V03-02-00)
+- Changed some arguments in G4RayTracer.hh from G4ThreeVector to const
+  G4ThreeVector& to keep Sun compiler happy.
+
+18th May 2001  John Allison  (raytracer-V03-01-00)
+- Removed unnecessary virtual inheritance of G4VViewer in G4RayTracerViewer.
+
+2nd May 2000  John Allison
+- G4RayTracer: set out-of-world ray to black.
+- G4RayTracerViewer: corrected trapping of orthogonal projection.
+
+10th March 2000  Makoto Asai
+- Added some comments for copyright notice and for the software reference manual.
+
+24th February 2000  John Allison
+- Added protection for null viewer in G4RTSteppingAction.cc and
+  G4RayTrajectory.cc.
+- Corrected for zoom, etc., in G4RayTracerViewer.cc.
+
+23rd February 2000  John Allison
+- Added G4RayTracerSceneHandler and Viewer.
+- Some modifications to other RayTracer routines for vis compliance.
+- (Note: headAngle still not right - ray traced views are sometimes tipped.)
+
+22nd February 2000  John Allison (raytracer-V01-00-01a)
+- Added G4std:: in a few places to obtain ISO compliance.
+- Change "char*" to "const char*" in G4OutBitStream::CopyByte(...).
+
+22nd February 2000  Makoto Asai (raytracer-V01-00-01)
+- Change "char*" to "const char*"
+- use g4std/fstream
+
+17th February 2000  Makoto Asai (raytracer-V01-00-00)
+- Primary tag of sub-category
+
+29th January 2000  Makoto Asai
+- Introduction of G4RayTracer (visualization/RayTracer/...)
+- Migration of G4RayTracer
+  affected files :
+    visualization/GNUmakefile
+    visualization/management/include/MyVisManager.cc
+    visualization/management/src/G4VisManager.cc
+  affected files in other directory :
+    config/G4VIS_BUILD.gmk
+    config/G4VIS_USE.gmk
+

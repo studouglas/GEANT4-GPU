@@ -1,0 +1,166 @@
+# $Id: common.gmk 66368 2012-12-18 09:20:17Z gcosmo $
+# ----------------------------------------------------------------
+# Common part of GNUmakefile for libraries.  John Allison, 5/7/95.
+# ----------------------------------------------------------------
+# Libraries are created according to G4SYSTEM. G.Cosmo, 11/6/96.
+# Introduced G4LIBDIR and G4TMPDIR. G.Cosmo, 23/6/98.
+# Introduced Qt moc rule, L.Garnier 15/2/08.
+
+ifndef G4LIBDIR
+  G4LIBDIR := $(G4LIB)/$(G4SYSTEM)
+endif
+G4TMPDIR := $(G4TMP)/$(G4SYSTEM)/$(name)
+
+sources      := $(wildcard src/*.cc)
+dependencies := $(patsubst src/%.cc,$(G4TMPDIR)/%.d,$(sources))
+objects      := $(patsubst src/%.cc,$(G4TMPDIR)/%.o,$(sources))
+
+ifneq ($(G4INTY_BUILD_QT),)
+ sources      += $(moc_sources)
+ dependencies += $(moc_dependencies)
+ objects      += $(moc_objects)
+endif
+
+   g4libraries_to_build :=
+ifeq ($(G4LIB_NO_SHARED),)
+ifneq ($(G4LIB_BUILD_SHARED),)
+   g4libraries_to_build += $(G4LIBDIR)/lib$(name).$(SHEXT)
+endif
+endif
+ifneq ($(G4LIB_BUILD_STATIC),)
+   g4libraries_to_build += $(G4LIBDIR)/lib$(name).a
+endif
+
+# GPPFLAGS is defined here to make the .d file(s) and include it(them).
+
+GPPFLAGS := "-M"
+
+###############################################################################
+#
+# Actual gmake targets.
+#
+
+lib: $(g4libraries_to_build)
+
+ifeq ($(G4LIB_NO_SHARED),)
+ifneq ($(G4LIB_BUILD_SHARED),)
+# Make shared library.
+$(G4LIBDIR)/lib$(name).$(SHEXT): $(G4TMPDIR)/obj.last
+	@if [ ! -d $(G4LIBDIR) ] ; then mkdir $(G4LIBDIR) ;fi
+	@echo Creating shared library $@ ...
+	@$(RM) $@
+#      use architecture specific macro defined in sys/$(G4SYSTEM).gmk
+	$(build-granular-shared-lib)
+endif
+endif
+
+ifneq ($(G4LIB_BUILD_STATIC),)
+# Make static (archive) library.
+$(G4LIBDIR)/lib$(name).a: $(G4TMPDIR)/obj.last
+	@if [ ! -d $(G4LIBDIR) ] ; then mkdir $(G4LIBDIR) ;fi
+	@echo Creating/replacing object files in $(G4LIBDIR)/lib$(name).a ...
+	@rm -f $(G4LIBDIR)/lib$(name).a
+	@$(AR) $(OUT_LIB)$(G4LIBDIR)/lib$(name).a $(G4TMPDIR)/*.o
+	@if [ X$(G4SYSTEM) != XWIN32-VC ] ; then  \
+	if [ -f /usr/bin/ranlib -o -f /bin/ranlib ] ; then \
+	ranlib $(G4LIBDIR)/lib$(name).a ; fi ; fi
+endif
+
+
+###############################################################################
+#
+# Actual targets for .o, .d files
+#
+
+$(G4TMPDIR)/%.o: src/%.cc
+ifdef CPPVERBOSE
+	$(CXX) $(CXXFLAGS) $(CPPFLAGS) -c $(OUT_OBJ)$(G4TMPDIR)/$(*F).o src/$*.cc
+else
+	@echo Compiling $*.cc ...
+	@$(CXX) $(CXXFLAGS) $(CPPFLAGS) -c $(OUT_OBJ)$(G4TMPDIR)/$(*F).o src/$*.cc
+endif
+
+# .PHONY targets are executed regardless of time-stamp of any file of
+# same name.
+.PHONY: all obj lib clean clean_libs includes
+
+obj: $(G4TMPDIR)/obj.last
+
+# Touch the versioning file
+$(G4TMPDIR)/obj.last: $(objects)
+	@$(TOUCH) $@
+
+# Make the .d file(s) and include it(them).
+
+# The ideas for this come from the GNU Make Manual, Section 4.12,
+# Generating Prerequisites Automatically.  The g++ compiler has an
+# option -M or -MM to write to standard output a list of dependencies
+# based on the #include statements.  The "sed" adds the dependency
+# file itself as a second target.  The result is a mini-makefile which
+# specifies the .o and .d files as targets which depend on all the
+# files found through the #include statements.  This file is then
+# included, causing GNU Make to honour these dependencies.
+
+# The "set -e" causes the shell to exit with an error when the "g++"
+# fails (otherwise it would only notice the last command in the
+# pipeline, namely "sed").  GNU Make notices the error and exits
+# sooner than it otherwise would (still not as soon as I expect,
+# though!).  Even then, an empty file is made, so "[ -s $@ ] || rm -f
+# $@" removes it ([ -s filename ] gives zero exit code only if file
+# exists and has a size greater than zero).  This avoids making
+# corrupt .d files which would play havoc with your next build.
+
+$(G4TMPDIR)/%.d: src/%.cc
+	@echo Making dependency for file $< ...
+	@if [ ! -d $(G4TMPDIR) ] ; then mkdir -p $(G4TMPDIR)  ;fi
+	@set -e;\
+	g++ $(GPPFLAGS) $(CPPFLAGS) -w $< |\
+	sed 's!$*\.o!$(G4TMPDIR)/& $@!' >$@;\
+	[ -s $@ ] || rm -f $@
+ifneq ($(dependencies),)
+ifneq ($(MAKECMDGOALS),clean)
+ifneq ($(MAKECMDGOALS),setup)
+ifneq ($(MAKECMDGOALS),clean_setup)
+-include $(dependencies)
+endif
+endif
+endif
+endif
+
+#
+# Installation of include files
+#
+installed_includes:=$(foreach file,$(wildcard include/*),$(shell test -e $(file) && echo $(file)))
+installed_includes:=$(patsubst include/%,$(G4INCLUDE)/%,$(installed_includes))
+
+# NOTE: the double colon rule allows to add other rules for the same target
+#
+includes:: $(installed_includes)
+
+# Static Pattern rules, see GNU make manual for details.
+#           target(s): target-pattern : dep-pattern
+#
+$(installed_includes): $(G4INCLUDE)/% : include/%
+	@cp -rp $< $@
+
+#
+# Clean up libraries
+#
+ifndef G4EXLIB
+clean::
+	@echo Cleaning up ...
+	@rm -f $(G4LIBDIR)/lib$(name).a
+	@rm -f $(G4LIBDIR)/*$(name).lib
+	@rm -f $(G4LIBDIR)/*$(name).exp
+	@rm -f $(G4LIBDIR)/lib$(name).$(SHEXT)
+	@rm -rf $(G4TMPDIR)
+	@rm -rf moc
+endif
+
+clean_libs::
+	@echo Removing library lib$(name).a ...
+	@rm -f $(G4LIBDIR)/*$(name).a
+	@echo Removing library lib$(name).$(SHEXT) ...
+	@rm -f $(G4LIBDIR)/*$(name).lib
+	@rm -f $(G4LIBDIR)/*$(name).exp
+	@rm -f $(G4LIBDIR)/*$(name).$(SHEXT)

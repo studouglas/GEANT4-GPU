@@ -1,0 +1,159 @@
+$Id: History 80314 2014-04-10 12:23:52Z gcosmo $
+-------------------------------------------------------------------
+
+     =========================================================
+     Geant4 - an Object-Oriented Toolkit for Simulation in HEP
+     =========================================================
+
+                      Category History file
+                      ---------------------
+This file should be used by G4 developers and category coordinators
+to briefly summarize all major modifications introduced in the code
+and keep track of all category-tags.
+It DOES NOT substitute the  CVS log-message one should put at every
+committal in the CVS repository !
+
+     ----------------------------------------------------------
+     * Reverse chronological order (last date on top), please *
+     ---------------------------------------------------------
+
+10 Apr 2014: V.Ivanchenko (emadjoint-V10-00-00)
+- G4VAdjointReverseReaction - added protection against infinite 
+    loop in ReverseMC01 example: if cross section correction 
+    exceed 100 the total cross section is set to zero
+
+31 Oct 2013: L.Desorgher (emadjoint-V09-06-09)
+- Modifications for limitation of convergence peak
+- G4AdjointBremsstrahlungModel - biased the gamma->e.- reverse brem CS by factor 100
+- G4AdjointComptonModel -biased the CS by  a factor 0.1
+
+19 Oct 2013: V.Ivanchenko (emadjoint-V09-06-08)
+- G4AdjointBremsstrahlungModel - removed unused obsolete headers
+
+21 Jul 2013: V.Ivanchenko (emadjoint-V09-06-07)
+- G4AdjointhMultipleScattering - use G4UrbanMscModel instead of
+    G4UrbanMscModel95
+
+03 Jul 2013: V.Ivanchenko (emadjoint-V09-06-06)
+- G4ContinuousGainOfEnergy - changed interface to G4VEmFluctuation
+
+17 Jun 2013: G.Cosmo (emadjoint-V09-06-05)
+- Cleanup from automatica changes for MT in G4AdjointInterpolator.
+
+24 Jan 2013: V.Ivanchenko (emadjoint-V09-06-04)
+- G4AdjointPhotoElectricModel - define current G4MaterialCutsCouple
+    for the direct model
+     
+22 Feb 2013: L.Desorgher (emadjoint-V09-06-03)
+-Remove of unused variables detected by compilation warnings.     
+
+23 Jan 2013: V.Ivanchenko (emadjoint-V09-06-02)
+11 Jan 2013: V.Ivanchenko (emadjoint-V09-06-01)
+- G4AdjointhMultipleScattering - use msc95 instead of msc90
+- G4AdjointeIonisationModel - removed unused obsolete header
+
+12 Dec 2012: V.Ivanchenko (emadjoint-V09-06-00)
+- G4AdjointPhotoElectricModel use G4PEEffectFluoModel instead of obsolete
+    G4PEEffectModel
+
+30 Oct 2012: L. Desorgher (emadjoint-V09-05-04)
+-Inclusion of headers for system of units and physical constants in G4AdjointBremsstrahlungModel
+
+26 Oct 2012: L.Desorgher (emadjoint-V09-05-03)
+-G4AdjointBremsstrahlungModel changed to use G4SeltzerBergerModel as forward model  by default
+-Correct differential CS expression in G4VEmAdjointModel
+-Get the weight from PostStepPoint instead of from Track when correcting the step in along stepping actions of 
+ G4ContinuousGainOfEnergy and G4AdjointAlongStepWeightCorrection. THis is needed for a correct propagation 
+ of weight correction in different along step actions. 
+
+10 Jul 2012: G.Cosmo (emadjoint-V09-05-02)
+- Explicitly use inclusion of headers for system of units and physical
+  constants, in plan to remove implicit inclusion from globals.hh.
+
+08 Jun 2012: V.Ivanchenko (emadjoint-V09-05-01)
+- Fixed shadowing
+
+06 Jun 2012: V.Ivanchenko (emadjoint-V09-05-00)
+- G4AdjointhMultipleScattering - comment out obsolete call
+
+24 Jun 2011: V.Ivanchenko (emadjoint-V09-04-03)
+- G4AdjointAlongStepWeightCorrection,G4ContinuousGainOfEnergy,
+   G4VEmAdjointModel - fixed initialisation of currentCouple 
+   class member in constructor (Valgrind report)
+
+10 Jun 2011: G.Cosmo (emadjoint-V09-04-02)
+- Fixed initialization of index in G4VAdjointReverseReaction constructor,
+  also causing compilation warning.
+
+31 May 2011: L.Desorgher (emadjoint-V09-04-01)
+Coverity fixes
+-G4AdjointAlongStepWeightCorrection
+	-add delete of fParticleChange in destructor of (defect 20316)
+	-Initialise scalar attributes and remove currentTCut attribute (defect 15568)
+-G4AdjointBremsstrahlungModel
+	-add delete of theDirectStdBremModel and theEmModelManagerForFwdModels in
+	 destructor (defect 23146)
+	-remove the attribute theTimer (defect 20317)
+	-Initialize lastCZ in constructor (defect 15569)
+-G4AdjointCSManager
+	-Initialize currentCouple, currentMaterial, and  lastMaterial in constructor
+	 (defect 20343)
+-G4AdjointCSMatrix
+	-Initialize dlog in constructor (defect 15203)
+-G4AdjointComptonModel
+	-Initialize G4direct_CS in constructor (defect 15570)
+-G4AdjointInterpolator
+	-Comment dead code in FindPositionForLogVector (defect 14959)
+-G4AdjointPhotoElectricModel
+	-Add initialization of some attributes in constructor (defect 15572)
+-G4AdjointhIonisationModel
+	-Remove unused attributes (defect 15573)
+	-Initialize theAdjEquivOfDirectPrimPartDef outside if condition (defect 15573)
+-G4AdjointhMultipleScattering
+	-Add some initialization of attributes in constructor (defect 15574)
+-G4ContinuousGainOfEnergy
+	-Add some initialization of attributes in constructor (defect 15575)
+-G4VAdjointReverseReaction
+	-Add some initialization of attributes in constructor (defect 15576)
+-G4VEmAdjointModel
+	-Comment dead code in GetAdjointCrossSection (defect 23168)
+	-Neglect at the moment coverity bug 20612-20618.
+	
+		 
+27 May 2011: L. Desorgher (emadjoint-V09-04-00)
+-Remove few unused variables to avoid compilation warning with gcc-4.6.0.
+
+11 Nov 2010: L. Desorgher (emadjoint-V09-03-02)
+-G4AdjointBremsstrahlungModel: add a G4EmModelManager to initialise properly,
+  the G4eBremsstrahlungModel used as forward model. This allows to fix the 
+  floating point exception detected when compiling with G4FPE_DEBUG=1.
+-G4AdjointhIonisation:
+   Remove a negative term in the expression of the adjoint 
+   cross section (AdjointCrossSection method) and adapt the RapidSampleSecondaries method.
+-G4VEmAdjointModel: 
+    Add a check on null cross section to avoid FPE.
+
+3 Sep 2010: G.Cosmo (emadjoint-V09-03-01)
+- G4AdjointAlongStepWeightCorrection: get rid of call to non-Standard isnan(),
+  replaced by explicit validity test.  
+
+12 Apr 2010: V.Ivanchenko (emadjoint-V09-03-00)
+- G4AdjointhMultipleScattering: removed obsolete unused header.
+
+23 Nov 2009: G.Cosmo (emadjoint-V09-02-02)
+- Corrected compilation error on Windows for G4AdjointAlongStepWeightCorrection.
+
+20 Nov 2009: L.Desorgher (emadjoint-V09-02-01)
+- Replace C++ type by G4 type where needed and adding of G4 disclaimer.
+
+10 Nov 2009: L.Desorgher (emadjoint-V09-02-00)
+- Commit of the electromagnetic  adjoint processes for the release of the all adjoint machinery into Geant4.
+  Compared to the first commit, all e- processes have been improved and adjoint proton and ion ionisation have been added.
+  The use of adjoint cross section matrices can be now limited only to e- Ionisation and Ion ionisation. 
+  The GNUmakefile has been modified by adding  -I$(G4BASE)/geometry/navigation/include  in CPPFLAGS.  	    
+
+14 Nov 2008: G.Cosmo (emadjoint-V09-01-00)
+- First commit.
+
+
+

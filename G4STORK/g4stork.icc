@@ -1,0 +1,47 @@
+/*
+g4stork.icc
+
+Created by:		Liam Russell
+Date:			15-08-2011
+Modified:		11-03-2013
+
+This file is used to switch to parallel processing if the environment variable
+G4USE_TOPC is set.  Switches the run manager class from StorkRunManager to
+StorkParallelRunManager (parallelrun manager) and overrides the main function.
+*/
+
+
+#ifdef G4USE_TOPC
+
+// Include header files
+#include "topc.h"
+#include "StorkParallelRunManager.hh"
+
+
+// Set declaration for main function in g4stork.cc (renamed G4_main below)
+static int G4_main(int argc, char **argv);
+
+
+// TOP-C main function
+// Initializes and cleans up after G4_main finishes
+int main(int argc, char **argv)
+{
+	// Set mode to no tracer messages
+	TOPC_OPT_trace = 0;
+	//TOPC_OPT_safety=19;
+	// added this for SCWR Sim should remove later
+	TOPC_OPT_slave_timeout=104000;
+
+    TOPC_init(&argc, &argv);
+    int ret_val = G4_main(argc, argv);
+    TOPC_finalize();
+
+    return ret_val;
+}
+
+
+// Redefine main() and StorkRunManager in g4stork.cc
+#define StorkRunManager StorkParallelRunManager
+#define main G4_main
+
+#endif

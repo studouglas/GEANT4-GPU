@@ -1,0 +1,238 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<!-- Created on October, 6  2004 by texi2html 1.65 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>TOP-C (Task Oriented Parallel C/C++): Summary</TITLE>
+
+<META NAME="description" CONTENT="TOP-C (Task Oriented Parallel C/C++): Summary">
+<META NAME="keywords" CONTENT="TOP-C (Task Oriented Parallel C/C++): Summary">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.65">
+
+</HEAD>
+
+<BODY LANG="en" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC59"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_10.html#SEC58"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_12.html#SEC60"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_10.html#SEC58"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc.html#SEC_Top"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_12.html#SEC60"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_14.html#SEC62">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H1> A. Summary of `<SAMP>TOP-C</SAMP>' Commands </H1>
+<!--docid::SEC59::-->
+<P>
+
+<EM>From <A HREF="topc_4.html#SEC15">4.1 The Main TOP-C Library Calls</A>.</EM>
+<DL COMPACT>
+<DT><CODE>void TOPC_init ( int *<VAR>argc</VAR>, char ***<VAR>argv</VAR> )</CODE>
+<DD><DT><CODE>void TOPC_finalize ( void )</CODE>
+<DD><PRE>  Function
+</PRE>
+<DT><CODE>void TOPC_master_slave</CODE>
+<DD>  ( TOPC_BUF (*<VAR>generate_task_input</VAR>)(),<BR>&nbsp;&nbsp;    TOPC_BUF (*<VAR>do_task</VAR>)(void *input),<BR>&nbsp;&nbsp;    TOPC_ACTION (*<VAR>check_task_result</VAR>)(void *input, void *output),<BR>&nbsp;&nbsp;    void (*<VAR>update_shared_data</VAR>)(void *input, void *output)
+  <BR>)
+<PRE>  Function
+</PRE>
+<DT><CODE>TOPC_BUF TOPC_MSG ( void *<VAR>buf</VAR>, int <VAR>buf_size</VAR> )</CODE>
+<DD><PRE>  Function
+</PRE>
+</DL>
+<P>
+
+<EM>From <A HREF="topc_4.html#SEC16">Callback Functions for <CODE>TOPC_master_slave()</CODE> </A>.</EM>
+<DL COMPACT>
+<DT><CODE>TOPC_BUF GenerateTaskInput ( void )</CODE>
+<DD><PRE>  Function
+</PRE>
+<DT><CODE>TOPC_BUF DoTask ( void *<VAR>input</VAR> )</CODE>
+<DD><PRE>  Function
+</PRE>
+<DT><CODE>TOPC_ACTION CheckTaskResult ( void *<VAR>input</VAR>, void *<VAR>output</VAR>)</CODE>
+<DD><PRE>  Function
+</PRE>
+<DT><CODE>void UpdateSharedData ( void *<VAR>input</VAR>, void *<VAR>output</VAR> )</CODE>
+<DD><PRE>  Function
+</PRE>
+</DL>
+<P>
+
+<EM>From <A HREF="topc_4.html#SEC17">Actions Returned by <CODE>CheckTaskResult()</CODE> </A>.</EM>
+<DL COMPACT>
+<DT><CODE>Action TOPC_ACTION NO_ACTION</CODE>
+<DD><PRE>  Action
+</PRE>
+<DT><CODE>Action TOPC_ACTION UPDATE</CODE>
+<DD><PRE>  Action
+</PRE>
+<DT><CODE>Action TOPC_ACTION REDO</CODE>
+<DD><PRE>  Action
+</PRE>
+<DT><CODE>Action TOPC_ACTION CONTINUATION ( void *<VAR>next_input</VAR> )</CODE>
+<DD><PRE>  Action
+</PRE>
+</DL>
+<P>
+
+<EM>From <A HREF="topc_4.html#SEC18">4.4 TOP-C Utilities</A>.</EM>
+<DL COMPACT>
+<DT><CODE>TOPC_BOOL TOPC_is_up_to_date ( void )</CODE>
+<DD><PRE>  Function
+</PRE>
+<DT><CODE>int TOPC_rank ( void )</CODE>
+<DD><PRE>  Function
+</PRE>
+<DT><CODE>TOPC_BOOL TOPC_is_master ( void )</CODE>
+<DD><PRE>  Function
+</PRE>
+<DT><CODE>int TOPC_num_slaves ( void )</CODE>
+<DD><PRE>  Function
+</PRE>
+<DT><CODE>int TOPC_num_idle_slaves ( void )</CODE>
+<DD><PRE>  Function
+</PRE>
+<DT><CODE>int TOPC_node_count ( void )</CODE>
+<DD><PRE>  Function
+</PRE>
+</DL>
+<P>
+
+<EM>From <A HREF="topc_8.html#SEC47">Optimizing TOP-C Code for the Shared Memory Model </A>.</EM>
+<DL COMPACT>
+<DT><CODE>TOPC_thread_private</CODE>
+<DD><PRE>  Variable
+</PRE>
+<DT><CODE>TOPC_thread_private_t</CODE>
+<DD><PRE>  Type
+</PRE>
+<DT><CODE>void TOPC_ATOMIC_READ ( 0 ) { <VAR>... C code ...</VAR> }</CODE>
+<DD><DT><CODE>void TOPC_ATOMIC_WRITE ( 0 ) { <VAR>... C code ...</VAR> }</CODE>
+<DD><PRE>  Function
+</PRE>
+<DT><CODE>void TOPC_BEGIN_ATOMIC_READ ( 0 )</CODE>
+<DD><DT><CODE>void TOPC_END_ATOMIC_READ ( 0 )</CODE>
+<DD><DT><CODE>void TOPC_BEGIN_ATOMIC_WRITE ( 0 )</CODE>
+<DD><DT><CODE>void TOPC_END_ATOMIC_WRITE ( 0 )</CODE>
+<DD><PRE>  Function
+</PRE>
+</DL>
+<P>
+
+<EM>From <A HREF="topc_9.html#SEC54">Raw `<SAMP>TOP-C</SAMP>' interface: <CODE>raw_master_slave</CODE> </A>.</EM>
+<DL COMPACT>
+<DT><CODE>void TOPC_raw_begin_master_slave</CODE>
+<DD>          (<VAR>do_task</VAR>, <VAR>check_task_result</VAR>, <VAR>update_shared_data</VAR>)
+<DT><CODE>void TOPC_raw_end_master_slave ()</CODE>
+<DD><PRE>  Function
+</PRE>
+<DT><CODE>void TOPC_raw_submit_task_input ( TOPC_BUF <VAR>input</VAR> )</CODE>
+<DD><PRE>  Function
+</PRE>
+<DT><CODE>TOPC_BOOL TOPC_raw_wait_for_task_result ()</CODE>
+<DD><PRE>  Function
+</PRE>
+</DL>
+<P>
+
+<EM>From <A HREF="topc_8.html#SEC41">8.2 Aborting Tasks</A>.</EM>
+<DL COMPACT>
+<DT><CODE>void TOPC_abort_tasks ( void )</CODE>
+<DD><DT><CODE>TOPC_BOOL TOPC_is_abort_pending ( void )</CODE>
+<DD><PRE>  Function
+</PRE>
+</DL>
+<P>
+
+<EM>From <A HREF="topc_8.html#SEC40">8.1 Testing for Task Continuations and Redos</A>.</EM>
+<DL COMPACT>
+<DT><CODE>TOPC_BOOL TOPC_is_REDO ( void )</CODE>
+<DD><DT><CODE>TOPC_BOOL TOPC_is_CONTINUATION ( void )</CODE>
+<DD><PRE>  Function
+</PRE>
+</DL>
+<P>
+
+<EM>From <A HREF="topc_8.html#SEC44">8.3.2 Using <CODE>TOPC_MSG_PTR()</CODE> to Avoid Copying Large Buffers</A>.</EM>
+<DL COMPACT>
+<DT><CODE>TOPC_BUF TOPC_MSG_PTR ( void *<VAR>buf</VAR>, int <VAR>buf_size</VAR> )</CODE>
+<DD><PRE>  Function
+</PRE>
+</DL>
+<P>
+
+<EM>From <A HREF="topc_5.html#SEC21">Command Line Options in TOP-C Applications </A>.</EM>
+<DL COMPACT>
+<DT><CODE>--TOPC-help`<SAMP>[=&#60;0/1&#62;]</SAMP>'</CODE>
+<DD><PRE>  [boolean, default: false]
+</PRE>
+<DT><CODE>--TOPC-verbose`<SAMP>[=&#60;0/1&#62;]</SAMP>'</CODE>
+<DD><PRE>  [boolean, default: false]
+</PRE>
+<DT><CODE>--TOPC-stats`<SAMP>[=&#60;0/1&#62;]</SAMP>'</CODE>
+<DD><PRE>  [boolean, default: false]
+</PRE>
+<DT><CODE>--TOPC-num-slaves`<SAMP>=&#60;int&#62;</SAMP>'</CODE>
+<DD><PRE>  [default: -1 (system-defined)]
+</PRE>
+<DT><CODE>--TOPC-slave-wait`<SAMP>=&#60;int&#62;</SAMP>'</CODE>
+<DD><PRE>  [default: 0]
+</PRE>
+<DT><CODE>--TOPC-slave-timeout`<SAMP>=&#60;int&#62;</SAMP>'</CODE>
+<DD><PRE>  [default: 1800 s]
+</PRE>
+<DT><CODE>--TOPC-trace`<SAMP>=&#60;int: 0/1/2&#62;</SAMP>'</CODE>
+<DD><PRE>  [trace (0: notrace, 1: trace, 2: user trace fncs, default: 2)]
+</PRE>
+<DT><CODE>--TOPC-procgroup`<SAMP>=&#60;string&#62;</SAMP>'</CODE>
+<DD><PRE>  [default: "./procgroup"]
+</PRE>
+<DT><CODE>--TOPC-safety`<SAMP>=&#60;int: 0..20&#62;</SAMP>'</CODE>
+<DD><PRE>  [default: 0]
+</PRE>
+</DL>
+<P>
+
+<EM>From <A HREF="topc_6.html#SEC31">6.4 Tracing Messages</A>.</EM>
+<DL COMPACT>
+<DT><CODE>int TOPC_OPT_trace</CODE>
+<DD><DT><CODE>void (*)(void *input) TOPC_OPT_trace_input</CODE>
+<DD><DT><CODE>void (*)(void *input, void *output) TOPC_OPT_trace_result</CODE>
+<DD></DL>
+<P>
+
+<A NAME="Example"></A>
+<HR SIZE="6">
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_10.html#SEC58"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_12.html#SEC60"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_14.html#SEC62">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+by <I>Gene Cooperman</I> on <I>October, 6  2004</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+</FONT>
+
+</BODY>
+</HTML>

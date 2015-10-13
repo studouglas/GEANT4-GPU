@@ -1,0 +1,5 @@
+@comment doc/topc-version.texi.  Generated from topc-version.texi.in by configure.
+
+@set VERSION 2.5.2
+@set UPDATED April, 2011
+@set PWD /Users/stuart/Documents/4th_Year/CS_4ZP6/GEANT4-GPU/topc-2.5.2

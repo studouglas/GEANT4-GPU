@@ -1,0 +1,53 @@
+#
+# -------- SGI ---------   !!! not supported !!!
+#                             Irix-6.5.5 CC-8
+ifeq ($(G4SYSTEM),SGI-CC)
+  CXX       := CC
+  ifdef G4OPTIMISE
+    CXXFLAGS  := -O -OPT:Olimit=5000
+  else
+    ifdef G4DEBUG
+      CXXFLAGS  := -g 
+      FCFLAGS   := -g
+      CCFLAGS   := -g
+    endif
+  endif
+  CXXFLAGS  += -ptused
+  CPPFLAGS  += -DSOCKET_IRIX_SOLARIS
+  FC        := f77
+  FCLIBS    := -lftn
+  SHEXT     := so
+  LOADLIBS += -lm -lstdc++
+  ifndef X11FLAGS
+    X11FLAGS  := -I/usr/include/X11/extensions -I/usr/include/X11
+  endif
+  ifndef X11LIBS
+    X11LIBS   := -L/usr/lib -lXmu -lXt -lXext -lX11
+  endif
+  ifndef XMFLAGS
+    XMFLAGS   :=
+  endif
+  ifndef XMLIBS
+    XMLIBS    := -L/usr/lib -lXm
+  endif
+  ifndef XAWFLAGS
+    XAWFLAGS   :=
+  endif
+  ifndef XAWLIBS
+    XAWLIBS    := -lXaw
+  endif
+  ifndef OGLFLAGS
+    OGLFLAGS  :=
+  endif
+  ifndef OGLLIBS
+    OGLLIBS   := -L/usr/lib -lGLU -lGL
+  endif
+
+  define build-granular-shared-lib
+    @echo "Shared Libraries not supported on $(G4SYSTEM)
+  endef
+  define build-global-shared-lib
+    @echo "Shared Libraries not supported on $(G4SYSTEM)
+  endef
+
+endif

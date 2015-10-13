@@ -1,0 +1,153 @@
+# $Id: G4VIS_USE.gmk 66368 2012-12-18 09:20:17Z gcosmo $
+# -------------------------------------------------------------
+# GNUmakefile for CPPFLAGS for visualization USE phase.
+#   John Allison, 24th January 1998.
+
+ifndef G4VIS_NONE
+
+ifndef G4VIS_USE_INCLUDED
+G4VIS_USE_INCLUDED = 1
+
+ifndef VISLIBS 
+ VISLIBS :=
+endif
+
+# Not needing external packages or libraries...
+# Set old USE C-pre-processor flags for backwards compatibility of user code...
+
+CPPFLAGS += -DG4VIS_USE_ASCIITREE
+VISLIBS  += -lG4Tree
+
+CPPFLAGS += -DG4VIS_USE_DAWNFILE
+VISLIBS  += -lG4FR
+
+CPPFLAGS += -DG4VIS_USE_GMOCRENFILE
+VISLIBS  += -lG4GMocren
+
+CPPFLAGS += -DG4VIS_USE_HEPREPFILE
+VISLIBS  += -lG4visHepRep
+
+CPPFLAGS += -DG4VIS_USE_RAYTRACER
+VISLIBS  += -lG4RayTracer
+
+CPPFLAGS += -DG4VIS_USE_VRMLFILE
+VISLIBS  += -lG4VRML
+
+ifneq ($(G4INCLUDE_EXEC),1)
+  CPPFLAGS += -I$(G4BASE)/visualization/FukuiRenderer/include
+  CPPFLAGS += -I$(G4BASE)/visualization/gMocren/include
+  CPPFLAGS += -I$(G4BASE)/visualization/HepRep/include
+  CPPFLAGS += -I$(G4BASE)/visualization/RayTracer/include
+  CPPFLAGS += -I$(G4BASE)/visualization/Tree/include
+  CPPFLAGS += -I$(G4BASE)/visualization/VRML/include
+endif
+
+ifdef G4VIS_USE_DAWN
+  CPPFLAGS += -DG4VIS_USE_DAWN
+  # CPPFLAGS += -I... and VISLIBS += set above.
+endif
+
+ifdef G4VIS_USE_OPENGLX
+  G4VIS_USE_OPENGL = 1
+  CPPFLAGS += -DG4VIS_USE_OPENGLX
+  INC_X11   = 1
+  LOAD_X11  = 1
+endif
+ifdef G4VIS_USE_OPENGLXM
+  G4VIS_USE_OPENGL = 1
+  CPPFLAGS += -DG4VIS_USE_OPENGLXM
+  INC_XM    = 1
+  LOAD_XM   = 1
+endif
+ifdef G4VIS_USE_OPENGLQT
+  G4VIS_USE_OPENGL = 1
+  CPPFLAGS += -DG4VIS_USE_OPENGLQT
+  VISLIBS  += -lG4OpenGL
+  INC_GL    = 1
+  INC_QT   = 1
+  LOAD_GLQT   = 1
+endif
+ifdef G4VIS_USE_OPENGLWT
+  G4VIS_USE_OPENGL = 1
+  CPPFLAGS += -DG4VIS_USE_OPENGLWT
+  VISLIBS  += -lG4OpenGL
+  INC_GL    = 1
+  INC_WT   = 1
+  LOAD_GLWT   = 1
+  INC_QT   = 1
+  LOAD_GLQT   = 1
+endif
+ifdef G4VIS_USE_OPENGLWIN32
+  G4VIS_USE_OPENGL = 1
+  CPPFLAGS += -DG4VIS_USE_OPENGLWIN32
+endif
+ifdef G4VIS_USE_OPENGL
+  CPPFLAGS += -DG4VIS_USE_OPENGL
+  ifneq ($(G4INCLUDE_EXEC),1)
+    CPPFLAGS += -I$(G4BASE)/visualization/OpenGL/include
+  endif
+  VISLIBS  += -lG4OpenGL
+  INC_GL    = 1
+  LOAD_GL   = 1
+  G4LIB_USE_GL2PS = 1
+endif
+
+ifdef G4VIS_USE_OIX
+  G4VIS_USE_OI = 1
+  CPPFLAGS += -DG4VIS_USE_OIX
+  INC_XM    = 1
+  LOAD_XM   = 1
+endif
+ifdef G4VIS_USE_OIQT
+  G4VIS_USE_OI = 1
+  CPPFLAGS += -DG4VIS_USE_OIQT
+  INC_QT   = 1
+  LOAD_QT   = 1
+endif
+ifdef G4VIS_USE_OIWIN32
+  G4VIS_USE_OI = 1
+  CPPFLAGS += -DG4VIS_USE_OIWIN32
+endif
+ifdef G4VIS_USE_OI
+  CPPFLAGS += -DG4VIS_USE_OI
+  ifneq ($(G4INCLUDE_EXEC),1)
+    CPPFLAGS += -I$(G4BASE)/visualization/OpenInventor/include
+  endif
+  VISLIBS += -lG4OpenInventor
+  INC_IV    = 1
+  LOAD_IV   = 1
+  G4LIB_USE_GL2PS = 1
+endif
+
+ifdef G4VIS_USE_RAYTRACERX
+  CPPFLAGS += -DG4VIS_USE_RAYTRACERX
+  # CPPFLAGS += -I... and VISLIBS += set above.
+  INC_X11 = 1
+  LOAD_X11  = 1
+endif
+
+ifdef G4VIS_USE_VRML
+  CPPFLAGS += -DG4VIS_USE_VRML
+  # CPPFLAGS += -I... and VISLIBS += set above.
+endif
+
+ifdef G4LIB_USE_GL2PS
+  ifneq ($(G4INCLUDE_EXEC),1)
+    CPPFLAGS += -I$(G4BASE)/visualization/externals/gl2ps/include
+  endif
+  VISLIBS += -lG4gl2ps
+endif
+
+########################### and finally... #######################
+
+G4VIS_USE   = 1
+CPPFLAGS += -DG4VIS_USE
+ifneq ($(G4INCLUDE_EXEC),1)
+  CPPFLAGS += -I$(G4BASE)/visualization/management/include
+  CPPFLAGS += -I$(G4BASE)/visualization/modeling/include
+endif
+VISLIBS  += -lG4vis_management
+VISLIBS  += -lG4modeling
+
+endif # G4VIS_USE_INCLUDED
+endif # G4VIS_NONE

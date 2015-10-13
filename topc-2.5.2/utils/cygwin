@@ -1,0 +1,59 @@
+a.out => a.exe
+
+scanf different  "%s%s "
+
+Solaris cc (C)
+"utils.c", line 45: warning: integer overflow detected: op "<<"
+
+====
+
+July 2, Roman Kurin
+
+1) src did not compile because of the redefinition of "struct option" in
+   options.c. On the second try it compiled fine. I am not sure what the 
+problem was but when I did configure from scratch src compiled fine. hmmmm
+
+2) expand_path in procgroup.c core dumps. Read on the internet that sscanf 
+in
+   cygwin has a bug which prevents it from recognizing white space in the
+   pattern if whitespace is in the end of the pattern. Like when pattern is
+   " %*s %*s ", sscanf would not match whitespace at the end of the pattern.
+   Thus  sscanf( path, " %*s %*s %n", &offset); would set offset to some big 
+number because it does not find a pattern in the "path" variable.
+   Solution was to replace  sscanf( path, " %*s %*s %n", &offset) with
+   sscanf( path, " %*s %*s%n", &offset);
+   suffix = path + offset;
+   if (strlen(suffix)>0) suffix++;
+
+3) There is a problem in the Makefile in the /bin directory. It assumes that 
+output
+   file of gcc is a.out, but on windows platform its a.exe, thus errors.
+
+4) There is a problem in the manual for topc.
+   In the section called "If Slaves Fail to Start", there is a simple 
+program
+   given as an example.
+
+   #include "topc.h"
+   int main(int argc, char *argv) {
+   char host[100];
+   printf("%s connecting ...\n", gethostname(host, 99));
+   TOPC_init(&argc, &argv);
+   printf("... %s connected.\n", gethostname(host, 99));
+   TOPC_finalize();
+   }
+
+   The problem is with lines :
+   printf("%s connecting ...\n", gethostname(host, 99));
+   printf("... %s connected.\n", gethostname(host, 99));
+
+   gethostname returns the status code and not the name of the host.
+
+
+5) In the distributed mode, topcc fails saying:
+    Socket died;  Not ready for writing.  Will try to create a new one.
+    Socket died;  Not ready for writing.  Will try to create a new one.
+    sendrecv.c(line 237): send: Bad address
+
+    I am currently investigating this problem.
+

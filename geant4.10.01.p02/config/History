@@ -1,0 +1,2040 @@
+svn log $Id: History 90693 2015-06-08 08:53:38Z gcosmo $
+-------------------------------------------------------------------
+
+     =========================================================
+     Geant4 - an Object-Oriented Toolkit for Simulation in HEP
+     =========================================================
+
+                      Category History file
+                      ---------------------
+
+History file for Geant4 configuration scripts.
+It DOES NOT substitute the  CVS log-message one should put at every
+committal in the CVS repository !
+
+     ----------------------------------------------------------
+     * Reverse chronological order (last date on top), please *
+     ----------------------------------------------------------
+
+28th May 2015   Gabriele Cosmo  (config-V10-00-12)
+- Updated CPPFLAGS for Linux-icc and WIN32-g++ configurations.
+
+29th October 2014   Gabriele Cosmo  (config-V10-00-11/10)
+- Moved geometry/solids/usolids module to externals.
+  Adapted scripts for optional external USolids library build.
+- Withdrawn changes made to Darwin-clang.gmk in previous tag.
+
+11th October 2014   Michael Kelsey   (config-V10-00-09)
+- Darwin-clang.gmk: added references to core G4 library list for linking
+  shared libraries, needed for applications with G4EXLIB.
+
+17th September 2014   Gabriele Cosmo  (config-V10-00-08)
+- Added flags in geomconf.gmk for added USolids shapes UExtrudedSolid,
+  UGenericTrap and UTrap.
+
+25th July 2014   Gabriele Cosmo  (config-V10-00-07)
+- Added flag for C++11 also to CPPFLAGS in Linus-g++.gmk when G4USE_STD11
+  is set.
+
+1st July 2014   Gabriele Cosmo  (config-V10-00-06)
+- Added 'particle_hp' module to binmake.gmk.
+
+8th April 2014   Gabriele Cosmo  (config-V10-00-05)
+- Added G4USE_STD11 flag for C++11 Standard.
+
+4th April 2014   Gabriele Cosmo  (config-V10-00-04)
+- Force loading of symbols for templated libraries in physics_lists modules
+  only for global libraries. Granular libraries not supporting physics_lists
+  factories.
+
+27th March 2014   Gabriele Cosmo  (config-V10-00-03)
+- Replaced old win32def tool for extracting symbols definitions for
+  DLLs build on Windows with genwindef used also in CMake.
+
+24th March 2014   Gabriele Cosmo  (config-V10-00-02)
+- Force loading of symbols for templated libraries in physics_lists modules.
+  Defined LDFLAGS for Linux and Darwin targets.
+  Modified binmake.gmk accordingly.
+
+17th January 2014   Gabriele Cosmo  (config-V10-00-01)
+- Fixed setting of -fPIC also for Darwin targets.
+
+13th January 2014   Gabriele Cosmo  (config-V10-00-00)
+- Fixed setting of -fPIC in MT-mode for Linux-g++ and Linux-icc.
+
+25th November 2013   Gabriele Cosmo  (config-V09-06-17)
+- Corrected settings for Linux-g++ and Linux-icc in the use of -fPIC in
+  multi-threaded mode.
+
+19th November 2013   Gabriele Cosmo  (config-V09-06-16)
+- Minor correction to Darwin scripts for Qt setup.
+
+11th November 2013   Gabriele Cosmo  (config-V09-06-15)
+- Updated Darwin-g++ and Darwin-clang configurations for Qt to allow for
+  correct detection of Qt5 directory structure.
+  Removed '-ansi -pedantic' compilation options, now obsolete.
+  Corrected include paths for X11FLAGS, to resolve compilation errors on
+  MacOSX 10.9 Mavericks.
+- Added paths for Qt5 to Linux-g++ configuration.
+- Removed obsolete Linux-egcs configuration script.
+
+9th November 2013   Andrea Dotti     (config-V09-06-14)
+- Removed compilation option "--stdlib=libstdc++" introduced in previous tags
+  for Darwin-g++, as giving errors in MacOSX 10.7 for unknown option.
+
+8th November 2013   Gabriele Cosmo   (config-V09-06-13)
+- binmake.gmk: removed 'high_energy' and 'low_energy' hadronic modules;
+  replaced 'lll_fission' with 'fission'.
+
+8th November 2013   Gabriele Cosmo   (config-V09-06-12)
+- Removed not necessary LD flag in Darwin configurations.
+
+8th November 2013   Gabriele Cosmo   (config-V09-06-11)
+- Added "-stdlib=libstdc++" compilation flag in Darwin-g++ and
+  Darwin-clang, allowing for resolving compilation issues on
+  MacOS 10.9 Mavericks.
+
+7th November 2013   Gabriele Cosmo   (config-V09-06-10)
+- Added geomconf.gmk script including geometry configuration flags for
+  enabling use of the USolids optional module.
+
+6th November 2013   Gabriele Cosmo   (config-V09-06-09)
+- binmake.gmk: added new include paths for processes/phonon and
+  processes/hadronic/models/abla.
+
+1st November 2013   Gabriele Cosmo   (config-V09-06-08)
+- binmake.gmk: added new include paths for geometry/solids/usolids module.
+- Removed obsolete compilation options in Darwin-g++ and Darwin-clang scripts.
+
+22nd October 2013   Gabriele Cosmo   (config-V09-06-07)
+- binmake.gmk: added new include paths for processes/biasing module.
+
+17th July 2013   Gabriele Cosmo   (config-V09-06-06)
+- binmake.gmk: added missing include path for analysis module.
+
+16th July 2013   Gabriele Cosmo   (config-V09-06-05)
+- binmake.gmk: added include paths for restructured analysis module.
+
+22nd April 2013   Gabriele Cosmo   (config-V09-06-04)
+- Added G4MULTITHREADED setup flags.
+
+12th March 2013   Gunter Folger    (config-V09-06-03)
+- Clean up of Bertini cascade, removing two obsolete directories:
+  cascade/evaporation and cascade/utils.
+
+11th January 2013 Gunter Folger    (config-V09-06-02)
+- Added includes for new structure of physics_lists.
+
+14th December 2012 Gabriele Cosmo  (config-V09-06-01)
+- Removed includes for BREPS module.
+
+13th December 2012 Gunter Folger  (config-V09-06-00)
+- Removed includes for CHIPS module.
+
+27th November 2012 Gabriele Cosmo (config-V09-05-14)
+- Added -Wno-variadic-macros -Wshadow compilation options to
+  Darwin-g++.gmk and Darwin-clang.gmk.
+
+19th October 2012 Gabriele Cosmo (config-V09-05-13)
+- Added -Wshadow compilation option to Linux-g++.gmk.
+
+4th October 2012 Gabriele Cosmo (config-V09-05-12, config-V09-05-11)
+- binmake.gmk: replaced "photolepton_hadron" module with "lepto_nuclear".
+- Cowork with tag "hadr-V09-05-00".
+
+23rd August 2012 Gabriele Cosmo (config-V09-05-10)
+- Updated paths for X11 in X11FLAGS on Darwin targets, for porting on
+  MacOSX 10.8.
+
+9th July 2012 Alberto Ribon (config-V09-05-09)
+- Removed INCL package: processes/hadronic/models/incl .
+
+22th May 2012 Garnier Laurent (config-V09-05-08)
+- fix moc.gmk generation in order to generate moc in G4TMP dir
+
+2nd May 2012 Gunter Folger
+- revert changes by Mikhail (rev r58246)
+
+27th April 2012 Mikhail Kosov  (config-V09-05-07)
+- hadronic/model/chiral_inv_phase_space moved to hadronic/chips
+
+5th April 2012 Gabriele Cosmo  (config-V09-05-06)
+- Exclude "setup" and "clean_setup" targets from dependencies step.
+
+16th February 2012 Gabriele Cosmo  (config-V09-05-05)
+- Moved basic "-lm -lstdc++" link options in LOADLIBS within platform specific
+  configuration scripts. Avoid using "-lm" on Linux-icc platform.
+
+2nd February 2012 Gabriele Cosmo  (config-V09-05-04)
+- Corrected debug compilation option in WIN32-VC, to use -MDd instead of -MD.
+
+27th January 2012 Gunter Folger  (config-V09-05-03)
+- For WIN32-VC increase stack size of executable to 12Mb.
+
+9th December 2011 Gabriele Cosmo (config-V09-05-02)
+- Corrected condition for determining QT_AS_FRAMEWORK flag depending on
+  how QTHOME is defined in Darwin setups. Addresses problem report #1267.
+
+8th December 2011 Gabriele Cosmo (config-V09-05-01)
+- Added Darwin-clang experimental configuration. Requires explicit addition
+  of -lstdc++ to LDLIBS in architecture.gmk.
+
+8th December 2011 Gabriele Cosmo (config-V09-05-00)
+- Removed unnecessary 'gcov' linkage for dynamic libraries in Darwin-g++.gmk.
+
+22nd November 2011 Gabriele Cosmo (config-V09-04-19)
+- Corrected path in Darwin-g++ setup introduced in previous tag.
+
+22nd November 2011 Gabriele Cosmo (config-V09-04-18)
+- Archived Configure scripts.
+
+10th November 2011 Gunter Folger
+- Allow use of Qt libraries not installed as Framework in Darwin-g++.gmk.
+
+7th November 2011 Gabriele Cosmo (config-V09-04-17)
+- Abilited possibility to force building of internal 'expat' module also
+  for Linux and Mac, through use of G4LIB_BUILD_EXPAT flag.
+
+18th October 2011 Gunter Folger  (config-V09-04-16)
+- binmake.gmk: add new directories in electromagnetic/dna and 
+    new hadronic/models/quasi_elastic
+	 
+21st september 2011 John Allison (config-V09-04-15)
+- G4UI_BUILD.gmk: Added G4INTY_BUILD_XT = 1 for G4VIS_BUILD_OPENGLXM_DRIVER
+  and G4VIS_BUILD_OIX_DRIVER.  The vis drivers need Xt, so this covers
+  the case when the user does not build Xt from G4UI_BUILD flags.
+
+31st August 2011 AM, MK, SI (config-V09-04-14)
+- Modified binmake.gmk to add new DNA architecture.
+
+3rd August 2011 Gabriele Cosmo (config-V09-04-13)
+- Darwin-g++.gmk: modified OGLLIBS settings to support MacOSX 10.7 Lion
+  for proper configuration of OpenGL libraries in combination with Qt.
+
+14th July 2011 Gabriele Cosmo (config-V09-04-12)
+- Added "analysis" module to binmake.gmk.
+
+5th July 2011 Gabriele Cosmo (config-V09-04-11)
+- architecture.gmk: corrected definition of G4LIB_USE_GDML, to properly
+  activate GDML settings.
+
+17th June 2011 Ben Morgan (config-V09-04-10)
+- scripts/env.(c)sh : Added support for internal CLHEP. LD_LIBRARY_PATH is
+  correctly set when an external CLHEP is used, but not modified with any
+  CLHEP related variable if the internal CLHEP is used.
+  Should be used with current trunk of Configure (rev 50915), though this
+  is not absolutely required.
+
+6th June 2011 Gabriele Cosmo (config-V09-04-09)
+- Correction to binmake.gmk to restore setting of G4LIBDIR for the case of
+  generation of user's application library.
+
+24th May 2011 Gabriele Cosmo (config-V09-04-08)
+- Fixed configuration for CLHEP built-in module, to allow for build of DLLs.
+
+16th May 2011 Gabriele Cosmo (config-V09-04-07)
+- Corrected include path definition for built-in CLHEP module.
+
+13th May 2011 Gabriele Cosmo (config-V09-04-06)
+- Added "expat" to link list, and differentiate built-in module for WIN32
+  target.
+
+10th May 2011 Gabriele Cosmo (config-V09-04-05)
+- Integrated flags in architecture.gmk and binmake.gmk for use of CLHEP
+  built-in package in externals.
+  Note: the built-in package can only be used in conjunction with the
+  "externals" module...
+
+10th May 2011 Gabriele Cosmo (config-V09-04-04)
+- Added default for CLHEP_BASE_DIR to built-in package in externals.
+  Note: the default can only be used in conjunction with the "externals"
+  module.
+
+9th May 2011 Gabriele Cosmo (config-V09-04-03)
+- Changed common.gmk to take into account sub-directories for headers
+  installation.
+- Workaround in binmake.gmk to avoid clashes with flag LDFLAGS set in the
+  user's environment beforehand.
+
+8th May 2011 Ben Morgan
+- Updated configure scripts to correct settings of G4LIB_USE_DLL for the
+  case of DLLs build on Windows. Partially addressing problem report #1189.
+
+4th April 2011 Laurent Garnier
+- Added flags to handle future driver OpenGLWt.
+
+18th March 2011  Gunter Folger (config-V09-04-02)
+- Address old bug report 1033 in liblist.c
+
+17th March 2011  Gabriele Cosmo (config-V09-04-01)
+- Added electromagnetic/dna module.
+
+10th February 2011  Ben Morgan (config-V09-04-00)
+- Fixed restoring of default settings for XercesC in Configure script and
+  internal scripts. Corrected duplication of text in setup dump.
+  Addessing problem reports #1159 and #1160.
+
+22th December 2010  Laurent Garnier
+- Darwin-g++.gmk: fix to avoid mixing of OpenGL X11 and framework.
+
+8th December 2010  Gunter Folger (config-V09-03-19)
+- Updated linux-icc to suppress warning when linking to shared libs
+
+25th November 2010  Gabriele Cosmo (config-V09-03-18)
+- Updated internal Configure scripts for adding new data module G4PIIDATA.
+
+24th November 2010  Gabriele Cosmo (config-V09-03-17 & V09-03-16)
+- Added hadronic/models/lend module to binmake.gmk and cleanup of obsolete
+  include paths.
+
+19th November 2010  Gabriele Cosmo (config-V09-03-15)
+- Added electromagnetic/pii module to binmake.gmk.
+
+4th November 2010  Mike Kelsey (config-V09-03-14)
+- Fixed typo in OGLLIBS definition for MacOSX Leopard.
+
+2nd November 2010  Gabriele Cosmo (config-V09-03-13)
+- Replace use of strcat() with more secure strncat() in liblist.c, and
+  protected uses of strcpy().
+- Updated scripts for Configure, to allow for parallel builds (B.Morgan).
+
+1st November 2010  Gabriele Cosmo (config-V09-03-12)
+- Restore positional qualifier for LDFLAGS in architecture.gmk to allow for
+  explicit settings in user applications.
+
+26th October 2010  Gabriele Cosmo (config-V09-03-11)
+- Explicitly include -L$(OGLHOME)/lib -lGLU -lGL to OGLLIBS in Darwin-g++.gmk
+  to resolve dynamic link problem on Mac when opening X11 GL scene viewers.
+  Moved block of OGLLIBS for X11 to correct 'else' condition.
+
+15th October 2010  Gabriele Cosmo (config-V09-03-10)
+- More refinements to Darwin-g++ to correct and simplify Qt4 setup.
+
+12th October 2010  Gabriele Cosmo (config-V09-03-09)
+- Force definition of LDFLAGS in architecture.gmk to avoid occasional fatal
+  clashes with settings in user's environment.
+
+10th October 2010  Gabriele Cosmo
+- Removed obsolete Qt3 setup for Darwin-g++, Linux-g++ and WIN32-VC.
+
+5th October 2010  Laurent Garnier (config-V09-03-08)
+- Darwin-g++.gmk: fixed mix between X11 OpenGL and Native OpenGL on mac 10.6.
+
+30th September 2010  Gabriele Cosmo (config-V09-03-07)
+- Added 'obj' target to globlib.gmk to allow for just creation of object files.
+
+23rd August 2010  Gabriele Cosmo (config-V09-03-06)
+- Simplified QTLIBPATH setup in Linux-g++.gmk.
+
+11th June 2010  Gunter Folger (config-V09-03-05)
+- Increased stack size on Windows, in sys/WIN-VC added option /STACK:8368128 
+  (i.e. 8MB) option to LDFLAGS; needed by some CHIPS-based examples and tests.
+
+7th June 2010  Gabriele Cosmo (config-V09-03-04)
+- Removed processes/hadronic/models/leading_particle module from include
+  paths list.
+
+3rd June 2010  Ben Morgan (config-V09-03-03)
+- Added new data set G4NEUTRONXS (Evaluated neutron cross section data,
+  version 1.0) to Configure script. Coworks with tag "Configure-V09-03-01".
+
+11th May 2010  Ben Morgan (config-V09-03-02)
+- Updated internal scripts for Configure: protected echos on LD_LIBRARY_PATH
+  so that output from use of Configure post-install is clean.
+
+15th March 2010  Ben Morgan (config-V09-03-01)
+- Configure script (Configure-V09-03-00):
+  o Corrected settings of LD_LYBRARY_PATH for CLHEP for the case of static
+    libraries build selection (path was set only for the dynamic libraries
+    case...).
+  o Corrected detection of Qt modules on MacOSX.
+    Addressing problem report #1095.
+- Updated internal scripts for Configure.
+
+20th January 2010  Gabriele Cosmo (config-V09-03-00)
+- binmake.gmk: removed extra space characters in definition of TARGOBJEXT,
+  fixing issue with target for main() not being rebuilt according to
+  dependencies change. Addressing problem report #1098. 
+
+25th November 2009  Ben Morgan (config-V09-02-17)
+- Updated internal scripts for Configure.
+
+20th November 2009  Gabriele Cosmo (config-V09-02-16)
+- Removed CHIPS/xs_dependent module from include paths.
+
+18th November 2009  Gabriele Cosmo (config-V09-02-15)
+- architecture.gmk: corrected inclusion of -lz for zlib.
+- WIN32-VC.gmk: added gd32.lib to OGLLIBS.
+
+17th November 2009  Gabriele Cosmo (config-V09-02-14)
+- Added include paths to new CHIPS modules.
+
+17th November 2009  Gabriele Cosmo (config-V09-02-13)
+- G4VIS_USE.gmk: fixed dependency issues on WIN32-VC for gl2ps utility
+  library in visualization.
+- WIN32-VC.gmk: added use32.lib to OGLLIBS to fix problems of linking
+  when G4LIB_BUILD/USE_WIN32_SESSION is not set (L.Garnier).
+- binmake.gmk: corrected inclusion of G4zlib library in link list for
+  the case of global libraries.
+- Updated Configure script (Configure-V09-02-03) and internal scripts:
+  o Added new data set for G4REALSURFACEDATA variable and updated G4LEDATA
+    data set version.
+  o Fixed detection of QtCore library; addressing problem report #1079.
+  o Added flag to allow running with query options on non-interactive
+    terminal. Resolves issue reported in Hypernews Install-and-Config #1213.
+  o Corrected text for installation of g3tog4 module; cernlib is not required.
+
+5th November 2009  John Allison (config-V09-02-12)
+- Removed references to obsolete GAGTREE driver.
+
+4th November 2009  John Allison
+- Added new gMocren flags for backward compatibility.
+
+4th November 2009  Gabriele Cosmo (config-V09-02-11)
+- Added new gMocren include path to G4VIS_USE.gmk script.
+
+8th September 2009  Gabriele Cosmo (config-V09-02-10)
+- Darwin-g++.gmk: added paths to $QTHOME/include and $QTHOME/lib to
+  setup for Qt4 configuration.
+
+17th August 2009  Gabriele Cosmo (config-V09-02-09)
+- Added G4OPTDEBUG option for hybrid optimized-debug build also to
+  Darwin-g++ and WIN32-g++ configurations.
+
+3rd August 2009  Gabriele Cosmo (config-V09-02-08)
+- Darwin-g++.gmk: added -arch_multiple option to LDFLAGS to force more
+  diagnostics for wrong architecture errors at link stage.
+
+17th June 2009  Gunter Folger (config-V09-02-07)
+- binmake.gmk: moved definition of TARGOBJEXT to place not dependent
+  on G4EXLIB, such that the extension is defined when no lib is present
+  (e.g. for hadronic exercisers).
+
+27th May 2009  Ben Morgan (config-V09-02-06)
+- Configure script:
+  o Rewritten check on make/gmake on WIN32-VC systems to avoid problems
+    with cygwin and Matlab.
+  o Added check to build Qt driver only when Qt UI module is built;
+    reordered moc checks and added cross-check on moc version.
+    Added safety reset of OpenGL QT build and use variables.
+  o Commented out echo compatibility warning to address problem report #1067.
+
+27th April 2009  Gabriele Cosmo (config-V09-02-05)
+- Linux-icc.gmk: removed "-lcxa -lunwind" LOADLIBS addition, no longer
+  necessary since icc-11.0.83.
+
+20th April 2009  Laurent Garnier
+- Linux-g++.gmk: corrections to respect standard location for include
+  and lib paths for Qt. Improved setup for non-standard Qt3 location.
+
+8th March 2009  Laurent Garnier
+- Darwin-g++.gmk: bug fix for Qt non standard installation.
+- Linux-g++.gmk: changed way to fing QtLib by default.
+- WIN32-VC.gmk: bug fix for building GLQTLIBS.
+
+5th March 2009  Guy Barrand
+- analysis.gmk: arrange configuration for WIN32-VC so that what is returned
+  by `aida-config --lib` (which may have the Windows LINK.exe syntax) is
+  understood by g++ which is in fact used by CygWin for linking applications.
+  Then transforming /LIBPATH options to -libpath options and change the path
+  '\' syntax to a '/' syntax. Allowing now to use the AIDA implementation
+  coming from an osc-batch or osc-vis binary kit built for WIN32-VC, in a
+  example using AIDA built from CygWin with Geant4 built with the VisualC++
+  compiler.
+- G4UI_USE.gmk: suppressed G4UI_USE_OSC logic. From OpenScientist/16.8, the
+  osc-g4-vis program can instrument directly the GNUmakefile of an example or
+  of a user application which is a clone of some Geant4 example.
+
+27th February 2009  Gabriele Cosmo (config-V09-02-04)
+- common.gmk, globlib.gmk: added removal of moc sources in clean target.
+
+26th February 2009  Gabriele Cosmo (config-V09-02-03)
+- Linux-g++.gmk: simplified Qt setup to conform to standard Qt installation.
+
+26th January 2009  Gabriele Cosmo (config-V09-02-02)
+- architecture.gmk: restored generic name for XercesC library for WIN32-VC.
+
+20th January 2009  Gunter Folger (config-V09-02-01)
+- architecture.gmk: changed name of XercesC library for WIN32-VC.
+
+9th January 2009  Gabriele Cosmo (config-V09-02-00)
+- Added -lXi to X11LIBS for Linux-g++, Linux-icc and WIN32-g++ configurations,
+  required for correct linkage with OpenInventor Coin3D libraries (suggestion
+  by F.Jones).
+
+9th December 2008  Guy Barrand (config-V09-01-17)
+- G4UI_USE.gmk: corrected G4UI_USE_OSC to use $(shell ...) instead 
+  of direct backquoting to solve a tricky env expansion problem,
+  restricted to the Open-Scientist setup.
+
+8th December 2008  John Allison (config-V09-01-16)
+- G4UI_USE.gmk: added -DG4UI_USE to CPPFLAGS. Re-ordered G4UI_NONE
+  and G4UI_USE_INCLUDED blocks to be coherent with G4VIS_USE.gmk.
+
+4th December 2008  Laurent Garnier (config-V09-01-15)
+- Darwin.gmk: fixed mistake in setting of OGLLIBS for Leopard.
+
+4th December 2008  Gabriele Cosmo, Ben Morgan (config-V09-01-14)
+- Linux-g++.gmk: implemented temporary workaround to allow for automatic
+  detection of location in non-POSIX paths for X11 and GL libraries depending
+  on 32/64 bits architectures.
+
+3rd December 2008  Gabriele Cosmo (config-V09-01-13)
+- Define $FIND, $SORT, $TOUCH variables to be customised with absolute
+  path in WIN32-VC in order to pick up correct Cygwin toolset.
+
+1st December 2008  Ben Morgan (config-V09-01-12)
+- Darwin-g++.gmk, Linux-g++.gmk: corrected definition of temporary QT3_MT
+  by adding missing protection.
+
+24th November 2008  Laurent Garnier (config-V09-01-11)
+- interactivity.gmk: changed flags for OpenGL and QT.
+- Darwin-g++.gmk, Linux-g++.gmk, WIN32-VC.gmk: major update to Qt setup.
+- Darwin.gmk: automatically detect GLLIBS for Leopard.
+- moc.gmk: suppressed echo when compiling.
+
+14th November 2008  Gabriele Cosmo (config-V09-01-10)
+- Added "electromagnetic/adjoint" sub-module in binmake.gmk.
+
+6th November 2008  Gabriele Cosmo (config-V09-01-09)
+- Added "particles/adjoint" sub-module in binmake.gmk.
+
+23rd October 2008  Gabriele Cosmo (config-V09-01-08)
+- Added "persistency/ascii" sub-module in binmake.gmk.
+
+11th July 2008  Gabriele Cosmo (config-V09-01-07)
+- architecture.gmk: removed obsoled DOM library from GDMLIBS.
+
+12th June 2008  Gabriele Cosmo (config-V09-01-06)
+- Linux-g++.gmk: added G4OPTDEBUG flag for "-O2 -g" combined compilation.
+- AIX-xlC.gmk: added shared libs section as for Linux-g++ according to user
+  suggestion on HN.
+
+9th June 2008  Gabriele Cosmo (config-V09-01-05)
+- Integrated improvements to Qt setup and AIDA.
+  Restored Qt libs setup to include GL as default.
+
+20th May 2008  Gunter Folger  (config-V09-01-04)
+- liblist.c: removed C++ style comments.
+- Not including changes made after "config-V09-01-03 ".
+
+13th May 2008  Guy Barrand
+- G4UI_USE.gmk: added material (protected with G4UI_USE_OSC) to use osc_vis
+  binary kits built with the Geant4 drivers. It allows to use the G4Lab::UIOnX
+  G4 session in Geant4 (G4Lab::UIOnX allows for visualization and AIDA plotting
+  within the same GUI).
+- analysis.gmk: added default setup aida-config for flags
+  G4ANALYSIS_AIDA_CONFIG_CFLAGS and G4ANALYSIS_AIDA_CONFIG_LIBS.
+
+30th April 2008  Laurent Garnier
+- common.gmk: simplified Qt moc files integration.
+- moc.gmk: new configuration file for Qt moc files setup.
+- G4UI_USE, G4VIS_USE, interactivity, sys/*: separation of Qt with or
+  without OpenGL.
+
+3rd April 2008  Gabriele Cosmo (config-V09-01-03)
+- Linux-icc.gmk: updated setup to make use of icc-10.1 and ifort-10.1;
+  changed compilation option "-mp" to more performant "-fp_model precise".
+
+2nd April 2008  Gunter Folger (config-V09-01-02)
+- Replaced gets() by safer fgets() in liblist.c.
+  (this tag does not include latest changes in interactivity.gmk)
+
+18th March 2008  Laurent Garnier
+- interactivity.gmk: moved Qt setup before X11.
+
+21st February 2008  Gabriele Cosmo (config-V09-01-01)
+- Replaced g77 with gfortran for Linux-g++ and Linux-icc platforms.
+
+15th February 2008  Laurent Garnier
+- common.gmk: added ability to autogenerate moc files for Qt driver.
+- WIN32-VC: added flags to build Qt driver on Windows.
+- Darwin-g++, Linux-g++: improvements for autogeneration of MOC files for Qt.
+
+15th January 2008  Gabriele Cosmo (config-V09-01-00)
+- Added commented lines for OpenGL setup in Darwin-g++.gmk for MacOS
+  10.5 Leopard, pending fix from Apple.
+
+11th December 2007  Gabriele Cosmo (config-V09-00-12)
+- Corrected setup for GDML on WIN32-VC to allow for building DLLs.
+
+30th November 2007  Ben Morgan (config-V09-00-11)
+- Updated Configure script to handle Qt UI build.
+- Updated internal scripts for Configure accordingly.
+
+22nd November 2007  Gabriele Cosmo (config-V09-00-10)
+- Corrected addition of lXercesC and Zlib libraries in binmake.gmk.
+- Added special case for WIN32-VC for names of XercesC libraries in architecture.gmk.
+- Use 'gfortran' instead of 'g77' in Darwing-g++.gmk script. (I.McLaren)
+
+19th November 2007  Gabriele Cosmo (config-V09-00-09)
+- Added "qmd" hadronic model to binmake.gmk.
+
+16th November 2007  Laurent Garnier (config-V09-00-08)
+- Updated setup for Qt in Linux-g++.gmk and Darwin-g++.gmk scripts to
+  support both Qt3 and Qt4.
+
+15th November 2007  Ben Morgan (config-V09-00-07)
+- Updated Configure script to handle new 'gdml' sub-module and new data
+  libraries (G4ABLADATA and new G4EMLOW version).
+- Updated internal scripts for Configure accordingly.
+
+2nd November 2007  Gabriele Cosmo (config-V09-00-06)
+- Introduced G4LIB_BUILD_GDML/G4LIB_USE_GDML flags to trigger compilation
+  of the new persistency/gdml sub-module. Added setup for XERCESC.
+  Required path XERCESCROOT to XERCESC installation if G4LIB_BUILD_GDML
+  is set. Added "persistency/gdml" include path to binmake.gmk
+- Added setup for QT in UI scripts, and specific QT paths and setup in
+  Darwin-g++.gmk. (L.Garnier)
+
+10th October 2007  Gunter Folger (config-V09-00-05)
+- Added "incl" (Liege cascade) hadronic model module to binmake.gmk. 
+ 
+ 
+3th October 2007  Laurent Garnier 
+- Added setup for Qt in those files : 
+- config/G4UI_BUILD.gmk 
+- config/G4UI_USE.gmk 
+- config/G4VIS_BUILD.gmk 
+- config/G4VIS_USE.gmk 
+- config/interactivity.gmk 
+- config/sys/Darwin-g++.gmk 
+- config/sys/Linux-g++.gmk 
+
+16th August 2007  Gabriele Cosmo (config-V09-00-04)
+- Corrected definition of OUT internal variable to allow for proper
+  linking also of unit tests.
+
+15th August 2007  Gabriele Cosmo (config-V09-00-03)
+- Added "rpg" hadronic model module to binmake.gmk.
+
+13th August 2007  Gabriele Cosmo (config-V09-00-02)
+- SUN-CC.gmk: forced -xO2 as optimisation level.
+
+18th July 2007  Gabriele Cosmo (config-V09-00-01)
+- liblist.c: fixed problem affecting recent CygWin installations on
+  Windows in parsing the buffer for the generation of libname.map.
+- binmake.gmk: defined OUT internal variable specifying the proper
+  compilation/linking option to Unix or Windows compilers: '-o '
+  and '/Fe' respectively.
+
+11th July 2007  Makoto Asai (config-V09-00-00)
+- Added digits_hits/scorer sub-directory to binmake.gmk.
+
+28th June 2007  Gabriele Cosmo (config-V08-03-04)
+- Updated Configure scripts to fix installation issue when installation
+  path is different from source path and headers are not installed.
+- Cleared <TAB> characters from .gmk scripts where not necessary.
+
+22nd June 2007  Gabriele Cosmo (config-V08-03-03)
+- Corrected binmake.gmk for having error_propagation in INCFLAGS properly
+  included in search path.
+- Updated internal scripts for Configure to cope with new environment
+  variable G4NEUTRONHPDATA.
+
+18th June 2007  Ben Morgan (config-V08-03-02)
+- Fixed Configure internal script to get rid of searching old physics_list
+  module at installation.
+
+27th May 2007  Gabriele Cosmo (config-V08-03-01)
+- Added "lll_fission" hadronic model module to binmake.gmk.
+
+12th May 2007  Gabriele Cosmo (config-V08-03-00)
+- Added "error_propagation" module to binmake.gmk.
+- Removed G4LIB_BUILD_LISTS flag. Physics lists are built by default.
+
+21st March 2007  Gabriele Cosmo
+- Added "biasing" module to binmake.gmk.
+
+28th February 2007  Gabriele Cosmo (config-V08-02-00)
+- Protected generation of dependencies using internal 'make' variable
+  MAKECMDGOALS in binmake.gmk and common.gmk, following suggestion made
+  in problem report #930.
+  This protection resolves the problem of generation of dependencies when
+  issueing the 'clean' target.
+
+3rd November 2006  Gunter Folger (config-V08-01-07)
+- architecture.gmk: added G4LIB_BUILD_LISTS with default value 1 to build physics lists.
+- binmake.gmk: added physics lists include directories to INCFLAGS.
+
+15th October 2006  Makoto Asai (config-V08-01-06)
+- binmake.gmk: added 'processes/scoring' module.
+
+10th October 2006  Gabriele Cosmo (config-V08-01-05)
+- Darwin-g++.gmk: use standard -echo- command.
+  Removed ECHO overloaded variable.
+
+5th October 2006  Gabriele Cosmo (config-V08-01-04)
+- liblist.c: added .dylib search for list of libraries.
+  Addressing problem report #885.
+
+3rd October 2006  Gabriele Cosmo (config-V08-01-03)
+- architecture.gmk: added variables for commands: echo, cat, cut, sed;
+  to be eventually overloaded in system dependent configurations.
+- WIN32-VC.gmk: overload commands [echo, grep, cat, cut, sed], to force
+  usage of the original CygWin built-in commands.
+
+21st September 2006  Vladimir Ivantchenko (config-V08-01-02)
+- binmake.gmk: added electromagnetic/polarisation module.
+
+18th August 2006  Gabriele Cosmo (config-V08-01-01)
+- Linux-icc: corrected G4RUNPATHOPTION flag to allow linking of applications
+  with shared libraries.
+
+18th August 2006  Gabriele Cosmo (config-V08-01-00)
+- Linux-icc: updated setup to support icc-9.X series.
+
+13th June 2006  Gabriele Cosmo (config-V08-00-02)
+- Removed defaults for X11, XM, XAW flags in architecture.gmk and added
+  explicit settings in sys/*.gmk setups protected by ifndef statements for
+  optional customisation.
+- Upgraded Configure internal scripts.
+
+24th April 2006  Gabriele Cosmo (config-V08-00-01)
+- binmake.gmk: fixed old-standing warning on WIN32-VC for file extension of
+  target object file. Defined TARGOBJEXT internal variable defining the
+  actual extension: .o for UNIX, .OBJ for Windows platforms.
+
+6th April 2006  Gabriele Cosmo (config-V08-00-00)
+- Darwin-g++: corrected linker options for generation of dynamic libraries.
+  Now dynamic libraries on MacOSX finally work. Tested on MacOS 10.4.5 with
+  gcc-4.0.1.
+
+12th December 2005  Gabriele Cosmo (config-V07-01-07)
+- binmake.gmk: added workaround to allow for physics-lists to link
+  with DLLs on Windows.
+
+7th December 2005  Gabriele Cosmo (config-V07-01-06)
+- Added G4LIB_NO_SHARED protection for cases where installation of
+  shared libs are not allowed.
+
+2nd December 2005  Gabriele Cosmo (config-V07-01-05)
+- Replaced -GX with -EHsc compilation option in WIN32-VC setup for
+  porting on VC++8 compiler.
+
+29th November 2005  Gabriele Cosmo (config-V07-01-04)
+- Added -D_CRT_SECURE_NO_DEPRECATE to WIN32-VC setup to allow for
+  porting on VC++8 compiler.
+
+21st November 2005  Makoto Asai (config-V07-01-03)
+- binmake.gmk: added 'digits_hits/utils' module to INCFLAGS.
+
+5th October 2005 John Allison (config-V07-01-02)
+- G4VIS*.gmk: added G4VIS_BUILD_RAYTRACERX_DRIVER and G4VIS_USE_RAYTRACERX.
+
+29th July 2005 Mark Donszelmann (config-V07-01-01)
+- Synchronized CXXFLAGS warning options of WIN32-g++ with Linux-g++.
+
+18th July 2005 Gabriele Cosmo (config-V07-01-00)
+- Excluded usage of unnecessary 'ranlib' at creation of the libraries for
+  WIN32-VC system. Fixes an observed problem of debug-symbols corruption.
+
+16th June 2005 Sergey Sadilov (config-V07-00-05)
+- Updated Configure script and support files:
+  o Added new data sets for low-energy-EM and elastic data.
+  o Set unique entry point for path to data.
+  o Updated variable settings for g3tog4 and zlib.
+
+15th June 2005 Gunter Folger (config-V07-00-04)
+- Changed clean(_..) targets to be :: rules, to allow multiple clean targets.
+
+10th June 2005 Gabriele Cosmo (config-V07-00-03)
+- Updated configuration script SUN-CC.gmk:
+  o Removed obsolete compilation option -ptr$(G4TREP) for redirection to
+    template repository, no longer necessary.
+  o Added -lsunmath to LOADLIBS now required with CLHEP-1.9.X for static
+    libraries.
+
+17th May 2005 Gabriele Cosmo (config-V07-00-02)
+- Corrected settings of G4LIB_BUILD/USE_ZLIB:
+  o G4LIB_BUILD_ZLIB is mandatory for Windows, if zlib is required;
+  o if G4LIB_BUILD_ZLIB is set, the G4-zlib module is used (all platforms);
+  o if only G4LIB_USE_ZLIB is set, the system zlib is used (UNIX only);
+  o if none is set, zlib is not used (all platforms).
+- Updated compilation options on Darwin-g++, now similar to Linux-g++ setup.
+- Still requiring tag "source-gmk-V07-00-01" for source/GNUmakefile to build
+  the g3tog4 module.
+
+13th May 2005 Gabriele Cosmo (config-V07-00-01)
+- Added G4LIB_BUILD_ZLIB/G4LIB_USE_ZLIB. Modified architecture.gmk
+  and binmake.gmk scripts.
+- Changed G4USE_G4TOG4 to G4LIB_USE_G3TOG4 to conform to standard flag names.
+  Requires tag "source-gmk-V07-00-01" for source/GNUmakefile to build the
+  g3tog4 module.
+
+10th May 2005 John Allison (config-V07-00-00)
+- Made OPENGLXM require OPENGLX.
+
+8th December 2004 John Allison (config-V06-02-03)
+- Darwin-g++.gmk: fixes on setup for dynamic libraries.
+
+30th November 2004 Gabriele Cosmo (config-V06-02-02)
+- binmake.gmk: added electromagnetic/highenergy module to INCLUDE path.
+
+27th November 2004 Gabriele Cosmo (config-V06-02-01)
+- binmake.gmk: added parameterisations/trd_clusters and
+  parameterisations/gflash modules to INCLUDE path.
+
+29th October 2004 Gabriele Cosmo (config-V06-02-00)
+- Archived setup for Windows/VC++6. WIN32-VC now corresponds to WIN32-VC7.
+  Archived WIN32-VC7.gmk.
+- Removed strict compilation options for SUN-CC and thread specific.
+
+12th October 2004 John Allison
+- Darwin-g++.gmk : added -lXi to X11LIBS.
+
+08th July 2004 Guy Barrand
+- Darwin-g++.gmk : correct options to build granular shared libs.
+  Have "-undefined define_a_way" instead of "-undefined error" since
+  granular libs are not linked for the moment.
+
+23rd June 2004 Gabriele Cosmo (config-V06-01-10)
+- Updated win32def.c program to fix retrivial of public static data for
+  building DLLs on Windows (G.Barrand).
+- Updated Configure scripts.
+
+17th June 2004 Gabriele Cosmo (config-V06-01-09)
+- Darwin-g++.gmk: use twolevel_namespace and GLOBLIBS for shared-libs
+  build on MacOS. Shared-libs build are possible only global libraries
+  and requires shared-lib version of CLHEP build with compatible options
+  (G.Barrand).
+
+14th June 2004 Gabriele Cosmo (config-V06-01-08)
+- architecture.gmk: added specification for G4LIB_USE_DLL.
+
+11th June 2004 Gabriele Cosmo (config-V06-01-07)
+- binmake.gmk: activated shared-libs mechanism for Windows platforms;
+  forced creation of static library for examples/applications for the
+  usage with DLLs.
+
+8th June 2004 Gabriele Cosmo (config-V06-01-06)
+- binmake.gmk: restored global lib for interfaces which was missing
+  from linking list.
+- common.gmk, globlib.gmk: fixed clean/clean_libs target.
+- architecture.gmk: added definition of G4LIB_BUILD_DLL flag.
+- WIN32-VC.gmk: added targets for DLLs build.
+- Linux-g++.gmk: made -O2 the default optimisation mode.
+  Archived temporary setup Linux-gO2 introduced in "config-V06-01-01".
+
+7th June 2004 Gabriele Cosmo (config-V06-01-05)
+- Corrected setup for WIN32-VC7 for building of DLLs.
+- Cosmetics in build printout...
+
+1st June 2004 Gabriele Cosmo (config-V06-01-04)
+- binmake.gmk, added include paths to new hadronic models for
+  abrasion, em_dissociation, de_excitation/ablation and
+  de_excitation/fission.
+- architecture.gmk: updated comments to header.
+
+26th May 2004 Mark Donszelmann (config-V06-01-03)
+- Fixed small problem in previous fix.
+
+26th May 2004  Gunter Folger (config-V06-01-02)
+- binmake.gmk: fixed problem for WIN32 such that also LDLIBS (including
+  EXTRALIBS) will be mangled to replace -L by its WIN32 correspondance
+  libpath.
+
+11th May 2004  Gabriele Cosmo (config-V06-01-01)
+- Added new experimental setup for Linux-g++ using -O2 optimisation
+  as default. To trigger this setup G4SYSTEM must be set to "Linux-gO2".
+  It also includes (deactivated by default) Pentium4 chip specific options
+  for using chips-specific floating-point arithmetics based on the SSE unit.
+
+8th April 2004  Guy Barrand
+- architecture.gmk: revisited Inventor default. Removed HEPVis dependencies
+  (Inventor visualization driver does not need these libraries any longer).
+
+7th April 2004  Guy Barrand
+- Darwin-g++.gmk:
+  o Corrected options to build shared libraries (.dyn); use
+    "-dynamic -single_module" to have faster startup when Geant4 is
+    embedded in an external framework.
+  o Corrected options to retrieve Motif. 
+
+5th April 2004  Gabriele Cosmo (config-V06-01-00)
+- architecture.gmk: added check for definition of LDFLAGS.
+  Fixes bug report #603.
+
+24th February 2004  Gabriele Cosmo (config-V06-00-03)
+- Fixed link rpath definition in Linux-icc.gmk.
+
+11th February 2004  Gabriele Cosmo (config-V06-00-02)
+- Added configuration file Linux-icc.gmk for Intel/icc compiler
+  on Linux systems.
+
+10th February 2004  Guy Barrand
+- WIN32-VC7.gmk: added material to build shared libs for Windows (DLLs).
+- Added program win32def.c to help building DLLs, built from
+  source/GNUmakefile through a specialised target and placed in
+  $G4LIB/$G4SYSTEM.
+- source/materials/GNUmakefile: modified to provide an example of macro
+  GLOBLIBS used by the DLL builder in order to have global lib dependencies.
+
+9th February 2004  Gunter Folger (config-V06-00-01)
+- architecture.gmk:
+  o Protect OGLFLAGS against containing -I/usr/include; this may cause 
+    wrong includes to be picked up.
+   
+26th January 2004  Guy Barrand (config-V06-00-00)
+- Darwin-g++.gmk:
+  o Use "g++" as a default compiler (in order to take the MacOSX
+    default compiler).
+  o Corrected procedure for building .dylib shared libs.
+    Previous default Linux commands do not work on MacOSX.
+
+18th November 2003  Gabriele Cosmo (config-V05-02-05)
+- Updated binmake.gmk to include new hadronics modules.
+  Coworks with "ghad-V05-02-00" and HEAD of processes/GNUmakefile.
+
+4th November 2003  Gabriele Cosmo (config-V05-02-04)
+- Include removal of OPACS setup. Cowork with tags "interfaces-V05-02-00"
+  and "vis-V05-02-02".
+
+29th October 2003  Gabriele Cosmo (config-V05-02-03)
+- binmake.gmk:
+  o Added particles/utils module.
+- Does NOT include removal of OPACS setup yet.
+
+22th October 2003  Guy Barrand
+- OPACS : rm interfaces OPACS related things.
+
+17th October 2003  Guy Barrand
+- OPACS being (for long) deprecated, the OPACS related things
+  had been removed in the Geant4 repository.
+
+30th September 2003  Gabriele Cosmo (config-V05-02-02)
+- architecture.gmk, binmake.gmk:
+  o Added geometry/navigation module.
+  o Removed setup for STEP, now archived.
+  o Adopt new module and library "digits_hits", replacing "digits+hits".
+- Configure installation script:
+  o Fixed correct default name for data sets.
+  o Implemented automatic detection of OpenGL and CLHEP installations.
+  o Fixed behavior of script on Windows system, corrected definition of
+    paths and defaults.
+  o Cleared not allowed configuration drivers.
+
+19th September 2003  Gabriele Cosmo (config-V05-02-01)
+- binmake.gmk:
+  o added processes/cuts module.
+- architecture.gmk:
+  o fixed setup for OpenInventor libraries.
+
+1st July 2003  Gabriele Cosmo (config-V05-02-00)
+- WIN32-VC.gmk, WIN32-VC7.gmk:
+  o reinstated options "-D_CONSOLE -D_WIN32 -DOS" to allow correct
+    treatment/opening of data files from applications.
+
+24th June 2003  Gabriele Cosmo (config-V05-01-05)
+- Added UI32LIBS to interactivity.gmk to handle UI libraries on WIN32
+  platforms.
+- Added libraries for OpenGL and UI to default setup of WIN32-VC and
+  WIN32-VC7. Removed some obsolete compilation options.
+
+18th June 2003  Gabriele Cosmo (config-V05-01-04)
+- Removed flag G4USE_STD_NAMESPACE from specific setups in sys.
+  Follows migration from G4std apported in source/global and whole code.
+
+16th June 2003  Gabriele Cosmo
+- binmake.gmk: added module geometry/divisions in $INCFLAGS list.
+
+11th June 2003  Gunter Folger (config-V05-01-03)
+- G4VIS_BUILD.gmk, G4VIS_USE.gmk, G4UI_BUILD.gmk, G4UI_USE.gmk, and
+  sys/{Linux-g++,SU-CC}.gmk:
+  When building shared libraries needing external libs like OpenGL..., 
+  add these at shared library building, so these libs know about these 
+  dependency and have this resolved.
+
+6th June 2003  Gabriele Cosmo (config-V05-01-02)
+- architecture.gmk and specific setups in sys: get rid of G4_HAVE_BOOL
+  macro. Now using default 'bool' type, defined in all supported compilers.
+
+28th May 2003  Gabriele Cosmo (config-V05-01-01)
+- architecture.gmk, binmake.gmk: added flags G4LIB_BUILD_STEP/G4USE_STEP
+  to make optional the compilation of the STEP library and interface module.
+  By default the libraries will not be built.
+
+31st March 2003  Gabriele Cosmo (config-V05-01-00)
+- Added more strict compiler options for Linux-g++ platform.
+- Removed obsolete usage of GNU_GCC specific option for g++ compilers.
+
+22nd January 2003  Gabriele Cosmo (config-V05-00-00)
+- Added experimental setup WIN32-VC7.gmk for Windows .NET VC++ compiler.
+- Generalised identification of WIN32 specific setups in core scripts.
+- Forced silent generation of dependencies (added -w option to calls to g++).
+
+4th December 2002  Gabriele Cosmo (config-V04-01-08)
+- Removed obsolete setup for ObjectSpace-STL (G4USE_OSPACE and related
+  variables). Removed obsolete variable G4USE_STL.
+- Updated Configure scripts.
+
+2nd December 2002  John Allison (config-V04-01-07)
+- common.gmk, binmake.gmk: New dependency file algorithm that avoids
+  leaving corrupt .d files when #include'd files cannot be found.
+- Removed obsolete schema targets in common.gmk.
+
+25th November 2002  Gabriele Cosmo (config-V04-01-06)
+- Removed ODBMS setup. Now library for persistency is built as part of the
+  kernel and specific implementations for persistency have been moved to
+  examples. Setup for ODBMS no more required. G4USE_HEPODBMS is no longer
+  used.
+- Updated configuration file AIX-xlC.gmk to port code on AIX with xlC 6.0
+  (K.Murakami).
+
+22nd November 2002  Gabriele Cosmo (config-V04-01-05)
+- liblist.c:
+  o Enhanced script to provide the whole list of installed libraries
+    in the correct order, without requiring parsing of dependencies.
+    The functionality is achieved by invoking "liblist" with option '-m",
+      i.e. - liblist -m [libpath] < libname.map
+    where [libpath] is the path where libraries are placed
+    (i.e. $G4LIB/$G4SYSTEM).
+- binmake.gmk:
+  o Use "liblist -m [libpath]" to retrieve the list of libraries to link in
+    case headers are installed in $G4INCLUDE, and granular libraries are used.
+- G4UI_USE.gmk, G4VIS_USE.gmk:
+  o Protected specification of -I paths for headers, in case $G4INCLUDE is
+    used. A single -I$G4INCLUDE path will be used for compilation in such case.
+
+16th November 2002  Hans-Peter Wellisch
+- binmake.gmk:
+  o Added hadronic/models/cascade/cascade and
+    hadronic/models/generator/scattering include paths.
+
+8th November 2002  Gabriele Cosmo (config-V04-01-04)
+- Darwin-g++.gmk:
+  o Updated setup to support MacOS 10.2 (H.Burkhardt).
+
+30th October 2002  Gabriele Cosmo (config-V04-01-03)
+- architecture.gmk:
+  o Issue an error if G4SYSTEM is not defined in the environment or not valid.
+  o Define G4LIB_BUILD_G3TOG4 and G4USE_G3TOG4 for optional installation and
+    usage of the g3tog4 module.
+  o Updated list of supported systems/compilers.
+- binmake.gmk:
+  o Include path and library for g3tog4 module only if G4USE_G3TOG4 is defined.
+    Implies proper handling of G4USE_G3TOG4 in source/GNUmakefile.
+- Removed obsolete OSPACE setup for WIN32-VC, HP-aCC, DEC-cxx. Still kept for
+  platforms with ODBMS setup.
+- SUN-CC.gmk: removed -L/usr/lib path specification from LOADLIBS definition.
+
+10th September 2002  Gabriele Cosmo (config-V04-01-02)
+- Linux-g++.gmk: added assignment 'CC := gcc' for default 'cc' compiler.
+
+26th August 2002  Gabriele Cosmo (config-V04-01-01)
+- binmake.gmk: added include path to persistency/run/include which was
+  missing. Removed unnecessary processes/general/include.
+
+8th July 2002  John Allison
+- liblist.c: added protection and warning for file/directory not found
+  in parsedir.  Also small cosmetic improvements.
+
+4th July 2002  Gabriele Cosmo (config-V04-01-00)
+- Upgraded WIN32-g++ to compile with -ansi and gcc-2.95.3 for most recent versions
+  of CygWin.
+
+26th June 2002  Gabriele Cosmo (config-V04-00-10)
+- Moved STEP PERL scripts to examples/extended/geometry/cad/scripts.
+- Updated scripts for Configure.
+
+18th June 2002  Gabriele Cosmo (config-V04-00-09)
+- Added -DG4USE_OSPACE for obsolete systems using ObjectSpace STL.
+
+17th June 2002  Gabriele Cosmo (config-V04-00-08)
+- Added flag G4NO_ISO_VECDIST for compilers (SUN-CC, HP-aCC) with non ISO
+  call to vector::distance() method.
+
+14th June 2002  Gabriele Cosmo (config-V04-00-07)
+- binmake.gmk: added include path to "leading_particle" hadronic module.
+  Retagged with correct numbering...
+
+3rd May 2002  Gabriele Cosmo (config-V04-00-06)
+- liblist.c: added patch to port code on MacOS-X.
+  Defined buffer[BUFSIZE] as "char static".
+- Added Darwin-g++.gmk configuration file for MacOS-X systems running
+  with GNU g++ compiler.
+- Removed SUN-CC4.gmk configuration file, no longer supported.
+- Updated description header to system configuration files.
+
+27th March 2002  Gabriele Cosmo (config-V04-00-05)
+- binmake.gmk: added include path to new module geometry/biasing.
+  Co-works with "geometry-V04-00-01" and "transport-V04-00-00".
+
+26th March 2002  Gabriele Cosmo (config-V04-00-04)
+- liblist.c: cancelled changes made in previous tag.
+  Restored usage of function 'gets(buffer)', correctly adopted in this case.
+
+14th March 2002  Gabriele Cosmo (config-V04-00-03)
+- liblist.c: replaced usage of function 'gets(buffer)' with the safer
+  'fgets(buffer,BUFSIZE,stdin)'.
+
+9th March 2002  John Allison (config-V04-00-02)
+- Fixed bug in G4VIS_USE.gmk for G4VIS_USE_OPENGLWIN32.
+- Corrected perl script g4sort_step_file.pl to specify correct path for perl.
+
+07th February 2002 Gabriele Cosmo (config-V04-00-01)
+- liblist.c: added flags __CYGWIN__ and __CYGWIN32__ for triggering proper
+  parsing algorithm on Windows systems, also on most recent versions of Cygwin.
+- WIN32-VC.gmk: use g77 instead of f77 as default fortran compiler.
+
+25th January 2002 Gabriele Cosmo (config-V04-00-00)
+- sys/HP-aCC.gmk: removed include path to global/management/include/std/wrappers,
+  which was unused and not neccessary.
+
+10th December 2001 Gabriele Cosmo (config-V03-02-15)
+- architecture.gmk:
+  o updated list of supported compilers
+  o removed obsolete setup for STL ObjectSpace and STLport for Win/VC++.
+- binmake.gmk: activated mechanism for using $G4INCLUDE effectively for
+  building examples/applications. Currently activated only for global compound
+  libraries; for granular libraries it requires re-engineering of liblist,
+  feature which will be added in future.
+  This mechanism allows to considerably reduce the compilation/linking command
+  length and the number of -I options fed to the compiler.
+- Added G4PROFILE options to Linux-g++ and Linux-egcs setups.
+- Removed binmake.EXTRALIBS.README, now part of User's Guide.
+- Updated sources for Configure installation script.
+
+3rd December 2001 Guy Barrand (config-V03-02-14)
+- G4VIS_USE.gmk : -lG4HepRep replaced by -lG4visHepRep.
+
+29th November 2001 Gabriele Cosmo (config-V03-02-13)
+- Removed SUN-CC5.gmk configuration file. Now replaced by SUN-CC architecture
+
+21st Novemver 2001 Gabriele Cosmo (config-V03-02-12)
+- On top of "config-V03-02-11", added paths in binmake.gmk including
+  new hadronic models for cascade, CHIPS and coherent_elastic.
+  Does not include changes to analysis.gmk.
+
+19th November 2001 Guy Barrand
+- analysis.gmk : then remove all system specifc flags, have
+   only the AIDA ones. Have G4ANALYSIS_USE to drive the insertion of 
+   CPP and libs in the Geant4 GNUmakefile system.
+
+19th November 2001  John Allison  (config-V03-02-11)
+- Does not include Guy's changes of 16rd November.
+- Re-instated creation of CPPFLAGS (see 6th November) but conditonal
+  on existence of corresponding environment variable.  If no environmet
+  variable is set, CPPFLAGS += -DG4UI_USE_TERMINAL.
+
+16rd November 2001  Guy Barrand
+- analysis.gmk : add flags to use an AIDA 2.2 compliant analysis system.
+
+6th November 2001  John Allison  (config-V03-02-10)
+- Removed CPPFLAGS += -DG4UI_USE_GAG -DG4UI_USE_TCSH -DG4UI_USE_TERMINAL.
+
+6th November 2001  John Allison  (config-V03-02-09)
+- Removed references to HepRep, added code for HepRepFile, thus
+  needed by vis-V03-02-15.
+
+23rd October 2001  Gabriele Cosmo  (config-V03-02-08)
+- Merged changes in "config-V03-02-07" for removal of STLInterface.
+
+22nd October 2001  Gabriele Cosmo  (config-V03-02-06b)
+- binmake.gmk: added include path for geometry/verification
+  according to tag "geometry-V03-02-01".
+
+1st October 2001  Gabriele Cosmo  (config-V03-02-06a)
+- binmake.gmk: removed include path for processes/electromagnetic/integral
+  according to tag "em-V03-02-02".
+
+30th September 2001  Gabriele Cosmo  (config-V03-02-07)
+- Removed references to STLInterface module in architecture.gmk
+  and architecture setups. Coworks with tag "global-V03-02-03" where
+  STLInterface module has been removed.
+
+29th August 2001  John Allison/Joseph Perl  (config-V03-02-06)
+- Needed by vis-V03-02-14.
+- First developers release of HepRep graphics driver.
+
+27th August 2001  John Allison
+- Tidied HepRep configuration in G4VIS*, moving stuff to interactivity.gmk.
+
+24th August 2001  Joseph Perl  (config-V03-02-05)
+- Introduced HepRep graphics driver
+
+11th August 2001  John Allison  (config-V03-02-04)
+- Re-engineered G4UI variables.  Coworks with interfaces-V03-02-00.
+- Introduced environment variable G4UI_NONE that, if set, no UI
+  sessions nor any UI libraries are built, not even libG4UIbasic.a nor
+  libG4UIcommon.a.  (This would only happen in a pure batch job or,
+  perhaps, in a user framework having its own UI system.)
+- Removed the need to specify environment variables for UI sessions
+  which do not need external packages or libraries, namely :
+    G4UI_BUILD_GAG_SESSION
+    G4UI_BUILD_TERMINAL_SESSION
+  with associated G4UI_USE environment variables:
+    G4UI_USE_GAG
+    G4UI_USE_TCSH
+    G4UI_USE_TERMINAL
+  In other words, the above environment variables become redundant and are
+  ignored.  
+  For backwards compatibility, unless G4UI_NONE is set, the corresponding
+  G4UI_USE C-pre-processor variables are automatically set.  Also, the
+  C-pre-processor variables G4UI_BUILD and G4UI_USE are set.
+- As before, environment variables for other sessions still need positive
+  setting of their G4UI_BUILD and G4UI_USE environment variables.  In this
+  category are:
+    G4UI_BUILD_WIN32_SESSION
+    G4UI_BUILD_WO_SESSION
+    G4UI_BUILD_XAW_SESSION
+    G4UI_BUILD_XM_SESSION
+  with associated G4UI_USE environment variables:
+    G4UI_USE_WIN32
+    G4UI_USE_WO
+    G4UI_USE_XAW
+    G4UI_USE_XM
+- Note: The user must still instantiate and SessionStart only *one*
+  session, but if it is to be one in the category needing external
+  packages or libraries, the corresponding G4UI_USE must be set to
+  trigger inclusion oflibraries.  Otherwise the user need not set any
+  environment variables.
+
+3rd August 2001 Gabriele Cosmo (config-V03-02-03)
+- architecture.gmk:
+  o updated list of supported systems/compilers.
+  o made Linux-g++ architecture the default G4SYSTEM. Replaced SUN-CC.
+- Added SUN-CC4.gmk for old SUN architectures based on CC-4.2 compiler.
+- Added Linux-egcs for old Linux architectures based on egcs-1.1.2 compiler.
+- Made SUN-CC.gmk a copy of SUN-CC5.gmk (kept for backward compatibility,
+  will be removed soon). CC-5.2 compiler is now the default on SUN systems.
+- Made Linux-g++.gmk specific to gcc-2.95.2 compiler, from now on the default
+  compiler on Linux systems.
+
+1st August 2001 Gabriele Cosmo (config-V03-02-02)
+- Included recent updates to scripts sources for 'Configure'.
+
+27th July 2001  John Allison  (config-V03-02-01)
+- Introduced environment variable G4VIS_NONE that, if set, no visualization
+  drivers are built and no vis libraries are built, not even
+  libG4vis_management.  (libG4modeling is still built.)  The C-pre-processor
+  variables G4VIS_BUILD and G4VIS_USE are *not* set.
+- Removed the need to specify environment variables for visualization drivers
+  which do not need external packages or libraries, namely :
+      G4VIS_BUILD_DAWNFILE_DRIVER
+      G4VIS_BUILD_RAYTRACER_DRIVER
+      G4VIS_BUILD_VRMLFILE_DRIVER
+      G4VIS_BUILD_ASCIITREE_DRIVER
+      G4VIS_BUILD_GAGTREE_DRIVER
+    with associated G4VIS_USE environment variables:
+      G4VIS_USE_DAWNFILE
+      G4VIS_USE_RAYTRACER
+      G4VIS_USE_VRMLFILE
+      G4VIS_USE_ASCIITREE
+      G4VIS_USE_GAGTREE
+  In other words, the above environment variables become redundant and are
+  ignored.  
+  For backwards compatibility, unless G4VIS_NONE is set, the corresponding
+  G4VIS_USE C-pre-processor variables are automatically set.  Also, the
+  C-pre-processor variables G4VIS_BUILD and G4VIS_USE are set.
+- As before, environment variables for other drivers still need positive
+  setting of their G4VIS_BUILD and G4VIS_USE environment variables.  In this
+  category are:
+      G4VIS_BUILD_DAWN_DRIVER
+      G4VIS_BUILD_OPACS_DRIVER
+      G4VIS_BUILD_OPENGLX_DRIVER
+      G4VIS_BUILD_OPENGLWIN32_DRIVER
+      G4VIS_BUILD_OPENGLXM_DRIVER
+      G4VIS_BUILD_OIX_DRIVER
+      G4VIS_BUILD_OIWIN32_DRIVER
+      G4VIS_BUILD_VRML_DRIVER
+    with associated G4VIS_USE environment variables:
+      G4VIS_USE_DAWN
+      G4VIS_USE_OPACS
+      G4VIS_USE_OPENGLX
+      G4VIS_USE_OPENGLWIN32
+      G4VIS_USE_OPENGLXM
+      G4VIS_USE_OIX
+      G4VIS_USE_OIWIN32
+      G4VIS_USE_VRML
+  In this case G4VIS_NONE must *not* be set.
+- Added binmake.EXTRALIBS.README.
+
+5th July 2001 Youhei Morita (config-V03-02-00)
+- Linux-g++.gmk: Use -pedantic (G.Cosmo)
+- Linux-g++.gmk, SUN-CC.gmk, SUN-CC5.gmk: added -DG4std in G4DDLX_FLAGS
+
+29th June 2001 Gabriele Cosmo (config-V03-01-10)
+- Updated source scripts for 'Configure'.
+
+26th June 2001 Youhei Morita (config-V03-01-09)
+- globlib.gmk: added block for copying headers for persistency in $G4INCLUDE
+  when invoking the 'includes' target.
+
+25th June 2001 Youhei Morita (config-V03-01-08)
+- Restored lib_d target (again) in common.gmk with a protection of G4ODBMS.
+- Linux-g++.gmk (G.Cosmo)
+  o Commented out -ansi setup for public release
+  o Fixed logic for activating G4OODDLX_FLAGS on egcs compiler
+
+22nd June Gabriele Cosmo (config-V03-01-07)
+- common.gmk (G.Folger):
+  o removed lib_d target (again).
+  o restored G4SKIP_DEPEND.
+- Linux-g++.gmk:
+  o added temporary cludge for identify compiler version
+    and define G4DDLX_FLAGS for egcs-1.1.2.
+- binmake.gmk:
+  o added mechanism to correctly handle include paths when source headers
+    are centrally installed in $G4INCLUDE. Temporarly disabled, requires
+    update (re-design?) of liblist.c to properly generate the list of
+    libraries from the map.
+    Once activated, also G4UI_USE.gmk, G4VIS_USE.gmk and analysis.gmk
+    have to be modified accordingly.
+
+22nd June 2001 Youhei Morita (config-V03-01-06)
+- Restored lib_d target in common.gmk with a protection of G4ODBMS.
+- Get rid of G4SKIP_DEPEND in binmake.gmk.
+- Comment out G4DDLX_FLAGS options in sys/Linux-g++.gmk for gcc-2.95.2.
+
+21st June 2001 Gunter Folger (config-V03-01-05)
+- Removed bin_d and lib_d targets and thus the re-start of make.
+
+21st June 2001 Gunter Folger (config-V03-01-04)
+- common.gmk, binmake.gmk: run gmake via $(MAKE).
+
+19th June 2001 John Allison (config-V03-01-03)
+- Added GAG_TREE to G4VIS_BUILD.gmk and G4VIS_USE.gmk.
+
+20th June 2001 (Japan Time - still 19th in Europe!)
+               Youhei Morita (config-V03-01-02)
+- A few bug fixes in binmake.gmk, common_objy.gmk, sys/SUN-CC5.gmk,
+  sys/Linux-g++.gmk, sys/Win32-g++.gmk.
+
+19th June 2001 Gabriele Cosmo
+- Removed G4_NO_CBRT flag from WIN32-VC setup. No more necessary.
+
+30th May 2001 Gunter Folger
+- Do changes for persistency from Youhei: common.gmk is now split in three,
+  one general, and one for specific for transient and persistent each. 
+  Dependencies now much better handled in persistency.
+
+2nd May 2001 Gabriele Cosmo (config-V03-01-01)
+- Added options "-Wall -ansi -pedantic" to Linux-g++ setup.
+
+10th April 2001  John Allison  (config-V03-01-00)
+- Added G4VIS_BUILD_ASCIITREE_DRIVER and G4VIS_USE_ASCIITREE to G4VIS*gmk.
+
+22nd March 2001 Gunter Folger (config-V03-00-03)
+- binmake.gmk, only store in executable PATH to libs from example/test; 
+  other libs should be taken/found from LD_LIBRARY_PATH
+- sys/{Linux-g++,SUN-CC}.gmk: enable storing of PATH to libs in executable 
+
+06th March 2001 Gabriele Cosmo (config-V03-00-02)
+- binmake.gmk: added include path for processes/electromagnetic/integral
+  the new subcategory introduced with tag em-V03-00-04.
+
+13th February 2001 Gabriele Cosmo (config-V03-00-01)
+- binmake.gmk: added include path for processes/photolepton_hadron
+  which was missing!
+
+08th January 2001 Gabriele Cosmo (config-V03-00-00)
+- sys/WIN32-VC.gmk: introduced -GR compiler option to allow usage of
+  dynamic casting and type-info at run-time.
+
+13th December 2000 Gunter Folger (config-V02-00-14)
+- common.gmk: fix to rule for building dependencies, parsing is skip
+  if $(dependencies) is empty.
+- globlib.gmk: added "includes" to PHONY target list and fixed typo.
+- Added comments to "includes" rules.
+
+8th December 2000 Gabriele Cosmo (config-V02-00-13)
+- Changed G4LIB_BUILD_ARCHIVE to G4LIB_BUILD_STATIC in architecture.gmk,
+  common.gmk and globlib.gmk.
+
+7th December 2000 Gabriele Cosmo (config-V02-00-12)
+- Added options to SUN-CC5.gmk to handle multithreading and persistency.
+
+5th December 2000 Youhei Morita (config-V02-00-11)
+- Introduced GPPFLAGS to set -M or -MM according to G4ODBMS.
+
+5th December 2000 Gabriele Cosmo (config-V02-00-10)
+- Restored -MM option to g++ for making dependencies. -M was introduced in
+  tag config-V02-00-02 to allow dependency search on system headers as well
+  (#include<...> statements). This however introduces serious clashes with
+  Objectivity schema generation for the persistency module.
+
+4th December 2000 Gunter Folger (config-V02-00-09)
+- Disable G4RUNPATHOPTION (internal variable) for all but SUN. This is/will 
+  be used when linking with G4 shared libraries to store the path to these 
+  libraries in the executable. 
+
+1st December 2000  Gabriele Cosmo (config-V02-00-08)
+- Added G4UI_USE_TCSH and related settings to G4UI_USE.gmk (M.Maire).
+- Merged SUN-CC6.gmk to SUN-CC5.gmk and removed SUN-CC6.gmk.
+
+1st December 2000  Gunter Folger (config-V02-00-07)
+- Change -M to -M -MG in common.gmk, binmake.gmk. This will output a "correct"
+  dependency file even when missing  header files are missing. Correct in the
+  sense that liblist will work, and that the missing header is supposed to be
+  (made) in the source directory.
+
+17th November 2000  Gunter Folger (config-V02-00-06)
+- Link with CLHEP using -L/-l instead of absolute filename; this allows 
+  to link with shared lib of Anaphe, or static lib of Geant4.
+- Added shared-lib settings to sys configurations.
+
+14th November 2000  Gabriele Cosmo (config-V02-00-05)
+- Added reference to new "parameterisations" top category.
+  Modified files: binmake.gmk.
+- Removed makeshlib.sh script, now obsolete.
+
+7th November 2000  Guy Barrand
+- analysis.gmk : renamed OpenScientist things to "Lab" ; 
+  Lab is the concrete package where analysis is done.
+
+3rd November 2000  Gunter Folger (config-V02-00-04)
+- common.gmk: fix for shared-library build.
+- common.gmk, globlib.gmk: added rules for "includes" gmake target.
+- architecture.gmk: introduced new user settable variable G4INCLUDE
+  to specify path where headers (files or symbolic-links) should be installed.
+
+1st November 2000  Guy Barrand
+- analysis.gmk: declared Lizard.
+
+24th October 2000  Gunter Folger (config-V02-00-03)
+- architecture.gmk, common.gmk, globlib.gmk, sys/*:
+  o merged building shared libraries into makefiles.
+    The MAKESHLIB script is no longer used.
+- Introduced new variables steering the building of archive/shared libs:
+   G4LIB_BUILD_SHARED
+   G4LIB_BUILD_ARCHIVE  (still default)
+     note that G4MAKESHLIB set will internally set G4LIB_BUILD_SHARED for
+     backwards compatiblity.
+- Introduced new variable (G4LIB_USE_GRANULAR) to force using of granular 
+  libraries, even when libG4global.a/.so exists.
+
+14th September 2000  Guy Barrand 
+- Introduced changes to handle analysis module.
+  o added analysis.gmk.
+  o sys/Linux-g++.gmk: added macro DLDLIBS for library dynamic loading.
+  o binmake.gmk: added inclusion of analysis.gmk.
+  o binmake.gmk: place LDLIBS3 += $(ANALYSISLIBS) after LDLIBS3 += $(INTYLIBS).
+
+22nd August 2000  John Allison (config-V02-00-02)
+- Changed -MM to -M in dependency file making in binmake.gmk and common.gmk.
+  This causes dependencies of both #include "..." and #include <...> to be
+  followed.  This is the safer option, since some users might/should use,
+  e.g., #include <g4std/...>, but even these files change sometime.
+
+22nd August 2000  Gunter Folger
+- globlib.gmk: fix for protection from infinite loops when a dir does
+  not exist (G.Folger).
+
+1st August 2000  Gabriele Cosmo (config-V02-00-01)
+- Added setup WIN32-g++ for Windows/NT/9X with Cygwin and g++ compiler.
+  Configuration non officially supported (courtesy of S.Agostinelli and
+  IST group, Genova).
+
+24th July 2000  Gabriele Cosmo (config-V02-00-00)
+- Added path to g3tog4 for global libs.
+
+23rd May 2000  John Allison (config-V01-01-04)
+- Added -I$(G4BASE)/processes/hadronic/models/radiative_decay/include to
+  binmake.gmk.
+
+19th May 2000  Gabriele Cosmo (config-V01-01-03)
+- architecture.gmk:
+  o changed -pic option to -KPIC for SUN architectures.
+  o fixed HP-aCC setup to cope with new CLHEP version 1.5.
+  o implemented modular setup. Now system specific configurations are
+    grouped in separated files $G4SYSTEM.gmk and placed in the new
+    directory config/sys.
+
+7th April 2000  Gabriele Cosmo (config-V01-01-02)
+- binmake.gmk: added include path to the new directory
+  geometry/solids/specific.
+- Updated PERL script g4step_correct.pl for parsing STEP files.
+
+30th March 2000  Gabriele Cosmo (config-V01-01-01)
+- makeshlib.sh:
+  o added few corrections to the script in order to allow
+    creation of shared libraries without need of the static archive on
+    platforms which allow this.
+  o added section for SunOS systems.
+  (courtesy of I.G.Caballero)
+- architecture.gmk:
+  o on SUN-CC and SUN-CC5, added -pic to CXXFLAGS for building shared
+    libraries.
+
+21st March 2000  Gabriele Cosmo
+- makeshlib.sh: corrected invokation of compiler for HP-aCC setup.
+  Changed CC to aCC (fixes bug-report #68).
+
+13th March 2000  Gabriele Cosmo (config-V01-01-00)
+- architecture.gmk: corrected FCLIBS for Linux-g++
+  o added -lg2c -lnsl and removed -lf2c.
+
+14th February 2000  Gabriele Cosmo (config-V01-00-02)
+- architecture.gmk: added option '+W823' to HP-aCC compilation setup to
+  discard warnings for macros parameter definition as used in the new
+  NIST STEP reader.
+- binmake.gmk: moved $EXTRALIBS to be included on top of the linking list,
+  just after the user application library.
+
+31st January 2000  Gabriele Cosmo (config-V01-00-01)
+- Added control for the Ray-tracer driver. Introduced G4VIS_USE_RAYTRACER
+  in G4VIS_USE.gmk and G4VIS_BUILD_RAYTRACER_DRIVER in G4VIS_BUILD.gmk (M.Asai).
+- binmake.gmk: fixed dependency order for compound libraries.
+  Moved -lG4particles and -lG4materials downstream in the list.
+- architecture.gmk: added G4NO_OPTIMISE for allowing compilation without
+  any level of optimisation or debug. G4DEBUG if defined takes precedence.
+  G4DEBUG and G4OPTIMISE are now defined also as CPPFLAGS.
+
+3rd January 2000  Gabriele Cosmo (config-V01-00-00)
+- Syncronized with HEAD.
+
+16th December 1999  John Allison
+- Cosmetic improvement to echo line in binmake.gmk.
+
+7th December 1999  Gabriele Cosmo (config-V00-01-19)
+- architecture.gmk: minor fix on OSPACELIBS path for Win/NT.
+
+5th December 1999  Youhei Morita (config-V00-01-18) 
+- architecture.gmk: defined G4OODDLX_FLAGS
+- common.gmk: use G4OODDLX_FLAGS
+
+5th December 1999  Gabriele Cosmo (config-V00-01-17)
+- architecture.gmk: fixes for Win/NT.
+  o fixed path for OSPACELIBS
+  o removed -DG4NOT_ISO_DELETES flag
+
+3rd December 1999  Gabriele Cosmo (config-V00-01-16)
+- architecture.gmk: set G4_HAVE_BOOL for SUN-CC5.
+
+3rd December 1999  Youhei Morita
+- common.gmk: fixed minor typo in G4OODDLX_SCHEMA_NAME
+
+1st December 1999  Gabriele Cosmo (config-V00-01-15)
+- architecture.gmk:
+  o added new G4SYSTEM flavor SUN-CC5, used for testing on the new C++
+    compiler v5.0 on SunOS. Requires ISO/ANSI-C++ installation and native
+    STL by default. Compatibility with old no ISO/ANSI code is assured
+    through the -compat compiler option and the usage of ObjectSpace STL
+    (i.e. G4USE_OSPACE set).
+  o added new flag G4NO_STD_NAMESPACE.
+    HP-aCC setup with native STL assumes the ISO-ANSI installation by default,
+    the new flag should be explicitly set in the environment to avoid this.
+  o upgraded SGI-CC setup to IRIX 6.5.5, CC 7.2.1 and ObjectSpace STL.
+    Tests on this configuration has NOT been tested though.
+
+1st December 1999  Youhei Morita
+- architecture.gmk: added G4EXAMPLE_BOOT and G4EXAMPLE_FD
+- common.gmk: copy only the .hh files
+- binmake.gmk: added persistent include paths
+               added new targed cleandb, newboot, newfd
+               added G4SKIP_DEPEND for dependencies
+
+29th November 1999  Youhei Morita
+- architecture.gmk: added G4SYSTEM to G4SCHEMA_DIR, G4TMPSCHEMA_DIR
+- common.gmk: changed G4SCHEMA_HEADER_DIR from G4TMPSCHEMA_INCLUDE to G4TMPDIR
+              added target install_schema for schema copying
+- globlib.gmk: create schema header files at G4TMPDIR, then install
+
+29th November 1999  John Allison
+- Introduced LDLIBS2EXTRA so that granular libraries are not
+  expanded too soon.
+
+25th November 1999  Gabriele Cosmo (config-V00-01-14)
+- architecture.gmk: redefined OSPACEDIR as OSPACE_BASE_DIR to conform to
+  an omogeneous format. Added existence check for OSPACE and CLHEP paths.
+
+23rd November 1999  Gabriele Cosmo (config-V00-01-13)
+- architecture.gmk: added setup for ISO/ANSI installation on DEC-cxx.
+  If using native STL (i.e. G4USE_OSPACE not set), G4USE_STD_NAMESPACE is
+  implicitly defined and a strict-ANSI installation is assumed. Note that
+  in this case, also CLHEP must have been installed in strict-ANSI mode.
+
+20th November 1999  Youhei Morita (config-V00-01-12)
+- common.gmk: added G4OODDLX_SCHEMA_NAME to use Geant4 named schema
+
+19th November 1999  Youhei Morita
+- liblist.c: avoid coredumps when it was given non-existing directly.
+
+18th November 1999  Gabriele Cosmo (config-V00-01-11)
+- architecture.gmk: added -e option to $ECHO for Linux-g++ setup.
+
+17th November 1999  John Allison (config-V00-01-10)
+- binmake.gnk: added isotope_production/include to -I list (Hans-Peter).
+
+17th November 1999  Youhei Morita (config-V00-01-09)
+- moved schema header files to G4INSTALL/schema/include
+  architecture.gmk: introduced G4SCHEMA_INCLUDE and G4TMPSCHEMA_INCLUDE
+  common.gmk: introduced G4SCHEMA_HEADER_DIR and G4SCHEMA_SRC_DIR 
+  globlib.gmk: added tmp schema header copying
+
+15th November 1999  Gabriele Cosmo (config-V00-01-08)
+- Tagged.
+
+14th November 1999  Youhei Morita
+- globlib.gmk: moved contruction of libmap for G4ODBMS to
+               source/GNUmakefile
+
+12th November 1999  Youhei Morita
+- common.gmk: introduced G4ODBMS_DEPEND and G4SKIP_DEPEND for
+              better handling of dependencies
+- globlib.gmk: use G4ODBMS_DEPEND, automatic rebuilding of libmap
+
+11th November 1999  Gabriele Cosmo (config-V00-01-07)
+- Migration RWT->G4RWT performed:
+  o Removed every occurence of Rogue-Wave from configuration, replaced
+    RWBASE with G4STLBASE. Modified scripts: architecture.gmk, common.gmk
+    and binmake.gmk.
+  o Made setup for Native-STL the default, removed test on conditional
+    flag G4USE_STL.
+  o Removed setup for Win/NT-g++, no longer supported.
+
+10th November 1999  Youhei Morita (config-V00-01-06)
+- binmake.gmk: added path to persistency/global/include.
+- common.gmk: Change G4ODBMS_DEPEND to G4ODBMS_NODDL
+- globlib.gmk: removed G4ODBMS_DEPEND, modified target "global"
+
+10th November 1999  Gabriele Cosmo (config-V00-01-05)
+- binmake.gmk: added path to HEPNumerics/include which was missing.
+
+29th October 1999  Guy Barrand
+- architecture.gmk, interactivity.gmk: introduced
+  "G4_OPACS_WIDGET_SET lesstif" logic to handle the case
+  of using, on Linux, the bugged lesstif with the non bugged OPACS.
+
+29th October 1999  Gabriele Cosmo
+- Introduced fixes for shared library setup (courtesy of F.Carminati).
+  Modified files: architecture.gmk, common.gmk, globlib.gmk, makeshlib.sh.
+
+28th October 1999  Gabriele Cosmo (config-V00-01-04)
+- architecture.gmk: removed G4STREAM and G4STREAM_STREAMBUF_IMPLEMENTATION
+  flags, now no longer needed. Streambuf implementation is the default for
+  every platform. (by H.Yoshida)
+
+26th October 1999  John Allison
+- Augmented liblist to look for dependencies on auto-generated
+  headers in $G4TMP.
+
+26th October 1999  Gabriele Cosmo (config-V00-01-03)
+- Removed AIX-xlC as default platform for G4SYSTEM in architecture.gmk.
+  Configuration is still kept but no longer supported.
+
+26th October 1999  Youhei Morita
+- architecture.gmk: include $(HEP_ODBMS_DIR)/etc/$(OS).mk instead of
+  defininig load module separately.  Defined G4ODBMS_LIBS.
+- binmake.gmk: Use G4ODBMS_LIBS.
+
+20th October 1999  Gabriele Cosmo (config-V00-01-02)
+- architecture.gmk: removed option -DOS_NO_TYPEDEF_5 from HP-aCC
+  OSpace setup. Not anymore needed.
+
+20th October 1999  John Allison
+- architecture.gmk: removed G4USE_EXPLICIT_TYPES_IN_TEMPLATES (was needed
+                    only for HP aCC; now not needed at all).
+
+19th Octobre 1999  Youhei Morita
+- common.gmk: Surpress verbose output for G4ODBMS if CPPVERBOSE 
+              is not defined.
+
+7th October 1999  John Allison (config-V00-01-01)
+- Removed WARNINGs about granular libraries.  Now standard usage.  Simple
+  using messages printed.
+
+17th Sep 1999  Youhei Morita
+- architecture.gmk: Defined G4TMPSCHEMA_DIR, G4TMPSCHEMA_BOOT
+                    Added OBJY_LDLIB definition for Objectivity 5.1
+- binmake.gmk: LDLIBS1 += -lG4persistency
+- common.gmk: Changed ooddlx boot file option to G4OODDLX_BOOT
+- globlib.gmk: Changed G4EXAMPLE_BOOT to G4TMPSCHEMA_BOOT
+- G4ODBMS_BUILD.gmk: Defined HEP_ODBMS_EXPORT for HepODBMS 0.3.0.x
+
+27th July 1999  Gonzalo Gracia Abril
+- Changed OSPACELIBS := '-libpath:c:\dev\ospace\lib std-2.1-vc5.0-mt.lib'
+  to      OSPACELIBS := '-libpath:$(OSPACEDIR)\lib std-2.1-vc5.0-mt.lib'
+  in architecture.gmk for NT  
+
+20th July 1999  John Allison (config-V00-01-00)
+- Added EXTRA_LINK_DEPENDENCIES to binmake.gmk.
+
+6th July 1999  John Allison (config-01-00-10)
+- Changed -L/usr/X11/lib to -L/usr/X11R6/lib for Linux.
+
+6th July 1999  Gunter Folger (config-01-00-09)
+- Adapt architecture.gmk for use of STL with WIN32-VC
+  Remove NICE from G4SYSTEM name WIN32-VC in architecture, globlib and 
+  binmake.gmk
+
+3rd July 1999  John Allison (config-01-00-08a)
+- Added full-stop after i.e in binmake.gmk.
+
+2nd July 1999  John Allison (config-01-00-08)
+- Protected liblist against duplicate library names.
+
+29th June 1999  Gabriele Cosmo (config-01-00-07)
+- architecture.gmk: fixed bug in SUN-CC setup concerning XMLIBS and XMFLAGS.
+  -lXm was missing.
+
+25th June 1999  Gabriele Cosmo
+- Use $G4LIB/$G4SYSTEM instead of $G4LIBDIR in binmake.gmk for invoking
+  liblist and search for libname.map (granular libraries setup).
+
+24th June 1999  John Allison
+- Use liblist and libname.map in $G4LIBDIR.
+
+19th June 1999  John Allison
+- Removed references to G4Ray in G4VIS_BUILD.gmk and G4VIS_USE.gmk.
+
+9th June 1999  Gunter Folger
+- Adapt liblist.c for Windows, all changes contained withing #ifdef WIN32 blocks. 
+
+4th June 1999  John Allison
+- Corrected USER_DEFINED_LDLIBS action.
+- Changed `export G4TMP=$(G4TMP);' to `G4TMP=$(G4TMP); export G4TMP;'
+- Added -I$(G4BASE)/geometry/solids/Boolean/include.
+- Introduced LDLIBS_PREFINAL (Gunter).
+
+2nd June 1999  John Allison
+- Changed more occurrences of := to = to fix crash of liblist at startup.
+
+1st June 1999  John Allison
+- Changed LDLIBS2 := to LDLIBS2 = in binmake.gmk.
+- Reverted $(G4WORKDIR)/tmp/$(G4SYSTEM)/$(G4TARGET) to $(G4TMPDIR).
+- Added /$(G4TARGET) to liblist -d $(G4WORKDIR)/tmp/$(G4SYSTEM) in binmake.gmk.
+
+31st May 1999  John Allison
+- Added -I$(G4BASE)/processes/electromagnetic/lowenergy/include.
+
+27th May 1999  Gabriele Cosmo (config-01-00-06)
+- architecture.gmk: set default $G4INSTALL path to $HOME/geant4 (was still referring
+  to geant4beta...).
+- Restored default CLHEP_BASE_DIR to /afs/cern.ch/sw/geant4/dev/CLHEP/$G4SYSTEM/pro.
+- architecture.gmk: added -DG4NOT_ISO_DELETES for NT setup (G.Folger).
+
+25th May 1999  Gabriele Cosmo
+- architecture.gmk: fixed bug in SUN-CC setup. Replaced VISLIBS with LOADLIBS to
+  specify inclusion of socket libraries -lsocket -lnsl.
+- binmake.gmk: fixed path to libname.map in the definition of LDLIBS2 for the
+  granular libs setup.
+
+19th May 1999  John Allison
+- Force linking of static library, libCLHEP.a.
+
+18th May 1999  John Allison
+- Specify -DG4NOT_ISO_DELETES in any case (not just G4USE_STL) and only
+  for HP, Sun and AIX.
+
+17th May 1999  Gabriele Cosmo
+- Added -DG4NOT_ISO_DELETES for DEC and AIX and moved inside G4USE_STL or
+  G4USE_OSPACE scope for all platforms which need it.
+- Added path to wrappers for AIX.
+
+17th May 1999  John Allison
+- Added -DG4NOT_ISO_DELETES for Sun and HP.
+- Changed order of -I$(OSPACEDIR)/ospace/std and -I$(OSPACEDIR)/ospace/stl.
+
+13th May 1999  Gabriele Cosmo (config-01-00-05)
+- architecture.gmk: G4USE_OSPACE setup is now independent from G4USE_STL which
+  is now devoted for generic STL setup. Added -DOS_NO_TYPEDEF_5 option to HP-aCC
+  for ObjectSpace.
+
+12th May 1999  Gabriele Cosmo
+- architecture.gmk: modified path to STL wrapper files directory to point to
+  $RWINC/wrappers/$G4SYSTEM. Wrappers are now differenciated according to
+  the architecture type.
+
+11th May 1999  Gabriele Cosmo
+- architecture.gmk: merged Isidro's OSPACE setup for HP-aCC.
+  Reorganised OSPACE options by introducing OSPACEINC variable.
+
+10th May 1999  Guy Barrand
+- interactivity.gmk ; put OpenGL things after OPACS things to have 
+  correct link order.
+
+10th May 1999  John Allison
+- Added -I$(OSPACEDIR)/ospace/stl for Sun.
+
+7th May 1999  John Allison
+- Added GREP := grep except for SUN.
+- Introduced STLInterface/wrappers directory. Testing on OSF+ObjectSpace (G.Cosmo).
+
+6th May 1999  Gabriele Cosmo
+- Introduced G4USE_OSPACE for ObjectSpace STL. If defined G4USE_STL is
+  set as well. Modified architecture.gmk and binmake.gmk.
+
+6th May 1999  John Allison
+- Removed extra library for circular dependencies.  Now all solved!
+
+5th May 1999  Gabriele Cosmo
+- Fixed typo in architecture.gmk and defined OSPACEDIR to point to the G4
+  dev area where links to the ObjectSpace installations at CERN have been
+  created for all platforms. "pro" version points to ObjectSpace 2.1.
+
+5th May 1999  John Allison
+- Eliminated all references to RW in the case of G4USE_STL.
+- Added OSPACE variables.
+
+28th April 1999  Gabriele Cosmo (config-01-00-04)
+- architecture.gmk: moved link for CLHEP to "new" to test the new version
+  1.4 of CLHEP. It will become "pro" again as soon as the new CLHEP will be
+  validated. NOTE: for DEC-cxx a custom CLHEP installation is used in order
+  to deactivate the ISO-ANSI options now set by default in CLHEP.
+
+19th April 1999  Gabriele Cosmo (config-01-00-03)
+- architecture.gmk: introduced CCFLAGS for all platforms. Set CCFLAGS to
+  "-Ae +DAportable" for HP-aCC to overcome compilation problems on liblist.c
+
+18th April 1999  Youhei Morita
+- architecture.gmk, binmake.gmk: introduced OBJY_LDLIB variable for
+  defining Objectivity library within G4ODBMS.
+
+13th April 1999  Gabriele Cosmo
+- architecture.gmk: added the following options in compilation:
+  o HP-aCC, SGI-CC: +Onolimit, -Olimit 5000 respectively.
+    Not suppress any optimization specifying a high or unlimited memory
+    limitation.
+  o DEC-cxx: -timplicit_local.
+    Get rid of the template repository by generating explicit template
+    instantiations used in the code with internal linkage.
+    
+13th April 1999  John Allison
+- In binmake.gmk: - moved libmap target to source/GNUmakefile.
+                  - extensive tidying.
+
+12th April 1999  John Allison
+- In liblist.c:  - fixed bug to distinguish, e.g., track from tracking.
+                 - improved printing.
+                 - improved "Usage" comments.
+                 - improved protection against bad input format.
+- In binmake.gmk, used $(ECHO) to solve platform dependency of echo.
+- In binmake.gmk for granular libraries:
+   - fully implemented -d option.
+   - Gave /tmp files a unique name.
+   - Removed repeated libraries - no longer necessary, all circular
+       dependencies seem solved.
+
+9th April 1999  Frank Behner
+- Fixed bug in liblist in -d option
+- Changed binmake.gmk to use liblist -d
+
+18th February 1999  John Allison
+- Added G4USE_STL flag.
+- Added code for linking granular libraries.
+
+1st January 1999  Gunter Folger (config-01-00-02)
+- Add FCLIBS for SUN.
+
+January 29th 1999 - John Allison (config-01-00-01)
+- Changed rd44 to sw/geant4.
+
+December 15th, 1998 - G.Cosmo (config-00-04-11)
+- Added G4_HAVE_BOOL to DEC-cxx.
+- Cosmetic changes.
+
+December 12th, 1998 - J.Allison (config-00-04-10)
+- Fixed bug in OGLFLAGS and OGLLIBS user override mechanism.
+
+December 11th, 1998 - J.Allison (config-00-04-09)
+- Removed -fnonstd for SUN-CC.
+
+December 10th, 1998 - G.Cosmo (config-00-04-08)
+- architecture.gmk: introduced $G4DATA variable which can be user
+  defined. Default is set to $G4INSTALL/data.
+- architecture.gmk: introduced $G4LEVELGAMMADATA set as default to
+  $G4DATA/PhotonEvaporation.
+- globlib.gmk: fixed minor bug (courtesy of V.Krylov).
+
+December 10th, 1998 - J.Allison (config-00-04-07)
+- architecture.gmk: allowed environment variables OGLFLAGS and OGLLIBS.
+
+December 7th, 1998 - S.Tanaka, G.Cosmo (config-00-04-06)
+- architecture.gmk: fixed setting of VISLIBS.
+
+December 7th, 1998 - S.Tanaka 
+- Update of architecture.gmk and G4VIS_USE.gmk:
+  In SUN-CC, "-L/usr/lib -lsocket -lnsl"  is  moved from X11LIBS to VISLIBS.
+
+December 5th, 1998 - G.Cosmo (config-00-04-05)
+- architecture.gmk: introduced -fnonstd compiler option for SUN-CC.
+  This option causes non-standard initialization of floating-point
+  arithmetic hardware; it enables hardware traps for floating-point
+  overflow, division by zero, and invalid operation exceptions.
+
+December 4th, 1998 - G.Barrand
+- architecture.gmk: corrected paths for HepVis and HepInventor.
+- interactivity.gmk: fixed setup for LOAD_IV.
+
+December 3rd, 1998 - S.Tanaka
+- Revision to make compilation of DAWN (network) driver 
+  at Solaris and IRIX automatic. See below.
+- Added the following line to SUN-CC and SGI-CC
+  CPPFLAGS += -DSOCKET_IRIX_SOLARIS
+- Added -L/usr/lib -lsocket -lnsl  in X11LIBS for SUN-CC.
+  (This place is strange. But I cannot think of a better place.) 
+
+December 3rd, 1998 - J.Allison (config-00-04-04)
+- Set G4STREAM for all platforms.
+- Set G4STREAM_STREAMBUF_IMPLEMENTATION for selected platforms.
+
+December 3rd, 1998 - S.Sadilov
+- Updated architecture.gmk : G4STREAM_STREAMBUF_IMPLEMENTATION for WIN32.
+- Updated globlib.gmk : right incremental LIB for WIN32.
+
+December 1st, 1998 - G.Cosmo (config-00-04-03)
+- Updated architecture.gmk and binmake.gmk: G4SYSTEM revision.
+- Added +DAportable compiler option to HP-aCC setup to support HPPA 2.0
+  for PA8000 CPUs.
+
+December 1st, 1998 - J.Allison (config-00-04-02)
+- Added generators/include to binmake.gmk.
+
+November 30th, 1998 - J.Allison (config-00-04-01)
+- Added neutron_hp/include to binmake.gmk.
+- CLHEP_BASE_DIR and RWBASE for WIN32 (Serguei Sadilov).
+
+November 18th, 1998 - J.Allison (config-00-03-06)
+- Changed CXXFLAGS for DEC6-AFS debug from -g to -gall.
+
+October 30th, 1998 - G.Cosmo (config-00-03-05)
+- architecture.gmk: added G4STREAM_STREAMBUF_IMPLEMENTATION variable. (G.Barrand)
+- G4UI_BUILD.gmk: removed G4UI_BUILD_XM_REDIRECT_COUT. (G.Barrand)
+
+October 13th, 1998  J.Allison (config-00-03-04)
+- Changed ifdef G4_USE_G4STREAM to ifneq ($(findstring AIX,$(G4SYSTEM)),AIX)
+
+October 13th, 1998  J.Allison (config-00-03-03)
+- Removed G4VIS_DONT_USE. (G.Barrand)
+- Added if G4_USE_G4STREAM, CPPFLAGS += -DG4STREAM. (M.Nagamatu)
+
+October 9th  J.Allison (config-00-03-02)
+- Tagged.
+
+October 2nd, 1998 - M.Asai
+- G4_NO_STORE_TRAJECTORY option is added to architecture.gmk.
+
+September 30th, 1998 - G.Barrand
+- G4VIS_USE.gmk: bracket everything with "ifndef G4VIS_DONT_USE" in order
+  to be able to disconnect easily visualization for tests programs.
+
+September 18th, 1998 - G.Cosmo (config-00-03-01)
+- architecture.gmk: introduced G4DUMMY_VARIABLE to hide $(shell)
+  command not compatible with the new version 3.77 of GMAKE (G.Folger).
+
+September 14th, 1998 - G.Cosmo
+- binmake.gmk: placed digits+hits library in the correct link order
+  according to the category diagram.
+
+August 31st, 1998 - G.Cosmo (config-00-02-05)
+- architecture.gmk: Changed first CPPFLAGS statement from := to +=,
+  to allow additional CPPFLAGS to be defined by the user. Needed for test
+  (F.Behner)
+- binmake.gmk: Added EXTRALIBS to allow a user to add own libraries in the
+  link path. Needed for test.
+  (F.Behner)
+- binmake.gmk: inverted link order of processes and particles libraries
+  which was wrong. (G.Cosmo)
+
+August 26th, 1998 - John Allison (config-00-02-04)
+- Backed out 22nd August change (G4UIGAG as default) - G4UIterminal
+  is now default.
+
+August 24th, 1998 - Y.Morita (config-00-02-03)
+- globlib.gmk: added $(G4LIBDIR)/lib$(name).a for target "global".
+
+August 22nd, 1998 - J.Allison (config-00-02-02)
+- Set GAG variables by default.
+
+August 11th, 1998 - G.Cosmo (config-00-02-01)
+- Tagged.
+
+August 7th, 1998 - John Allison/Michel Maire.
+- Added -I/usr/include before -I/usr/local/include to OGLFLAGS for DEC-AFS.
+- Changed -lGl to -lMesaGL, etc., for DEC-AFS.
+
+August 6th, 1998 - John Allison
+- Added UILIBS := to G4UI_USE.gmk and VISLIBS := to G4VIS_USE.gmk.
+
+August 5th, 1998 - Guy Barrand
+- Added LOAD_XM = 1 and LOAD_XAW = 1 to G4UI_USE.gmk.
+
+July 30th, 1998 - G.Cosmo (config-b01)
+- globlib.gmk: added phony target "wipe_libs". Now target "global"
+  effectively deletes all existent granular libraries.
+- common.gmk: archiving of libraries is silent now by default.
+
+July 23th, 1998 - Y.Morita (config-00-01-16)
+- globlib.gmk: fixed target "global" for G4ODBMS
+- binmake.gmk: fixes for Win/NT.
+
+July 20th, 1998 - John Allison (config-00-01-15)
+- Removed LDFLAGS += -Wl,-Bstatic for G++-Linux introduced by Larry
+  Felawka on July 10th for g++ 2.8.  No longer thought to be necessary.
+
+July 19th, 1998 - G.Cosmo (config-00-01-14)
+- common.gmk: introduced CPPVERBOSE flag.
+- architecture.gmk: protected creation of $G4SCHEMA_DIR and
+  $G4EXAMPLE_BOOT_DIR directories with G4ODBMS.
+- binmake.gmk: fixed bug in creation of $G4TARGET.
+
+July 18th, 1998 - G.Cosmo (config-00-01-13)
+- Added fix to binmake.gmk for WIN32-VC-NICE (G.Folger)
+
+July 16th, 1998 - John Allison
+- Added GNU_GCC makefile flags where omitted.
+
+July 15th, 1998 - Youhei Morita (config-00-01-12)
+- architecture.gmk  added G4EXAMPLE_BOOT_DIR and G4EXAMPLE_BOOT
+- globlib.gmk  revised cleandb target
+
+July 14th, 1998 - Peter Urban (config-00-01-11)
+- added two Perl scripts that correct STEP exchange files.
+
+July 14th, 1998 - Youhei Morita (config-00-01-10)
+- architecture.gmk  added definition of G4SCHEMA_DIR
+- globlib.gmk  added new target G4SCHEMA.FDDB for G4ODBMS
+
+July 10th, 1998 - Youhei Morita (config-00-01-09)
+- binmake.gmk  added following to INCFLAGS
+      -I$(G4BASE)/persistency/digits+hits/hits/include \
+      -I$(G4TMP)/$(G4SYSTEM)/G4phits \
+- binmake.gmk  moved persistency include path to ifdef G4ODBMS block
+
+July 10th, 1998 - John Allison??
+- binmake.gmk  added geometry/solids/STEPinterface/include 
+
+July 10th, 1998 - Youehi Morita (config-00-01-08)
+- globlib.gmk  added new targets 'headers' and 'd_files' for G4ODBMS
+- common.gmk   added new target 'headers'
+               added $(schema_hh) dependency to $(G4TMPDIR)/%.o
+- binmake.gmk  added INCFLAGS, LDLIBS and LDFLAGS for G4ODBMS
+
+July 10th, 1998 - L.Felawka
+- architecture.gmk: updated compilation flags for g++.
+
+July 9th, 1998 - G.Cosmo (config-00-01-07)
+- Removed bug in "all" target in globlib.gmk, introduced recently.
+- Modified "all" target in globlib.gmk to handle G4ODBMS.
+- Added fix for G4ODBMS to common.gmk.
+
+July 9th, 1998 - Youehi Morita
+- Added G4ODBMS_BUILD.gmk for HepODBMS and Objectivity/DB CPPFLAGS.
+
+July 7th, 1998 - John Allison (config-00-01-06)
+- Incorporated Makoto's patches for ifndef G4UI_BUILD_TERMINAL_SESSION and
+  ifndef G4UI_USE_TERMINAL.
+
+July 7th, 1998 - G.Cosmo (config-00-01-05)
+- Added $(schema_hh) target and dependency to it in case of G4ODBMS
+  set when building .d files.
+
+July 7th, 1998 - John Allison (config-00-01-04)
+- Tagged.
+
+July 7th, 1998 - Guy Barrand
+- Introduced interactivity.gmk.
+
+July 6th, 1998 - J.Allison (config-00-01-03)
+- Added G4UI_BUILD.gmk and G4UI_BUILD.gmk.
+
+July 6th, 1998 - G.Cosmo (config-00-01-02)
+- Introduced "glob" and "objs" targets in globlib.gmk. Modified
+  rule to build global library, does not depend anymore on "libs".
+  (by J.Allison)
+- Moved G4VIS_USE.gmk and G4VIS_BUILD.gmk from source/visualization.
+ 
+July 3rd, 1998 - G.Cosmo (config-00-01-01)
+- Created

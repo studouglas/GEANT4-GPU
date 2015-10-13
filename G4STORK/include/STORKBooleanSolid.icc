@@ -1,0 +1,114 @@
+//
+// ********************************************************************
+// * License and Disclaimer                                           *
+// *                                                                  *
+// * The  Geant4 software  is  copyright of the Copyright Holders  of *
+// * the Geant4 Collaboration.  It is provided  under  the terms  and *
+// * conditions of the Geant4 Software License,  included in the file *
+// * LICENSE and available at  http://cern.ch/geant4/license .  These *
+// * include a list of copyright holders.                             *
+// *                                                                  *
+// * Neither the authors of this software system, nor their employing *
+// * institutes,nor the agencies providing financial support for this *
+// * work  make  any representation or  warranty, express or implied, *
+// * regarding  this  software system or assume any liability for its *
+// * use.  Please see the license in the file  LICENSE  and URL above *
+// * for the full disclaimer and the limitation of liability.         *
+// *                                                                  *
+// * This  code  implementation is the result of  the  scientific and *
+// * technical work of the GEANT4 collaboration.                      *
+// * By using,  copying,  modifying or  distributing the software (or *
+// * any work based  on the software)  you  agree  to acknowledge its *
+// * use  in  resulting  scientific  publications,  and indicate your *
+// * acceptance of all terms of the Geant4 Software license.          *
+// ********************************************************************
+//
+//
+// $Id$
+//
+// --------------------------------------------------------------------
+// GEANT 4 inline definitions file
+//
+// STORKBooleanSolid.icc
+//
+// Implementation of inline methods of STORKBooleanSolid
+// --------------------------------------------------------------------
+
+inline
+G4int STORKBooleanSolid::GetCubVolStatistics() const
+{
+  return fStatistics;
+}
+
+inline
+G4double STORKBooleanSolid::GetCubVolEpsilon() const
+{
+  return fCubVolEpsilon;
+}
+
+inline
+void STORKBooleanSolid::SetCubVolStatistics(G4int st)
+{
+  fCubicVolume=0.;
+  fStatistics=st;
+}
+
+inline
+void STORKBooleanSolid::SetCubVolEpsilon(G4double ep)
+{
+  fCubicVolume=0.;
+  fCubVolEpsilon=ep;
+}
+
+inline
+G4int STORKBooleanSolid::GetAreaStatistics() const
+{
+  return fStatistics;
+}
+
+inline
+G4double STORKBooleanSolid::GetAreaAccuracy() const
+{
+  return fAreaAccuracy;
+}
+
+inline
+void STORKBooleanSolid::SetAreaStatistics(G4int st)
+{
+  fSurfaceArea=0.;
+  fStatistics=st;
+}
+
+inline
+void STORKBooleanSolid::SetAreaAccuracy(G4double ep)
+{
+  fSurfaceArea=0.;
+  fAreaAccuracy=ep;
+}
+
+inline
+G4double STORKBooleanSolid::GetCubicVolume()
+{
+  if(fCubicVolume != 0.) {;}
+  else   { fCubicVolume = EstimateCubicVolume(fStatistics,fCubVolEpsilon); }
+  return fCubicVolume;
+}
+
+inline
+G4double STORKBooleanSolid::GetSurfaceArea()
+{
+  if(fSurfaceArea != 0.) {;}
+  else   { fSurfaceArea = EstimateSurfaceArea(fStatistics,fAreaAccuracy); }
+  return fSurfaceArea;
+}
+
+inline
+G4double STORKBooleanSolid::GetAreaRatio() const
+{
+  if (fAreaRatio <= 0.)
+  {
+    fAreaRatio = fPtrSolidA->GetSurfaceArea() /
+      (fPtrSolidA->GetSurfaceArea()+fPtrSolidB->GetSurfaceArea());
+  }
+  return fAreaRatio;
+}

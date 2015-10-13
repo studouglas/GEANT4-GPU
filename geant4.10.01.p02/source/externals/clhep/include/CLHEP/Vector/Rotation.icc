@@ -1,0 +1,348 @@
+// -*- C++ -*-
+// $Id:$
+// ---------------------------------------------------------------------------
+//
+// This file is a part of the CLHEP - a Class Library for High Energy Physics.
+// 
+// This is the definitions of the inline member functions of the
+// HepRotation class
+//
+
+namespace CLHEP {
+
+// Put commonly used accessors as early as possible to avoid inlining misses:
+
+inline double HepRotation::xx() const { return rxx; }
+inline double HepRotation::xy() const { return rxy; }
+inline double HepRotation::xz() const { return rxz; }
+inline double HepRotation::yx() const { return ryx; }
+inline double HepRotation::yy() const { return ryy; }
+inline double HepRotation::yz() const { return ryz; }
+inline double HepRotation::zx() const { return rzx; }
+inline double HepRotation::zy() const { return rzy; }
+inline double HepRotation::zz() const { return rzz; }
+
+inline HepRep3x3 HepRotation::rep3x3() const {
+  return HepRep3x3 ( rxx, rxy, rxz, 
+		     ryx, ryy, ryz, 
+		     rzx, rzy, rzz );
+}
+
+inline double HepRotation::xt() const { return 0.0; }
+inline double HepRotation::yt() const { return 0.0; }
+inline double HepRotation::zt() const { return 0.0; }
+inline double HepRotation::tx() const { return 0.0; }
+inline double HepRotation::ty() const { return 0.0; }
+inline double HepRotation::tz() const { return 0.0; }
+inline double HepRotation::tt() const { return 1.0; }
+
+inline HepRep4x4 HepRotation::rep4x4() const {
+  return HepRep4x4 ( rxx, rxy, rxz, 0.0,
+		     ryx, ryy, ryz, 0.0,
+		     rzx, rzy, rzz, 0.0,
+		     0.0, 0.0, 0.0, 1.0 );
+}
+
+// Ctors etc:
+
+inline HepRotation::HepRotation() : rxx(1.0), rxy(0.0), rxz(0.0), 
+				    ryx(0.0), ryy(1.0), ryz(0.0),
+				    rzx(0.0), rzy(0.0), rzz(1.0) {}
+
+inline HepRotation::HepRotation(const HepRotation & m1) : 
+	rxx(m1.rxx), rxy(m1.rxy), rxz(m1.rxz), 
+	ryx(m1.ryx), ryy(m1.ryy), ryz(m1.ryz),
+	rzx(m1.rzx), rzy(m1.rzy), rzz(m1.rzz) {}
+
+inline HepRotation::HepRotation
+			(double mxx, double mxy, double mxz,
+			 double myx, double myy, double myz,
+			 double mzx, double mzy, double mzz) : 
+	rxx(mxx), rxy(mxy), rxz(mxz), 
+	ryx(myx), ryy(myy), ryz(myz),
+	rzx(mzx), rzy(mzy), rzz(mzz) {}
+
+inline HepRotation::HepRotation ( const HepRep3x3 & m1 ) :
+	rxx(m1.xx_), rxy(m1.xy_), rxz(m1.xz_), 
+	ryx(m1.yx_), ryy(m1.yy_), ryz(m1.yz_),
+	rzx(m1.zx_), rzy(m1.zy_), rzz(m1.zz_) {}
+
+inline HepRotation::HepRotation(const HepRotationX & rx) : 
+	rxx(1.0), rxy(0.0),     rxz(0.0), 
+	ryx(0.0), ryy(rx.yy()), ryz(rx.yz()),
+	rzx(0.0), rzy(rx.zy()), rzz(rx.zz()) {}
+
+inline HepRotation::HepRotation(const HepRotationY & ry) : 
+	rxx(ry.xx()), rxy(0.0), rxz(ry.xz()), 
+	ryx(0.0),     ryy(1.0), ryz(0.0),
+	rzx(ry.zx()), rzy(0.0), rzz(ry.zz()) {}
+
+inline HepRotation::HepRotation(const HepRotationZ & rz) : 
+	rxx(rz.xx()), rxy(rz.xy()), rxz(0.0), 
+	ryx(rz.yx()), ryy(rz.yy()), ryz(0.0),
+	rzx(0.0),     rzy(0.0),     rzz(1.0) {}
+
+inline HepRotation::~HepRotation() {}
+
+// More accessors:
+
+inline HepRotation::HepRotation_row::HepRotation_row
+(const HepRotation & r, int i) : rr(r), ii(i) {}
+
+inline double HepRotation::HepRotation_row::operator [] (int jj) const {
+  return rr(ii,jj);
+}
+
+inline
+const HepRotation::HepRotation_row HepRotation::operator [] (int i) const {
+  return HepRotation_row(*this, i);
+}
+
+inline Hep3Vector HepRotation::colX() const 
+				{ return Hep3Vector ( rxx, ryx, rzx ); }
+inline Hep3Vector HepRotation::colY() const 
+				{ return Hep3Vector ( rxy, ryy, rzy ); }
+inline Hep3Vector HepRotation::colZ() const 
+				{ return Hep3Vector ( rxz, ryz, rzz ); }
+ 
+inline Hep3Vector HepRotation::rowX() const 
+				{ return Hep3Vector ( rxx, rxy, rxz ); }
+inline Hep3Vector HepRotation::rowY() const 
+				{ return Hep3Vector ( ryx, ryy, ryz ); }
+inline Hep3Vector HepRotation::rowZ() const 
+				{ return Hep3Vector ( rzx, rzy, rzz ); }
+ 
+inline HepLorentzVector HepRotation::col1() const 
+				{ return HepLorentzVector (colX(), 0); }
+inline HepLorentzVector HepRotation::col2() const
+				{ return HepLorentzVector (colY(), 0); }
+inline HepLorentzVector HepRotation::col3() const
+				{ return HepLorentzVector (colZ(), 0); }
+inline HepLorentzVector HepRotation::col4() const
+				{ return HepLorentzVector (0,0,0,1); }
+inline HepLorentzVector HepRotation::row1() const
+				{ return HepLorentzVector (rowX(), 0); }
+inline HepLorentzVector HepRotation::row2() const
+				{ return HepLorentzVector (rowY(), 0); }
+inline HepLorentzVector HepRotation::row3() const
+				{ return HepLorentzVector (rowZ(), 0); }
+inline HepLorentzVector HepRotation::row4() const
+				{ return HepLorentzVector (0,0,0,1); }
+
+inline double  HepRotation::getPhi  () const { return phi();   }
+inline double  HepRotation::getTheta() const { return theta(); }
+inline double  HepRotation::getPsi  () const { return psi();   }
+inline double  HepRotation::getDelta() const { return delta(); }
+inline Hep3Vector HepRotation::getAxis () const { return axis();  }
+
+inline HepRotation & HepRotation::operator = (const HepRotation & m1) {
+  rxx = m1.rxx;
+  rxy = m1.rxy;
+  rxz = m1.rxz;
+  ryx = m1.ryx;
+  ryy = m1.ryy;
+  ryz = m1.ryz;
+  rzx = m1.rzx;
+  rzy = m1.rzy;
+  rzz = m1.rzz;
+  return *this;
+}
+
+inline HepRotation & HepRotation::set(const HepRep3x3 & m1) {
+  rxx = m1.xx_;
+  rxy = m1.xy_;
+  rxz = m1.xz_;
+  ryx = m1.yx_;
+  ryy = m1.yy_;
+  ryz = m1.yz_;
+  rzx = m1.zx_;
+  rzy = m1.zy_;
+  rzz = m1.zz_;
+  return *this;
+}
+
+inline HepRotation & HepRotation::set(const HepRotationX & r) {
+  return (set (r.rep3x3()));
+}
+inline HepRotation & HepRotation::set(const HepRotationY & r) {
+  return (set (r.rep3x3()));
+}
+inline HepRotation & HepRotation::set(const HepRotationZ & r) {
+  return (set (r.rep3x3()));
+}
+
+inline HepRotation & HepRotation::operator= (const HepRotationX & r) {
+  return (set (r.rep3x3()));
+}
+inline HepRotation & HepRotation::operator= (const HepRotationY & r) {
+  return (set (r.rep3x3()));
+}
+inline HepRotation & HepRotation::operator= (const HepRotationZ & r) {
+  return (set (r.rep3x3()));
+}
+
+inline Hep3Vector HepRotation::operator * (const Hep3Vector & p) const {
+  return Hep3Vector(rxx*p.x() + rxy*p.y() + rxz*p.z(),
+                    ryx*p.x() + ryy*p.y() + ryz*p.z(),
+                    rzx*p.x() + rzy*p.y() + rzz*p.z());
+//  This is identical to the code in the CLHEP 1.6 version
+}
+
+inline Hep3Vector HepRotation::operator () (const Hep3Vector & p) const {
+  double x = p.x();
+  double y = p.y();
+  double z = p.z();
+  return Hep3Vector(rxx*x + rxy*y + rxz*z,
+                    ryx*x + ryy*y + ryz*z,
+                    rzx*x + rzy*y + rzz*z);
+}
+
+inline HepLorentzVector
+HepRotation::operator () (const HepLorentzVector & w) const {
+  return HepLorentzVector( operator() (w.vect()), w.t() );
+}
+
+inline HepLorentzVector HepRotation::operator * 
+					(const HepLorentzVector & p) const {
+  return operator()(p);
+}
+
+inline HepRotation HepRotation::operator* (const HepRotation & r) const {
+  return HepRotation(rxx*r.rxx + rxy*r.ryx + rxz*r.rzx,
+                     rxx*r.rxy + rxy*r.ryy + rxz*r.rzy,
+                     rxx*r.rxz + rxy*r.ryz + rxz*r.rzz,
+                     ryx*r.rxx + ryy*r.ryx + ryz*r.rzx,
+                     ryx*r.rxy + ryy*r.ryy + ryz*r.rzy,
+                     ryx*r.rxz + ryy*r.ryz + ryz*r.rzz,
+                     rzx*r.rxx + rzy*r.ryx + rzz*r.rzx,
+                     rzx*r.rxy + rzy*r.ryy + rzz*r.rzy,
+                     rzx*r.rxz + rzy*r.ryz + rzz*r.rzz );
+}
+
+inline HepRotation HepRotation::operator * (const HepRotationX & rx) const {
+  double yy1 = rx.yy();
+  double yz1 = rx.yz();
+  double zy1 = -yz1;
+  double zz1 =  yy1;
+  return HepRotation(
+    rxx,   rxy*yy1 + rxz*zy1,   rxy*yz1 + rxz*zz1,
+    ryx,   ryy*yy1 + ryz*zy1,   ryy*yz1 + ryz*zz1,
+    rzx,   rzy*yy1 + rzz*zy1,   rzy*yz1 + rzz*zz1 );
+}
+
+inline HepRotation HepRotation::operator * (const HepRotationY & ry) const {
+  double xx1 = ry.xx();
+  double xz1 = ry.xz();
+  double zx1 = -xz1;
+  double zz1 =  xx1;
+  return HepRotation(
+    rxx*xx1 + rxz*zx1,   rxy,   rxx*xz1 + rxz*zz1,
+    ryx*xx1 + ryz*zx1,   ryy,   ryx*xz1 + ryz*zz1,
+    rzx*xx1 + rzz*zx1,   rzy,   rzx*xz1 + rzz*zz1 );
+}
+
+inline HepRotation HepRotation::operator * (const HepRotationZ & rz) const {
+  double xx1 = rz.xx();
+  double xy1 = rz.xy();
+  double yx1 = -xy1;
+  double yy1 =  xx1;
+  return HepRotation(
+    rxx*xx1 + rxy*yx1,   rxx*xy1 + rxy*yy1,   rxz,
+    ryx*xx1 + ryy*yx1,   ryx*xy1 + ryy*yy1,   ryz,
+    rzx*xx1 + rzy*yx1,   rzx*xy1 + rzy*yy1,   rzz );
+}
+
+
+inline HepRotation & HepRotation::operator *= (const HepRotation & r) {
+  return *this = (*this) * (r);
+}
+
+inline HepRotation & HepRotation::operator *= (const HepRotationX & r) {
+  return *this = (*this) * (r); }
+inline HepRotation & HepRotation::operator *= (const HepRotationY & r) {
+  return *this = (*this) * (r); }
+inline HepRotation & HepRotation::operator *= (const HepRotationZ & r) {
+  return *this = (*this) * (r); }
+
+inline HepRotation & HepRotation::transform(const HepRotation & r) {
+  return *this = r * (*this);
+}
+
+inline HepRotation & HepRotation::transform(const HepRotationX & r) {
+  return *this = r * (*this); }
+inline HepRotation & HepRotation::transform(const HepRotationY & r) {
+  return *this = r * (*this); }
+inline HepRotation & HepRotation::transform(const HepRotationZ & r) {
+  return *this = r * (*this); }
+
+inline HepRotation HepRotation::inverse() const {
+  return HepRotation( rxx, ryx, rzx, 
+		      rxy, ryy, rzy, 
+		      rxz, ryz, rzz );
+}
+
+inline HepRotation inverseOf (const HepRotation & r) {
+  return r.inverse();
+}
+
+inline HepRotation & HepRotation::invert() {
+  return *this=inverse();
+}
+
+inline HepRotation & HepRotation::rotate
+				(double ddelta, const Hep3Vector * p) {
+  return rotate(ddelta, *p);
+}
+
+inline bool HepRotation::operator== ( const HepRotation & r ) const {
+  return ( rxx==r.rxx && rxy==r.rxy && rxz==r.rxz &&
+	   ryx==r.ryx && ryy==r.ryy && ryz==r.ryz &&
+	   rzx==r.rzx && rzy==r.rzy && rzz==r.rzz );
+}
+inline bool HepRotation::operator!= ( const HepRotation & r ) const {
+  return ! operator==(r);
+}
+inline bool HepRotation::operator< ( const HepRotation & r ) const 
+	{ return compare(r)< 0; }
+inline bool HepRotation::operator<=( const HepRotation & r ) const 
+	{ return compare(r)<=0; }
+inline bool HepRotation::operator>=( const HepRotation & r ) const 
+	{ return compare(r)>=0; }
+inline bool HepRotation::operator> ( const HepRotation & r ) const 
+	{ return compare(r)> 0; }
+
+inline double HepRotation::getTolerance() { 
+  return Hep4RotationInterface::tolerance;
+}
+inline double HepRotation::setTolerance(double tol) { 
+  return Hep4RotationInterface::setTolerance(tol);
+}
+
+inline HepRotation operator * (const HepRotationX & rx, const HepRotation & r){
+  HepRep3x3 mmm = r.rep3x3();
+  double c = rx.yy();
+  double ss = rx.zy();
+  return HepRotation (        mmm.xx_,           mmm.xy_,          mmm.xz_,
+                        c*mmm.yx_-ss*mmm.zx_, c*mmm.yy_-ss*mmm.zy_, c*mmm.yz_-ss*mmm.zz_,
+                        ss*mmm.yx_+c*mmm.zx_, ss*mmm.yy_+c*mmm.zy_, ss*mmm.yz_+c*mmm.zz_ );
+}
+
+inline HepRotation operator * (const HepRotationY & ry, const HepRotation & r){
+  HepRep3x3 mmm = r.rep3x3();
+  double c = ry.xx();
+  double ss = ry.xz();
+  return HepRotation (  c*mmm.xx_+ss*mmm.zx_, c*mmm.xy_+ss*mmm.zy_, c*mmm.xz_+ss*mmm.zz_,
+                              mmm.yx_,           mmm.yy_,          mmm.yz_,
+                       -ss*mmm.xx_+c*mmm.zx_,-ss*mmm.xy_+c*mmm.zy_,-ss*mmm.xz_+c*mmm.zz_ );
+}
+
+inline HepRotation operator * (const HepRotationZ & rz, const HepRotation & r){
+  HepRep3x3 mmm = r.rep3x3();
+  double c = rz.xx();
+  double ss = rz.yx();
+  return HepRotation (  c*mmm.xx_-ss*mmm.yx_, c*mmm.xy_-ss*mmm.yy_, c*mmm.xz_-ss*mmm.yz_,
+                        ss*mmm.xx_+c*mmm.yx_, ss*mmm.xy_+c*mmm.yy_, ss*mmm.xz_+c*mmm.yz_,
+                              mmm.zx_,           mmm.zy_,          mmm.zz_       );
+}
+
+}  // namespace CLHEP

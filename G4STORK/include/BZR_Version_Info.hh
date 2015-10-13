@@ -1,0 +1,2 @@
+#define BZR_REVNO "0.9.3"
+#define BZR_BUILD_DATE "2013-03-13 08:01:38 -0400"

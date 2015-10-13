@@ -1,0 +1,734 @@
+$Id: History 85608 2014-10-31 11:23:30Z gcosmo $
+-------------------------------------------------------------------
+
+     =========================================================
+     Geant4 - an Object-Oriented Toolkit for Simulation in HEP
+     =========================================================
+
+                      Category History file
+                      ---------------------
+This file should be used by G4 developers and category coordinators
+to briefly summarize all major modifications introduced in the code
+and keep track of all category-tags.
+It DOES NOT substitute the  CVS log-message one should put at every
+committal in the CVS repository !
+
+     ----------------------------------------------------------
+     * Reverse chronological order (last date on top), please *
+     ----------------------------------------------------------
+
+Oct 31, 2014  Gabriele Cosmo                geometry-V10-00-02
+----------------------------
+- Fixed internal link dependency on USolids module in CMake scripts.
+
+Oct 29, 2014  Gabriele Cosmo                geometry-V10-00-01/00
+----------------------------
+- Moved solids/usolids module to source/externals.
+- Groups tags geommng-V10-00-05 and geomsolids-V10-00-02, on top of
+  geant4-10-00-ref-08.
+
+Nov 7, 2013   Gabriele Cosmo                geometry-V09-06-03
+----------------------------
+- Groups tags geom-usolids-V09-06-04, geom-specific-V09-06-26,
+  geom-csg-V09-06-06 and geom-bool-V09-06-03 on top of geometry-V09-06-02.
+
+Nov 1, 2013   Gabriele Cosmo                geometry-V09-06-02
+----------------------------
+- Groups tags geom-usolids-V09-06-01, geom-specific-V09-06-24,
+  geomvol-V09-06-17 on top of geometry-V09-06-01.
+
+Oct 29, 2013   Gabriele Cosmo               geometry-V09-06-01
+-----------------------------
+- Include tags on top of geant4-09-06-ref-10:
+  geomsolids-V09-06-01 and geomdiv-V09-06-04.
+- Updated build scripts for additional 'usolids' module.
+
+Dec 18, 2012   Gabriele Cosmo               geometry-V09-06-00
+-----------------------------
+- Include tags on top of geant4-09-06-ref-00: geombias-V09-06-00,
+  geommng-V09-06-00, geomnav-V09-06-00, geomsolids-V09-06-00.
+- Syncronised SVN Id on trunk.
+
+Jun 14, 2012   Gabriele Cosmo               geometry-V09-05-00
+-----------------------------
+- Include tags on top of geant4-09-05-ref-05: geomdiv-V09-05-01,
+  field-V09-05-05, geommng-V09-05-02, geomnav-V09-05-04, geom-solids-V09-05-00.
+- Grouping updates to unit tests for compilation errors and warnings.
+
+May 19, 2011       Ben Morgan               geometry-V09-04-00
+-----------------------------
+- CMakeLists.txt : Added G4GEOM_ALLOC_EXPORT compiler definition via 
+  add_definitions so all submodules pick it up.
+
+
+May 18, 2007   Gabriele Cosmo               geometry-V08-03-01
+-----------------------------
+- Includes tags: geomdiv-V08-03-01, geomnav-V08-03-02, breps-V08-03-01,
+                 geom-bool-V08-03-00, geom-csg-V08-03-01,
+                 geom-specific-V08-03-01 and geom-solids-tests-V08-03-00.
+- Use kAngTolerance and kRadTolerance from G4GeometryTolerance class.
+- Coworks with tag "global-V08-03-03".
+
+May 11, 2007   Gabriele Cosmo               geometry-V08-03-00
+-----------------------------
+- Includes tags: geomvol-V08-03-00, geom-specific-V08-03-00, breps-V08-03-00,
+                 geomnav-V08-03-00, geommng-V08-03-01, geomdiv-V08-03-00,
+                 geombias-V08-03-00, field-V08-03-00.
+- Use call to G4GeometryTolerance instead of kCarTolerance where needed.
+- Requires tag "global-V08-03-00" and related tag set.
+
+Nov 09, 2005   Gabriele Cosmo               geometry-V07-01-00
+-----------------------------
+- Includes tags: geomsolids-V07-01-00, geomvol-V07-01-02, geombias-V07-01-00,
+                 geomdiv-V07-01-01, field-V07-01-00, geommng-V07-01-03.
+- Implemented changes for support of CLHEP-2.0.X.
+- Added fake default constructor for all concrete volumes, solids, base
+  classes and relevant utility classes for handling of direct object
+  persistency.
+- Implemented migration to <sstream> from deprecated <strstream>.
+
+Dec 10, 2004   Gabriele Cosmo               geometry-V06-02-02
+-----------------------------
+- Replaced M_PI with CLHEP's pi.
+
+Dec 02, 2004   Gabriele Cosmo               geometry-V06-02-01
+-----------------------------
+- Implemented migration to <cmath> for standard mathematical functions.
+- Includes tags: field-V06-02-02, geomdiv-V06-02-02, geommng-V06-02-08,
+  geomnav-V06-02-08, geomsolids-V06-02-01, geomvol-V06-02-01.
+
+Oct 13, 2004   Gabriele Cosmo               geometry-V06-02-00
+-----------------------------
+- Includes tags:
+  geommng-V06-02-03, geom-csg-V06-02-05, geom-bool-V06-02-01,
+  breps-V06-02-02, geom-specific-V06-02-02, geomnav-V06-02-04.
+
+Jun 11, 2004   Gabriele Cosmo               geometry-V06-01-01
+-----------------------------
+- Includes tag "geomnav-V06-01-01".
+- Use global flag G4GEOMETRY_ALLOC_EXPORT to export extern symbols for DLLs.
+  Modified granular GNUmakefiles and rearranged usage of extern symbols
+  in classes in volumes module.
+
+Jun 07, 2004   Gabriele Cosmo               geometry-V06-01-00
+-----------------------------
+- GNUmakefile: added definition of GLOBLIBS for DLLs support on Windows.
+- Includes tags in "geant4-06-02-cand-00" plus "geomvol-V06-01-02".
+
+Nov 04, 2003   Gabriele Cosmo               geometry-V05-02-01
+-----------------------------
+- Includes headers review. Tags included:
+  field-V05-02-01, geommng-V05-02-03, geomnav-V05-02-03, geom-bool-V05-02-03,
+  geom-csg-V05-02-04, geom-specific-V05-02-04, geomvol-V05-02-03.
+
+Sep 30, 2003   Gabriele Cosmo               geometry-V05-02-00
+-----------------------------
+- Logical reorganisation and restructure of modules:
+  o Added new module "navigation" for navigation-releated classes.
+  o Removed module "verification" and merged classes in "navigation".
+  o Archived solids/STEP and solids/STEPinterface modules.
+  o Modified GNUmakefiles in the various modules to cope with these changes.
+- Includes tags: geomvol-V05-02-01, geommng-V05-02-00, geomdiv-V05-02-02,
+                 geombias-V05-02-02, geomnav-V05-02-00, geomsolids-V05-02-00.
+
+Dec 04, 2002   Makoto Asai                  geometry-V04-01-00
+--------------------------
+- Migration to new G4ApplicationState
+
+Apr 19, 2002   Gabriele Cosmo               geometry-V04-00-03
+-----------------------------
+- Groups the following tags (see related History files for details):
+  geom-bool-V04-00-04, geom-csg-V04-00-03, geommng-V04-00-03,
+  geomvol-V04-00-06, geomver-V04-00-00, breps-V04-00-05.
+
+Apr 10, 2002   Gabriele Cosmo               geometry-V04-00-02
+-----------------------------
+- Fixed compilation problems for porting on supported and non-ISO platforms
+  on 'biasing' module. Includes "geomvol-V04-00-05" and "geombias-V04-00-03"
+  on top of previous global geometry tag.
+
+Mar 25, 2002   Gabriele Cosmo               geometry-V04-00-01
+-----------------------------
+- Added 'biasing' module. Updated global GNUmakefile.
+- Includes "biasing" module on top of 'geant4-04-00-ref-03'.
+
+Jan 11, 2002   Gabriele Cosmo               geometry-V04-00-00
+-----------------------------
+- Updated unit tests and benchmarks.
+- This tag includes also the following tags on top of "geant4-04-00-ref-00":
+  geomvol-V04-00-01, geommng-V04-00-00, geom-solids-csg-V04-00-00,
+  field-V04-00-00, geom-solid-bool-V04-00-00, geom-solids-specific-V04-00-00.
+  See related History files for details.
+
+Oct 22, 2001   Gabriele Cosmo               geometry-V03-02-01
+-----------------------------
+- Introduced new module "verification" for geometry debugging.
+- This tag includes the following tags on top of "geant4-03-02-ref-05":
+  geomver-V03-02-00, field-V03-02-00, geomvol-V03-02-00,
+  geommng-V03-02-00, geom-solid-bool-V03-02-01.
+  See related History files for details.
+
+Jul 11, 2001   Gabriele Cosmo               geometry-V03-02-00
+-----------------------------
+- Includes same code contents as in "geant4-03-02-ref-00" except that
+  CVS file revision is now synchronized with HEAD, after the update for
+  the disclaimer of warranty.
+- Includes tag "breps-V03-02-00".
+
+Apr 20, 2001   Gabriele Cosmo               geometry-V03-01-00
+-----------------------------
+- Includes all geometry coworking tags after the migration to STL vector:
+  field-V03-00-05, geommng-V03-01-00, geomsolids-V03-01-00 and
+  geomvol-V03-01-01.
+
+Nov 20, 2000   Gabriele Cosmo               geometry-V02-00-00
+-----------------------------
+- QA code cleanup from Code-Wizard and warnings issued by
+  "-Wall -ansi -pedantic" g++ compiler options. Includes tags:
+  geom-solids-csg-V02-00-11, breps-V02-00-03, geom-solid-bool-V02-00-02,
+  STEP-V02-00-00, stepinterface-V02-00-02, geom-solids-specific-V02-00-04,
+  field-V02-00-02, geommng-V02-00-04, geomvol-V02-00-01.
+
+May 12, 2000   Gabriele Cosmo               geometry-V01-01-03
+-----------------------------
+- magneticfield (field-V01-01-03):
+  o fixes to G4MagErrorStepper (check on chord endpoint),
+    G4RKG3_Stepper (deleted error message from StepNoErr),
+    G4MagIntegratorDriver (modified debug information).
+  o minor fix to dummy implementation of assignment operator
+    in G4MagneticField.hh.
+  o modified method for finding new trial step in G4ChordFinder.
+- volumes (geomvol-V01-01-00):
+  o introduced kCarTolerance for check over taken step length and
+    TruePathLength in G4PropagatorInField::ComputeStep().
+- solids/CSG (geom-solids-csg-V01-01-02):
+  o fixes in DistanceToIn(p,v) for G4Box and G4Trd to return 0 distance
+    in case computed value is less than 0.5*kCarTolerance.
+
+Apr 27, 2000   Gabriele Cosmo               geometry-V01-01-02
+-----------------------------
+- management, solids/Boolean, magneticfield, volumes:
+  o reorganised comments for the Software Reference Manual
+- solids/specific:
+  o minor fixes and removed dependency over solids/CSG module.
+- solids/test
+  o updated SBT test suite.
+
+Apr 11, 2000   John Allison                 geometry-V01-01-01
+---------------------------
+- management:
+  o made virtual G4VisExtent G4VSolid::GetExtent() non-pure and
+    implemented a default in terms of CalculateExtent.
+- solids:
+  o removed implementations of GetExtent in most sub-classes of G4VSolid.
+  o all implementations of DescribeYourselfTo (G4VGraphicsScene& scene) const
+    now correctly written: scene.AddThis(*this).
+- solids/Boolean:
+  o CreatePolyhedron implemented for BooleanSolids.
+  o G4DisplacedSolid: reversed implementation of GetFrameRotation and
+    GetObjectRotation, removing inappropriate invertion.
+  o G4DisplacedSolid::GetConstituentMovedSolid() made const.
+
+Apr 05, 2000  Gabriele Cosmo                geometry-V01-01-00
+----------------------------
+- This tag includes the following sub-category tags since geometry-V01-00-00a
+  (all of them collected by geomsolids-V01-01-00):
+  o geom-solids-csg-V01-01-01
+    + fixes to G4PolyhedraSide.cc, G4Tubs.cc (see related History file)
+    + added diagnostics to G4Cons, G4Sphere and G4Torus in function
+      DistanceToOut()
+    + general directory restructuring: moved non 'CSG' shapes to new directory
+      'specific'
+  o breps-V01-00-02
+    + implemented decoupling from NIST STEP Reader
+    + several fixes for porting and memory leaks (see related History file)
+  o STEP-V01-00-01
+    + upgrade to NIST SCL 3.2
+    + porting and ISO-ANSI C++ fixes
+  o stepinterface-V01-00-01
+    + upgrade to support the new NIST STEP Reader
+    + improved overall diagnostics
+    + several fixes for memory leaks and check of NULL pointers (see History)
+  o geom-solids-specific-V01-01-00
+    + new directory containing the implementation of specific solids,
+      several classes moved from solids/CSG
+    + new specific solid G4EllipticalTube, implementing a tube with
+      elliptical cross section (geant3 solid 'ELTU')
+- Generic tests "SBT" and "Fred" have been moved from solids/CSG/test to
+  solids/test (new directory).
+- Organised class description comments for the Software Reference Manual in
+  CSG and specific headers. Added CVS headers to files in specific.
+
+Feb 29, 2000  Gabriele Cosmo                geometry-V01-00-00a
+----------------------------
+- Minor fixes to unit tests (CSG) to make them up-to-date with recent
+  development versions.
+
+Jan 19, 2000  Gabriele Cosmo                geometry-V01-00-00
+----------------------------
+- Sycronized file versions with HEAD after ISO-C++ migration.
+  Collecting subtags: field-V01-00-00, geomsolids-V01-00-00,
+                      geommng-V01-00-00 and geomvol-V01-00-00.
+- Changes are now documented in the individual sub-category History files.
+
+Nov  10,  99   John Apostolakis              geometry-V00-01-01
+-------------------------------
+- geomsolids-V00-01-03
+      which includes the following sub-tags:
+        geom-solids-csg-01-00-02-cand
+        geom-solid-bool-V00-01-03b
+        breps-V00-01-00
+        stepinterface-V00-01-00
+- geomvol-01-01-01b
+- geommng-V00-01-01
+- field-V00-01-02    
+
+###############################################################################
+  Geant4 1.0  , 1st STL-based release. 
+###############################################################################
+
+June  7,  99   John Apostolakis              geometry-01-00-06
+-------------------------------
+- Tagged.
+
+June  7,  99   D. C. Williams
+-------------------------------
+- CSG Pcon/Pgon (and supporting classes) :  several changes
+
+June  4,  99   S. Giani
+-------------------------------
+- G4Trap                 : CalculateExtent fix
+- G4SmartVoxelHeader.cc  : protection against inconsistent CalculateExtent
+
+May  21,  99   John Apostolakis              geometry-01-00-05
+-------------------------------
+- Tagged.
+
+May  20,  99   S.Giani, S.Magni
+-------------------------------
+- Fixes in BREP  Line, & (PCone, FCylindrical/FConical surf) respectively
+- For more details see solids/BREP/History
+- Also see changes mentioned in solids/CSG/History for CSG Pcon/Pgon
+
+May  19,  99   Frank  Behner
+-------------------------------  
+- Volumes: Further minor fixes for STL.
+
+May  12,  99   John Apostolakis              geometry-01-00-04
+-------------------------------
+- Tagged.
+
+May  12,  99   Simone Giani
+-------------------------------
+- Fixes to G4BREPSolidPolyhedra and G4FPlane.
+
+May  10,  99   Frank  Behner
+-------------------------------
+- Changes in RW use for compatibility with RW/STL in
+        management/src/G4PhysicalVolumeStore.cc  
+        management/src/G4LogicalVolumeStore.cc
+  modifying  "delete first();" to "removeFirst();"     
+
+May   7,  98   John Apostolakis
+-------------------------------
+- Changed G4Navigator to issue warning in the case of small inaccuracies
+   & cause fatal exception only for large deviations.
+
+May   3,  99   John Apostolakis              geometry-01-00-03
+-------------------------------
+- Minor fixes 
+    In CSG solids:  Cons & Tubs  minor, and in PCon/PGon 
+    For STL migration: PV-vol-store, NavLevel   (Frank Boehner)
+
+Apr  19,  99   John Apostolakis              geometry-01-00-02
+-------------------------------
+- Small fixes to solids: consistency fix for CalculateExtent & tolerance
+- CodeWarrior fixes (some) to magneticfield
+
+Apr  15,  99   John Allison
+-------------------------------
+- Added -I$(G4BASE)/intercoms/include to BREPS, Boolean abd CSG GNUmakefiles
+  in preparation for move of G4VGraphicsScene to intercoms.
+
+Mar  19,  99   John Apostolakis              geometry-01-00-01
+-------------------------------
+- Category tag using:
+   solids:       [tag geomsolids-01-00-01]
+   volumes:      [tag geomsolids-01-00-01]
+   management:   [tag geommng-01-00-02 ]
+   magneticfield [tag field-01-00-03]
+
+Mar  19,  99   John Apostolakis
+-------------------------------
+- Summary of significant changes in sub-categories/sub-directories
+  management:   [tag geommng-01-00-02 ]
+      G4AffineTransform.icc InverseProduct fix (used in Navigator). 
+
+Jan  15, 99    John Apostolakis   
+-------------------------------
+- Fixes in CSG solids (Cons by V.Grichine, CSG Pcone+Pgon by D.C.Williams)
+
+Jan  15,  99   Simone Giani      ( rec by JA. )
+-------------------------------
+- Fixes in the creation of Smart Voxels: 
+- Less memory intensive and much more performant at initialisation.
+  No worse, but a little faster at tracking time.  (G4SmartVoxelHeader)
+
+Jan  10,  99   John Apostolakis   ( geometry-01-00-01 to be done)
+-------------------------------     geometry as in geant4-00-patch2
+- Fixes in BREPs (Pcone, Pgon, ...)  see solids/BREPS/History
+  includes the subtags
+      stepinterface-01-00-01      
+      step-01-00-01
+
+###############################################################################
+  Geant4.0.0  , 1st production release. 
+###############################################################################
+
+Dec  11,  98   John Apostolakis   geometry-00-04-04
+-------------------------------
+- Fixes in BREP Pcone, Pgon new csg versions of above too.
+
+Dec   9,  98   John Apostolakis   geometry-00-04-03
+-------------------------------
+- Fixes for:
+     - BrepPCone in constructor, FPlane, Cylindrical, Conical surfaces.
+                       Ellipse and others.
+
+     - Navigator for Replica Navigation (edges).
+
+     - STEPinterface : several creators
+
+Dec   1,  98   John Apostolakis   geometry-00-04-02
+-------------------------------
+- New code in solids/CSG (other implementation of Pgon, Pcon - not exercised)
+
+Dec   1,  98   John Apostolakis   geometry-00-04-02minus
+-------------------------------
+- Fixes in Boolean/src             portability
+            BREPS/src               logical problems (bPcone, ConeSurf, Plane)
+- Added History files in subdirectories.
+
+Nov  27,  98   John Apostolakis   geometry-00-04-01
+-------------------------------
+- Fixes in  Boolean/src             code: logical fixes
+            magneticfield/include   interface problem
+                          src       printing in propagator (debug)
+            Breps                   renamed methods (from compiler warnings)
+                                    + several fixes: Fplane, BREPSolid, Cylinder
+            volumes/NormalNav       stores Copy No
+            management              no changes - but fixed versions (now head)
+
+Nov  19,  98   John Apostolakis   geometry-00-03-10
+-------------------------------
+- Fixes from Lionel in BREPS/STEP/STEPinterface
+- management/include/G4LogicalVolume.icc
+  Deleted and readded same version to get CVS to see it on the head. 
+
+Nov  19,  98   John Apostolakis   geometry-00-03-09
+-------------------------------
+- Added field-00-03-03
+     (it fixes propagation and several steppers)
+
+Nov  13,  98   John Apostolakis   geometry-00-03-08
+-------------------------------
+- Tagged.
+
+Nov  12,  98   John Apostolakis   geometry-00-03-07
+-------------------------------
+- Tagged for the STT.
+- solids-00-03-02:
+    i) New directory finally included:
+	solids/Boolean  
+       As in geometry-00-03-03 with minor change/fix.
+
+   ii) Fix in solids/CSG/src/G4Sphere.cc (V. Grichine).
+- field-00-03-02
+     Many changes in Magnetic field to accomodate Electric Field.
+- Still does not contain the fixes in geometry-00-03-03 (and later) in the 
+  following directories: 
+     BREPS, 
+     STEP, 
+     STEPinterface
+
+Nov   9,  98   John Apostolakis   geometry-00-03-06
+-------------------------------
+- Tagged for the STT.
+  Includes reorganisation of volumes
+  Still does not contain the fixes in geometry-00-03-03 (and later) in the 
+   following directories: 
+       BREPS, STEP, STEPinterface,
+       >all< of solids/Boolean
+
+Oct  30,  98   John Apostolakis   geometry-00-03-03
+-------------------------------
+- New Boolean directory.
+- Many fixes in BREPS:
+     Deleted StepCopyData from all classes.
+     Replaced G4Point, Point3d and Point2d with G4Point3D
+     Fixes to BREPSolid for BoundingBoxes
+
+Sept 23rd, 98  John Apostolakis
+-------------------------------
+- G4Box: changed DistanceToIn to fix new problem. 
+- G4ParameterisedNavigation
+- G4VoxelNavigation: fixed VoxelSafety computation for the case of the
+  middle voxel of a set of equivalent (lowest-level) voxels.
+
+Sept 17th, 98  John Apostolakis    geometry-00-03-01
+-------------------------------
+- Tag created.
+
+Sept 15th, 98  John Apostolakis
+-------------------------------
+- In G4ParameterisedNavigation
+   i) Corrected ComputeSafety(...) which called ComputeVoxelSafety without
+     setting the fVoxelNode & fVoxelNodeNo to the ones at localpoint.
+     [ This produced incorrect safeties in some cases & resulted in an
+      assertion failure in testT08 because of an unexpected change of volume. ]
+  ii) ComputeStep: Fixed assertion check of blocked replica number.
+
+Aug  24th, 98  John Apostolakis  geometry-00-02-01
+-------------------------------
+- Tagged.
+  Small fixes in BREPS, to allow compilation on different platforms.
+
+###############################################################################
+beta01 release
+###############################################################################
+
+July 31st, 98  Peter Urban 
+-------------------------------
+- Several fixes for BREPS.
+
+
+July 29th, 98  John Apostolakis  (with Stefano Magni)
+-------------------------------
+- G4BREPSolidPCone.cc : Cylindrical sections were incorrectly placed.
+- G4ConicalSurface.cc 
+  G4CylindricalSurface.cc: 
+    The Inside functions are modified to try to use the Geant-4 tolerance.
+     --> must be checked further
+       [ The method is used by Intersect of respective surfaces in a
+         complicated manner. ]
+- G4FConicalSurface.cc
+   - Fix to Bounding Box, which was incorrectly centered/placed.
+   - Fix to Intersect, to insure that only intersection in Finite extent of 
+      Surface are found.
+
+July 28th, 98  John Apostolakis  
+-------------------------------
+- In the Navigator location, the blocked Volume was not cleared when the
+  navigator descended several levels in the tree. This would allows the same
+  in another part of the tree to be wrongly blocked.
+- In G4ParameterisedNavigation, the identity of the blocked Physical Volume
+  was not checked! You would block replica number 3 of your parameterised
+  volume although you exited replica number 3 of another volume!
+- The above problems combined to allow BlockingList to be called with
+  replicaNo = -1, which caused Linux/G++ & HP to dump core on program exit.
+  Modified Files:
+    G4Navigator.cc
+    G4ParameterisedNavigation.cc
+- An assignment used to be an equality check by mistake.
+  (Probably it was ok because it is redundant)
+  Modified Files:
+    G4VoxelNavigation.cc
+
+June 26th, 98  John Apostolakis  geometry-00-06-05
+-------------------------------
+- 1)  Modified check in ComputeStep that pseudo-relocation is within safety:
+     i) no check is made is the move is within tolerance as it makes no sense
+         - on a boundary it would cause a volume change (where there was none.)
+    ii) the Navigator now stores the last safety it calculated (origin, value) 
+         and uses it for the calculation of this check.
+        This eliminates problems with this check, that produced assertion
+	 failure in many example codes.
+- 2) NavigationHistory equality operator modified for efficiency (with P.Urban)
+- 3) G4Box     Problem in DistanceToIn reporting intersection where there was
+               none has been given a more complete solution (V.Grichine)
+     G4Sphere  Exception problem fixed.  (V.Grichine)
+
+June 20th, 98  John Apostolakis  geometry-00-06-04
+-------------------------------
+- 1) I have added a check that any pseudo-relocation made between a
+     call to Locate (the true Relocation) and the next call to ComputeStep
+     (eg in a PostStepDoIt) is truly within safety.
+- 2) The Navigator's ComputeStep method now always returns infinity, when it
+     does not limit the step
+- 3) G4Tubs.cc: Fixed surface normal (in R) which was not a unit vector.
+
+June 18th, 98  John Apostolakis  
+-------------------------------
+- In the Navigator:
+    1) Fix to allow lateral displacement (within safety) in PostStepDoIts
+       without messaging the Navigator.  
+    2) A first implementation of LocateGlobalPointWithinVolume
+- A fix in NormalNavigation's Compute Step, to allow volumes that are "touched"
+  to be tagged as entered.  (Ie, if the step is just long enough to arrive at
+  the surface of a volume, the navigator can still enter it quickly.)
+
+June 12th, 98   John Apostolakis (geometry-00-06-03)
+-------------------------------
+- Candidate fix to BREP PCone, constructing Conical Surfaces using different
+  starting point. 
+- Fix to ReplicaNavigation to temporarily patch "assertion" problem.
+
+June 10th, 98  John Apostolakis  (geometry-00-06-02)
+-------------------------------
+- Added a new CSG Solid (G4Hype), a Hyperboloid by rotation        
+- Bug fix to G4Box::DistanceToIn (which reported intersection where there 
+                                  was none). 
+- Bug fix to G4FConicalSurface and G4ConicalSurface to fix G4BREPSolidPCone.
+  Correction to  to DistanceToOut of BREPSolid to ensure compatibility with
+  convexity assumptions of Navigator
+
+June  8th, 98  John Apostolakis  (geometry-00-06-01)
+-------------------------------
+- Created a tag for BREPS at the last point before merge with Peter's
+  Developments.
+  Modified
+    G4Navigator       and
+    G4NormalNavigation   G4ParameterisedNavigation
+    G4ReplicaNavigation  G4VoxelNavigation
+  to add ComputeSafety methods. These make a quick estimation of the
+  safety and can/should be called for the final point of a step only.
+
+June  3rd, 98  John Apostolakis
+-------------------------------
+- G4Navigator:
+  Added a new new method LocateGlobalPointWithinVolume that serves to notify
+  the Navigator that a track has moved to the new Global point 'position'.
+  This point must be known to be within the current volume, probably because it
+  is withing safety.
+
+May   11th, 98  John Apostolakis
+-------------------------------
+- G4PVPlacement:
+  - Implemented additional (4th) constructor that takes a pointer to a 
+    logical mother volume and a G4Transform3D with the solid's rotation.
+  - Also added a data member to store whether a RotationMatrix was created.
+    This allows us to avoid a small memory leak in use of 2 constructors.
+
+May    8th, 98  John Apostolakis
+-------------------------------
+- History files created in magneticfield directory for this category.
+  It will be used exclusively for the maintenance of information in
+  this category. Only what impacts its interaction with the geometry
+  (G4PropagatorInField) will be mentioned here.
+
+- History file  has existed in solids/BREPS for slightly more detailed
+  changes in that sub-category.
+
+April 29th, 98  John Apostolakis  (geometry-00-05-05)
+-------------------------------
+- A significant logical error in G4VoxelNavigation::LocateNextVoxel was 
+  corrected: the search for the next voxel could ignore voxels at lower levels
+- Small changes for DEC in GNUmakefile in BREPS & STEP
+   * Removed -cfront option from GNUmakefile for DEC. -cfront
+      overrides ANSI standard rules in cxx-6.0.
+   * Cleaned up trivial warnings on DEC (Extraneous semicolons).
+
+April 27th, 98  John Apostolakis  (geometry-00-05-04)
+-------------------------------
+- Tagged
+
+April 24th, 98  Jari Sulkimo       ( recorded by John Apostolakis here)
+-------------------------------
+- Fixes in BREPs (see solids/BREP/History for details, by author)
+   * fixed scope bugs in for loops
+   * bug fixes to G4Assembly.cc for STEP file interaction & placed solids 
+     creation. 
+
+April 23rd, 98  John Apostolakis  (geometry-00-05-03)
+-------------------------------
+- Bug fixes to BREP code for Assembly level of STEP files
+  (introduced in alpha05)
+- Renamed file G4Point3d.hh to G4Point3d.h (because of problems
+  on Windows NT in name clash with G4Point3D.hh).
+
+April 22nd, 98  John Apostolakis  (geom-05-02)
+-------------------------------
+- Tagged.
+
+April 21st, 98  John Apostolakis  (geometry-00-05-01)
+-------------------------------
+- Added SetAllParameters methods to G4Torus and G4Para.
+- All CSG solids now inherit from the new abstract class G4CSGSolid, instead 
+  of directly from G4VSolid.
+- "const G4double" arguments have been changed to "G4double" for CSG methods.
+
+April 21st, 98  John Allison
+-------------------------------
+- Slightly relaxed tolerance in G4Trap (for g3tog4).
+- Corrected G4BREPSolidPolyhedra.cc for graphics_reps/G4Polyhedron.
+- Added void G4Trd::SetAllParameters.
+- Also relaxed check in G4Trd::CheckAndSetAllParameters (pdx1>=0, etc.)
+
+April 2, 98 G.Barrand
+-------------------------------
+- STEP/dirobj.cc : #ifdef WIN32, do not compile opendir and closedir.
+
+March 24, 98 G.Barrand
+-------------------------------
+- GNUmakefile : MAKESHLIB changed in G4MAKESHLIB
+
+March 13, 98   G.Cosmo (on behalf of S.Giani) - (geometry-00-04-05)
+-------------------------------
+- Added G4VPVParameterisation.cc including default implementations
+  of ComputeSolid() and ComputeMaterial() missing previously (J.Apostolakis).
+- Included fixes for aCC compiler in BREPS and STEP (J.Sulkimo, G.Cosmo). 
+
+March  9, 98  J. Apostolakis - (geometry-00-04-04)
+-------------------------------
+- Small fix to G4BREPSolid.cc which was causing problems on HP-UX.
+  (Deleted use of floating point modulo for integers, with Jari S.)
+- G4Sphere:    further small corrections. 
+
+March     5, 98    J. Apostolakis - (geometry-00-04-03)
+-------------------------------
+- Parameterised Volume can now VARY the TYPE of SOLID and/or Material
+  by copy number.  PVParameterisation classes can now compute these.
+  The Navigator has been modified to compute solid and material, and
+  to set them in the associated logical volume
+- Now able to process an extra level of STEP files, using new code in
+  BREPs  (Jari Sulkimo). 
+- Further cleanup of code in BREP category  (Peter Urban). 
+- Small modification in solids/STEP/GNUmakefile for Win/NT port (S. Sadilov).
+
+March     4, 98    J. Apostolakis - (geometry-00-04-02)
+-------------------------------
+- G4Sphere: corrected tests of the phi angle and with tolerance checking
+  that compared squares of distances. 
+- The World volume can now be split into replicas. This not recommended, but
+  the Navigator is now able to handle it.
+- Cleanup of code in BREP category (Peter Urban & Jari Sulkimo)
+
+February 16, 98    J. Apostolakis - (geometry-00-04-01)
+-------------------------------
+- Replicas and parameterised physical-volumes now store the copy number of
+  their current copy. (It is valid only for physical volume in the hot tree).
+  Navigation routines were modified to enable this.
+
+February  4, 98    J. Apostolakis - (geometry-00-03-02)
+-------------------------------
+- A few small changes were made to the Magnetic Field classes. 
+  This included one that allows it to work without repeatedly
+  issuing an unneccessary warning.  
+- Small fixes to BREP and STEP parts help in fixing a problem
+  with True/false on some platforms.
+
+January 28, 98 S. Sadilov
+-------------------------------
+- Small modification in GNUmakefile for Win/NT port 
+
+January  26, 98    J. Apostolakis - (geometry-00-03-01)
+-------------------------------
+- i)  New implementation of G4NavigationHistory using G4NavigationLevel. 
+      This implementation allows for very fast copying of G4NavigationHistory, 
+      which is required in order to copy G4TouchableHistory.
+- ii) Correction in G4ReplicaNavigation.cc in DistanceToOutPhi, influencing 
+      replicas divided in phi.
+
+December 19, 97 G. Cosmo - (alpha03)
+-------------------------------
+- Created.

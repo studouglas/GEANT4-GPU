@@ -1,0 +1,58 @@
+#
+# -------- AIX ----------     !!! not supported !!!
+#                               AIX-4.3.2 xlC 6.0
+
+ifeq ($(G4SYSTEM),AIX-xlC)
+  CXX       := xlC
+  ifdef G4OPTIMISE
+    CXXFLAGS  := -O3 -qtwolink -+
+  else
+    ifdef G4DEBUG
+      CXXFLAGS  := -g -qdbxextra -qcheck=all -qfullpath -qtwolink -+
+      FCFLAGS := -g
+      CCFLAGS := -g
+    endif
+  endif
+  FC := xlf
+  FCFLAGS += -qextname
+  FCLIBS := -lxlf90 -lxlf
+  SHEXT := so
+  LOADLIBS += -lm -lstdc++
+  ifndef X11FLAGS
+    X11FLAGS  := -I/usr/include/X11/extensions -I/usr/include/X11
+  endif
+  ifndef X11LIBS
+    X11LIBS   := -L/usr/lib -lXmu -lX11 -lXext
+  endif
+  ifndef XMFLAGS
+    XMFLAGS   := -I/usr/include/Motif1.2
+  endif
+  ifndef XMLIBS
+    XMLIBS    := -L/usr/lib -lXm -lXt -lX11
+  endif
+  ifndef XAWFLAGS
+    XAWFLAGS  := -I/usr/include/X11
+  endif
+  ifndef XAWLIBS
+    XAWLIBS   := -L/usr/lib -lXaw -lXmu -lXt -lX11 -lXext
+  endif
+  ifndef OGLFLAGS
+    OGLFLAGS  := -I$(OGLHOME)/include 
+  endif
+  ifndef OGLLIBS
+    OGLLIBS   := -L$(OGLHOME)/lib -lGLU -lGL
+  endif
+
+  define build-granular-shared-lib
+    @libdir=`(cd $(@D);/bin/pwd)`; \
+    cd $(G4TMPDIR); \
+    $(CXX) -G -o $$libdir/$(@F) $(INTYLIBS) *.o
+  endef
+  define build-global-shared-lib
+    @libdir=`(cd $(@D);/bin/pwd)`; \
+    cd $(G4TMP)/$(G4SYSTEM); \
+    $(CXX) -r  -G -o $$libdir/$(@F) $(INTYLIBS) \
+    $(foreach dir, $(SUBLIBS), $(dir)/*.o);
+  endef
+
+endif

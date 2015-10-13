@@ -1,0 +1,76 @@
+//
+// ********************************************************************
+// * License and Disclaimer                                           *
+// *                                                                  *
+// * The  Geant4 software  is  copyright of the Copyright Holders  of *
+// * the Geant4 Collaboration.  It is provided  under  the terms  and *
+// * conditions of the Geant4 Software License,  included in the file *
+// * LICENSE and available at  http://cern.ch/geant4/license .  These *
+// * include a list of copyright holders.                             *
+// *                                                                  *
+// * Neither the authors of this software system, nor their employing *
+// * institutes,nor the agencies providing financial support for this *
+// * work  make  any representation or  warranty, express or implied, *
+// * regarding  this  software system or assume any liability for its *
+// * use.  Please see the license in the file  LICENSE  and URL above *
+// * for the full disclaimer and the limitation of liability.         *
+// *                                                                  *
+// * This  code  implementation is the result of  the  scientific and *
+// * technical work of the GEANT4 collaboration.                      *
+// * By using,  copying,  modifying or  distributing the software (or *
+// * any work based  on the software)  you  agree  to acknowledge its *
+// * use  in  resulting  scientific  publications,  and indicate your *
+// * acceptance of all terms of the Geant4 Software license.          *
+// ********************************************************************
+//
+//
+// $Id: G4EquationOfMotion.icc 66356 2012-12-18 09:02:32Z gcosmo $
+//
+//
+//  Inline implementation 
+//
+// -------------------------------------------------------------------
+
+inline
+G4EquationOfMotion::G4EquationOfMotion(G4Field* pField) 
+  :itsField(pField)
+{}
+
+inline
+const G4Field* G4EquationOfMotion::GetFieldObj() const
+{
+  return itsField;
+}
+
+inline
+void G4EquationOfMotion::SetFieldObj(G4Field* pField)
+{
+  itsField= pField;
+}
+
+inline
+void G4EquationOfMotion::GetFieldValue( const  G4double Point[4],
+			                       G4double Field[] ) const
+{
+  itsField-> GetFieldValue( Point, Field );
+}
+
+inline
+void 
+G4EquationOfMotion::RightHandSide( const  G4double y[],
+				   G4double dydx[]   ) const
+{
+     G4double Field[G4maximum_number_of_field_components];   
+     G4double  PositionAndTime[4];
+
+     // Position
+     PositionAndTime[0] = y[0];
+     PositionAndTime[1] = y[1];
+     PositionAndTime[2] = y[2];
+     // Global Time
+     PositionAndTime[3] = y[7];  // See G4FieldTrack::LoadFromArray
+
+     GetFieldValue(PositionAndTime, Field) ;
+     EvaluateRhsGivenB( y, Field, dydx );
+}
+

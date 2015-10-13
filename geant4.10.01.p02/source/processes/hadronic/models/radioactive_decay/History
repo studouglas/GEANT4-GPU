@@ -1,0 +1,641 @@
+-------------------------------------------------------------------
+
+     =========================================================
+     Geant4 - an Object-Oriented Toolkit for Simulation in HEP
+     =========================================================
+
+                 Radiative decay History file
+                 -------------------------------------
+This file should be used by responsible rdm developers to briefly
+summarize all major modifications introduced in the code and keep
+track of all tags.
+
+     ----------------------------------------------------------
+     * Reverse chronological order (last date on top), please *
+     ---------------------------------------------------------
+
+06 November 2014 Dennis Wright radioactive_decay-V10-00-11
+----------------------------------------------------------
+- G4NuclearDecayChannel: remove upper limit on number of gammas produced by
+  G4PhotoEvaporation.  Fixes exception.
+
+04 November 2014 Dennis Wright radioactive_decay-V10-00-10
+----------------------------------------------------------
+- G4NuclearDecayChannel::DecayIt: allow up to three fragments from
+  G4PhotoEvaporation::BreakUp.  This fixes the exception seen when there is
+  more than one gamma
+ 
+03 November 2014 Dennis Wright radioactive_decay-V10-00-09
+----------------------------------------------------------
+- added new class G4AlphaDecay to streamline inheritance chain and use Q to
+    calculate decay product energies
+- G4RadioactiveDecay.cc: use G4AlphaDecay instead of G4AlphaDecayChannel
+
+- G4NuclearDecayChannel.cc: check number of gammas returned from 
+    G4PhotoEvaporation and take different action in each case of 0, 1, or 2 
+    gammas
+
+21 October 2014  Dennis Wright radioactive_decay-V10-00-08
+----------------------------------------------------------
+- G4RadioactiveDecay dtor: add delete dkmap to fix memory leak
+- G4RadioactiveDecay.hh : set size of decayWindows to 100 to fix array overrun
+   
+13 October 2014  Dennis Wright radioactive_decay-V10-00-07
+----------------------------------------------------------
+- G4NuclearDecayChannel, G4BetaDecayCorrections, G4RadioactiveDecay: made 
+  several more variables const 
+ 
+13 October 2014  Dennis Wright radioactive_decay-V10-00-06
+----------------------------------------------------------
+- G4RadioactiveDecay::GetMeanFreePath(): make local pointer to
+  G4ParticleDefinition const
+
+- G4RadioactiveDecay::LoadDecayTable(), GetDecayTable(), DoDecay():
+  make G4ParticleDefinition arguments const
+
+12 September 2014 Luis Sarmiento radioactive_decay-V10-00-05
+------------------------------------------------------------
+- Fixed file missing in commit that enables the proton decay
+
+06 August 2014 Luis Sarmiento radioactive_decay-V10-00-04
+---------------------------------------------------------
+- proton decay added. It was coded mimicking the alpha decay.
+  The word in the data file is "Proton"
+- dummy double proton decay "Proton2" added for consistency with
+  the double beta decays
+
+12 June 2014  Dennis Wright radioactive_decay-V10-00-03
+-------------------------------------------------------
+- fix memory leak in dtor of G4RIsotopeTable.cc from bug report 1617
+
+10 June 2014  Dennis Wright radioactive_decay-V10-00-02
+-------------------------------------------------------
+- G4RadioactiveDecay::GetMeanFreePath: tau = -1001 now indicates a nuclide with
+  very short lifetime or that was not listed in G4NuclideTable.  In that case,
+  set pathlength to DBL_MIN.  This fixes bug #1582.
+  
+20 February 2014  Dennis Wright radioactive_decay-V10-00-01
+-----------------------------------------------------------
+- G4RadioactiveDecayMode.hh, .cc: add double beta- decay and double beta+ decay
+  to enum
+- G4RadioactiveDecay.cc: add dummies for double beta- decay and double beta+
+  decay in order to partially fix Bug 1560: long ground state lifetimes with no decay
+  scheme
+ 
+6 February 2014  Dennis Wright radioactive_decay-V10-00-00
+----------------------------------------------------------
+- G4NuclearDecayChannel::DecayIt: remove enforcement of single gamma emission
+
+31 January 2014  Dennis Wright radioactive_decay-V09-06-22
+----------------------------------------------------------
+- G4RadioactiveDecay::~G4RadioactiveDecay: fix memory leak by deleting decay
+    table map
+- G4NuclearDecayChannel::DecayIt: enforce single gamma emission from
+    deexcitation-> BreakUp() to guarantee only two elements in G4FragmentVector
+- remove obsolete hbook files from test/betatest
+
+24 November 2013  Dennis Wright radioactive_decay-V09-06-21
+-----------------------------------------------------------
+- G4RadioactiveDecay::GetMeanFreePath: currently GetPDGStable() returns stable
+    for isomers.  This prevented isomers from decaying in flight.  Fix by
+    replacing GetPDGStable() with lifetime == -1 as test for nuclide stability.
+    Also clean up calculation of pathlength.
+
+- G4NuclearDecayChannel: clean out unused print-outs
+
+13 November 2013  Dennis Wright radioactive_decay-V09-06-20
+-----------------------------------------------------------
+- G4RadioactiveDecay::LoadDecayTable: fix endpoint energy loaded into decay
+    channel for beta+ decay - subtract 2 electron masses
+
+11 November 2013  Dennis Wright radioactive_decay-V09-06-19
+-----------------------------------------------------------
+- fixed bugs causing decay chains to stop prematurely
+- G4NuclearDecayChannel::DecayIt:
+    in the case of IT, get excitation energy from parent nucleus, not daughter 
+            (const G4Ions*)(G4MT_parent))->GetExcitationEnergy()
+    remove subtraction of gamma energy from variable daughterExcitation
+
+- G4RadioactiveDecay::GetDecayTable: search internal library of decay tables
+    using name of ion, not integer key - this fixes the "level 9" problem
+ 
+7 November 2013  Dennis Wright radioactive_decay-V09-06-18
+----------------------------------------------------------
+- G4NuclearDecayChannel::DecayIt: allow explicit decay of IT channels
+  and send residual nucleus to final state for tracking
+- G4RadioactiveDecay: clean up
+
+21 October 2013  Dennis Wright radioactive_decay-V09-06-17
+----------------------------------------------------------
+- G4NuclearDecayChannel::DecayIt: in loop to search for isomer levels, add
+  Andrea Dotti's protections and fatal exception for zero pointers when daughter
+  ions are not found
+
+14 October 2013  Dennis Wright radioactive_decay-V09-06-16
+----------------------------------------------------------
+- G4NuclearDecayChannel::DecayIt: add an electron mass to the parent nucleus
+  in case of electron capture.  This fixes the G4GeneralPhaseSpaceDecay::Pmx()
+  mass deficit warning. 
+
+4 October 2013  Dennis Wright radioactive_decay-V09-06-15
+---------------------------------------------------------
+- G4NuclearDecayChannel: change class member daughterExcitation
+  from TLS back to plain G4double - fixes infinite loop in decay chain
+ 
+1 October 2013  Makoto Asai  radioactive_decay-V09-06-14
+--------------------------------------------------------
+- G4NuclearDecayChannel : Fixed thread-safety and reproducability issues.
+
+9 September 2013  Makoto Asai  radioactive_decay-V09-06-13
+---------------------------------------------------------- 
+- G4RadioactiveDecay::LoadDecayTable() : modify to read data file only once
+  for multi-threaded mode.
+
+5 September 2013  Dennis Wright  radioactive_decay-V09-06-12
+------------------------------------------------------------ 
+- G4NuclearDecayChannel::DecayIt() : remove unused variable and argument
+  (theParentMass)
+
+16 August 2013  Dennis Wright  radioactive_decay-V09-06-11
+----------------------------------------------------------
+- cleanup and retag
+
+12 August 2013  Dennis Wright  radioactive_decay-V09-06-10
+----------------------------------------------------------
+- G4RadioactiveDecay:
+    move registry of isotope table from BuildPhysicsTable to ctor.
+    This fixes problem of missing secondaries and is probably OK for MT.
+
+- G4NuclearDecayChannel: use integer metastable state levels instead of
+    energy values.  Where only energy is known search for nearest integer
+    level. 
+
+12 July 2013  Dennis Wright  radioactive_decay-V09-06-09
+--------------------------------------------------------
+- G4RadioactiveDecay:
+    to accommodate multi-threading remove the setting of nuclear decay tables
+    to G4ParticleDefinition and replace with local decay table map
+    
+    remove IsLoaded() method and data member LoadedNuclei which are now
+    redundant due to above changes
+ 
+20 June 2013  Andrea Dotti   radioactive_decay-V09-06-08
+--------------------------------------------------------
+- G4RIsotopeTable.cc : fix bug in checking if DB files have 
+  been loaded (accessing map without protection)
+
+20 June 2013  Dennis Wright  radioactive_decay-V09-06-07
+--------------------------------------------------------
+- G4RadioactiveDecay.cc : fix memory leak by adding  
+  delete theIsotopeTable;
+  to dtor
+
+18 June 2013 V. Ivanchenko  radioactive_decay-V09-06-06
+--------------------------------------------------------
+- G4RadioactiveDecay, G4NuclearDecayChannel, 
+  G4BetaMinusDecayChannel, G4BetaPlusDecayChannel - use
+    typedefs from Randomize.hh instead of CLHEP
+
+18 June 2013 V. Ivanchenko  radioactive_decay-V09-06-05
+--------------------------------------------------------
+- G4RadioactiveDecay - initialise Isotope table only for master
+
+18 June 2013 V. Ivanchenko  radioactive_decay-V09-06-04
+--------------------------------------------------------
+- G4RadioactiveDecay - moved initialisation of Isotope table from
+    the constructor to BuildPhysicsTable method
+
+6 June 2013  Gabriele Cosmo  radioactive_decay-V09-06-03
+--------------------------------------------------------
+- Replaced keyword 'ERROR' with 'RDM_ERROR' to avoid clashes with
+  specific macros defined in Windows system.
+
+8 March 2013  Gabriele Cosmo  radioactive_decay-V09-06-02
+---------------------------------------------------------
+- Fixed use of internal MT data in G4NuclearDecayChannel.
+
+1 January 2013  Laurent Desorgher  radioactive_decay-V09-06-01
+------------------------------------------------------------
+- G4RadioactiveDecay: fix partly bug 1359
+	-Force the boost of the decay products in line 1598
+	-The parent energy considered in the boost is the total energy of the fully stripped parent ion  rather than 
+	 the total energy of dynamic ion where the energy of shell electrons is taken into account
+	-Some difference in momentum and energy balance is still observed but much less than before  
+		     
+
+13 November 2012  Dennis Wright  radioactive_decay-V09-05-12
+------------------------------------------------------------
+- G4NuclearDecayChannel: fix Coverity bugs 15098, 15099, 37711 uninitialized
+  variables, and bug 14520, dereference of possible null pointer
+- G4RIsotopeTable: add assignment operator as per Coverity bug 37113
+- G4RadioactiveDecay.hh - remove extra include of G4RadioactiveDecaymessenger.hh
+
+04 October 2012  Gabriele Cosmo  radioactive_decay-V09-05-11
+------------------------------------------------------------
+- G4RIsotopeTable.cc: added inclusion of units header...
+ 
+03 October 2012  Vladimir Ivantchenko  radioactive_decay-V09-05-10
+------------------------------------------------------------------
+- G4RadioactiveDecay - added isInitialised flag to reduce 
+    initialisation printout
+
+03 October 2012  Vladimir Ivantchenko  radioactive_decay-V09-05-09
+------------------------------------------------------------------
+- G4RadioactiveDecay - removed internal PhysicsVector of mean free
+    path and implement the same algorithm as one of G4Decay,
+    PhysicsVector here useless because introduce extra objects but
+    do not save any CPU
+
+02 October 2012  Vladimir Ivantchenko  radioactive_decay-V09-05-08
+------------------------------------------------------------------
+- G4RadioactiveDecay - modified BuildPhysicsTable method: substitute
+    obsolete methods to access PhysicsVector, add spline, add
+    initialisation of atomic de-excitation (needed for the case when
+    radioactive decay is used alone), modified GetMeanFreePath - 
+    sabstitute obsolete access method to the PhysicsVector
+- source.cmake and GNUmakefile - remove dependence on emlowenergy
+
+22 September 2012  Laurent Desorgher  radioactive_decay-V09-05-07
+--------------------------------------------------------------
+- Reset a print message in G4RIsotopeTable to verbose level 1 to avoid some systematic printing for some decays.
+  Problem reported by Michel Maire.
+
+21 September 2012  Gabriele Cosmo  radioactive_decay-V09-05-06
+--------------------------------------------------------------
+- Explicitly use inclusion of headers for system of units and physical
+  constants, in plan to remove implicit inclusion from globals.hh.
+
+27 July 2012  Laurent Desorgher  radioactive_decay-V09-05-05
+------------------------------------------------------------
+ -Set a flag isAllVolumesMode in G4RadioactiveDecay to ensure  that  when 
+  the geometry is changed, the AllVolume Mode is still considered.
+  Problem reported by Tatsumi Koi.  
+    
+ -Use of evaporation nuclear level data in G4RIsotope::GetMeanLifeTime
+ 	for getting the mean life of an exited nuclei, when it is not provided in 
+ 	radioactive decay database. Solving of a problem reported by Tatsumi Koi.
+
+
+10 July 2012  Laurent Desorgher  radioactive_decay-V09-05-04
+---------------------===------------------------------------
+ -G4RadiocativeDecay::LoadDecayTable
+ 	Add LoadedNuclei.push_back(theParentNucleus.GetParticleName())
+ 	also for the case where user data files are used. Correction for bug
+    1324. Changes proposed by Joa L.
+
+27 June 2012  Dennis Wright  radioactive_decay-V09-05-03
+--------------------------------------------------------
+- G4BetaDecayCorrections::ctor : to fix bug for beta+ decay, replace
+  alphaZ = fine_structure_const*std::abs(Z);
+     with
+  alphaZ = fine_structure_const*Z;
+- G4BetaDecayCorrections::FermiFunction : replace
+  if (Wprime < 1.) Wprime = W;
+    with
+  if (Wprime <= 1.00001) Wprime = 1.00001;
+  to fix discontinuity in electron screening energy
+
+  Above changes suggested by Ryan Fitzgerald (NIST)
+ 
+11 June 2012  Dennis Wright  radioactive_decay-V09-05-02
+--------------------------------------------------------
+- replace shadowed variable "s" in G4NucleusLimits.cc, G4BetaDecayType.cc
+  and G4RadioactiveDecayMode.cc.  Replace shadowed variable "theDecayTable"
+  in G4RadioactiveDecay.cc
+       
+01 May 2012  Laurent Desorgher  radioactive_decay-V09-05-01
+---------------------------------------------------------
+- G4RIsotopeTable : Add the reading of user data  files  in order to take
+   into account the life time given in these files. (Bug reported by M. Maire)
+- G4RadioactiveDecay: Put the activation development of Fan Lei from trunk in
+   the tagged release. 
+
+17 March 2012  Dennis Wright  radioactive_decay-V09-05-00
+---------------------------------------------------------
+- G4RIsotopeTable::GetMeanLifeTime : change length of inputChars to 100
+  to fix infinite loop when excitation energy is non-zero
+
+23 November 2011  L.Desorgher(radioactive_decay-V09-04-14)
+---------------------------------
+- G4NuclearDecayChannel.cc: add initialisation of dynamicDaughter in
+  line 455 to avoid segmentation fault for some decays. 
+
+20 November 2011  V.Ivanchenko(radioactive_decay-V09-04-13)
+---------------------------------
+-- G4NuclearDecayChannel.cc: add check if deexcitation is enabled
+
+20 November 2011  V.Ivanchenko(radioactive_decay-V09-04-12)
+---------------------------------
+-- G4NuclearDecayChannel.cc:
+        - migration to the new design of atomic deexcitation,
+          activation of deexcitation via EM UI commands or
+          G4EmProcessOptions as it is shown in EM examples
+-- GNUmakefile and source.cmake - dependence on processes/cuts is added
+
+03 November 2011  Laurent Desorgher(radioactive_decay-V09-04-11)
+---------------------------------
+--G4NucleusLimits.cc:
+	-Suppress the Z<100 limit
+--G4RadioactiveDecay:
+	-Add the reading of Spontaneous Fission mode from data files
+--G4RadioactiveDecayMode:
+	-Add SpFission mode 
+
+18 October 2011 Laurent Desorgher(radioactive_decay-V09-04-10)
+---------------------------------
+--G4RadioactiveDecay:
+   -Add possibility for the user to load its own decay file.
+   -Set halflifethreshold negative by default to allow the tracking of all
+     excited nuclei resulting from a radioactive decay
+--G4RadioactiveDecayChannel:
+   -Correction to allow the atomic relaxation of de-excited nuclei produce
+     also during beta and alpha decay.  Problem ersaed and solution proposed
+     by Ko Abe 
+--G4RadioactiveDecayMessenger:
+   -Add macro commands  /grdm/setRadioactiveDecayFile and
+                        /grdm/setPhotoEvaporationFile
+
+26 September 2011  Dennis Wright  (radioactive_decay-V09-04-09)
+---------------------------------------------------------------
+- fix compiler bug in G4BetaDecayCorrections switch/case
+- change exception codes to HAD_RDM_00n
+
+15 September 2011  Dennis Wright  (radioactive_decay-V09-04-08)
+---------------------------------------------------------------
+- replace G4HadronicException with G4Exception.  Files affected:
+  G4RadioactiveDecay.cc, G4RIsotopeTable.cc
+
+15 September 2011  Dennis Wright  (radioactive_decay-V09-04-07)
+---------------------------------------------------------------
+- add G4BetaDecayType.hh, .cc and G4BetaDecayCorrections.hh, .cc names
+  to sources.cmake
+
+- upgrade to new G4Exception.  Files affected: G4RadioactiveDecay.cc,
+  G4NuclearDecayChannel.cc
+ 
+9 September 2011  Dennis Wright  (radioactive_decay-V09-04-06)
+--------------------------------------------------------------
+- G4RadioactiveDecay.cc: mistakenly removed H. Kurasige's local time fix
+  from tag -04.  Re-instate it here.
+   
+9 September 2011  Dennis Wright  (radioactive_decay-V09-04-05)
+--------------------------------------------------------------
+- G4RadioactiveDecay.hh, .cc: add new Fermi function and forbidden beta
+    decay spectral shapes
+- create G4BetaDecayType, an enum of beta transition types
+- create G4BetaDecayCorrections, a class containing new Fermi function and
+    forbidden transition calculations
+
+9 July 2011  Dennis Wright  (radioactive_decay-V09-04-04)
+---------------------------------------------------------
+- G4RadioactiveDecay.cc : add H. Kurasige's fix of local decay time
+  (bug report 1224)
+       
+5 June 2011  Dennis Wright  (radioactive_decay-V09-04-03)
+----------------------------------------------------------------
+- G4RadioactiveDecay.cc: set process subtype (fRadioactiveDecay = 211)
+
+1 June 2011  Michael Kelsey (SLAC) (radioactive_decay-V09-04-02)
+----------------------------------------------------------------
+- G4RadiactiveDecay:  Add data members and Set/Get functions to support
+  directional biasing ("collimation") of visible decay daughters (e+, e-,
+  gamma, neutron, and alphas, but not neutrinos or the residual nucleus).
+
+- G4RadiactiveDecaymessenger:  Add commands to interface with directional
+  biasing.
+
+31 May 2011  L.Desorgher (radioactive_decay-V09-04-01)
+------------------------------------------------------
+- Fixing to bug 1662 (remove of a warning).
+  Adding of a check for maximum shell number, in line 438-440 
+  of G4NuclearDecayChannel. 
+
+19 May 2011  Dennis Wright (SLAC) (radioactive_decay-V09-04-00)
+---------------------------------------------------------------
+- G4RadioactiveDecay.cc: fix gcc 4.6 warning: variable j set but not
+  used
+ 
+ 3 December 2010  Dennis Wright (SLAC) (radioactive_decay-V09-03-05)
+--------------------------------------------------------------------
+- G4NuclearDecayChannel: remove unused variables BetaSimple, FermiFN
+- G4RadioactiveDecay::LoadDecayTable(): initialize ModeTotalBR[] to 0.0
+- G4RadioactiveDecay::AddDecayRateTable(): delete theDecayTable to fix
+    memory leak
+- G4RadioactiveDecay::SetSourceTimeProfile(): fix array overrun, change
+    SBin[99], SProfile[99] to SBIN[100], SProfile[100]
+- G4RadioactiveDecay::SetDecayBias(): fix array overrun, change
+    DBin[99], DProfile[99] to DBIN[100], DProfile[100]
+- G4RadioactiveDecay::DecayIt(): to avoid possible dereferencing of 
+    zero ptr when in branching ratio bias mode, fill tempprods as if no 
+    biasing active
+
+- G4RadioactiveDecayRate ctor: initialize Z, A, E, generation and
+    verboseLevel to 0
+
+18 November 2010  F.Lei (radioactive_decay-V09-03-04)
+-----------------------------------------------------
+- src/G4RadioactiveDecay.cc:1593 get rid of the compalition warning with 
+  gcc4.5.1
+
+17 November 2010  F.Lei (radioactive_decay-V09-03-03)
+- Completed the implementation of generating the activity table in VR mode
+- Set the default h-l threshold to 1 micros in VR mode.
+- General improvement in VR mode implementation.  
+- G4RadioactiveDecaymessenger.cc: icmCMD,armCMD & hlThreshold are available
+  at all states. 
+
+11 November 2010  F.Lei
+- further updates to G4RadioactivityTable.hh .cc and G4RadioactiveDecay.hh .cc
+
+10 November 2010  Dennis Wright (radioactive_decay-V09-03-02)
+-------------------------------------------------------------
+- G4RadioactiveDecay.cc : replaced incorrect use of "->" with "." for G4Track
+  in DecayIt(const G4Track&, )
+
+- G4RadioactivityTable.cc : add include file for <map> and replace map
+  with std::map in method AddIsotope
+
+29 Oct 2010 F. Lei
+------------------
+- Added G4RadioactivityTable.hh .cc files for tallying the accumulated radioactivitties in VR mode
+- Added in G4RadioactiveDecay.hh:
+	std::vector<G4RadioactivityTable*> GetTheRadioactivityTables() {return theRadioactivityTables;}
+	// this is how the radioactivity tables can be retrieved by the user
+	std::vector<G4RadioactivityTable*>	theRadioactivityTables;
+	std::map<G4int,G4int>		  decayWindows;
+- In G4RadioactiveDecay.cc:
+	starting line 1291: changes need to setup the radioactivity tables
+	line 1624: include the track weight in the weight calculation
+	line 1627: add the rate to the radioactivity tables
+- improved formatting of all the class files
+	
+
+11 Oct 2010 F. Lei (radioactive_decay-V09-03-01)
+
+- G4RadioactiveDecay.cc: apply SetICM(), SetARM() & SetHLThreshold() in all decay modes
+- G4RadioactiveDecay.cc:  halflifethreshold = 0.*second;
+- G4RadioactiveDecaymessenger.cc: removed (>0.) restrictions to hlCMD
+- G4RadioactiveDecaymessenger.cc: icmCMD,armCMD & hlCMD are available at PreInit state only. 
+
+26 May 2010 Dennis Wright (radioactive_decay-V09-03-00)
+-------------------------------------------------------
+tag HEAD to submit for testing
+
+11 May 2010 F.Lei
+- G4RadioactiveDecay.cc::LoadDecayTable:line 931 create a decaytable for isomers not included in RDM database and assume 
+  they all under go IT decay.
+- G4RadioactiveDecay.cc: line 1434 after DoDecay() check if there is any secondary produced. Kill the track if not to 
+  prevent it entering a infinite loop
+- G4RadioactiveDecay.cc: line 1459. make sure the propertime is positive. negative case occures when the isomer is not in
+  RDM database and its f-l is set to -1 by default.  
+- G4NuclearDecayChannel.cc: Added initialisation to all three constructors: 
+  halflifethreshold = 1e-6*second;
+  applyICM = true;
+  applyARM = true;
+
+10 May 2010 F.Lei
+- G4RadioactiveDecay.hh:line 264 corrected typo as pointed out by Luciano Pandola
+- G4RadioactiveDecay.cc: insert a special treatment for K-40 beta decay at line 774 as suggested by Mauro Taiuti.
+  This fixes bug #1068
+  applied SetICM() SetARM() and SetHLThreshold() to a decay channel is created.
+- G4NuclearDecayChannel.cc: line 396. Limit the shell index to < 7, as required by the ARM.
+  line 329: change to use BreakUp rather than BreakItUp so to limit to one transition per step when ICM is applied (bug #1001)
+  (Note: changes have also been made in 30/08/2008 to use the correct atomic shell index and to conserve energy atfer ARM, 
+   these problems were pointed out by Andreas Zoglauer in the bug report).
+- G4RadioactiveDecay.hh & G4NuclearDecayChannel.hh: added private member data "applyICM" "applyARM" "halflifethresold" 
+  and their public Set methods SetICM(), SetARM() and SetHLThreshold().
+- G4RadioactiveDecaymessenger: added the UICommands for SetICM, SETARM and SetHLThreshold.
+
+24 July 2009 V.Ivanchenko (radioactive_decay-V09-02-00)
+- GNUmakefile - added dependence on electromagnetic/utils
+
+09 July 2008 Dennis Wright (radioactive_decay-V09-01-02)
+--------------------------------------------------------
+- replace exit() with G4Exception in G4RadioactiveDecay and G4NuclearDecayChannel
+
+17 June 2008 Fan Lei (radioactive_decay-V09-01-01)
+- GRIsotopeTable.cc
+	i) change default verbosity level to 1
+	ii) correct use G4cout instead of G4cerr  
+
+01 May 2008 Fan Lei (radioactive_decay-V09-01-00)
+- G4NuclearDecayChannel.cc
+	i) ARM is no longer applied in photon-evaporation for IT mode and 
+	is now applied at the end in DecayIt() 
+	ii) use the correct shell index in appling ARM and switch on Auger 
+	electron production
+        iii) check the residual kinetic energy after ARM and add it to the atom
+
+21 June 2007 Fan Lei (radioactive_decay-V08-03-00)
+- Minor changes to remove compilation warnings on Windows
+   src\G4RIsotopeTable.cc(204): warning C4804:
+  '-' : unsafe use of type 'bool' in operation
+   src\G4RadioactiveDecay.cc(690): warning C4804:
+  '-' : unsafe use of type 'bool' in operation
+
+10 November 2006 Fan Lei (radioactive_decay-V08-01-01)
+- G4NuclearDecayChannel.cc: added the capability of handling decay emission of proton or neutron 
+for decays of He5 (alpha+n) and Li5 (alpha+p). bug#852 
+
+5 July 2006 Dennis Wright (radioactive_decay-V08-01-00)
+- G4NuclearDecayChannel::BetaDecayIt() : another check for negative sqrt 
+  argument in daughtermomentum[1].
+
+29 May 2006 Dennis Wright (radioactive_decay-V08-00-03)
+   (tagging change by Fan Lei on 17 Feb 2006)
+-  G4RadioactiveDecay.cc : in method IsApplicable() add test for negative 
+   lifetime 
+
+16 February 2006 Vladimir Ivanchenko (radioactive_decay-V08-00-02)
+-  G4RadioactiveDecay::IsApplicable - fix problem connected with
+   8.0 particle design
+
+16 December 2005 Dennis Wright (radioactive_decay-V08-00-01)
+- G4NuclearDecayChannel::BetaDecayIt() : check for negative sqrt argument in
+  daughtermomentum[1]. Response to Bug report #822.
+
+24 November 2005 Dennis Wright (radioactive_decay-V07-01-02)
+- more <sstream> migration: replace istrstream with istringstream in
+   G4RIsotopeTable.cc, G4UIcmdWithNucleusLimits.cc
+
+24 November 2005 Dennis Wright (radioactive_decay-V07-01-01)
+- migrated two remaining files to <sstream>:
+   G4RIsotopeTable.cc, G4UIcmdWithNucleusLimits.cc
+
+09 November 2005 Gabriele Cosmo (radioactive_decay-V07-01-00)
+- Implemented migration to <sstream> from deprecated <strstream>.
+- Added changes for support of CLHEP-2.0.X.
+- Replaced usage of NULL with 0.
+
+02 June 2005 Fan Lei (radioactive_decay-V07-00-01)
+- Added lines 667-669 to G4NuclearDeceyChannel.cc, to avoid rounding erros
+  in cos calculations. A bug reported by Ben Morgan
+- Removed the test subdirectory
+
+07 Mar 2005 Fan Lei (radioactive_decay-V07-00-00)
+- Added line 457, G4NuclearDeceyChannel.cc to fix bug #711
+
+10 Nov 2004 Fan Lei (radioactive_decay-V06-02-01)
+- Added G4MshellECDecayChannel.hh and changed G4RadioactiveDecay.cc accordingly.
+
+09 Nov 2004 Fan Lei
+- Changes to G4RaioactiveDecay.cc (radioactive_decay-V06-02-00) 
+	i) better handling to incomplete data files; 
+	ii) correct treatment of metastables as initial tracks in VR mode; 
+  	iii) default decay window in VR model to 9.9x10^9 - 10^10 seconds; 
+	iv) individual time stamp for splitted isotope; 
+	v) bug fix #662; 
+	vi) bug fix #396.
+- Changes to G4NuclearDecayChannel.cc
+	i) apply atomic relaxation only to 5 < z < 101
+	ii) no more fast/slow beta decay mode with a faster 3-body decay implementation.
+- G4RIsotopeTable.cc: line 223, no longer reset the excitaion energy. 
+
+    
+12 Jun 2003 Gabriele Cosmo (radiative_decay-V05-01-00)
+- Fix in G4ITDecayChannel.hh and G4RadioactiveDecay.cc for porting
+  on Windows .NET compiler: changed signature in constructor for
+  G4ITDecayChannel to use G4Ions instead of G4ParticleDefinition.
+
+03 Jan 2003 Fan Lei
+- Bug (test18) fix in G4NuclearDecayChannel.cc
+
+15 Nov 2002 Fan Lei ((radiative_decay-V04-01-01)
+- Added linked to atomic relaxation model after EC and
+  IT/IC(internal conversion).
+- updated GNUMakefile to include electromagnetic/lowenergy/include
+- Updated the database
+
+13 Nov 2001 Fan Lei (radiative_decay-V03-02-03)
+- Minor bug fix
+
+26 Oct 2001 Fan Lei (radiative_decay-V03-02-02)
+- Removal of compilation warnings under gcc 2.95.2
+- Bug fixing for beta+ decay (wrong Q value was used)
+
+20 Apr 2001 Gabriele Cosmo (radiative_decay-V03-01-00)
+- Modified G4RadioactiveDecay.cc according to recent migration to STL vector
+  for the geometry domain (tag "geometry-V03-01-00").
+
+01 Nov 2000 Fan Lei (radiative_decay-V02-00-02)
+- Added the missing line " ee = e0+1.; " to line 763 in 
+  G4RadioactiveDecay.cc
+ 
+27th Oct 200   fan Lei  (radiative_decay-V02-00-01)
+- Add a fast simulation mode for beta decays
+
+25th Oct 2000  fan lei  (radiative_decay-V02-00-00)
+- Added 'const' to line 1185 of G4RadioactiveDecay.cc to cowork with 
+  tag Track-V02-00-00
+
+27th June 2000  Fan Lei  (radiative_decay-V01-01-04)
+- Fix for DEC-cxx debug non-ISO.
+- Update test log files.
+
+15th June 2000  Fan Lei (radiative_decay_V01-01-03)
+- Minor fix on Linux
+
+15th June 2000  Fan Lei (radiative_decay_V01-01-02)
+- ISO compliance.
+
+* Initial tag by Hans-Peter Wellisch (radiative_decay_V01-01-00)

@@ -1,0 +1,77 @@
+$Id: History 66892 2013-01-17 10:57:59Z gunter $
+-------------------------------------------------------------------
+
+     =========================================================
+     Geant4 - an Object-Oriented Toolkit for Simulation in HEP
+     =========================================================
+
+                      Category History file
+                      ---------------------
+This file should be used by G4 developers and category coordinators
+to briefly summarize all major modifications introduced in the code
+and keep track of all category-tags.
+It DOES NOT substitute the  CVS log-message one should put at every
+committal in the CVS repository !
+
+     ----------------------------------------------------------
+     * Reverse chronological order (last date on top), please *
+     ----------------------------------------------------------
+
+17 March 2011 G.Cosmo (em-V09-04-00)
+- Added "dna" module.
+
+19 November 2010 G.Cosmo
+- Added "pii" module.
+
+26 July 2009 V.Ivanchenko (em-V09-02-01)
+- Global tag for July developments including: emlowen-V09-02-45, 
+    emmuons-V09-02-05, emstand-V09-02-18, emutils-V09-02-15  
+
+16 May 2009 V.Ivanchenko (em-V09-02-00)
+- GNUmakefiles for unit tests are updated providing standard link to iAIDA 
+  or ROOT
+
+14 nov 08 G.Cosmo     
+- Added "adjoint" module.
+
+11 oct 01 mma (em-V03-02-01)
+- Global tag including: emlowen-V03-02-22  muons-V03-02-06  stand-V03-02-08
+                          utils-V03-02-07  xrays-V03-02-00  
+       
+05 oct 01 mma (em-V03-02-00)
+- the code in subdirectory integral is deleted.
+  the GNUmakefile is updated in accord with.
+       
+05 mar 01 mma (em-V03-00-04)
+- new subdirectory: integral
+  migration of all G4I.. processes from muons, standard, utils into integral
+     
+27 apr 00 mma  (em-V01-01-01)
+- G4endl (dec/iso)      
+     
+26 apr 00 mma  (em-V01-01-00)
+- all EnergyLoss classes renamed G4V... 
+  Most classes in standard and muons affected.
+- G4Muls moved in utils
+- bugs fixe in MuPairProduction  
+- cowork with geant4-01-01-ref-02
+     
+02 mar 00 mma  (em-V01-00-00)
+- new G4VEnergyLoss class and related structure
+- cowork with geant4-01-00-ref-06
+     
+10 nov 99 mma  (em-V00-01-03)
+- migration to STL: remove RWT hash dictionnary
+
+14th June 1999  John Allison (em-01-00-05b)
+- Muon corrections in G4MultipleScattering.cc, G4MuBremsstrahlung.cc
+  and G4MuPairProduction.cc by Laszlo Urban, Pedro Arce.
+  (Also in rocesses/photoleplon_hadron/src/G4MuNuclearInteraction.cc.)
+
+5th June 1999  John Allison
+- standard/GNUmakefile: Force non-optimised compliation of some
+  files on HP with aCC: HP ANSI C++ B3910B A.01.15.
+
+May 29, 1999: John Allison
+- Added electromagnetic/lowenergy to GNUmakefile and
+  electromagnetic/GNUmakefile..

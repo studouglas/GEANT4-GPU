@@ -1,0 +1,92 @@
+//
+// ********************************************************************
+// * License and Disclaimer                                           *
+// *                                                                  *
+// * The  Geant4 software  is  copyright of the Copyright Holders  of *
+// * the Geant4 Collaboration.  It is provided  under  the terms  and *
+// * conditions of the Geant4 Software License,  included in the file *
+// * LICENSE and available at  http://cern.ch/geant4/license .  These *
+// * include a list of copyright holders.                             *
+// *                                                                  *
+// * Neither the authors of this software system, nor their employing *
+// * institutes,nor the agencies providing financial support for this *
+// * work  make  any representation or  warranty, express or implied, *
+// * regarding  this  software system or assume any liability for its *
+// * use.  Please see the license in the file  LICENSE  and URL above *
+// * for the full disclaimer and the limitation of liability.         *
+// *                                                                  *
+// * This  code  implementation is the result of  the  scientific and *
+// * technical work of the GEANT4 collaboration.                      *
+// * By using,  copying,  modifying or  distributing the software (or *
+// * any work based  on the software)  you  agree  to acknowledge its *
+// * use  in  resulting  scientific  publications,  and indicate your *
+// * acceptance of all terms of the Geant4 Software license.          *
+// ********************************************************************
+//
+//
+// $Id: G4SmartVoxelHeader.icc 66356 2012-12-18 09:02:32Z gcosmo $
+//
+//
+// G4SmartVoxelHeader Inline implementation
+//
+// --------------------------------------------------------------------
+
+inline
+G4int G4SmartVoxelHeader::GetMaxEquivalentSliceNo() const
+{
+  return fmaxEquivalent;
+}
+
+inline
+void G4SmartVoxelHeader::SetMaxEquivalentSliceNo(G4int pMax)
+{
+  fmaxEquivalent=pMax;
+}
+
+inline
+G4int G4SmartVoxelHeader::GetMinEquivalentSliceNo() const
+{
+  return fminEquivalent;
+}
+
+inline
+void G4SmartVoxelHeader::SetMinEquivalentSliceNo(G4int pMin)
+{
+  fminEquivalent=pMin;
+}
+
+inline
+EAxis G4SmartVoxelHeader::GetAxis() const
+{
+  return faxis;
+}
+
+inline
+EAxis G4SmartVoxelHeader::GetParamAxis() const
+{
+  return fparamAxis;
+}
+
+inline
+G4double G4SmartVoxelHeader::GetMaxExtent() const
+{
+  return fmaxExtent;
+}
+
+inline
+G4double G4SmartVoxelHeader::GetMinExtent() const
+{
+  return fminExtent;
+}
+
+inline
+G4int G4SmartVoxelHeader::GetNoSlices() const
+{
+  return fslices.size();
+}
+
+inline
+G4SmartVoxelProxy* G4SmartVoxelHeader::GetSlice(G4int n) const
+{
+  return fslices[n];
+}

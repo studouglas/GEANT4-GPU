@@ -1,0 +1,196 @@
+$Id: History 78838 2014-01-28 08:46:17Z gcosmo $
+-------------------------------------------------------------------
+
+     =========================================================
+     Geant4 - an Object-Oriented Toolkit for Simulation in HEP
+     =========================================================
+
+                      Category History file
+                      ---------------------
+This file should be used by G4 developers and category coordinators
+to briefly summarize all major modifications introduced in the code
+and keep track of all category-tags.
+It DOES NOT substitute the  CVS log-message one should put at every
+committal in the CVS repository !
+
+     ----------------------------------------------------------
+     * Reverse chronological order (last date on top), please *
+     ----------------------------------------------------------
+
+History file for visualization/VRML sub-category
+------------------------------------------------
+
+10th December 2013  John Allison  (VRML-V10-00-00)
+- G4VRML1/2File.cc: Declared as G4VGraphicsSystem::fileWriter.
+
+15th November 2013  John Allison  (VRML-V09-06-05)
+- Some changes as suggested by PVS.
+
+7th November 2013  Gabriele Cosmo  (VRML-V09-06-04)
+- Replaced deprecated calls to solids accessor methods.
+
+29th January 2013  John Allison  (VRML-V09-06-03)
+- Revert to VRML-V09-06-00.
+
+14th January 2013  John Allison  (VRML-V09-06-01)
+- Coverity fixes.
+
+2nd December 2012  John Allison  (VRML-V09-06-00)
+- Remove NURBS.
+
+8th August 2012  John Allison  (VRML-V09-05-05)
+- G4VRML1/2SceneHandlerFunc.icc;
+  o Intercepted 2D primitives - JustWarning printed.
+
+5th July 2012  Gabriele Cosmo  (VRML-V09-05-04)
+- Explicitly use inclusion of headers for system of units and physical
+  constants, in plan to remove implicit inclusion from globals.hh.
+
+23rd May 2012  John Allison  (VRML-V09-05-03)
+- Health Check 2012: Migrated (see management/History):
+  o G4VRML1/2SCENEHANDLER::ClearTransientStore:
+    . Removed call to G4VSceneHandler::ClearTransientStore.
+
+28th March 2012  John Allison  (VRML-V09-05-02)
+- G4VRML1FileViewer.cc: Protect debug statement.
+
+28th February 2012  John Allison  (VRML-V09-05-01)
+- Migrated to G4VScenehandler::fObjectTransformation.
+
+13th January 2012  John Allison  (VRML-V09-05-00)
+- G4VRML1/2FileSceneHandler.cc
+  o Fixed Ubuntu warning about ignoring return value of system call.
+
+27th December 2010  John Allison  (VRML-V09-04-00)
+- Tagged.
+
+23, December L. Garnier 
+- GNUmakefile : Remove Qt stuff from Makefile
+
+11 November 2010  Akinori Kimura (VRML-V09-03-01)
+- Replaced G4cerr with G4cout and added the following line before G4cout.
+  if (G4VisManager::GetVerbosity() >= G4VisManager::errors)
+
+30th May 2010  John Allison (VRML-V09-03-00)
+- G4VRML[1/2][File}SceneHandler: Added AddCompound(const G4VDigi&).
+
+21st October 2009  John Allison  (VRML-V09-02-01 coworks greps-V09-02-02)
+- Added AddCompound (const G4THitsMap<G4double>&) methods.
+  o Prevents warnings about hiding - calls G4VSceneHandler base class.
+
+29 September 2009  John Allison (VRML-V09-02-00)
+- Tagged change of disclaimer on file headings (made long ago).
+
+12th June 2006  John Allison  (VRML-V08-00-02)
+- G4VRML1/2FileViewer.cc: Fixed rewind problem. ClearView closes and
+  re-opens file.
+- G4VRML1/2FileSceneHandler.cc: Proper terminator on exit:
+
+2nd June 2006  John Allison  (VRML-V08-00-01)
+- G4VRML2SceneHandlerFunc.icc: Protect zero model pointer.
+
+23rd January 2006  John Allison  (VRML-V08-00-00)
+- Rewind output file in G4VRML*FileViewer::ClearView.  Avoids
+  duplicate geometries in output file.
+
+27th May 2005  John Allison  (VRML-V07-00-00)
+- Fixed bug introduced in ClearTransientStore.
+
+19th April 2004  Gabriele Cosmo (VRML-V06-01-00)
+- Fixed typo in printout in G4VRML1FileSceneHandler.cc and
+  G4VRML2FileSceneHandler.cc.
+
+6th November 2003  John Allison  (vis-V05-02-03)
+- G4VRML2SceneHandlerFunc: changed const char* pv_name to G4String pv_name.
+
+4th October 2003  Gabriele Cosmo (vis-V05-02-01)
+- Simplified GNUmakefile.
+
+VRML-V05-00-00 17th February 2003 Satoshi Tanaka
+- A Small bug fixing of VRML2 driver
+ (Explicit cast from G4String to char*).
+
+VRML-V04-01-00 November 10 2002
+- Bug fixing for marker size (*.icc files)
+
+VRML-V03-02-01 18th September 2001  
+- Updation for automatic visualization at Hebden Bridge mini-workshop.
+- Filename incrementation is made the same as the DAWNFILE driver
+
+27th April 2000  Gabriele Cosmo
+- Removed unnecessary #include "G4Transform.hh".
+
+VRML-V01-00-00 27th December 1999  Satoshi Tanaka
+- G4endl ==> "\n" for fDest objects
+
+VRML-V00-01-01 4th November 1999  Satoshi Tanaka
+- Introduction of VRMLBeginModeling() for new vis commands
+
+VRML-00-03-07	Satoshi TANAKA	Dec 07, 1998  
+- An environmental variable "G4VRML_VIEWER" is renames to 
+  "G4VRMLFILE_VIEWER" for consistency.
+
+VRML-00-03-06	Satoshi TANAKA	Dec 04, 1998  
+- Maximun number of generated g4.wrl files in the destination
+  directory is customizable as: "setenv G4VRMLFILE_MAX_FILE_NUM  N"
+  (N is the integer greater than or equal to 1. The default value is 1.)
+
+VRML-00-03-04	Satoshi TANAKA	Dec 03, 1998  
+- Bug fix of SetPVPickability();
+
+VRML-00-03-03	Satoshi TANAKA	Nov 30, 1998  
+- Destination directiory of g4.wrl and g4_X.wrl is customizable 
+  with the environmental variable "G4VRMLFILE_DEST_DIR".
+
+  Unix:
+   % setenv G4VRMLFILE_DEST_DIR   directory_name/
+
+   For example, 
+
+   % setenv G4VRMLFILE_DEST_DIR   /tmp/
+
+   Do not forget to add "/" at the end of the directory name.
+
+  NT: 
+   DOS> set G4VRMLFILE_DEST_DIR   directory_name\
+
+   Do not forget to add "\" at the end of the directory name.
+
+- Minor change in policy of automatic incremation of output VRML file:
+
+  OLD way: g4.wrl, g4_2.wrl, .....           , g4_100.wrl
+  NEW way: g4.wrl, g4_1.wrl, g4_2.wrl, ..... , g4_100.wrl
+
+  Maximal number of files in one directory is restricted in order to 
+  avoid explosion of your hard disk. The maximal number is hard-coded.
+  You can revise is by editing enum's of G4VRML1FILEScene.hh and 
+  G4VRML2FILESchene.hh
+
+  Note that the incrementation is done as follows (pseudo codes)
+
+    filename = "g4.wrl" // initialization
+
+    while( filename already exists in the dest directory )
+    {
+	  increment filename
+    }
+
+  It means that if you delete file "g4.wrl" in the destination directory,
+  the file name in the next generation is still g4.wrl.
+
+  The JAVA application VRML/g4vrmlview/g4vrmlview.java 
+  for network visualization is also updated.
+
+
+VRML-00-03-02	Satoshi TANAKA	Nov 13, 1998  
+- Code refinement of VRML 2.0 driver
+- Pickability of Physical volume is controllable with 
+  setenv G4VRML_PV_PICKABLE  1/0
+- Nickname of VRML drivers are renames:
+  (Old names were, e.g., "VRML1File")
+
+  VRML1 file    : VRML1FILE
+  VRML1 network : VRML1
+
+  VRML2 file    : VRML2FILE
+  VRML1 network : VRML2

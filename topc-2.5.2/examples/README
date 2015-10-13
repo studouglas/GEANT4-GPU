@@ -1,0 +1,61 @@
+To run these examples, do:
+  cd ../bin
+Look at the Makefile, for examples of how to compile and run them.
+All of the TOP-C examples (not beginning with "seq") can be run
+with any of the TOP-C memory models (distributed, shared memory, sequential).
+
+All of these examples also compile as C++ programs using topc++ .
+To test it, do:  ( cd ../bin; make TOPCC=./topc++ checkall )
+
+Where there is a large buffer to be returned by TOPC_MSG(), the
+code illustrates techniques for using TOPC_MSG_PTR() instead of
+TOPC_MSG(), in order to save the cost of copying the buffer if
+invoked by TOPC_MSG().  This is purely for efficiency.  In such cases,
+it is always valid (and simpler) to replace TOPC_MSG_PTR() by TOPC_MSG(),
+and allocate its buffer argument as a local variable on the stack.
+
+In general, you can use ./topcc (in the ../bin dir) as a substitute for cc
+Try:  ./topcc --help
+for a synopsis.  To demo a specific program in all three memory models,
+Try:  make test TEST_FILE=gauss-elim      [or other file]
+
+The files here include:
+gauss-elim.c        - Gaussian elimination, example of use of TOP-C model
+                      for typical data parallel number crunching.
+		      Illustrates TOPC_MSG_PTR().
+gauss-elim-fine-grain.c - Version using TOPC_ATOMIC_READ/WRITE() for
+                      fine grain SMP parallelism.  Also uses TOPC_MSG_PTR().
+gauss-elim-redo.c   - Version using REDO to minimize communication at potential
+		      expense of more slave idle time.
+                      Also uses TOPC_MSG_PTR().
+
+par8queens-abort.c  - 8 queens problem, finds a single solution,
+                      example of use of TOP-C model for search,
+		      using TOPC_abort_tasks() and TOPC_is_abort_pending()
+		      to abort tasks of unsuccessful slaves.
+		      Illustrates TOPC_MSG_PTR().
+par8queens-raw.c    - 8 queens problem, finds all solutions,
+                      example of TOP-C raw interface, Useful in parallelizing
+                      software with nested loops 
+		      Illustrates TOPC_MSG_PTR().
+seq8queens.c        - 8 queens problem. This is the sequential (not TOP-C) code
+                      on which the TOP-C code is based
+
+parfactor.c         - Naive sieve factorization (Illustrates REDO)
+parfactor-raw.c     - Naive sieve factorization, example of TOP-C raw interface
+		      (Illustrates REDO)
+
+parquicksort-raw.c  - Quicksort, example of parallelizing recursive algorithms
+                      example of TOP-C raw interface
+		      Illustrates TOPC_MSG_PTR().
+parquicksort.c      - Quicksort, example of parallelizing recursive algori5thms
+                      without using raw interface
+		      Illustrates TOPC_MSG_PTR().
+seqquicksort.c      - Quicksort. This is the sequential (not TOP-C) code
+                      on which the TOP-C code is based
+
+parsimple.c         - Simple example from the manual,
+                      Generates many random numbers in first phase
+                      and finds maximum integer in second phase,
+                      example of multiple calls to TOPC_master_slave()
+                      in one session and large messages (> 1 MB)

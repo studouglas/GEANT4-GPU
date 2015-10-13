@@ -1,0 +1,190 @@
+$Id: History 88923 2015-03-16 13:58:51Z gcosmo $
+-------------------------------------------------------------------
+
+     =========================================================
+     Geant4 - an Object-Oriented Toolkit for Simulation in HEP
+     =========================================================
+
+                      Category History file
+                      ---------------------
+This file should be used by G4 developers and category coordinators
+to briefly summarize all major modifications introduced in the code
+and keep track of all category-tags.
+It DOES NOT substitute the  CVS log-message one should put at every
+committal in the CVS repository !
+
+     ----------------------------------------------------------
+     * Reverse chronological order (last date on top), please *
+     ----------------------------------------------------------
+
+Mar 10th, 2015 Gabriele Cosmo (procbiasing-V10-00-00)
+- G4ImportanceProcess, G4WeightCutOffProcess, G4WeightWindowProcess: made
+  static thread-local variables into class data members.
+  Renamed them accordingly: fEndTrack, feLimited, fParaflag.
+  Use const reference for string in argument in SetParallelWorld().
+
+Nov 30th, 2013 Alex Howard (procbiasing-V09-06-18)
+    - Moved static methods in the initialiser to the body for G4GeometrySampler
+      and G4ImportanceConfigurator
+
+Nov 30th, 2013 Alex Howard (procbiasing-V09-06-17)
+    - Fixed coverity errors (uninitialised variables), 
+      EXCEPT for fGhostStep in G4ImportanceProcess, G4WeightWindowProcess
+      and G4WeightCutOffProcess
+
+Nov 29th, 2013 Alex Howard (procbiasing-V09-06-16)
+    - Put back RemoveProcess for both G4WeightWindowConfigurator and 
+      G4ImportanceConfigurator - makes test33 work.
+
+Nov 28th, 2013 Marc Verderi (procbiasing-V09-06-15)
+    - include license/disclaimer in headers in generic and management
+    - include comments and description
+    - change G4cout in G4Exception when appropriate
+
+Nov 28th, 2013 Alex Howard (procbiasing-V09-06-14)
+    - Put back RemoveProcess for G4WeightCutOffConfigurator since it is not
+      associated with a store singleton.
+
+Nov 26th, 2013 Alex Howard (procbiasing-V09-06-13)
+    - Fixing history file for actual tag names - which have probiasing instead
+      of procbiasing!!
+
+Nov 24th, 2013 Alex Howard (procbiasing-V09-06-12)
+    - Fixed segmentation fault in mass only case (deleted non-existent objects)
+
+Nov 24th, 2013 Alex Howard (probiasing-V09-06-11)
+    - Fixed segmentation fault at the end of an MT run
+    - caused by deleting fGhostStep in the destructor
+    - removed RemoveProcess from the destructor (ClearSampling) of configurators
+    - also caused an out of range index with MT
+
+Nov 22nd, 2013 Alex Howard (probiasing-V09-06-10)
+    - Included guard for single threaded backward compatability
+    - except for singleton instantiation
+
+Nov 22nd, 2013 Alex Howard (probiasing-V09-06-09 also procbiasing-V09-06-09)
+    - Migration of WeightWindow importance biasing to MT
+
+Nov 22nd, 2013 Alex Howard (probiasing-V09-06-08)
+    - Migration of geometrical importance biasing to MT
+    - moved G4VProcessPlacer and G4ProcessPlacer to management (from importance)
+
+Nov 9th, 2013 Andrea Dotti (probiasing-V09-06-07)
+    - Bug fixing for unused data members identified by clang 3.2
+
+Nov 8th, 2013 Marc Verderi (probiasing-V09-06-06)
+    - Migration to MT
+    - Adding force collision operator G4BOptrForceCollision and related classes
+
+Nov 6th, 2013 Marc Verderi (probiasing-V09-06-05)
+    - Introduce physics list configuration helper G4BiasingHelper
+    - Introduce cross section change operation G4BOptnChangeCrossSection
+
+Nov 5th, 2013 Marc Verderi (probiasing-V09-06-04)
+    - fix compilation warnings in G4BiasingProcessInterface.hh
+      for unused fWrappedProcessIsAtRest and fWrappedProcessIsPost
+    - fix warning on windows in G4VBiasingOperation.cc constructor
+    - fix error on void G4VBiasingOperator::ForgetTrack which
+      was returning a value.
+
+Nov 5th, 2013 Marc Verderi (probiasing-V09-06-03)
+- add classes to generic and management to unblock other dev in process:
+  - generic:
+	G4BiasingProcessInterface
+	G4InteractionLawPhysical
+	G4ParticleChangeForNothing
+	G4ParticleChangeForOccurenceBiasing
+  - management:
+	G4BiasingAppliedCase
+	G4BiasingOperationManager
+	G4BiasingTrackData
+	G4BiasingTrackDataStore
+	G4VBiasingInteractionLaw
+	G4VBiasingOperation
+	G4VBiasingOperator
+
+Oct 9th, 2013 Alex Howard (procbiasing-V09-06-02)
+- fixed sources.cmake for looking for non-existent files
+
+Oct 9th, 2013 Alex Howard (procbiasing-V09-06-01)
+- Added cmake and gnumake and sources.cmake files to new directory structure
+
+Oct 9th, 2013 Alex Howard (procbiasing-V09-06-00)
+- Re-ordered directory structure for generic physics biasing
+
+June 7th, 2012 Gabriele Cosmo (procbiasing-V09-05-00)
+- Fixed spurious cases of hidden variable visibility, detected with
+  '-Wshadow' compilation option on gcc compiler.
+
+Oct 21st, 2011 Alex Howard (procbiasing-V09-04-01)
+- G4ProcessPlacer: Migrated to new G4Exception
+
+May 30th, 2011 Alex Howard (procbiasing-V09-04-00)
+- G4ProcessPlacer: Using SetProcessOrderingToSecond for biasing process, and 
+leaving transportation where it is (hopefully first). Previously biasing was 
+moved first, then transportation moved back to first.
+
+June 2nd, 2010 Gabriele Cosmo (procbiasing-V09-03-00)
+- G4WeightWindowProcess: corrected call to G4WeightWindowStore::GetLowerWeight()
+  after correction of mispelling in name...
+- Requires tag geombias-V09-03-00.
+
+April 22nd, 2008 Alex Howard (procbiasing-V09-01-02)
+- Removed G4CellFinder and associated dependency in G4WeigthCutOffProcess and 
+  G4WeightCutOffConfigurator- was a hang-up from previous implementation 
+  which was erroneously left in the G4WeightCutOffProcess.
+  This meant the WeightCutOff could only work in a MASS geometry 
+  (by coincidence between the ImportanceBiasing and the GeometryCells).
+
+April 21st, 2008 Alex Howard (procbiasing-V09-01-01)
+- mis-tagged - please ignore
+
+April 21st, 2008 Alex Howard (procbiasing-V09-01-00)
+- Tag of the HEAD which includes scoring for backwards compatibility
+
+October 31st, 2007 Alex Howard (procbiasing-V09-00-00)
+- Fixed G4ProcessPlacer.cc to put biasing process second for AlongStep
+  as well as PostStep - a bug which would feature for charged particles.
+- Added print out for AlongStep process vector to avoid confusion
+
+June 22nd, 2007 Alex Howard (procbiasing-V08-03-08)
+- Added missing member function to G4VSampler base class
+
+June 12th, 2007 Alex Howard (procbiasing-V08-03-05)
+- Added CoupledTransportation name to G4ProcessPlacer
+
+June 1st, 2007 Alex Howard (procbiasing-V08-03-04)
+- Added missing source file G4VProcessPlacer.cc previously resident in
+  processes/transportation
+- Removed scoring inheritance in G4VSampler
+- HEAD maintains inheritance for backward comparisons/testing
+
+June 1st, 2007 Alex Howard (procbiasing-V08-03-03)
+- Renamed New classes back to normal classes, simultaneously 
+  processes/transportation old biasing classes renamed with 
+  suffix 8 to avoid clashes.
+- includes modified G4GeometrySampler (without scoring)
+- HEAD contains un-modifier G4GeometrySampler and depends on old scoring scheme
+  in geometry/biasing.
+
+May 31st, 2007 Alex Howard (procbiasing-V08-03-02)
+- removed dependency on old biasing within transportation and on old scoring
+  within geometry
+- G4GeometrySampler is modified to remove scoring dependency
+- HEAD of G4GeometrySampler is the old file
+- HEAD contains a different version of G4GeometrySampler that includes the old
+  biasing scoring for the purpose of testing
+
+May 30th, 2007 Alex Howard (procbiasing-V08-03-01)
+- added missing includes to GNUmakefile
+
+May 30th, 2007 Alex Howard (procbiasing-V08-03-00)
+- migrated classes and tests from processes/scoring
+
+May 25th, 2007 Jane Tinslay
+- Add tests for physics biasing under test/physics_biasing
+
+March 21st, 2007  G.Cosmo
+- Module and history file created.
+
+

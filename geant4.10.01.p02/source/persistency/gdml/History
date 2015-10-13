@@ -1,0 +1,640 @@
+$Id: History 90766 2015-06-09 10:13:41Z gcosmo $
+-------------------------------------------------------------------
+
+     =========================================================
+     Geant4 - an Object-Oriented Toolkit for Simulation in HEP
+     =========================================================
+
+                      Category History file
+                      ---------------------
+This file should be used by G4 developers and category coordinators
+to briefly summarize all major modifications introduced in the code
+and keep track of all category-tags.
+It DOES NOT substitute the  CVS log-message one should put at every
+committal in the CVS repository !
+
+     ----------------------------------------------------------
+     * Reverse chronological order (last date on top), please *
+     ----------------------------------------------------------
+
+30 April 2015 Gabriele Cosmo (gdml-V10-00-12)
+- Fixed non-initialised boolean flag in G4GDMLRead, reported by Coverity.
+
+20 April 2015 Gabriele Cosmo
+- Corrected parsing of shape type-ID for MultiUnion in G4GDMLWriteSolids.
+
+16 April 2015 Gabriele Cosmo
+- Improved text in G4Exception for failed import of file in G4GDMLRead.
+
+13 April 2015 Witek Pokorski
+- Correction for optional stripping of world-volume.
+
+9 April 2015 Gabriele Cosmo
+- Added "dichroic" surface model for optical property, consistent with
+  addition done in release 10.0.
+
+27 March 2015 Gabriele Cosmo
+- Avoid use of standard evaluator for import of units; adopt G4UnitsTable
+  instead, in order to avoid loss of precision due to unit's conversion.
+
+24 November 2014 Gabriele Cosmo (gdml-V10-00-11)
+- Fixed typo in G4GDMLWriteSolids::BooleanWrite() for the case of repeated
+  displacements of the reference solid in the same Boolean operation (issue
+  reported by ATLAS).
+
+18 November 2014 Gabriele Cosmo (gdml-V10-00-10)
+- Issue exception when attempting to load multi-union structures
+  without USolids.
+
+11 November 2014 Makoto Asai (gdml-V10-00-09)
+- G4GDMLMessenger: /persistency/gdml/clear now invokes G4RunManager to
+  cleanly delete entire geometry.
+
+10 November 2014 Witold Pokorski (gdml-V10-00-08)
+- Correction to G4GDMLReadMaterials::MixtureRead() to revert order of
+  reading (first elements then materials) for mixtures by fraction;
+  corrects referencing for cases when elements and materials may carry
+  the same name (case reported by ATLAS).
+
+29 October 2014 Gabriele Cosmo (gdml-V10-00-07)
+- Moved USolids module from geometry/solids to externals.
+
+18 July 2014 Gabriele Cosmo (gdml-V10-00-06)
+- Added implementation for import/export of Multi-Union (G4MultiUnion)
+  structures.
+  Requiring updated GDML schema for multiUnionNode entity (GDML version 3.1.1).
+- Updated internal schema to reflect new GDML schema release 3.1.1, for
+  updated gdml_solids.xsd module.
+
+21 May 2014 Gabriele Cosmo (gdml-V10-00-05)
+- Added better description to fatal exception in case document content
+  imported happens to be empty in G4GDMLRead::Read().
+
+20 May 2014 Gabriele Cosmo (gdml-V10-00-04)
+- Correction to G4GDMLRead::Read() for the case when schema validation
+  is turned off, to disable initialisation of validation machinery in the
+  parser and allow for standalone parsing off-network.
+
+15 May 2014 Gabriele Cosmo (gdml-V10-00-03)
+- Corrected minor Coverity defect in G4GDMLParser for uninitialised
+  'strip' flag in constructors.
+- Corrected potential memory leak in G4GDMLReadSolids.
+
+11 April 2014 Gabriele Cosmo (gdml-V10-00-02)
+- Corrected dump of 'phi' and 'theta' for G4Trap and G4Para in writer.
+  Addressing problem report #1602.
+
+10 April 2014 Gabriele Cosmo (gdml-V10-00-01)
+- Get rid of deprecated 'register' storage class specifier in source files.
+
+13 March 2014 Gabriele Cosmo (gdml-V10-00-00)
+- Added comparison operator for 3-vector key in 'vertexMap' in
+  G4GDMLWriteSolids for export of tessellated solid.
+  Addressing problem report #1573.
+
+29 November 2013 Tatiana Nikitina (gdml-V09-06-09)
+- Fixed GDML schema for spurious validation errors on last changes introduced
+  for parameterisation of polycone and polyhedra and multi-union.
+- Fixed typo in G4GDMLReadParamvol and some code cleanup.
+
+23 November 2013 Gabriele Cosmo (gdml-V09-06-08)
+- Fixed compilation warnings on SLC5/gcc-4.1.
+
+22 November 2013 Tatiana Nikitina (gdml-V09-06-07)
+- Added support for parameterisation of polycone and polyhedra in GDML schema.
+  Extended related classes accordingly in reader and writer.
+- Added warning in reader for multi-union structure not yet supported.
+
+7 November 2013 Gabriele Cosmo (gdml-V09-06-06)
+- Replaced deprecated calls to G4Sphere accessor methods.
+
+29 October 2013 Tatiana Nikitina
+- Added 'generic' Polycone and Polyhedra to GDML Reader and Writer.
+  Splitted definition of Polycone to ordinary and generic.
+- Added parameterisation for Ellipsoid to readear/writer and schema.
+- Added MultiUnion solid and 'generic' Polycone and Polyhedra to the schema
+  GDML schema updated to version 3.1.0.
+- Fix in G4GDMLReadParamvol::ParametersRead() for reading parameterised
+  Sphere, Orb, Torus and Para.
+
+27 August 2013 Gabriele Cosmo (gdml-V09-06-05, gdml-V09-06-04)
+- Added G4Ellipsoid among solids enabled for parameterisation in
+  G4GDMLParameterisation.
+
+5 June 2013 Gabriele Cosmo (gdml-V09-06-03)
+- Replaced use of 'pascal' with 'hep_pascal' to avoid conflicts on Windows.
+
+10 April 2013 Gabriele Cosmo (gdml-V09-06-02)
+- Removed TLS changes in G4GDMLWrite as not necessary.
+
+26 February 2013 Gabriele Cosmo (gdml-V09-06-01)
+- Removed unused data member in G4STRead.
+- Cleanup of MT changes in G4GDMLWrite.
+
+25 October 2012 Gabriele Cosmo (gdml-V09-05-05)
+- Added inclusion of headers to G4STRead.cc to make it self consistent.
+
+18 July 2012 Witek Pokorski (gdml-V09-05-04)
+- Corrected handling of constant material properties.
+
+5 July 2012 - Gabriele Cosmo (gdml-V09-05-03)
+- Explicitly use inclusion of headers for system of units and physical
+  constants, in plan to remove implicit inclusion from globals.hh.
+
+30 May 2012 - Gabriele Cosmo (gdml-V09-05-02)
+- Fixed typo introduced in previous tag...
+
+25 May 2012 - Gabriele Cosmo (gdml-V09-05-01)
+- Fixed trivial cases of variable shadowing.
+
+20 March 2012 Witek Pokorski (gdml-V09-05-00, gdml-V09-04-11)
+- Bug fix in material properties.
+
+23 November 2011 Gabriele Cosmo (gdml-V09-04-10)
+- Additional fix on G4EllipticalTube, to not consider units in import for
+  semi-axes ratios.
+
+23 November 2011 Gabriele Cosmo (gdml-V09-04-09)
+- Same fix for G4TessellatedSolid and G4Tet, to consider units in import
+  for vertices.
+
+23 November 2011 Gabriele Cosmo (gdml-V09-04-08)
+- Fix in reader for G4GenericTrap shape to consider units in import for
+  vertices.
+
+1 November 2011 Tatiana Nikitina (gdml-V09-04-07)
+- Extended reader and writer to support new shape G4CutTubs.
+
+14 October 2011 Peter Gumplinger (gdml-V09-04-06)
+- Completed migration to work with tag "materials-V09-04-15" also for writer.
+
+13 October 2011 Peter Gumplinger (gdml-V09-04-05)
+- Modify to comply with modifications in tag "materials-V09-04-14".
+
+27 September 2010 Anton Pytel (gdml-V09-04-04)
+- Extended GDML schema for materials to include ionisation potential (mean
+  excitation energy) property to materials (GDML-3.0.1). Adapted reader and
+  writer plugins accordingly.
+
+23 May 2010 Gabriele Cosmo (gdml-V09-04-03)
+- G4GDMLWriteMaterials: avoid dereferencing of null pointer in PropertyWrite()
+  for materials without property assigned; issue a warning message.
+  Addressing problem report #1214.
+
+13 May 2011 Gabriele Cosmo (gdml-V09-04-02)
+- Fixed compilation warnings from gcc-4.6.0 for variables set but not used.
+
+5 May 2010 Gabriele Cosmo (gdml-V09-04-01)
+- Make use of G4Evaluator typedef for evaluator instance.
+
+10 Jan 2010 Ivana Hrivnakova (gdml-V09-04-00)
+- Correction in G4GDMLWriteMaterials::MaterialWrite() to properly treat
+  export of materials with single element defined as isotope composition.
+
+30 Nov 2010 Gabriele Cosmo (gdml-V09-03-10)
+- Fixed ambiguity in signature of Write() method in G4GDMLParser.
+
+17 Nov 2010 Gabriele Cosmo (gdml-V09-03-09)
+- Added possibility to de-activate/activate names stripping when reading files,
+  by invoking a new method G4GDMLParser::SetStripFlag(bool) before importing
+  the GDML file. Stripping is activated by default.
+- Corrected initialization of messenger for all constructors of G4GDMLParser.
+
+04 Nov 2010 Gabriele Cosmo (gdml-V09-03-08)
+- Fixed compilation warning on G4GDMLEvaluator.
+
+02 Nov 2010 Gabriele Cosmo (gdml-V09-03-07)
+- Fixed minor left Coverity reports.
+- Some code cleanup and updated CMake scripts.
+
+25 Oct 2010 Witold Pokorski
+- New class G4GDMLMessenger instantiated with G4GDMLParser and defining
+  UI commands for importing and exporting GDML files, through the various
+  options the parser provides.
+- Corrected GetWorldVolume() in G4GDMLReadStructure, to make use of structure
+  stored in memory in case geometry is already imported.
+
+14 Oct 2010 Gabriele Cosmo (gdml-V09-03-06)
+- Fixed dummy initialisation of members in constructors in classes
+  G4GDMLParameterisation, G4GDMLReadParamvol, G4GDMLReadStructure,
+  G4GDMLWrite, G4GDMLWriteDefine, G4GDMLWriteMaterials, G4GDMLWriteSolids.
+- Added exceptions asserting validity of dynamic casted pointers.
+
+11 Oct 2010 Witold Pokorski (gdml-V09-03-05)
+- Added GetAuxMap() method to G4GDMLParser and removed 'const' qualifier to
+  types in internal map of logical-volumes. Changed value type to 'string' in
+  G4GDMLAuxPairType to avoid extra type evaluation while parsing.
+
+19 Aug 2010 Gabriele Cosmo (gdml-V09-03-04)
+- Fixed printout of unit in G4GDMLWriteStructure for replicas and divisions,
+  in the case of angles.
+
+02 Jun 2010 Gabriele Cosmo (gdml-V09-03-03)
+- Added G4GenericTrap among the set of supported solids in both reader and
+  writer, treating as 'arb8' GDML type.
+
+20 May 2010 Gabriele Cosmo (gdml-V09-03-02)
+- Corrected dump of division axis in writer.
+
+18 Feb 2010 Gabriele Cosmo (gdml-V09-03-01)
+- Added missing reference attribute in G4GDMLWriteMaterials for dumping
+  of materials property vectors. Increased string buffer in G4GDMLWrite.
+  Addressing problem report #1104.
+- Corrected import of surface properties in G4GDMLReadSolids for the case
+  of recursive read of files.
+
+17 Feb 2010 Gabriele Cosmo (gdml-V09-03-00)
+- Added IsValid() method to parser to verify if variable/constant/quantity
+  is defined and is valid. Added const qualifier to reader accessors in parser.
+
+04 Dec 2009 Gabriele Cosmo (gdml-V09-02-18)
+- Updated list of optical properties in G4GDMLReadSolid according to
+  last changes to G4OpticalSurface and G4SurfaceProperty.
+
+14 Oct 2009 Gabriele Cosmo (gdml-V09-02-17)
+- Added support for GDML 'expression' tag, implementing generic expressions
+  stored as literal constants.
+- Corrected handling of 'quantity' tag; added missing caching of evaluation. 
+
+24 Sep 2009 Gabriele Cosmo (gdml-V09-02-16)
+- Added support for the GDML 'assembly' tag, implementing assemblies of
+  simple placements through G4AssemblyVolume.
+
+12 May 2009 Gabriele Cosmo (gdml-V09-02-15)
+- Restricted usage of loops only for placement of volumes. Now correctly
+  handling most common use-case of multiple copies of the same volume/solid
+  through loop statement. Addressing problem report #1063.
+
+11 May 2009 Gabriele Cosmo (gdml-V09-02-14)
+- Allow for name stripping of volumes which are included in loops; do not
+  store appended internal counter reference.
+
+27 April 2009 Gabriele Cosmo (gdml-V09-02-13)
+- Get rid of unused parameter in G4GDMLWriteMaterials::PropertyVectorWrite().
+
+24 April 2009 Gabriele Cosmo (gdml-V09-02-12)
+- Some code cleanup: rationalised inclusion of headers, replacing them
+  with forward declarations where possible.
+
+24 April 2009 Gabriele Cosmo (gdml-V09-02-11)
+- Allow for reading/writing of constant material properties.
+- Implemented ability to write surface properties associated to volumes
+  and material properties.
+
+17 April 2009 Gabriele Cosmo (gdml-V09-02-10)
+- Defined missing copy constructor and operator=() to G4GDMLMatrix
+  internal class, to avoid cases of memory corruption when handling matrices.
+
+15 April 2009 Gabriele Cosmo (gdml-V09-02-09)
+- Completed virtual layer for allowing customisation of the writer for
+  user-extended schemas.
+
+09 April 2009 Gabriele Cosmo (gdml-V09-02-08)
+- Correction in G4GDMLWriteSolids::BooleanWrite() in order to handle
+  cases of nested displaced solids given to both operands in a Boolean
+  operation (ATLAS use case).
+- Renamed flag for maximum number of transformations applied to a solid
+  and moved to G4GDMLWriteSolids base class.
+- First virtual layer for custom writer classes G4GDMLWriteSolids and
+  G4GDMLWriteStructure.
+
+03 April 2009 Tatiana Nikitina (gdml-V09-02-07)
+- Correction in materials and solids tags for allowing parsing of
+  definitions within the tag scope; possibility foreseen by the schema.
+
+24 March 2009 Gabriele Cosmo (gdml-V09-02-06)
+- Added empty default constructor and virtual destructor to classes in the
+  inheritance chain.
+
+02 March 2009 Gabriele Cosmo (gdml-V09-02-05)
+- Fixed association of entities in nested loops for solids and materials.
+  Definitions of materials are not supposed to be included in loops being
+  therefore repeated...
+- Strip off white spaces from names G4GDMLWrite::GenerateName(), to avoid
+  parsing problems in imported files.
+
+26 February 2009 Tatiana Nikitina (gdml-V09-02-04)
+- Corrected treatment of brackets and indeces for matrices in G4GDMLEvaluator.
+  Fixes problem report #1048.
+
+24 February 2009 Gabriele Cosmo (gdml-V09-02-03)
+- Removed useless 'const' qualifier from GetAuxMap() signature.
+
+19 February 2009 Gabriele Cosmo (gdml-V09-02-02)
+- Fix in G4GDMLStructure class for missing caching of auxiliary information
+  from child modules, causing auxiliary information defined within separated
+  modules to get lost and therefore not assigned to volumes.
+  Fixes problem report #1049.
+
+23 January 2009 Gabriele Cosmo (gdml-V09-02-01)
+- Changed post-fix"_refl" to "_PV" for placements made through the
+  reflection-factory.
+
+22 January 2009 Gabriele Cosmo (gdml-V09-02-00)
+- Added possibility to check overlaps by activating/de-activating the
+  built-in surface check for placement and parameterised volumes.
+  By default the overlap check is off. To activate it, use call to the
+  parser 'SetOverlapCheck(true)' before reading the GDML file.
+
+4 December 2008 Gabriele Cosmo (gdml-V09-01-21)
+- Updated default GDML schema location in G4GDMLParser to point to new
+  GDML schema.
+
+21 November 2008 Tatiana Nikitina (gdml-V09-01-20)
+- Updated schema to include new features introduced in reader/writer plugin.
+
+21 November 2008 Gabriele Cosmo (gdml-V09-01-19)
+- Added missing solid Elliptical-Cone to reader and writer.
+
+20 November 2008 Gabriele Cosmo (gdml-V09-01-18)
+- Implemented mechanism for importing GDML descriptions with extensions
+  to the GDML schema, identified by a new tag "extension".
+- Added implementation .cc file for G4GDMLParser.
+
+17 November 2008 Gabriele Cosmo (gdml-V09-01-17)
+- Get rid of module-name pre-pended to entity names.
+- Added StripNamePointers() method to G4GDMLParser, utility to be invoked in
+  the user-code to strip off pointers from entity names in a GDML modular setup
+  after loading all modules.
+
+14 November 2008 Gabriele Cosmo (gdml-V09-01-16)
+- Enhanced name stripping in G4GDMLRead, to remove also additional IDs
+  prepended to the original name of entities in the case of modular GDML files.
+
+13 November 2008 Gabriele Cosmo (gdml-V09-01-15)
+- Added support for new serializer API as introduced in Xerces-3.0.0.
+- Cleared compilation warnings on Intel-icc compiler.
+
+22 August 2008 Tatiana Nikitina (gdml-V09-01-14)
+- G4GDMLReadStructure: added methods ReplicaRead(), AxisRead(), QuantityRead()
+  and introduced corrections in order to read replica volumes conforming to the
+  GDML Schema. Added possibility to read/write replication for Rho and Phi axes.
+- G4GDMLWriteStructure: introduced corrections in order to write replica
+  volumes conforming to the GDML Schema.
+
+20 August 2008 Gabriele Cosmo (gdml-V09-01-13)
+- G4GDMLParser: added argument to Write() for specify if appending or not
+  reference pointer to generated names. Default is TRUE.
+- G4GDMLRead: implemented filtering of names to remove from entity names
+  appended reference pointer which may have been generated. Simplified
+  name generated for physical-volumes to only append "_PV" to its logical
+  volume name.
+- Removed wherever applicable additional strings appended to names.
+
+18 August 2008 Gabriele Cosmo (gdml-V09-01-12)
+- G4GDMLWriteSolids: fixes in naming convention for solids; added specification
+  of units where missing. Introduced parsing of vertices for tessellated solids
+  to avoid duplication in writing.
+
+29 July 2008 Tatiana Nikitina
+- Fixes to parameterisation read and write to match the schema.
+
+24 July 2008 Tatiana Nikitina
+- Added to reader the possibility to have a reference to position and rotation
+  for Boolean solids, as it was possible in GDML_2_10_0.
+
+24 July 2008 Tatiana Nikitina
+- Fixes in reading/writing G4TwistedTrap shapes.
+ 
+22 July 2008 Tatiana Nikitina
+- Added G4Paraboloid to list of supported solids for reader and writer.
+
+16 July 2008 Gabriele Cosmo (gdml-V09-01-11)
+- Renamed internal methods wherever needed to match code policy and having
+  them starting with capital letter.
+
+15 July 2008 Gabriele Cosmo (gdml-V09-01-10)
+- Code review, formatting and adoption of canonical form for calls to
+  G4Exception. Usage of std:: namespace for calls to standard mathematical
+  functions.
+- Added class G4STRead, copy of the original class implemented by Z.Torzsok.
+- Corrected compilation error on Windows/VC++8 compiler for incorrect
+  signature of method in base class.
+
+3 July 2008 Gabriele Cosmo (gdml-V09-01-09)
+- Corrected bugs introduced in last commits for modularization of files;
+  Restored original use of maps.
+- Corrected syntax for parser writer to (optionally) take a pointer to the
+  top physical-volume instead of the logical volume.
+
+25 June 2008 Zoltan Torzsok (gdml-V09-01-08)
+- Units are set according to CLHEP units in G4GDMLEvaluator.
+
+23 June 2008 Zoltan Torzsok
+- Optimised string handling. Schema location can be set in the writer.
+
+20 June 2008 Zoltan Torzsok (gdml-V09-01-07)
+- Set correct URL for schema for 'noNamespaceSchemaLocation' parameter.
+
+17 June 2008 Zoltan Torzsok
+- Added schema validation.
+- Added schema definition files.
+
+10 June 2008 Zoltan Torzsok (gdml-V09-01-06)
+- Modularization can be done either by physvol/depth/mixed.
+  Volume auxiliary information is requested by pointer instead of by name.
+
+9 June 2008 Zoltan Torzsok
+- Naming convention can be configured in the writer.
+
+5 June 2008 Zoltan Torzsok
+- Module name is optional now. If no name is specified,
+  the logical volume name will be the filename.
+
+2 June 2008 Zoltan Torzsok (gdml-V09-01-05)
+- Writer checks if the file to be created does already exist.
+- Added GetVolume() function.
+
+29 May 2008 Zoltan Torzsok
+- Added support for writing modular files.
+
+28 May 2008 Zoltan Torzsok
+- Only the referenced materials/elements/isotopes are written out, not the
+  whole material/element/isotope store.
+- Assigned the name to world physical volume.
+
+27 May 2008 Zoltan Torzsok
+- Optimized/simplified writing of structure: no array required for sorting.
+- Only the referenced solids are written out, not the whole solid store.
+
+23 May 2008 Zoltan Torzsok
+- Writer: precision is now considered in case of scale, rotation and position
+  of the physical-volume. DBL_EPSILON is used to filter precision for avoiding
+  unnecessary scaling, rotation or positioning.
+
+6 May 2008 Zoltan Torzsok (gdml-V09-01-04)
+- Added a constant limiting the maximum number of reflections/displacements of a single solid
+
+21 April 2008 Zoltan Torzsok
+- Divisionvol, replicavol and paramvol are resolved now.
+
+11 April 2008 Zoltan Torzsok (gdml-V09-01-03)
+- Referenced solid in volume is resolved in case of displacements/reflections.
+
+10 April 2008 Zoltan Torzsok
+- Added text output to console to inform of progress during processing.
+
+9 April 2008 Zoltan Torzsok
+- Worked out an algorithm for sorting logical volumes in the writer.
+
+4 April 2008 Zoltan Torzsok
+- Modified writing out of volumes to happen in recursive way.
+  Still needs optimization. Does not recompute touched branches!
+
+1 April 2008 Z.Torzsok
+- Corrected function names to have all starting with capital letter.
+
+11 March 2008 Z.Torzsok (gdml-V09-01-02)
+- Added border surface to reader.
+- Added skin surface to reader.
+- Fixed compilation problems on Intel/icc compiler.
+
+7 March 2008 Z.Torzsok (gdml-V09-01-01)
+- Material properties added to reader
+
+20 February 2008 Z.Torzsok
+- Completed support for parameterised volumes in writer.
+- Name is added to physvol in reader.
+
+19 February 2008 Z.Torzsok
+- Replicavol is simplified and no longer restricted to replication along axes.
+
+18 February 2008 Z.Torzsok
+- Added G4GDMLWriteParamvol class implementing the parameterised volumes
+  in the writer. Added box parameterisation and succesfully tested.
+
+15 February 2008 Z.Torzsok
+- Division volumes added to writer and succesfully tested.
+
+14 February 2008 Z.Torzsok
+- Replica volumes added to writer and succesfully tested.
+
+13 February 2008 Z.Torzsok
+- Added getRotationMatrix() function to G4GDMLReadDefine: this function
+  converts rotation angles into a rotation matrix. This wad used in physvol,
+  reflectedSolid and boolean solid. Now this conversion is in one place
+- Added 'firstrotation' and 'firstposition' to boolean solid. Now the first
+  solid can be transformed too (Boolean solid is succesfully tested).
+
+11 February 2008 Z.Torzsok
+- Added matrices to writer.
+- Exception handling is added to loops (identify infinite loops).
+
+8 Febryary 2008 Z.Torzsok
+- Naming of physvol changed to 'ReferencedVolumeName_in_MotherVolumeName'.
+
+7 February 2008 Z.Torzsok
+- Added twistedtrap and twistedtubs to writer.
+
+6 february 2008 Z.Torzsok
+- Tet, Twistedbox and Twistedtrd added to writer and succesfully tested.
+
+5 February 2008 Z.Torzsok
+- Hype, orb and para added to writer.
+  Succesfully tested, except the para.
+
+1 February 2008 Z.Torzsok
+- Ellipsoid and elliptical-tube added to writer.
+
+31 January 2008 Z.Torzsok
+- Quantities now can be referenced
+- Naming of physical volumes changed: MotherLogicalName_daughter(index)
+
+30 January 2008 Z.Torzsok
+- If there is only one setup defined, name does not matter, that setup
+  will be loaded.
+- Temperature, pressure and state are now processed in the reader.
+  Added Nist support.
+
+28 January 2008 Z.Torzsok
+- Element added to writer.
+- Polyhedra and torus added to writer.
+- Now the package is able to read/write the CMS geometry.
+
+25 January 2008 Z.Torzsok
+- Bugs fixed in the writer in G4GMLWriteStructure::physvolWrite():
+  the signs of the rotational angles were incorrect in certain cases
+  (180 degrees, 90 degrees,...). The reflection was incorrect in case
+  of reflecting a subtree.
+- Now the package is capable of reading and writing back the LHCb
+  geometry correctly.
+
+23 January 2008 Z.Torzsok
+- Composite materials added to writer.
+- Cone and tube added to writer.
+- Boolean solid (intersection, subtraction, union) added to writer.
+
+22 January 2008 Z.Torzsok
+- Extruded solid is added to writer.
+- Reflected solid is removed from the written GDML files.
+  Scale transformation is used instead.
+- Optimization to tha case of reading multiple GDML files and writing out
+  into a single GDML file:
+  The mother volume is moved to the end of the list after its daugthers are
+  processed... only when necessary, when new logical volumes come from the
+  daughters!
+
+21 January 2008 Z.Torzsok
+- Reflected solid is added to the writer.
+- Solved problem of reading multiple GDML files and writing out into a single
+  GDML file:
+  if a logical volume (let's say the mother volume) is instantiated, it will
+  be added to the end of list of volumes (G4LogicalVolumeStore).
+  Once this logical volume is instantiated we can add daughters.
+  If a daughter refers to an external file, additional logical volumes will
+  come. These logical volumes will be added to the list as well, AFTER the
+  mother volume. In the mother volume these logical volumes can be referenced
+  ...but these logical volumes are not instantiated yet when we instantiate
+  the mother! That's why we move the mother volume at the end of the list
+  after the daughters are processed.
+  
+18 January 2008 Z.Torzsok
+- The class hierarchy of the GDML parser/writer is finished:
+  Write <- WriteDefine <- WriteMaterials <- WriteSolids
+        <- WriteSetup <- WriteStructure
+  Parser Read <- ReadDefine <- ReadMaterials <- ReadSolids
+              <- ReadSetup <- ReadParamvol <- ReadStructure.
+
+16 January 2008 Z.Torzsok
+- Starting the materials section.
+
+15 January 2008 Z.Torzsok
+- Writer implements the setup section too.
+
+11 January 2008 Z.Torzsok (gdml-V09-01-00)
+- Reader is now capable of resolving entities.
+
+08 January 2008 Z.Torzsok
+- Vertex referencing is fixed in tessellated solid 
+  (using the identifier "vertex" according to the schema).
+
+07 January 2008 Z.Torzsok
+- Starting to implement the writer.
+
+30 November, 07  Z.Torzsok (gdml-V09-00-04)
+- Fine tuning of the class hierarchy and fixed issue with reflections.
+
+23 November, 07  Z.Torzsok (gdml-V09-00-03)
+- Better handling of embedded loops and first adaptation.
+
+22 November, 07  Z.Torzsok (gdml-V09-00-02)
+- Handling of embedded loops added.
+- Fixed compilation problems on Windows platform.
+
+19 November, 07  G.Cosmo (gdml-V09-00-01)
+- Better handling of modular GDML files and reflections (Z.Torzsok).
+- Added disclaimer to all files. Use G4 types.
+- Fixed compilation problems on SUN platform.
+
+15 November, 07  Z.Torzsok (gdml-V09-00-00)
+- Added support for modular files.
+- Completed set of specific solids. Supported reflections and divisions.
+
+02 November, 07  G.Cosmo (persistency-V09-00-00)
+- Added G4LIB_BUILD_GDML/G4LIB_USE_GDML flags to trigger compilation through
+  the central scripts. Moved setup for XERCESC (includes and libs paths) to
+  central scripts.
+- Coworks with tag "config-V09-00-06".
+
+17 October, 07  Z.Torzsok
+- Introduced new "gdml" plugin sub-module, based on new GDML release 3.

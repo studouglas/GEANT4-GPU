@@ -1,0 +1,79 @@
+//
+// ********************************************************************
+// * License and Disclaimer                                           *
+// *                                                                  *
+// * The  Geant4 software  is  copyright of the Copyright Holders  of *
+// * the Geant4 Collaboration.  It is provided  under  the terms  and *
+// * conditions of the Geant4 Software License,  included in the file *
+// * LICENSE and available at  http://cern.ch/geant4/license .  These *
+// * include a list of copyright holders.                             *
+// *                                                                  *
+// * Neither the authors of this software system, nor their employing *
+// * institutes,nor the agencies providing financial support for this *
+// * work  make  any representation or  warranty, express or implied, *
+// * regarding  this  software system or assume any liability for its *
+// * use.  Please see the license in the file  LICENSE  and URL above *
+// * for the full disclaimer and the limitation of liability.         *
+// *                                                                  *
+// * This  code  implementation is the result of  the  scientific and *
+// * technical work of the GEANT4 collaboration.                      *
+// * By using,  copying,  modifying or  distributing the software (or *
+// * any work based  on the software)  you  agree  to acknowledge its *
+// * use  in  resulting  scientific  publications,  and indicate your *
+// * acceptance of all terms of the Geant4 Software license.          *
+// ********************************************************************
+//
+//
+// $Id: G4VModel.icc 66373 2012-12-18 09:41:34Z gcosmo $
+//
+// 
+// John Allison  31st December 1997.
+// Base class for models.
+
+inline const G4ModelingParameters* G4VModel::GetModelingParameters () const {
+  return fpMP;
+}
+
+inline const G4String& G4VModel::GetType () const {
+  return fType;
+}
+
+inline const G4String& G4VModel::GetGlobalTag () const {
+  return fGlobalTag;
+}
+
+inline const G4String& G4VModel::GetGlobalDescription () const {
+  return fGlobalDescription;
+}
+
+inline const G4VisExtent& G4VModel::GetExtent () const {
+  return fExtent;
+}
+
+inline const G4Transform3D& G4VModel::GetTransformation () const {
+  return fTransform;
+}
+
+inline void G4VModel::SetModelingParameters (const G4ModelingParameters* pMP) {
+  fpMP = pMP;
+}
+
+inline void G4VModel::SetExtent (const G4VisExtent& extent) {
+  fExtent = extent;
+}
+
+inline void G4VModel::SetGlobalDescription (const G4String& desc) {
+  fGlobalDescription = desc;
+}
+
+inline void G4VModel::SetType (const G4String& type) {
+  fType = type;
+}
+
+inline void G4VModel::SetGlobalTag (const G4String& tag) {
+  fGlobalTag = tag;
+}
+
+inline void G4VModel::SetTransformation (const G4Transform3D& transform) {
+  fTransform = transform;
+}

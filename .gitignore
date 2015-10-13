@@ -1,6 +1,33 @@
+# General
 *.DS_Store
+*.o
+
+# Latex
 *.aux
 *.log
 *.synctex.gz
 *.toc
 *.out
+
+# Geant / G4STORK build files
+G4STORK/Build/*
+geant4.10.01.p02-build/*
+geant4.10.01.p02-install/*
+geant4.10.01.p02/examples/*
+
+marshalgen-1.0/Examples
+marshalgen-1.0/Phase2/*.yy.*
+marshalgen-1.0/Phase2/*.tab.*
+marshalgen-1.0/Phase2/marshal
+marshalgen-1.0/Phase2/*.output
+
+topc-2.5.2/*.status
+topc-2.5.2/Makefile
+topc-2.5.2/README
+topc-2.5.2/bin/Makefile
+topc-2.5.2/bin/topc-config
+topc-2.5.2/bin/topc++
+topc-2.5.2/bin/topcc
+topc-2.5.2/include/*
+topc-2.5.2/lib/*
+topc-2.5.2/src/Makefile

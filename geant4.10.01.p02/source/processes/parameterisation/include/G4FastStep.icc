@@ -1,0 +1,156 @@
+//
+// ********************************************************************
+// * License and Disclaimer                                           *
+// *                                                                  *
+// * The  Geant4 software  is  copyright of the Copyright Holders  of *
+// * the Geant4 Collaboration.  It is provided  under  the terms  and *
+// * conditions of the Geant4 Software License,  included in the file *
+// * LICENSE and available at  http://cern.ch/geant4/license .  These *
+// * include a list of copyright holders.                             *
+// *                                                                  *
+// * Neither the authors of this software system, nor their employing *
+// * institutes,nor the agencies providing financial support for this *
+// * work  make  any representation or  warranty, express or implied, *
+// * regarding  this  software system or assume any liability for its *
+// * use.  Please see the license in the file  LICENSE  and URL above *
+// * for the full disclaimer and the limitation of liability.         *
+// *                                                                  *
+// * This  code  implementation is the result of  the  scientific and *
+// * technical work of the GEANT4 collaboration.                      *
+// * By using,  copying,  modifying or  distributing the software (or *
+// * any work based  on the software)  you  agree  to acknowledge its *
+// * use  in  resulting  scientific  publications,  and indicate your *
+// * acceptance of all terms of the Geant4 Software license.          *
+// ********************************************************************
+//
+//
+// $Id: G4FastStep.icc 68056 2013-03-13 14:44:48Z gcosmo $
+//
+// $id: G4ParticleChange.icc,v 1.6 1998/04/14 02:25:54 kurasige Exp $
+
+inline void 
+G4FastStep::ProposePrimaryTrackFinalTime(G4double time)
+{
+  theTimeChange = time;
+}
+inline void 
+G4FastStep::    SetPrimaryTrackFinalTime(G4double time)
+{
+  ProposePrimaryTrackFinalTime(time);
+}
+
+
+inline void
+G4FastStep::ProposePrimaryTrackFinalProperTime(G4double properTime)
+{
+  theProperTimeChange = properTime;
+}
+inline void 
+G4FastStep::    SetPrimaryTrackFinalProperTime(G4double properTime)
+{
+  ProposePrimaryTrackFinalProperTime(properTime);
+}
+
+
+inline void 
+G4FastStep::
+ProposePrimaryTrackFinalKineticEnergy(G4double kineticEnergy)
+{
+  theEnergyChange = kineticEnergy;
+}
+inline void 
+G4FastStep::
+SetPrimaryTrackFinalKineticEnergy(G4double kineticEnergy)
+{
+  ProposePrimaryTrackFinalKineticEnergy(kineticEnergy);
+}
+
+
+inline void
+G4FastStep::ProposePrimaryTrackPathLength(G4double pathLength)
+{
+  ProposeTrueStepLength(pathLength);
+}
+inline void 
+G4FastStep::SetPrimaryTrackPathLength(G4double pathLength)
+{
+  ProposePrimaryTrackPathLength(pathLength);
+}
+
+//-----------------------------------------
+//
+// Creation of eventual secondaries: 
+//
+//-----------------------------------------
+
+inline void 
+G4FastStep::SetNumberOfSecondaryTracks(G4int nSecondaries)
+{
+  SetNumberOfSecondaries(nSecondaries);
+}
+
+inline G4int 
+G4FastStep::GetNumberOfSecondaryTracks()
+{
+  return GetNumberOfSecondaries();
+}
+
+inline G4Track* G4FastStep::GetSecondaryTrack(G4int i)
+{
+  return GetSecondary(i);
+}
+
+
+//---------------------------------------
+//
+//---------------------------------------
+inline void G4FastStep::ProposeTotalEnergyDeposited(G4double anEnergyPart)
+{
+  ProposeLocalEnergyDeposit(anEnergyPart);
+}
+inline void G4FastStep::SetTotalEnergyDeposited(G4double anEnergyPart)
+{
+  ProposeTotalEnergyDeposited(anEnergyPart);
+}
+
+
+inline G4double G4FastStep::GetTotalEnergyDeposited() const
+{
+  return GetLocalEnergyDeposit();
+}
+
+
+inline void G4FastStep::ForceSteppingHitInvocation()
+{
+  ProposeSteppingControl(NormalCondition);
+}
+
+inline 
+void G4FastStep::SetMomentumChange(
+				   G4double Px, 
+				   G4double Py, 
+				   G4double Pz	)
+{
+  theMomentumChange.setX(Px);
+  theMomentumChange.setY(Py);
+  theMomentumChange.setZ(Pz);
+}
+
+
+inline 
+void G4FastStep::SetMomentumChange(const G4ThreeVector& P)
+{
+  theMomentumChange = P;
+}
+
+
+inline
+void G4FastStep::ProposePrimaryTrackFinalEventBiasingWeight (G4double w)
+{
+  theWeightChange = w;
+}
+inline
+void G4FastStep::SetPrimaryTrackFinalEventBiasingWeight (G4double w)
+{
+  ProposePrimaryTrackFinalEventBiasingWeight(w);
+}

@@ -1,0 +1,1221 @@
+$Id: History 90708 2015-06-08 10:01:42Z gcosmo $
+-------------------------------------------------------------------
+
+     =========================================================
+     Geant4 - an Object-Oriented Toolkit for Simulation in HEP
+     =========================================================
+
+                      Sub-Category History file
+                      -------------------------
+This file should be used by G4 developers and category coordinators
+to briefly summarize all major modifications introduced in the code
+and keep track of all directory-tags.
+It DOES NOT substitute the  CVS log-message one should put at every
+committal in the CVS repository !
+
+     ----------------------------------------------------------
+     * Reverse chronological order (last date on top), please *
+     ----------------------------------------------------------
+
+03-Mar-2015  G.Cosmo               (geom-specific-V10-00-13)
+- Use accessors x(), y() and z() from UVector3, instead of directly accessing
+  its data-members.
+
+23-Feb-2015  T.Nikitina            (geom-specific-V10-00-12)
+- Fix in SetOriginalParameters() for G4Polycone and G4Polyhedra, in case
+  of presence of 'rings' structures. Addressing problem report #1705.
+
+26-Jan-2015  G.Cosmo
+- Renamed DistanceAwayForInside() to DistanceAway() and use polymorphism.
+
+26-Jan-2015  T.Nikitina
+- Added special method for Inside 'DistanceAwayForInside()' in order to fix 
+  precision problem of calculation of DistanceToSide() in G4PolyconeSide. 
+
+21-Jan-2015  T.Nikitina
+- Fixed triangularisation method AddGeneralPOlygoneFacets() in
+  G4ExtrudedSolid by avoiding flat triangles.
+- Added warning message to G4TriangularFacet constructor if Area is 0;
+  i.e., case of flat triangle.
+- Addressing problem report #1703.
+
+12-Dec-2014  G.Cosmo
+- Use canonical form for operator=() in G4PolyconeHistorical and
+  G4PolyhedraHistorical.
+
+17-Sep-2014  G.Cosmo               (geom-specific-V10-00-11)
+- Added wrappers for UExtrudedSolid and UGenericTrap; adapted switches to
+  original G4 types accordingly. Requires tag "geom-usolids-V10-00-16".
+
+01-Sep-2014  G.Cosmo               (geom-specific-V10-00-10)
+- Fixed use of polyhedron pointer, to avoid race condition in MT
+  when parameterised volumes are visualised.
+
+22-May-2014  G.Cosmo               (geom-specific-V10-00-09)
+- Added protection in generic constructor of G4Polyhedra for the case when
+  improper number of sides is given as input.
+
+10-Apr-2014  G.Cosmo               (geom-specific-V10-00-08)
+- Get rid of deprecated 'register' storage class specifier in source files.
+
+31-Mar-2014  G.Cosmo               (geom-specific-V10-00-07)
+- Fixed signature of assignment operator to G4VCSGfaceted.
+
+31-Mar-2014  G.Cosmo               (geom-specific-V10-00-06)
+- Fixed signature of assignment operator to G4Polycone, G4Polyhedra and
+  and G4GenericPolycone.
+
+05-Mar-2014  G.Cosmo               (geom-specific-V10-00-05)
+- Fixed proper handling of polyhedron pointer in solids, to avoid memory
+  leak for visualization of parameterised volumes.
+
+12-Feb-2014  G.Cosmo               (geom-specific-V10-00-04)
+- Simply reset polyhedron pointer to zero for modifiers of G4U* wrappers
+  in parameterisation. Resolves crash in MT visualization when using USolids. 
+
+12-Feb-2014  G.Cosmo               (geom-specific-V10-00-03 [and -02])
+- Added correct cloning mechanism in G4U* wrappers.
+  Addressing problem report #1553.
+
+18-Dec-2013  T.Nikitina            (geom-specific-V10-00-01)
+- Fix in G4GenericTrap::InsidePolygone() to check if p lies between the two
+  extremes of the segment. Addressing problem report #1541.
+
+17-Dec-2013  G.Cosmo               (geom-specific-V10-00-00)
+- Corrected left-over debug printout in G4Polycone::SetOriginalParameters().
+
+04-Dec-2013  G.Cosmo               (geom-specific-V09-06-36)
+- Corrected left-over debug printout in G4Polyhedra::SetOriginalParameters().
+
+22-Nov-2013  G.Cosmo               (geom-specific-V09-06-35)
+- Correction to USolids wrappers for proper setting of name to base class.
+
+19-Nov-2013  J.Apostolakis         (geom-specific-V09-06-34)
+- Fix for issue identified by Coverity: fixed implementation of
+  G4SolidsWorkspacePool singleton.
+
+20-Nov-2013  T.Mikitina            (geom-specific-V09-06-33)
+- Fixed Coverity defects to USolids wrappers.
+
+14-Nov-2013  G.Cosmo               (geom-specific-V09-06-32, 31)
+- Enabled use of Reset() in G4UPolycone.
+- Corrections to G4UPolycone and G4UPolyhedra to allow for visualization
+  of parameterisations on these solids.
+
+13-Nov-2013  G.Cosmo               (geom-specific-V09-06-30)
+- Correction to G4UTet and G4UGenericPolycone to explicitly include
+  symbols re-definitions from G4Tet and G4GenericPolycone respectively.
+
+12-Nov-2013  G.Cosmo               (geom-specific-V09-06-29)
+- Added dummy method G4UPolycone::Reset().
+  NOTE: Required related implementation (currently missing!) in UPolycone.
+
+12-Nov-2013  G.Cosmo               (geom-specific-V09-06-28)
+- Correction to USolids switch mechanism for G4Polycone.
+    
+08-Nov-2013  J.Apostolakis         (geom-specific-V09-06-27)
+- G4SolidsWorkspace: cleanup of verbosity.
+  Reduced verbosity by making it optional.  
+  Added Set/Get Verbose methods to toggle and view it.
+  Added parameter to constructor for verbosity (default=off).
+
+07-Nov-2013  G.Cosmo (geom-specific-V09-06-26)
+- Moved wrappers from usolids module.
+  Fixed internal dispatcher method for parameterisation in all wrappers.
+- Added switching mechanism for G4GenericPolycone, G4Polycone, G4Polyhedra
+  and G4Tet.
+
+06-Nov-2013  G.Cosmo (geom-specific-V09-06-25)
+- Added switch mechanism for USolids (G4GenericPolycone, G4Polycone,
+  G4Polyhedra, G4Tet). Renamed related G4 types to 'G4O'.
+- Moved wrappers from USolids module.
+
+01-Nov-2013  G.Cosmo (geom-specific-V09-06-24)
+- Corrected CMake script.
+
+31-Oct-2013  G.Cosmo (geom-specific-V09-06-23)
+- Fix for in G4Polyhedra::SetOriginalParameters(). (T.Nikitina)
+- Moved G4PolyconeHistorical and G4PolyhedraHistorical in separate
+  translation units.
+
+29-Oct-2013  T.Nikitina (geom-specific-V09-06-22)
+- Split G4Polycone for polycones with decreasing Z-sections.
+  Introduced new class G4GenericPolycone.
+- Fixed conversion of generic construct for G4Polyhedra.
+
+17-Oct-2013  J.Apostolakis/A.Dotti (geom-specific-V09-06-21)
+- Cleanup of code for workspace.
+
+16-Oct-2013  J.Apostolakis/A.Dotti (geom-specific-V09-06-20)
+- Created G4SolidsWorkspacePool class, to manage Workspaces
+  Fixed Singleton G4SolidsWorkspacePool for thread safe creation of object. 
+
+04-Oct-2013  J.Apostolakis (geom-specific-V09-06-19)
+- Retagged.
+  NOTE: requires tag "geommng-V09-06-12" and co-works with "geomvol-V09-06-13".
+
+04-Oct-2013  J.Apostolakis (geom-specific-V09-06-18)
+- Created G4SolidsWorkspace class, to create, initialize and destroy
+  per-thread state of PolyCone Sides and PolyHedra Sides.
+
+27-Aug-2013  G.Cosmo (geom-specific-V09-06-17)
+- Enabled G4Ellipsoid for parameterisation.
+
+14-Aug-2013  G.Cosmo (geom-specific-V09-06-16)
+- Move function-scoped 'static const' values for half-tolerances to private
+  data members of classes, to overcome false-positive race-conditions defects
+  reported by Valgrind in MT mode.
+- Fix in G4TessellatedSolid::DistanceToIn(p,v) for specific cases where points
+  are located near surface (T.Nikitina).
+
+16-Jul-2013  M.Gayer (geom-specific-V09-06-15)
+- Fix in G4SurfaceVoxelizer affecting tessellated-solid (and extruded-solid)
+  for wrong computation of DistanceToIn(p,v) for points outside, when
+  optimisation is active.
+
+11-Jul-2013  G.Cosmo (geom-specific-V09-06-14)
+- Fixed compilation warning in G4Polycone on MacOS/clang.
+
+09-Jul-2013  T.Nikitina (geom-specific-V09-06-13)
+- Extended method SetOriginalParameters() in G4Polycone in order to handle
+  all possible cases of conversion of generic polycone to polycone with
+  (Rmin,Rmaz,Z) parameters.
+  Addressing problem report #1462.
+
+03-Jun-2013  G.Cosmo (geom-specific-V09-06-12)
+- Fixed minor Coverity defect in G4PolyhedraSide and G4PolyconeSide.
+
+22-Apr-2013  J.Apostolakis (geom-specific-V09-06-11)
+- Revised G4ExtrudedSolid::IsSameLine to use the perpendicular
+  distance to a line when deciding - not the y-intercept difference.
+  ( Issue responsible for a problem in Subtraction Solid in Atlas.  
+     Tatiana & Ivana contributed to debugging. )
+- Changed GNUmakefile in test directory to work with Cmake and granular 
+  builds.
+
+16-Apr-2013  T.Nikitina (geom-specific-V09-06-10)
+- Fix in calculation of normal in G4Tet::DistanceToOut(p,v,..) and
+  SurfaceNormal(p).
+- Fix in G4Polycone::GetPointOnCone() for cases of shape with decreasing Z.
+  Fixes cases of false report for overlaps detection. Problem report #1462.
+  Added check with exception in constructor for polycone with rInner > rOuter
+  for the same Z.
+
+18-Mar-2013  G.Cosmo (geom-specific-V09-06-09)
+- G4TessellatedSolid: fixed problem with navigation in tessellated solids
+  with concave surfaces. Addresses problem report #1456.
+- More cleanup from MT changes in G4VTwistSurface and G4Tet.
+
+12-Mar-2013  G.Cosmo (geom-specific-V09-06-08)
+- Added public accessors for MT data to G4PolyconeSide and G4PolyhedraSide.
+
+11-Mar-2013  G.Cosmo (geom-specific-V09-06-07)
+- Redefined G4DLL_API to G4GEOM_DLL to avoid cases of macro redefinition.
+
+08-Mar-2013  G.Cosmo (geom-specific-V09-06-06)
+- Renamed G4MT macros to safer ID in G4PolyconeSide and G4PolyhedraSide.
+
+07-Mar-2013  G.Cosmo (geom-specific-V09-06-05)
+- Adopt G4GeomSplitter instead of G4MTTransitory in G4PolyconeSide and
+  G4PolyhedraSide. Fixed import/export of static symbols for WIN32 DLLs build.
+
+22-Feb-2013  G.Cosmo (geom-specific-V09-06-04)
+- Cleanup changes for multi-threading in G4Tet, G4VTwistSurface,
+  G4PolyconeSide and G4PolyhedraSide.
+- Removed unused private data member in G4TwistTrapParallelSide.
+
+07-Mar-2013  G.Cosmo (geom-specific-V09-06-05)
+- Adopt G4GeomSplitter instead of G4MTTransitory in G4PolyconeSide and
+  G4PolyhedraSide. Fixed import/export of static symbols for WIN32 DLLs build.
+
+22-Feb-2013  G.Cosmo (geom-specific-V09-06-04)
+- Cleanup changes for multi-threading in G4Tet, G4VTwistSurface,
+  G4PolyconeSide and G4PolyhedraSide.
+- Removed unused private data member in G4TwistTrapParallelSide.
+
+11-Jan-2013  G.Cosmo (geom-specific-V09-06-03)
+- Fixed condition in G4VTwistSurface::GetBoundaryLimit() for logical error.
+  Addressing problem report #1420.
+
+20-Dec-2012  M.Gayer (geom-specific-V09-06-02)
+- Fixed cases of hang-ups in G4ExtrudedSolid on 32-bits platforms, due to
+  G4TessellatedSolid and G4SurfVoxelizer, caused by accessing bitmask arrays
+  with negative indexes. The problem was related to floating-point rounding,
+  which can be different even on same platform with debug/release version.
+  Assure same number of computed voxels on 32-bit/64-bit platforms.
+  Fixed error in SetVertexIndex() method, which might cause problems on
+  certain configurations even for 64-bit systems. Fixed minor memory leaks.
+- Code cleanup for use of G4endl and tabs...
+
+14-Dec-2012  G.Cosmo (geom-specific-V09-06-01)
+- Restored SVN id headers.
+
+02-Dec-2012  J.Allison (geom-specific-V09-06-00)
+- Removed NURBS.
+
+29-Nov-2012  G.Cosmo (geom-specific-V09-05-24)
+- Remove inclusion of G4PhysicalConstants.hh from G4SurfaceVoxelizer.hh.
+- Fixed unit test for compilation errors.
+
+28-Nov-2012  G.Cosmo (geom-specific-V09-05-23)
+- Fixed more cases of inclusion of constants header.
+
+23-Nov-2012  G.Cosmo (geom-specific-V09-05-22)
+- Added 'const' qualifiers to signature in G4VoxelComparator::operator()
+  for porting on AIX-xlC compiler.
+
+14-Nov-2012  P.Mato (geom-specific-V09-05-21)
+- Added #undef NDEBUG in unit tests to ensure assert works also in
+  full optimised mode.
+
+14-Nov-2012  P. Mato (geom-specific-V09-05-20)
+- Added #undef NDEBUG in unit tests to ensure that assert always works
+
+13-Nov-2012  M.Gayer (geom-specific-V09-05-19)
+- More fixes for out-of-bound array accesses in G4SurfaceVoxelizer.
+
+12-Nov-2012  M.Gayer (geom-specific-V09-05-18)
+- Fixed out-of-bound array access in BuildReduceVoxels2().
+
+06-Nov-2012  G.Cosmo (geom-specific-V09-05-17)
+- Correction in sources.cmake script for missing .icc file.
+
+06-Nov-2012  G.Cosmo (geom-specific-V09-05-16)
+- Fixed Coverity defects in new code (M.Gayer).
+- Minor fixes for porting on AIX.
+
+01-Nov-2012  G.Cosmo (geom-specific-V09-05-15)
+- Fixed compilation of debug code under G4SPECSDEBUG.
+
+01-Nov-2012  M.Gayer (geom-specific-V09-05-14)
+- Corrected signature for voxels count methods in G4SurfaceVoxelizer.
+
+31-Oct-2012  M.Gayer (geom-specific-V09-05-13)
+- Added set/get methods for voxels count in G4SurfaceVoxelizer.
+
+30-Oct-2012  M.Gayer (geom-specific-V09-05-12)
+- Fixed indexing of vertices in facets for tessellated-solid and some cleanup.
+
+27-Oct-2012  G.Cosmo (geom-specific-V09-05-11)
+- Fixed initialization of data in G4SurfaceVoxelizer (M.Gayer).
+- Added post-const qualifier to G4VertextComparator::operator() in
+  G4TessellatedSolid.
+- Fixed more compilation warnings on unused variable.
+
+26-Oct-2012  G.Cosmo (geom-specific-V09-05-10)
+- Corrected compilation problem on G4SurfBits for use of fprint().
+- Polished comments in disclaimer in new updated classes.
+
+25-Oct-2012  G.Cosmo (geom-specific-V09-05-09)
+- Corrected compilation warnings on Linux and fixed use of memset/memcpy.
+
+25-Oct-2012  G.Cosmo (geom-specific-V09-05-08)
+- Correction to sources.cmake.
+
+19-Oct-2012  M.Gayer (geom-specific-V09-05-07)
+- Complete rewrite of G4TessellatedSolid resulting in reduced memory
+  requirements by 50%, and factor of tens or more speedup for number of facets
+  of the order of thousands, thanks to ad-hoc voxelization of the surface.
+  Factor of thousands speedup when number of facets of the order of hundreds
+  thousand. New classes introduced, G4SurfBits and G4SurfaceVoxelizer.
+
+12-Jun-2012  G.Cosmo (geom-specific-V09-05-06)
+- Explicitly use inclusion of headers for system of units and physical
+  constants, in plan to remove implicit inclusion from globals.hh.
+
+14-May-2012  G.Cosmo (geom-specific-V09-05-05)
+- Fixed spurious cases of hidden variable visibility, detected with
+  '-Wshadow' compilation option on gcc compiler.
+
+06-Apr-2012  M.Kelsey (geom-specific-V09-05-04)
+- Modified GetPointOnSurface() to throw sqrt(r) uniformly for disk surfaces,
+  in G4Paraboloid, G4Polycone and G4TwistedTubs.
+
+13-Dec-2011  G.Cosmo (geom-specific-V09-05-03, 02, 01)
+- Fixed trivial Coverity defects in G4TwistedTubs and G4VTwisteFaceted for
+  missing protection against self-assignment.
+
+09-Dec-2011  T.Nikitina (geom-specific-V09-05-00)
+- Fix in G4EllipticalCone in DistanceToIn(p,v) to exclude imaginary solution
+  (virtual cone) when distance is calculated.
+
+10-Nov-2011  G.Cosmo (geom-specific-V09-04-09)
+- Fixed trivial Coverity defects on assignment operators...
+
+25-Oct-2011  G.Cosmo (geom-specific-V09-04-08)
+- Fixed logic in G4VTwistSurface::GetEdgeVisibility() in treatment of corners.
+
+16-Sep-2011  G.Cosmo (geom-specific-V09-04-07)
+- Fix compilation error in code within G4SPECSDEBUG. No functional changes.
+
+13-Sep-2011  I.Hrivnacova (geom-specific-V09-04-06)
+- G4TriangularFacet: fixed tests where square root was compared to
+  half Cartesian tolerance; now compared to kCarTolerance.
+  Addressing problem report #1242.
+
+25-Aug-2011  G.Cosmo
+- Migrated to new G4Exception scheme for warnings and errors.
+- Defined scheme for warnings/errors coding:
+  + 1xxx for warnings, 0xxx for errors.
+  Code numbering:
+  + 0001: not supported or implemented features;
+  + 0002: invalid setup/construct;
+  + 0003: invalid run condition;
+  + 1001: incorrect setup; automatically adapted.
+  + 1002: notification.
+- Added unit test for G4ExtrudedSolid (J.Apostolakis).
+
+22-Aug-2011  I.Hrivnacova (geom-specific-V09-04-05)
+- Fix in G4TriangularFacet::Intersect() to take into account geometrical
+  tolerance and cases of zero distance from surface's facet.
+- Fix in G4TessellatedSolid::DistanceToOut(p) and DistanceToIn(p) to exactly
+  compute distance from facet avoiding use of 'outgoing' flag shortcut variant.
+- Addressing problem report #1242.
+
+17-Aug-2011  T.Nikitina (geom-specific-V09-04-04)
+- Fix in G4Paraboloid::DistanceToIn(p,v) and DistanceToIn(p) to properly
+  take into account tolerance and provide better estimation of distance
+  respectively. Addresses problem report #1234.
+
+04-Aug-2011  T.Nikitina (geom-specific-V09-04-03)
+- Added SetReferences() and InvertFacets() to G4GenericTrap::CreatePolyhedron()
+  for proper visualisation of Boolean compositions with G4GenericTrap.
+- Added SetReferences() to G4TessellatedSolid::CreatePolyhedron()
+  for proper visualisation of Boolean compositions with G4TessellatedSolid.
+- Requires tag "greps-V09-04-04", for addressing problem report #1235.
+
+17-May-2011  I.Hrivnacova (geom-specific-V09-04-02)
+- G4ExtrudedSolid: fix in Inside(p) for false overlap reporting.
+  Addressing problem report #1211.
+
+12-May-2011  G.Cosmo (geom-specific-V09-04-01)
+- Fixed compilation warnings from gcc-4.6.0 for variables set but not used.
+
+06-May-2011  G.Cosmo (geom-specific-V09-04-00)
+- Use G4 typedef for CLHEP types.
+
+26-Nov-2010  T.Nikitina (geom-specific-V09-03-20)
+- Fixes in G4GenericTrap reported by SBT unit test in SurfaceNormal(),
+  DistanceToPlane() and VisExtent().
+
+16-Nov-2010  T.Nikitina (geom-specific-V09-03-19)
+- G4EllipticalCone: fixes in DistanceToIn(p,v) and DistanceToOut(p,v) for
+  correct handling of point on the surface.
+  Corrected formula for SurfaceNormal(p).
+
+10-Nov-2010  T.Nikitina (geom-specific-V09-03-18)
+- Added checks on crossing of vertices and too big twisted angle in
+  G4GenericTrap.
+- Fixed case of division by zero in G4TwistedTubs.
+- Added unit test for G4Polyhedra.
+
+02-Nov-2010  G.Cosmo (geom-specific-V09-03-17)
+- More fixes on Coverity reports for G4TessellatedSolid and G4ReduciblePolygon.
+
+20-Oct-2010  G.Cosmo (geom-specific-V09-03-16)
+- Implemented Clone() virtual method for all solids, returning a pointer
+  to a dynamically allocated copy of the solid. To be used by Geant4-MT.
+
+23-Sep-2010  G.Cosmo (geom-specific-V09-03-15)
+- Initialize fpPolyhedron to zero in copy-ctor and operator=().
+- Completed implementation of copy-ctor and operator=() for facets.
+
+20-Sep-2010  G.Cosmo (geom-specific-V09-03-14)
+- Implemented copy-constructor and assignment operator for all solids
+  to facilitate conversion to Geant4-MT.
+
+08-Sep-2010  G.Cosmo (geom-specific-V09-03-13)
+- Correction to previous fix in G4ReduciblePolygon to avoid deleting current
+  'vertexHead' pointer.
+
+07-Sep-2010  G.Cosmo (geom-specific-V09-03-12)
+- Fix within G4CSGDEBUG code for restoring cout precision.
+- Fix in G4ReduciblePolygon::RemoveRedundantVertices() to avoid potential
+  case of dereferencing freed pointer.
+
+19-Aug-2010  T.Nikitina (geom-specific-V09-03-11)
+- G4EllipticalTube: extended implementation of SurfaceNormal(p) in agreement
+  with canonical form. Added unit test testG4EllipticalTube.cc.
+
+16-Jul-2010  G.Cosmo (geom-specific-V09-03-10)
+- Fixed cases of division by zero in G4VTwistSurface and G4TwistBoxSide.
+- Use INT_MAX as initialisation for max limits in G4SolidExtentList.
+
+12-Jul-2010  G.Cosmo (geom-specific-V09-03-09)
+- Added dummy initialization to members in struct 
+  G4PolyPhiFace::G4PolyPhiFaceEdge, struct G4ReduciblePolygon::ABVertex.
+  G4Ellipsoid, G4EllipticalTube, G4EnclosingCylinder, G4ExtrudedSolid, G4Hype,
+  G4IntersectingCone, G4Paraboloid, G4PolyPhiFace, G4Polycone, G4PolyconeSide,
+  G4Polyhedra, G4PolyhedraSide, G4QuadrangularFacet, G4ReduciblePolygon,
+  G4TessellatedSolid, G4TriangularFacet, G4TwistBoxSide, G4TwistTrapAlphaSide,
+  G4TwistTrapFlatSide, G4TwistTrapParallelSide, G4TwistTubsFlatSide,
+  G4TwistTubsHypeSide, G4TwistTubsSide, G4TwistedTubs, G4VCSGfaceted, G4VFacet,
+  G4VTwistSurface, G4VTwistedFaceted.
+- Fixed case of dereferencing null pointer in methods
+  G4EllipticalTube::DistanceToOut(p,v), G4VCSGfaceted::DistanceToIn(p,v)
+  and G4VCSGfaceted::DistanceToOut(p,v).
+- Fixed unecessary object copy as argument in method
+  G4PolyhedraSide::IntersectSidePlane().
+- Avoid possible case of derefencing null pointer in G4ReduciblePolygon
+  RemoveDuplicateVertices() and RemoveRedundantVertices() methods.
+- Replaced calls to std::abs() with std::fabs() where suitable.
+
+16-Jun-2010  G.Cosmo (geom-specific-V09-03-08)
+- Fixed deletion of internal arrays in CreatePolyhedron() for G4Polycone
+  and G4Polyhedra.
+
+11-Jun-2010  T.Nikitina (geom-specific-V09-03-07)
+- G4GenericTrap: fixed cases of zero dToIn/sToOut when vertices are collapsed
+  to triangle, line or point. Added new methods handling those specific cases.
+- Added unit test for G4GenericTrap.
+
+10-Jun-2010  I.Hrivnacova
+- G4GenericTrap: fixed parameter names in CalculateExtent() for the test
+  case construction through tessellated facets.
+
+09-Jun-2010  G.Cosmo
+- G4GenericTrap: moved internal methods to private section and reordered
+  in source file. Added missing implementation for IsTwisted() method.
+
+03-Jun-2010  T.Nikitina, G.Cosmo (geom-specific-V09-03-06)
+- G4GenericTrap:
+  o Fixed initialization of fSurfaceArea and fCubicVolume and
+    calculation of surface area.
+  o Fixed error in Inside(p) function, and corrected use std::fabs() instead
+    of std::abs() for floating point values.
+  o Added missing initialisation of fpPolyhedron pointer.
+  o More corrected signatures for use of non-const references for vectors
+    passed as arguments to functions.
+
+02-Jun-2010  G.Cosmo (geom-specific-V09-03-05)
+- G4GenericTrap: use const reference for vector of vertices passed as argument
+  in constructor and accessor.
+
+27-May-2010  T.Nikitina (geom-specific-V09-03-04)
+- First implementation of G4GenericTrap shape, a new solid representing an
+  arbitrary trapezoid with up to 8 vertices standing on two parallel planes
+  perpendicular to the Z axis.
+
+28-Apr-2010  P.R.Truscott (geom-specific-V09-03-03)
+- Fix in G4TriangularFacet and G4TessellatedSolid to correct treatment of
+  optical photon transport related to internal reflection at surface.
+  Addresses problem report #1103.
+
+15-Apr-2010  I.Hrivnacova (geom-specific-V09-03-02)
+- G4ExtrudedSolid: eliminated requirement for clockwise ordering of polygon
+  vertices. Added a check for vertices ordering; if vertices are defined
+  anti-clockwise their ordering is reverted.
+  Fix in polygon facet triangularization for consequent concave vertices.
+
+24-Feb-2010  G.Cosmo (geom-specific-V09-03-01)
+- Adopt caching of Phi in G4PolyconeSide and G4PolyhedraSide to avoid
+  unnecessary consecutive computations on the same point.
+
+10-Feb-2010  G.Cosmo (geom-specific-V09-03-00)
+- Use kInfinity for initialising minimum and maximum allowed extent for
+  G4SolidExtentList of faceted solids.
+
+11-Nov-2009  G.Cosmo (geom-specific-V09-02-08)
+- Avoid fake (and redundant) assignment of value to 3-vector in
+  G4PolyconeSide and G4TwistTubsSide.
+
+24-Sep-2009  T.Nikitina (geom-specific-V09-02-07)
+- G4Ellipsoid: refined fix in DistanceToIn(p,v) for points located on the
+  curved surface, and correct treatment of geometrical tolerance.
+
+09-Sep-2009  G.Cosmo (geom-specific-V09-02-06)
+- G4Ellipsoid: fixed usage of half-tolerances (radial and Cartesian) in
+  DistanceToIn(p,v), based on incorrect assumptions introduced in tag
+  "geom-specific-V09-02-04", responsible for zero steps on configurations
+  with cut in Z. Addresses problem report #1076.
+
+04-Aug-2009  T.Nikitina (geom-specific-V09-02-05)
+- G4Ellipsoid:
+  o Fixes in Inside(p) and in DistanceToIn(p,v) for points
+    located on the curved surface within tolerance. Final fix for issue
+    reported in problem report #1050 and concerning warnings reported by
+    grid_test.
+  o Adopt pre-computed half-tolerance values for optimisation.
+
+23-Jul-2009  T.Nikitina (geom-specific-V09-02-04)
+- G4Ellipsoid: fix to DistanceToIn(p,v) in the calculation of the roots of
+  the quadratic equation and in DistanceToOut(p,v) in the calculation of the
+  normal on cut surfaces. Final fix for problem report #1022 and #1050.
+- G4PolyconeSide: added protection in method Normal(), addressing problem
+  report #1073.
+
+30-Jun-2009  T.Nikitina (geom-specific-V09-02-03)
+- G4Ellipsoid: introduced to DistanceToIn(p,v) splitting of the distance for
+  point very far from intersection area and big difference between solid
+  dimensions and distance to it; resolves issue observed on 64 bits problem.
+  Also addressing problem report #1022.
+
+08-May-2009, G.Cosmo (geom-specific-V09-02-02)
+- Corrected typo in base implementation of G4VCSGfaceted::GetSurfaceArea(),
+  which was erroneously returning cubic volume estimation.
+  Addresses problem report #1062.
+
+27-Apr-2009, G.Cosmo (geom-specific-V09-02-01)
+- Relaxed error condition in G4TessellatedSolid::Inside(p) to warning, for
+  excess of max trials and anomalous conditions in distance calculation.
+  Added more printout information when error condition is detected.
+
+27-Feb-2009, T.Nikitina (geom-specific-V09-02-00)
+- Fix in G4Paraboloid::DistanceToOut(p,v,..) for the computation of normal
+  to surface; added missing normalisation to unit, following remark in the
+  Geometry Forum Hypernews posting #953.
+
+21-Nov-2008, G.Cosmo (geom-specific-V09-01-19)
+- Added missing accessors to G4EllipticalCone, required for detector
+  persistency.
+
+13-Nov-2008, G.Cosmo (geom-specific-V09-01-18)
+- Corrected initialisation of algorithm in G4TriangularFacet constructor.
+
+30-Oct-2008, I.Hrivnacova (geom-specific-V09-01-17)
+- G4ExtrudedSolid: fixed bug in the decomposition of polygonal sides for
+  quadrangular facets in MakeFacets(). Addresses problem report #1029.
+
+23-Sep-2008, T.Nikitina (geom-specific-V09-01-16)
+- Corrected algorithm in G4TriangularFacet::GetPointOnFace() according to
+  suggestion advanced in problem report #1025. Fixes a problem of false
+  overlaps detection related to G4ExtrudedSolid and G4TessellatedSolid.
+
+12-Sep-2008, G.Cosmo (geom-specific-V09-01-15)
+- G4VFacet: corrected increment of indeces in operator==(), following
+  problem report #1024.
+
+25-Jul-2008, I.Hrivnacova (geom-specific-V09-01-14)
+- G4ExtrudedSolid: fix in polygon decomposition; systematically use
+  half kCarTolerance instead of kCarTolerance; added solid name in the
+  error messages coming from fatal exceptions.
+
+16-Jul-2008, T.Nikitina (geom-specific-V09-01-13)
+- G4Paraboloid: revised DistanceToOut(p,v,...) in answer to problem report
+  #1015. Fixed precision problem when solving quadratic equation; apply
+  comparison with kCarTolerance and not with zero; fixed logic problem in
+  algoritm for points on surface and direction inside, relative to directions
+  along Z, (0,0,Vz).
+
+22-May-2008, G.Cosmo (geom-specific-V09-01-12)
+- Removed left-over debug printout in G4VCSGFaceted::DistanceToIn().
+
+15-May-2008, T.Nikitina (geom-specific-V09-01-11)
+- Enhanced GetPointOnSurface() for generic G4Polycone and G4Polyhedra
+  constructs; the method uses new triangulation algorithm for G4PolyPhiFace.
+- G4ExtrudedSolid: added missing 'std' namespace to standard mathematical
+  function calls.
+
+28-Apr-2008, T.Nikitina (geom-specific-V09-01-10)
+- Added kCarTolerance in definition of "low" and "high" cone limits in R
+  and in Z in order to protect against numerical errors. This fixes cases of
+  DistanceToIn(p,v) returning 'kInfinity' when p+t*v cross intersection
+  between two cones.
+
+25-Apr-2008, T.Nikitina (geom-specific-V09-01-09)
+- Added protection against NaN in G4IntersectingCone::LineHitsCone1() in
+  case of configuration where a conic section becomes a tube.
+- G4EllipticalCone: removed some debug printouts.
+
+14-Apr-2008, T.Nikitina (geom-specific-V09-01-08)
+- G4Hype: refined polyhedron representation for correct visualization of
+  the shape. Coworks with tag "greps-V09-01-04".
+
+13-Mar-2008, G.Cosmo (geom-specific-V09-01-07)
+- Cleared compilation warnings in G4Paraboloid and G4TessellatedSolid
+  on gcc-4.3.0 for ambiguous use of parentheses in condition statements.
+
+28-Feb-2008, I.Hrivnacova (geom-specific-V09-01-06)
+- Correction to previous fix in G4ExtrudedSolid: testing on the edges has
+  to be limited to the line segment, for this purpose a new internal method
+  IsSameLineSegment() has been introduced for use instead of IsSameLine().
+- Updated and extended unit test testG4ExtrudedSolid.cc.
+
+27-Feb-2008, I.Hrivnacova (geom-specific-V09-01-05)
+- Fix in G4TessellatedSolid::DistanceToOut(p,v,..) to compute normal only
+  if specified by flag in input.
+- Fix in G4ExtrudedSolid::Inside(p) for correctly handling the case of
+  points located on the edges of triangles which are not the outline edges
+  of the polygon.
+
+21-Feb-2008, T.Nikitina (geom-specific-V09-01-04)
+- G4Polyhedra: fixed problem of out-of-bound access to vectors in
+  GetPointOnSurface().
+
+20-Feb-2008, I.Hrivnacova (geom-specific-V09-01-03)
+- G4TessellatedSolid: fixed bug in copy-constructor and internal method
+  CopyObjects() for cloning of facets.
+
+05-Feb-2008, I.Hrivnacova (geom-specific-V09-01-02)
+- G4ExtrudedSolid: bug fix in MakeFacets() to fill 'fTriangles' also in case
+  of polygon with 3 or 4 vertices, as they are needed for Inside(p).
+
+02-Feb-2008, I.Hrivnacova (geom-specific-V09-01-01)
+- Corrected triangularization of polygon, now correctly handling case
+  of concave shapes.
+- Corrected order of arguments in G4Paraboloid constructor.  
+
+16-Jan-2008, I.Hrivnacova (geom-specific-V09-01-00)
+- In G4ExtrudedSolid::MakeFacets(), now adding triangular facets before quadrangular
+  ones, following logic behind G4TessellatedSolid.
+
+12-Dec-2007, G.Cosmo (geom-specific-V09-00-08a)
+- Remove use of global static constant from singleton initialisation in
+  G4TessellatedGeometryAlgorithms class. Use 'sqrEpsilon' as local value.
+
+15-Nov-2007, P.Truscott (geom-specific-V09-00-08)
+- Reviewed implementation of G4TessellatedSolid::CalculateExtent() to
+  make it more robust and precise, following suggestion by S.Seibert
+  addressed in problem report #983, now fixed.
+
+12-Oct-2007, G.Cosmo (geom-specific-V09-00-07)
+- Corrected wrong boolean condition in method IntersectLineAndTriangle2D()
+  of G4TessellatedGeometryAlgorithms causing compilation error on VC++8.
+
+09-Oct-2007, G.Cosmo (geom-specific-V09-00-06)
+- Reviewed G4TessellatedSolid classes in order not to make use of random
+  numbers for selection of direction (by P.Truscott).
+
+02-Oct-2007, G.Cosmo
+- Removed debug printout in G4Polycone::GetPointOnCone().
+
+23-Aug-2007, G.Cosmo (geom-specific-V09-00-05)
+- Revision of G4TessellatedSolid classes:
+  o Fixed problem report #931 by P.Truscott, based on suggestion of
+    R.Holmberg. Modified classes G4TessellatedSolid and G4TriangularFacet.
+  o Modified data and accessor 'centroid' and 'GetCentroid()' for G4VFacet;
+    replaced by 'circumcentre' and 'GetCircumcentre()' respectively.
+  o Added utility class G4TessellatedGeometryAlgorithms.
+- Added formulas for calculating SemiAxis and Zheight in G4EllipticalCone
+  (by T.Nikitina).
+
+20-Aug-2007, T.Nikitina & L.Lindroos (geom-specific-V09-00-04)
+- Revision of G4EllipticalCone:
+  o DistanceToIn(p): corrected answer for p.z()<-zTopCut and for the point
+    p on the surface.
+  o DistanceToOut(p,v): now returning positive solution or zero when crossing
+    the elliptical surface.
+  o Fix in DistanceToOut(p) which was giving always zero. 
+  o Corrected visualisation error of solid in graphics_reps.
+  o Added some formulas on how to pre-calculate 'SemiAxis' and 'zheight'.
+  o Added checkDistanceToOut() method to unit test.
+- Corrections to G4Paraboloid:
+  o Fixed bug in CalculateSurfaceArea() method
+  o Added correct initialisation of 'fPolyhedron' in constructor.
+  o Added unit test testG4Paraboloid.
+
+13-Aug-2007, W.Pokorski (geom-specific-V09-00-03)
+- G4PolyconeSide: added workaround to initialisation of 'corners' vector,
+  to allow for object persistency with Root-I/O (W.Pokorski).
+
+18-Jul-2007, G.Cosmo (geom-specific-V09-00-02)
+- New specific G4Paraboloid with cuts along the Z axis (by L.Lindroos).
+- Fixed dummy constructors of G4Polycone and G4PolyPhiFace for initialisation
+  of 'edges' and 'corners'.
+- Coworks with tag "greps-V09-00-01".
+
+12-Jul-2007, T.Nikitina (geom-specific-V09-00-01)
+- Fix in G4Polyhedra::GetPointOnSurface() to correctly treat 'totalPhi' instead of
+  'endPhi' for the case of open shapes and 'twopi' for not open shapes.
+
+05-Jul-2007, T.Nikitina (geom-specific-V09-00-00)
+- Fix in G4Polyhedra::GetPointOnSurface() for the case when number of sectors
+  (numSide) is equal to 1. At the origin of problems observed when checking
+  overlaps for polyhedra solids defined as such.
+
+31-May-2007, G.Cosmo (geom-specific-V08-03-03)
+- Fixed initialisation of constants in constructor for - G4VTwistSurface,
+  G4PolyPhiFace, G4PolyconeSide, G4PolyhedraSide - following latest changes
+  for tunable tolerance.
+
+25-May-2007, G.Cosmo (geom-specific-V08-03-02)
+- Fixed default response of DistToIn/DistToOut for twisted solids.
+- Use G4TWISTDEBUG instead of G4SPECSDEBUG as debug conditional flag
+  for twisted solids.
+- Some cleanup in G4TwistTrapAlphaSide code.
+
+18-May-2007, G.Cosmo (geom-specific-V08-03-01)
+- Use kAngTolerance and kRadTolerance from G4GeometryTolerance class.
+- Coworks with tag "global-V08-03-03".
+
+11-May-2007, T.Nikitina (geom-specific-V08-03-00)
+- Use call to G4GeometryTolerance instead of kCarTolerance where needed.
+- Requires tag "global-V08-03-00" and related tag set.
+
+26-Apr-2007, T.Nikitina (geom-specific-V08-02-05)
+- Fix in GetPointOnSurface() for G4Polycone to consider also points laying
+  on rings when consecutive Z-sections are coincident.
+  Added method GetPointOnRing().
+- Added unit test testPointOnSurfacePoly.cc.
+
+27-Feb-2007, I.Hrivnacova (geom-specific-V08-02-04)
+- Added specialised constructor for handling Z-sections in G4ExtrudedSolid.
+- Cleared unecessary declaration of IsInside() methods in G4TriangularFacet
+  and G4QuadrangularFacet.
+- Updated unit test for G4ExtrudedSolid.
+
+26-Feb-2007, I.Hrivnacova (geom-specific-V08-02-04)
+- Added specialised constructor for handling Z-sections in G4ExtrudedSolid.
+- Cleared unecessary declaration of IsInside() methods in G4TriangularFacet
+  and G4QuadrangularFacet.
+- Updated unit test for G4ExtrudedSolid.
+
+15-Feb-2007, I.Hrivnacova (geom-specific-V08-02-03)
+- Corrected caching of values in G4ExtrudedSolid.
+- Bug fix in G4TriangularFacet::Intersect() to allow for correct update of
+  'Distance' in condition.
+- Updated unit test for G4ExtrudedSolid.
+
+09-Feb-2007, G.Cosmo (geom-specific-V08-02-02)
+- Introduced new shape G4ExtrudedSolid, a solid representing the extrusion
+  of an arbitrary polygon with fixed outline in the two Z sections.
+  New files: G4ExtrudedSolid[.hh.icc.cc] and testG4ExtrudedSolid.cc
+  by I.Hrivnacova.
+- G4TessellatedSolid:
+  o Made relevant solid's methods virtual, to be used as base class.
+  o Added implementation for GetSurfaceArea() and GetPointOnSurface() methods.
+  o Added protection in SurfaceNormal() method in case of facet not found.
+  o Check and return kOutside in Inside() if point out of solid's extent.
+
+01-Feb-2007, G.Cosmo (geom-specific-V08-02-01)
+- Fix in G4PolyconeSide::DistanceAway() for correct estimation of distance
+  for the case of Phi sections (T.Nikitina).
+  Addresses problem report #598.
+- Updated unit test for G4Polycone to consider new test case.
+
+22-Jan-2007, G.Cosmo (geom-specific-V08-02-00)
+- Do not scale reducible-polygon in G4Polyhedra::Reset() method.
+  The 'original_parameters' structure offered as input through the accessors
+  are always assumed to be already scaled by the 'cos(0.5*phiTotal/theNumSide)'
+  factor. Addresses problem report #873.
+- Fixed warning printout in G4Polycone::Reset().
+
+15-Nov-2006, J.Allison (geom-specific-V08-01-04)
+- Fixed typo in G4Polycone::CreatePolyhedron() introduced by mistake in
+  the last cleanup of the source code.
+
+13-Nov-2006, G.Cosmo (geom-specific-V08-01-03)
+- Added concrete implementation of GetSurfaceArea() in G4Tet (M.H.Mendenhall).
+
+08-Nov-2006, G.Cosmo (geom-specific-V08-01-02)
+- Cleared compilation warnings on SUN-CC for changes in the last tag.
+  Fixed overloaded class variables in G4Polyhedra and G4Polycone
+  implementation of CreatePolyhedron().
+
+31-Oct-2006, J.Allison (geom-specific-V08-01-01)
+- Implemented CreatePolyhedron() for G4Polyhedra and G4Polycone.
+
+20-Oct-2006, G.Cosmo (geom-specific-V08-01-00)
+- Implemented caching mechanism for computation of surface area in
+  all solids and base classes, as done for the geometrical volume
+  computation.
+- Added missing fake constructor for object persistency to G4TessellatedSolid.
+
+20-Jun-2006, G.Cosmo (geom-specific-V08-00-10)
+- Added accessor method GetVertices() in G4Tet to return the list of
+  vertices composing the solid. Required for GDML persistency.
+
+06-Jun-2006, G.Cosmo (geom-specific-V08-00-09)
+- Added protection against NaNs in G4PolyconeSide::Normal() for points at
+  the origin.
+
+19-May-2006, G.Cosmo (geom-specific-V08-00-08)
+- Fix in G4Ellipsoid::SetZCuts() and G4EllipticalTube::SetZCut() for usage
+  of uninitialised variables.
+
+08-May-2006, G.Cosmo (geom-specific-V08-00-07)
+- Cleared compilation warning on SUN-CC in G4TriangularFacet.cc.
+
+04-May-2006, G.Cosmo (geom-specific-V08-00-06)
+- Use different names for unit tests to avoid confusing liblist ...
+
+03-May-2006, G.Cosmo (geom-specific-V08-00-05)
+- Added four unit tests for G4TessellatedSolid.
+
+24-Mar-2006, G.Cosmo (geom-specific-V08-00-04)
+- G4TwistedTubs: defined exact estimation for GetCubicVolume(),
+  similar to the one adopted for G4Tubs.
+
+03-Mar-2006, G.Cosmo (geom-specific-V08-00-03)
+- Corrected boolean condition in G4TriangularFacet::Intersect().
+  Use '&&' operator in condition. Allows for porting on WIN32-VC.
+
+01-Mar-2006, G.Cosmo (geom-specific-V08-00-02)
+- Introducing first implementation of a tessellated solid, contribution
+  of P.R.Truscott (QinetiQ Ltd, UK).
+  New classes: G4QuadrangularFacet, G4TessellatedSolid, G4TriangularFacet
+  and G4VFacet.
+- Requires tag "greps-V08-00-00".
+
+12-Jan-2006, J.Allison (geom-specific-V08-00-01)
+- G4TwistedTubs and G4VTwistedFaceted::CreatePolyhedron():
+  parameterised polyhedron mesh approximation in terms of
+  G4Polyhedron::GetNumberOfRotationSteps().
+  This is (a) more economical and (b) amenable to user control.
+
+19-Dec-2005, O.Link (geom-specific-V08-00-00)
+- Fixes in G4EllipticalCone:
+  o Changed GetPointOnSurface(), which was not uniform in endcaps.
+  o Bug fix in Inside(), which was not correct for the elliptic mantel.
+    Made test similar as in G4EllipticTube.
+  o Several fixes in DistanceToIn/Out(): for looping events (shortest
+    distance was taken, even if 0); now comparing the distance to the endcap
+    and to the mantel and decide afterwards which distance is shortest;
+    added check n*v.
+  o The code is now "good" at 90%. Still 10% wrong reconstructed events.
+    e.g there is a problem is DistanceToOut(): missed the intersection
+    (reconstruction took the encap instead of the mantel).
+
+09-Dec-2005, O.Link
+- Fixed visibility of soft edges on the twisted solids.
+
+08-Dec-2005, O.Link (geom-specific-V07-01-14)
+- Fixed bug in G4VTwistSurface::ComputeLocalPoint(p) for point coordinate
+  transformation. The bug affected only G4TwistTrapFlatSide.
+
+06-Dec-2005, G.Cosmo (geom-specific-V07-01-13)
+- Fixed compilation errors on WIN32-VC for last tag changes.
+
+05-Dec-2005, O.Link (geom-specific-V07-01-12)
+- Added polyhedron definition for twisted solids (G4TwistedTrap,
+  G4TwistedTrd, G4TwistedBox, G4TwistedTubs) for visualization.
+
+30-Nov-2005, G.Cosmo (geom-specific-V07-01-11)
+- Trivial fixes for porting on CLHEP-2.0.X series.
+
+18-Nov-2005, O.Link (geom-specific-V07-01-10)
+- Renamed classes for twisted solids set, to identify them in the
+  twisted framework.
+
+17-Nov-2005, O.Link
+- G4VTwistedFacted:
+  o corrected bug in DistanceToSurface() implementation
+  o added GetPointOnSurface() method
+- G4TwistedTubs:
+  o added GetPointOnSurface() method
+- G4Hype:
+  o corrected surface area calculation used in GetPointOnSurface()
+  
+17-Nov-2005, G.Cosmo (geom-specific-V07-01-09)
+- More fixes required for direct object persistency to G4Polycone,
+  G4polyhedra and related utility classes.
+
+10-Nov-2005, J.Allison (geom-specific-V07-01-08)
+- G4Tet:
+  o Added implementation for GetPolyhedron() and GetCubicVolume().
+  o Corrected order of specifying vertices in CreatePolyhedron().
+
+09-Nov-2005, G.Cosmo (geom-specific-V07-01-07)
+- Added fake default constructor for all concrete solids and relevant
+  utility classes, for usage of direct object persistency.
+- Implemented changes to support CLHEP-2.0.X for explicit usage of the
+  CLHEP/HepGeom namespaces for CLHEP types.
+
+07-Nov-2005, G.Cosmo (geom-specific-V07-01-06)
+- G4Ellipsoid: replaced call to hypot(x,y) with std::sqrt(x*x+y*y)
+  for porting to ISO standard.
+
+02-Nov-2005, G.Cosmo (geom-specific-V07-01-05)
+- G4Polyhedra, G4Polycone:
+  o Protected case of generic construct for visualization.
+  o Introduced explicit flag and method IsGeneric() to identify the kind
+    of constructor used.
+
+29-Sep-2005, G.Cosmo (geom-specific-V07-01-04)
+- Fix in G4EllipticalCone methods DistanceToIn() and DistanceToOut().
+  Added unit test for it (by D.Anninos).
+- Coworks with tag "greps-V07-01-02".
+
+10-Aug-2005, G.Cosmo (geom-specific-V07-01-03)
+- Introduced new solid G4EllipticalCone, a full cone with elliptical base
+  that can be cut in Z (by D.Anninos).
+  Coworks with tag "greps-V07-01-02".
+
+08-Aug-2005, D.Anninos (geom-specific-V07-01-02)
+- Added GetPointOnSurface() for all solids except twisted ones.
+  The method returns a random point according to a quasi-uniform
+  distribution along the surface.
+
+18-Jul-2005, G.Cosmo (geom-specific-V07-01-01)
+- Fixed compilation warning on WIN32-VC for G4VSurface.cc.
+- Not including G4Tet.
+
+06-Jul-2005, G.Cosmo (geom-specific-V07-01-00)
+- Added new shape G4Ellipsoid. Coworks with tag "greps-V07-01-00".
+  Contribution of G.Horton-Smith and G.Guerrieri.
+  Code cleanup, and added default arguments for cuts, added first
+  implementation of unit test.
+- Corrected unit tests for twisted-box/trap.
+- Not including G4Tet.
+
+15-Jun-2005, J.Apostolakis
+- Introduced new solid G4Tet, contribution of M.H.Mendenhall
+  and R.A.Weller, Vanderbilt University, USA.
+
+29-Apr-2005, O.Link (geom-specific-V07-00-04)
+- G4TwistedSurface: fixed bug in GetAreaCode() affecting G4TwistedTubs.
+
+04-Apr-2005, G.Cosmo (geom-specific-V07-00-03)
+- Added test for Number-Of-Rotation-Steps in GetPolyhedron() for
+  G4VCSGfaceted, G4Hype and G4EllipticalTube (by J.Allison).
+  Requires tag "greps-V07-00-02".
+- Added elementary implementation of CreatePolyhedron() for G4Hype,
+  G4TwistedBox, G4TwistedTubs, G4TwistedTrd, G4TwistedTrap.
+- Some code cleanup.
+
+18-Mar-2005, O.Link (geom-specific-V07-00-02)
+- New generic framework for twisted solids G4TwistedBox, G4TwistedTrd and
+  G4TwistedTrap: inheriting now from the base class G4VTwistedFaceted.
+- Extended G4TwistedTrap to support setups with different trapezoidal
+  endcaps with centres not necessarily on a line parallel to the z axis.
+- Added G4TwistedTrd and general G4TwistedTrap as test cases in test.
+
+03-Mar-2005, J.Allison
+- Changed AddThis() to AddSolid() for all solids in the implementation
+  of DescribeYourselfTo(G4VGraphicsScene&).
+
+01-Mar-2005, O.Link (geom-specific-V07-00-01)
+- Fixed compilation warnings on WIN32-VC for G4VSurface.cc.
+
+14-Feb-2005, O.Link (geom-specific-V07-00-00)
+- Use new polynom approximations based on new solver based on Jenkins-Traub
+  algorithm, for twisted-box and twisted-trap.
+- Fixed bug in the usage of 'fmod' and adopt special treatment for 'parallel'
+  events in G4TwistedBoxSide and G4TwistedTrapSide.
+- Coworks with tag "global-V07-00-00".
+
+08-Dec-2004, O.Link (geom-specific-V06-02-07)
+- Extensions to twisted box/trap shapes to consider all 4 solutions
+  for determining correct intersections.
+
+29-Nov-2004, O.Link (geom-specific-V06-02-06)
+- G4TwistedTrapSide, G4TwistedBoxSide: improved (analytical) version
+  of GetPhiUAtX() method.
+
+24-Nov-2004, O.Link (geom-specific-V06-02-05)
+- Fixed bug in description of twisted trapezoid side.
+
+12-Nov-2004, O.Link (geom-specific-V06-02-04)
+- Added G4TwistedBox  - a twisted box with twist angle alpha,
+                        length a/2,b/2,L/2.
+- Added G4TwistedTrap - a twisted trapezoid (still in debug state)
+- Changed in G4VSurface.icc: 
+    - GetNeighbours(): corrected axiscode (was returning the wrong neighbours)
+    - SetNeighbours(): fixed problem #685 (index out of range)
+- Added tests for G4TwistedBox and G4TwistedTrap in specific/test.
+- Added G4TwistedBox and G4TwistedTrap in system testing, test10.
+
+22-Oct-2004, D.C.Williams (geom-specific-V06-02-03)
+- Fix in G4PolyconeSide::Inside for points at radius = 0 for phi slides
+  solids with an inner radius. Addresses problem report #598.
+
+10-Oct-2004, J.Allison (geom-specific-V06-02-02)
+- Added GetPolyhedron, a smart access function that creates a G4Polyhedron
+  on request and stores for future access.  A null pointer means "not
+  available".
+
+22-Sep-2004, G.Cosmo (geom-specific-V06-02-01)
+- Added implementation of GetCubicVolume() with cashing mechanism for
+  solids: G4EllipticalTube, G4Hype, G4Polyhedra, G4Polycone, G4TwistedTubs.
+
+01-Sep-2004, D.C.Williams (geom-specific-V06-02-00)
+- G4VCSGfaceted: fix for rare anomalous situation in which
+  DistanceToOut(p,v,..) will report kInfinity, make an additional check
+  for the point p on the surface, in which case will report zero.
+  Addresses problem observed in G4Polyhedra and reported in #650.
+
+07-Jun-2004, G.Cosmo (geom-specific-V06-01-04)
+- Fixed compilation problem in G4TwistedSurface.cc on WIN32-VC.
+
+28-May-2004, G.Cosmo (geom-specific-V06-01-03)
+- Fixed archiving problem on WIN32-VC7: replaced structs with classes
+  in G4VSurface.
+- Replaced misleading names for masks in G4VSurface and moved inlined
+  methods of nested classes to .cc.
+
+25-May-2004, G.Cosmo (geom-specific-V06-01-02)
+- Fixed compilation problem on SUN-CC. Made EValidate enum public in
+  G4VSurface.hh.
+
+24-May-2004, G.Cosmo (geom-specific-V06-01-01)
+- Removed compilation warnings and minor cleanup...
+
+19-May-2004, O.Link (geom-specific-V06-01-00)
+- First implementation of a framework for twisted surfaces, integrated from
+  the original version of Kotoyo Hoshina (hoshina@hepburn.s.chiba-u.ac.jp)
+  implemented in the 'Jupiter' application.
+  o Includes new specific twisted shape: G4TwistedTubs.
+  o New classes: G4VSurface, G4TwistedSurface, G4HyperbolicSurface,
+                 G4FlatSurface, G4TwistedTubs.
+  o Cleanup of original code (debugging messages, compiler errors, migration
+    of g4std to new convention...)
+  o New organisation of class G4TwistedTubs: now independent of XXXSurface;
+    removed backpointer 'fSolid' from XXXSurface to G4TwistedTubs.
+  o New form of constructors in G4TwistedSurface, G4HyperbolicSurface and
+    G4FlatSurface.
+  o Change in G4TwistedSurface::DistanceToIn(p,v,...): roundoff correction.
+
+12-Jan-2004, G.Cosmo (geom-specific-V06-00-00)
+- G4PolyhedraSide.cc: fixed bug in which particles could "leak" out the
+  center of a face if inner radius = 0.
+  Fixes problem report #547. (D.Williams)
+
+22-Nov-2003, G.Cosmo (geom-specific-V05-02-07)
+- Fixed upper bound for protection check introduced in G4Polycone and
+  G4Polyhedra constructors.
+
+17-Nov-2003, G.Cosmo (geom-specific-V05-02-06)
+- Added protections in G4Polycone and G4Polyhedra constructors for
+  invalid constructs with no contiguous segments in Z planes as input.
+
+04-Nov-2003, G.Cosmo (geom-specific-V05-02-05)
+- Added SetOriginalParameters() method to G4Polycone and G4Polyhedra.
+
+03-Nov-2003, G.Cosmo (geom-specific-V05-02-04)
+- Code cleanup and headers inclusion review
+  (replaced by forward declarations where necessary).
+
+28-Oct-2003, G.Cosmo (geom-specific-V05-02-03)
+- Migrated to new G4Exception scheme.
+
+20-Oct-2003, G.Cosmo (geom-specific-V05-02-02)
+- Added Reset() method in G4Polycone and G4Polyhedra to allow
+  recalculation and reshape of the solid if new original_parameters
+  are provided.
+
+30-Sep-2003, G.Cosmo (geom-specific-V05-02-01)
+- Updated GNUmakefile for unit tests, according to new structure
+  introduced in "geometry-V05-02-00".
+
+16-Jun-2003, G.Cosmo (geom-specific-V05-02-00)
+- Added accessors to original_parameters for G4Polycone and G4Polyhedra.
+  Made G4PolyconeHistorical and G4PolyhedraHistorical classes in global
+  scope (temporary solution).
+
+28-Mar-2003, G.Cosmo (geom-specific-V05-00-00)
+- Fixed initialisation of base class in copy contructor for:
+  G4PolyPhiFace, G4PolyconeSide, G4PolyhedraSide.
+- Fixed trivial pedantic warnings on G4Polycone and G4Polyhedra.
+
+30-Oct-2002, G.Cosmo (geom-specific-V04-01-01)
+- Fixed un-initialised data members in constructors of classes:
+  G4ClippablePolygon, G4EnclosingCylinder, G4PolyconeSide,
+  G4ReduciblePolygon, G4VCSGfaceted.
+
+28-Oct-2002, G.Cosmo (geom-specific-V04-01-00)
+- Added implementation of StreamInfo() to comply with new interface for
+  G4VSolid in "geommng-V04-01-03".
+- Created .icc files for G4EllipticalTube, G4Polyhedra and G4Polycone.
+- Some cosmetic changes to code formatting: removed <TAB> characters and adopt
+  uniform code indentation.
+
+08-May-2002, J.Allison (geom-solids-specific-V04-00-01)
+- Implemented G4EllipticalTube::CreatePolyhedron.
+
+10-Jan-2002, G.Cosmo (geom-solids-specific-V04-00-00)
+- Updated unit tests.
+
+20-Apr-2001, G.Cosmo (geom-solids-specific-V03-01-00)
+- Migration to STL vector:
+  o In G4ClippablePolygon, migrated G4ThreeVectorList typedef and
+    made private to class.
+    
+03-Apr-2001, D.Williams  (geom-solids-specific-V03-00-01)
+-----------------------
+- G4IntersectingCone.cc: make small adjustment to help with roundoff error
+  in LineHitsCone1() and LineHitsCone2().
+
+08-Jan-2001, D.Williams  (geom-solids-specific-V03-00-00)
+-----------------------
+- G4Hype.cc: Added protecton against zero v.z in DistanceToOut.
+
+20-Nov-2000, G.Cosmo     (geom-solids-specific-V02-00-04)
+---------------------
+- Fixes to remove warnings from "-Wall -ansi -pedantic" g++ compiler options:
+  o commented out variables declared and not used.
+  o fixed declaration of variables used before being initialised.
+  o fixed order of initialisation of member data in constructors.
+  o fixed usage of unsigned-int (size_t) for array indeces.
+
+13-Nov-2000, G.Cosmo     (geom-solids-specific-V02-00-03)
+--------------------
+- Added definition of empty constructor for G4ClippablePolygon which
+  went lost by mistake...
+
+02-Nov-2000, G.Cosmo     (geom-solids-specific-V02-00-02)
+--------------------
+- QA code revision and cleanup (+fixes from CodeWizard filtering):
+  o Avoid inline virtual methods.
+  o General cosmetics for Software Reference Manual.
+
+23-Oct-2000, D.Williams  (geom-solids-specific-V02-00-01)
+-----------------------
+- G4IntersectingCone.cc: the check for a zero radical has been adjusted to be
+  less sensitive to round off error in LineHitsCone1(), LineHitsCone2().
+  This fixes a problem discovered in BaBar.
+
+12-Sep-2000, G.Cosmo  (geom-solids-specific-V02-00-00)
+--------------------
+- Organised comments to headers for Software Reference Manual.
+
+27-Jun-2000, G.Cosmo  (geom-solids-specific-V01-01-02)
+--------------------
+- G4Polycone[.hh.cc]: better fix for bug-report #110.
+  Removed struct and replaced with class.
+
+26-Jun-2000, G.Cosmo  (geom-solids-specific-V01-01-01)
+--------------------
+- G4Polycone.cc: fixed memory leak by invoking destruction of member
+  enclosingCylinder, which was not cleaned up in the destructor.
+  This fixes problem report #107.
+- G4Polycone.hh: added forward declaration of struct G4PolyconeHistorical
+  and made it friend, for porting on KCC --strict. This fixes report #110.
+- G4Polyhedra.hh: fixed typo in method name. Changed GetNumSIde() to
+  GetNumSide(). This fixes problem report #105.
+
+08-Jun-2000, G.Gracia
+---------------------
+- G4VCSGfaceted.cc: fix for Win/NT in function GetExtent().
+
+27-Apr-2000, G.Cosmo
+--------------------
+- Removed dependency over the CSG domain in GNUmakefile.
+
+18-Apr-2000, D.Williams
+-----------------------
+- Removed meaningless "const" specifiers from methods in G4ClippablePolygon,
+  and G4EllipticalTube.
+- G4EllipticalTube, G4Hype and G4VCSGfaceted now inherit directly
+  from G4VSolid (before was G4CSGSolid).
+- Reintroduced GetExtent() in G4EllipticalTube, G4Hype and G4VCSGfaceted
+  (in principle, not needed).
+- Modified assertations in unit test testG4Hype.cc.
+
+11-Apr-2000, J.Allison
+----------------------
+- Removed implementations of GetExtent in most sub-classes of G4VSolid (a
+  default implementation exists in G4VSolid).
+- All implementations of DescribeYourselfTo (G4VGraphicsScene& scene) const
+  now correctly written: scene.AddThis(*this).
+
+05-Apr-2000, G.Cosmo   (geom-solids-specific-V01-01-00)
+--------------------
+- Restructured solids/CSG domain, by moving to "specific" the following
+  classes: G4ClippablePolygon, G4EnclosingCylinder, G4Hype, G4PolyPhiFace,
+  G4Polycone, G4PolyconeSide, G4Polyhedra, G4PolyhedraSide, G4ReduciblePolygon,
+  G4IntersectingCone, G4SolidExtentList, G4VCSGface, G4VCSGfaceted.
+  The new module's library for "specific" is now called 'G4specsolids'.
+- Created specific/test directory and moved testG4Hype.cc and testG4Polycone,cc
+  from CSG/test.
+- Organised class description comments for the Software Reference Manual
+  and added CVS headers to files.
+
+29-Mar-2000, D.Williams
+-----------------------
+- Added first implementation of G4EllipticalTube.
+  It defines a simple elliptical tube, as in geant3 "ELTU".
+  Files introduced: G4EllipticalTube[.hh.cc].
+
+25-Mar-2000, G.Cosmo
+--------------------
+- History file created.

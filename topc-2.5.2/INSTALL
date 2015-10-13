@@ -1,0 +1,76 @@
+The installation instructions follow the common model:
+  ./configure
+  make
+  make install
+The rest of the instructions are modified from those for the GTK+ package.
+
+Simple install procedure
+========================
+
+  % gzip -cd topc.tar.gz | tar xvf -       # unpack the sources
+  % cd topc                                # change to the toplevel directory
+  % ./configure                            # run the `configure' script
+  % make                                   # build TOP-C
+  [ Become root if necessary ]
+  % make install                           # install TOP-C
+
+The Nitty-Gritty
+================
+
+The 'configure' script can be given a number of options to enable
+and disable various features. For a complete list, type:
+
+  ./configure --help
+ few of the more important ones:
+
+*  --prefix=PREFIX         install architecture-independent files in PREFIX
+                           [ Defaults to /usr/local ]
+
+*  --exec-prefix=EPREFIX   install architecture-dependent files in EPREFIX
+                           [ Defaults to the value given to --prefix ]
+
+
+Options can be given to the compiler and linker by setting
+environment variables before running configure. A few of the more
+important ones:
+
+ CC       : The C compiler to use
+ CXX      : The C++ compiler to use (needed only if application uses C++)
+ CFLAGS   : C compiler flags
+
+The most important use of this is to set the
+optimization/debugging flags. For instance, to compile with no
+debugging information at all, run configure as:
+
+ CFLAGS=-O2 ./configure           # Bourne compatible shells (sh/bash/zsh)
+
+or,
+
+ setenv CFLAGS -O2 ; ./configure  # csh and variants
+
+Installation directories
+========================
+
+The location of the installed files is determined by the --prefix
+and --exec-prefix options given to configure. There are also more
+detailed flags to control individual directories. However, the
+use of these flags is not tested.
+
+Two shell scripts, topcc and topc++, are created during the configure
+process, and installed in the bin/ directory ($exec_prefix/bin).
+These can be used as replacements for the configured values of CC and CXX
+(where the values were set by ./configure) in compiling and linking
+TOP-C applications.
+
+Additionally, a shell script topc-config is created during the configure
+process, and installed in the bin/ directory ($exec_prefix/bin). This
+provides an alternate way for to determine the location of TOP-C libraries,
+include files, and definitions that are needed when building TOP-C
+applications.
+
+If you move TOP-C after installation, it will be necessary to edit
+topc, topc++ and topc-config.  The three scripts also contain
+a --help command line parameter, which provides a brief synopsis
+of their usage.
+
+For complete details, see the file docs/gtk-config.txt

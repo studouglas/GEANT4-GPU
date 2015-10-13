@@ -1,0 +1,56 @@
+$Id: History 67992 2013-03-13 10:59:57Z gcosmo $
+-------------------------------------------------------------------
+
+     =========================================================
+     Geant4 - an Object-Oriented Toolkit for Simulation in HEP
+     =========================================================
+
+                      Category History file
+                      ---------------------
+This file should be used by G4 developers and category coordinators
+to briefly summarize all major modifications introduced in the code
+and keep track of all category-tags.
+It DOES NOT substitute the  CVS log-message one should put at every
+committal in the CVS repository !
+
+     ----------------------------------------------------------
+     * Reverse chronological order (last date on top), please *
+     ----------------------------------------------------------
+Febr 26, 2013 Andrea Dotti
+- Adding cloning capbailities to SD
+
+June 4, 2007, A.Howard
+- Put back some classes required for scoring of geometrical biasing cells:
+  G4CellScoreValues, G4CellScoreComposer
+  (in module tag: "digits_hits-V08-03-03")
+
+May 31, 2007, A.Howard
+- Removed classes associated with old biasing/scoring scheme:
+  G4CellScoreComposer, G4CellScoreValues, G4CellStoreScorer 
+  (in module tag: "digits_hits-V08-03-02") 
+- Files remain on the HEAD for testing purposes
+
+Jul,  1st 2004 G.Cosmo
+- G4CellScoreComposer.cc, G4TrackLogger.cc: trivial fix for extra
+  semicolons, required for porting on gcc-3.4.0 compiler.
+
+May,  3rd 2004 G.Cosmo
+- G4SDManager, G4SDStructure: added optional argument 'warning' to
+  FindSensitiveDetector(pathName, warning), defaulted to TRUE, to
+  eventually exclude warning issued by G4SDManager when sensitive
+  detector is not found.
+  The fix has been requested by ALICE to deactivate the warning when
+  a new sensitive-detector is created automatically in their framework.
+
+Oct,  4th 2003 G.Cosmo
+- Imported from digits+hits directory.
+
+Nov,  4th 2002 M.Dressel
+- Removed G4std:: where it does not belong to.
+
+Oct  28th, 2002 M.Dressel
+- Added G4CellScoreComposer[.hh.cc], G4CellScoreValues.hh,
+  G4CellStoreScorer[.hh.cc], G4TrackLogger[.hh.cc].
+
+June 6, 98 M.Asai
+- Created.

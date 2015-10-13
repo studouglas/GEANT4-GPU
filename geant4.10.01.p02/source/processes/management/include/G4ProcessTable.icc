@@ -1,0 +1,146 @@
+//
+// ********************************************************************
+// * License and Disclaimer                                           *
+// *                                                                  *
+// * The  Geant4 software  is  copyright of the Copyright Holders  of *
+// * the Geant4 Collaboration.  It is provided  under  the terms  and *
+// * conditions of the Geant4 Software License,  included in the file *
+// * LICENSE and available at  http://cern.ch/geant4/license .  These *
+// * include a list of copyright holders.                             *
+// *                                                                  *
+// * Neither the authors of this software system, nor their employing *
+// * institutes,nor the agencies providing financial support for this *
+// * work  make  any representation or  warranty, express or implied, *
+// * regarding  this  software system or assume any liability for its *
+// * use.  Please see the license in the file  LICENSE  and URL above *
+// * for the full disclaimer and the limitation of liability.         *
+// *                                                                  *
+// * This  code  implementation is the result of  the  scientific and *
+// * technical work of the GEANT4 collaboration.                      *
+// * By using,  copying,  modifying or  distributing the software (or *
+// * any work based  on the software)  you  agree  to acknowledge its *
+// * use  in  resulting  scientific  publications,  and indicate your *
+// * acceptance of all terms of the Geant4 Software license.          *
+// ********************************************************************
+//
+//
+// $Id: G4ProcessTable.icc 71231 2013-06-12 13:06:28Z gcosmo $
+//
+//  History:
+//   Use STL vector instead of RW vector    1. Mar 00 H.Kurashige
+//
+#include "G4ParticleTable.hh"
+
+//////////////////////////
+inline 
+ void  G4ProcessTable::SetVerboseLevel(G4int value)
+{
+  verboseLevel = value;
+}
+
+//////////////////////////
+inline 
+ G4int G4ProcessTable::GetVerboseLevel() const
+{
+  return verboseLevel;
+}
+
+//////////////////////////
+inline 
+ G4int  G4ProcessTable::Length() const
+{
+  return fProcTblVector->size();
+}
+
+//////////////////////////
+inline 
+ G4ProcessTable::G4ProcNameVector*  G4ProcessTable::GetNameList()
+{
+   return  fProcNameVector;
+}
+
+//////////////////////////
+inline 
+ G4ProcessTable::G4ProcTableVector* G4ProcessTable::GetProcTableVector() 
+{ 
+  return fProcTblVector; 
+}
+
+
+//////////////////////////
+inline
+ G4VProcess* G4ProcessTable::FindProcess(const G4String& processName, 
+			  		 const G4ParticleDefinition* particle)
+					 const
+{
+  if ( particle == 0 ) return 0; 
+  else return FindProcess(processName, particle->GetProcessManager());
+}
+
+//////////////////////////
+inline  
+ G4VProcess* G4ProcessTable::FindProcess(const G4String& processName, 
+					 const G4String& particleName) const
+{
+  return FindProcess(processName,
+	  G4ParticleTable::GetParticleTable()->FindParticle(particleName));
+}
+
+
+//////////////////////////
+inline 
+ void G4ProcessTable::SetProcessActivation(
+				const G4String&       processName, 	
+				G4ParticleDefinition* particle, 
+			     	G4bool                fActive)
+{	
+  if ( particle != 0 ) { 
+    SetProcessActivation(processName, particle->GetProcessManager(), fActive);	
+  }	
+}	
+//////////////////////////
+inline
+ void  G4ProcessTable::SetProcessActivation( 
+				const G4String& processName, 
+			  	const G4String& particleName, 
+			        G4bool          fActive )
+{
+  if (particleName == "ALL" ) {
+    SetProcessActivation( processName , fActive); 
+  } else {
+    SetProcessActivation(
+	processName, 
+	G4ParticleTable::GetParticleTable()->FindParticle(particleName),
+     	fActive );
+  }
+}
+
+//////////////////////////
+inline 
+ void G4ProcessTable::SetProcessActivation(  
+				G4ProcessType   processType,
+			  	G4ParticleDefinition* particle, 
+			     	G4bool          fActive)
+{	
+  if ( particle != 0 ) { 
+    SetProcessActivation( processType, particle->GetProcessManager(), fActive);	
+  }	
+}	
+
+//////////////////////////
+inline
+ void  G4ProcessTable::SetProcessActivation( 
+				G4ProcessType   processType,
+				const G4String& particleName , 
+			     	G4bool          fActive)
+{
+  if ((particleName == "ALL" )||(particleName == "all" )) {
+    SetProcessActivation( processType, fActive ); 
+  } else {
+    SetProcessActivation( 
+	processType, 	
+	G4ParticleTable::GetParticleTable()->FindParticle(particleName),
+	fActive );
+  }
+}
+

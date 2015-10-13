@@ -1,0 +1,218 @@
+//
+// ********************************************************************
+// * License and Disclaimer                                           *
+// *                                                                  *
+// * The  Geant4 software  is  copyright of the Copyright Holders  of *
+// * the Geant4 Collaboration.  It is provided  under  the terms  and *
+// * conditions of the Geant4 Software License,  included in the file *
+// * LICENSE and available at  http://cern.ch/geant4/license .  These *
+// * include a list of copyright holders.                             *
+// *                                                                  *
+// * Neither the authors of this software system, nor their employing *
+// * institutes,nor the agencies providing financial support for this *
+// * work  make  any representation or  warranty, express or implied, *
+// * regarding  this  software system or assume any liability for its *
+// * use.  Please see the license in the file  LICENSE  and URL above *
+// * for the full disclaimer and the limitation of liability.         *
+// *                                                                  *
+// * This  code  implementation is the result of  the  scientific and *
+// * technical work of the GEANT4 collaboration.                      *
+// * By using,  copying,  modifying or  distributing the software (or *
+// * any work based  on the software)  you  agree  to acknowledge its *
+// * use  in  resulting  scientific  publications,  and indicate your *
+// * acceptance of all terms of the Geant4 Software license.          *
+// ********************************************************************
+//
+//
+// $Id: G4ParticleChange.icc 68795 2013-04-05 13:24:46Z gcosmo $
+//
+// 
+inline
+ G4Step* G4ParticleChange::UpdateStepInfo(G4Step* pStep)
+{
+  return G4VParticleChange::UpdateStepInfo(pStep);
+}
+
+inline 
+ G4double G4ParticleChange::GetEnergy() const
+{
+  return theEnergyChange;
+}
+
+inline
+ void G4ParticleChange::ProposeEnergy(G4double finalEnergy)
+{
+  theEnergyChange = finalEnergy;
+}
+
+inline
+ G4double G4ParticleChange::GetVelocity() const
+{
+   return theVelocityChange;
+}
+
+inline
+  void G4ParticleChange::ProposeVelocity(G4double finalVelocity)
+{
+   theVelocityChange = finalVelocity;
+   isVelocityChanged = true;
+}
+
+inline 
+ const G4ThreeVector* G4ParticleChange::GetMomentumDirection() const
+{
+  return &theMomentumDirectionChange;
+}
+
+inline 
+ void G4ParticleChange::ProposeMomentumDirection(
+						G4double Px, 
+						G4double Py, 
+						G4double Pz	)
+{
+  theMomentumDirectionChange.setX(Px);
+  theMomentumDirectionChange.setY(Py);
+  theMomentumDirectionChange.setZ(Pz);
+}
+
+inline 
+ void G4ParticleChange::ProposeMomentumDirection(const G4ThreeVector& P)
+{
+  theMomentumDirectionChange = P;
+}
+
+
+inline 
+ const G4ThreeVector* G4ParticleChange::GetPolarization() const
+{
+  return &thePolarizationChange;
+}
+
+inline 
+ void G4ParticleChange::ProposePolarization( const G4ThreeVector& finalPoralization)
+{
+  thePolarizationChange = finalPoralization;
+}
+
+inline 
+ void G4ParticleChange::ProposePolarization(
+						G4double Px, 
+						G4double Py, 
+						G4double Pz	)
+{
+  thePolarizationChange.setX(Px);
+  thePolarizationChange.setY(Py);
+  thePolarizationChange.setZ(Pz);
+}
+
+inline 
+ const G4ThreeVector* G4ParticleChange::GetPosition() const
+{
+  return &thePositionChange;
+}
+
+inline 
+ void G4ParticleChange::ProposePosition(const G4ThreeVector& finalPosition)
+{
+  thePositionChange= finalPosition;
+}
+
+inline 
+ void G4ParticleChange::ProposePosition(G4double x,G4double y, G4double z)
+{
+  thePositionChange.setX(x);
+  thePositionChange.setY(y);
+  thePositionChange.setZ(z);
+}
+
+inline 
+  G4double  G4ParticleChange::GetProperTime() const
+{
+  return  theProperTimeChange;
+}
+
+inline 
+  void G4ParticleChange::ProposeProperTime(G4double tau)
+{
+  theProperTimeChange = tau;
+}
+
+inline
+ G4ThreeVector G4ParticleChange::GetGlobalPosition(const G4ThreeVector& displacement) const
+{
+  return thePositionChange + displacement;
+}
+
+inline 
+  void G4ParticleChange::ProposeGlobalTime(G4double t)
+{
+  theTimeChange = (t-theGlobalTime0) + theLocalTime0;
+}
+   
+inline
+ G4double  G4ParticleChange::GetGlobalTime(G4double timeDelay) const
+{
+  //  Convert the time delay to the global time.
+  return theGlobalTime0 + (theTimeChange-theLocalTime0) + timeDelay;
+}
+
+inline 
+  void G4ParticleChange::ProposeLocalTime(G4double t)
+{
+  theTimeChange = t;
+}
+   
+inline
+ G4double  G4ParticleChange::GetLocalTime(G4double timeDelay) const
+{
+  //  Convert the time delay to the local time.
+  return theTimeChange + timeDelay;
+}
+
+inline 
+  G4double  G4ParticleChange::GetMass() const
+{
+  return  theMassChange;
+}
+
+inline 
+  void G4ParticleChange::ProposeMass(G4double t)
+{
+  theMassChange = t;
+}
+
+inline 
+  G4double  G4ParticleChange::GetCharge() const
+{
+  return  theChargeChange;
+}
+
+inline 
+  void G4ParticleChange::ProposeCharge(G4double t)
+{
+  theChargeChange = t;
+}
+
+
+inline
+  G4double G4ParticleChange::GetMagneticMoment() const
+{
+  return theMagneticMomentChange;
+}
+ 
+inline
+  void G4ParticleChange::ProposeMagneticMoment(G4double finalMagneticMoment)
+{
+  theMagneticMomentChange = finalMagneticMoment;
+}
+  
+inline  
+  G4ThreeVector G4ParticleChange::CalcMomentum(G4double          energy,
+			    	              G4ThreeVector   direction,
+			                      G4double           mass      
+					      ) const
+{
+  G4double tMomentum = std::sqrt(energy*energy + 2*energy*mass);
+  return direction*tMomentum; 
+}
+

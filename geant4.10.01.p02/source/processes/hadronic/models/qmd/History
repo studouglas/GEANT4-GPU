@@ -1,0 +1,279 @@
+
+       ==========================================================
+       Geant4 - an Object-Oriented Toolkit for Physics Simulation
+       ==========================================================
+
+        History file for hadronic/models/qmd directory
+        --------------------------------------------------------
+
+This file should be used to summarize modifications introduced in the 
+code and to keep track of all tags.
+
+     ---------------------------------------------------------------
+     * Please list in reverse chronological order (last date on top)
+     ---------------------------------------------------------------
+
+13 March 2015 Tatsumi Koi (hadr-qmd-V10-00-04)
+- Fix for Coverity #56310 and 56302
+	src/G4QMDNucleus.cc
+
+02 March 2015 Tatsumi Koi
+- Fix for Coverity #20339
+	src/G4QMDGroundStateNucleus.cc
+
+09 September 2014 Witek Pokorski (hadr-qmd-V10-00-03)
+- update to use G4CrossSectionDataSetRegistry
+
+04 September 2014 Witek Pokorski (hadr-qmd-V10-00-02)
+- Commenting out obsolete include of a cross section header file.
+
+14 April 2014 Gunter Folger (hadr-qmd-V10-00-01)
+- Changes for const G4ParticleDefintion* in use with G4KineticTrack.
+
+14 March 2014 Tatsumi Koi (hadr-qmd-V10-00-00)
+-Migrate to handle returned const pointer of G4ParticleDefinition
+	src/G4QMDReaction.cc
+
+15 October 2013 Tatsumi Koi (hadr-qmd-V09-06-10)
+-Change G4ParticleTable::GetParticleTable()->GetIon(,,) 
+     to G4IonTable::GetIonTable()->GetIon(,,);
+	src/G4QMDReaction.cc
+
+26 August 2013 Tatsumi Koi (hadr-qmd-V09-06-09)
+- Fix double deletion problem on G4QMDCollision
+	include/G4QMDCollision.hh
+	src/G4QMDCollision.cc
+
+4 June 2013 Tatsumi Koi (hadr-qmd-V09-06-08)
+- Fix COPY_WITHOUT_ASSIGN
+	include/G4QMDCollision.hh
+	src/G4QMDCollision.cc
+
+2 May 2013 Tatsumi Koi (hadr-qmd-V09-06-07)
+- Fix for compilation problem on WIN32-VC
+	src/G4QMDMeanField.cc
+
+1 May 2013 Tatsumi Koi (hadr-qmd-V09-06-06)
+- Use cmath error function
+	src/G4QMDMeanField.cc
+
+30 April 2013 Tatsumi Koi (hadr-qmd-V09-06-05)
+- Delete unused private member 
+	include/G4QMDGroundStateNucleus.hh  
+- Fix UNINIT_CTOR
+	src/G4QMDGroundStateNucleus.cc
+- Fix MISSING_COPY
+	src/G4QMDCollision.cc
+- Add Get, Set method of model parameter
+	include/G4QMDCollision.hh
+- Fix MISSING_COPY
+	include/G4QMDReaction.hh
+- Fix VIRTUAL_DTOR
+	include/G4QMDSystem.hh
+	include/G4QMDNucleus.hh
+	src/G4QMDNucleus.cc
+- Restore to use CLHEP::HepStat::erf for avoiding compilation error in MT
+	src/G4QMDMeanField.cc
+
+29 April 2013 Tatsumi Koi (hadr-qmd-V09-06-04)
+- Fix STREAM_FORMAT_STATE
+	src/G4QMDSystem.cc
+- Replace CLHEP::HepStat to G4RandStat
+	src/G4QMDMeanField.cc
+- Replace std::cout to G4cout
+	src/G4QMDGroundStateNucleus.cc
+
+25 April 2013 Tatsumi Koi (hadr-qmd-V09-06-03)
+- Fix MISSING_ASSIGN "genspaXS"
+      UNINIT_CTOR
+	include/G4QMDReaction.hh
+- Fix MISSING_ASSIGN "theMeanField" and "theSystem"
+      UNINIT_CTOR
+	src/G4QMDCollision.cc
+- Fix UNINIT_CTOR "hit"
+	src/G4QMDParticipant.cc  
+- Fix UNINIT_CTOR "bindingEnergy", "excitationEnergy", "jj", "kineticEnergyPerNucleon" and "potentialEnergy" 
+	include/G4QMDNucleus.hh  
+	src/G4QMDNucleus.cc  
+- Fix UNINIT_CTOR "system", "c3w" and "icoul" 
+	include/G4QMDMeanField.hh
+	src/G4QMDMeanField.cc
+
+12 March 2013 Dennis Wright (hadr-qmd-V09-06-02)
+- fix MacOS Clang compiler warnings for G4QMDCollision.hh, .cc :
+  remove unused private variables sig0 and sig1   
+
+11-January-2013  Gabriele Cosmo (hadr-qmd-V09-06-01)
+- Fix for logic error in G4QMDGroundStateNucleus::packNucleons().
+  Addressing problem report #1418.
+
+27-September-2012  Gabriele Cosmo (hadr-qmd-V09-05-03)
+- Explicitly use inclusion of headers for system of units and physical
+  constants, in plan to remove implicit inclusion from globals.hh.
+
+31-July-2012 Tatsumi Koi (hadr-qmd-V09-05-02)
+- Add model name
+	src/G4QMDReaction.cc  
+
+11-June-2012 Tatsumi Koi (hadr-qmd-V09-05-01)
+- Fix compilation warnings for shadowed variables 
+	src/G4QMDGroundStateNucleus.cc
+	src/G4QMDMeanField.cc
+	src/G4QMDCollision.cc
+
+04-April-2012 Tatsumi Koi (hadr-qmd-V09-05-00)
+- Fix potential problem in 64bit
+	src/G4QMDMeanField.cc
+
+27-September-2011 Tatsumi Koi (hadr-qmd-V09-04-03)
+- Migrate integer A and Z
+	src/G4QMDReaction.cc  
+
+29-August-2011 Tatsumi Koi (hadr-qmd-V09-04-02)
+- Migrate new interface of VCrossSectionDataSet (hadr-cross-V09-04-14)
+	src/G4QMDReaction.cc  
+
+20-June-2011 Ben Morgan (hadr-qmd-V09-04-01)
+- sources.cmake : Removed no longer present G4QMDFermi* files.
+
+17-June-2011 Tatsumi Koi (hadr-qmd-V09-04-00)
+-Fix gcc 4.6 compilation warnings 
+	src/G4QMDCollision.cc  
+
+18-November-2010 Tatsumi Koi (hadr-qmd-V09-03-00)
+- Enable RQMD
+	include/G4QMDReaction.hh  
+	src/G4QMDReaction.cc  
+	include/G4QMDMeanField.hh
+	src/G4QMDMeanField.cc
+
+20-November-2009 Tatsumi Koi (hadr-qmd-V09-02-03)
+- Delete obviously unnecessary dependency in GNUMakefile 
+	GNUmakefile
+- Enable meson incidence (BETA)
+	include/G4QMDReaction.hh  
+	src/G4QMDReaction.cc  
+
+19-November-2009 Tatsumi Koi (hadr-qmd-V09-02-02)
+- Fix bug for incidence of neutral particles;
+  Should be OK for neucleon-nucleus interaction 
+	src/G4QMDReaction.cc  
+	src/G4QMDGroundStateNucleus.cc  
+
+31-March-2009 Tatsumi Koi (hadr-qmd-V09-02-01)
+- Fix bug in gamma(mass zero) partiticpants
+	src/G4QMDCollision.cc  
+- Chnage member object to pointer
+	include/G4QMDReaction.hh  
+	src/G4QMDReaction.cc  
+
+28-February-2009 Tatsumi Koi (hadr-qmd-V09-02-00)
+- Fix bug in Absorption 
+	src/G4QMDCollision.cc  
+- Add Be8 -> Alpha Alpha including opening angle by Q value  
+	src/G4QMDReaction.cc  
+
+20-November-2008 Tatsumi Koi (hadr-qmd-V09-01-08)
+- Add Update 
+	include/G4QMDMeanField.hh
+	src/G4QMDMeanField.cc
+- Add "hit" flag and related methods
+	include/G4QMDParticipant.hh  
+- Add Erase and Insert Participant methods
+	include/G4QMDSystem.hh  
+	src/G4QMDSystem.cc
+- Add deltaT in signature of CalKinematicsOfBinaryCollisions
+  Add several required updating of Mean Filed 
+  Modify handling of absorption case 
+	include/G4QMDCollision.hh  
+	src/G4QMDCollision.cc  
+- Add deltaT in signature of CalKinematicsOfBinaryCollisions
+	src/G4QMDReaction.cc  
+
+07-November-2008 Tatsumi Koi (hadr-qmd-V09-01-07)
+- Add UnUseGEM and UseFRAG 
+  Fix bug in neucleon projectile
+	include/G4QMDReaction.hh
+	src/G4QMDReaction.cc  
+- Migrate to particles-V09-01-09 
+	src/G4QMDNucleus.cc  
+
+27-Oct-2008 Tatsumi Koi (hadr-qmd-V09-01-06)
+- Migrate to particles-V09-01-09 by T. Koi
+  Z,A to A,Z for functions of NucleiProperties 
+	src/G4QMDGroundStateNucleus.cc  
+	src/G4QMDNucleus.cc  
+
+24-Oct-2008 Tatsumi Koi (hadr-qmd-V09-01-05)
+- Migrate to particles-V09-01-09 by T. Koi
+	src/G4QMDGroundStateNucleus.cc  
+	src/G4QMDNucleus.cc  
+
+12-Jun-2008 Tatsumi Koi (hadr-qmd-V09-01-04)
+- Delete unnecessary dependency and unused functions
+  Change criterion of reaction by T. Koi
+	include/G4QMDReaction.hh
+	src/G4QMDReaction.cc  
+
+06-Jun-2008 Tatsumi Koi (hadr-qmd-V09-01-03)
+- Fix memory leaks by T. Koi 
+	include/G4QMDSystem.hh  
+	src/G4QMDReaction.cc  
+
+03-Jun-2008 Tatsumi Koi (hadr-qmd-V09-01-02)
+- Fix memory leaks by T. Koi 
+	src/G4QMDReaction.cc  
+	src/G4QMDCollision.cc  
+
+05-May-2008 Tatsumi Koi (hadr-qmd-V09-01-01)
+- Fixed and changed sampling method of impact parameter
+	src/G4QMDReaction.cc  
+
+26-Nov-2007 Tatsumi Koi (hadr-qmd-V09-00-05)
+- Fix of typo which introduced at (hadr-qmd-V09-00-04)
+	src/G4QMDNucleus.cc  
+
+20-Nov-2007 Tatsumi Koi (hadr-qmd-V09-00-04)
+- Fixed failed initialization of some parameter
+	src/G4QMDParameters.cc  
+- Reduce standard outputted information
+	src/G4QMDNucleus.cc  ( included fix in hadr-qmd-V09-00-03)
+- Reduce multiple calculation of identical and symmetric parameters 
+  (enhance computing speed)
+	src/G4QMDMeanField.cc  
+- Change reaction system CM to NN 
+  (usually enhanced stability of ground state nucleus)
+	include/G4QMDReaction.hh
+	src/G4QMDReaction.cc  
+
+22-Nov-2007 Gabriele Cosmo (hadr-qmd-V09-00-03)
+- Fixed compilation problem on WIN32-VC for usage of std::pow() function
+  in file G4QMDNucleus.cc.
+
+20-Nov-2007 Gabriele Cosmo (hadr-qmd-V09-00-02)
+- Fixed compilation problem on SUN-CC for handling of 'multimap'
+  structures in G4QMDMeanField.cc.
+
+15-Nov-2007 Tatsumi Koi    (hadr-qmd-V09-00-01)
+- First implmentation of QMD reaction model
+	based on JQMD (Niita et al., JAERI-Data/Code 99-042)
+	Use Collision library of Geant4
+
+	History (this file)
+        GNUMakefile 
+	include/G4QMDGroundStateNucleus.hh  
+	include/G4QMDNucleus.hh     
+	include/G4QMDParticipant.hh  
+	include/G4QMDSystem.hh
+	include/G4QMDCollision.hh  
+	include/G4QMDMeanField.hh           
+	include/G4QMDParameters.hh  
+	include/G4QMDReaction.hh
+	src/G4QMDCollision.cc  
+	src/G4QMDGroundStateNucleus.cc  
+	src/G4QMDMeanField.cc  
+	src/G4QMDNucleus.cc  
+	src/G4QMDParameters.cc  
+	src/G4QMDParticipant.cc  
+	src/G4QMDReaction.cc  
+	src/G4QMDSystem.cc

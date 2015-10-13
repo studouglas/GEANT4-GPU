@@ -1,0 +1,22 @@
+#!/bin/sh
+
+# This test suite is to test the correct functioning of TOP-C.
+# It is probably useful only to maintainers.
+
+test_it () { \
+  ( cd ../bin; make checkall TEST_ARGS=--TOPC_safety=$level | grep TEST ); \
+}
+
+test_it2 () { \
+  ( cd ../bin; make checkall TEST_ARGS=--TOPC_safety=$level --TOPC-aggregated-tasks=3 | grep TEST ); \
+}
+
+level=0; test_it
+level=2; test_it
+level=4; test_it
+level=8; test_it
+level=12; test_it
+level=14; test_it
+level=16; test_it
+level=19; test_it
+level=20; test_it

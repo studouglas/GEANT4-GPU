@@ -1,0 +1,730 @@
+$Id: History 87062 2014-11-24 11:45:21Z gcosmo $
+-------------------------------------------------------------------
+
+     =========================================================
+     Geant4 - an Object-Oriented Toolkit for Simulation in HEP
+     =========================================================
+
+                      Category History file
+                      ---------------------
+This file should be used by G4 developers and category coordinators
+to briefly summarize all major modifications introduced in the code
+and keep track of all category-tags.
+It DOES NOT substitute the  CVS log-message one should put at every
+committal in the CVS repository !
+
+     ----------------------------------------------------------
+     * Reverse chronological order (last date on top), please *
+     ----------------------------------------------------------
+
+21 November 14: V.Ivanchenko (emmuons-V10-00-04)
+- G4EnergyLossForExtrapolator - fixed problem of thread safe 
+    initialisation
+
+20 November 14: V.Ivanchenko (emmuons-V10-00-03)
+- G4EnergyLossForExtrapolator - fixed tread safety - correct 
+    initialisation per thread
+
+24 October 14: V.Ivanchenko (emmuons-V10-00-02)
+- G4TablesForExtrapolator - a new class which store EM tables 
+    shared between threads
+- G4EnergyLossForExtrapolator - data moved to the new class
+
+22 October 14: V.Ivanchenko (emmuons-V10-00-01)
+- G4MuPairProductionModel, G4MuBremsstrahlungModel, G4MuIonisation
+    used G4EmParameters
+
+8 September 14: V.Ivanchenko (emmuons-V10-00-00)
+- G4MuPairProductionModel, G4MuBremsstrahlungModel -
+    protection at initialisation for the case when user artifitially
+    reducing high energy limit of the model (bug #1670)
+
+28 October 13: V.Ivanchenko (emmuons-V09-06-24)
+- G4EnergyLossForExtrapolator - substitute G4eBremsstrahlungModel 
+    by G4SeltzerBergerModel
+- G4MuBremsstrahlungModel - lowest energy is set to 1 GeV
+
+14 October 2013: V.Ivant (emmuons-V09-06-23)
+- G4MuPairProductionModel - fixed problem with the end of the spectra
+    by cleanup initialisation of sampling table
+
+02 October 2013: V.Ivant (emmuons-V09-06-22)
+- G4EnergyLossForExtrapolator - use G4Log
+
+19 September 2013: V.Ivant (emmuons-V09-06-21)
+- G4MuPairProductionModel - minor cleanup
+
+18 September 2013: V.Ivant (emmuons-V09-06-20)
+- G4MuPairProductionModel - fixed trivial Coverity report; merge 
+    SetElement() and MaxSecondaryEnergy() methods into one
+    MaxSecondaryEnergyForElement() - this is more performant
+    and more safe for reproducibility; use G4Log and G4Exp
+- G4MuBremsstrahlungModel and G4MuBetheBlochModel - use G4Log and 
+    G4Exp
+
+12 September 2013: V.Ivant (emmuons-V09-06-19)
+- G4MuPairProductionModel - fixed bug in sampling when cut value is 
+    high; perform common initialisation of internal variables for
+    all threads - fix of non-reproducibility
+
+29 August 2013: V.Ivant (emmuons-V09-06-18)
+- G4MuBremsstrahlungModel - do not repeat initialisation of elelment
+    selectors if model is shared between particle and anti-particle
+- G4MuPairProductionModel - fixed bug in energy sampling which couse 
+    FPE and other problems
+
+09 August 2013: V.Ivant (emmuons-V09-06-17)
+- G4MuPairProduction - improved initialisation printout
+- G4MuPairProductionModel - fixed bining to 1000 for internal 
+    sampling table
+
+09 August 2013: V.Ivant (emmuons-V09-06-16)
+- G4MuBremsstrahlungModel - minThreshold is reduced from 1 keV to 
+    0.9 keV in order to avoid extra warning printout
+- G4MuBremsstrahlung - removed unused headers;
+- G4MuPairProduction - removed unused headers; lowestEnergy limit
+    should not be lower than 8*mass because the model is not
+    applicable
+- G4MuPairProductionModel - sampling table is re-implemented as 
+    G4ElementData with 2D-tables per atomic number; sampling
+    algorithm is rewritten, data fully shared between threads
+
+09 July 2013: V.Ivant (emmuons-V09-06-15)
+- G4MuPairProductionModel - fixed non-reproducibity due to currentZ
+    member of the class definition; changed signature of the method
+    MinPrimaryEnergy(..) - added "G4double cut"; substitute
+    SetCurrentElement(G4double) by SetElement(G4int); use more G4Pow
+- G4MuBremsstrahlung - changed signature of the method 
+    MinPrimaryEnergy(..) - added "G4double cut"
+
+17 June 2013: V.Ivant (emmuons-V09-06-14)
+- G4MuPairProductionModel, G4MuBremsstrahlungModel - added 
+    MinPrimaryEnergy method implementation (all cross section tables
+    will start from the reaction threshold)
+
+17 June 2013: V.Ivant (emmuons-V09-06-13)
+- G4MuPairProductionModel - added protection and warning message
+    if p1=p2 in the SampleSecodaries method
+
+04 June 2013: V.Ivant (emmuons-V09-06-12)
+- G4EnergyLossForExtrapolator - use cut DBL_MAX to avoid creation
+    of G4EmSelectors in lazy initialisation
+- G4MuPairProductionModel,G4MuBremsstrahlungModel - fixed usage of 
+    element selectors 
+
+31 May 2013: V.Ivant (emmuons-V09-06-11)
+- G4MuPairProductionModel - provides different 
+    initialisation for master and worker threads sharing element
+    selectors
+- G4MuBremsstrahlungModel - removed partialSubSigma data structure,
+    use instead G4ElementSelectors; provides different 
+    initialisation for master and worker threads sharing element
+    selectors
+
+29 May 2013: V.Ivant (emmuons-V09-06-10)
+- G4MuPairProductionModel, G4MuBremsstrahlungModel - fixed rare bug
+    in cross section computation - division by zero (bug report #1471)
+
+22 May 2013: V.Ivant (emmuons-V09-06-09)
+- G4MuPairProductionModel, G4MuBremsstrahlungModel - fixed rare bug
+    in dEdx computation - division by zero (bug report #1471)
+
+08 May 2013: V.Ivant (emmuons-V09-06-08)
+- G4MuPairProductionModel - A.Bogdanov provides improved algorithm
+    for sampling of final state
+
+22 March 2013: V.Ivant (emmuons-V09-06-07)
+- G4MuPairProductionModel, G4MuBremsstrahlungModel - correctly use 
+    "static const G4double" for const parameters
+
+19 February 2013: V.Ivant (emmuons-V09-06-06)
+- G4MuPairProductionModel - number of bins for virtual gamma returned
+    to be 1000
+
+19 February 2013: V.Ivant (emmuons-V09-06-05)
+- G4MuMultipleScattering - G4UrbanMscModel become default
+- G4MuPairProductionModel - number of bins for virtual gamma returned
+    to be 2000
+
+19 February 2013: V.Ivant (emmuons-V09-06-04)
+- G4MuPairProductionModel - number of bins for virtual gamma reduced
+    from 2000 to 1600
+- G4MuBetheBlochModel - removed G4ThreadLocal declaration
+
+18 February 2013: V.Ivant (emmuons-V09-06-02)
+- G4MuPairProductionModel - add check on max energy to reduce number
+    of bins in muon energy; number of bins for virtual gamma reduced
+    from 4000 to 2000.
+
+02 February 2013: V.Ivant (emmuons-V09-06-01)
+- G4MuPairProductionModel - make main table of differential cross
+    section private and not static, because G4hPairProductionModel
+    inherit of this class and muons cannot share the same tables with 
+    hadrons; two new inline access methods are added GetSecondaryEnergy
+    and GetDifferentialCrossSection.
+
+
+01 February 2013: V.Ivant (emmuons-V09-06-00)
+- G4MuPairProductionModel - (A.Bogdanov) - extended grid of differential
+  cross section tables (from 8 to 40 points in muon energy, from 1000 to
+  4000 points in energy of e+e- pair); use more fast binary search of 
+  index in the table; make table static - common for all threads 
+
+06 November 2012: V.Ivant (emmuons-V09-05-06)
+- G4MuBremsstrahlungModel, G4MuPairProductionModel - reduce number of
+    computations of log of the same argument, no change in results
+
+25 October 2012: V.Ivant (emmuons-V09-05-05)
+- G4MuMultipleScattering - use G4UrbanMscModel95 as a default
+
+21 October 2012: V.Ivant (emmuons-V09-05-04)
+- G4MuBremsstrahlung, G4MuIonisation,  G4MuPairProduction -
+    secondary particle type defined in constructors and not in Initialise() 
+    method, this is needed for correct initialisation at G4_PreInit
+
+20 October 2012: V.Ivant (emmuons-V09-05-03)
+- G4MuMultipleScattering - substitute methods Model(), SetModel()
+    by EmModel(), SetEmModel()
+
+10 July 2012: G.Cosmo (emmuons-V09-05-02)
+- Explicitly use inclusion of headers for system of units and physical
+  constants, in plan to remove implicit inclusion from globals.hh.
+
+08 June 2012: V.Ivant (emmuons-V09-05-01)
+- G4MuIonisation - fixed variable shadowing
+
+27 January 2012: V.Ivant (emmuons-V09-05-00)
+- G4EnergyLossForExtrapolator fixed initialisation of transport 
+    cross section
+
+10 November 2011: V.Ivant (emmuons-V09-04-02)
+- G4ErrorEnergyLoss, G4MuIonisation, G4MuPairProduction - fixed
+    defects reported by the Coverity tool
+
+3 November 2011: V.Ivant (emmuons-V09-04-01)
+- G4MuBremsstrahlung, G4MuPairProduction, G4MuBremsstrahlungModel - 
+    improved initialisation allowing to used model instantiated in 
+    Physics List (potential saving initialisation time)
+
+20 January 2011: V.Ivant (emmuons-V09-04-00)
+- G4ErrorEnergyLoss - fixed initialisation in constructor 
+                      (problem identified at Windows)
+
+4 November 2010: V.Ivant (emmuons-V09-03-03)
+G4EnergyLossForExtrapolator - fixed remaining Coverity warning -
+  pedantic initialisation
+
+26 October 2010: V.Ivant (emmuons-V09-03-02)
+- Fixed problem reported by the Coverity tools (mainly pedantic 
+  initialisation)
+
+4 June 2010: V.Ivant (emmuons-V09-03-01)
+- G4MuIonisation - use G4ICRU73QOModel for mu- for E< 0.2 MeV
+
+1 June 2010: V.Ivant (emmuons-V09-03-00)
+- G4MuPairProductionModel - added sampling recoil of a primary particle
+- G4MuIonisation - added G4ICRU73QOModel for mu- for E< 1 MeV
+
+09 November 09: V.Ivant (emmuons-V09-02-08)
+- G4MuBetheBlochModel - compute density effect correction using method of 
+                        G4IonisParamMat class applying revised parameterisation
+
+30 October 09: V.Ivant (emmuons-V09-02-07)
+G4MuMultipleScattering - use G4UrbanMscModel90 by default
+
+11 August 09: V.Ivant (emmuons-V09-02-06)
+G4MuPairProductionModel - restore the head
+
+24 July 09: V.Ivant (emmuons-V09-02-05)
+G4MuMultipleScattering - removed obosolete members and methods (they
+                         are in the base class)
+
+09 July 09: V.Ivant (emmuons-V09-02-04)
+G4EnergyLossForExtrapolator - removed hidden bin to use full scale of 
+                              of PhysicsVector; linLossLimit = 0.01
+
+02 June 09: V.Ivant (emmuons-V09-02-03)
+G4MuPairProductionModel - added protection for the case when
+  maxPairEnergy<minPairEnergy (empty interval for energy transfer
+  observed for rare case happens with kaons)
+
+12 April 09: V.Ivant (emmuons-V09-02-02)
+G4MuBetheBlochModel, G4MuBremsstrahlungModel, G4MuPairProductionModel
+  - simplified initialisation
+
+26 February 09: V.Ivant (emmuons-V09-02-01)
+G4MuIonisation - fixed initialisation alowing to configure external model
+                 of fluctuations
+
+20 February 09: V.Ivant (emmuons-V09-02-00)
+- Cleanup: improved comments, move virtual methods from .hh to .cc
+
+11 August 09: V.Ivant (emmuons-V09-01-15a)
+G4MuPairProductionModel - added protection against numerical problem
+                          due to negative value of transfered energy 
+
+12 November 08: V.Ivant (emmuons-V09-01-15)
+G4EnergyLossForExtrapolator - added method TrueStepLength; fixed initialisation
+                              before a step
+
+27 October 08: V.Ivant (emmuons-V09-01-14)
+G4EnergyLossForExtrapolator - make method ComputeTrueStep public and cleanup
+
+16 October 08: V.Ivant (emmuons-V09-01-13)
+G4MuMscModel - remove obsolete
+G4EnergyLossForExtrapolator - added spline option
+G4MuIonisation, G4MuBremsstrahlung, G4MuPairProduction, 
+G4MuMultipleScattering - change SubType and improved cout 
+
+4 August 08: V.Ivant (emmuons-V09-01-12)
+G4MuMscModel - added protection for ions
+
+31 July 08: V.Ivant (emmuons-V09-01-11)
+G4MuMscModel - do not define min and max energy in constructor but use Set
+               methods
+G4MuMultipleScattering - added cout of model names
+
+21 April 08:  V.Ivanchenko (emmuons-V09-01-10)
+G4MuBremsstrahlungModel, G4MuPairProductionModel - use CrossSectionPerVolume
+                    from the base class, do not use A in CrossSEctionPerAtom
+G4MuMscModel - do not use A in SetupTarget
+
+04 April 08:  V.Ivanchenko (emmuons-V09-01-09)
+G4MuMultipleScattering - use G4WentzelVIModel model
+                         build table for particles with mass < GeV
+
+04 April 08:  V.Ivanchenko (emmuons-V09-01-08)
+- G4MuBremsstrahlungModel - instead of static const use members of a class,
+                            this allows to reuse the model for different 
+                            particle type
+
+27 March 08:  V.Ivanchenko (emmuons-V09-01-07)
+- G4MuPairProductionModel - fixed nan value at initialisation 
+  of the sampling table
+
+26 March 08:  V.Ivanchenko (emmuons-V09-01-06)
+- G4MuMscModel - fixed outstanding bug in sampling of scattering
+
+25 March 08:  V.Ivanchenko (emmuons-V09-01-05)
+- G4MuMscModel - added shift along particle direction for displacement
+- G4MuBetheBlochModel - update computation of correction
+
+17 March 08:  V.Ivanchenko (emmuons-V09-01-04)
+- G4MuMscModel - fixed sampling
+
+14 March 08:  V.Ivanchenko (emmuons-V09-01-03)
+- G4MuMscModel - use G4VMscModel interface
+
+06 March 08:  V.Ivanchenko (emmuons-V09-01-02)
+- G4MuBremsstrahlungModel - remove ignoreCut flag, remove obsolete methods 
+                            and members, set some members protected to
+                            be used by G4hBremsstrahlungModel 
+- G4MuPairProductionModel - remove ignoreCut flag,  set some members protected 
+			    to be used by G4hBremsstrahlungModel
+- SubType for all processes is initialized
+
+22 February 08:  V.Ivanchenko (emmuons-V09-01-01)
+G4MuMscModel - added sampling of tail distribution
+
+14 January 08:  V.Ivanchenko (emmuons-V09-01-00)
+G4MuMscModel - added computation of the second moment of the distribution;
+               fixed sampling
+G4MuMultipleScattering - modified default RangeFactor
+
+12 November 07:  V.Ivanchenko (emmuons-V09-00-04)
+11 November 07:  V.Ivanchenko (emmuons-V09-00-03)
+G4MuMscModel - fixed computation of transport cross section
+
+09 November 07:  V.Ivanchenko (emmuons-V09-00-02)
+- G4MuMultipleScattering, G4MuMscModel - new classes for simulation
+                            of multiple scattering (beta-version)
+
+08 November 07:  V.Ivanchenko (emmuons-V09-00-01)
+- G4MuBremsstrahlungModel - updated sampling algorithm to provide 
+                            more precise predictions for the tail
+                            of the gamma energy spectra (NA49 problem)
+- G4MuBremsstrahlungModel and G4MuPairProductionModel - add ignoreCut
+  flag, if this flag is "true" both models provide zero dedx and full
+  cross sections
+
+28 July 07:  V.Ivanchenko (emmuons-V09-00-00)
+- G4EnergyLossForExtrapolator - added maxEnergyTransfer parameter
+                                for computation of energy loss (VI)
+
+29 May 07:  V.Ivanchenko (emmuons-V08-03-04)
+- G4EnergyLossForExtrapolator - added Set methods for first and last
+  bins in tables. Default max value is set to 10 TeV (CMS request)
+
+23 May 07:  V.Ivanchenko (emmuons-V08-03-03)
+- In all processes inherit from G4VEnergyLossProcess or G4VEmProcess 
+  remove method SecondaryPostStep;
+
+22 May 07:  V.Ivanchenko (emmuons-V08-03-02)
+- G4VEmModel - changed interface of SampleSecondary method, it become 
+  void, extra parameter std::vector<G4DynamicParticle*>*, all
+  classes using or inhereting this interface are modified.
+  About 5% speadup of EM shower simulation
+
+18 May 07: V.Ivant (emmuons-V08-03-01)
+- G4ErrorEnergyLoss - new class needed for GEANTe (p. Arce)
+
+12 May 07: V.Ivant (emmuons-V08-03-00)
+- G4EnergyLossForExtrapolator - linLossLimit=0.001
+- Remove obsolete G4MuIonisation52, G4MuPairProduction52, G4MuBremsstrahlung52,
+  G4VMuEnergyLoss
+- G4MuPairProductionModel - fix usage of cut value inside SelectRandomAtom,
+                            providing correct sampling of atom of mixture
+                            for production of e+e- pair (A.Bogdanov)
+
+24 April 07: V.Ivant (emmuons-V08-02-01)
+- G4MuPairProductionModel - add protection against zero or negative partial
+  cross section inside SelectRandomAtom method in order to fix bug reported 
+  from tutorial example A01
+
+16 February 07: V.Ivant (emmuons-V08-02-00)
+- G4EnergyLossForExtrapolator - linLossLimit=1.e-6
+
+16 Oct 06: V.Ivanchenko (emmuons-V08-01-01)
+- Add warning to all processes 52 type 
+
+21 July 06: V.Ivant (emmuons-V08-01-00)
+- G4EnergyLossForExtrapolator - fix misprint in method name
+
+21 March 06: V.Ivant (emmuons-V08-00-03)
+- G4EnergyLossForExtrapolator - fix compilation warning - remove G4Material*
+                                from number of methods
+
+21 March 06: V.Ivant (emmuons-V08-00-02)
+- G4MuBremsstrahlungModel - fix problem of initialisation in the case when 
+  cuts are not defined (needed for Extrapolator and for unit tests)
+- G4EnergyLossForExtrapolator - fix bug in units, add muon tables, move
+  initialisation from the constructor to the first public call, add verbose
+  variable into constructor
+     
+13 February 06 : mma (emmuons-V08-00-01)
+- added functions G4MuBetheBlochModel::ComputeCrossSectionPerElectron/Atom()
+- added functions G4MuBremsstrahlungModel::ComputeCrossSectionPerAtom()
+                  G4MuPairProductionModel::ComputeCrossSectionPerAtom()
+		  
+10 February 06 : mma
+- G4MuIonisation52, G4MuBremsstrahlung52, G4MuPairProduction52 : the function
+  ComputeMicroscopicCrossSection() is made public.
+  
+10 January 05: V.Ivant (emmuons-V08-00-00)
+- substitute the method SetStepLimits by SetStepFunction
+- move initialisation of default values to the constructor 
+
+23 October 05: V.Ivant (emmuons-V07-01-05)
+- G4MuPairProductionModel - add protection needed for sampling of pair energy
+  in the case of low cuts
+     
+2 October 05: mma (emmuons-V07-01-04)
+- G4MuIonisation : SetStepLimits (0.2, 1*mm) + integral on
+
+2 September 05: V.Ivant. (emmuons-V07-01-03)
+- G4MuIonisation : SetStepLimits (0.2, 0.1*mm) + integral off
+
+2 September 05: V.Ivant. (emmuons-V07-01-02)
+- This tag is 7.1 + bug fixes
+- G4MuIonisation : SetStepLimits (0.2, 1*mm)
+     
+12 August 05: mma (emmuons-V07-01-01)
+- G4MuIonisation : SetStepLimits (0.2, 0.1*mm)
+
+03 August 05: V.Ivant (emmuons-V07-01-00)
+- Fix initialisation of G4MuPairProductionModel and G4MuBremsstrahlungModel
+- Fix angular distribution of gammas and energy momentum balance in G4MuBremsstrahlungModel
+- Fix angular distribution of e+,e- and energy momentum balance in G4MuPairProductionModel
+
+06 June 05: V.Ivant (muons-V07-00-04)
+- Fix Valgrind complain for non-initialised variable in 
+  G4EnergyLossForExtrapolator
+
+18 May 05: V.Ivant (muons-V07-00-03)
+- Fix: fabs -> std::abs
+
+29 April 05: V.Ivant (muons-V07-00-02)
+- Fix compilation warning at gcc-3.4
+
+13 April 05: V.Ivant (muons-V07-00-01)
+- Rename G4EnergyLossForPropogator to G4EnergyLossForExtrapolator
+- Migrade to updated interfaces of utils
+- Use G4EmCorrections for muon ionisation
+
+11 March 05: V.Ivant (muons-V07-00-00)
+- Add G4EnergyLossForPropogator class
+- Shift verbose level by 1
+
+02 Dec 04: V.Ivant (muons-V06-02-07)
+- Migration to cmath for G4MuBetheBlochModel
+
+02 Dec 04: V.Ivant (muons-V06-02-06)
+- Migration to cmath
+
+29 Nov 04: V.Ivant (muons-V06-02-05)
+- Cleanup GNUmakefile
+
+11 Nov 04: V.Ivant (muons-V06-02-04)
+- Migration to new algorithm to Store/Retrieve tables
+
+03 Nov 04: V.Ivant (muons-V06-02-03)
+- Fix bug in expression inside ComputeDMicroscopicCrossSection (R.Kokoulin)
+
+25 Oct 04: V.Ivant (muons-V06-02-02)
+- Migrate to new interfaces for ParticleChange
+
+25 Aug 04: V.Ivant (muons-V06-02-01)
+- Fix problem of use of common tables
+
+17 Aug 04: V.Ivant (muons-V06-02-00)
+- Provide the common use of tables for mu+ and mu- to save 
+  initialisation time;
+- rename processes "Mu" -> "mu"
+- substitute obsolete interface to particles
+
+27 May 04: V.Ivant (muons-V06-01-01)
+- Set default regime of MuIonisation integral 
+- Minor fix in differential cross section for MuPairProduction
+
+28 April 04: V.Ivant (muons-V06-01-00)
+- MuPairProduction: fix minor energy non-conservation, fix
+  problem of calculation of maximumum energy transfer for
+  compounds
+
+02 March 04: V.Ivant (muons-V06-00-02)
+- Minor fix in initialisation of MuPairProductionModel
+
+17 Feb 04: V.Ivant (muons-V06-00-01)
+- Update parameterizations in G4MuPairProductionModel
+- Update radiative corrections for G4MuBetheBlochModel
+
+22 Jan 04: V.Ivant (muons-V06-00-00)
+- Migrade to G4ParticleChangeForLoss
+
+11 Nov 03: V.Ivant (muons-V05-02-09)
+- Remove force of verbose=0 for G4MuIonisation
+- Substitute G4VEnergyLossSTD by G4VEnergyLossProcess
+
+03 Nov 03: V.Ivant (muons-V05-02-08)
+- Remove STD processes
+- Minor update of defaults for processes
+     
+21 Oct 03: mma (muons-V05-02-07)
+- fixes in MuPairProductionodel.cc (R.Kokoulin):
+  - 2*xi in ComputeDDMicroscopicCrossSection
+  - 8 integration points in ComputeDMicroscopicCrossSection 
+
+3 Oct 03: G.Cosmo (muons-V05-02-06)
+- Modified GNUmakefiles:
+  o added dependency to new module "geometry/navigation".
+  o replaced "digits+hits" with "digits_hits".
+- Coworks with "geometry-V05-02-00" and "digits_hits-V05-02-00".
+
+27 Sept 03: V.Ivant (muons-V05-02-05)
+-Change secondary particle to be e+
+
+20 Sept 03: V.Ivant (muons-V05-02-04)
+-Update energy intervals for ionisation models
+-Update GNUmakefile
+
+08 August 03: V.Ivant (muons-V05-02-03)
+-Substitute standerd by STD, freezing old standard as 52
+
+07 August 03: V.Ivant (muons-V05-02-02)
+-Change defaults for STD processes
+
+24 July 03: V.Ivant (muons-V05-02-01)
+-Update model interface according utils-V05-02-00
+
+02 July 03: V.Ivant (muons-V05-02-00)
+-Redo previous tag for 5.2
+
+26 June 03: V.Ivant (muons-V05-01-07)
+-Bug fix in Printout of G4MuIonisation
+
+03 June 03: V.Ivant (muons-V05-01-06)
+-Bug fix in cross section at high energies in G4MuPairProductionSTD
+
+03 June 03: V.Ivant (muons-V05-01-05)
+-Update STD initialisation
+
+03 June 03: V.Ivant (muons-V05-01-04)
+-Fix compilation warnings for pedantic compiler options
+
+26 May 03: V.Ivant (muons-V05-01-03)
+-Fix compilation warnings for pedantic compiler options
+
+23 May 03: V.Ivant (muons-V05-01-02)
+-Fix initialisation for STD: for integral Bohr fluctuations
+
+12 May 03: V.Ivant (muons-V05-01-01)
+-remove extra printout at initialisation
+
+09 May 03: V.Ivant (muons-V05-01-00)
+-remove extra printout at initialisation
+
+28 Apr 03: V.Ivant (muons-V05-00-08)
+-fix leak in retrieve tables
+
+26 Apr 03: V.Ivant (muons-V05-00-07)
+-fix store/retrieve tables
+
+09 Apr 03: V.Ivant (muons-V05-00-06)
+-G4VeMuEnergyLoss : make finalRange to be region aware
+
+25 Mar 03: mma (muons-V05-00-05)
+-G4VeMuEnergyLoss : add finalRangeRequested
+
+13 feb 03: V.Ivant (muons-V05-00-04)
+- add names for all models
+- make the set of model per region available
+- make SubCutoff regime available per region
+
+05 feb 03: V.Ivant (muons-V05-00-03)
+- Fix on warnings at SUN for STD classes
+- Add Initialise method to STD classes to calculate PartialSumSigma
+- Subsitute Material by MaterialCutsCouple for PostStep STD
+
+24 jan 03: V.Ivant (muons-V05-00-02)
+- Migration to "cut per region" 
+
+08 jan 03: mma (muons-V05-00-01)
+-MuPairProduction::PostStepDoIt : remove 'tracking cut' of muon
+
+06 jan 03: V.Ivant (muons-V05-00-00)
+- Update interfaces to STD classes in order to be ready to migrade 
+  to "cut per region"
+
+09 dec 02: V.Ivant (muons-V04-01-03)
+-fix warning in G4MuIonisationSTD
+
+04 dec 02: V.Ivant (muons-V04-01-02)
+-fix problems in delta-electrons spectrum
+
+28 oct 02: V.Ivant (muons-V04-01-01)
+-fix compilation warnings for STD classes
+     
+16 oct 02: V.Ivant (muons-V04-01-00)
+-redesign for a Model approach: files processNameSTD and processNameModel
+     
+29 may 02: mma (muons-V04-00-02)
+- V.Ivanchenko G4VMuEnergyLoss - bug fixed in N of subcutoff delta
+ 
+27 feb 02: mma (muons-V04-00-01)
+- V.Ivanchenko G4VMuEnergyLoss - PostStep->PreStep for touchebleHandler 
+     
+10 fev 02: mma (muons-V04-00-00)
+- G4VMuEnergyLoss : error in SetMindeltaCutInRange, was set in energy !
+         
+12 nov 01: mma (muons-V03-02-10)
+- ParticleMass and Charge: local variables
+- merge 09 + 06a
+     
+07 nov 01: mma (muons-V03-02-09)
+- correction(Tmax+xsection computation) L.Urban
+    
+28 oct 01: mma (muons-V03-02-08)
+- all static functions no more inlined
+     
+24 oct 01: mma (muons-V03-02-07)
+- cut per material : all classes
+
+08 nov 01: G.Cosmo (muons-V03-02-06a)
+- Introduced changes to G4VMuEnergyLoss.cc for reference-counted touchables
+  (R.Chytracek). Not included in further tags till "muons-V03-02-09".
+
+28 sep 01: mma (muons-V03-02-06)
+- suppression of theMuonPlus ..etc..data members : all classes
+- completion of store/retrieve PhysicsTables
+     
+20 sep 01: L.Urban (muons-V03-02-05)
+- in MuPairProduction::ComputeMicroscopicCrossSection, remove:
+  if(MaxPairEnergy<CutInPairEnergy) MaxPairEnergy=CutInPairEnergy
+       
+19 sep 01: mma (muons-V03-02-04)
+- come back to previous process name "MuIoni"
+     
+17 sep 01: mma (muons-V03-02-03)
+- modifs in all classes for the migration of Materials to pure STL,
+  but backward compatible with g4rw
+        
+13 sep 01: L/Urban (muons-V03-02-02)
+-G4VxEnergyLoss: min.delta cut is set as rcut/100 + some optimisation
+      
+11 sep 01: L.Urban (muons-V03-02-01)
+- G4VMuEnergyLoss: subcutoff delta-rays mechanism implemented     
+     
+29 aug 01: mma (muons-V03-02-00)
+- G4MuIonisation: new function ComputeRestrictedMeandEdx() + 'cleanup'     
+     
+10 aug 01: mma
+- store/retrieve PhysicsTables implemented in MuIonis, MuBrems, MuPairProd
+
+29 may 01: V.Ivanchenko 
+- clean up againist Linux ANSI strict compilation mode.
+
+23 mar 01 L.Urban (muons-V03-00-05)
+- R.Kokoulin's correction to energy loss has been commented out
+  in G4MuIonisation.cc
+     
+05 mar 01 mma (muons-V03-00-04)
+- new subdirectory: integral
+  migration of all G4I.. processes from muons, standard, utils into integral
+
+05 feb 01: G. Cosmo (muons-V03-00-02)
+- STL migration for G4OrderedTable and G4DataVector.
+  Modified files: G4IMuBremsstrahlung.cc, G4IMuPairProduction.cc,
+                  G4MuBremsstrahlung.cc, G4MuPairProduction.cc
+
+24 jan 01: L. Urban (muons-V03-00-01)
+- bug fixed in muon bremstrahlung , in G4MuBremstrahlung.cc 
+   in PostStepDoIt.
+ 
+16 jan 01: mma (muons-V03-00-00)
+- small corrections in MuEnergyLoss.cc L.Urban 11-01-01
+     
+08 nov 00: mma (muons-V02-00-03)
+- signature in GetLossWithFluct changed L.Urban 30/10/00
+     
+11 aug 00: mma (muons-V02-00-01)
+
+03 aug 00: gc (muons-V02-00-00r)
+- G4VIMuEnergyLoss.cc: changed RandGauss to G4RandGauss to fix problem of
+  events' reproducibility.
+     
+07 jun 00: mma (muons-V01-01-03)
+- virtual destructor for G4VEnergyLoss
+
+24 may 00: mma (muons-V01-01-02)
+- revision of brems,pair,ionisation,munuclear
+  by Laszlo, Rotislav, Andrew
+        
+27 apr 00 mma  (em-V01-01-01)
+- G4endl (dec/iso)      
+     
+26 apr 00 mma  (em-V01-01-00)
+- all EnergyLoss classes renamed G4V... 
+  Most classes in standard and muons affected.
+- G4Muls moved in utils
+- bugs fixe in MuPairProduction  
+- cowork with geant4-01-01-ref-02
+     
+02 mar 00 mma  (em-V01-00-00)
+- new G4VEnergyLoss class and related structure
+- cowork with geant4-01-00-ref-06
+     
+10 nov 99 mma  (em-V00-01-03)
+- migration to STL: remove RWT hash dictionnary
+
+14th June 1999  John Allison (em-01-00-05b)
+- Muon corrections in G4MultipleScattering.cc, G4MuBremsstrahlung.cc
+  and G4MuPairProduction.cc by Laszlo Urban, Pedro Arce.
+  (Also in rocesses/photoleplon_hadron/src/G4MuNuclearInteraction.cc.)
+
+5th June 1999  John Allison
+- standard/GNUmakefile: Force non-optimised compliation of some
+  files on HP with aCC: HP ANSI C++ B3910B A.01.15.
+
+May 29, 1999: John Allison
+- Added electromagnetic/lowenergy to GNUmakefile and
+  electromagnetic/GNUmakefile..

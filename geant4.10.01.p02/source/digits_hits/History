@@ -1,0 +1,448 @@
+$Id: History 83518 2014-08-27 12:57:10Z gcosmo $
+-------------------------------------------------------------------
+
+     =========================================================
+     Geant4 - an Object-Oriented Toolkit for Simulation in HEP
+     =========================================================
+
+                      Category History file
+                      ---------------------
+This file should be used by G4 developers and category coordinators
+to briefly summarize all major modifications introduced in the code
+and keep track of all category-tags.
+It DOES NOT substitute the  CVS log-message one should put at every
+committal in the CVS repository !
+
+     ----------------------------------------------------------
+     * Reverse chronological order (last date on top), please *
+     ----------------------------------------------------------
+
+Aug 25, 2014, M.Asai (digits_hits-V10-00-08)
+- G4VScoringMesh, G4ScoringBox, G4ScoringCylinder : fix Construct()
+  to make it work when the entire geometry has been destroyed.
+  Addressing to bug report #1665.
+
+May 26, 2014, M.Asai (digits_hits-V10-00-07)
+- G4ScoringMessenger.cc : fix broadcast parameters of the commands
+  that should be used only by the master threads. Addressing to
+  bug report #1554.
+
+May 20, 2014, A.Dotti (digits_hits-V10-00-05, -06)
+- Correcting another missing end of line in a file
+
+May 19, 2014, A.Dotti (digits_hits-V10-00-04)
+- Missing end of file empty line added
+
+May 16, 2014, A.Dotti (digits_hits-V10-00-03)
+- Coverity fixes
+
+Apr 27, 2014, M.Asai (digits_hits-V10-00-02)
+- G4PSCylinderSurfaceCurrent.cc : remove unnecessary cout. 
+  Addressing to Bug Report #1610.
+
+Mar 5, 2014, G.Cosmo (digits_hits-V10-00-01)
+- Added missing dependency to graphics_reps in scorer module.
+
+Mar 2, 2014, T.Aso, M.Asai (digits_hits-V10-00-00)
+- Fix the angle factor in G4PSSphereSurfaceFlux to keep it always
+  positive. Addressing to Bug Report #1479.
+
+Dec 2, 2013, M.Asai (digits_hits-V09-06-13)
+- Remove uninitialized and unused datamember from G4ScoringMessenger.
+
+Nov 29, 2013, M.Asai (digits_hits-V09-06-12)
+- Remove self-deletion in G4ScoringManager::~G4Scoringmanager().
+
+Nov 7, 2013, G.Cosmo (digits_hits-V09-06-11)
+- Replaced deprecated calls to G4Sphere accessor methods in scorer classes.
+
+Oct 14, 2013, M. Asai (digits_hits-V09-06-10)
+- Fix the logic in G4SDStructure for issuing G4Exception for the same detector name.
+
+Sep 20, 2013, M. Asai (digits_hits-V09-06-09)
+- Fix G4SDStructure::RemoveSD() method.
+
+Sep 19, 2013, M. Asai (digits_hits-V09-06-08)
+- G4VReadOutGeometry now issues a G4Exception warning message if it is used.
+
+Sep 14, 2013, M. Asai (digits_hits-V09-06-07)
+- The pointer is now overwritten if a detector of same name is registered to G4SDManager.
+
+Sep 11, 2013, M. Asai (digits_hits-V09-06-06)
+- Remove unnecessary G4Exception.
+
+Mar 29, 2013, T. Aso  (digits_hits-V09-06-05)
+- Adding missing options in command-based scorers in G4ScoreQuantityMessenger and
+  G4ScoreQuantityMessengerQCmd.
+
+Mar 22, 2013, M. Asai (digits_hits-V09-06-04)
+- Adding Merge() for scoring meshes to be used in multi-threaded mode to reduce the score after the run.
+
+Mar 12, 2013, M. Asai (digits_hits-V09-06-03)
+- Changing method names in G4VScoringMesh and its derived classes.
+
+Mar 12, 2013, M. Asai (digits_hits-V09-06-02)
+- Adding Merge() methods to G4ScoringManager and G4VScoringMesh (needed for multi-threaded)
+
+Mar 4, 2013, A. Dotti (digits_hits-V09-06-01)
+- Fixing unused variables warnings
+
+Feb 26, 2013, A.Dotti (digits_hits-V09-06-00)
+- Adding of protoype cloning mechansim for SD (needed for multi-threaded) 
+
+Jun 14, 2012, G.Cosmo (digits_hits-V09-05-05)
+- Explicitly use inclusion of headers for system of units and physical
+  constants, in plan to remove implicit inclusion from globals.hh.
+
+Jun 01, 2012, T.Aso (digits_hits-V09-05-04)
+- Support weighted/dividedByArea options in flatCurrent and flutFlux
+  command-line scorers.
+
+May 24, 2012, G.Cosmo (digits_hits-V09-05-03, digits_hits-V09-05-02)
+- Use 'const G4String&' as argument instead of plain copy of strings
+  in G4ScoringManager, G4VScoreWriter and G4VScoringMesh.
+- Fixed trivial cases of variable shadowing.
+
+Apr 17, 2012, T.Aso (digits_hits-V09-05-01)
+- G4VScoringMesh.cc : Avoid updating size and segment in command-line scoring
+  and print warning when SetSize() or SetNumberOfSegments is called more then
+  once.
+
+Oct 31, 2011, M.Asai (digits_hits-V09-04-08)
+- G4THitsMap.hh : removed the print-out of total value, avoiding the problem
+  caused by a class <T> which does not have += or cannot be initilized by = 0.
+- Addressing to the problem report #1258.
+
+Oct 20, 2011, M.Asai (digits_hits-V09-04-07)
+- Eliminating obsolete G4Exception
+- Re-ordering exception error IDs and improving error messages.
+
+Jul 07, 2011, G.Cosmo (digits_hits-V09-04-06)
+- Fixed Coverity defects: mainly uninitialised static data.
+- Moved copy-ctor and operator=() for G4VReadOutGeometry to protected, as
+  not meant to be directly used.
+
+May 20, 2011, B.Morgan (digits_hits-V09-04-05)
+- CMakeLists.txt : Added G4DIGI_ALLOC_EXPORT compiler definition via 
+  add_definitions so all submodules pick it up.
+
+Mar 31, 2011, G.Cosmo (digits_hits-V09-04-04)
+- Replace use of M_PI with pi/twopi, fixing compilation errors on Windows...
+
+Mar 31, 2011, G.Cosmo (digits_hits-V09-04-03)
+- Added missing source files in scorer/sources.cmake.
+- Fixed compilation warning for unused parameter in function
+  G4PSStepChecker::Initialize().
+
+Mar 30, 2011, M.Asai (digits_hits-V09-04-02)
+- Fixed scoring meshes for visualizing scores of very few entry.
+  - Changed G4ScoringBox, G4ScoringCylinder
+
+Mar 22, 2011, M.Asai (digits_hits-V09-04-01)
+- Fixed scorers used for cylindrical mesh that require cubic volume or surface area.
+  - Changed  G4PSCellFlux3D, G4PSDoseDeposit3D, G4PSPassageCellFlux3D
+  - Added G4PSCellFluxForCylinder3D, G4PSDoseDepositForCylinder3D, G4PSPassageCellFluxForCylinder3D
+
+Feb 21, 2011, M.Asai (digits_hits-V09-04-00)
+- Fixed G4PSCylinderSurfaceFlux.cc and G4PSSPhareSurfaceFlux.cc for
+  the way how "flux_out" is scored.
+
+Nov 10, 2010, G.Cosmo (digits_hits-V09-03-07)
+- Fixed signature in G4VPrimitiveScorer for Set/GetUnit() methods.
+
+Nov 08, 2010, M.Asai (digits_hits-V09-03-06)
+- Including new tests.
+
+Nov 08, 2010, M.Asai (digits_hits-V09-03-05)
+- Moving some inlined methods in G4VScoringMesh to source file to solve
+  some linking problems.
+
+Nov 03, 2010, M.Asai (digits_hits-V09-03-04)
+- Updated utils/test2 to cover all the scorers.
+- Improve some UI commands for defining scorers.
+
+Oct 27, 2010, G.Cosmo (digits_hits-V09-03-03)
+- Restored DLL setup as originally. Withdrawn DLL setup changes in last tag.
+
+Oct 19, 2010, G.Cosmo (digits_hits-V09-03-02)
+- Replaced G4DIGI_ALLOC_EXPORT flag with G4ALLOC_EXPORT for DLL exported
+  symbols.
+- Restored CMake scripts as in "geant4-09-03-ref-08" and updated scripts
+  in utils sub-module.
+
+Sep 15, 2010, M.Asai (digits_hits-V09-03-01)
+- Added test3.
+
+Aug 12, 2010, M.Asai (digits_hits-V09-03-00)
+- Re-implemented G4ScoringCylinder and related classes to improve navigation.
+- Added units to appropriate scorers. Such units are included in plots and output.
+
+Nov 23, 2009, M.Asai (digits_hits-V09-02-04)
+- G4VReadOutGeometry.hh:
+  Add "virtual" to CheckROVolume() and FindROTouchable() methods and
+  change ROnavigator and touchableHistory from private to protected.
+
+Nov 13, 2009, M.Asai (digits_hits-V09-02-03)
+- Fixing the way of counting the flux and current passing through
+  a curved surface
+  - affected classes:
+      G4PSCylinderSurfaceCurrent.cc
+      G4PSCylinderSurfaceFlux.cc
+      G4PSSphereSurfaceCurrent.cc
+      G4PSSphereSurfaceFlux.cc
+
+Oct 11, 2009, M.Asai (digits_hits-V09-02-02)
+- G4VScoringMesh : Add a few Get-methods for visualization.
+
+May 06, 2009, M.Asai (digits_hits-V09-02-01)
+- Replaced usage of non-Standard calls to 'sprintf' with ostringstream,
+  to fix compilation errors reported by gcc-4.4.0 compiler.
+
+Dec 28, 2008, M.Asai (digits_hits-V09-02-00)
+- Fixing incorrect volume size for cylindrical parameterized volume used in
+  several scorers.
+
+Nov 26, 2008, M.Asai (digits_hits-V09-01-02)
+- Fixing an incorrect index number in G4ScoringMessenger.cc.
+
+Nov 14, 2008, M.Asai (digits_hits-V09-01-01)
+- Tag for release 9.2.
+- Introducing the cylindrical scoring mesh (G4ScoringCylinder and related class)
+- Introducing the log-scale color map (G4ScoreLogColorMap)
+
+Aug 27, 2008, M.Asai (digits_hits-V09-01-00)
+- Fixing a bug in utils/src/G4ScoringBox.cc for the use of G4PVDivision.
+- Fixing a bug in utils/src/G4VScoreWriter.cc for indexing scheme in GetIndex() method.
+
+Dec 11, 2007, G.Cosmo (digits_hits-V09-00-05)
+- Added "graphics_reps" to GLOBLIBS list to allow for building DLLs on
+  WIN32-VC platform.
+- Changes for disclaimer and std namespace.
+
+Nov 14, 2007, M.Asai (digits_hits-V09-00-04)
+- Minor corrections and fixes.
+
+Nov 09, 2007, M.Asai (digits_hits-V09-00-03)
+- Introducing Command-base scoring mechanism. This is a preliminary release
+  with Geant4 9.1. This time, shape of scoring cell is limited to box.
+
+Sep 24, 2007, M.Asai (digits_hits-V09-00-02)
+- Introducing 3D scorers to be used in command-base scoring.
+
+Aug 30, 2007, M.Asai (digits_hits-V09-00-01)
+- First implementation of interactive parallel world scoring.
+- Co-working with run-V09-00-01, procman-V09-00-00, config-V09-00-00
+
+July 11, 2007, M.Asai (digits_hits-V09-00-00)
+- Create new sub-directory "scorer" and move all scorer and filter classes
+  to this new directory. "utils" sub-directory will be used for interactive
+  scoring utilities.
+
+June 4, 2007, A.Howard (digits_hits-V08-03-04)
+- Removed G4PSPopulation class to obviate circular dependency
+
+June 4, 2007, A.Howard (digits_hits-V08-03-03)
+- Put back some classes required for scoring of geometrical biasing cells:
+  G4CellScoreValues, G4CellScoreComposer
+
+May 31, 2007, A.Howard (digits_hits-V08-03-02)
+- Removed classes associated with old biasing/scoring scheme in detector:
+  G4CellScoreComposer, G4CellScoreValues, G4CellStoreScorer
+- Files remain on the HEAD for testing purposes
+
+May 17, 2007, M.Asai (digits_hits-V08-03-01)
+- Introducing new scorers for event biasing options.
+
+May 11, 2007, G.Cosmo (digits_hits-V08-03-00)
+- Make use of G4GeometryTolerance instead of kCarTolerance constant.
+- Requires tag "global-V08-03-00" and related set.
+
+Apr 20, 2007, M.Asai (digits_hits-V08-02-00)
+- Fix the way of counting outward steps in flux scorers.
+
+Nov 17, 2006, M.Asai (digits_hits-V08-01-00)
+- Tag for release 8.2
+
+Jan 2, 2006, M.Asai (digits_hits-V08-00-00)
+- Missing methods in G4VDigiCollection and G4TDigiCollection are added.
+
+Nov 22, 2005,  M.Asai (digits_hits-V07-01-04)
+- G4SDParticleFilter: Protection against null pointer.
+
+Nov 18, 2005,  M.Asai (digits_hits-V07-01-03)
+- Introducing G4THitsMap template class.
+- Introducing concrete primitive scorer and filter classes.
+
+Nov 16, 2005,  M.Asai (digits_hits-V07-01-02)
+- Adding a new sub-directory "utils" where new concrete primitive scorers and
+  concrete filters are stored.
+
+Sept 27, 2005,  M.Asai (digits_hits-V07-01-01)
+- Updating new classes.
+
+Sept 22, 2005,  M.Asai (digits_hits-V07-01-00)
+- Introducing G4MultiFunctionalDetector, G4VPrimitiveSensitivity and G4VSDFilter
+  classes.
+
+June 1, 2005,  J.Allison (digits_hits-V07-00-00)
+- G4VHit: Fixed interface to CreateAttValues (removed const). Improved
+  description.
+- G4VDigi: Improved description.
+
+Nov 18, 2004,  J.Perl (digits_hits-V06-02-01)
+- G4VDigi.hh: add methods to store and retrieve HepRep attributes in same
+  manner that we currently have for trajectories and hits.
+
+Jul 1, 2004,  G.Cosmo (digits_hits-V06-02-00)
+- G4CellScoreComposer.cc, G4TrackLogger.cc: trivial fix for extra
+  semicolons, required for porting on gcc-3.4.0 compiler.
+
+Jun 11, 2004, G.Cosmo (digits_hits-V06-01-03)
+- Use global flag G4DIGI_ALLOC_EXPORT to export extern symbols for DLLs.
+  Modified granular GNUmakefiles and rearranged usage of extern symbols
+  in classes.
+
+Jun 9, 2004, G.Cosmo (digits_hits-V06-01-02)
+- Adopt G4DLLIMPORT/G4DLLEXPORT technique to handle extern simbols for
+  allowing support of DLLs on Windows.
+- Coworks with "global-V06-01-02b".
+
+Jun 7, 2004, G.Cosmo (digits_hits-V06-01-01)
+- G4THitsCollection, G4HCofThisEvent, G4TDigiCollection, G4DCofThisEvent:
+  export extern symbols for allowing support of DLLs.
+- GNUmakefile: added definition of GLOBLIBS for DLLs support on Windows.
+- Coworks with "global-V06-01-02a".
+
+May 3, 2004, G.Cosmo (digits_hits-V06-01-00)
+- G4SDManager, G4SDStructure: added optional argument 'warning' to
+  FindSensitiveDetector(pathName, warning), defaulted to TRUE, to
+  eventually exclude warning issued by G4SDManager when sensitive
+  detector is not found.
+  The fix has been requested by ALICE to deactivate the warning when
+  a new sensitive-detector is created automatically in their framework.
+
+Mar 15, 2004, M.Asai (digits_hits-V06-00-01)
+- Fix errors in the previous tag.
+
+Mar 09, 2004, M.Asai (digits_hits-V06-00-00)
+- Some methods are added to G4HCtable for additional verbosity.
+
+Oct 04, 2003, G.Cosmo (digits_hits-V05-02-00)
+- Imported files from directory digits+hits.
+- Changed name of global library to G4digits_hits.
+- Added dependency on new module geometry/navigation where needed.
+
+Jun 03, 2003, G.Cosmo (digits_hits-V05-01-01)
+- Fixed trivial warning in G4VHit.cc.
+
+May 19, 2003, M.Asai (digits_hits-V05-01-00)
+- Fix warning messages
+
+Apr 23, 2003, M.Asai (digits_hits-V05-00-02)
+- Fix warning messages (M.Dressel)
+
+Mar 05, 2003, M.Asai (digits_hits-V05-00-00)
+- Fix G4VSensitiveDetector::GetCollectionID for more than one
+ sensitive detector objects instantiated from one detector class.
+
+Nov 27, 2002, M.Asai (digits_hits-V04-01-05)
+- Fix memory leak in G4SDManager.
+
+Nov 18, 2002, M.Asai (digits_hits-V04-01-04)
+- Tag for Geant4 5.0 release.
+
+Nov 04, 2002, G.Cosmo (digits_hits-V04-01-03)
+- Fixed compilation errors on SUN-CC (usage of G4std:: namespace) in
+  "detector" module. (M.Dressel)
+
+Nov 01, 2002, M.Asai (digits_hits-V04-01-02)
+- Tag for Geant4 5.0 tag-set#1.
+
+Nov 1, 2002, J.Allison  (digits+hits-V04-01-01 - does not include V04-01-00)
+- Canonical tag of hits-traj03a.
+
+Oct 30, 2002, M.Asai/J.Allison (hits-traj03a)
+- Added default implementation of G4VHitsCollection::GetHit and GetSize.
+
+Oct 28, 2002, J.Allison (hits-traj03 - does *not* include digits_hits-V04-01-00)
+- Changed GetAttDefs return signature to map.
+- Changed GetAttValues to CreateAttValues.
+- Improved description in G4VHit.
+
+Oct 24, 2002, M.Asai/J.Allison (hits-traj02)
+- Added virtual const G4std::vector<G4AttDef>* GetAttDefs/Values to G4VHit.hh.
+- Added GetHit and GetSize to G4VHitsCollection.
+
+Oct 23, 2002, M.Dressel (digits_hits-V04-01-00)
+- Added classes for event scoring in module "detector":
+  G4CellScoreComposer[.hh.cc], G4CellScoreValues.hh,
+  G4CellStoreScorer[.hh.cc], G4TrackLogger[.hh.cc].
+
+Jul 13, 2001, G.Cosmo (digits+hits-V03-02-00)
+- Cleanup of pedantic warnings in Linux-g++ ANSI setup.
+- Corrected "int" to "G4int".
+- Corrected "NULL" to "0".
+- Synchronised with HEAD revision after inclusion of disclaimer
+  liability.
+
+Feb 8, 2001, M.Asai (digits+hits-V03-00-01)
+- STL vector classes migration
+  affected files :
+./digits+hits/detector/include/G4HCtable.hh
+./digits+hits/detector/include/G4SDStructure.hh
+./digits+hits/detector/include/G4SensitiveVolumeList.hh
+./digits+hits/detector/include/G4SensitiveVolumeList.icc
+./digits+hits/detector/include/G4VSensitiveDetector.hh
+./digits+hits/detector/include/G4CollectionNameVector.hh
+./digits+hits/detector/src/G4HCtable.cc
+./digits+hits/detector/src/G4SDStructure.cc
+./digits+hits/detector/src/G4SensitiveVolumeList.cc
+./digits+hits/detector/src/G4VSensitiveDetector.cc
+./digits+hits/digits/include/G4DCofThisEvent.hh
+./digits+hits/digits/include/G4TDigiCollection.hh
+./digits+hits/digits/src/G4DCofThisEvent.cc
+./digits+hits/hits/include/G4HCofThisEvent.hh
+./digits+hits/hits/include/G4THitsCollection.hh
+./digits+hits/hits/src/G4HCofThisEvent.cc
+
+Nov 4, 99, M.Asai (tag digits+hits-V00-01-00)
+- Comments are enriched for software reference manual.
+
+Oct 26, 98 M.Asai (tag digits+hits-00-03-01)
+- Debugged in G4HCofThisEvent.hh and G4DCofThisEvent.hh
+
+July 15, 98 M.Asai (tag digits+hits-00-01-02)
+- Modify some UI command definitions.
+
+July 4, 98 M.Asai (tag digits+hits-00-01-01)
+- Ready for the beta release.
+
+July 1, 98 M.Asai (tag digits+hits-00-07-02)
+- G4TDigiCollection has been debugged.
+
+June 30, 98 M.Asai (tag digits+hits-00-07-01)
+- Introduce G4Allocator for G4HCofThisEvent, G4DCofThisEvent,
+  G4HitsCollection, G4DigiCollection.
+- New template classes G4THitsCollection and G4TDigiCollection
+- New base class protected method in G4VSensitiveDetector
+- Corrections in G4VReadoutGeometry
+
+June 11, 98 G.Cosmo (digits+hits-00-06-02)
+- Removed CR characters from G4HCtable.hh, .cc (P.Urban)
+
+June 8, 98 M.Asai
+- Tagged as digits+hits-00-06-01
+
+June 6, 98 M.Asai
+- New sub-directories (detector, hits, digits) are introduced.
+- All codes which used to be in include and src directories are
+ moved to the newly created sub-directories.
+- GNUmakefile is completely changed to catch up the new directory 
+ structure.
+
+April 21, 98 M.Asai
+- Tagged as hits-00-05-01.
+
+December 19, 97 G. Cosmo - (alpha03)
+
+- Created.

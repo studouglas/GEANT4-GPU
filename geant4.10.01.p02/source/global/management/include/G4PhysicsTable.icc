@@ -1,0 +1,118 @@
+//
+// ********************************************************************
+// * License and Disclaimer                                           *
+// *                                                                  *
+// * The  Geant4 software  is  copyright of the Copyright Holders  of *
+// * the Geant4 Collaboration.  It is provided  under  the terms  and *
+// * conditions of the Geant4 Software License,  included in the file *
+// * LICENSE and available at  http://cern.ch/geant4/license .  These *
+// * include a list of copyright holders.                             *
+// *                                                                  *
+// * Neither the authors of this software system, nor their employing *
+// * institutes,nor the agencies providing financial support for this *
+// * work  make  any representation or  warranty, express or implied, *
+// * regarding  this  software system or assume any liability for its *
+// * use.  Please see the license in the file  LICENSE  and URL above *
+// * for the full disclaimer and the limitation of liability.         *
+// *                                                                  *
+// * This  code  implementation is the result of  the  scientific and *
+// * technical work of the GEANT4 collaboration.                      *
+// * By using,  copying,  modifying or  distributing the software (or *
+// * any work based  on the software)  you  agree  to acknowledge its *
+// * use  in  resulting  scientific  publications,  and indicate your *
+// * acceptance of all terms of the Geant4 Software license.          *
+// ********************************************************************
+//
+//
+// $Id: G4PhysicsTable.icc 70961 2013-06-07 15:17:02Z gcosmo $
+//
+// 
+// ------------------------------------------------------------
+//      GEANT 4 class inline implementation
+//
+//	History: first implementation, based on object model of
+//	2nd December 1995, G.Cosmo
+//
+// ------------------------------------------------------------
+
+inline
+ void G4PhysicsTable::clearAndDestroy() 
+{
+  G4PhysicsVector* a=0;
+  while (size()>0)
+  {
+    a = G4PhysCollection::back();
+    G4PhysCollection::pop_back();
+    if ( a )  { delete a; }
+  } 
+  G4PhysCollection::clear();
+  vecFlag.clear();
+}
+
+inline
+ G4PhysicsVector*& G4PhysicsTable::operator()(size_t i) 
+{
+  return (*this)[i]; 
+}
+
+inline
+ G4PhysicsVector* const& G4PhysicsTable::operator()(size_t i) const
+{ 
+  return (*this)[i]; 
+}
+
+inline
+ void   G4PhysicsTable::push_back(G4PhysicsVector* pvec)
+{
+  G4PhysCollection::push_back(pvec);
+  vecFlag.push_back(true);
+}
+
+inline
+ void   G4PhysicsTable::insert(G4PhysicsVector* pvec)
+{
+  G4PhysCollection::push_back(pvec);
+  vecFlag.push_back(true);
+}
+
+inline
+ void  G4PhysicsTable::insertAt (size_t idx, G4PhysicsVector* pvec)
+{
+  G4PhysicsTableIterator itr=begin();
+  for (size_t i=0; i<idx; ++i) { itr++; }
+  G4PhysCollection::insert(itr, pvec);
+
+  G4FlagCollection::iterator itrF=vecFlag.begin();
+  for (size_t j=0; j<idx; ++j) { itrF++; }
+  vecFlag.insert(itrF, true);
+}
+
+inline
+ size_t G4PhysicsTable::entries() const 
+{
+  return G4PhysCollection::size();
+}
+
+inline
+ size_t G4PhysicsTable::length() const 
+{
+  return G4PhysCollection::size();
+}
+
+inline
+ G4bool G4PhysicsTable::isEmpty() const
+{
+  return G4PhysCollection::empty();
+}
+
+inline
+ G4bool G4PhysicsTable::GetFlag(size_t i) const
+{
+  return vecFlag[i];
+}
+
+inline 
+ void  G4PhysicsTable::ClearFlag(size_t i)
+{
+  vecFlag[i] = false;
+}

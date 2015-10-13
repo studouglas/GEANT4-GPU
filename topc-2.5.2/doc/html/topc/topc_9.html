@@ -1,0 +1,298 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html401/loose.dtd">
+<html>
+<!-- Created on April, 15 2011 by texi2html 1.78 -->
+<!--
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people.
+Send bugs and suggestions to <texi2html-bug@nongnu.org>
+
+-->
+<head>
+<title>TOP-C (Task Oriented Parallel C/C++): 9. TOP-C Raw Interface for Parallelizing Sequential Code</title>
+
+<meta name="description" content="TOP-C (Task Oriented Parallel C/C++): 9. TOP-C Raw Interface for Parallelizing Sequential Code">
+<meta name="keywords" content="TOP-C (Task Oriented Parallel C/C++): 9. TOP-C Raw Interface for Parallelizing Sequential Code">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.78">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+pre.display {font-family: serif}
+pre.format {font-family: serif}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: serif; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: serif; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.roman {font-family:serif; font-weight:normal;}
+span.sansserif {font-family:sans-serif; font-weight:normal;}
+ul.toc {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+
+<a name="TOP_002dC-Raw-Interface"></a>
+<a name="SEC54"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="topc_8.html#SEC53" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC55" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="topc_8.html#SEC39" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="topc.html#Top" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="topc_10.html#SEC58" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="topc.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="topc_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="topc_14.html#SEC62" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="topc_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h1 class="chapter"> 9. &lsquo;<samp>TOP-C</samp>&rsquo; Raw Interface for Parallelizing Sequential Code </h1>
+
+<p>There are instances when tasks are most naturally generated deep
+inside nested loops.  Often, this occurs in parallelizing existing
+sequential applications.
+In such circumstances, it may be difficult to
+re-write the code to create a function <code>GenerateTaskInput()</code>, since
+that would require turning the loops inside out.  (If you don't know what this
+refers to, then you probably don't need the raw interface.)
+</p>
+<p>On a first reading, you may wish to first look at the example for
+either a &lsquo;<samp>for</samp>&rsquo; loop or &lsquo;<samp>while</samp>&rsquo; loop, depending on the type of
+loop that you are parallelizing.  Then return to the formal
+descriptions of the &lsquo;<samp>TOP-C</samp>&rsquo; raw functions.  This chapter assumes
+familiarity with the basic concepts of <a href="topc_3.html#SEC3">Overview of &lsquo;<samp>TOP-C/C++</samp>&rsquo;</a> and <a href="topc_4.html#SEC14">Writing &lsquo;<samp>TOP-C</samp>&rsquo; Applications</a>.
+</p>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top"><a href="#SEC55">9.1 &lsquo;<samp>TOP-C</samp>&rsquo; raw functions</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">        
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC56">9.2 Parallelizing &lsquo;<samp>for</samp>&rsquo; Loops</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">     
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC57">9.3 Parallelizing &lsquo;<samp>while</samp>&rsquo; Loops</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">   
+</td></tr>
+</table>
+
+<hr size="6">
+<a name="TOPC_002dC-raw-functions"></a>
+<a name="SEC55"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC54" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC56" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC54" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC54" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="topc_10.html#SEC58" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="topc.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="topc_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="topc_14.html#SEC62" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="topc_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h2 class="section"> 9.1 &lsquo;<samp>TOP-C</samp>&rsquo; raw functions </h2>
+
+<dl>
+<dt><u>Function:</u> void <b>TOPC_raw_begin_master_slave</b>
+<a name="IDX42"></a>
+</dt>
+<dd><p>          (<var>do_task</var>, <var>check_task_result</var>, <var>update_shared_data</var>)
+</p></dd><dt><u>Function:</u> void <b>TOPC_raw_end_master_slave</b><i> ()</i>
+<a name="IDX43"></a>
+</dt>
+<dd><p>        This behaves like master_slave, with
+        <code>TOPC_raw_submit_task_input(<var>input</var>)</code> serving
+        the role of <code>GenerateTaskInput()</code>.  The slave blocks inside
+        <code>TOPC_raw_begin_master_slave()</code> and executes &lsquo;<samp>do_task()</samp>&rsquo; and
+        &lsquo;<samp>update_shared_data()</samp>&rsquo; until the master executes
+        <code>TOPC_raw_end_master_slave()</code>.  At that time, the slave
+        unblocks.  The slave does nothing inside
+        <code>TOPC_raw_end_master_slave()</code>.
+</p></dd></dl>
+
+<dl>
+<dt><u>Function:</u> void <b>TOPC_raw_submit_task_input</b><i> ( TOPC_BUF <var>input</var> )</i>
+<a name="IDX44"></a>
+</dt>
+<dd><p>        Invoked by master between <code>TOPC_raw_begin_master_slave()</code>
+        and <code>TOPC_raw_end_master_slave()</code>;  Typical usage is:
+</p><table><tr><td>&nbsp;</td><td><pre class="example">     <code>TOPC_raw_submit_task_input(TOPC_MSG(&amp;<var>input_data</var>,
+                                         sizeof(<var>input_data</var>)) );</code>
+</pre></td></tr></table>
+<p>        The argument, <var>input</var>, corresponds to what would be returned by
+        <code>GenerateTaskInput()</code> in the routine <code>TOPC_master_slave()</code>.
+        <var>input</var> will be processed by <code>DoTask()</code> and its siblings,
+        just as in <code>TOPC_master_slave()</code>).
+        There can be multiple occurrences of
+        <code>TOPC_raw_submit_task_input()</code>.
+</p></dd></dl>
+
+<dl>
+<dt><u>Function:</u> TOPC_BOOL <b>TOPC_raw_wait_for_task_result</b><i> ()</i>
+<a name="IDX45"></a>
+</dt>
+<dd><p>        Invoked by master between <code>TOPC_raw_begin_master_slave()</code> and
+        <code>TOPC_raw_end_master_slave()</code>;
+        If no tasks are outstanding, returns false immediately.  Otherwise, it
+        blocks until a task does return.  It calls application
+	callback, <code>CheckTaskResult()</code>, and then returns true.
+</p></dd></dl>
+
+<hr size="6">
+<a name="Parallelizing-For-Loops"></a>
+<a name="SEC56"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC55" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC57" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC54" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC54" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="topc_10.html#SEC58" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="topc.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="topc_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="topc_14.html#SEC62" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="topc_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h2 class="section"> 9.2 Parallelizing &lsquo;<samp>for</samp>&rsquo; Loops </h2>
+
+<p>Assume that we are parallelizing a code fragment of the following form.
+The variables <code>i</code> and <code>j</code> will be the input to
+<code>DoTask()</code>, and any data structures indexed by <code>i</code> and
+<code>j</code> (for example <code>array</code> in <code>array[i][j]</code>) will be
+part of the shared data.
+</p><table><tr><td>&nbsp;</td><td><pre class="example">  float array[ROWS][COLS];
+  ...
+    for ( i = 0; i &lt; 10; i++ ) {
+      for ( j = 0; j &lt; 10; j++ ) {
+        /* do_task: */ ...
+        /* update:  */ array[i][j] = ...;
+      }
+    }
+</pre></td></tr></table>
+
+<p>Assume that the labels <code>do_task</code> and <code>update</code> above
+correspond to the callback functions <code>DoTask()</code> and
+<code>UpdateSharedData()</code>.  Then the code is parallelized below.
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">  float array[ROWS][COLS];
+  typedef struct {int i_val; int j_val;} input_t;
+  void *DoTask(input_t *buf) {
+    int i = (*buf).i_val, j = (*buf).j_val;
+    /* do_task: */ ...
+  }
+  void *CheckTaskResult(input_t *buf, output_t *buf2) {
+    /* update:  */ array[i][j] = ...;
+    return NO_ACTION;
+  }
+  main(int argc, char **argv) {
+    TOPC_init( &amp;argc, &amp;argv );
+    TOPC_raw_begin_master_slave(DoTask, CheckTaskResult,
+                                UpdateSharedData);
+    if (TOPC_is_master()) {
+      for ( i = 0; i &lt; 10; i++ ) {
+        for ( j = 0; j &lt; 10; j++ ) {
+          input_t input;
+          input.i_val = i; input.j_val = j;
+          TOPC_raw_submit_task_input( TOPC_MSG(&amp;input, sizeof(input)) );
+        }
+      }
+    } TOPC_raw_end_master_slave();
+    TOPC_finalize();
+  }
+</pre></td></tr></table>
+
+<hr size="6">
+<a name="Parallelizing-While-Loops"></a>
+<a name="SEC57"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC56" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="topc_10.html#SEC58" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC54" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC54" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="topc_10.html#SEC58" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="topc.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="topc_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="topc_14.html#SEC62" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="topc_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h2 class="section"> 9.3 Parallelizing &lsquo;<samp>while</samp>&rsquo; Loops </h2>
+
+<p>Assume that we are parallelizing a code fragment of the following form
+and <code>input</code> is a pointer.
+</p><table><tr><td>&nbsp;</td><td><pre class="example">  while ( (input = next_input()) != NULL ) {
+    /* do_task: */ ...
+    /* update:  */ ...
+  }
+</pre></td></tr></table>
+
+<p>Assume that the labels <code>do_task</code> and <code>update</code> above
+correspond to the callback functions <code>DoTask()</code> and
+<code>UpdateSharedData()</code>.  Then the code is parallelized below,
+where <code>input_size</code> must be specified by the application before it
+is used.
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">  TOPC_init( &amp;argc, &amp;argv );
+  TOPC_raw_begin_master_slave(DoTask, CheckTaskResult,
+                              UpdateSharedData);
+  if (TOPC_is_master()) {
+    while ( (input = next_input()) != NULL
+            || TOPC_raw_wait_for_task_result() ) {
+      TOPC_raw_submit_task_input( TOPC_MSG(input, input_size) );
+    }
+  } TOPC_raw_end_master_slave();
+  TOPC_finalize();
+</pre></td></tr></table>
+
+<p>Note that the code inside the <em>raw begin/end block</em> is executed
+only by the master in the code above.
+</p>
+
+<p>If the buffer, <code>input</code>, contains pointers to other data, then you
+will need to <em>marshal</em> the data before calling <code>TOPC_MSG()</code>.
+See section <a href="topc_3.html#SEC7">Marshaling and Heterogeneous Architectures</a>.
+</p>
+<hr size="6">
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC54" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="topc_10.html#SEC58" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="topc.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="topc_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="topc_14.html#SEC62" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="topc_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<p>
+ <font size="-1">
+  This document was generated by <em>Gene Cooperman</em> on <em>April, 15 2011</em> using <a href="http://www.nongnu.org/texi2html/"><em>texi2html 1.78</em></a>.
+ </font>
+ <br>
+
+</p>
+</body>
+</html>

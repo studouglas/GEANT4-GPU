@@ -1,0 +1,40 @@
+# $Id: analysis.gmk 66368 2012-12-18 09:20:17Z gcosmo $
+#   Guy Barrand, 20th Mai 2000
+#
+# Analysis variables...
+#
+
+ANALYSISLIBS := 
+
+ifdef G4ANALYSIS_USE
+  CPPFLAGS += -DG4ANALYSIS_USE
+  ifndef G4ANALYSIS_AIDA_CONFIG_CFLAGS
+    ifneq (,$(findstring WIN32-VC,$(G4SYSTEM)))
+      # The "aida-config --include" for VC may return information
+      # by using the Windows /I syntax which is not understood
+      # by "g++ -M" used by the Geant4 make system to get dependencies.
+      # Then we transform to use the -I syntax which is understood by 
+      # both g++ and CL.exe compilers :
+      G4ANALYSIS_TMP_1 := $(shell echo "`aida-config --include`")
+      G4ANALYSIS_AIDA_CONFIG_CFLAGS := $(patsubst /I%,-I"%",$(G4ANALYSIS_TMP_1))
+    else
+      G4ANALYSIS_AIDA_CONFIG_CFLAGS := `aida-config --include`
+    endif
+  endif
+  ifndef G4ANALYSIS_AIDA_CONFIG_LIBS
+    ifneq (,$(findstring WIN32-VC,$(G4SYSTEM)))
+      # The "aida-config --lib" for VC may return information
+      # by using the Windows /LIBPATH syntax which is not understood
+      # by g++ used by the Geant4 make system to link applications.
+      G4ANALYSIS_TMP_2 := $(shell echo "`aida-config --lib`" | sed -e 's:\\:/:g')
+      G4ANALYSIS_AIDA_CONFIG_LIBS := $(patsubst /LIBPATH:%,'-libpath:'%,$(G4ANALYSIS_TMP_2))
+    else
+      G4ANALYSIS_AIDA_CONFIG_LIBS := `aida-config --lib`
+    endif
+  endif
+  CPPFLAGS += $(G4ANALYSIS_AIDA_CONFIG_CFLAGS)
+  ANALYSISLIBS += $(G4ANALYSIS_AIDA_CONFIG_LIBS)
+endif
+
+
+

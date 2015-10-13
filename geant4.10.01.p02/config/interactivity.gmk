@@ -1,0 +1,123 @@
+# $Id: interactivity.gmk 66368 2012-12-18 09:20:17Z gcosmo $
+#  GNUmakefile for CPPFLAGS, LDFLAGS for interactivy, 
+# ie interfaces and visualization.
+#
+#  Here we really set the CCPFLAGS, LDFLAGS for X11, Motif,...
+# according various INC_xxx, LOAD_xxx flags setted in
+# G4[UI, VIS]_[USE, BUILD].gmk. With this logic the 
+# flags for one product (X11, Motif,...) will appear once 
+# in the compilation/load command line.
+#
+#   Guy Barrand, 7th July 1998.
+
+# Other libraries
+
+########################### Inventor ############
+
+# Should be before OpenGL.
+ifdef INC_IV
+  INC_GL    = 1
+  CPPFLAGS += $(OIVFLAGS)
+endif
+ifdef LOAD_IV
+  LOAD_GL  = 1
+  INTYLIBS += $(OIVLIBS)
+endif
+
+########################### Qt ###############################
+# Should be before X11.
+ifdef INC_QT
+  CPPFLAGS += $(QTFLAGS)
+endif
+ifdef LOAD_QT
+  INTYLIBS += $(QTLIBS)
+endif
+ifdef LOAD_GLQT
+  INTYLIBS += $(GLQTLIBS)
+endif
+
+########################### Wt ###############################
+# Should be before X11.
+ifdef INC_WT
+  CPPFLAGS += $(WTFLAGS)
+endif
+ifdef LOAD_WT
+  INTYLIBS += $(WTLIBS)
+endif
+
+########################### OpenGL ###############################
+
+ifdef INC_GL
+  CPPFLAGS += $(OGLFLAGS)
+endif
+ifdef LOAD_GL
+  INTYLIBS += $(OGLLIBS)
+endif
+
+########################### Motif, Athena, X11 ###################
+# Motif raise X11 flags.
+
+# Should be before X11.
+ifdef INC_XM
+  INC_X11   = 1
+  CPPFLAGS += $(XMFLAGS)
+endif
+ifdef LOAD_XM
+  LOAD_X11           = 1
+  INTYLIBS += $(XMLIBS)
+endif
+
+# Should be before X11.
+ifdef INC_XAW
+  INC_X11   = 1
+  CPPFLAGS += $(XAWFLAGS)
+endif
+ifdef LOAD_XAW
+  LOAD_X11           = 1
+  INTYLIBS += $(XAWLIBS)
+endif
+
+
+ifdef INC_X11
+  CPPFLAGS += $(X11FLAGS)
+endif
+ifdef LOAD_X11
+  INTYLIBS += $(X11LIBS)
+endif
+
+
+########################### and finally... #######################
+
+ifdef G4INTY_BUILD_XT
+  CPPFLAGS += -DG4INTY_BUILD_XT
+endif
+
+ifdef G4INTY_BUILD_QT
+  CPPFLAGS += -DG4INTY_BUILD_QT
+endif
+
+ifdef G4INTY_BUILD_WT
+  CPPFLAGS += -DG4INTY_BUILD_WT
+endif
+
+ifdef G4INTY_USE_XT
+  CPPFLAGS += -DG4INTY_USE_XT
+endif
+
+ifdef G4INTY_USE_QT
+  CPPFLAGS += -DG4INTY_USE_QT
+endif
+
+ifdef G4INTY_USE_WT
+  CPPFLAGS += -DG4INTY_USE_WT
+endif
+
+ifdef G4INTY_BUILD_WIN32
+  CPPFLAGS += -DG4INTY_BUILD_WIN32
+endif
+
+ifdef G4INTY_USE_WIN32
+  CPPFLAGS += -DG4INTY_USE_WIN32
+  INTYLIBS += $(UI32LIBS)
+endif
+

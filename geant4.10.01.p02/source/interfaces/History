@@ -1,0 +1,1284 @@
+$Id: History 88937 2015-03-16 15:55:38Z gcosmo $
+-------------------------------------------------------------------
+
+     =========================================================
+     Geant4 - an Object-Oriented Toolkit for Simulation in HEP
+     =========================================================
+
+                      Category History file
+                      ---------------------
+This file should be used by G4 developers and category coordinators
+to briefly summarize all major modifications introduced in the code
+and keep track of all category-tags.
+It DOES NOT substitute the  CVS log-message one should put at every
+committal in the CVS repository !
+
+     ----------------------------------------------------------
+     * Reverse chronological order (last date on top), please *
+     ----------------------------------------------------------
+
+15th December 2014  Laurent Garnier (interfaces-V10-00-24)
+- G4UIQt.cc
+  o Fix a problem when displaying the first time the help tree. The guidance label
+    was not show
+
+20th November 2014  Laurent Garnier (interfaces-V10-00-23)
+- G4UIQt.cc
+  o Fix recursive calls caused by qApp->processEvent() in some cases (cms.gdml) 
+
+19th November 2014  Laurent Garnier (interfaces-V10-00-22)
+- G4UIQt.cc
+  o Add public methods
+  o Fix a public method return type
+
+7th November 2014  Laurent Garnier (interfaces-V10-00-19 - interfaces-V10-00-20 - interfaces-V10-00-21)
+- G4UIQt.cc
+  o Fix G4Vis thread number in G4Cout
+  o Set focus on command line at the beggining
+  o Better fix for the "Recreate help tree each time we create a new viewer"
+  o Fix qt warning "QObject::connect: Cannot queue arguments of type 'QTextCursor'"
+
+5th November 2014  Laurent Garnier
+- G4UIQt.cc:
+  o Recreate help tree each time we create a new viewer
+- G4UIWt.cc: 
+  o Remove a warning
+
+31th October 2014  Laurent Garnier
+- G4UIQt.cc:
+  o Use FindMacroPath() instead of GetMacroSearchPath()
+  o Display G4Exception warning messages in G4cerr
+  o Fix a problem with Wt include names on case sensitive systems
+  o Try to fix the fact that the cout widget does not update in real
+    time when run in progress. Do not totally fix this, but update
+    is more frequent now.
+
+30th October 2014  John Allison (interfaces-V10-00-18)
+- G4UIQt.cc: Added a mutex in ReceiveG4cout and ReceiveG4cerr.
+
+29th October 2014  Laurent Garnier (interfaces-V10-00-16 retagged interfaces-V10-00-17)
+- G4UIQt : 
+  o For all methods who need a file, instead of getting the file from current path,
+    look for it in MacroPath
+  o Set viewer text tab "read only"
+  o When closing a dock panel, hide it instead of removing it. Prevent from null
+    pointer exception
+
+22th October 2014  Laurent Garnier (interfaces-V10-00-15)
+- G4UIQt : 
+  o Remove viewer size parameter (it was no longer used)
+  o Add the ability to have HTML tags inside the file given by AddViewerTabFromFile. 
+    This will allow to include for example a README file with an <img> or other HTML tags
+    Ex :
+         =====================  README  ==============================
+         <p align="center">
+         <img src="exampleB1.jpg" width="300">
+         </p>
+   And the code to be place in main() function :
+      UIQt->AddViewerTabFromFile("README", "README from my own example");
+
+21th October 2014  Laurent Garnier
+- G4UIQt : 
+  o Do not remove the first tab widget when creating a viewer
+  o add new method AddViewerTab(QWidget*, std::string), this will allow users to define their
+    own tab.
+  o Add new method AddViewerTabFromFile(std::string, std::string): add a tab in the viewer from
+    a file
+  o Fix a problem with updating viewer
+  o Activate Help Widget at the beginning instead of sceneTree
+  o Move clear G4cout icon on the right side
+  o Add left panel tab tooltips
+  o Change text on StartPage
+
+14th October 2014  Laurent Garnier
+- G4UIQt : 
+  o Add methods GetCoutWidget(), GetUserInterfaceWidget(), GetViewersWidget()
+  o Rename SetViewerFirstPageHTMLText() to SetStartPage()
+
+14th October 2014  Laurent Garnier (interfaces-V10-00-14 need global-V10-00-35)
+- G4UIQt : 
+  o Revert mdi/tabbed widgets to old tab style : It was not working so good. In tabbed mode, some
+    stranges effects when adding/switching OGL viewer : A small window was create
+    inside other tabs.
+  o Get the thread prefix string directly from G4MTcoutDestination
+
+13th October 2014  Laurent Garnier
+- G4UIQt : Fix a bug with Qt4.6
+
+7th October 2014  Laurent Garnier
+- G4UIQt : Fix a problem refreshing tab
+
+6th October 2014  Laurent Garnier
+- G4UIQt : Fix a problem when creating the first tab viewer
+
+1st October 2014  Laurent Garnier
+- G4UIQt : 
+  o Add a "mdi" and "tabbed" icon, only in the code for the moment, no way to trigger them
+  o Suppress the way to switch between "tabbed view" and "side by side view", will be replace
+    next by this icon
+
+28th August 2014  Laurent Garnier
+- G4UIQt : 
+  o Replace the tab viewer by a MDIArea in order to manage both side by side view and tabbed view
+  o Minor change in text for the first page widget
+  o Fix a problem in coloring cout sometimes after a cerr was send. Sometimes, the default color stay in red. Fixed
+  o Set the focus on the command line after a command was send
+  o For the moment, the way to switch between "tabbed view" and "side by side view" is to type "s" in the command line.
+    TO BE FIXED !
+  o Fix problem when closing the last tab. Now the first page is displayed
+
+23rd September 2014  Gabriele Cosmo (interfaces-V10-00-13)
+- G4UIQt :
+  o Use GetThreadId() from G4UImanager...
+
+23rd September 2014  Laurent Garnier (interfaces-V10-00-12)
+- G4UIQt :
+  o Change threadId by getThreadId()
+
+19th September 2014  Laurent Garnier (interfaces-V10-00-11)
+- G4UIQt :
+  o Fix the Dock output panel on the bottom right on the window
+
+18th August 2014  Laurent Garnier
+- G4UIQt :
+  o Fix a problem with closing dockable widgets
+
+14th August 2014  Laurent Garnier
+- G4UIQt :
+  o Begginning of adding dockable widgets. Still problems on :
+    - cout (should be on the right)
+    - Dock titles
+
+13th August 2014  Laurent Garnier
+- G4UIQt :
+  o Fix a bug introduced in interfaces-V10-00-07. The first time we open the viewer, is was small and dark.
+    Note: Perhaps this fix will create (in some cases) a widget outside of UI for a really short moment.
+
+13th August 2014  Laurent Garnier
+- G4UIQt :
+  o Fix a typo in SetViewerFirstPageHTMLText text
+  o Add better implementation of thread prefix before "GetPrefixString()" is implemented
+
+11th August 2014  Laurent Garnier  (interfaces-V10-00-09)
+- G4UIQt :
+  o Fix a bug for single threading output in last tag
+  o Add a "SetViewerFirstPageHTMLText" method to be able to set the first tab widget text.
+    This could be used to make some kind of a start page to display useful informations
+
+7th August 2014  Laurent Garnier  (interfaces-V10-00-08)
+- G4UIQt :
+  o Add Mutilthreading outputs
+  o New cout internal management
+  o Add a filter on thread in output
+
+1th August 2014  Laurent Garnier
+- G4UIQt : Change UI look by moving "search" at the top of the G4cout area
+
+10th July 2014  Laurent Garnier  (interfaces-V10-00-07)
+- G4UIQt : BugFix #1604
+- G4UIWt : Minor things
+
+6th June 2014  Laurent Garnier  (interfaces-V10-00-06)
+- G4UIQt : 
+  o Fix a Qt function that was only defined for Qt5
+ 
+5th June 2014  Laurent Garnier  (interfaces-V10-00-05 co-works opengl-V10-00-06)
+- G4UIQt : 
+  o Change help display to render parameters in a QTableView
+  o Change window expanding policy. Now when expanding main window, it will keep the size of the viewer
+  o When choosing "pick" icon, it will now apply /vis/viewer/set/picking true
+ 
+27th May 2014  Laurent Garnier
+- G4UIQt : 
+  o Change help display in help tree
+
+May 25th 2014 Koichi Murakami, interfaces-V10-00-04
+- basic/src/G4UIterminal.cc, fixed the problem that some commands cannot be
+  processed, because of a bug in G4SubString== operator like nC(0,3)="xxx".
+  Use substr() instead of () operator for the comparison of substr.
+
+20th May 2014  Laurent Garnier (interfaces-V10-00-02, interfaces-V10-00-03)
+- G4UIQt : 
+  o Change help tree splitter from vertical to horizontal
+  o Add method to display text in HTML
+
+22th Janvier 2014  Laurent Garnier (interfaces-V10-00-01)
+- G4Qt : BUGFIX : bugzilla 1487 : Explicitly set the LC_NUMBERIC locale to "C"
+
+4nd December 2013  Laurent Garnier (interfaces-V09-06-18)
+- G4UIQt :
+ o Fix problem with resizing the QGLwidget when a macro which open a OGL
+   widget was called by user in UI. Before the OGL widget get the minimum size 
+   (about 50 pixel height), now it does grow as much as it can without going out
+   of the window.
+ o Suppress a "printf" non protected by ifdef
+
+2nd December 2013  Laurent Garnier (interfaces-V09-06-17)
+- G4UIQt : Fix a bad bug fixed 29th November 2013. The menu name was displayed
+  instead of the label.
+
+29th November 2013  Laurent Garnier (interfaces-V09-06-16)
+- G4UIQt : Fix a bug introduce the 13th November 2013. Menu name was blank, I had 
+  remove the name parameter by mistake.
+
+14th November 2013  Laurent Garnier (interfaces-V09-06-15)
+- G4UIQt : Fix a bug introduce the 13th November 2013 : JIRA DEV-101
+
+13th November 2013  Laurent Garnier (interfaces-V09-06-14)
+- G4UIQt :
+ o Add a fix for JIRA DEV-98. Qt5 driver is broken with Qt5.0.1 version, the only fix we could
+   do, is to warn users that there will not be any Store/Immediate viewer support for Qt5.0. We
+   advice them to update to Qt5.1. Few users will have this configuration since we are already
+   in Qt5.2
+
+13th November 2013  Laurent Garnier
+- G4UIQt :
+ o Remove QWidget unuseful argument for G4QtTabWidget
+ o Better layouts management (does not fix anything)
+
+9th November 2013  Laurent Garnie (interfaces-V09-06-13)
+- G4UIQt : Fix a shadowing variable
+
+8th November 2013  Laurent Garnier (interfaces-V09-06-12)
+- G4UIQt :
+ o Fix JIRA issue DEV-10 : "When adding a button with "/vis/viewer/set/style",
+   the parameters are not proposed."
+
+8th November 2013  Laurent Garnier (interfaces-V09-06-11)
+- G4UIQt :
+ o Fix JIRA issue DEV-67 : remove warning when adding a new command button
+ o Fix a possible problem on widgets parent.
+
+7th November 2013  Laurent Garnier
+- G4UIQt : Fix JIRA issue DEV-94 : Crash when closing the last tab
+
+6th November 2013  Laurent Garnier (interfaces-V09-06-10)
+- G4UIQt : Fix compilation error on X11.
+
+5th November 2013  Laurent Garnier (interfaces-V09-06-09)
+- G4UIQt : Fix some resizing problems.
+- G4UIWt : Fix some warnings
+
+5th November 2013  Laurent Garnier
+- G4UIQt :
+  o Fix a problem on Linux reported by Ivana : Impossible to change
+    the size of the OpenGL viewer
+  o Fix the size of the OpenGL viewer to be the same as send in parameters
+    (for ex: 600x600)
+
+31th October 2013  Laurent Garnier
+- G4UIQt : Fix JIRA issue DEV-93 about "Directory descriptions does not 
+  appear at the place they should be."
+
+24th October 2013  Laurent Garnier
+- G4UIQt : Fix coverity
+  o 23063 Uninitialized pointer field
+  o 47057 Logically dead code 
+  o 53243 Uninitialized scalar field 
+
+23th October 2013  Laurent Garnier (interfaces-V09-06-08 need cmake-V09-06-29)
+- sources.cmake : Remove Qt5 configuration, it is now include in cmake.
+
+14th October 2013  Laurent Garnier (interfaces-V09-06-07)
+- G4UIWt : 
+  o Fix a warning about "/*" within comment
+
+10th October 2013  Laurent Garnier (interfaces-V09-06-06)
+                      forgot to tag interfaces-V09-06-05)
+- G4UIQt :
+  o Fix SecondaryLoop for Qt. It was doing nothing at all, now processing
+    events until exitPause = true
+  o Remove debug statements
+
+23th August 2013  Laurent Garnier
+- Add first draft classes for Wt (web based interfaces) common/src/G4Wt.cc common/include/G4Wt.hh basic/include/G4UIWt.hh basic/src/G4UIWt.cc
+- G4UIQt : Remove unused parameter
+- G4UIExecutive : Add BUILD_WT case (not yet done for cmake)
+
+12th August 2013  Laurent Garnier
+- G4UIQt : 
+   o Add a field to memorise the last open directory on Icon->Open
+   o Fix some warning messages
+- G4UIQt, G4Qt : Change some G4cout messages to be displayed only when
+  verbosity >= 2
+
+8th August 2013  Laurent Garnier
+- G4VBasicShell::ExecuteCommand : Add information when command not found
+- G4UIQt.cc : in ReceveiveG4Cerr, change behavious :
+   o before on each G4err it was displaying an alert box, now it display an alert
+     box only if it will Abort or Quit the programm
+   o All G4err messages are now in red. Previously there were sometimes changing 
+     color to black. 
+   o When entering a command, if this command is multiple line it will now take 
+     it in account as multiples commands.
+
+7th August 2013  Laurent Garnier
+- G4UIQt.cc :
+  o Change the name of the fileselector on the open/save Icon
+  o Fix a potential problem on the ToolBar
+  o Add a public method to get the MainWindow
+ 
+1st August 2013  Laurent Garnier
+- G4Qt.cc : Fiw a non UTF8 caracter (bug #1487)
+ 
+2nd July 2013  Laurent Garnier
+- G4UIQt.cc : Fix coverity defect 48022
+ 
+27th June 2013  Laurent Garnier
+- G4UIQt.cc : Improve OGL window resizing by opening to a bigger size, changing
+  strech factors and others little effects.
+ 
+18th June 2013  Laurent Garnier
+- G4UIQt.cc: Add some minors improvements to Qt interface
+  o Minimize border size
+  o OpenGL windows size changing when app size change
+  o Changing some functions signature
+
+3nd June 2013  Laurent Garnier (interfaces-V09-06-02 interfaces-V09-06-03 interfaces-V09-06-04)
+- G4UIQt.cc: Coverity fix:
+  o Initialize class members
+  o Try to fix a Dereference after null check coverity warning.
+
+- G4Qt.hh: Coverity fix:
+  o Made copy constructor and assignment operator private.
+
+2nd June 2013  John Allison (interfaces-V09-06-01)
+- G4Xt.hh: Coverity fix:
+  o Made copy constructor and assignment operator private.
+
+13th May 2013 - Laurent Garnier
+- G4UIQt :
+  o Add some tooltips
+
+1st May 2013 - Laurent Garnier
+- Improvments about Wt driver configuration
+
+25th April 2013  Laurent Garnier
+- Add cmake configuration for Wt and Qt5 in "common" and "basic",
+  check in the code : "!!! ONLY QT4 to be comment with QT5"
+
+7th December 2012  Laurent Garnier
+- Set fix size font in output.
+
+7th December 2012  John Allison (interfaces-V09-06-00)
+- Removed G4UIXaw.
+
+15th November 2012 Laurent Garnier (interfaces-V09-05-36)
+- G4UIQt:
+ o Fix bug #1391 : Menus were append before the "File" menu
+ o FIx bug #1389 : add button with command with arguments was not working
+
+14th November 2012 Laurent Garnier
+- G4UIQt: Put name of the app in the title bar
+
+6 November 2012 Koichi Murakami (interfaces-V09-05-35)
+- G4UIExecutive, remove Win32 session from best guess.
+
+2nd November 2012 Koichi Murakami (interfaces-V09-05-34)
+- G4UIExecutive, G4UItcsh, add null check for getenv return.
+
+2nd November 2012  Laurent Garnier (interfaces-V09-05-33)
+- G4UIQt : Remove icons for all applications. It will be now provided in a 
+           icons.mac file
+
+1st November, 2012 Gabriele Cosmo (interfaces-V09-05-32)
+- Fixed GNUmakefile and source.cmake in basic module for missing G4UIGAG.hh.
+
+30th October, 2012 John Allison (interfaces-V09-05-31 needs vis-V09-05-45)
+- G4UIQt: Removed IsInstantiated.  No longer needed.
+
+23th October, 2012 Koichi Murakami (interfaces-V09-05-30)
+- UIExecutive, fixed Windows error, add SelectSessionByBestGuess().
+
+22th October, 2012 Koichi Murakami (interfaces-V09-05-29)
+- GetCommandLine in G4UIshell-related is changed to GetCommandLineString
+  due to expected conflict on Windows. 
+
+(interfaces-V09-05-28 is used intarnally. It was tagged on the branch,
+interfaces-V09-05-24-check_on_win, for testing errors on Windows)
+
+20th October, 2012 Koichi Murakami (interfaces-V09-05-27)
+- ReceiveG4cout/cerr in G4coutDestion arguments is changed to const G4String&,
+  the correspoinding methods in delived classes are updated.
+- add "const" for constant-functions.
+- G4UItcsh, command completion method is changed, dynamically optimize path.
+- G4UIExecutive, fixed case-insensitivity in .g4session, with some modfications.
+  For Windows, logic is back to the original, csh is active and fallback.
+
+19th October 2012  Laurent Garnier 
+- G4UIQt
+  o Manage mouse style with bool instead of Icon status
+  o Prevent case of no-icons on toolbar
+
+- G4InteractorMessenger.cc : Allow "addIcon" command to have ommitables parameters
+
+19th October 2012  John Allison
+- G4UIExecutive.cc
+  o Re-ordered printing of available sessions.
+
+19th October 2012  John Allison  (interfaces-V09-05-26)
+- G4UIExecutive.cc
+  o Resuscitate GAG on Windows.
+- G4UIQt.cc:
+  o Fixed compiler warning.
+
+19th October 2012  Laurent Garnier 
+- G4UIQt.cc
+  o Resolved bug <a href="http://bugzilla-geant4.kek.jp/show_bug.cgi?id=1365">1365</a>
+    some code was removed since interfaces-V09-05-18
+
+19th October 2012  John Allison  (interfaces-V09-05-25)
+- G4UIExecutive.cc
+  o Fixed compiler errors on Windows.
+  o Re-introduced Xm.
+
+18th October 2012  Laurent Garnier
+- G4UIQt : Fix a Qt < 4.5 issue for ColorDialog
+
+18th October, 2012 Koichi Murakami (interfaces-V09-05-24)
+- G4UIExective
+ o additional code clean-up
+ o treat case-insensitve session type for .g4session
+
+18th October, 2012 Koichi Murakami (interfaces-V09-05-23)
+- G4VUIshell, G4UItcsh, G4VBasicShell, G4UIterminal
+ o improve swimming among command directories wih ".", ".."
+- G4UIExective
+ o introduce run-time session selection scheme
+ o new G4UIExective.cc instead of G4UIExecutive.icc
+ o sources.cmake updated
+
+18th October 2012  John Allison  (interfaces-V09-05-22)
+- G4UIExecutive.icc
+  o Fixed compiler errors on Windows.
+
+12th October 2012  John Allison  (interfaces-V09-05-21)
+- G4UIExecutive.icc
+  o Some problem with Xm - commented out.
+
+12th October 2012  John Allison  (interfaces-V09-05-20, co-works vis-V09-05-47)
+- G4UIExecutive:
+  o Introduced string-driven-selection of UI session.
+- G4UIXaw.cc:
+  o Deprecated.
+
+10th Octobre 2012  Laurent Garnier (co-works 
+- G4UIQt :
+ o Add a "save" command to "save" icon thanks to John /vis/viewer/save
+
+9th Octobre 2012  Laurent Garnier  (interfaces-V09-05-19)
+- G4UIQt :
+ o Fix a bad naming method
+
+5th Octobre 2012  Laurent Garnier
+- G4UIQt/G4VInteractiveSession/G4InteractorMessenger : 
+ o Add a new command /gui/addIcon to be able to add an icon on the toolbar
+ o Remove "Scene" and "viewer" components
+
+28th September 2012  Laurent Garnier (interfaces-V09-05-17 & interfaces-V09-05-18)
+- G4UIQt :
+  o Fixed compiler warning and remove dead code
+
+27th September 2012 John Allison (interfaces-V09-05-16)
+- Tagged.
+
+26th September 2012  Laurent Garnier
+- G4UIQt:
+ o Move Icon creation in a generic method : AddIcon()
+ o Move command line on the right widget
+ o Add warning when creating new menu if command not found
+ o Re-order lot lof things to be able to call widget dialog box for parameters outside
+   view/scene tab stack component.
+ o A menu/icon with a command without parameter will open a parameter dialog box
+
+20th September 2012  Laurent Garnier (interfaces-V09-05-15)
+- G4UIQt : Fix a compiler warning on  uninitialized parameter
+
+19th September 2012  John Allison (interfaces-V09-05-14)
+- G4UIQt: Introduced static G4bool IsInstantiated() for use by vis system.
+
+18th Septembre 2012 Hisaya Kurashige (interfaces-V09-05-13)
+- Same as interfaces-V09-05-12
+  (Re-tagged because of system test )
+
+5th Septembre 2012 Laurent Garnier (interfaces-V09-05-12)
+- G4UIQt.cc :
+  o Add Perspective/Ortho icons
+  o Add new OGL S/I mode
+  o Remove warnings
+  o Add Zoom In/Out icons
+  o Fix icon radio button problem
+ 
+2nd Septembre 2012 Laurent Garnier
+- G4UIQt.cc : 
+  o Add Load/Macro icons and actions (not finish!)
+  o Fix a problem when no tab was displayed and creating first vis tab 
+
+23 August 2012 Laurent Garnier
+- G4UIQt.cc : Begin of changing lot of things in UI
+  o Add some icons (not finish!)
+  o Change some layout (to be continue)
+
+9 August 2012 Laurent Garnier (interfaces-V09-05-11)
+- G4UIQt.cc :
+  o Fix problem with component size
+  o Fix multiples vis parameters widgets when refiling the help tree
+  o Fix major bug intriduce in last revision
+  o Fix warnings on Linux
+  o Move Cout widget out of toolbar
+
+8 August 2012 John Allison (interfaces-V09-05-10)
+- Linux compilation fixed (Laurent Garnier).
+
+8 August 2012 John Allison (interfaces-V09-05-09)
+- Tagged.
+
+3 August 2012 Laurent Garnier ()
+- G4UIQt.cc : Big changes in GUI window. Add /vis/scene/add and 
+  /vis/viewer parameters widgets
+
+11 July 2012 Laurent Garnier (interfaces-V09-05-08)
+- G4UIQt.cc : Small variable name changes and re-add scene tree viewer
+ (slow problem fixed in visualization)
+
+6 July 2012 Laurent Garnier (interfaces-V09-05-07)
+- G4VBasicShell.cc : Fix compilation warnings on Linux/gcc
+
+6 July 2012 Laurent Garnier (interfaces-V09-05-06)
+- G4UIGAG, G4UIQt : Fix compilation warnings on Linux/gcc
+
+6 July 2012 Laurent Garnier (interfaces-V09-05-05)
+- G4UIGAG, G4UIGainServer, G4UIQt : Fix compilation warnings on Linux/gcc
+
+21 June 2012 Laurent Garnier (interfaces-V09-05-04)
+- Remove scene tree from next tag. Slow some examples (DICOM) too much.
+
+1st June 2012  John Allison (interfaces-V09-05-03)
+- Tagged.
+
+6th April 2012 Laurent Garnier
+- G4UIQt : Set Cout as default ToolBox widget at launch
+
+3rd April 2012  Pere Mato (interfaces-V09-05-02)
+- basic/src/G4UIWin32.cc : Attempt to make it work for Win64
+  replacing [Get|Set]WindowLong() by [Get|Set]WindowLongPtr() and GWL_USERDATA by GWLP_USERDATA
+
+2nd April 2012  John Allison (interfaces-V09-05-01)
+- Tagged.
+
+28th March 2012 Laurent Garnier
+- basic/G4UIQt : Change name of viewer components
+
+1st February 2012  John Allison (interfaces-V09-05-00)
+- Added moc to svn:ignore property in subdirectory basic.
+
+30th November 2011 Ben Morgan (interfaces-V09-04-14)
+- basic/sources.cmake : Ensure Motif libraries linked before X11 libraries to 
+  prevent item 321 in the Motif FAQ regarding 'non-widget child "dsm"' errors. 
+
+29 November 2011 Ben Morgan (interfaces-V09-04-13)
+- common/source.cmake : Ensure G4Xt gets built for OpenInventor
+
+23 November 2011 Laurent Garnier (interfaces-V09-04-12)
+- Fix for displing a QMessageBox on G4err output
+
+12 November 2011 Koichi Murakami (interfaces-V09-04-11)
+- G4UIExective is rollback to interfaces-V09-04-05. (w/o run-time selection)
+
+12 November 2011 Koichi Murakami (interfaces-V09-04-10)
+- add G4UIExecutive.cc in sources.cmake
+
+10 November 2011 Koichi Murakami (interfaces-V09-04-09)
+- update G4UIExecutive (if-else instead of goto)
+
+07 November 2011 Koichi Murakami (interfaces-V09-04-08)
+- Code quality improvements by Coverity.
+- Change G4UIExecutive. Run-time selection of UI session.
+- Messages of G4Exception are modified in collaboration format.
+
+
+4th November 2011 Laurent Garnier
+- Resize toolBox
+
+10th August 2011 Laurent Garnier (interfaces-V09-04-05)
+- Add a flag to know if there is a external Qapp inited
+
+27th June 2011 Gabriele Cosmo (interfaces-V09-04-04)
+- Fixed compilation gcc-4.6.0 warning for unused variable in G4UIQt.
+- Removed incomplete Wt code
+- Archived obsolete XVT module lying on trunk...
+
+17th June 2011 Ben Morgan (interfaces-V09-04-03)
+- common/sources.cmake
+- basic/sources.cmake : Support for Win32 and Xm added
+
+3rd June 2011  John Allison  (interfaces-V09-04-02)
+- Tagged.
+
+2 June, 2011 L. Garnier
+- G4UIQt : Comment ViewerComponent Panel
+
+20 May, 2011 L. Garnier
+- G4UIQt : Add ViewerComponent Panel
+
+17th May 2011  John Allison
+- G4UIXaw.cc, G4UIXm.cc:
+  o Fix gcc-4.6.0 warnings about unused variables.
+
+11th April, 2011 L. Garnier
+- Coverity warning fix
+
+24th March, 2011 G. Cosmo  (interfaces-V09-04-01)
+- Corrected typo.
+
+23rd March, 2011 G. Cosmo  (interfaces-V09-04-00)
+- Fix in G4VBasicShell::ApplyShellCommand() for substring exact comparisons.
+  Thanks to A.Radkov for spotting the problem.
+
+2nd March, 2011 Laurent Garnier
+- Get rid of old Qt3 code
+
+24th January, 2011 L.Garnier
+- basic/GNUmakefile : Fix mistake in last commit (did not compile on windows)
+- common/GNUmakefile : Fix mistake in last commit (did not compile on windows)
+
+23rd December, 2010 L. Garnier 
+- basic/GNUmakefile : Remove OGL stuff from Makefile
+- common/GNUmakefile : Remove OGL stuff from Makefile
+
+8th October, 2010 L. Garnier  (interfaces-V09-03-13)
+- G4UIQt : Fiw problem with redraw of help tree.
+
+6th October, 2010 J. Allison  (interfaces-V09-03-12)
+- G4UIQt : Remove message about empty viewer (comment out
+           fEmptyViewerTabLabel - suggested by Laurent).
+
+5th June, 2010 L. Garnier
+- G4UIQt : Fix some bug on helpTree view
+
+23rd June, 2010 L. Garnier
+- G4UIQt : Fix compilation warnings on Qt3 and Qt4
+
+22nd June, 2010 L. Garnier (interfaces-V09-03-11)
+- G4UIQt : Fix crash when open UI with no vis tab
+
+18th June, 2010 L. Garnier
+- Fix Qt3 compilation bug (setVisible(...) unprotected
+
+17th June, 2010 G. Cosmo (interfaces-V09-03-10)
+- Fixed compilation errors in G4UIQt for Qt3....
+
+17th June, 2010 K. Murakami (interfaces-V09-03-09)
+- Tagged.
+
+10th June, 2010 L. Garnier
+- G4UIQt : Fix crash when del all viewer tabs and create a new one.
+           Fix widget QLabel strange effect on OSX 10.5
+
+10th June, L. Garnier
+- G4UIQt : Improvments on OpenGL tab at initialisation (tab size was 
+  too small). Remove some flicker effect at initialisation. Remove a
+  compilation warning. Improvment on Cout Filter for Qt3 
+
+8th June, 2010 K.Murakami (interfaces-V09-03-08)
+- G4VBasicShell : wrong version is in the cvs head.
+                  back to previous version (1.14) which includes 
+                  a correct bug fix.
+
+4th June,  L. Garnier (interfaces-V09-03-07)
+- G4UIQt : Fix recursive repaint on windows and linux
+  Also fixed compilation problem for Qt3.
+- G4VBasicShell : Command completion improvments (was solve in
+  v1.14 of G4VBasicShell but don't know why I go one step back)
+
+3rd June  J. Allison (interfaces-V09-03-06)
+- Tagged.
+
+1st June, L. Garnier
+ - G4UIQt : Fix bug on Qt >4.5 introduce on 1st June
+
+1st June, L. Garnier (interfaces-V09-03-05)
+ - G4UIQt : warning on Qt version < 4.5
+
+28 May, L. Garnier
+ - G4UIQt : Bug fix when compiling on windows
+
+28 May, K. Murakami (interfaces-V09-03-04)
+ - G4UIExective : session type order is changed.
+                  GUI session is prioritized.
+
+26 May, L. Garnier (interfaces-V09-03-03)
+ - G4UIQt: Fix some compil errors with qt3
+
+20 May, L. Garnier (interfaces-V09-03-02)
+ Co-working tag : intercoms-V09-03-01
+ - G4UIQt: Add some changes in order to register UI in order to access
+   it after
+ - G4Qt: Remove a cycle dependency
+
+19 May, L. Garnier
+ - G4UIQt: Fix a warning in Cout during viewer creation
+           Fix a flush problem at viewer creation
+
+18 May, L. Garnier
+ - G4UIQt: Fix an output warning
+
+11 May, J.Allison (interfaces-V09-03-01)
+- Tagged interfaces-V09-03-01.  (Note: interfaces-V09-03-00 already
+  used on a patch branch.)
+
+7 May, L. Garnier
+ - G4UIQt: Add new command in help tree will update immediatly the help tree
+   (removing a command not code yet)
+
+26 April, L. Garnier
+ - G4UIQt: Improvments
+ - G4Qt: Improvments
+
+15 April, 2010 G. Cosmo
+ - Fixed call to contructor QKeySequence() in G4UIQt:AddButton() to
+   allow for porting on gcc-4.5.
+
+6 January, 2010 L. Garnier
+ - G4VBasicShell : improvments for command completion
+ - G4Qt : Add a link to G4UIQt
+ - G4UIQt : Add tab widgets in order to put Vis in
+
+20 November, 2009 K. Murakami (interfaces-V09-02-07)
+ - G4UIExecutive.hh:  no default arguments of the constructor
+ - G4UIExecutive.icc: more cleaver way for suppressing compiler warnings
+
+20 November, 2009 J. Allison (interfaces-V09-02-06)
+ - G4UIExecutive.icc: Fixed complier warnings for some cases when more
+  than one flag is set.
+
+19 November, 2009 J. Allison (interfaces-V09-02-05)
+ - Tagged for the release.
+
+18 November, 2009 L. Garnier
+ - G4UIQt: Add CTRL+A and CTRL+E to move to begin/end of command line
+
+17 November, 2009 L. Garnier
+ - G4VBasicShell: Fix commands strings that match some shorter 
+   commands are trimmed and executed as those shorter commands.
+
+5 November, 2009 L. Garnier
+ - G4UIQt Fix a problem introduce the 6th October 2009 and cause
+   some widget display strange things on qt3
+
+19 October, 2009 L. Garnier
+ - basic/GNUMakefile Add optionnal debug flag
+
+6 October, 2009 L. Garnier
+ - G4UIQt Fix a problem on macOSX 10.6 with Qt 4.6(preview)
+ - Change GEANT4_QT_DEBUG flag for G4DEBUG_INTERFACES_BASIC and 
+   G4DEBUG_INTERFACES_COMMON
+
+28 May, 2009 K. Murakami (interfaces-V09-02-03)
+ - G4UIExecutive: add  IsGUI() method / add GetSession() method
+
+18 May, 2009 K. Murakami (interfaces-V09-02-02)
+ - G4UIExecutive : fixed wrong #ifdef condition
+ - include changes by Laurent (7/May)
+
+15 May, 2009 K. Murakami (interfaces-V09-02-01)
+ - G4UIExecutive : Remove batch mode handling
+
+13 May, 2009 K. Murakami (interfaces-V09-02-00)
+ - G4UIExecutive : Add new class for automatic instantiation of user session
+ - G4VUIshell : Add SetLsColor()
+
+7, May, 2009 L. Garnier
+ - G4UIQt.cc : Fix Compilation warning 
+ - G4VBasicShell.cc : Better command completion in command Line 
+
+31, March, 2009 L.Garnier
+ - Fix a compilation warning in G4Qt.cc
+
+16 February 2009, Laurent Garnier
+ - G4UIQt : Add an Interactor to be able to add button on file and help menu
+ - G4UIQt : Add a public method to get the MainWindow
+
+27, November, 2008 K. Murakami (interfaces-V09-01-04)
+ - G4UIQt.cc: warning fix
+
+21, November, 2008 K. Murakami (interfaces-V09-01-03)
+ -tagged for release 9.2
+
+14 November, 2008 Laurent Garnier
+ - G4UIXm,G4Win32 : Renaming according to Geant4 code policy
+
+6 November, 2008 Laurent Garnier
+ - G4Qt : Re-fix problem on some linux with QApplication, should be better
+ - G4Qt : Add availabity to launch a G4Qt without a G4UIQt
+
+24 October, 2008 Laurent Garnier
+ - Change GEANT4_QT_DEBUG flag by QTDEBUG
+ - Suppress unuseful DEBUG messages
+
+15 October, 2008 Laurent Garnier
+ - Fix a problem on some linux with QApplication. But this is NOT the good way to do it...
+ - Fix a qt3 backward compatibility on G4UIQt.cc
+
+7 October, 2008 Laurent Garnier
+ - Fix a G4cout possible problem cause by recursive G4cout call.
+
+2 October, 2008 Laurent Garnier
+ - Add availability to have a external Qapp
+
+22 July, 2008 K.Murakami (interfaces-V09-01-02)
+ - tagged
+ - direct exit calls are replaced with G4Exception/another way of exit
+   G4UIGainServer.cc, G4UIterminal.cc : call G4Exception
+   G4UItcsh.cc : nomal exit instead of direct calling exit()
+
+14 June, 2008 K.Murakami (interfaces-V09-01-01)
+ - tagged
+
+30th April, Laurent Garnier
+ - Include moc config in GNUmakefile
+
+10th March, Laurent Garnier
+ - Improvments for layout in Qt driver for Qt3
+
+30th January 2007, Laurent Garnier
+ - Add a search area in the help widget
+
+15th January 2007, Laurent Garnier
+ - Fixed some layout problems
+ - GNUmakefile : Added a macro for moc file
+ - Moc files : Suppression of all theses files. They are now autogenerated 
+   thanks to config/common.gmk
+
+15 January 2007, Koichi Murakami (interfaces-V09-01-00)
+ - G4UItcsh.cc: fixed the problem with Ctl-D termination for bash users.
+
+30 November 2007, Laurent Garnier
+ - G4UIQt : Some improvements for Qt3, corrections of some bugs
+ - G4UIQt_moc.cc : Adding other versions for QT_MOC_REVISION 28,58 and
+   59, but this is not the right solution..
+ - GAG/Makefile : Suppression of linking on a unuseful library
+
+16 November 2007, Koichi Murakami (interfaces-V09-00-03)
+ - G4UIGainServer.cc: cleared a compilation warning.
+ - tagged for the 9.1 release.
+
+15 Nov 2007, Laurent Garnier
+ - G4UIQt,G4Qt : Adding a GEANT4_QT_DEBUG flag to hide all debug messages
+ - G4UIQt,G4Qt : Compilation improvements for Qt3
+ - G4UIQt,G4Qt : Minors corrections on G4UIQt helpWidget
+
+13 Nov 2007, Laurent Garnier
+ - G4UIQt,G4Qt : Moving all moc in one big file interface/G4UIQT_moc.cc,
+   including Qt3 and Qt4 moc support
+
+09 Nov 2007, Laurent Garnier
+ - G4UIQt,G4Qt : Change all include directive to be compatible with Qt3
+
+27 Sept 2007, Laurent Garnier
+ - Adding sur files for G4UIQt driver
+
+06 November Koichi Murakami
+- G4UItcsh.cc: store shell history across sessions.
+
+30 October 2007 Koichi Murakami (interfaces-V09-00-02)
+- Guy committed the new Qt interface (28/Sep).
+- Add "#ifdef G4UI_BUILD_QT_SESSION" protection in src/G4UIQt_moc.cc.
+- Remove Qt interface from the current tag.
+- G4UIGAG.cc: suppress a compilation warning.
+
+30 October 2007 Koichi Murakami (interfaces-V09-00-01)
+- Makoto updated the implementation of the signal handler for Ctrl-C.
+
+28 October 2007, Makoto Asai
+- Remove improper dependency from interfaces/basic to run in GNUmakefile
+
+02 August 2007, Koichi Murakami (interfaces-V09-00-00)
+- Fix compilation warning on SUN-CC in G4UIterminal.cc
+
+19 June 2007, Gabriele Cosmo (interfaces-V08-03-02)
+- Fix compilation error on Windows ('theShell' not declared).
+
+14 June 2007, Koichi Murakami (interfaces-V08-03-01)
+- fixed the problem with Ctl-C termination for bash users.
+ * G4VUIshell   : add a virtual method ResetTerminal()
+ * G4UItcsh     : add a method ResetTerminal()
+ * G4UIterminal : add terminal reset when Ctl-C termination
+
+22 May 2007, Koichi Murakami (interface-V08-03-00)
+- G4UIterminal.cc: implement signal handler for soft-abort
+
+28 November 2005, Gabriele Cosmo (interface-V07-01-02)
+- G4UIXm.cc migrated to sstream
+
+21 November 2005, Hajime Yoshida (interface-V07-01-01)
+- G4UIGAG.cc and G4UIGainServer.cc migrated to sstream
+
+26 October 2005, Koichi Murakami (interfaces-V07-01-00)
+- G4UItcsh/G4UIterminal/G4VBasicShell: 
+  migration from strstream to sstream
+
+22 April 2005, Gabriele Cosmo (interfaces-V07-00-01)
+- G4UIGainServer: fixed conditional compilation for MacOS 10.4.
+
+26 January 2005, Gabriele Cosmo (interfaces-V07-00-00)
+- Removed explicit definition of G4TMPDIR in GNUmakefiles
+  (not necessary since already defined in common.gmk).
+
+27 November 2004, Hajime Yoshida (interfaces-V06-02-00)
+- Tagged.
+
+25 November 2004, Hajime Yoshida (interfaces-V06-01-02)
+- Tagged.
+
+21 November 2004, Guy Barrand
+- G4UIXm.cc: have some nice default resources in case XENVIRONMENT not set.
+
+07 June 2004, Gabriele Cosmo (interfaces-V06-01-01)
+- G4UIWin32.cc: move usage of inline methods to non-inline for DLLs
+  support on Windows.
+- GNUmakefile: added definition of GLOBLIBS for DLLs support on Windows.
+
+09 April 2004, John Allison (interfaces-V06-01-00 + vis-V06-01-01)
+- Tagged G4[UI]Win32[.hh,.cc] as below.  Joint with vis-V06-01-01.
+
+08 April 2004, Guy Barrand
+- G4[UI]Win32[.hh,.cc] : modify things in order to be able to use
+  a standard C main (and avoid the WinMain).
+
+22 October 2003, Guy Barrand (interfaces-V05-02-00)
+- OPACS : archived obsolete OPACS module and cleared build setup.
+
+17 October 2003, Guy Barrand
+- G4Xt.cc : removed unused and commented code.
+
+11 June 2003, Gabriele Cosmo (interfaces-V05-01-02)
+- G4UIWin32.cc: cleared warning on redefinition of 'pascal' reported on
+  WIN32-VC system.
+
+04 June 2003, Gabriele Cosmo (interfaces-V05-01-01)
+- Fixes for inclusion of <strstream> in G4UIXm.cc, G4UItcsh.cc and
+  G4UIterminal.cc in view of the g4std wrappers migration.
+
+30 May 2003, Gabriele Cosmo (interfaces-V05-01-00)
+- Fixed few pedantic warnings...
+- G4UIGainServer.cc: fixed compilation problem on Darwin-g++ with gcc-3.X.
+
+04 December 2002, Makoto Asai (interfaces-V04-01-01, interfaces-V04-01-02)
+- Migration to new G4ApplicationState.
+
+15 November 2002, Hajime Yoshida (interfaces-V04-01-00)
+- basic/src/G4UIArrayStrings.cc is now working for "konsole" type termcap.
+	by Koichi Murakami
+
+09 November 2002, Hajime Yoshida (interfaces-V04-00-05)
+- G4UIGainServer.cc uses socklen_t as before. It must work for Solaris CC and HP.
+- test/G4cout_test01 updated. An example of setCoutDestination(UI) by a user.
+
+06 November 2002, Guy Barrand
+- G4Xt.cc, G4UIXm.cc, G4UIXaw.cc : fix some warings.
+
+14 June 2002, Hajime Yoshida (interfaces-V04-00-04)
+- G4UIGainServer.cc/hh have a protection: #ifndef WIN32 ~ #endif not to compile
+	on WIndows.
+
+14 June 2002, Hajime Yoshida (interfaces-V04-00-04)
+- Added protection #ifndef WIN32 to new class G4UIGainServer in definition
+  and body, to prevent compilation on Windows platforms.
+
+12 June 2002, Gabriele Cosmo (interfaces-V04-00-03)
+- Fixes for porting on platforms other than Linux.
+  o socklen_t is Linux specific and not defined elsewhere; changed to int*.
+  o Fixed usage g4std/iostream, globals.hh and endl/G4endl.
+
+12 June 2002, Hajime Yoshida (interfaces-V04-00-02)
+- Introduced new class G4UIGainServer, socket extension for G4UIGAG.
+- added GAG/src/G4UIGainSErver.cc and GAG/include/G4UIGainServer.hh
+- G4UIGainServer is the new member of libG4UIGAG.so(a)
+	(no modification to GNUmakefiles)
+
+26 April 2002, Makoto Asai (interfaces-V04-00-01)
+- Corresponds to interfaces change in intercoms category (intercoms-V04-00-00)
+ Affected files :
+  basics/src/G4VUIshell.cc
+  common/src/G4VBasicShell.cc
+  GAG/src/G4UIGAG.cc
+
+25 February 2002, Makoto Asai (interfaces-V04-00-00)
+- fix for odd behavior on Windows in G4UIchs.cc
+
+03 December 2001 Guy Barrand (interfaces-V03-02-04)
+- G4VInteractorManager::RemoveDispatcher : change the "std::remove"
+  logic in order to fix a disfunctionning with vis/OpenInventor driver.
+- G4Xt.cc : remove some g++ compilation warnings about unused 
+  iconify functions.
+
+29 November 2001 Hajime Yoshida (interfaces-V03-02-03)
+- Fix G4UIGAG.cc for alias command (following G4UIterminal's modif)
+
+26 November 2002 Makoto Asai (interfaces-V03-02-02)
+- Fix compilation warnings caused by gcc-2.95.2 for basic sub-directory.
+
+23 November 2001 Makoto Asai (interfaces-V03-02-01)
+- Fix G4UIterminal to display a command line AFTER solving aliases
+  in case the command caused "command not found".
+- Fix G4UItcsh.hh not to have warning message.
+
+22 October 2001 Hajime Yoshida
+-G4UIGAG.cc no more compiler warning due to G4String
+
+22 October 2001 Hajime Yoshida
+- G4UIGAG ; no compilation warning with g++-2.95
+
+11 August 2001  John Allison (interfaces-V03-02-00)
+- Re-engineered G4UI variables.  Coworks with config-V03-02-04.
+- Changed GNUmakefile so that GAG, TERMINAL and TCSH built by default.
+- Nothing built if G4UI_NONE is set.
+
+29 November 2000 Makoto Asai (interfaces-V02-00-03)
+- Tag for Guy's correction.
+
+28 November 2000 Guy Barrand
+- G4Xt.cc ; SUN-CC : correct warning : argc hides G4VInteractorManager::argc.
+
+27 November 2000 Makoto Asai (interfaces-V02-00-02)
+- G4VUIShell.hh : add virtual keyword to the destructor.
+
+11 August 2000 Guy Barrand
+- G4UIWo.cc : add some cast in order to compile with OSF1/cxx strict_ansi mode.
+
+1 August 2000 Gabriele Cosmo (interfaces-V02-00-01)
+- Fixed warnings on HP-aCC system in G4UItcsh.cc, due to unproper usage of G4int
+  where unsigned (size_t) was requested instead.
+
+31 July 2000 Gonzalo Gracia
+- Modifications required to compile on NT
+  Operator string::[] requires size_t argument. 
+  Cast from integer to size_t in several places in basic/src/G4UIArrayString.cc
+  and G4VUIshell.cc
+
+22 July 2000 Makoto Asai (interfaces-V02-00-00)
+- Modify G4UIterminal, G4VUIshell, G4UIcsh and G4UItcsh to display the
+  break status as a prompt characters.
+
+25 June 2000 John Allison (interfaces-V01-01-06-old-G4UIterminal)
+- As interfaces-V01-01-06 but old revisions of G4UIterminal.cc/hh.
+
+23 June 2000 John Allison (interfaces-V01-01-06)
+- Protected G4UIterminal, G4Ui[t]csh against access by index to null strings.
+
+21 June 2000 John Allison (interfaces-V01-01-05)
+- Added include $(G4INSTALL)/config/G4VIS_BUILD.gmk to common/GNUmakefile.
+
+15 June 2000 John Allison (interfaces-V01-01-04)
+- More ISO compliance for G4UIterminal class.
+
+14 June 2000 Makoto Asai (interfaces-V01-01-03)
+- ISO compliance for G4UItcsh classes
+
+26 May 2000 Guy Barrand  (interfaces-V01-01-02)
+- G4UIXm.hh, G4UIWin32.hh : change comments about /gui for the doc.
+
+23 May 2000 John Allison (interfaces-V01-01-01-without-tcsh)
+- Tag without G4UIterminal(G4UItcsh) in case it is not needed in the release.
+
+20 May 2000 Guy Barrand  (interfaces-V01-01-01)
+- common/G4InteractorMessenger : change command name "interactor" to "gui".
+
+19 May 2000 John Allison  (interfaces-V01-01-00)
+- G4UIterminal displays a candidate list in case a given parameter is
+  wrong (Makoto Asai).
+
+26 Mar 2000 Makoto Asai
+- Introducing a new G4UIterminal with UNIX-like shell.
+
+10 Nov 1999 Hajime Yoshida  (interfaces-V00-01-03)
+- Added less<G4String> argument (Guy).
+- G4UIWin32.hh, G4UIXm.hh : usage of G4std::less in G4std::map.
+- G4VInteractorManager.cc : G4std::find, G4std::remove.
+
+08 Nov 1999 Hajime Yoshida
+- tag interfaces--V00-01-02 for STT
+
+08 Nov 1999 Hajime Yoshida
+- GAG/src/G4UIGAG.cc RWT => STL vector
+- basic/include/G4UIterminal.hh, GAG/include/G4UIGAG.hh => documentation
+
+02 Nov 1999 Guy Barrand
+- doc comments for G4UIWin32.hh, G4UIXm.hh, G4UIXaw.hh, G4Xt.hh, G4Win32.hh, G4VInterativeSession.hh, G4VInteractorManager.hh.
+
+02 Nov 1999 Guy Barrand
+- basic/G4UIWin32, G4UIXm : RW -> STL.
+- common/G4VBasicShell, G4VInteractiveSession, G4VInteractorManager : RW -> STL.
+29 Oct. 1999 Hajime Yoshida
+- tag interfaces-V00-01-01
+
+27 Oct. 1999 Guy Barrand
+- interfaces/common/src/G4Xt.cc : protect XtAppInit against 
+  shell zero widthxheight. Give a default to geometry resource.
+
+21 Oct. 1999 John Allison
+- Made XtAppContext appContext static in G4Xt.cc.  Speeds OGLSXm but
+  OGLIXm is still slow - why?
+
+12 Oct. 1999 John Allison for Hajime Yoshida (tag interfaces-V00-01-00a)
+- Protection for zero length strings for Sun in G4UIterminal and G4UIGAG.
+
+02 Sep. 1999 Hajime Yoshida
+  to geant4-00-01-ref-01 (Revision 1.9)
+  a new tag is interfaces-01-00-04
+  after which a tag interfaces-V00-01-00 was added identical to
+    interfaces-01-00-04 except for this History file.
+
+- G4UIterminal.cc and G4UIGAG.cc now shows prompt characters
+	to an input of return (or null command line).
+
+head 31 Mai 1999  Guy Barrand
+- G4VInteractorManager::SecondaryLoop : add a message to indicate
+  that we enter a "viewer" secondary X event loop and that someone
+  add to "Escape" it from the viewer to continue.
+
+interfaces-01-00-03  19th April 1999  John Allison
+- Protected G4VBasicShell.cc with if( tempPath.length()>0 ).
+
+interfaces-01-00-02  18th April 1999  John Allison
+- Tagged.
+
+head 11th Mai 1999  Guy Barrand
+1) G4UIXm : Linux, correct geometry management of the menubar.
+
+head 06th Mai 1999  Guy Barrand
+1) G4Win32, G4UIWin32 : modifications to compile with Visual-6.0.
+
+head 16th April 1999  Guy Barrand
+1) G4VBasicShell, G4UIXm, G4UIWin32 : command completion.
+2) G4InteractorMessenger, G4VInteractorManager : code polishement.
+
+interfaces-01-00-01  15th April 1999  Hajime Yoshida/Masayasu Nagamatu
+1) some code polishment after the messages by CodeWarriers (Guy)
+2) Help functions in G4VBasicShell and related rearrangement of
+        G4UIterminal etc.. (Guy)
+3) removal of ifdef for GNU_GCC in G4UIGAG. (Hajime)
+
+interfaces-00-03-07 9th December 1998 Hajime Yoshida/Masayasu Nagamatu
+- minor improvements in Help of G4UIterminal.cc
+- G4UIGAG's Help in terminal mode is now equivalent to G4UIterminal.cc
+
+interfaces-00-03-06 27th November 1998 Hajime Yoshida/Masayasu Nagamatu
+- added 'if' protection to the destructor of G4UIterminal/G4UIGAG.
+
+interfaces-00-03-05 12th November 1998 Masayasu Nagamatu
+-test/G4cout_test01/ added an example for redirectiong stream using G4cout
+
+interfaces-00-03-04  13th October 1998  Masayasu Nagamatu
+- G4cout - changes to G4UIterminal.cc, G4UIGAG.hh, G4UIGAG.cc.
+
+07 Ocotober 1998  Guy Barrand:
+- G4UIXm.cc, G4UIWin32.cc : cout, cerr control.
+
+interfaces-00-03-03 7th  October Hajime Yoshida
+- Bug fix to prevent "help" crashing in some circumstances.
+
+interfaces-00-03-02 14th Sep. Hajime Yoshida
+	- fix to G4UIGAG (not bugs but correction of minor 
+		ydifferences with G4UIterminal)
+
+interfaces-00-03-01  12th Sep.  Hajime Yoshida and Masayasu Nagamatu
+- CTRL-D doesn't invoke infinite loop.
+- CRTL-D now means
+	- EOF in the redirected cin
+	- End of Session, just as "exit" command of GEANT4
+- Affected files are basic/src/G4UIterminal.cc
+			GAG/src/G4UIGAG.cc
+
+interfaces-00-02-01  9th August  John Allison
+- Tagged Guy's changes.
+
+7th August  Guy Barrand.
+- common, OPACS : new interactor parenting logic.
+
+interfaces-00-01-04  8th July 1998  John Allison
+- Emptied xvt_standalone_test; files moved to environments/XVT.
+
+interfaces-00-01-03  7th July 1998  John Allison
+- Emptied standalone_test; files moved to environments/Momo or no
+  longer needed.
+
+7th July 1998  Guy Barrand
+- Added include $(G4INSTALL)/config/interactivity.gmk to GNUmakefiles.
+
+interfaces-00-01-02 7th July 1998  John Allison
+- Forced revision 2.1 on files in newly committed directories.
+
+interfaces-00-01-01 6th July 1998  John Allison
+- Big restructuring.  Moved files from include/ and src/ to:
+  common/, basic/, GAG/, OPACS/, XVT/.
+  Created G4UI_BUILD.gmk and G4UI_USE.gmk in config/.
+  Changed the GNUmakefiles accordingly.
+
+interfaces-00-07-01 2nd July 1998  Gabriele Cosmo
+- Updates to G4UIWo and G4VInteractorManager by G.Barrand.
+
+interfaces-00-06-05 26th June 1998  Gabriele Cosmo
+- Updated GNUmakefiles to new electromagnetics structure.
+
+interfaces-00-06-04a 22nd June 1998  John Allison
+- Removed ./standalone_test/run/example34/GNUmakefile.G4VIS_USE and
+  ./standalone_test/run/example35/GNUmakefile.G4VIS_USE
+
+interfaces-00-06-04 22nd June 1998  John Allison
+- Added #ifdef GNU_GCC for template instantiation in src/G4UIGAG.cc.
+- Changed GNUmakefiles for G4VIS_USE.gmk.
+
+May 6, 98 M.Asai
+- Introducing a new abstract base class G4VBasicShell.
+- G4UIterminal has been modified according to use G4VBasicShell.
+
+22th April 1998  Hajime Yoshida / Masayasu Nagamatsu (interfaces-00-05-03)
+-  the following three directories are tagged.
+ interfaces/standalone_test/Momo/java/GGE
+ interfaces/standalone_test/Momo/java/RMI
+ interfaces/standalone_test/run/example35
+
+20th April 1998  Hajime Yoshida / Masayasu Nagamatsu (interfaces-00-05-02)
+- update for Momo and G4UIGAG, including many improvement and bug fixes.
+  see the interfaces/standalone_test/README_Momo.html for datails.
+- example35 is added; new example program to show the capability of GUI(GAG).
+
+15th April 1998 : Guy Barrand
+- From discussion with John and Simone G4VToolkit 
+  has been renamed to G4VInteractorManager.
+
+4th April 1998 Nagamatu Masayasu (interfaces-00-05-01)
+- correspond to the modification by  G.Barrand
+  G4UI_BUILD_xxx_DRIVER -> G4UI_BUILD_xxx_SESSION
+  Modifications for Win32/NT.
+
+April 2, 98 G.Barrand
+- G4UI_BUILD_xxx_DRIVER -> G4UI_BUILD_xxx_SESSION
+- Modifications for Win32/NT.
+
+26th March 1998  John Allison
+- Changed G4VisManager to MyVisManager in example34.cc and xvt.benchmark.cc
+  for vis-00-05-01 and later.
+
+6th March 1998 Hajime Yoshida / Nagamatu Masayasu (interfaces-00-04-01)
+- First tag with modeling under visualization
+- small bug fix for Momo
+
+29th January 1998 Masayasu Nagamatu / Hajime Yoshida (interfaces-00-03-01)
+- Update of Momo(GAG/GGE), standalone_test/ directory.
+
+27th January 1998  John Allison
+- Simplfied use of G4VIS flags in test GNUmakefiles.
+- New way of instantiating G4VisManager in test main() programs.
+
+December 19, 97 G. Cosmo - (alpha03)
+
+- Created.
+
+Januray 19 , 98 G. Barrand
+
+- Update G4UIXaw, G4UIXm to take into account
+  pauseStartSession method.
+

@@ -1,0 +1,909 @@
+$Id: History 90706 2015-06-08 09:54:31Z gcosmo $
+-------------------------------------------------------------------
+
+     =========================================================
+     Geant4 - an Object-Oriented Toolkit for Simulation in HEP
+     =========================================================
+
+                      Sub-Category History file
+                      -------------------------
+This file should be used by G4 developers and category coordinators
+to briefly summarize all major modifications introduced in the code
+and keep track of all directory-tags.
+It DOES NOT substitute the  CVS log-message one should put at every
+committal in the CVS repository !
+
+     ----------------------------------------------------------
+     * Reverse chronological order (last date on top), please *
+     ----------------------------------------------------------
+
+May 20, 2015  T.Nikitina                 geom-csg-V10-00-08
+- Fixed DistanceToOut(p) and Inside(p) in G4Sphere for sphere cut in theta
+  for point (0,0,0) and for cases when Start/End angle have not to be taken
+  in account (STheta==0 || eTheta==pi).
+  Added corresponding test cases to unit test for testG4Sphere.
+  Fix triggered by analysing setup provided in problem report #1702.
+
+May 5, 2015  G.Cosmo
+- Fixed Coverity defect for unused variable quantity in G4Cons.
+
+April 28, 2015  T.Nikitina
+- Fixed calculation of Normal in G4Para for kPX and kMX sides in
+  DistanceToOut(p,v) and ApproxSurfaceNormal(p).
+  Addressing problem report #1736. 
+
+March 3, 2015  G.Cosmo
+- Use accessors x(), y() and z() from UVector3, instead of directly accessing
+  its data-members.
+
+February 16, 2015  G.Cosmo               geom-csg-V10-00-07
+- Fixed typo in copy-ctor and assignment operator for G4Tubs and G4OTubs.
+
+December 5, 2014  G.Cosmo
+- Fix in temporary class G4OTubs to include symbol in library in any case.
+
+September 17, 2014  G.Cosmo              geom-csg-V10-00-06
+- Added wrapper for UTrap shape; adapted switch to original G4Trap accordingly.
+  Requires tag "geom-usolids-V10-00-16".
+
+September 4, 2014  T.Nikitina            geom-csg-V10-00-05
+- G4Cons: fixed typo error in GetPointOnSurface() in the call
+  to GetRadiusInRing(). Responsible for occasionally wrong reports
+  when checking for overlaps.
+- G4Cons: fix in DistanceToIn(p,v) for points on the Surface, to resolve
+  error reported in unit testing by the OpticalEscape test.
+
+September 1, 2014  G.Cosmo               geom-csg-V10-00-04
+- Fixed use of polyhedron pointer, to avoid race condition in MT
+  when parameterised volumes are visualised.
+
+March 5, 2014  G.Cosmo                   geom-csg-V10-00-03
+- Fixed proper handling of polyhedron pointer in solids, to avoid memory
+  leak for visualization of parameterised volumes.
+
+February 12, 2014  G.Cosmo               geom-csg-V10-00-02
+- Simply reset polyhedron pointer to zero for modifiers of G4U* wrappers
+  in parameterisation. Resolves crash in MT visualization when using USolids. 
+
+February 12, 2014  G.Cosmo               geom-csg-V10-00-01 (and -00)
+- Added correct cloning mechanism in G4U* wrappers.
+  Addressing problem report #1553.
+
+November 22, 2013  G.Cosmo               geom-csg-V09-06-09
+- Correction to USolids wrappers for proper setting of name to base class.
+
+November 20, 2013  T.Mikitina            geom-csg-V09-06-08
+- Fixed Coverity defects to USolids wrappers.
+
+November 14, 2013  T.Nikitina            geom-csg-V09-06-07
+- Corrections to G4U* wrappers to allow for visualization of parameterisations.
+
+November 7, 2013  G.Cosmo                geom-csg-V09-06-06
+- Moved wrappers from usolids module.
+  Fixed internal dispatcher method for parameterisation in all wrappers.
+- Added switching mechanism for G4Box, G4Cons, G4Orb, G4Sphere, G4Trd
+  and G4Tubs.
+- Defined temporary class G4OTubs to be used internally by G4CutTubs,
+  in provision to have UCutTubs in the USolids library.
+
+November 6, 2013  G.Cosmo                geom-csg-V09-06-05
+- Added switch mechanism for USolids (box, cons, orb, sphere, trd, tubs).
+  Renamed related G4 types to 'G4O'.
+- Moved wrappers from USolids module.
+
+October 2, 2013  G.Cosmo                 geom-csg-V09-06-04
+- Correctly initialise fSPhi to zero in G4Sphere constructor.
+
+August 14, 2013  G.Cosmo                 geom-csg-V09-06-03
+- Move function-scoped 'static const' values for half-tolerances to private
+  data members of classes, to overcome false-positive race-conditions defects
+  reported by Valgrind in MT mode.
+- Corrected sanity check for wrong/small dimensions in G4Box constructor.
+
+April 16, 2013  T.Nikitina               geom-csg-V09-06-02
+- Fix in G4Cons::DistanceToIn(p,v) for initialisation of dRmax for the
+  case of shape with Rmin1=Rmax1=0.
+
+December 14, 2012  G.Cosmo               geom-csg-V09-06-01
+- Restored SVN id headers.
+
+Dec 02, 2012  J.Allison                  geom-csg-V09-06-00
+- Removed NURBS.
+
+Nov 14, 2012   P. Mato                   geom-csg-V09-05-09
+- Added #undef NDEBUG in unit tests to ensure that assert always works
+
+Oct 19, 2012   G.Cosmo                   geom-csg-V09-05-08
+- G4Torus: include printout within G4CSGDEBUG. Some code formatting...
+
+Oct 11, 2012   J.Apostolakis             geom-csg-V09-05-07
+- G4Torus: small additional changes, to reorder a few computation 
+  for better FP accuracy.
+
+Oct  4, 2012   J.Apostolakis             geom-csg-V09-05-06
+- G4Torus: revised the values of delta, to account for precision loss 
+  in calculating radius 'pt'.
+  Added printing in case of not finding normal when on surface.
+
+Oct  3, 2012   J.Apostolakis             geom-csg-V09-05-05
+- G4Para::SurfaceNormal(): fixed calculation of sin(alpha) from cosine 
+  and tangent.
+
+June 12, 2012 G.Cosmo                    geom-csg-V09-05-04
+- Explicitly use inclusion of headers for system of units and physical
+  constants, in plan to remove implicit inclusion from globals.hh.
+
+May 14, 2012   G.Cosmo                   geom-csg-V09-05-03
+- Fixed spurious cases of hidden variable visibility, detected with
+  '-Wshadow' compilation option on gcc compiler.
+
+May 4, 2012    G.Cosmo                   geom-csg-V09-05-02
+- Restored G4CSGSolid::GetRadiusInRing() to non-inline to avoid propagating
+  dependency on random generators.
+
+May 3, 2012    G.Cosmo                   geom-csg-V09-05-01
+- Made utility method GetRadiusInRing() inline and corrected implementation.
+
+April 6, 2012  M.Kelsey                  geom-csg-V09-05-00
+- Modified GetPointOnSurface() methods for solids using polar coordinate
+  parametrizations, to generate more uniform distributions, using a
+  function to generate proper radial coordinate included in G4CSGSolid.
+
+November 15, 2011  G.Cosmo               geom-csg-V09-04-11
+- Correction in G4CutTubs for missing implementation of GetCubicVolume()
+  and GetSurfaceArea() utility methods, to be temporarly replaced by
+  default G4VSolid implementation.
+
+November 2, 2011  G.Cosmo                geom-csg-V09-04-10
+- Removed declaration of methods not implemented in G4CutTubs and included
+  by mistake.
+
+October 31, 2011  T.Nikitina             geom-csg-V09-04-09
+- First implementation of G4CutTubs solid, a tube with possible cuts in +-Z.
+
+October 6, 2011  G.Cosmo                 geom-csg-V09-04-08, geom-csg-V09-04-07
+- Fixed Coverity defect for uninitialised static data in G4Sphere.
+
+October 3, 2011  G.Cosmo                 geom-csg-V09-04-06
+- Fix in G4Sphere for setting of relative radial tolerances when setters
+  for radiuses are explicitely called.
+- Relaxed validity condition in construction for the minimum size of the
+  outer radius.
+
+August 25, 2011  G.Cosmo                 geom-csg-V09-04-05
+- Migrated to new G4Exception scheme for warnings and errors.
+- Defined scheme for warnings/errors coding:
+  + 1xxx for warnings, 0xxx for errors.
+  Code numbering:
+  + 0001: not supported or implemented features;
+  + 0002: invalid setup/construct;
+  + 0003: invalid run condition;
+  + 1001: incorrect setup; automatically adapted.
+  + 1002: notification.
+
+June 1, 2011  G.Cosmo                    geom-csg-V09-04-04
+- Made radial tolerance a local constant instead of a static data member
+  in G4Orb and G4Sphere.
+
+May 27, 2011  T.Nikitina                 geom-csg-V09-04-03
+- G4Tubs: use safe formula for quadratic equation solution, in order to avoid
+  numerical errors.
+- G4Torus: use relative radial tolerances to avoid loss of precision issues
+  for shapes of big dimensions. Addresses problem report #1175.
+
+May 12, 2011  G.Cosmo                    geom-csg-V09-04-02
+- Fixed compilation warnings from gcc-4.6.0 for variables set but not used.
+
+Apr 27, 2011  T.Nikitina                 geom-csg-V09-04-01
+- Added protection for potential negative argument to sqrt() in
+  CalculateExtent() for G4Orb, G4Cons and G4Sphere.
+
+Jan 7, 2011  T.Nikitina                  geom-csg-V09-04-00
+- G4Cons: fix in DistanceToIn(p,v,..) to squared tolerance in comparision.
+  Replaced calculation of the solution for the quadratic equation, to use safe
+  formula, in order to avoid numerical errors when b is almost equal to sqrt(d).
+  Addresses problem report #1153.
+
+Nov 23, 2010  G.Cosmo                    geom-csg-V09-03-14 & V09-03-12
+- Fixed one left cases of cout precision restoring in G4Sphere.
+
+Oct 19, 2010  G.Cosmo                    geom-csg-V09-03-11
+- Implemented Clone() virtual method for all solids, returning a pointer to a
+  dynamically allocated copy of the solid. To be used by Geant4-MT.
+
+Sep 23, 2010  G.Cosmo                    geom-csg-V09-03-10
+- Initialize fpPolyhedron to zero in G4CSGSolid copy-ctor and operator=().
+
+Sep 22, 2010  G.Cosmo                    geom-csg-V09-03-09
+- Relaxed checking condition on SetOuterRadius() method to avoid
+  restrictions in order of calls for modifiers.
+
+Sep 17, 2010  G.Cosmo                    geom-csg-V09-03-08
+- Implemented copy-constructor and assignment operator for all solids
+  to facilitate conversion to Geant4-MT.
+
+Sep 17, 2010  G.Cosmo                    geom-csg-V09-03-07
+- Added missing validity checks on radii to modifiers in G4Tubs.
+
+Sep 07, 2010  G.Cosmo                    geom-csg-V09-03-06
+- Fix within G4CSGDEBUG code for restoring cout precision.
+
+Aug 23, 2010  G.Cosmo                    geom-csg-V09-03-05
+- G4Cons: fixed trivial compilation warning on Linux.
+
+Aug 19, 2010  T.Nikitina                 geom-csg-V09-03-04
+- G4Torus: fix in DistanceToOut(p,v,...) to address problem report #1081.
+
+Jul 12, 2010  G.Cosmo                    geom-csg-V09-03-03
+- Fixed condition in G4Tubs::Inside(p) for point on surface (T.Nikitina).
+- Corrected use of std::fabs() in place of std::abs() in G4Tubs, G4Cons,
+  G4Sphere and G4Torus. Use pre-computed half-tolerance constants in G4Torus.
+
+Jul 08, 2010  G.Cosmo                    geom-csg-V09-03-02
+- Improved initialisation logic in constructor for: G4Box, G4Cons, G4Orb,
+  G4Para, G4Sphere, G4Torus, G4Trap, G4Trd, G4Tubs.
+- Corrected cases of not-restored cout precision in: G4Box, G4Cons, G4Orb,
+  G4Para, G4Torus, G4Trap, G4Tubs.
+- G4Torus: fixed call to internal method for finding roots, to avoid copy
+  of sdt::vector() by parameters. Some cleanup to avoid unnecessary protected
+  section and virtual table.
+- Updated unit test for G4Sphere (V.Grichine).
+
+May 25, 2010  G.Cosmo                    geom-csg-V09-03-01
+- G4Box: more minor fixes in coding style, following code review discussion.
+
+May 18, 2010  G.Cosmo                    geom-csg-V09-03-00
+- G4Box: first implementation of speed improvements and corrections from joint
+  code review of G4Box class: introduced half-tolerance constants and better
+  logic in some conditional statements.
+- Some code cleanup.
+
+Dec 04, 2009  V.Grichine
+- G4Orb: modified DistanceToIn(p,v) to be more consistent with Inside(p).
+
+Nov 30, 2009  V.Grichine                 geom-csg-V09-02-08
+- G4Orb: moved debug warning in DistanceToIn(p,v) within G4CSGDEBUG flag.
+
+Nov 26, 2009  T.Nikitina                 geom-csg-V09-02-07
+- G4Torus: fix in SolveNumericJT() in order to take in account the difference
+  in the value of theta for different intervals, [0:pi] or [-pi:0], and for
+  SPhi in [0:twopi] or [-twopi:0]. Addresses problem report #1086.
+
+Nov 12, 2009  T.Nikitina                 geom-csg-V09-02-06
+- G4Cons: fix to DistanceToIn(p,v), added a check on the direction in case 
+  of point on surface. Fixes a problem of stuck tracks observed in CMS, due
+  to wrong reply from the solid for points on the inner radius surface base
+  with direction along the imaginary extension of the cone.
+- Added test case to internal test testG4Cons2.
+
+Aug 07, 2009  T.Nikitina                 geom-csg-V09-02-05
+- G4Sphere: fix for the calculation of the normal in DistanceToOut()
+  to avoid cases of division by zero in specific configurations.
+  Addresses problem report #977.
+
+Jun 30, 2009  T.Nikitina                 geom-csg-V09-02-04
+- Introduced to DistanceToIn(p,v) splitting of the distance for point very far
+  from intersection area and big difference between solid dimensions and
+  distance to it; resolves issue observed on 64 bits problem. Affected solids:
+  G4Tubs, G4Cons, G4Sphere, G4Orb. Addresses problem report #1022.
+- Fixed rare cases of NaN on G4Sphere.
+
+Jun 09, 2009  G.Cosmo                    geom-csg-V09-02-03
+- Fixed case of non-initialised start-Phi value in G4Tubs and G4Cons,
+  problem introduced following modifications in tag "geom-csg-V09-02-00".
+
+May 14, 2009  T.Nikitina                 geom-csg-V09-02-02
+- G4Sphere: initialise flags for full sphere in constructor.
+
+May 14, 2009  T.Nikitina                 geom-csg-V09-02-01
+- G4Sphere: correction di DistanceToOut(p,v, ...) for phi sections for
+  rays passing though zero.
+- More minor refiniments to G4Sphere following review.
+
+May 08, 2009  G.Cosmo                    geom-csg-V09-02-00
+- G4Sphere: implemented speed improvements and corrections from joint
+  code review of G4Sphere class. Cached computation for half-tolerances
+  and use of Boolean flag for identifying if full-sphere, shell or section.
+  Implemented caching of trigonometric values, now directly computed inside
+  modifiers for Phi and Theta angles as required for parametrised cases.
+  Rationalised usage of relative radial tolerances.
+- G4Tubs, G4Cons: rationalised usage of modifiers for Phi angles and
+  simplified constructors.
+- Added new test case for relatively big spheres in unit tests testG4Orb
+  and testG4Sphere, based on problem report #1046.
+
+Nov 21, 2008  G.Cosmo                    geom-csg-V09-01-08
+- G4Sphere: defined Get/SetInnerRadius() accessors to be compliant with
+  other CSG solids and allow consistent treatment in persistency code...
+
+Nov 06, 2008  G.Cosmo                    geom-csg-V09-01-07
+- G4Tubs, G4Cons: implemented caching of trigonometric values, now directly
+  computed inside modifiers for Phi angles and required for parametrised
+  cases. Improvement bringing up to 20% speedup in normal tracking for
+  tube/cone-sections placements.
+
+Nov 05, 2008  G.Cosmo                    geom-csg-V09-01-06
+- G4Cons: implemented first speed improvements and corrections from joint
+  code review of G4Cons class. Cached computation for half-tolerance and
+  use of Boolean flag for identifying if full-cone or section.
+- G4Tubs: more refinements to previous review; corrected implementation
+  of constructor to conform to implementation as in G4Cons. Fixed issue in
+  SetDeltaPhi() method after changes introduced in the previous tag.
+
+Sep 18, 2008  T.Nikitina                 geom-csg-V09-01-05
+- G4Tubs: implemented first speed improvements and corrections from joint
+  code review of G4Tubs class. Cached computation for half-tolerance and
+  use of Boolean flag for identifying if full-tube or section.
+
+Jul 07, 2008  V.Grichine                 geom-csg-V09-01-04
+- G4Sphere: fixed bug in DistanceToOut(p, v, ...) for normal 'fSTheta'
+  greater than 90*deg, and use of tangent giving negative value.
+  Completes series of corrections introduced in previous tag.
+
+Jun 23, 2008  T.Nikitina                 geom-csg-V09-01-03
+- G4Tubs: fix in DistanceToIn(p,v, ...) in case of point on surface with
+  very small tangent direction; now returning kInfinity and no longer zero.
+  It fixes rare observed cases of zero value returned by both DistanceToIn()
+  and DistanceToOut(), causing stuck tracks with zero step length.
+
+Jun 20, 2008  V.Grichine
+- G4Sphere: fixed calculation of roots in DistanceToOut(p,v,...) for
+  theta-conical surfaces interserctions and for sTheta<=90 degree intersection.
+  Addresses issue reported when running PET application with optical photons
+  about mis-computation of distance on half-sphere constructs.
+- Updated unit test for sphere.
+
+Apr 22, 2008  V.Grichine                 geom-csg-V09-01-02
+- G4Trap: corrections for arithmetic operations in 8-point constructor.
+  Addressing problem report #934.
+
+Mar 13, 2008  G.Cosmo                    geom-csg-V09-01-01
+- Cleared compilation warnings in G4Sphere on gcc-4.3.0 for
+  ambiguous use of parentheses in condition statements.
+
+Feb 20, 2008  T.Nikitina                 geom-csg-V09-01-00
+- G4Cons:
+  o Added protection against NaN in GetPointOnSurface() in the case the
+    check is run for Rmax1==Rmax2.
+
+Nov 23, 2007  T.Nikitina                 geom-csg-V09-00-02
+- Fixed problem of undefined side for valid surface normal in case of Phi
+  section and direction through the center of either A G4Tubs or G4Cons shape.
+
+Oct 2, 2007  T.Nikitina                  geom-csg-V09-00-01
+- G4Torus:
+  o Fixed bug in CalculateExtent() for case of non-rotated full-phi
+    torus definition: added protection against negative value for sqrt()
+    and corrected formula for 'delta'. Fixes problem of NaN detected in
+    initialisation by CMS.
+  o Fixed bug in SolveNumericJT(): corrected handling of complex roots,
+    'rootsrefined' is used only if the number of refined roots is the same
+    as for primary roots. Addresses problem report #969.
+
+Aug 16, 2007  T.Nikitina                 geom-csg-V09-00-00
+- G4Tubs: fixed bug in DistanceToOut(p,v,..) for negative value under sqrt()
+  for the case of point p on the surface and v tangent to the surface.
+  Responsible for rare cases of NaN.
+
+May 18, 2007  G.Cosmo                    geom-csg-V08-03-01
+- Use kAngTolerance and kRadTolerance from G4GeometryTolerance class.
+- Coworks with tag "global-V08-03-03".
+
+May 16, 2007  T.Nikitina                 geom-csg-V08-03-00          
+- G4Tubs: fixed bug for DistanceToOut(p,v) for phi section.
+  Bug was causing segmentation fault in recursive_test (problem report #784). 
+  For v crossing the center of the tub DistanceToOut was always giving
+  Radial distance and not distance in Phi.  
+- G4Cons: fixed bug for DistanceToOut(p,v) for phi section,
+  the same as for G4Tubs. 
+- Updated unit tests.
+
+Oct 19, 2006  G.Cosmo                    geom-csg-V08-01-00
+- Added explicit computation for GetSurfaceArea() for all solids
+  (by H.Dierckx).
+- Implemented caching mechanism for computation of surface area in
+  G4CSGSolid, as done for the geometrical volume computation.
+
+Jun 06, 2006  V.Grichine                 geom-csg-V08-00-01
+- G4Tubs: added protection against NaNs in CalculateExtent() to avoid
+  sqrt() of negative numbers due to round-off.
+- Updated unit tests testG4Sphere and testDistanceAccuracy.
+
+Jan 16, 2006  V.Grichine                 geom-csg-V08-00-00
+- G4Sphere: fixed bug in DistanceToOut() for theta intersections.
+
+Nov 20, 2005  V.Grichine                 geom-csg-V07-01-05
+- G4Torus: fixed bug in Inside(p) for phi sections.
+  Fixes problem report #810.
+
+Nov 9, 2005  G.Cosmo                     geom-csg-V07-01-04
+- Added fake default constructor for all concrete solids and relevant
+  utility classes, for usage of direct object persistency.
+- Implemented changes to support CLHEP-2.0.X for explicit usage of the
+  CLHEP/HepGeom namespaces for CLHEP types.
+
+Oct 23, 2005  V.Grichine                 geom-csg-V07-01-03
+- G4Para: fixed bug in DistanceToOut(p,v) for the case v.x()<0.
+  Following problem report from user posted on Hypernews (#452).
+
+Sep 5, 2005  O.Link                      geom-csg-V07-01-02
+- Moved implementation for DistanceToIn/Out() in G4Torus to make use of
+  G4JTPolynomialSolver for precise calculation of the intersections.
+- Reviewed unit tests and reduced statistics.
+
+Aug 8, 2005  D.Anninos                   geom-csg-V07-01-01
+- Added GetPointOnSurface() to all solids. The method returns a random
+  point according to a quasi-uniform distribution along the surface.
+
+Jul 25, 2005  O.Link                     geom-csg-V07-01-00
+- Fixed bug in G4Sphere::DistanceToOut(p,v):
+  added check for intersection with double cone.
+- Added new unit test testDistanceAccuracy (V.Grichine).
+
+Jun 8, 2005  V.Grichine                  geom-csg-V07-00-09
+- Keep old specification for SurfaceNormal() to treat usage of the
+  function for points not at the surface.
+
+Jun 6, 2005  V.Grichine                  geom-csg-V07-00-08
+- Correction to SurfaceNormal() for G4Cons, G4Sphere, G4Torus, G4Tubs
+  for properly handling location on z-axis and in the frame origin.
+  Fixed bug in G4Cons::SurfaceNormal(p) for normals returned from
+  rmax and rmin.
+- Moved debug printouts for surface-normals to G4CSGDEBUG.
+- Cleared compilation warnings in unit tests and updates.
+
+May 27, 2005  J.Allison                  geom-csg-V07-00-07
+- Fixed polyhedron representation of G4Torus.
+
+May 26, 2005  G.Cosmo                    geom-csg-V07-00-06
+- G4Box.cc: restored call to AddSolid() and replaced old AddThis() in
+  DescribeYourselfTo().
+
+May 11, 2005  V.Grichine                 geom-csg-V07-00-05
+- G4Para: bug fixed in SurfaceNormal(p) for x-distance, to be now in
+  accordance with the surface selection using Inside(p).
+- Updated unit test testSurfaceNormal.cc.
+
+May 09, 2005  V.Grichine                 geom-csg-V07-00-04
+- Updated implementation of SurfaceNormal(p) to get consistence with 
+  Inside(p) functions for the treatment of phi/theta surfaces.
+  They are treated now in both functions in terms of kAngTolerance.
+  The reason is that historically SurfaceNormal(p) was using only
+  kCarTolerance for estimation of shortest distance to a surface. Now,
+  following the new updated specification, the surface selection is made
+  according to Inside(p) approach (as kSurface is selected), i.e. - for
+  phi/theta surfaces in terms of kAngTolerance.
+
+Apr 26, 2005  V.Grichine, J.Apostolakis
+- Simplified and revised the new implementation for SurfaceNormal(p)
+  with edges/vertices and made becoming the default one for all solids.
+
+Apr 20, 2005  V.Grichine                 geom-csg-V07-00-03
+- G4Trap: fix in p.x() centering to sum over all vertices.
+
+Mar 23, 2005  J.Allison                  geom-csg-V07-00-02
+- Added test for Number-Of-Rotation-Steps in G4CSGSolid::GetPolyhedron().
+  Requires tag "greps-V07-00-02".
+
+Mar 03, 2005  J.Allison                  geom-csg-V07-00-01
+- Changed AddThis() with AddSolid() for all solids in DescribeYourselfTo()
+  implementation.
+
+Dec 02, 2004  V.Grichine                 geom-csg-V07-00-00
+- New alternative implementation of SurfaceNormal(p) with edges/vertices
+  for G4Box, G4Para, G4Trap, G4Trd. Old implementation is still the default.
+  Can be activated by setting G4NEW_SURF_NORMAL variable before compilation.
+
+Nov 15, 2004  V.Grichine                 geom-csg-V06-02-06
+- G4Trap: added check for X-centering for constructor by verteces.
+  Fixes problem report #687.
+- New unit test for surface-normal and updated unit tests for sphere
+  and trap.
+
+Oct 10, 2004  J.Allison                  geom-csg-V06-02-05
+- Added GetPolyhedron, a smart access function that creates a G4Polyhedron
+  on request and stores for future access.  A null pointer means "not
+  available".
+
+Sep 22, 2004  V.Grichine                 geom-csg-V06-02-04
+- Added specific implementation of GetCubicVolume() for all CSG solids.
+  The method compute the exact geometrical values and stores it.
+  The value is reset each time a parameter of the solid is modified.
+- Moved inline methods for G4Orb to .icc file.
+- Added unit test testSurfaceInOut.cc.
+
+Sep 16, 2004  V.Grichine                 geom-csg-V06-02-03
+- Bug fix in G4Sphere::SurfaceNormal(p) for theta normals.
+
+Jul 28, 2004  V.Grichine                 geom-csg-V06-02-02
+- Fix in G4Cons::DistanceToIn(p,v) on fRmax surface and move in,
+  the condition became a bit more strict && determinant >=0, i.e.
+  intersections in addition to go in.
+  Fixes a rare problem of dIn=dOut=0 observed in 3 events over a
+  statistics of 10^8..
+- Updated unit test testSurfaceInOut.cc to consider the test-case above.
+
+Jul 16, 2004  V.Grichine                 geom-csg-V06-02-01
+- Fix in G4Sphere::DistanceToOut(p,v,...) on fRmin moving outside.
+  The bug showed 3 events of dIn=dOut=0 for 10^7 statistics in
+  testSurfaceInOut.
+- Added new unit test testSurfaceInOut.cc.
+
+Jul 02, 2004  V.Grichine                 geom-csg-V06-02-00
+- Fixes curing rare conditions of loops at boundaries for G4Orb and G4Sphere:
+  o G4Orb.cc: bug fix in DistanceToIn(p,v) on fRmax surface allowing
+    move near fRmax-fCarTolerance/2.
+  o G4Sphere.cc: bug fix in DistanceToIn(p,v) on Rmax/min surface for
+    condition of intersection with (Rmax/min-kCarTolerance) artificial
+    surface.
+- Updated unit test for G4Orb.
+
+Mar 18, 2004  V.Grichine                 geom-csg-V06-00-01
+- G4Torus.cc: bug fix in Inside(p) fixing warnings reported in
+  debug-mode of 'point p is outside'.
+
+Jan 26, 2004  V.Grichine                 geom-csg-V06-00-00
+- Converted strong exceptions in warning notifications for rare anomalous
+  conditions in DistanceToOut(p,v,..).
+- G4Cons.cc: bug fix in DistanceToIn(p,v) to resolve situations of calls
+  to DistanceToOut() for points outside.
+
+Dec 4, 2003   V.Grichine                 geom-csg-V05-02-06
+- G4Trap.cc: fixed initialisation of planes in default constructor.
+- Added new unit test for G4Sphere and new test case for G4Cons.
+
+Nov 5, 2003   V.Grichine                 geom-csg-V05-02-05
+- G4Orb[.hh.cc]: introduced relative tolerance accuracy on fRmax surface
+  in all methods.
+
+Nov 3, 2003   G.Cosmo                    geom-csg-V05-02-04
+- Code cleanup and headers inclusion review
+  (replaced by forward declarations where necessary).
+
+Nov 2, 2003   V.Grichine
+- G4Sphere, G4Orb: revision of algorithm for Phi sections in
+  method Inside().
+
+Oct 29, 2003   J.Apostolakis             geom-csg-V05-02-03
+- G4Sphere.cc: fix for in Inside() for a point with Phi angle:
+  0.5 kAngTol < phi < Phi_start
+
+Oct 28, 2003   G.Cosmo                   geom-csg-V05-02-02
+- Migrated to new G4Exception scheme.
+
+Oct 09, 2003   V.Grichine                geom-csg-V05-02-01
+- Initialise safe=0.0 in DistanceToIn/Out(p) in all solids.
+- Introduced G4Orb solid: a simple sphere with only outer radius.
+
+Sep 30, 2003   G.Cosmo                   geom-csg-V05-02-00
+- Updated GNUmakefile for unit tests, according to new structure
+  introduced in "geometry-V05-02-00".
+
+Jun 25, 2003   G.Folger                  geom-csg-V05-01-00
+- Added disclaimer of liability where needed.
+
+Feb 03, 2003   G.Cosmo                   geom-csg-V05-00-00
+- G4Cons.cc: enhanced treatment of phi-sections,
+  according to algorithm used also in G4Tubs (V.Grichine).
+- Updated unit tests.
+
+Oct 28, 2002   G.Cosmo                   geom-csg-V04-01-01
+- Added implementation of StreamInfo() to comply with new interface for
+  G4VSolid in "geommng-V04-01-03".
+- Moved inline functions to .icc files, reorganised comments for the Software
+  Reference Manual.
+- Some cosmetic changes to code formatting, removed all <TAB> characters and
+  adopted uniform code indentation.
+- Extended unit tests for G4Cons and G4Sphere (V.Grichine).
+
+Jun 26, 2002   V.Grichine                geom-csg-V04-01-00
+- G4Cons.cc: bug fixed in DistanceToIn(p,v) concerning z-crossing at the
+  edge with Rmin,Rmax.
+
+Jun 19, 2002   V.Grichine                geom-csg-V04-00-05
+- G4Sphere.cc: bug fixed in Inside() for treatment of point p on z-axis.
+  Added new condition [(rho2 || p.z()) && fDTheta < M_PI - kAngTolerance*0.5)]
+  for treating special case. Fixes problem report #378.
+
+May 15, 2002   G.Cosmo                   geom-csg-V04-00-04
+- G4Trap.cc, G4Tubs.cc: changed local enum 'kUndefined' to 'kUndef',
+  to co-work with tag "global-V04-00-06", where 'kUndefined' is now
+  defined for EAxis.
+
+Apr 16, 2002   V.Grichine                geom-csg-V04-00-03
+- G4Tubs.cc: restored "vertices" algorithm for CalculateExtent() which
+  was temporarly disabled (see reference to tag geom-solids-csg-V03-00-03).
+- Updated unit test for G4Tubs, testG4Tubs.cc.
+
+Feb 15, 2002   V.Grichine                geom-csg-V04-00-02
+- G4Para.cc: fixed bug in G4Para::Inside() in calculation of xt,
+  according to problem report #357.
+
+Jan 31, 2002   V.Grichine                geom-csg-V04-00-01
+- G4Sphere.cc: bug fix in Inside() function.
+  Fix problem report #216.
+- Updated unit test for G4Sphere.
+
+Jan 10, 2002   G.Cosmo                   geom-solids-csg-V04-00-00
+- Moved all verbosity mode warnings to G4CSGDEBUG and commented exceptions.
+- Activated G4CSGDEBUG mechanism in GNUmakefile.
+- G4Sphere.cc: fixed a problem with tolerances in the case of large Radius.
+  The case (test18) involves an Rmax = 250 000 000.00 mm
+  The ratio                         -9
+              tolerance       1.0 10              -17
+              ----------- =  ------------ = 0.4 10
+                  Rmax                +8
+                                2.5 10
+  which is smaller than the precision of doubles.
+  Solution (for DistanceToOut(), where problem occured):
+  use a flexible tolerance, equal to the maximum of (kRadTolerance, 10 * R )
+  (J.Apostolakis).
+- Upgraded unit tests and fixed warnings on gcc-2.95-2.
+
+Aug 27, 2001   V.Grichine                geom-solids-csg-V03-02-00
+- G4Sphere.cc: bug fixed in G4Sphere::SurfaceNormal for the case kNETheta.
+  Fixes problem report #290.
+
+May 18, 2001   G.Cosmo                   geom-solids-csg-V03-01-02
+- Added G4CSGDEBUG preprocessor flag to discriminate for debug verbosity
+  specific to CSG solids. Included in G4Exception of DistanceToOut() for
+  "point p is outside" in G4Box, G4Cons, G4Tubs.
+
+Apr 20, 2001   G.Cosmo                   geom-solids-csg-V03-01-01
+- Updates for migration to STL vector.
+  Modified files: G4Box.cc, G4Cons.cc, G4Para.cc, G4Sphere.cc,
+                  G4Torus.cc, G4Trap.cc, G4Trd.cc, G4Tubs.cc.
+  Require coworking with the rest of geometry-V03-01-00.
+
+Apr 18,   01   V. Grichine               geom-solids-csg-V03-01-00
+- G4Trap.cc:
+  o Fixed memory leak in CalculateExtent() for creation of vertices in
+    case of finite rotation. (courtesy of D.Williams)
+  o Removed useless inclusion of math.h.
+
+Feb 21,   01   V. Grichine               geom-solids-csg-V03-00-03
+- G4Tubs.cc:
+  o Fixed bug in function Inside(p) in computation of pPhi
+    for points at phi = 0 if the (start phi)+(delta phi) is at phi = 0.
+  o Temporarly modified CalculateExtent(...), now simply based on
+    G4Box::CalculateExtent(...). Updated unit test testG4Tubs.cc.
+
+Feb 01,   01   V. Grichine               geom-solids-csg-V03-00-02
+- G4Box: introduced checks against negative (or <2*kCarTolerance) dimensions
+  in methods SetXHalfLength(), SetYHalfLength() and SetZHalfLength().
+
+Jan 29,   00   G. Cosmo                  geom-solids-csg-V03-00-01
+- G4Box: introduced fixes to algorithm for computation of rotated vertices
+  in CalculateExtent() as previously committed in tag geom-solids-csg-V02-00-10.
+- G4Torus: extracted logic for G4PolynomialSolver now included in
+  global/HEPNumerics. Coworks with tag global-V03-00-02.
+- Added dependency to global/HEPNumerics in GNUmakefile.
+
+Jan 18,   00   V. Grichine               geom-solids-csg-V03-00-00
+- Fixed condition from (pPhi<0) to (pPhi<-0.5*kAngleTolerance) in
+  G4Tubs::Inside(p). Fixes problem report #198.
+
+Dec 07,   00   V. Grichine               geom-solids-csg-V02-00-14
+- G4Tubs.cc: corrections in phi-section algorithm of Inside(p).
+
+Dec 01,   00   G. Cosmo                  geom-solids-csg-V02-00-13
+- Increased basic number of iterations from 8 to 12 for Newton algorithm
+  in G4Torus.cc to assure root retrivial.
+
+Nov 28,   00   V. Grichine               geom-solids-csg-V02-00-12
+- Bug fixed in G4Tubs::Inside(p) for analysis of phi positioning when
+  on +-fDz surface.
+
+Nov 20,   00   G. Cosmo                  geom-solids-csg-V02-00-11
+- Fixes to remove warnings from "-Wall -ansi -pedantic" g++ compiler options:
+  o commented out variables declared and not used.
+  o fixed declaration of variables used before being initialised.
+  o fixed order of initialisation of member data in constructors.
+  o fixed usage of unsigned-int (size_t) for array indeces.
+- NB: based on tag geom-solids-csg-V02-00-09.
+
+Nov 16,   00   V. Grichine               geom-solids-csg-V02-00-10
+- G4Box.cc: introduced fixes to algorithm for computation of rotated vertices
+  in CalculateExtent(). (D.Williams)
+
+Nov 10,   00   G. Cosmo                  geom-solids-csg-V02-00-09
+- G4Torus.cc: removed debug print-out which was still included by mistake
+  in constructor.
+
+Nov 02,   00   G. Cosmo                  geom-solids-csg-V02-00-08
+- QA code revision and cleanup (+fixes from CodeWizard filtering):
+  o Removed virtual keyword from GetEntityType() concrete function.
+  o General cosmetics.
+
+Oct 31,   00   V. Grichine               geom-solids-csg-V02-00-07
+- G4Tubs::DistanceToOut(p,v,...):
+  o Initialised sr and sphi to kInfinity and re-introduced additional
+    condition on check for Rmin intersection (t2 >= 0).
+
+Oct 26,   00   G. Cosmo                  geom-solids-csg-V02-00-06
+- G4Cons::DistanceToOut(p,v): leave out warning if point is outside.
+
+Oct 23,   00   G. Cosmo                  geom-solids-csg-V02-00-05
+- G4Tubs::DistanceToOut(p,v,...):
+  o Still correction to thickness of conical surfaces. (V.Grichine)
+  o Commented-out additional condition on check for Rmin intersection
+    (t2 >= 0), recently introduced (roi2).
+    Requires further investigation !!
+- G4Torus:
+  o Introduced more stable numerical method (Newton-based) for computing
+    roots of equations in DistanceToIn() and DistanceToOut(). (E.Medernach)
+
+Oct 18,   00   V. Grichine               geom-solids-csg-V02-00-04
+- G4Cons.cc, G4Tubs.cc:
+  added check against negative distance returned by DistanceToIn/DistanceToOut.
+- G4Cons.cc:
+  added correction for thickness of conical surfaces, remarkable for big
+  opening angles, in DistanceToIn/DistanceToOut functions.
+
+Oct 05,   00   V. Grichine               geom-solids-csg-V02-00-03
+- G4Cons.cc:
+  o fix in DistanceToIn(p,v): corrected condition on conical surface to
+    consider a real projection of the conical surface thickness on XY
+    plane (0.5*kCarTolerance*secRMin instead of 0.5*kCarTolerance), when
+    dealing with cons with large opening angle.
+  o Updated unit test testG4Cons2.cc.
+
+Aug 16,   00   V. Grichine		 geom-solids-csg-V02-00-02
+- G4Cons.cc:
+  o fix in constructor to check if one of the Rmin is equal to 0,
+    if so, it will be set to 1e3*kRadTolerance.
+  o Deactivated call to G4Exception in DistanceToOut(p) if p is outside,
+    replaced by simple warning.
+- G4Tubes.cc, G4Box.cc:
+  o Deactivated call to G4Exception in DistanceToOut(p) if p is outside,
+    replaced by simple warning.
+
+Aug 08,   00   V. Grichine               geom-solids-csg-V02-00-01
+- G4Cons.cc, G4Tubs.cc:
+  o fixes to DistanceToOut(p,v,...) to make roots of quadratic equations
+    more stable.
+  o added check if point is outside in G4Tubes::DistanceToOut(p),
+    some code formatting.
+
+Jul 27,   00   V. Grichine               geom-solids-csg-V02-00-00
+- G4Cons.cc:
+  o added more diagnostics in DistanceToOut(p)
+  o cosmetics changes
+- Updated unit test for G4Cons.
+
+Jun 22,   00   V. Grichine               geom-solids-csg-V01-01-04
+- G4Box.cc:
+  o added safety against call from outside in DistanceToOut(p)
+  o added more diagnostics before exception in DistanceToOut(p,v,...)
+  o cosmetics changes
+- G4Torus[.hh.cc]:
+  o added new alternative functions SolveBiQuadratic/CubicNew.
+  o fix in SolveBiQuadratic() for ambiguous expression in looping index
+    detected by Insure++.
+- Updated unit tests testG4Torus and testG4Trd.
+
+May 17,   00   V. Grichine               geom-solids-csg-V01-01-03
+
+- G4Tubs.cc:
+  o introduced fix in DistanceToOut(p,v,...) in computation of xi, yi for
+    (sphi >= -0.5*kCarTolerance). This fixes problem reports #76 and #91.
+  o added more diagnostics in case of invalid enum for DistanceToOut.
+- Updated unit test for G4Tubs.
+
+May 05,   00   V. Grichine               geom-solids-csg-V01-01-02
+
+- G4Box.cc, G4Trd.cc:
+  o modified DistanceToIn(p,v) to return 0 distance in case computed
+    value is less than 0.5*kCarTolerance.
+  o Cosmetic changes.
+- Updated unit tests for G4Box and G4Trd.
+
+Apr 11,   00   J. Allison
+
+- Removed implementations of GetExtent in most sub-classes of G4VSolid (a
+  default implementation exists in G4VSolid).
+- All implementations of DescribeYourselfTo (G4VGraphicsScene& scene) const
+  now correctly written: scene.AddThis(*this).
+
+Apr 05,   00   G. Cosmo                  geom-solids-csg-V01-01-01
+ - G4Tubs.cc: fixed bug in function Inside(p).
+              Removed (commented) in the code umproper addition of 2PI
+	      to Phi-angle particle (V.Grichine)
+ - G4Hype[.hh.cc]: fixed several longstanding issues and bring methods
+                   into compliance with specifications  (D.Williams)
+ - Moved to "specific" the following classes:
+   G4ClippablePolygon, G4EnclosingCylinder, G4Hype, G4PolyPhiFace,
+   G4Polycone, G4PolyconeSide, G4Polyhedra, G4PolyhedraSide,
+   G4ReduciblePolygon, G4IntersectingCone, G4SolidExtentList,
+   G4VCSGface, G4VCSGfaceted.
+ - Moved testG4Hype.cc and testG4Polycone.cc from CSG/test to
+   specific/test
+ - Moved generic tests "SBT" and "Fred" one level up to solids/test.
+ - Organised class description comments for the Software Reference Manual
+   in all headers.
+
+Mar 23,   00   G. Cosmo                  geom-solids-csg-V01-01-00
+ - Tagged.
+
+Mar 22,   00   D. Williams
+ - G4PolyhedraSide.cc: fixed bug in G4PolyhedraSide::Normal(...).
+   The method Normal(...) (used by G4VCSGfaceted::SurfaceNormal) was not
+   filling in the argument bestDistance. This fixes a bug observed in
+   G4Polyhedra::SurfaceNormal.
+
+Mar 14,   00   V. Grichine
+ - Added diagnostics in G4Cons, G4Sphere and G4Torus in function
+   DistanceToOut(p,v,...).
+
+Mar 03,   00   G. Cosmo                   geom-solids-csg-V01-00-05
+ - Minor fixes to unit tests to make them up-to-date with recent
+   development versions (already included in tag geometry-V01-00-00a).
+ - G4PolyconeSide.cc, G4PolyhedraSide.cc: added explicit cast to G4int
+   to avoid warnings on Linux.
+
+Jan 19,   00   G. Cosmo			  geom-solids-csg-01-00-04
+ - Fixed bug in DistanceToIn(p,v). Modified files: G4Trap.cc and
+   testG4Trap.cc. (V.Grichine)
+ - Syncronized file versions with HEAD (essentially CVS headers changes).
+ - Fixes for missing migration on HEAD related to some files in test/fred
+   and test/SBT.
+ 
+Nov 17,   99   J. Apostolakis             geom-solids-csg-01-00-03
+ - Tagged
+
+Nov 17,   99   V. Grichine
+ - Added initialisation to Eside "side" variable in DistanceToOut(p,v)
+   in CSG solids   -->   Problem report from D.C. Williams, BaBar
+ - A check in G4Trap Makeplane added.
+
+Nov 10,   99   J. Apostolakis             geom-solids-csg-01-00-02-cand
+ - Included  David Williams' modifications to 
+   G4IntersectingCone.cc, G4PolyconeSide.cc and G4VCSGfaceted.cc
+   and to  test/SBT/SBT.cc  and  test/SBT/polycone.geant4
+
+Nov 10,   99   J. Apostolakis             geom-solids-csg-01-00-01
+ - Tagged
+
+May 18,   99   David Williams
+ - Replaced 1/DBL_MAX with DBL_MIN (valid correction, seen in tests for STL) 
+   in G4PolyPhiFace.cc, G4PolyconeSide.cc and G4PolyhedraSide.cc
+
+Apr 29,   99   David Williams
+ - G4Polyhedra and G4Polycone (and G4VCSGfaceted) modified:
+         1. Implemented correct copy constructors and assignment operators.
+         2. Fix some leaks for tracks that pass exactly through an edge. 
+            Some leaks still remain: particularly if a track passes through
+	     a corner and between the curved edges of G4Polycone.
+         3. G4Polyhedra argument numSide changed to G4int (from G4double)
+
+Apr 13,   99   Vladimir Grichine and Simone Giani
+ - Minor consistency fix to 8 basic CSG solids: 
+   Tolerance used in calculation of extent but not in one place,
+   and not another - this tripped up the client code. 
+
+Feb 16,   99   David Williams
+ - Repaired bugs in G4Polycone (G4PolyconeSide.cc) as found in
+   test/testG4Polycone and missed in below.
+ - Updated definition of DistanceToIn(p) and DistanceToOut(p) to
+   return zero when the point p is on the surface of the solid.
+
+Feb 12,   99   David Williams
+ - src/G4PolyconeSide.cc updated (revision 1.4) to fix a bug discovered by
+   test/testG4Polycone.
+
+Feb   9,  99   David C. Williams      (davidw@scipp.ucsc.edu)
+ - I've committed new versions of the CSG Polycone and Polyhedra in the
+   geant4 repository, including a new utility class called
+   G4ReduciblePolygon. The new versions fix several subtle bugs which my  
+   "test3" batch geometry testing code uncovered. In addition, the new class
+   G4ReduciblePolygon is used to run strict tests on the validity of input
+   parameters.
+   To fix a bug in Polyhedra, I had to back out some fancy code that
+   allowed it to calculate intersections at a speed that was independent of
+   the number of sides. The new version now runs at a speed proportional to
+   the number of sides, and is thus much slower for polyhedras with many
+   sides. I can fix this, but I thought it would be best to get the bug fixes
+   in as soon as possible.
+
+Feb  10,  99   John Apostolakis
+ - History file created.

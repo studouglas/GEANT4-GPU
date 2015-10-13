@@ -1,0 +1,154 @@
+//
+// ********************************************************************
+// * License and Disclaimer                                           *
+// *                                                                  *
+// * The  Geant4 software  is  copyright of the Copyright Holders  of *
+// * the Geant4 Collaboration.  It is provided  under  the terms  and *
+// * conditions of the Geant4 Software License,  included in the file *
+// * LICENSE and available at  http://cern.ch/geant4/license .  These *
+// * include a list of copyright holders.                             *
+// *                                                                  *
+// * Neither the authors of this software system, nor their employing *
+// * institutes,nor the agencies providing financial support for this *
+// * work  make  any representation or  warranty, express or implied, *
+// * regarding  this  software system or assume any liability for its *
+// * use.  Please see the license in the file  LICENSE  and URL above *
+// * for the full disclaimer and the limitation of liability.         *
+// *                                                                  *
+// * This  code  implementation is the result of  the  scientific and *
+// * technical work of the GEANT4 collaboration.                      *
+// * By using,  copying,  modifying or  distributing the software (or *
+// * any work based  on the software)  you  agree  to acknowledge its *
+// * use  in  resulting  scientific  publications,  and indicate your *
+// * acceptance of all terms of the Geant4 Software license.          *
+// ********************************************************************
+//
+//
+// $Id: G4ParticleChangeForTransport.icc 68795 2013-04-05 13:24:46Z gcosmo $
+//
+// 
+inline 
+ void G4ParticleChangeForTransport::SetTouchableHandle(const G4TouchableHandle& 
+fTouchable)
+{
+  theTouchableHandle =   fTouchable;
+}
+
+inline 
+ const G4TouchableHandle& G4ParticleChangeForTransport::GetTouchableHandle() const
+{
+  return theTouchableHandle;
+}
+
+
+inline 
+ void G4ParticleChangeForTransport::SetMaterialInTouchable(G4Material* fMaterial)
+{
+  theMaterialChange =   fMaterial;
+}
+
+inline 
+ G4Material* G4ParticleChangeForTransport::GetMaterialInTouchable() const
+{
+  return theMaterialChange;
+}
+
+inline 
+ void G4ParticleChangeForTransport::SetMaterialCutsCoupleInTouchable(const G4MaterialCutsCouple* fMaterialCutsCouple)
+{
+  theMaterialCutsCoupleChange =   fMaterialCutsCouple;
+}
+
+inline 
+ const G4MaterialCutsCouple* G4ParticleChangeForTransport::GetMaterialCutsCoupleInTouchable() const
+{
+  return theMaterialCutsCoupleChange;
+}
+
+inline 
+ void G4ParticleChangeForTransport::SetSensitiveDetectorInTouchable(G4VSensitiveDetector* fSensitiveDetector)
+{
+  theSensitiveDetectorChange =   fSensitiveDetector;
+}
+
+inline 
+ G4VSensitiveDetector* G4ParticleChangeForTransport::GetSensitiveDetectorInTouchable() const
+{
+  return theSensitiveDetectorChange;
+}
+
+inline
+G4bool G4ParticleChangeForTransport::GetMomentumChanged() const 
+{
+  return isMomentumChanged;
+}
+
+inline
+void G4ParticleChangeForTransport::SetMomentumChanged(G4bool b)
+{
+  isMomentumChanged= b;
+}
+
+//----------------------------------------------------------------
+// functions for Initialization
+//
+
+inline void G4ParticleChangeForTransport::Initialize(const G4Track& track)
+{
+  // use base class's method at first
+  InitializeStatusChange(track);
+//  InitializeLocalEnergyDeposit(track);
+  InitializeSteppingControl(track);
+//  InitializeTrueStepLength(track);
+//  InitializeSecondaries(track);
+
+  // set Energy/Momentum etc. equal to those of the parent particle
+  const G4DynamicParticle*  pParticle = track.GetDynamicParticle();
+//  theEnergyChange          = pParticle->GetKineticEnergy();
+//  theMomentumChange        = pParticle->GetMomentumDirection();
+    theVelocityChange          = track.GetVelocity();
+    isVelocityChanged          = false;
+    thePolarizationChange    = pParticle->GetPolarization();
+//  theProperTimeChange      = pParticle->GetProperTime();
+
+  // set Position/Time etc. equal to those of the parent track
+  //  thePositionChange      = track.GetPosition();
+  // set TimeChange equal to local time of the parent track
+  theTimeChange                = track.GetLocalTime();
+  // set initial Local/Global time of the parent track
+  theLocalTime0           = track.GetLocalTime();
+  theGlobalTime0          = track.GetGlobalTime();
+
+  // set touchable equal to the next touchable of the parent track
+  // not set as for now
+  //theTouchableChange     = track.GetNextTouchable();
+
+// So almost nothing is initialized here.
+// theMomentumChange, theProperTimeChange, thePositionChange and theTimeChange
+// are set by G4Transportation::AlongStepDoIt;
+// the others are not needed.
+// Take care when implementing the PostStep related things!
+// (P. Urban)
+}
+
+// Prototype implementation of smooth representation of curved trajectories.
+
+inline void
+G4ParticleChangeForTransport::
+SetPointerToVectorOfAuxiliaryPoints( std::vector<G4ThreeVector>*
+                                     theNewVectorPointer )
+{
+  fpVectorOfAuxiliaryPointsPointer = theNewVectorPointer;
+}
+
+inline std::vector<G4ThreeVector>*
+G4ParticleChangeForTransport::GetPointerToVectorOfAuxiliaryPoints() const
+{
+  return fpVectorOfAuxiliaryPointsPointer;
+}
+
+
+
+
+
+

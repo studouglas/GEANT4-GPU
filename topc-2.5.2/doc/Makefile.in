@@ -1,0 +1,87 @@
+#  @configure_input@
+
+# You should be able to type:  make topc.xxx
+#   for the format documentation that you prefer.
+#   If this doesn't work on your system, you can download
+#   the TOP-C documentation in all formats from XXX?
+
+default: topc.info topc.dvi topc.pdf topc.html
+
+all:	txt info dvi ps pdf html
+info: topc.info
+html: topc.html
+dvi: topc.dvi
+txt: topc.txt
+ps: topc.ps
+pdf: topc.pdf
+
+topc.info:	topc.texi
+	@ makeinfo topc.texi || \
+	( echo "*** Can't make topc.info; missing makeinfo ??"; \
+	  echo "*** Download topc-docs.tar.gz for a copy" )
+
+# Apparently texindex topc.fn and texindex topc.vr not needed.
+topc.dvi:	topc.texi
+	texi2dvi topc.texi
+
+topc.html:	html/topc_toc.html
+
+# Not needed:  Newer tex12html automatically makes background color white.
+#	( cd html; for file in *.html; do \
+#                        patch -s -N $$file < color.patch; \
+#                   done )
+html/topc_toc.html:	topc.texi
+	( cd html; texi2html -split_chapter ../topc.texi )
+	( cd html; patch -s -N topc_toc.html < img.patch )
+	( cd html; rm -f *.orig )
+
+topc.ps:	topc.dvi
+	dvips -Ppdf -G0 topc.dvi
+
+topc.pdf:	topc.ps
+	ps2pdf topc.ps
+
+topc.txt:	topc.texi
+	texi2html -monolithic topc.texi
+	lynx -dump -nolist topc.html > topc.txt
+	rm -f topc.html
+
+clean:
+	rm -f topc.?? topc.??s *.aux *.log *~
+
+# distribution of docs, only
+dist: html dvi ps pdf
+	dir=`dirname $$PWD`; \
+	name=`basename $$dir`; \
+	version=@TOPC_VERSION@; \
+	if [ "$$name" != "topc-$$version" ] ; then \
+	  echo "main dir, $$name, not same as topc-$$version" ; \
+	  exit 1; \
+	fi; \
+	mkdir topc-$$version; \
+	cp html/* topc-$$version/; \
+	cp topc.dvi topc-$$version/; \
+	cp topc.ps topc-$$version/; \
+	cp topc.pdf topc-$$version/; \
+	( cd topc-$$version; gzip topc.dvi; gzip topc.ps ); \
+	cp topc.dvi topc-$$version/; \
+	( tar cvf ../../topc-$$version-html.tar ./topc-$$version; \
+	  gzip ../../topc-$$version-html.tar; ); \
+	rm -rf topc-$$version; \
+	ls -l ../../topc-$$version-html.tar.gz
+
+distclean: clean
+	rm -f topc.ps topc.pdf topc.txt
+	rm -rf topc-$$version
+
+maintainer-clean: distclean
+	rm -f topc.dvi topc.info* html/*.html
+
+install:	topc.info
+	cp topc.info @infodir@ || \
+	  ( echo "*** Insufficient permission to copy to @infodir@"; \
+	    echo "*** Can't intall topc.info" )
+	sh -c 'install-info --version' 2&> /dev/null && \
+	  install-info topc.info @infodir@ || \
+	  ( echo "*** Couldn't find 'install-info' or insuff. permission";  \
+	    echo "*** Can't intall topc.info" )

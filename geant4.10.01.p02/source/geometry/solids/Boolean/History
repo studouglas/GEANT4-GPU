@@ -1,0 +1,491 @@
+
+$Id: History 90704 2015-06-08 09:50:07Z gcosmo $
+-------------------------------------------------------------------
+
+     =========================================================
+     Geant4 - an Object-Oriented Toolkit for Simulation in HEP
+     =========================================================
+
+                      Category History file
+                      ---------------------
+This file should be used by G4 developers and category coordinators
+to briefly summarize all major modifications introduced in the code
+and keep track of all category-tags.
+It DOES NOT substitute the  CVS log-message one should put at every
+committal in the CVS repository !
+
+   Please keep a summary of these message in geometry/History!
+
+     ----------------------------------------------------------
+     * Reverse chronological order (last date on top), please *
+     ----------------------------------------------------------
+
+ March 3, 2015  G.Cosmo                  geom-bool-V10-00-10
+ - Use accessors x(), y() and z() from UVector3, instead of directly accessing
+   its data-members.
+
+ November 7, 2014  G.Cosmo               geom-bool-V10-00-09
+ - Fixed Coverity defects in G4UMultiUnion::CreatePolyhedron() for
+   memory leaks.
+
+ October 3, 2014  G.Cosmo                geom-bool-V10-00-08
+ - Avoid polyhedron deletion (and therefore mutexing) in CreatePolyhedron
+   for G4DisplacedSolid, as not necessary.
+
+ September 25, 2014  T.Nikitina          geom-bool-V10-00-07
+ - Additional correction to G4UMultiUnion::CreatePolyhedron(), to take into
+   account possible displacement of first component in the structure and have
+   it visualised correctly.
+
+ September 18, 2014  T.Nikitina          geom-bool-V10-00-06
+ - Corrected implementation of CreatePolyhedron() in G4UMultiUnion wrapper.
+
+ September 1, 2014  G.Cosmo              geom-bool-V10-00-05
+ - Fixed use of polyhedron pointer, to avoid race condition in MT
+   when parameterised volumes are visualised.
+
+ Jul 18, 2014  G.Cosmo                   geom-bool-V10-00-04
+ - G4UMultiUnion: correction in destructor to avoid deletion of polyhedron,
+   as not owned by the structure.
+   Corrected initialisation of base class name to adopt string provided as
+   input parameter instead of hard-coded name.
+   Adapted implementation of GetTransformation() to API correction in
+   UMultiUnion. Requires co-working tag "geom-usolids-V10-00-12" with
+   'usolids' module.
+
+ Jul 04, 2014  G.Cosmo                   geom-bool-V10-00-03
+ - Avoid leak in G4UMultiUnion::AddNode() for transformations being passed,
+   now that UMultiUnion is locally caching them.
+
+ Jul 01, 2014  G.Cosmo                   geom-bool-V10-00-02
+ - Fixed assignment operator signature in G4UMultiUnion wrapper.
+
+ Jun 20, 2014  G.Cosmo                   geom-bool-V10-00-01
+ - Correction to G4MultiUnion::AddNode() for treatment of transformations.
+
+ May 23, 2014  G.Cosmo                   geom-bool-V10-00-00
+ - Enabled G4MultiUnion wrapper.
+
+ November 13, 2013  G.Cosmo              geom-bool-V09-06-05, 04
+ - Removed G4MultiUnion and related wrapper, as not yet ready for release.
+   Returning to tag "geom-bool-V09-06-02".
+
+ November 07, 2013  G.Cosmo              geom-bool-V09-06-03
+ - Moved G4UMultiUnion wrapper from usolids module. Added G4MultiUnion typedef.
+
+ November 06, 2013  G.Cosmo              geom-bool-V09-06-02
+  - Added wrapper for UMultiUnion from USolids module.
+
+ December 14, 2012  G.Cosmo              geom-bool-V09-06-01
+  - Restored return distance in G4SubtractionSolid.
+  - Restored SVN id headers.
+
+ December 02, 2012  J.Allison            geom-bool-V09-06-00
+  - Removed NURBS.
+
+ November, 30, 2012  J.Apostolakis
+  - G4SubtractionSolid: improved SurfaceNormal() method, by caching the
+    result of the calls to fPtrSolidA->Inside() and fPtrSolidB->Inside().
+    Corrected debug printout to say 'Point p is *out*side' not inside.
+    NOTE: further improvement can be made by creating new method 
+            Inside( point, &resultInsideA, &resultInsideB ); 
+          which can be called by a 'bare' Inside( point ) method.
+
+ June 12, 2012  G.Cosmo                   geom-bool-V09-05-02
+  - Explicitly use inclusion of headers for system of units and physical
+    constants, in plan to remove implicit inclusion from globals.hh.
+
+ May 9, 2012  G.Cosmo                     geom-bool-V09-05-01
+  - G4SubtractionSolid: refined protection for potential cases of
+    infinite loop in DistanceToIn(p,v); return computed distance instead
+    of zero and provide more descriptive information when issuing warning.
+
+ April 6, 2012  M.Kelsey                  geom-bool-V09-05-00
+  - G4BooleanSolid: added protected data 'fAreaRatio' and related method
+    GetAreaRatio() which store the ratio of surface areas of SolidA to
+    SolidA+SolidB. The ratio is used in GetPointOnSurface() to better
+    approximate uniform coverage. Uniformity cannot be guaranteed in all
+    cases and when constituent solids have shared surfaces.
+
+ August 25, 2011  G.Cosmo                 geom-bool-V09-04-03
+  - Corrected printout stream precision settings.
+
+ August 25, 2011  G.Cosmo                 geom-bool-V09-04-02
+  - Migrated to new G4Exception scheme for warnings and errors.
+  - Defined scheme for warnings/errors coding:
+    + 1xxx for warnings, 0xxx for errors.
+    Code numbering:
+    + 0001: not supported or implemented features;
+    + 0002: invalid setup/construct;
+    + 0003: invalid run condition;
+    + 1001: incorrect setup; automatically adapted.
+    + 1002: notification.
+
+ July 22, 2011  T.Nikitina                geom-bool-V09-04-01
+  - Corrected protection in G4SubtractionSolid::DistanceToIn(p,v) introduced
+    in previous tag and relaxed to not cause event abortion.
+
+ May 27, 2011  T.Nikitina                 geom-bool-V09-04-00
+  - Added protection for potential cases of infinite loop in DistanceToIn(p,v)
+    and related error message with event abortion.
+
+ October 19, 2010  G.Cosmo                geom-bool-V09-03-03
+  - Implemented Clone() virtual method for all solids, returning a pointer
+    to a dynamically allocated copy of the solid. To be used by Geant4-MT.
+
+ September 22, 2010  G.Cosmo              geom-bool-V09-03-02
+  - Implemented copy-constructor and assignment operator for concrete
+    solids classes to facilitate conversion to Geant4-MT.
+
+ July 7, 2010  G.Cosmo                    geom-bool-V09-03-01
+  - Simplified logic in G4UnionSolid::Inside() to exclude obvious
+    conditional cases.
+
+ May 11, 2010  J.Allison                  geom-bool-V09-03-00
+  - Introduced recursive algorithm in CreatePolyhedron(): it uses
+    HepPolyhedronProcessor from 'graphics_reps', which tries small shifts
+    in an attempt to avoid numerical problems in the calculation of the
+    polyhedron in BooleanProcessor. Recursion allows HepPolyhedronProcessor
+    to try all permutations, also for Booleans of Booleans.
+    Helps in reducing the number of cases of "Error in Boolean processor" for
+    visualization, but still some stubborn cases are left.
+
+ Oct 24, 2007  V.Grichine                 geom-bool-V09-00-00
+  - Improved response of Inside() for G4SubtractionSolid and G4UnionSolid
+    according to suggestion in problem report #979.
+
+ May 18, 2007  G.Cosmo                    geom-bool-V08-03-00
+  - Use kAngTolerance and kRadTolerance from G4GeometryTolerance class.
+  - Updated unit tests.
+  - Coworks with tag "global-V08-03-03".
+
+ Nov 08, 2006  G.Cosmo                    geom-bool-V08-01-02
+  - Fixed compilation problems on SUN-CC for changes in the last tag.
+    Added inclusion of <sstream> header in G4IntersectionSolid.cc and
+    G4UnionSolid.cc.
+
+ Nov 06, 2006  J.Allison                  geom-bool-V08-01-01
+  - G4IntersectionSolid, G4SubtractionSolid, G4UnionSolid:
+    fixed CreatePolyhedron() for case of component that does
+    not have a G4Polyhedron representation.
+  - Added checks for point on boolean surface to unit tests
+    testG4DisplacedSolid and testG4SubtractionSolid (V.Grichine).
+
+ Oct 19, 2006  G.Cosmo                    geom-bool-V08-01-00
+  - Added GetSurfaceArea() method, accessors and modifiers to base class
+    G4BooleanSolid, implementing the caching mechanism as for volumes.
+
+ May 03, 2006  V.Grichine                 geom-bool-V08-00-00
+  - Fix in G4IntersectionSolid::CalculateExtent() for the correctly handling
+    extent computation for nested intersections and always respect the rule
+    pMax > pMin.
+
+ Nov 09, 2005  G.Cosmo                    geom-bool-V07-01-01
+  - Added fake default constructor for concrete solids types and relevant
+    utility classes, for usage of direct object persistency.
+
+ Sep 15, 2005  V.Grichine                 geom-bool-V07-01-00
+  - Added concrete implementation for GetPointOnSurface() to
+    G4BooleanSolid and G4DisplacedSolid.
+  - Updated unit tests testG4DisplacedSolid and testG4IntersectionSolid.
+
+ May 04, 2005  V.Grichine                 geom-bool-V07-00-03
+  - Make the new implementation of Inside() with surface-normal for
+    edges/vertices the deafult one.
+    Removed G4NEW_SURF_NORMAL compilation flag.
+
+ Mar 23, 2005  J.Allison                  geom-bool-V07-00-02
+  - Added test for Number-Of-Rotation-Steps in GetPolyhedron()
+    for G4DisplacedSolid and G4BooleanSolid. Requires tag "greps-V07-00-02".
+
+ Mar 10, 2005  V.Grichine                 geom-bool-V07-00-01
+  - Modified Inside(p) G4SubtractionSolid and G4UnionSolid, to fix
+    inconsistency for non-zero sum of surface-normals.
+    Available only through activation of G4NEW_SURF_NORMAL compilation flag.
+  - Updated unit tests.
+
+ Mar 03, 2005  J.Allison
+  - Changed AddThis() to AddSolid() in the concrete implementations of
+    DescribeYourselfTo(G4VGraphicsScene&) for all solids. Use the
+    newly available CreatePolyhedron() for components of Boolean
+    solids, instead of GetPolyhedron().
+
+ Feb 22, 2005  V.Grichine                 geom-bool-V07-00-00
+  - Fix in G4IntersectionSolid::DistanceToIn(p,v) to allow for correct
+    simmetrical treatment of the solids' intersection. Algorithm reviewed
+    as proposed by D.Bazzacco in problem report #723.
+  - New unit test testBoolSurfaceInOut.cc for checking dIn-dOut and AB,
+    BA booleans on surface.
+
+ Oct 10, 2004  J.Allison                  geom-bool-V06-02-01
+  - Added GetPolyhedron, a smart access function that creates a G4Polyhedron
+    on request and stores for future access.  A null pointer means "not
+    available".
+
+ Sep 22, 2004   V.Grichine                geom-bool-V06-02-00
+  - Added specific implementation for G4BooleanSolid::GetCubicVolume()
+    to cache the computed value.
+  - Moved inline methods for G4BooleanSolid to .icc file.
+
+ May 07, 2004   G.Cosmo                   geom-bool-V06-01-00
+  - Moved G4ReflectedSolid class to "management" module.
+  - Moved G4ReflectionFactory class to "volumes" module.
+  - Moved unit test for reflection to "volumes" module.
+  - Coworks with tags: geommng-V06-01-00, geomvol-V06-01-00 and
+                       geomdiv-V06-01-00.
+
+ Feb 27, 2004   V.Grichine                geom-bool-V06-00-00
+  - G4UnionSolid.cc, G4SubtractionSolid.cc: fix in debug printout for
+    SurfaceNomal().
+
+ Dec 01, 2003   G.Cosmo                   geom-bool-V05-02-04
+  - G4ReflectedSolid.cc: fixed trivial leak in constructor.
+
+ Nov 03, 2003   G.Cosmo                   geom-bool-V05-02-03
+  - Code cleanup and headers inclusion review
+    (replaced by forward declarations where necessary).
+
+ Oct 28, 2003   G.Cosmo                   geom-bool-V05-02-02
+  - Migration to new G4Exception scheme.
+
+ Oct 28, 2003   J.Apostolakis
+  - Modified test/GNUmakefile to delete un-necessary directories.
+    It no longer refers to navigator (old volumes), but includes
+    intercoms (for G4VVisManager).
+
+ Oct  9, 2003   V.Grichine                geom-bool-V05-02-01
+  - Fixes to default safety to zero in DistIn/Out(p) methods.
+    Note: Using previous test GNUmakefile (to be corrected).
+
+ Sep 30, 2003   G.Cosmo                   geom-bool-V05-02-00
+  - Updated GNUmakefile for unit tests, according to new structure
+    introduced in "geometry-V05-02-00".
+
+ Jun 12, 2003   G.Cosmo                   geom-bool-V05-01-02
+  - G4ReflectionFactory:
+    o Made public accessors: GetConstituentLV(), GetReflectedLV(),
+      IsConstituent() and IsReflected().
+    o Added accessor GetReflectedVolumesMap() to access list of
+      reflected volumes.
+
+ May 22, 2003   G.Cosmo                   geom-bool-V05-01-01
+  - Implementations for Set/GetScalePrecision() in G4ReflectionFactory
+    missing! Now fixed.
+
+ May 12, 2003   G.Cosmo                   geom-bool-V05-01-00
+  - Added set/get methods for scale precision in G4ReflectionFactory.
+
+ Mar 25, 2003   G.Cosmo                   geom-bool-V05-00-01
+  - Fixed trivial strict pedantic warnings in G4ReflectedSolid.cc and
+    G4ReflectionFactory.cc.
+  - Minor fixes to unit tests.
+
+ Jan 27, 2003   G.Cosmo                   geom-bool-V05-00-00
+  - G4ReflectionFactory[.hh.cc] (courtesy of I.Hrivnacova):
+    o Added set/get functions Set/GetVolumesNameExtension() for volume-name
+      extension. By default now the factory assigns "_refl" postfix to name
+      of reflected volumes.
+    o Assumed less strict condition in the CheckScale() method, to avoid
+      precision problems with imported rotation matrices.
+
+ Oct 29  2002  Gabriele Cosmo       geom-bool-V04-01-01
+  - Added method CleanTransformations() to G4DisplacedSolid and corrected
+    implementation in destructor of G4BooleanSolid to not call for deletion
+    of G4VSolid in the case where displacement is used.
+    This fixes a problem noticed on Linux-g++ at application closeout for
+    double deletion of a solid in such special case.
+
+ Oct 28  2002  Gabriele Cosmo       geom-bool-V04-01-00
+  - Added implementation of StreamInfo() to comply with new interface for
+    G4VSolid in "geommng-V04-01-03".
+  - Some cosmetic changes to code formatting.
+  - Extended unit tests to include new user test-cases (V.Grichine).
+
+ May 11  2002  Vladimir Grichine    geom-bool-V04-00-05
+  - G4ReflectedSolid.cc: bounding-box like algorithm for CalculateExtent().
+
+ Apr 16  2002  Vladimir Grichine    geom-bool-V04-00-04
+  - G4ReflectedSolid.cc: enhanced algorithm for CalculateExtent(), now
+    passing all basic unit tests.
+  - Updated unit test for G4ReflectedSolid, testG4ReflectedSolid.cc
+
+ Mar 26  2002  Vladimir Grichine    geom-bool-V04-00-03
+  - G4ReflectedSolid.cc: modified implementation of CalculateExtent() to
+    properly consider transformation of reflected extent.
+
+ Feb 15  2002  Vladimir Grichine    geom-bool-V04-00-02
+  - G4ReflectedSolid[.hh.cc]:
+    o Defined new methods Set/GetTransform3D() and Set/GetDirectTransform3D()
+      for defining/accessing the real reflected transformation
+    o Moved methods for G4AffineTransform to protected.
+
+ Feb 07  2002  Gabriele Cosmo       geom-bool-V04-00-01
+  - G4ReflectionFactory.cc: fixed bug causing repetition of daughter volumes.
+
+ Jan 10  2002  Gabriele Cosmo       geom-solid-bool-V04-00-00
+  - Moved all verbosity mode warnings to G4BOOLDEBUG and commented exceptions.
+  - Activated G4BOOLDEBUG mechanism in GNUmakefile.
+  - Fixed unit tests.
+
+ Nov 08  2001  Gabriele Cosmo       geom-solid-bool-V03-02-02
+  - Fix for verbosity in G4ReflectionFactory.cc. Reduced of one level.
+
+ Oct 18  2001  Gabriele Cosmo       geom-solid-bool-V03-02-01
+  - Introduced first implementation of classes G4ReflectedSolid and
+    G4ReflectionFactory for reflections of positioned volumes
+    (courtesy of V.Grichine and I.Hrivnacova).
+  - Fixed bug in G4ReflectedSolid::CreatePolyhedron().
+
+ Aug 13  2001  Vladimir Grichine    geom-solid-bool-V03-02-00
+  - Introduced G4BOOLDEBUG flag and replaced G4Exception statements with
+    simple warnings to G4cerr for rare occurences of anomalous conditions.
+
+ May 30  2001  Vladimir Grichine    geom-solid-bool-V03-01-00
+  - G4IntersectionSolid: fix in DistanceToIn(p,v) resolving bug observed
+    in problem report #153.
+
+ Mar 19  2001  Gabriele Cosmo       geom-solid-bool-V03-00-03
+
+  - G4IntersectionSolid:
+    o fix in CalculateExtent() for computation of pMin and pMax, to avoid
+      assignment in case CalculateExtent() of one component solid fails.
+    o fix in Inside() to return kOutside in case first component solid's
+      Inside() returns kOutside.
+  - G4UnionSolid:
+    o fix in CalculateExtent() for computation of pMin and pMax: initialised
+      local variables.
+
+ Jan 31  2001  Gabriele Cosmo       geom-solid-bool-V03-00-02
+
+  - Fix in G4UnionSolid::DistanceToOut(p,v,...) for assignment of
+    argument *n. Previous fix was incomplete!
+
+ Jan 23  2001  Gabriele Cosmo       geom-solid-bool-V03-00-01
+ 
+  - Fixed wrong labels for G4Exception calls in G4UnionSolid.cc and
+    G4SubtractionSolid.cc to identify the correct class.
+    Fixes bug report #200.
+
+ Jan 08  2001  Vladimir Grichine    geom-solid-bool-V03-00-00
+
+  - Fix in G4UnionSolid::DistanceToOut(p,v,...) for assignment of
+    argument *n to happen only if calcNorm is false.
+    (courtesy of D.Williams)
+  - Updated unit tests testG4IntersectionSolid.cc, testG4SubtractionSolid.cc
+    and test/testG4UnionSolid.cc.
+
+ Nov 22  2000  Vladimir Grichine    geom-solid-bool-V02-00-03
+
+  - Added new set methods for matrix/vectors to G4DisplacedSolid:
+      SetTransform(G4AffineTransform&),
+      SetDirectTransform(G4AffineTransform&),
+      SetFrameRotation(const G4RotationMatrix&),
+      SetFrameTranslation(const G4ThreeVector&),
+      SetObjectRotation(const G4RotationMatrix&),
+      SetObjectTranslation(const G4ThreeVector&).
+
+ Nov 20  2000  Gabriele Cosmo       geom-solid-bool-V02-00-02
+
+  - Fixes to remove warnings from "-Wall -ansi -pedantic" g++ compiler options:
+    o commented out variables declared and not used.
+    o fixed declaration of variables used before being initialised.
+    o fixed order of initialisation of member data in constructors.
+    o fixed usage of unsigned-int (size_t) for array indeces.
+
+ Nov 2   2000  Gabriele Cosmo       geom-solid-bool-V02-00-01
+
+  - QA code revision and cleanup (+fixes from CodeWizard filtering):
+    o Added (private) declarations of copy constructor and assignment
+      operator where needed.
+    o Changed virtual functions to non-inline wherever's the case.
+
+ Sep 13  2000  Vladimir Grichine    geom-solid-bool-V02-00-00
+
+  - G4SubtractionSolid.cc: relaxed behavior in SurfaceNormal(p), where
+    it is allowed for a point to be inside the solid. A message is thrown
+    to cerr instead of a G4Exception.
+
+ Jun 26  2000  Vladimir Grichine    geom-solid-bool-V01-01-03
+
+  - Fixed bug in G4SubtractionSolid::DistanceToOut(p,v,...). validNorm
+    flag was uncorrectly set to true. Fixes report #102.
+
+ Jun 6   2000  John Apostolakis     geom-solid-bool-V01-01-02
+
+  - Protecting the use of pointers validNorm and n, if calcNorm is false
+
+ Jun 6   2000  John Allison         geom-solid-bool-V01-01-01
+
+  - Re-enabled CreatePolyhedron() method from G4UnionSolid, G4IntersectionSolid
+    and G4SubtractionSolid.  Coworks with greps-V01-01-04.
+
+ May 26  2000  John Allison         geom-solid-bool-V01-01-00
+
+  - Disabled CreatePolyhedron() method from G4UnionSolid, G4IntersectionSolid
+    and G4SubtractionSolid. It now temporarly returns a NULL pointer.
+    Visualisation of Boolean solids is therefore temporarly disabled, pending
+    a definitive fix in graphics_reps.
+    Files G4UnionSolid.cc, G4SubtractionSolid.cc and G4IntersectionSolid.cc
+    are included in the branch-tag "boolean_nopoly_branch".
+
+ Apr 27  2000  Gabriele Cosmo
+
+  - Reorganised comments for the Software Reference Manual.
+  - Added CVS headers and standard G4 header where missing.
+
+ Apr 11  2000  John Allison
+
+  - CreatePolyhedron implemented for BooleanSolids.
+  - G4DisplacedSolid: reversed implementation of GetFrameRotation and
+    GetObjectRotation, removing inappropriate invertion.
+  - G4DisplacedSolid::GetConstituentMovedSolid() made const.
+
+ Jan 19  2000	Gabriele Cosmo	    geom-solid-bool-V01-00-00
+
+  - Syncronized file versions with HEAD (essentially CVS headers changes)
+  - Fixed cases of G4std::min which were not migrated on the HEAD in files:
+    G4UnionSolid.cc and G4IntersectionSolid.cc
+
+ Nov 24  1999 			    geom-solid-bool-V00-01-05
+
+  - Small fix in src/G4DisplacedSolid.cc to the return type 
+         (const G4AffineTransform --> G4AffineTransform)
+    to conform with the specification of the class.
+
+ Nov 19  1999                       geom-solid-bool-V00-01-04
+
+  -  Fixes from Vladimir, and additional tests
+
+ Nov 10  1999                       geom-solid-bool-V00-01-03b
+
+  - Renamed  GetConstituentSolid to GetConstituentMovedSolid in G4DisplacedSolid
+     to avoid clashing with method that gets the contituents of a G4BooleanSolid.
+
+ Nov 10  1999                       geom-solid-bool-V00-01-03a
+
+  - Tag with additional methods for Persistency
+
+ Nov 10  1999                       geom-solid-bool-V00-01-03-cand
+
+  New method: Get Object Rotation/Translation methods in Displaced Solid
+
+ Nov  9  1999                       geom-solid-bool-V00-01-02-cand
+  
+  - Tag with additional methods for Visualisation
+
+   G4DisplacedSolid,  G4BooleanSolid
+
+      Added methods to access data members:
+          Get Constituent Solid  (int) for Boolean   Solid 
+          Get Constituent Solid        for Displaced Solid 
+          Get Frame Rotation/Translation methods in Displaced Solid
+
+
+
+  Dec  1  1998   John Apostolakis   geom-boolean-4-ja
+
+    Code portability changes.
+
+  Nov 27  1998   J.Apostolakis & V.Grichine   geom-boolean-3-vg
+
+    Fixes agreed in code review were implemented.

@@ -1,0 +1,178 @@
+$Id: History 86967 2014-11-21 11:51:28Z gcosmo $
+-------------------------------------------------------------------
+
+     =========================================================
+     Geant4 - an Object-Oriented Toolkit for Simulation in HEP
+     =========================================================
+
+                      Category History file
+                      ---------------------
+This file should be used by G4 developers and category coordinators
+to briefly summarize all major modifications introduced in the code
+and keep track of all category-tags.
+It DOES NOT substitute the  CVS log-message one should put at every
+committal in the CVS repository !
+
+     ----------------------------------------------------------
+     * Reverse chronological order (last date on top), please *
+     ----------------------------------------------------------
+
+November 20, 2014, M.Asai (procscore-V10-00-01)
+- Coverity fixes.
+
+August 26, 2014, M.Asai (procscore-V10-00-00)
+- Introducing G4ParallelWorldProcessStore to allow all the
+  G4ParallelWorldProcess objects of all threads could update their
+  corresponding world volumes when the entire geometry has been
+  destroyed and rebuilt from scratch.
+
+November 18, 2013, M.Asai (procscore-V09-06-03)
+- Remove unnecessary G4cout.
+
+May 28, 2013, M.Asai (procscore-V09-06-02)
+- Tests migrated to multi-thread.
+
+March 17, 2013, M.Asai (procscore-V09-06-01)
+- G4ParallelWorldProcess now sets G4Navigator::SetPushVerbosity(false)
+  for the navigator of the mass world to reduce the warning message
+  GeomNav1002.
+
+March 27, 2013, M.Asai (procscore-V09-06-00)
+- G4ParallelWorldProcess now sets G4Navigator::SetPushVerbosity(false) 
+  for the navigator of the parallel world to reduce the warning message
+  GeomNav1002.
+
+November 11, 2012, G.Folger (procscore-V09-05-05)
+- Adapt to modifications in G4RegularNavigationHelper; this is now a
+  real singleton and no longer an utility static class; now accessed
+  through G4RegularNavigationHelper::Instance() call; StepLengths is
+  accessed by GetStepLengths().
+- Avoid to inline functions accessing G4RegularNavigationHelper.
+- Addressing run-time errors on Windows when using DLLs.
+- Coworks with tag "geomnav-V09-05-40" of geometry/navigation.
+
+October 9, 2012, M.Asai (procscore-V09-05-04)
+- Fix a compilation warning.
+
+October 5, 2012, M.Asai (procscore-V09-05-03)
+- Introducing "HyperStep" G4Step object owned by G4ParallelWorldProcess, 
+  which may possess touchables in pre- and post-step points belonging
+  in different worlds. 
+
+July 10, 2012, G.Cosmo (procscore-V09-05-02)
+- Explicitly use inclusion of headers for system of units and physical
+  constants, in plan to remove implicit inclusion from globals.hh.
+
+June 07, 2012 G.Cosmo (procscore-V09-05-01)
+- Fixed spurious cases of hidden variable visibility in G4EnergySplitter,
+  detected with '-Wshadow' compilation option on gcc compiler.
+
+February 20, 2012 M.Asai (procscore-V09-05-00)
+- Bug fix G4ParallelWorldProcess.cc for incorrect initialization for
+  secondary tracks.
+
+November 16, 2011 B.Morgan (procscore-V09-04-05)
+- Added G4ParallelWorldProcess files to sources.cmake
+
+November 10, 2011 M.Asai (procscore-V09-04-04)
+- Removed call to obsolete G4Exception in G4EnergySplitter.
+
+August 10, 2011 M.Asai (procscore-V09-04-03)
+- Adding test/test2 for parallel layered mass geometry
+
+August 10, 2011 M.Asai (procscore-V09-04-02)
+- Introducing parallel layered mass geometry
+  G4ParallelWorldProcess takes care of both layered mass geometry
+  and sensitivity of a parallel world.
+
+June 05, 2011 P.Arce (procscore-V09-04-01)
+- Fix in G4ScoreSplittingProcess::PostStepDoIt() to not consider steps
+  if the voxel boundary is not skipped.
+  Addressing problem report #1209.
+
+May 01, 2011 M.Asai (procscore-V09-04-00)
+- Added IsAtRestRequired() method to G4ParallelWorldScoringProcess.
+
+December 15, 2010 G.Cosmo (procscore-V09-03-02)
+- Fixed creation of touchable-history to allow DLL builds on Windows.
+
+November 26, 2010 G.Cosmo (procscore-V09-03-01)
+- Fixed compilation warnings for unused parameters.
+
+November 23, 2010 J.Apostolakis (procscore-V09-03-00)
+- G4ScoreSplittingProcess spread values for all steps
+  in a Voxel-based "Regular" volume.
+  Requires tag in run, "run-V09-03-08".
+
+November 18, 2010 J.Apostolakis 
+- Added G4EnergySplitter (created by Pedro Arce) 
+
+September 7th, 2008 M.Asai (procscore-V09-01-01)
+- Correction of incorrect modification in the previous tag.
+
+February 12th, 2008 M.Asai (procscore-V09-01-00)
+- Add copying non-ionizing energy deposit in G4Step.
+
+May 30th A.Howard (procscore-V08-03-03)
+- clean tag with files in the right place (!)
+
+
+May 30th A.Howard (procscore-V08-03-02)
+- Moved biasing classes and tests into processes/biasing
+
+May 18th A.Howard (procscore-V08-03-01)
+- Added comment to exception in G4NewProcessPlacer to emphasise configuration
+after physics list
+
+
+May 16th A.Howard (procscore-V08-03-00)
+- Fixed bug in G4ScoreProcess which didn't get applied to non-parallel geometries
+- Updated NewProcessPlacer to recognise old transportation (Transportation8)
+- Updated examples (to get back to old transportation and reminder about
+arguments)
+
+
+April 14th M.Asai (procscore-V08-02-00)
+- Set step status for ghost pre-step point.
+
+November 28th A.Howard (procscore-V08-01-04)
+- updated history file
+
+November 28th A.Howard (procscore-V08-01-03)
+- removed duplicated base classes which can be found in processes/transportation
+
+November 20th A.Howard (procscore-V08-01-02)
+- updated history file
+
+November 20th A.Howard (procscore-V08-01-01)
+- added biasing and related scoring classes, 1st implementation to new parallel
+  implementation
+- two examples B01_para and B02_para - translated from B01 and B02
+
+November 13th  M.Asai (procscore-V08-01-00)
+- Corresponds to the change of G4PathFinder::ComputeStep.
+
+November 8th  M.Asai
+- Use the new G4VUserPhysicsList::AddTransportation() which
+  automatically replace G4Transporation with G4CoupledTransportation
+  if a parallel world is defined.
+
+November 6th  J.Allison
+- test1:
+  o Made top world volumes invisible.
+  o Improved vis.mac.
+
+November 3rd  J.Allison
+- test1: Simple vis.mac to illustrate visualisation of parallel worlds.
+  Execute with just two parameters, for example:
+    ParaTest para disp
+
+November 2nd  J.Allison
+- test1:
+  o Replaced A01VisManager by G4VisExecutive.
+  o Introduced vis.mac.
+
+July 6th, 2006  M.Asai
+- Directory processes/scoring created
+- History file Created
+

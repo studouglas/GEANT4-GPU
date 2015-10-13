@@ -1,0 +1,446 @@
+-------------------------------------------------------------------
+
+     =========================================================
+     Geant4 - an Object-Oriented Toolkit for Simulation in HEP
+     =========================================================
+
+                      Category History file
+                      ---------------------
+This file should be used by G4 developers and category coordinators
+to briefly summarize all major modifications introduced in the code
+and keep track of all category-tags.
+It DOES NOT substitute the  CVS log-message one should put at every
+committal in the CVS repository !
+
+     ----------------------------------------------------------
+     * Reverse chronological order (last date on top), please *
+     ----------------------------------------------------------
+
+06 November 2014 P. Gumplinger (op-V10-00-10)
+- fix Coverity error in G4OpWLS.cc
+
+27 October 2014 A. Dotti (op-V10-00-09)
+- Address problem #1675, this requires re engineering of 
+  all UI commands related to optical processes and created
+  in G4OpticalPhysics.
+- Co-working tags: xrays-V10-00-06, op-V10-00-09, phys-ctor-em-V10-00-17
+
+17th October 2014 P. Gumplinger (op-V10-00-08)
+- fix G4OpRayleigh.cc to actually set the temperature for materials other
+  than Water
+- G4OpBoundaryProcess: Add a ConstProperty "SURFACEROUGHNESS". If set,
+  the reflectivity at dielectric_dielectric surface is angular dependent
+  and calculated from:
+  exp(-pow((4*pi*theSurfaceroughness*Rindex1*cost1/wavelength),2))
+  for Rindex1 > Rindex2. Thanks to M. van Dijk (Bristol University).
+
+16th October 2014 P. Gumplinger (op-V10-00-07)
+- previous tag was committed only to /include directory
+
+10th October 2014 P. Gumplinger (op-V10-00-06)
+- G4OpRayleigh Process: This version calculates the Rayleigh scattering
+  length for more materials than just Water (although the Water default
+  is kept). To do this the user would need to specify the
+  ISOTHERMAL_COMPRESSIBILITY as a material property and optionally an
+  RS_SCALE_LENGTH (useful for testing). Code comes from Philip Graham
+  (Queen Mary University of London).
+
+9th October 2014 P. Gumplinger (op-V10-00-05)
+- G4OpBoundaryProcess allow for a Transmittance, Reflectivity and
+  Absorption on dielectric_dielectric and dielectric_metal boundaries 
+
+10th June 2014 P. Gumplinger (op-V10-00-04)
+- G4OpWLS always rebuild theIntegralTable in BuildPhysicsTable method
+- G4OpRayleigh always rebuild thePhysicsTable in BuildPhysicsTable method
+- remove the private method BuildThePhysicsTable
+
+6th June 2014 P. Gumplinger (op-V10-00-03)
+- implement the full UNIFIED reflectivity probabilities when a
+  dichroic surface reflects
+
+23rd December 2013 M. Asai (op-V10-00-02)
+- Additional protection.
+
+22nd December 2013 M. Asai (op-V10-00-01)
+- move construction of WLSTimeGeneratorProfile to the constructor of G4OpWLS.
+
+18th December 2013 P. Gumplinger (op-V10-00-00)
+- make WLSTimeGeneratorProfile and UseTimeProfile static in G4OpWLS
+
+26th August 2013 P. Gumplinger (op-V09-06-06)
+- move theStatus assignment for Dichroic where the decision is actually made
+- made the necessary and required modifications for G4OpBoundaryProcess to
+  work in situations with parallel worlds
+- G4OpBoundaryProcess will now invoke the ProcessHit method of the sensitive
+  detector associated with the PostStepPoint volume when optical photons are
+  detected at the entrance boundary
+
+14th June 2013 P. Gumplinger (op-V09-06-05)
+- fix coverity errors in G4OpBoundaryProcess
+
+13th June 2013 P.Gumplinger (op-V09-06-04)
+- G4OpWLS and G4OpRayleigh -  added BuildPhysicsTable method which is doing
+  as before but at the moment when material list is fully defined.
+
+6th June 2013 P.Gumplinger (op-V09-06-03)
+- comment out G4cout in G4OpBoundaryProcess::DielectricDichroic()
+
+5th June 2013 P.Gumplinger (op-V09-06-02)
+- fix compilation error in G4OpWLS
+
+5th June 2013 P.Gumplinger (op-V09-06-01)
+- Require that WLS photons have a longer wavelength than the photon that
+  is being absorbed/shifted. Please, see bug report on the Forum:
+  http://hypernews.slac.stanford.edu/HyperNews/geant4/get/opticalphotons/509.html
+  Thanks to Ben Loer (FNAL)
+- Add the capability of simulating the transmission of a dichroic filter;
+
+  In this first implementation, the photon is either reflected or transmitted
+  without changing direction. Surface->SetType(dielectric_dichroic);
+  You must also supply a 2D data file with the format:
+  4     #ofWavelength-bins     #ofIncidentAngle-bins
+  List of Wavelength-bin values in nm (i)
+  List of IncidentAngle-bin values in deg (j) - angle from the normal
+  Transmittance[1,1],..,Transmittance[i,1],..,Transmittance[n,1]
+  .....................,Transmittance[i,j],.....................
+  Transmittance[1,m],..,Transmittance[i,m],..,Transmittance[n,m] in %
+
+  and: setenv G4DICHROICDATA dichroic.data
+
+30th Apr.2013 P.Gumplinger (op-V09-06-00)
+              replace CLHEP::Rand*::shoot.. with G4Rand*::shoot...
+              in G4OpBoundaryProcess
+
+19th Oct.2012 G.Cosmo (op-V09-05-12)
+              Corrected debug flag in G4OpBoundaryProcess.cc to be
+              G4OPTICAL_DEBUG, as the one defined in GNUmakefile...
+
+17th Oct.2012 J.Apostolakis (op-V09-05-11)
+	      Avoid the 'new' Event-abort exception, by 'protecting' 
+                 it with G4DEBUG_OPTICAL_PROC flag.
+              By default, the normal is now flipped instead 
+                 (as Geant4 9.5 and 9.5 patch 1 worked.)
+
+ 5th Oct.2012 J.Apostolakis (op-V09-05-10) 
+              G4OpBoundaryProcess now uses GlobalExitNormal()
+               ( same code as op-V09-05-06 )
+
+********* G4OpBoundaryProcess uses the *Global* Normal  ****
+
+ 5th Oct.2012 J.Apostolakis (op-V09-05-09) 
+              Retagged to enable testing - same code as -07 below.
+ 4th Oct.2012 J.Apostolakis (op-V09-05-07)
+              Added information in printout of Exception on direction of 
+              momentum and exiting normal.
+
+03rd Oct.2012 P.Gumplinger (op-V09-05-05a)
+              add G4Exception when theGlobalNormal points the 
+              wrong direction in G4OpBoundaryProcess
+
+10th Jul.2012 G.Cosmo (op-V09-05-05)
+              Explicitly use inclusion of headers for system of units and
+              physical constants, in plan to remove implicit inclusion from
+              globals.hh.
+
+20th Jun 2012 P.Gumplinger (op-V09-05-04)
+              remove methods: SetModel/GetModel from G4OpBoundaryProcess class
+
+7th  Jun 2012 G.Cosmo (op-V09-05-03)
+              Fixed trivial cases of variable shadowing in G4OpMieHG.cc
+              and G4OpWLS.cc.
+
+17th May 2012 P.Gumplinger (op-V09-05-02)
+              G4OpWLS.hh, G4OpRayleigh.hh, G4OpAbsorption.hh,
+              G4OpMieHG.hh and G4OpBoundaryProcess.hh -
+              more fixing Coverity warnings
+
+16th May 2012 P.Gumplinger (op-V09-05-01)
+              G4OpBoundaryProcess.cc - trying to fix Coverity warnings
+
+24th Jan 2012 P.Gumplinger (op-V09-05-00)
+              G4OpBoundaryProcess.cc - solves Problem #1275
+              call aParticleChange.ProposeVelocity(aTrack.GetVelocity())
+              at every invocation of DoIt; for FresnelRefraction calculate
+              finalVelocity locally from Material2->
+              GetMaterialPropertiesTable()->GetProperty("GROUPVEL")
+
+28th Oct 2011 P.Gumplinger (op-V09-04-03)
+              add logic for ProposeVelocity to G4OpBoundaryProcess::PostStepDoIt
+
+13th Oct 2011 P.Gumplinger (op-V09-04-02)
+              modify to work with materials-V09-04-14
+
+6th  Oct 2011 P.Gumplinger (op-V09-04-01)
+              update G4Exception syntax in G4OpWLS.cc and
+              G4OpBoundaryProcess.cc
+
+14th Jun 2011 Peter Gumplinger (op-V09-04-00)
+              A dielectric_dielectric surface may now have a wavelength
+              dependent property "TRANSMITTANCE". If this is specified
+              for a surface it overwrites the Snell's law's probability.
+              This allows the simulation of anti-reflective coatings.
+              Thanks to Evgueni Goudzovski (CERN) for the idea.
+
+29th Oct 2010 Peter Gumplinger (op-V09-03-06)
+              Fix minor Coverty Errors
+
+22th Oct 2010 Peter Gumplinger (op-V09-03-05)
+              Add Mie Scattering of Optical Photons
+              Thanks to Xin Qian (Kellogg Radiation Lab of Caltech)
+              Based on work from Vlasios Vasileiou (University of Maryland)
+              Henyey-Greenstein phase functions
+
+21th Oct 2010 Peter Gumplinger (op-V09-03-04)
+              Fix Bug 207; Thanks to Xin Qian (Kellogg Radiation Lab of Caltech)
+
+14th Jun 2010 Peter Gumplinger (op-V09-03-03)
+              ProposeLocalEnergyDeposit(thePhotonMomentum) every time the
+              photon is fStopAndKill because of NoRINDEX. This will trigger
+              scoring when a photon encounters a volume not defined as an
+              optical medium (indirect user request):
+              http://hypernews.slac.stanford.edu/HyperNews/geant4/get/opticalphotons/335/1.html
+
+18th May 2010 Peter Gumplinger (op-V09-03-02)
+              fix a bug reported at:
+              http://hypernews.slac.stanford.edu/HyperNews/geant4/get/opticalphotons/334/1/1.html
+              theFacetNormal was not sampled for polishedbackpainted
+              in DielectricDielectric method of G4OpBoundaryProcess
+
+19th Apr 2010 Peter Gumplinger (op-V09-03-01)
+              fix Problem report #1114 in that for backpainted
+              surfaces theReflectivity is not applied twice. 
+              While doing the fix I also completely refashioning the 
+              code in the case of type == dielectric_dielect.
+
+19th Jan 2010 Peter Gumplinger (op-V09-03-00)
+              assign PropertyPointers to NULL at the start of the
+              PostStepDoIt, addresses bug report #1094
+
+19th Nov 2009 Peter Gumplinger (op-V09-02-06)
+              change the code such that the LUT are now read in and kept
+              by G4OpticalSurface and not G4OpBoundaryProcess, reordering
+              of enumeration and set theStatus in DielectricLUT.
+
+11th Nov 2009 Peter Gumplinger (op-V09-02-05)
+              add capability of simulating surface reflections
+              with Look-Up-Tables (LUT) containing measured
+              optical reflectance for a variety of surface
+              treatments - Thanks to Martin Janecek and
+              William Moses (Lawrence Berkeley National Lab.)
+
+9th  Nov 2009 Peter Gumplinger (op-V09-02-04)
+              G4OpBoundary: initialze theReflectivity and theEfficiency
+              at the beginning of the PostStepDoIt; add method
+              BoundaryProcessVerbose which will now print the process
+              status for every call to PostStepDoIt.
+
+5th  Nov 2009 Peter Gumplinger (op-V09-02-03)
+              G4OpBoundary::PostStepDoIt - all dielectric_dielectric
+              surfaces may now have a reflectivity <1; not only
+              'frontpainted' as was the case in the past.
+
+6th  May 2009 Peter Gumplinger (op-V09-02-02)
+              G4OpBoundary::PostStepDoIt now throws an G4Exception
+              EventMustBeAborted when an invalid surface normal is returnd;
+              addresses bug report #1060
+
+23th Mar 2009 Peter Gumplinger (op-V09-02-01)
+              for complex index of refraction: (1)resample the reflectivity
+              every time in the do-while of DielectricMetal, but don't
+              re-calculate theFacetNormal (which has already been chosen
+              in CalculateReflectivity), also (2) avoid an infinite loop by
+              resetting iTE and iTM inside the do-while of GetReflectivity;
+              both are bug-fixes.
+
+14th Jan 2009 Peter Gumplinger (op-V09-02-00)
+              respond to bug report 1040 by fixing G4OpBoundaryProcess.cc 
+
+07th Nov 2008 Peter Gumplinger (op-V09-01-09)
+              use new global/HEPRandom's G4RandomTools.hh
+
+24th Oct 2008 Peter Gumplinger (op-V09-01-08)
+              use local G4OpProcessSubType.hh
+
+21st Oct 2008 Peter Gumplinger (op-V09-01-07)
+              add SetProcessSubType for G4OpAbsorption, G4OpBoundaryProcess,
+              G4OpRayleigh and G4OpWLS
+
+18th Aug 2008 Peter Gumplinger (op-V09-01-06)
+              use signatures G4SwapPtr(T*& and G4SwapObj(T*
+              in G4OpBoundaryProcess - to work with global-V09-01-12
+
+15th Aug 2008 Peter Gumplinger (op-V09-01-05)
+              replaced G4SwapPtr with G4SwapObj for Rindex
+              in G4OpBoundaryProcess - serious error since op-V09-01-00
+              (see also Problem Report 1020)
+
+4th July 2008 Peter Gumplinger (op-V09-01-04)
+              In G4OpWLS now SetTouchableHandle(aTrack.GetTouchableHandle())
+              for the secondaries in the DoIt.
+              In G4OpBoundaryProcess.cc initialize the pointer:
+              G4LogicalSurface* Surface = NULL;
+
+27th June 2008 Peter Gumplinger (op-V09-01-03)
+               In G4OpBoundaryProcess changed unsafe cast
+               (G4OpticalSurface*) to dynamic_cast<G4OpticalSurface*>
+               following suggestion in bug-report #1014
+
+6th June 2008 Peter Gumplinger (op-V09-01-02)
+              G4OpRayleigh, G4OpWLS = trivial name changes: 
+              momentum->energy, momenta->energies
+
+5th June 2008 Peter Gumplinger (op-V09-01-00)
+              G4OpBoundaryProcess: Removed G4Swap methods - replaced by
+              G4SwapPtr. Removed G4IsotropicRand method - replaced by
+              G4RandomDirection. Add commented code to change absorption
+              at a dielectric/metal boundary into transmission.
+
+29th Oct 2007 Peter Gumplinger (op-V09-00-01)
+              In G4OpWLS.cc allow for the MeanNumberOfPhotons to be
+              different from one, in case the constant property: 
+              WLSMEANNUMBERPHOTONS is provided and, if it is, sample 
+              NumPhotons with G4Poisson.
+
+15th Oct 2007 Peter Gumplinger (op-V09-00-00)
+              Add capability of calculating the reflectivity off a metal
+              surface by way of a complex index of refraction.
+              Thanks to Sehwook Lee and John Hauptman
+              (Dept. of Physics - Iowa State Univ.)
+
+11th May 2007 Gabriele Cosmo (op-V08-03-00)
+              Use call to G4GeometryTolerance instead of kCarTolerance in
+              G4OpBoundaryProcess.
+              Requires tag "global-V08-03-00" and related tag set.
+
+11th May 2006 Peter Gumplinger (op-V08-00-01)
+              thanks to Andreia Trindade and Pedro Rodrigues, the WLS time
+              delay can now be a delta function or exponential. New classes:
+              G4VWLSTimeGeneratorProfile, G4WLSTimeGeneratorProfileDelta and
+              G4WLSTimeGeneratorProfileExponential
+
+17th Feb 2006 Peter Gumplinger (op-V08-00-00)
+              fix default behaviour for unified model of dielectric_metal
+
+28th July 2005 Peter Gumplinger (op-V07-01-00)
+               add G4ProcessType to all constructors
+
+10th December 2004 Gabriele Cosmo (op-V06-02-06)
+                replaced M_PI with CLHEP's pi
+
+02nd December 2004 Peter Gumplinger (op-V06-02-05)
+                migration to cmath
+
+28th October 2004 Gabriele Cosmo (op-V06-02-04)
+                Added G4OPTICAL_DEBUG flag for debug printout.
+
+18th October 2004 Peter Gumplinger (op-V06-02-03)
+                Fix bug in DielectricMetal only GetFacetNormal for
+                LobeReflection.
+                Migrate files to 7.0 ParticleChange method names:
+                G4OpBoundaryProcess.hh, G4OpBoundaryProcess.cc,
+                G4OpWLS.cc, G4OpRayleigh.cc, G4OpAbsorption.cc
+
+27th September 2004 Peter Gumplinger (op-V06-02-02)
+                Fix bug in G4PlaneVectorRand and resample
+                theFacetNormal for LobeReflection in DielectricMetal
+
+12th August 2004 Peter Gumplinger (op-V06-02-01)
+                In G4OpBoundaryProcess.cc: use GetMaterial from 
+                G4StepPoint directly; apply/sample reflectivity and 
+                Unified model reflection parameters only once even
+                for rough dielectric/metal surfaces - i.e. not again
+                even when reflected ray still points toward the
+                surface - fixes problem report 654.
+
+05th August 2004 Peter Gumplinger (op-V06-02-00)
+                Allow for unified model reflectivity parameters 
+                to also work in case of dielectric_metal surfaces;
+                addresses in part problem report 654.
+
+26th April 2004 Peter Gumplinger (op-V06-01-01)
+                Protect against NULL pointers in G4OpRayleigh.
+                Do not overwrite Rayleigh scattering length
+                for the material named 'Water' if it has been
+                specified by the user through a call to
+                AddProperty("RAYLEIGH"
+
+21st April 2004 Peter Gumplinger (op-V06-01-00)
+                Assign class members to defaults in DoIt.
+
+17th March 2004 Peter Gumplinger (op-V06-00-03)
+                Assign all class members in constructor.
+
+24th February 2004 Gabriele Cosmo (op-V06-00-02)
+                Added EOL at end of file in G4OpBoundaryProcess.cc to clear
+                compilation warning in Linux-g++.
+
+19th February 2004 Peter Gumplinger (op-V06-00-01)
+                Add process status: NotAtBoundary, SameMaterial, 
+                                    StepTooSmall, NoRINDEX
+                Allow for a skin-surface between mother and daughter
+                volumes, with the daughter skin taking precedence.
+
+2nd February 2004 Peter Gumplinger (op-V06-00-00)
+                Set theStatus = Undefined at start of DoIt
+                Replace usage of 0 with NULL.
+ 
+1st December 2003 Peter Gumplinger (op-V05-02-02)
+                G4OpBoundaryProcess.cc: modified to adopt G4SurfaceProperty.
+                Requires tag "materials-V05-02-00".
+		Replaced usage of NULL with 0.
+
+4th October 2003 Gabriele Cosmo (op-V05-02-01)
+                Modified GNUmakefile: added dependency to new module
+                "geometry/navigation".
+                Coworks with "geometry-V05-02-00" and "digits_hits-V05-02-00".
+
+23rd September 2003 Peter Gumplinger (op-V05-02-00)
+                Add WLS (wavelength shifting) process
+15th March 2003 Peter Gumplinger (op-V05-00-01)
+                Change logic for assigning of Rindex2; bug report #444
+4th February 2003 Peter Gumplinger (op-V05-00-00)
+                Fix calculation of polarization for perpendicular
+                incidence when Rindex1 > Rindex2; bug report #442 
+12th November 2002 Peter Gumplinger (op-V04-01-01)
+                Fix calculation of polarization on dielectric dielectric
+                interfaces; bug report #427
+28th March 2002 Peter Gumplinger (op-V04-00-01)
+                Add public inline method GetStatus and make enum 
+                G4OpBoundaryProcessStatus public in G4OpBoundaryProcess.hh
+18th October 2001 Peter Gumplinger (op-V03-02-01)
+              Avoid warnings on Linux (gcc-2.95.2) compiler
+- G4OpRayleigh.cc: remove unused variable 'aMaterial' in PostStepDoIt and
+                   'no_unit' in RayleighAttenuationLengthGenerator
+- G4OpBoundaryProcess.cc: moved definition of E2_perp, E2_parl, E2_total
+                          outside IF-statement
+31st August 2001 Peter Gumplinger (op-V03-02-00)
+- G4OpRayleigh.hh, G4OpBoundary.hh and G4OpAbsorption.hh: changed processName
+                   to 'OpRayleigh', 'OpBoundary' and 'OpAbsorption' respectively
+
+30th January 2001 Peter Gumplinger (op-V03-00-05)
+- G4OpRayleigh.cc: allow for positiv and negative CosTheta and force the
+                   new momentum direction to be in the same plane as the
+                   new and old polarization vectors
+                   still bug report: 207
+
+29th January 2001 Peter Gumplinger (op-V03-00-04)
+- G4OpRayleigh.cc: fix calculation of SinTheta from CosTheta
+                   bug report: 207
+
+23rd January 2001 Peter Gumplinger (op-V03-00-02)
+- G4OpRayleigh.cc: Allow for Rayleigh scattering length to be defined for 
+           arbitrary material through the use of G4MaterialPropertyTable.
+
+5th October 2000  Peter Gumplinger (op-V02-00-02)
+- G4OpAbsorption.cc: Comment out warning - No Absorption length specified.
+
+3rd August 2000  Gabriele Cosmo (op-V02-00-00r)
+- G4OpBoundaryProcess.cc: changed RandGauss to G4RandGauss to fix problem
+  of events' reproducibility.
+- Syncronized with HEAD (only CVS headers changes).
+
+21th October 1999  Peter Gumplinger (op-V00-01-01)
+- G4OpBoundaryProcess.hh and G4OpBoundaryProcess.cc have been modified
+  (Fill NewMomentum/NewPolarization in DoAbsorption. These members need
+  to be filled since DoIt calls aParticleChange.SetMomentumChange etc.
+  upon return (thanks to: Clark McGrew)

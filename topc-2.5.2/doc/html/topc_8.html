@@ -1,0 +1,862 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<!-- Created on October, 6  2004 by texi2html 1.65 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>TOP-C (Task Oriented Parallel C/C++): Advanced Features</TITLE>
+
+<META NAME="description" CONTENT="TOP-C (Task Oriented Parallel C/C++): Advanced Features">
+<META NAME="keywords" CONTENT="TOP-C (Task Oriented Parallel C/C++): Advanced Features">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.65">
+
+</HEAD>
+
+<BODY LANG="en" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC39"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_7.html#SEC38"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_8.html#SEC40"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_7.html#SEC34"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc.html#SEC_Top"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_9.html#SEC54"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_14.html#SEC62">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H1> 8. Advanced Features of `<SAMP>TOP-C</SAMP>' </H1>
+<!--docid::SEC39::-->
+<P>
+
+It is best to postpone reading this section until the basic features
+discussed in the previous chapters are clear.
+</P><P>
+
+<BLOCKQUOTE><TABLE BORDER=0 CELLSPACING=0> 
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="topc_8.html#SEC40">8.1 Testing for Task Continuations and Redos</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="topc_8.html#SEC41">8.2 Aborting Tasks</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="topc_8.html#SEC42">8.3 Memory Allocation for Task Buffers</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="topc_8.html#SEC47">8.4 Optimizing TOP-C Code for the Shared Memory Model</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="topc_8.html#SEC52">8.5 Modifying TOP-C Code for the Sequential Memory Model</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="topc_8.html#SEC53">8.6 Caveats</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+</TABLE></BLOCKQUOTE>
+<P>
+
+<A NAME="Testing for Task Continuations"></A>
+<HR SIZE="6">
+<A NAME="SEC40"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_8.html#SEC39"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_8.html#SEC41"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_8.html#SEC39"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_8.html#SEC39"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_9.html#SEC54"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_14.html#SEC62">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 8.1 Testing for Task Continuations and Redos </H2>
+<!--docid::SEC40::-->
+<P>
+
+<A NAME="IDX104"></A>
+<A NAME="IDX105"></A>
+<A NAME="IDX106"></A>
+</P><P>
+
+<A NAME="IDX107"></A>
+<DL>
+<DT><U>Function:</U> TOPC_BOOL <B>TOPC_is_REDO</B> <I>( void )</I>
+<DD><A NAME="IDX108"></A>
+<DT><U>Function:</U> TOPC_BOOL <B>TOPC_is_CONTINUATION</B> <I>( void )</I>
+<DD>    These return 0 (false) or 1 (true), according to whether the current
+    call to <CODE>DoTask()</CODE> was a result of a <CODE>REDO</CODE>
+    or <CODE>CONTINUATION()</CODE> action, respectively.  The result is
+    is not meaningful if called outside of <CODE>DoTask()</CODE>.
+</DL>
+</P><P>
+
+<A NAME="Aborting Tasks"></A>
+<HR SIZE="6">
+<A NAME="SEC41"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_8.html#SEC40"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_8.html#SEC42"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_8.html#SEC39"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_8.html#SEC39"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_9.html#SEC54"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_14.html#SEC62">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 8.2 Aborting Tasks </H2>
+<!--docid::SEC41::-->
+<P>
+
+<A NAME="IDX109"></A>
+</P><P>
+
+<A NAME="IDX110"></A>
+<DL>
+<DT><U>Function:</U> void <B>TOPC_abort_tasks</B> <I>( void )</I>
+<DD><A NAME="IDX111"></A>
+<DT><U>Function:</U> TOPC_BOOL <B>TOPC_is_abort_pending</B> <I>( void )</I>
+<DD>    <CODE>TOPC_abort_tasks()</CODE> should be called in <CODE>CheckTaskResult()</CODE>.
+    `<SAMP>TOP-C</SAMP>' then makes a best effort (no guarantee) to notify each
+    slave.  TOP-C does not directly abort tasks.  However,
+    <CODE>TOPC_is_abort_pending()</CODE> returns 1 (true)
+    when invoked in <CODE>DoTask()</CODE> on a slave.  A typical
+    <CODE>DoTask()</CODE> callback uses this to poll for an abort request
+    from the master, upon which it returns early with a special
+    task output.  At the beginning of the next new task, <CODE>REDO</CODE>
+    or <CODE>CONTINUATION</CODE>, `<SAMP>TOP-C</SAMP>' resets the pending abort
+    to 0 (false).  See `<TT>examples/README</TT>' of the `<SAMP>TOP-C</SAMP>'
+    distribution for example code.
+</DL>
+</P><P>
+
+<A NAME="Allocation of Task Buffers"></A>
+<HR SIZE="6">
+<A NAME="SEC42"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_8.html#SEC41"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_8.html#SEC43"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_8.html#SEC39"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_8.html#SEC39"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_8.html#SEC47"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_14.html#SEC62">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 8.3 Memory Allocation for Task Buffers </H2>
+<!--docid::SEC42::-->
+<P>
+
+The principle of memory allocation in `<SAMP>TOP-C</SAMP>' is that if an
+application allocates memory, then it is the responsibility of the
+application to free that memory.  This issue typically arises around the
+issue of task buffers (see section <A HREF="topc_3.html#SEC7">3.1.3 Task Input and Task Output Buffers</A>) and calls
+to <CODE>TOPC_MSG(<VAR>buf</VAR>,<VAR>buf_size</VAR>)</CODE>.  An application
+often calls <CODE><VAR>buf</VAR> = malloc(...);</CODE> or
+<CODE><VAR>buf</VAR> = new ...;</CODE> (in C++)
+and copies data into that buffer before the call to <CODE>TOPC_MSG</CODE>.
+Since the last action of <CODE>GenerateTaskInput()</CODE> or <CODE>DoTask()</CODE>
+is typically to return <CODE>TOPC_MSG(<VAR>buf</VAR>,<VAR>buf_size</VAR>)</CODE>,
+there remains the question of how to free <VAR>buf</VAR>.
+</P><P>
+
+<BLOCKQUOTE><TABLE BORDER=0 CELLSPACING=0> 
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="topc_8.html#SEC43">8.3.1 Avoiding <CODE>malloc</CODE> and <CODE>new</CODE> with Task Buffers</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="topc_8.html#SEC44">8.3.2 Using <CODE>TOPC_MSG_PTR()</CODE> to Avoid Copying Large Buffers</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="topc_8.html#SEC45">8.3.3 Allocation and Freeing of Task Buffers for <CODE>TOPC_MSG_PTR()</CODE></A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="topc_8.html#SEC46">8.3.4 Marshaling Complex Data Structures into `<SAMP>TOP-C</SAMP>' Task Buffers</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+</TABLE></BLOCKQUOTE>
+<P>
+
+<A NAME="Avoiding malloc"></A>
+<HR SIZE="6">
+<A NAME="SEC43"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_8.html#SEC42"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_8.html#SEC44"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_8.html#SEC41"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_8.html#SEC42"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_8.html#SEC47"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_14.html#SEC62">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 8.3.1 Avoiding <CODE>malloc</CODE> and <CODE>new</CODE> with Task Buffers </H3>
+<!--docid::SEC43::-->
+<P>
+
+The best memory allocation solution for task buffers is to implement the
+buffers as local variables, and therefore on the stack.  This avoids the
+need for <CODE>malloc</CODE> and <CODE>new</CODE>, and the question of how to later
+free that memory.
+If you use <CODE>TOPC_MSG</CODE> (as opposed to <CODE>TOPC_MSG_PTR</CODE>, 
+see section <A HREF="topc_8.html#SEC44">8.3.2 Using <CODE>TOPC_MSG_PTR()</CODE> to Avoid Copying Large Buffers</A>), then recall that <CODE>TOPC_MSG</CODE>
+copies its buffer to a separate <CODE>TOP-C</CODE> space.  For example,
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>{ int x;
+   ...
+  return TOPC_MSG(&#38;x, size_of(x));
+}
+</pre></td></tr></table></P><P>
+
+<A NAME="IDX112"></A>
+<A NAME="IDX113"></A>
+</P><P>
+
+If your task buffer is of fixed size, one can allocate it as a character
+array on the stack:  <CODE>char buf[BUF_SIZE];</CODE>.
+If your buffer contains variable size data, consider using
+<CODE>alloca</CODE> in place of <CODE>malloc</CODE> to allocate on the
+stack.
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>{ ...
+  buf = alloca(buf_size);
+  return TOPC_MSG(buf, buf_size);
+}
+</pre></td></tr></table></P><P>
+
+In all of the above cases, there is no need to free the buffer, since
+<CODE>TOPC_MSG</CODE> will make a `<SAMP>TOP-C</SAMP>'-private copy and the
+stack-allocated buffer will disappear when the current routine exits.
+Note that <CODE>alloca</CODE> may be unavailable on your system.
+Alternatively, the use of <CODE>alloca</CODE> may be undesirable due to very
+large buffers and O/S limits on stack size.  In such cases, consider the
+following alternative.
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>{ TOPC_BUF tmp;
+  ...
+  buf = malloc(buf_size);
+  tmp = TOPC_MSG(buf, buf_size);
+  free(buf);
+  return tmp;
+}
+</pre></td></tr></table></P><P>
+
+<A NAME="Large Buffers and TOPC_MSG_PTR"></A>
+<HR SIZE="6">
+<A NAME="SEC44"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_8.html#SEC43"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_8.html#SEC45"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_8.html#SEC41"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_8.html#SEC42"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_8.html#SEC47"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_14.html#SEC62">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 8.3.2 Using <CODE>TOPC_MSG_PTR()</CODE> to Avoid Copying Large Buffers </H3>
+<!--docid::SEC44::-->
+<P>
+
+<A NAME="IDX114"></A>
+<A NAME="IDX115"></A>
+</P><P>
+
+If the cost of copying a large buffer is a concern, `<SAMP>TOP-C</SAMP>' provides
+an alternative function, which avoids copying into `<SAMP>TOP-C</SAMP>' space.
+</P><P>
+
+<A NAME="IDX116"></A>
+<DL>
+<DT><U>Function:</U> TOPC_BUF <B>TOPC_MSG_PTR</B> <I>( void *<VAR>buf</VAR>, int <VAR>buf_size</VAR> )</I>
+<DD>	Same as <CODE>TOPC_MSG()</CODE>, except that it does not copy
+	<VAR>buf</VAR> into `<SAMP>TOP-C</SAMP>' space.  It is the responsibility
+	of the application not to free or modify <VAR>buf</VAR> as long
+	as `<SAMP>TOP-C</SAMP>' might potentially pass it to an
+	application callback function.
+</DL>
+</P><P>
+
+<CODE>TOPC_MSG_PTR()</CODE> is inherently dangerous, if the application
+modifies or frees a buffer and `<SAMP>TOP-C</SAMP>' later passes that buffer
+to a callback function.  It may be useful when the cost of copying
+large buffers is an issue, or if one is concerned about `<SAMP>TOP-C</SAMP>'
+making a call to <CODE>malloc()</CODE>.  Note that the invocation
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>  ./a.out --TOPC-safety=4
+</pre></td></tr></table>automatically converts all calls to <CODE>TOPC_MSG_PTR()</CODE> into
+calls to <CODE>TOPC_MSG()</CODE>.  This is useful in deciding
+if a bug is related to the use of <CODE>TOPC_MSG_PTR()</CODE>.
+</P><P>
+
+An application should not pass a buffer on the stack to <CODE>TOPC_MSG_PTR()</CODE>.
+This can be avoided either by declaring a local variable to be
+`<SAMP>static</SAMP>', or else using a global variable (or a class member
+in the case of C++).  In such cases, it is the responsibility of the
+application to dynamically create and free buffers.
+An example of how this can be done follows in the next section.
+</P><P>
+
+Note that if the application code must also be compatible with the
+shared memory model, then the static local variable or global variable
+must also be <EM>thread-private</EM>
+(<A HREF="topc_8.html#SEC49">8.4.2 Thread-Private Global Variables</A>).
+</P><P>
+
+For examples of coding with <CODE>TOPC_MSG_PTR()</CODE> that are compatible
+with all memory models, including the shared memory model,
+see `<TT>examples/README</TT>' and the corresponding examples
+in the `<SAMP>TOP-C</SAMP>' distribution.
+</P><P>
+
+<A NAME="Allocation for TOPC_MSG_PTR"></A>
+<HR SIZE="6">
+<A NAME="SEC45"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_8.html#SEC44"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_8.html#SEC46"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_8.html#SEC41"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_8.html#SEC42"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_8.html#SEC47"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_14.html#SEC62">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 8.3.3 Allocation and Freeing of Task Buffers for <CODE>TOPC_MSG_PTR()</CODE> </H3>
+<!--docid::SEC45::-->
+<P>
+
+Recall the syntax for creating a message buffer of type <CODE>TOPC_BUF</CODE>
+using
+<CODE>TOPC_MSG_PTR(<VAR>buf</VAR>, <VAR>buf_size</VAR>)</CODE>.  The two callback functions
+<CODE>GenerateTaskInput()</CODE> and <CODE>DoTask()</CODE> both return such a
+message buffer.  In the case of
+<CODE>GenerateTaskInput()</CODE>, `<SAMP>TOP-C</SAMP>' saves a copy of the buffer,
+which becomes an input argument to <CODE>CheckTaskResult()</CODE>
+and to <CODE>UpdateSharedData</CODE> on the master.
+Hence, if <VAR>buf</VAR> points to a temporarily allocated buffer,
+it is the responsibility of the `<SAMP>TOP-C</SAMP>' callback function to free the
+buffer only <EM>after</EM> the callback function has returned.
+This seeming contradiction can be easily handled by the following code.
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>    TOPC_BUF GenerateTaskInput() {
+      static void *buf = NULL;
+      if ( buf == NULL ) { malloc(buf_size); }
+      ... [ Add new message data to buf ] ...
+      return TOPC_MSG_PTR(buf, buf_size);
+    }
+</pre></td></tr></table>If <CODE>buf_size</CODE> might vary dynamically between calls, the following
+fragment solves the same problem.
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>    TOPC_BUF GenerateTaskInput() {
+      static void *buf = NULL;
+      if ( buf != NULL ) { free(buf); }
+      ... [ Compute buf_size for new message ] ...
+      buf = malloc( buf_size );
+      ... [ Add new message data to buf ] ...
+      return TOPC_MSG_PTR(buf, buf_size);
+    }
+</pre></td></tr></table></P><P>
+
+Note that <CODE>buf</CODE>&nbsp;is allocated as a <EM>static</EM> local
+variable.  `<SAMP>TOP-C</SAMP>' restricts the <VAR>buf</VAR> of 
+<CODE>TOPC_MSG_PTR(<VAR>buf</VAR>, <VAR>buf_size</VAR>)</CODE> to point to a buffer that is in
+the heap (not on the stack).  Hence, <VAR>buf</VAR> must <EM>not</EM> point to
+non-static local data.
+</P><P>
+
+<A NAME="Marshaling Complex Data Structures"></A>
+<HR SIZE="6">
+<A NAME="SEC46"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_8.html#SEC45"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_8.html#SEC47"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_8.html#SEC41"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_8.html#SEC42"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_8.html#SEC47"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_14.html#SEC62">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 8.3.4 Marshaling Complex Data Structures into `<SAMP>TOP-C</SAMP>' Task Buffers </H3>
+<!--docid::SEC46::-->
+<P>
+
+If you use a distributed memory model and the buffer pointed to by
+<CODE>input</CODE> includes fields with their own pointers, the application
+must first follow all pointers and copy into a new buffer all data
+referenced directly or indirectly by <CODE>input</CODE>.  The new buffer can
+then be passed to <CODE>TOPC_MSG()</CODE>.  This copying process is called
+<EM>marshaling</EM>.  See section <A HREF="topc_3.html#SEC7">Marshaling and Heterogeneous Architectures</A>.
+</P><P>
+
+If following all pointers is a burden, then one can
+load the application on the master and slaves at a common absolute
+address, and insure that all pointer references have been initialized
+before the first call to <CODE>TOPC_master_slave()</CODE>.  In `<SAMP>gcc</SAMP>',
+one specifies an absolute load address with code such as:
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>  gcc -Wl,-Tdata -Wl,-T<VAR>hex_addr</VAR> ...
+</pre></td></tr></table>These flags are for the data segment.  If the pointers indirectly
+reference
+data on the stack, you may have to similarly specify stack absolute addresses.
+Choosing a good <VAR>hex_addr</VAR> for all machines may be a matter of trial
+and error.  In a test run, print out the absolute addresses of some
+pointer variables near the beginning of your data memory.
+</P><P>
+
+Specifying an absolute load address has many risks, such as if
+the master and slaves use different versions of the operating system,
+the compiler, other software, or different hardware configurations.
+Hence, this technique is recommended only as a last resort.
+</P><P>
+
+<A NAME="Shared Memory Model"></A>
+<HR SIZE="6">
+<A NAME="SEC47"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_8.html#SEC46"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_8.html#SEC48"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_8.html#SEC42"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_8.html#SEC39"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_8.html#SEC52"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_14.html#SEC62">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 8.4 Optimizing TOP-C Code for the Shared Memory Model </H2>
+<!--docid::SEC47::-->
+<P>
+
+<A NAME="IDX117"></A>
+<A NAME="IDX118"></A>
+</P><P>
+
+      The `<SAMP>TOP-C</SAMP>' programmer's model changes slightly for shared
+memory.  With careful design, one can use the same application source
+code both for distributed memory and shared memory architectures.
+Processes are replaced by threads.  <CODE>UpdateSharedData()</CODE> is
+executed only by the master thread, and not by any slave thread.  As
+with distributed memory, <CODE>TOPC_MSG()</CODE> buffers are copied to
+`<SAMP>TOP-C</SAMP>' space (shallow copy).  As usual, the application is responsible
+for freeing any application buffers outside of `<SAMP>TOP-C</SAMP>' space.
+Furthermore, since the master and slaves share memory, `<SAMP>TOP-C</SAMP>'
+creates the slaves only during the first call to master_slave.  If a
+slave needs to initialize any private data (see
+<CODE>TOPC_thread_private</CODE>, below), then this can be done by the slave
+the first time that it gains control through <CODE>DoTask()</CODE>.
+</P><P>
+
+Two issues arise in porting a distributed memory
+`<SAMP>TOP-C</SAMP>' application to shared memory.
+<OL>
+<LI>
+  reader-write synchronization:  <CODE>DoTask()</CODE> must not read
+  shared data while <CODE>UpdateSharedData()</CODE> (on the master)
+  simultaneously writes to the shared data.
+<LI>
+  creating thread-private (unshared) global variables:
+</OL>
+<P>
+
+Most `<SAMP>TOP-C</SAMP>' applications for the distributed memory model will run
+unchanged in the shared memory model.  In some cases, one must add
+additional `<SAMP>TOP-C</SAMP>' code to handle these additional issues.  In all
+cases, one can easily retain compatibility with the distributed memory model.
+</P><P>
+
+<BLOCKQUOTE><TABLE BORDER=0 CELLSPACING=0> 
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="topc_8.html#SEC48">8.4.1 Reader-Writer Synchronization</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="topc_8.html#SEC49">8.4.2 Thread-Private Global Variables</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="topc_8.html#SEC50">8.4.3 Sharing Variables between Master and Slave and Volatile Variables</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="topc_8.html#SEC51">8.4.4 SMP Performance</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+</TABLE></BLOCKQUOTE>
+<P>
+
+<A NAME="Reader-Writer Synchronization"></A>
+<HR SIZE="6">
+<A NAME="SEC48"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_8.html#SEC47"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_8.html#SEC49"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_8.html#SEC42"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_8.html#SEC47"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_8.html#SEC52"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_14.html#SEC62">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 8.4.1 Reader-Writer Synchronization </H3>
+<!--docid::SEC48::-->
+<P>
+
+<A NAME="IDX119"></A>
+<A NAME="IDX120"></A>
+<A NAME="IDX121"></A>
+<A NAME="IDX122"></A>
+</P><P>
+
+In shared memory, `<SAMP>TOP-C</SAMP>' uses a classical single-writer,
+multiple-reader strategy with writer-preferred for lock requests.
+By default, <CODE>DoTask()</CODE> acts as the critical section of the
+readers (the slave threads) and <CODE>UpdateSharedData()</CODE> acts as the
+critical section of the writer (the master thread).
+`<SAMP>TOP-C</SAMP>' sets a read lock around all of DoTask() and a write
+lock around all of UpdateSharedData().
+</P><P>
+
+As always in the `<SAMP>TOP-C</SAMP>' model,
+it is an error if an application writes to shared data outside
+of <CODE>UpdateSharedData()</CODE>.  Note that <CODE>GenerateTaskInput()</CODE>
+and <CODE>CheckTaskResult()</CODE> can safely read the shared data without
+a lock in this case, since these routines and <CODE>UpdateSharedData()</CODE>
+are all invoked only by the master thread.
+</P><P>
+
+The default behavior implies that <CODE>DoTask()</CODE> and
+<CODE>UpdateSharedData()</CODE> never run simultaneously.  Optionally, one
+can achieve greater concurrency through a finer level of granularity
+by declaring to `<SAMP>TOP-C</SAMP>' which sections of code read or write
+shared data.  If `<SAMP>TOP-C</SAMP>' detects any call to <CODE>TOPC_ATOMIC_READ(0)</CODE>,
+`<SAMP>TOP-C</SAMP>' will follow the critical sections declared by the
+application inside of <CODE>DoTask()</CODE> and <CODE>UpdateSharedData()</CODE>.
+</P><P>
+
+<A NAME="IDX123"></A>
+<DL>
+<DT><U>Function:</U> void <B>TOPC_ATOMIC_READ</B> <I>( 0 ) { <VAR>... C code ...</VAR> }</I>
+<DD><A NAME="IDX124"></A>
+<DT><U>Function:</U> void <B>TOPC_ATOMIC_WRITE</B> <I>( 0 ) { <VAR>... C code ...</VAR> }</I>
+<DD>  This sets a global read or write lock in effect during the time
+  that <VAR>C code</VAR> is being executed.  If a thread holds a write lock,
+  no thread may hold a read lock.  If no thread holds a write lock,
+  arbitrarily many threads hold a read lock.  If a thread requests
+  a write lock, no additional read locks will be granted until after the
+  write lock has been granted.  See `<TT>examples/README</TT>' of the
+  `<SAMP>TOP-C</SAMP>' distribution for example code.
+</DL>
+</P><P>
+
+It is not useful to use <CODE>TOPC_ATOMIC_READ()</CODE> outside of <CODE>DoTask()</CODE>
+not to use <CODE>TOPC_ATOMIC_WRITE()</CODE> outside of <CODE>UpdateSharedData()</CODE>.
+</P><P>
+
+The number 0 refers to page 0 of shared data.  `<SAMP>TOP-C</SAMP>' currently
+supports only a single common page of shared data, but future versions
+will support multiple pages.  In the future, two threads will be able to
+simultaneously hold write locks if they are for different pages.
+</P><P>
+
+The following alternatives to <CODE>TOPC_ATOMIC_READ()</CODE>
+and <CODE>TOPC_ATOMIC_WRITE()</CODE> are provided for greater flexibility.
+</P><P>
+
+<A NAME="IDX125"></A>
+<DL>
+<DT><U>Function:</U> void <B>TOPC_BEGIN_ATOMIC_READ</B> <I>( 0 )</I>
+<DD><A NAME="IDX126"></A>
+<DT><U>Function:</U> void <B>TOPC_END_ATOMIC_READ</B> <I>( 0 )</I>
+<DD><A NAME="IDX127"></A>
+<DT><U>Function:</U> void <B>TOPC_BEGIN_ATOMIC_WRITE</B> <I>( 0 )</I>
+<DD><A NAME="IDX128"></A>
+<DT><U>Function:</U> void <B>TOPC_END_ATOMIC_WRITE</B> <I>( 0 )</I>
+<DD>  The usage is the same as for <CODE>TOPC_ATOMIC_READ</CODE>
+and <CODE>TOPC_ATOMIC_WRITE</CODE>.
+</DL>
+</P><P>
+
+In the distributed memory model of `<SAMP>TOP-C</SAMP>', all of the
+above invocations for atomic reading and writing are ignored,
+thus retaining full compatibility between the shared and
+distributed memory models.
+</P><P>
+
+<A NAME="Thread-Private Global Variables"></A>
+<HR SIZE="6">
+<A NAME="SEC49"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_8.html#SEC48"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_8.html#SEC50"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_8.html#SEC42"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_8.html#SEC47"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_8.html#SEC52"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_14.html#SEC62">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 8.4.2 Thread-Private Global Variables </H3>
+<!--docid::SEC49::-->
+<P>
+
+<A NAME="IDX129"></A>
+<A NAME="IDX130"></A>
+<A NAME="IDX131"></A>
+<A NAME="IDX132"></A>
+</P><P>
+
+A <EM>thread-private</EM> variable is a variable whose data is not
+shared among threads: i.e., each thread has a private copy of
+the variable.
+The only variables that are thread-private by default in
+shared memory are those on the stack (non-static, local variables).  All
+other variables exist as a single copy, shared by all threads.
+This is inherent in the POSIX standard for threads in C/C++.
+If <CODE>DoTask()</CODE> accesses any global variables or local static variables,
+then those variables must be made thread-private.
+</P><P>
+
+Ideally, if C allowed it, we would just write something like:
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>  THREAD_PRIVATE int myvar = 0;  /* NOT SUPPORTED */
+</pre></td></tr></table>Instead, `<SAMP>TOP-C</SAMP>' achieves the same effect `<SAMP>as if</SAMP>' it had
+declared
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>  TOPC_thread_private_t TOPC_thread_private;
+</pre></td></tr></table>This allows the application writer to include in his or her code:
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>  typedef int TOPC_thread_private_t;
+  #define myvar TOPC_thread_private;
+  int myvar_debug() {return myvar;} /* needed to access myvar in gdb */
+</pre></td></tr></table></P><P>
+
+`<SAMP>TOP-C</SAMP>' provides primitives to declare a single thread-private
+global variable.  `<SAMP>TOP-C</SAMP>' allows
+the application programmer to declare the type of that variable.
+<A NAME="IDX133"></A>
+<DL>
+<DT><U>Variable:</U> <B>TOPC_thread_private</B>
+<DD>        A pre-defined thread-private variable of type,
+        <CODE>TOPC_thread_private_t</CODE>.  It may be
+        used like any C variable, and each thread has its own private
+        copy that will <EM>not</EM> be shared.
+</DL>
+<A NAME="IDX134"></A>
+<DL>
+<DT><U>Type:</U> <B>TOPC_thread_private_t</B>
+<DD>        Initially, undefined.  User must define this type using <CODE>typedef</CODE>
+        if <CODE>TOPC_thread_private</CODE> is used.
+</DL>
+</P><P>
+
+If more than one thread-private variable is desired, define
+<CODE>TOPC_thread_private_t</CODE> as a <VAR>struct</VAR>, and use each
+field as a separate thread-private variable.
+</P><P>
+
+EXAMPLE:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>/* Ideally, if C allowed it, we would just write:
+ *      THREAD_PRIVATE struct {int my_rank; int rnd;} mystruct;
+ * We emulate this using TOP-C's implicitly declared thread-private var:
+ *      TOPC_thread_private_t TOPC_thread_private;
+ */
+typedef struct {int my_rank; int rnd;} TOPC_thread_private_t;
+#define mystruct TOPC_thread_private
+void set_info() {
+  mystruct.my_rank = TOPC_rank();
+  mystruct.rnd = rand();
+}
+void get_info() {
+foo();
+  if (mystruct.my_rank != TOPC_rank()) printf("ERROR\n");
+  printf("Slave %d random num:  %d\n", mystruct.my_rank, mystruct.rnd);
+}
+TOPC_BUF do_Task() {
+  set_info(); /* info in mystruct is NOT shared among threads */
+  get_info();
+  ...;
+}
+</pre></td></tr></table></P><P>
+
+Additional examples can be found by reading
+`<TT>examples/README</TT>' in the `<SAMP>TOP-C</SAMP>' distribution.
+</P><P>
+
+<A NAME="Volatile Variables"></A>
+<HR SIZE="6">
+<A NAME="SEC50"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_8.html#SEC49"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_8.html#SEC51"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_8.html#SEC42"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_8.html#SEC47"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_8.html#SEC52"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_14.html#SEC62">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 8.4.3 Sharing Variables between Master and Slave and Volatile Variables </H3>
+<!--docid::SEC50::-->
+<P>
+
+<A NAME="IDX135"></A>
+</P><P>
+
+The shared memory model, like any `<SAMP>SMP</SAMP>' code,
+allows the master and slaves to
+communicate through global variables, which are shared by default.
+It is recommended not to use this feature, and instead to maintain
+communication through <CODE>TOPC_MSG()</CODE>, for ease of code maintenance,
+and to maintain portability with the other `<SAMP>TOP-C</SAMP>' models
+(distributed memory and sequential).  If you do use your own global shared
+variables between master and slaves, be sure to declare them <CODE>volatile</CODE>.
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>  volatile int myvar;
+</pre></td></tr></table>ANSI C requires this qualifier if a variable
+may be accessed or modified by more than one thread.
+Without this qualifier, your program may not run correctly.
+</P><P>
+
+To be more precise, if a non-local variable is accessed more than once
+in a procedure, the compiler is allowed to keep the first access value
+in a thread register and reuse it at later occurrences, without consulting
+the shared memory.  A volatile declaration tells the compiler to re-read
+the value from shared memory at each occurrence.  Similarly, a write to
+a volatile variable causes the corresponding transfer of its value from
+a register to shared memory to occur at a time not much later than the
+execution of the write instruction.
+</P><P>
+
+If you suspect a missing volatile declaration, note that `<SAMP>gcc</SAMP>'
+support the following command-line options.
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>  gcc -fvolatile -fvolatile-global ...
+  # If topcc uses gcc:
+  topcc --pthread -fvolatile -fvolatile-global myfile.c
+</pre></td></tr></table>The option <CODE>-fvolatile</CODE> tells `<SAMP>gcc</SAMP>' to compile all memory
+references through pointers as volatile, and the option
+<CODE>-fvolatile-global</CODE> tells `<SAMP>gcc</SAMP>' to compile all memory
+references to extern and global data as volatile.
+However, note that this implies a performance penalty
+since the compiler will issue
+a load/store instruction for each volatile access, and
+will <EM>not</EM> keep volatile values in registers.
+</P><P>
+
+<A NAME="SMP Performance"></A>
+<HR SIZE="6">
+<A NAME="SEC51"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_8.html#SEC50"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_8.html#SEC52"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_8.html#SEC42"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_8.html#SEC47"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_8.html#SEC52"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_14.html#SEC62">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 8.4.4 SMP Performance </H3>
+<!--docid::SEC51::-->
+<P>
+
+Note that `<SAMP>SMP</SAMP>' involves certain performance issues that do not arise
+in other modes.  If you find a lack of performance, please read
+<A HREF="topc_7.html#SEC37">7.3 Improving Performance</A>.  Also, note that the vendor-supplied
+compiler, <CODE>cc</CODE>, is often recommended over <CODE>gcc</CODE> for
+`<SAMP>SMP</SAMP>', due to specialized vendor-specific architectural issues.
+</P><P>
+
+<A NAME="Sequential Memory Model"></A>
+<HR SIZE="6">
+<A NAME="SEC52"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_8.html#SEC51"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_8.html#SEC53"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_8.html#SEC47"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_8.html#SEC39"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_9.html#SEC54"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_14.html#SEC62">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 8.5 Modifying TOP-C Code for the Sequential Memory Model </H2>
+<!--docid::SEC52::-->
+<P>
+
+<A NAME="IDX136"></A>
+<A NAME="IDX137"></A>
+</P><P>
+
+`<SAMP>TOP-C</SAMP>' also provides a sequential memory model.  That model is
+useful for first debugging an application in a sequential context, and
+then re-compiling it with one of the parallel `<SAMP>TOP-C</SAMP>' libraries for
+production use.  The application code for the sequential library is
+usually both source and object compatible with the application code for
+a parallel library.  The sequential library emulates an application with
+a single `<SAMP>TOP-C</SAMP>' library.
+</P><P>
+
+The sequential memory model emulates an application in which
+`<SAMP>DoTask()</SAMP>' is executed in the context of the single slave
+process/thread, and all other code is executed in the context of the
+master process/thread.  This affects the values returned by
+<CODE>TOPC_is_master()</CODE> and <CODE>TOPC_rank()</CODE>.  In particular,
+conditional code for execution on the master will work
+correctly in the sequential memory model, but the following conditional
+code for execution on the slave will probably <EM>not</EM> work correctly.
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>int main( int argc, char *argv[] ) {
+  TOPC_init( &#38;argc, &#38;argv );
+  if ( TOPC_is_master() )
+    ...;  /* is executed in sequential model */
+  else
+    ...;  /* is <EM>never</EM> executed in sequential model */
+  TOPC_master_slave( ..., ..., ..., ...);
+  TOPC_finalize();
+}
+</pre></td></tr></table></P><P>
+
+<A NAME="Caveats"></A>
+<HR SIZE="6">
+<A NAME="SEC53"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_8.html#SEC52"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_9.html#SEC54"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_8.html#SEC39"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_8.html#SEC39"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_9.html#SEC54"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_14.html#SEC62">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 8.6 Caveats </H2>
+<!--docid::SEC53::-->
+IMPORTANT:
+`<SAMP>TOP-C</SAMP>' sets <CODE>alarm()</CODE> before waiting to receive
+  message from master.  By default, if the master does not reply in a
+  half hour (1800 seconds), then the slave receives
+  <CODE>SIGALRM</CODE> and dies.
+  This is to prevent runaway processes in dist. memory version when master dies
+  without killing all slaves.  <A HREF="topc_7.html#SEC38">7.4 Long Jobs and Courtesy to Others</A>,
+  in order to change this default.
+  If your applications also uses <CODE>SIGALRM</CODE>, then run your
+  application with <CODE>--TOPC-slave-timeout=0</CODE> and `<SAMP>TOP-C</SAMP>'
+  will not use <CODE>SIGALRM</CODE>.
+<P>
+
+<CODE>GenerateTaskInput()</CODE> and <CODE>DoTask()</CODE>
+  This memory is managed by `<SAMP>TOP-C</SAMP>'.
+</P><P>
+
+The slave process attempts to set current directory to the same as the master
+  inside <CODE>TOPC_init()</CODE> and produces a warning if unsuccessful.
+</P><P>
+
+When a task buffer is copied into `<SAMP>TOP-C</SAMP>' space,
+it becomes word-aligned.  If the buffer was originally not
+word-aligned, but some field in the buffer was word-aligned,
+the internal field will no longer be word-aligned.  On some
+architectures, casting a non-word-aligned field to `<SAMP>int</SAMP>'
+or certain other types will cause a bus error.
+</P><P>
+
+<A NAME="TOP-C Raw Interface"></A>
+<HR SIZE="6">
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_8.html#SEC39"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_9.html#SEC54"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_14.html#SEC62">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="topc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+by <I>Gene Cooperman</I> on <I>October, 6  2004</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+</FONT>
+
+</BODY>
+</HTML>

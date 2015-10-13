@@ -1,0 +1,52 @@
+-------------------------------------------------------------------
+
+     ==========================================================
+     Geant4 - an Object-Oriented Toolkit for Physics Simulation
+     ==========================================================
+
+      History file for the Electromagnetic Dissociation model
+      -------------------------------------------------------
+
+This file should be used to summarize modifications introduced in the 
+code and to keep track of all tags.
+
+   ---------------------------------------------------------------
+   * Please list in reverse chronological order (last date on top)
+   ---------------------------------------------------------------
+
+08 October 2014 - Alberto Ribon  (hadr-emd-V10-00-01)
+-----------------------------------------------------
+- G4EMDissociation.cc : replaced  G4ParticleTable::GetIon()  with
+                        G4IonTable::GetIon() .
+
+05 March 2014 - Alberto Ribon  (hadr-emd-V10-00-00)
+--------------------------------------------------
+- Removed useless const_cast<G4ParticleDefinition*> .
+
+20 June 2013 - Dennis Wright  (hadr-emd-V09-06-00)
+--------------------------------------------------
+- fix memory leak of products from G4ExcitationHandler
+
+14 November 2012 - Dennis Wright (hadr-emd-V09-05-03)
+-----------------------------------------------------
+- G4EMDissociation.hh : add protoype for copy ctor
+
+ 4 October 2012 - Dennis Wright (hadr-emd-V09-05-02)
+----------------------------------------------------
+- implemented user-reported bug fix (#1339) of double deletion of cross section
+  in dtor of G4EMDissociation
+
+25 Sep 2012 - Gabriele Cosmo (hadr-emd-V09-05-01)
+-------------------------------------------------
+- Explicitly use inclusion of headers for system of units and physical
+  constants, in plan to remove implicit inclusion from globals.hh.
+
+12 Jun 2012 - Dennis Wright (hadr-emd-V09-05-00)
+------------------------------------------------
+- Replaced shadowed variable m2 in G4EMDissociation.cc.
+
+27 Sep 2011 - Dennis Wright (hadr-emd-V09-04-00)
+------------------------------------------------
+- Migrated to integer Z and A.
+  Files affected: G4EMDissociation.cc.
+

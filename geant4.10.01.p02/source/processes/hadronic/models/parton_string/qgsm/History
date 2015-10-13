@@ -1,0 +1,136 @@
+$Id: History 69570 2013-05-08 13:23:39Z gcosmo $
+-------------------------------------------------------------------
+
+       ==========================================================
+       Geant4 - an Object-Oriented Toolkit for Physics Simulation
+       ==========================================================
+
+      History file for hadronic/models/parton_string/qgsm directory
+      -------------------------------------------------------------
+
+This file should be used to summarize modifications introduced in the 
+code and to keep track of all tags.
+
+     ---------------------------------------------------------------
+     * Please list in reverse chronological order (last date on top)
+
+
+
+02 May 2013 Alberto Ribon       (hadr-qgsm-V09-06-00)
+--------------------------------------------------
+-  For thread safety, replaced CLHEP::RandFlat with G4RandFlat in
+   G4QGSMSplitableHadron.cc.
+
+20 November 2012 V. Uzhinsky    (hadr-qgsm-V09-05-04)
+--------------------------------------------------
+-  An interface for a manipulation with nucleus-nucleus interactions was
+   introduced, especially for treating remnants of projectile nuclei.
+
+27 September 2012, Gabriele Cosmo
+--------------------------------------------------
+- Explicitly use inclusion of headers for system of units and physical
+  constants, in plan to remove implicit inclusion from globals.hh.
+
+17 June 2012, Gunter Folger     (hadr-qgsm-V09-05-03)
+--------------------------------------------------
+- Fixes for coverity in G4QGSModel concerning copy ctor and operator = .
+
+12 June 2012, Gunter Folger     (hadr-qgsm-V09-05-02)
+--------------------------------------------------
+- Correct shadowing warnings
+
+31 May 2012, Gunter Folger      (hadr-qgsm-V09-05-01)
+--------------------------------------------------
+- Improve indentation;
+- make copy ctor, =, ==, != operators private without implementation
+
+25 May 2012, Gunter Folger      (hadr-qgsm-V09-05-00)
+--------------------------------------------------
+-  Add ModelDescription() to QGS
+
+5 Aug 2011, M. Kelsey		(hadr-qgsm-V09-04-04)
+-----------------------------------------------------
+- G4GammaParticipants.cc:  Follow change in return value of
+   G4V3DNucleus::GetNucleons(), use const_cast<> to allow setting Hit().
+- G4QGSParticipants.hh:  Add G4V3DNucleus.hh (should move implementations to
+   .cc file).
+
+  Requires consistent changes in other packages:
+  	hadr-modman-V09-04-01
+  	hadr-mod-util-V09-04-02
+	had-partonstring-mgt-V09-04-01
+  	hadr-qgsm-V09-04-04
+  	had-theo-HE-V09-04-01
+
+14 Jul 2011, G.Folger		(hadr-qgsm-V09-04-03)
+-----------------------------------------------------
+- Fix coverity warnings in G4QGSParticipants.cc and G4SPBaryon.cc
+    (none was a real problem)
+
+01 Jun 2011, G.Folger		(hadr-qgsm-V09-04-02)
+-----------------------------------------------------
+- G4QGSParticipants: reduce energy of participant nucleons by binding energy.
+   This increases excitation energy, as calculated by initial-final. Without
+   this, excitation E often is close to 0, or negative.
+   
+01 Jun 2011, G.Folger		(hadr-qgsm-V09-04-01)
+-----------------------------------------------------
+-  Fix compilation warnings, gcc4.6, on alost unused variables. Move 
+    "debug" variables into #ifdef
+     
+17 Mar 2011, G.Folger		(hadr-qgsm-V09-04-00)
+-----------------------------------------------------
+-  set limits for E/p checking
+
+8 Sep 2010, G.Folger		(hadr-qgsm-V09-03-01)
+-----------------------------------------------------
+- G4QGSModel.icc: use integer (A,Z) interface of nucleus 
+
+12-Mar-2010, G.Folger		(hadr-qgsm-V09-03-00)
+-  remove G4PartonStringAnnihilator.{hh,cc} not used anywhere
+
+19 May 2009, G.Folger		(hadr-qgsm-V09-02-02)
+-----------------------------------------------------
+- fix in G4SPBaryon: for antibaryon, a  diquark & quark was given instead of 
+      anti-diquark & antiquark; note the reverse order, too. 
+    Fixes problems with incident anti baryons, e.g. antiproton, manifesting
+    in problems with forming hadrons.
+
+29 Apr 2009 m. Kosov       (hadr-qgsm-V09-02-01)
+------------------------------------------------
+Very important bug fix in G4QGSParticipants.cc to let QGSC working from E=0
+Added by GF (19-May-09):
+- this very important "bug" fix modifies G4G4QGSParticipants.cc and
+   G4GammaParticipants.cc:
+     changing the value of Threshold from 0.45 GeV to 0.GeV, 
+     and disables an Exception if s < sqr(total mass + Threshold)
+
+15 Sep 2008 G.Folger       (hadr-qgsm-V09-01-01)
+------------------------------------------------
+- Fix for bug found on windows in G4QGSParticipants.cc, bug 1018:
+   decrement of iterator fails, improve logic to not decrement.
+
+31 Mar 2008 Dennis Wright (hadr-qgsm-V09-01-00)
+-----------------------------------------------
+-  fix gcc-4.3 compiler warnings at lines 293, 395 of G4QGSMSplittableHadron.cc
+
+24 Apr 2007 Gunter Folger  (hadr-qgsm-V08-02-02)
+------------------------------------------------
+-  merge in change done by ftf dev; ie. in G4QGSParticipants, theDiffExcitaton
+   is constructed with default arguments.
+
+25 Jan 2007 Gunter Folger  (hadr-qgsm-V08-02-01)
+------------------------------------------------
+- G4SoftStringBuilder.cc: Correct typo in #ifdef
+
+24 Jan 2007 Gunter Folger  (hadr-qgsm-V08-02-00)
+------------------------------------------------
+-  Correct E-p non-conservation in QGS. In 4QGSMSplitableHadron.cc the smaller
+   of the lightcone momenta Q+/Q- was ignored.
+-  G4QGSMSplitableHadron correct divide by 0 in SampleX()
+-  Add debugging output to several classes
+
+30 Nov 2005 Gabriele Cosmo (hadr-qgsm-V07-01-00)
+-----------------------------------------------
+- Trivial fix in G4QGSParticipants and for support of CLHEP-2.0.X series.
+- Created History file.

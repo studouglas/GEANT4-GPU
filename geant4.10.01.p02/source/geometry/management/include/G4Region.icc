@@ -1,0 +1,364 @@
+//
+// ********************************************************************
+// * License and Disclaimer                                           *
+// *                                                                  *
+// * The  Geant4 software  is  copyright of the Copyright Holders  of *
+// * the Geant4 Collaboration.  It is provided  under  the terms  and *
+// * conditions of the Geant4 Software License,  included in the file *
+// * LICENSE and available at  http://cern.ch/geant4/license .  These *
+// * include a list of copyright holders.                             *
+// *                                                                  *
+// * Neither the authors of this software system, nor their employing *
+// * institutes,nor the agencies providing financial support for this *
+// * work  make  any representation or  warranty, express or implied, *
+// * regarding  this  software system or assume any liability for its *
+// * use.  Please see the license in the file  LICENSE  and URL above *
+// * for the full disclaimer and the limitation of liability.         *
+// *                                                                  *
+// * This  code  implementation is the result of  the  scientific and *
+// * technical work of the GEANT4 collaboration.                      *
+// * By using,  copying,  modifying or  distributing the software (or *
+// * any work based  on the software)  you  agree  to acknowledge its *
+// * use  in  resulting  scientific  publications,  and indicate your *
+// * acceptance of all terms of the Geant4 Software license.          *
+// ********************************************************************
+//
+//
+// $Id: G4Region.icc 67975 2013-03-13 10:19:44Z gcosmo $
+//
+// 
+// class G4Region Inline Implementation file
+//
+// 19.09.02 - G.Cosmo: Created
+// --------------------------------------------------------------------
+
+// ********************************************************************
+// Equality operator, defined by address only
+// ********************************************************************
+//
+inline
+G4bool G4Region::operator==(const G4Region& rg) const
+{
+  return (this==&rg) ? true : false;
+}
+
+// ********************************************************************
+// GetInstanceID
+// ********************************************************************
+//
+inline
+G4int G4Region::GetInstanceID() const
+{
+  return instanceID;
+}
+    
+// ********************************************************************
+// GetName
+// ********************************************************************
+//
+inline
+const G4String& G4Region::GetName() const
+{
+  return fName;
+}
+    
+// ********************************************************************
+// SetName
+// ********************************************************************
+//
+inline
+void G4Region::SetName(const G4String& pName)
+{
+  fName = pName;
+}
+
+// ********************************************************************
+// RegionModified
+// ********************************************************************
+//
+inline
+void G4Region::RegionModified(G4bool flag)
+{
+  fRegionMod = flag;
+}
+
+// ********************************************************************
+// IsModified
+// ********************************************************************
+//
+inline
+G4bool G4Region::IsModified() const
+{
+  return fRegionMod;
+}
+
+// ********************************************************************
+// SetProductionCuts
+// ********************************************************************
+//
+inline
+void G4Region::SetProductionCuts(G4ProductionCuts* cut)
+{
+  fCut = cut;
+  fRegionMod = true;
+}
+
+// ********************************************************************
+// GetProductionCuts
+// ********************************************************************
+//
+inline
+G4ProductionCuts* G4Region::GetProductionCuts() const
+{
+  return fCut;
+}
+
+// ********************************************************************
+// GetLogicalVolumeIterator
+// ********************************************************************
+//
+inline
+std::vector<G4LogicalVolume*>::iterator
+G4Region::GetRootLogicalVolumeIterator()
+{
+  G4RootLVList::iterator iterator =
+    G4RootLVList::iterator(fRootVolumes.begin());
+  return iterator;
+}
+
+// ********************************************************************
+// GetMaterialIterator
+// ********************************************************************
+//
+inline
+std::vector<G4Material*>::const_iterator
+G4Region::GetMaterialIterator() const
+{
+  G4MaterialList::const_iterator iterator = fMaterials.begin();
+  return iterator;
+}
+
+// ********************************************************************
+// GetNumberOfMaterials
+// ********************************************************************
+//
+inline
+size_t G4Region::GetNumberOfMaterials() const
+{
+  return fMaterials.size();
+}
+
+// ********************************************************************
+// GetNumberOfRootVolumes
+// ********************************************************************
+//
+inline
+size_t G4Region::GetNumberOfRootVolumes() const
+{
+  return fRootVolumes.size();
+}
+
+// ********************************************************************
+// SetUserInformation
+// ********************************************************************
+//
+inline
+void G4Region::SetUserInformation(G4VUserRegionInformation* ui)
+{
+  fUserInfo = ui;
+}
+
+// ********************************************************************
+// GetUserInformation
+// ********************************************************************
+//
+inline
+G4VUserRegionInformation* G4Region::GetUserInformation() const
+{
+  return fUserInfo;
+}
+
+// ********************************************************************
+// SetUserLimits
+// ********************************************************************
+//
+inline
+void G4Region::SetUserLimits(G4UserLimits* ul)
+{
+  fUserLimits = ul;
+}
+
+// ********************************************************************
+// GetUserLimits
+// ********************************************************************
+//
+inline
+G4UserLimits* G4Region::GetUserLimits() const
+{
+  return fUserLimits;
+}
+
+// ********************************************************************
+// ClearMap
+// ********************************************************************
+//
+inline
+void G4Region::ClearMap()
+{
+  if(!(fMaterialCoupleMap.empty()))
+  {
+    G4MaterialCoupleMap::iterator b = fMaterialCoupleMap.begin();
+    G4MaterialCoupleMap::iterator e = fMaterialCoupleMap.end();
+    fMaterialCoupleMap.erase(b,e);
+  }
+}
+
+// ********************************************************************
+// RegisterMateralCouplePair
+// ********************************************************************
+//
+inline
+void G4Region::RegisterMaterialCouplePair(G4Material* mat,
+                                          G4MaterialCutsCouple* couple)
+{
+  fMaterialCoupleMap.insert(G4MaterialCouplePair(mat,couple));
+}
+
+// ********************************************************************
+// FindCouple
+// ********************************************************************
+//
+inline
+G4MaterialCutsCouple* G4Region::FindCouple(G4Material* mat)
+{
+  G4MaterialCoupleMap::iterator c = fMaterialCoupleMap.find(mat);
+  G4MaterialCutsCouple* couple = 0;
+  if(c!=fMaterialCoupleMap.end()) couple = (*c).second;
+  return couple;
+}
+
+// ********************************************************************
+// SetFastSimulationManager
+// ********************************************************************
+//
+inline
+void G4Region::SetFastSimulationManager(G4FastSimulationManager* fsm)
+{
+  G4MT_fsmanager = fsm;
+}
+
+// ********************************************************************
+// GetFastSimulationManager
+// ********************************************************************
+//
+inline 
+G4FastSimulationManager* G4Region::GetFastSimulationManager() const
+{
+  return G4MT_fsmanager;
+}
+
+// ********************************************************************
+// GetFieldManager
+// ********************************************************************
+//
+inline 
+G4FieldManager* G4Region::GetFieldManager() const
+{
+  return fFieldManager;
+}
+
+// ********************************************************************
+// SetFieldManager
+// ********************************************************************
+//
+inline
+void G4Region::SetFieldManager(G4FieldManager* fm)
+{
+  fFieldManager = fm;
+}
+
+// ********************************************************************
+// GetWorldPhysical
+// ********************************************************************
+//
+inline
+G4VPhysicalVolume* G4Region::GetWorldPhysical() const
+{
+  return fWorldPhys;
+}
+
+// ********************************************************************
+// AddMaterial
+// ********************************************************************
+//
+inline
+void G4Region::AddMaterial(G4Material* aMaterial)
+{
+  G4MaterialList::iterator pos =
+    std::find(fMaterials.begin(),fMaterials.end(),aMaterial);
+  if (pos == fMaterials.end())
+  {
+    fMaterials.push_back(aMaterial);
+    fRegionMod = true;
+  }
+}
+
+// ********************************************************************
+// SetRegionalSteppingAction
+// ********************************************************************
+//
+inline
+void G4Region::SetRegionalSteppingAction(G4UserSteppingAction* rusa)
+{
+  G4MT_rsaction = rusa;
+}
+
+// ********************************************************************
+// GetRegionalSteppingAction
+// ********************************************************************
+//
+inline
+G4UserSteppingAction* G4Region::GetRegionalSteppingAction() const
+{
+  return G4MT_rsaction;
+}
+
+// ********************************************************************
+// UsedInMassGeometry
+// ********************************************************************
+//
+inline 
+void G4Region::UsedInMassGeometry(G4bool val)
+{
+  fInMassGeometry = val;
+}
+
+// ********************************************************************
+// UsedInParallelGeometry
+// ********************************************************************
+//
+inline 
+void G4Region::UsedInParallelGeometry(G4bool val)
+{
+  fInParallelGeometry = val;
+}
+
+// ********************************************************************
+// IsInMassGeometry
+// ********************************************************************
+//
+inline 
+G4bool G4Region::IsInMassGeometry() const
+{
+  return fInMassGeometry;
+}
+
+// ********************************************************************
+// IsInParallelGeometry
+// ********************************************************************
+//
+inline 
+G4bool G4Region::IsInParallelGeometry() const
+{
+  return fInParallelGeometry;
+}

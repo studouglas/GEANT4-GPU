@@ -1,0 +1,31 @@
+MARSHALGEN_PATH = /usr/local/marshalgen-1.0
+MARSHAL=$(MARSHALGEN_PATH)/marshalgen
+
+default: all
+
+all:	StorkNeutronData StorkTripleFloat StorkMatPropChange StorkPrimaryData StorkEventData
+	(cp -p include/Marshaled* AnnotatedFiles/; \
+	cp -p include/*.msh AnnotatedFiles/; \
+	cp -p $(MARSHALGEN_PATH)/MarshaledObj.h include/.)
+
+
+StorkNeutronData: include/StorkNeutronData.hh
+	$(MARSHAL) $?
+
+StorkTripleFloat: include/StorkTripleFloat.hh
+	$(MARSHAL) $?
+
+StorkMatPropChange: include/StorkMatPropChange.hh
+	$(MARSHAL) $?
+
+StorkPrimaryData: include/StorkPrimaryData.hh
+	$(MARSHAL) $?
+
+StorkEventData: include/StorkEventData.hh
+	$(MARSHAL) $?
+
+clean:
+	rm include/*.msh include/Marshaled* AnnotatedFiles/*.msh AnnotatedFiles/Marshaled*
+
+cleanMSH:
+	rm include/*.msh

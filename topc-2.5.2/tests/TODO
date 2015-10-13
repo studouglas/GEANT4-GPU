@@ -1,0 +1,10 @@
+make check TEST_FILE=gauss-elim-redo
+./a.out --TOPC-safety=2
+  in dist. memory mode
+  often yields a bug with 2 or more slaves, but not always
+  The master hangs after sending the REDO.  Only slaves 1 and 2
+  are participating.
+  There is one busy slave, and the rest are idle.
+
+  To observe it in gdb, it's better to break at TOPC_master_slave and
+    then continue.  More slaves seem to trigger the bug earlier.

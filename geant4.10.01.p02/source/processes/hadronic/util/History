@@ -1,0 +1,325 @@
+-------------------------------------------------------------------
+
+     ==========================================================
+     Geant4 - an Object-Oriented Toolkit for Physics Simulation
+     ==========================================================
+
+           History file for hadronic/util directory
+           ----------------------------------------
+
+This file should be used to summarize modifications introduced in the 
+code and to keep track of all tags.
+
+     ---------------------------------------------------------------
+     * Please list in reverse chronological order (last date on top)
+     ---------------------------------------------------------------
+
+07 November 2014 Vladimir Ivanchenko (hadr-util-V10-00-08)
+--------------------------------------------------------
+- G4HadSecondary - added creator
+
+30 October 2014 Vladimir Ivanchenko (hadr-util-V10-00-07)
+--------------------------------------------------------
+- G4HadFinalState, G4HadSecondary, G4ReactionProduct - added creator
+    model type to secondary, moved simple methods inline
+
+05 June 2014 Alberto Ribon       (hadr-util-V10-00-06)
+------------------------------------------------------
+- Removed G4ReactionKinematics and G4ReactionDynamics classes. 
+
+19 May 2014 Gunter Folger        (hadr-util-V10-00-05)
+------------------------------------------------------
+- remove temp. method GetDefintion_asConst()
+
+26 March 2014 Gunter Folger      (hadr-util-V10-00-04)
+------------------------------------------------------
+- G4ReactionDynamics: convert to const G4ParticleDefinition*
+
+10 March 2014 Gunter Folger      (hadr-util-V10-00-03)
+------------------------------------------------------
+- ReactionProduct::GetDefinition() returns a const G4ParticleDefinition*
+ 
+05 March 2014 Gunter Folger      (hadr-util-V10-00-02)
+------------------------------------------------------
+- remove not needed several const_casts in G4HadronicWhiteBoard.
+
+20 February 2014 Gunter Folger   (hadr-util-V10-00-01)
+------------------------------------------------------
+- G4ReactionProduct: make G4ParticleDefinition* const.
+    add temp. method returning const G4ParticleDefinition* GetDefintion_asConst()
+	 will replace GetDefinition() once hadronics converted.  
+
+22 January 2014  Gabriele Cosmo  (hadr-util-V10-00-00)
+------------------------------------------------------
+- Cleanup of automatic TLS data conversion in G4ReactionProduct,
+  G4HadSignalHandler and G4HadronicWhiteBoard.
+
+02 May 2013  Alberto Ribon  (hadr-util-V09-06-00)
+-------------------------------------------------
+- For thread safety, replaced CLHEP::RandFlat with G4RandFlat in
+  G4Nucleus.cc.
+
+13 Nov 2012  Dennis Wright  (hadr-util-V09-05-13)
+-------------------------------------------------
+- initialize fIsotope in copy ctor.  Fixes Coverity bug 15146.
+ 
+06 Nov 2012  Gabriele Cosmo (hadr-util-V09-05-12)
+-------------------------------------------------
+- Fix for porting on AIX in G4ReactionProduct header.
+
+15 Oct 2012  Michael Kelsey (hadr-util-V09-05-11)
+-------------------------------------------------
+- sources.cmake:  G4HadronicDeprecate.hh missing; why did nightly builds
+  work?
+
+05 Oct 2012  Michael Kelsey (hadr-util-V09-05-10, hadr-util-V09-05-09)
+----------------------------------------------------------------------
+- G4HadronicDeprecate.hh:  Macro function to generate deprecation messages.
+  Used by hadronic/stopping and hadronic/models/low_energy (so far).
+
+19 Sep 2012  Gabriele Cosmo (hadr-util-V09-05-08, hadr-util-V09-05-07)
+----------------------------------------------------------------------
+- Explicitly use inclusion of headers for system of units and physical
+  constants, in plan to remove implicit inclusion from globals.hh.
+
+31 Jul 2012  Vladimir Ivanchenko        (hadr-util-V09-05-06)
+-------------------------------------------------------------
+- G4Nucleus - added methods GetIsotope, SetIsotope
+
+13 Jul 2012  Gunter Folger              (hadr-util-V09-05-05)
+-------------------------------------------------------------
+- G4GHEKinematicsVector: Fix coverity warning about self assignment
+    in assignment operator
+
+08 Jun 2012  Gabriele Cosmo             (hadr-util-V09-05-04)
+-------------------------------------------------------------
+- More variable shadowing fixes in G4GHEKinematicsVector.hh.
+
+08 Jun 2012  Gabriele Cosmo             (hadr-util-V09-05-03)
+-------------------------------------------------------------
+- Fixed trivial cases of hidden variable visibility, detected with
+  '-Wshadow' compilation option on gcc compiler.
+
+25 May 2012  Vladimir Ivantchenko       (hadr-util-V09-05-02)
+-------------------------------------------------------------
+- G4HadProjectile - added protection to kinetic energy computation
+
+05 May 2012  Vladimir Ivantchenko       (hadr-util-V09-05-01)
+-------------------------------------------------------------
+- G4HadProjectile - added default constructor
+
+05 May 2012  Vladimir Ivantchenko       (hadr-util-V09-05-00)
+-------------------------------------------------------------
+- G4HadProjectile - added methods SetGlobalTime, SetBoundEnergy
+    GetBoundEnergy needed for general stopping process;
+    always set time to zero when construct or initialise, so
+    hadronic interaction is starting from zero local time;
+    added Initialise method allowing to update the projectile
+    and not instantiate it for any new interaction;
+    all get methods are inlined
+
+17 Nov 2011  Gunter Folger              (hadr-util-V09-04-05)
+-------------------------------------------------------------
+- removed G4lrint(), G4lint(), and G4rint(); these are now in global
+
+15 Sep 2011  Gabriele Cosmo             (hadr-util-V09-04-04)
+-------------------------------------------------------------
+- Changed DLL export flag for symbols to G4HADRONIC_ALLOC_EXPORT.
+
+14 Sep 2011  Gunter Folger              (hadr-util-V09-04-03)
+-------------------------------------------------------------
+-  G4Nucleus.hh: put obsolete interface GetN/GetZ into ifndef block.
+    this allows to try to compile without the obsolete interface.
+	
+09 Sep 2011  Michael Kelsey             (hadr-util-V09-04-02)
+-------------------------------------------------------------
+- G4HadFinalState:  Remove AddSecondary(G4HadSecondary*) interface.  Improve
+  constness and add interfaces to merge two final states together.
+- G4HadSecondary:  Improve constness.
+
+NOTE:  These changes require modifications to a few packages:
+
+	CHIPS:      hadr-chips-inter-V09-04-03
+	Elastic:    hadr-cohe-V09-04-13
+	NeutronHP:  hadr-hpn-V09-04-23
+	Management: hadr-man-V09-04-12
+
+29 Aug 2011  Michael Kelsey             (hadr-util-V09-04-01)
+-------------------------------------------------------------
+- G4ReactionProduct:  Use G4Allocator to reduce memory churn.
+- GNUmakefile:  Add G4REACTIONPRODUCT_ALLOC_EXPORT flag.
+
+10 Aug 2011  Michael Kelsey             (hadr-util-V09-04-00)
+-------------------------------------------------------------
+- G4HadFinalState:  Store vector of values instead of pointers to reduce
+  memory churn.  Improve constness of argument passing and functions, and
+  reduce creation of temporary objects.  Drop unneeded staleness flag.
+
+ 6 Dec 2010  Dennis Wright              (hadr-util-V09-03-02)
+-------------------------------------------------------------
+- G4Nucleus::ChooseParameters : fix fall-through case in which element = 0:
+  make last element in list the default
+- G4HadronicWhiteBoard: fix uninitialized ptrs (theZ, theA, theE, thePx,
+    thePy, thePz)
+ 
+11 Nov 2010  Dennis Wright              (hadr-util-V09-03-01)
+-------------------------------------------------------------
+- G4HadronicWhiteBoard: fix uninitialized ptrs (theProjectile, theDef,
+    theName)
+- G4Nucleus: add dtaBlackTrackEnergyfromAnnihilation and 
+    pnBlackTrackEnergyfromAnnihilation to copy ctor
+    initialize theA, theZ. aEff, zEff to 0 in ctor
+
+08 Mar 2010 G.Folger                    (hadr-util-V09-03-00)
+-------------------------------------------------------------
+-  add interface for integer A&Z to G4Nucleus, and modify G4HadronicWhiteBoard
+   G4LightMedia, and G4ReactionDynamics to use the new interface. 
+
+06 Mar 2009 D.H. Wright for Tatsumi Koi (hadr-util-V09-02-00)
+-------------------------------------------------------------
+- G4StableIsotopes.cc - fill in missing isotope names
+
+23 Jul 2008 D.H. Wright for Vladimir Uzhinskiy (hadr-util-V09-01-01)
+--------------------------------------------------------------------
+- G4ReactionDynamics::GenerateXandPt: fixed bug in momentum bin which
+  caused oscillatory behavior in spectrum:  changed 
+    x = std::min( 1.0, pt*(binl[l-1] + G4UniformRand()*(binl[l]-binl[l-1])/2 ) )
+  to 
+    x = std::min( 1.0, pt*(binl[l-1] + G4UniformRand()*(binl[l]-binl[l-1]) ) )
+
+ 9 Jul 2008 D.H. Wright (hadr-util-V09-01-00)
+---------------------------------------------
+- G4ReactionDynamics::GenerateXandPt: replace exit with G4Exception.
+
+11 Oct 2007 F.W. Jones (hadr-util-V09-00-00)
+--------------------------------------------
+- G4LightMedia: fixed coding errors in inequalities for
+                charge exchange occurrence in PionPlusExchange,
+                KaonZeroShortExchange, and NeutronExchange.
+
+13 August 2007 Dennis Wright (hadr-util-V08-03-00a)
+---------------------------------------------------
+- special CMS tag: geant4-08-03-ref-00 + hadr-util-V08-03-02.
+  On top of geant4-08-03-ref-00, this contains only array bounds, units 
+  and backward peak fixes in G4ReactionDynamics
+
+27 June 2007 Alex Howard (hadr-util-V08-03-03)
+------------------------------------------------
+- Removed DumpCoreOnHadronicException protection around Report() in
+  G4HadronicException, temporary fix to give output for G4NEUTRONHPDATA not set
+
+12 June 2007 Dennis Wright (hadr-util-V08-03-02)
+------------------------------------------------
+- G4ReactionDynamics::TwoCluster : fix array bound violation when backward
+    nucleon count is 0
+
+12 June 2007 Dennis Wright (hadr-util-V08-03-01)
+------------------------------------------------
+- G4ReactionDynamics::TwoCluster : fix two bugs:
+  1) sharp peak at 180 degrees for low and medium energies due to a units
+     error:
+         G4double totalE = kineticE + vMass;
+     was changed to
+         G4double totalE = kineticE*GeV + vMass;
+     Result is that particles from intra-nuclear cascade now have energies
+     ~ 100 MeV instead of almost 0.
+
+  2) sharp peak at 180 degrees for low and medium energies and target nuclei
+     with Z > 6 due to incorrect sampling of polar angle:
+     replaced
+         G4double costheta =
+            1.0 + 2.0*std::log(1.0 - G4UniformRand()) / dtb;
+     with
+         G4double costheta =
+            1.0 + 2.0*std::log(1.0 - G4UniformRand()*factor) / dtb;
+            where factor = 1.0 - std::exp(-dtb) and dtb is momentum-dependent
+
+10 June 2007 Dennis Wright (hadr-util-V08-03-00)
+------------------------------------------------
+- remove un-used classes G4Fuzzy, G4EffectiveCharge, G4ParticleVector
+
+16 April 2007 Dennis Wright (hadr-util-V08-02-01)
+-------------------------------------------------
+- G4HadronicWhiteboard.hh, .cc : add methods to set process and model names
+- G4ReactionDynamics.cc : add pi0 to anti-particle test
+
+19 February 2007 V.Ivanchenko (hadr-util-V08-02-00)
+----------------------------------------------------
+- G4HadFinalState - add initialisation of energy deposition
+
+11 December 2006 Dennis Wright (hadr-util-V08-01-01)
+----------------------------------------------------
+- G4ReactionDynamics::AddBlackTrackParticles
+  protect variables local_npnb, local_ndta from divide by zero
+
+24 November 2006 Dennis Wright (hadr-util-V08-01-00)
+----------------------------------------------------
+- G4HadronicWhiteBoard:
+  replace GHAD message with 
+  "Geant4 Hadronic Reaction Information" and use
+  G4Exception to kill run.
+
+15 May 2006 Dennis Wright (hadr-util-V08-00-05)
+-----------------------------------------------
+- G4Nucleus:
+  replace code in method AtomicMass() with
+ 
+    return G4NucleiProperties::GetNuclearMass(A, Z);
+
+  in order to agree with other methods for getting nucleus mass.
+  Note: new version has electron masses subtracted, while old version
+        included them
+
+02 May 2006 Dennis Wright (hadr-util-V08-00-04)
+-----------------------------------------------
+- G4ReactionDynamics:
+  1) in energy balance part of method GenerateXandPt, try removing pions and kaons
+     before removing nucleons
+  2) in method GetFinalStateNucleons improve and simplify nucleon counting 
+  3) method SuppressChargedPions: check available CM energy before changing pion to 
+           nucleon, also extend test for anti-particles to include strange particles
+  4) in methods GenerateXandPt and TwoCluster, call GenerateNBodyEvent a second time
+           if energy sum is violated, this time with total system energy
+  5) in method TwoCluster, use annihilation black track energy when annihilation channel
+     occurs  
+
+07 Apr 2006 Dennis Wright (hadr-util-V08-00-03)
+-----------------------------------------------
+- G4ReactionDynamics:
+  1) implement exact proton and neutron accounting to improve baryon number 
+     conservation
+  2) add new method GetFinalStateNucleons which returns number of 
+     protons and neutrons generated by the initial projectile-nucleon collision 
+  3) replace spall argument in AddBlackTrackParticles with PinNucleus and 
+     NinNucleus
+
+- G4Nucleus:
+  1) add new method AnnihilationEvaporationEffects which calculates energy to
+     be given to evaporated nucleons after annihilation
+  2) add new methods GetAnnihilationPNBlackTrackEnergy and
+     GetAnnihilationDTABlackTrackEnergy to retrieve the values calculated above 
+
+13 Mar 2006 Dennis Wright (hadr-util-V08-00-02)
+-----------------------------------------------
+- G4Nucleus::GetFermiMomentum(),
+  G4ReactionKinematics::TwoBodyScattering() :
+
+    fix bug #838: momentum is now isotropic.  Previously theta was
+    incorrectly sampled by pi*G4UniformRand().
+
+15 Dec 2005 Dennis Wright (hadr-util-V08-00-01)
+-----------------------------------------------
+- G4ReactionDynamics.cc: add array bounds protection in TwoCluster
+                         (cpar, gpar)
+
+30 Nov 2005 Gabriele Cosmo (hadr-util-V07-01-01)
+-----------------------------------------------
+- Trivial fix in G4ReactionKinematics and G4Nucleus for support of
+  CLHEP-2.0.X series.
+
+25 Nov 2005 Dennis Wright (hadr-util-V07-01-00)
+----------------------------------------------
+- G4HadTmpUtil.cc : <sstream> migration
+
+
+

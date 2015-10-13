@@ -1,0 +1,1226 @@
+$Id: History 90722 2015-06-08 14:30:21Z gcosmo $
+-------------------------------------------------------------------
+
+     =========================================================
+     Geant4 - an Object-Oriented Toolkit for Simulation in HEP
+     =========================================================
+
+                      Category History file
+                      ---------------------
+This file should be used by G4 developers and category coordinators
+to briefly summarize all major modifications introduced in the code
+and keep track of all category-tags.
+It DOES NOT substitute the  CVS log-message one should put at every
+committal in the CVS repository !
+
+     ----------------------------------------------------------
+     * Reverse chronological order (last date on top), please *
+     ----------------------------------------------------------
+
+28-05-15 V.Ivanchenko (materials-V10-00-28)
+- G4NistManager - fixed problem #1747 - correct printout of elements
+    and materials
+
+06-02-15 V.Ivanchenko (materials-V10-00-27)
+- G4Material, G4NistManager, G4NistMaterialBuilder, G4IonisParamMat 
+    introduced NTP_Temperature=20C; set this tempature default for 
+    all materials instead of STP_Temperature; this is needed,
+    because NIST materials are defined for NTP and not for STP 
+    conditions; addressed problem report #1704; no change in 
+    results of EM testing suite (densities of materials 
+    used in tests are not changed)
+
+15-01-15 V.Ivanchenko
+- G4Material, G4Element, G4Isotope - make arguments of stream 
+    operator const (fix proposed by D. Mancusi)
+
+13-10-14 V.Ivanchenko (materials-V10-00-26)
+- G4SandiaData - optimized run time methods
+
+06-10-14 P.Gumplinger (materials-V10-00-25)
+- add methods SetMRMaxProbability and SetMRMaxTransProbability in 
+  G4UCNMaterialPropertiesTable
+- Compare not the energy but normal component of energy to the Fermi potential
+  in G4UCNMicroRoughnessHelper::IntIminus
+  and G4UCNMaterialPropertiesTable::TransConditionsValid
+
+25-09-14 W.Pokorski (materials-V10-00-24)
+- G4IonisParamMat - adding initialization of G4DensityEffectData in
+  the default constructor
+
+05-08-14 V.Ivanchenko (materials-V10-00-23)
+- G4SandiaData - proper deletion of G4PhysicsVectors end of job
+
+24-07-14 V.Ivanchenko (materials-V10-00-22)
+- G4ElementData, G4IonStoppingData - proper deletion of G4PhysicsVectors
+    end of job
+
+10-07-14 V.Ivanchenko (materials-V10-00-21)
+- G4SandiaTable.cc : modify low limit for water (similar to previous tag)
+    and clean-up the class.
+     
+09-07-14 mma (materials-V10-00-20)
+- G4SandiaTable.cc : modify low limit in GetSandiaCofPerAtom() and Material.
+  
+27-06-14 P.Gumplinger (materials-V10-00-19)
+- fix Coverity error uninitilized non-static class members in
+  G4UCNMaterialPropertiesTable
+
+18-06-14 P.Gumplinger (materials-V10-00-18)
+- fix Valgrid uninitialised value error in G4UCNMaterialPropertiesTable
+
+16-06-14 P.Gumplinger (materials-V10-00-17)
+- fix cases of floating-point exceptions in G4UCNMicroRoughnessHelper
+
+11-06-14 G.Folger     (materials-V10-00-16)
+- add new classes G4UCNMaterialPropertiesTable and G4UCNMicroRoughnessHelper
+   to sources.cmake
+	
+06-06-14 P.Gumplinger (materials-V10-00-15)
+- add G4UCNMaterialPropertiesTable and G4UCNMicroRoughnessHelper classes
+
+26-05-14 V.Ivanchenko (materials-V10-00-14)
+- G4Material - make copy constructor private 
+
+26-05-14 V.Ivanchenko (materials-V10-00-13)
+- G4Material, G4IonisParamElm, G4IonisParamMat - fixed Coverity 
+    reports - copy constructor is private, because it is not 
+    assumed to create a new material as a copy 
+
+13-05-14 V.Ivanchenko (materials-V10-00-12)
+- G4Material - revert back modifications due to fail of tests,
+    improve material printout only to address #1563    
+
+12-05-14 V.Ivanchenko (materials-V10-00-11)
+- G4Material - commented out method GetNuclearInterLength() and 
+    extention for material printout to address bug report #1563 
+
+09-05-14 G.Cosmo (materials-V10-00-10, materials-V10-00-09)
+- Replaced size_t with int type for 'fNumberOfIsotopes' in G4Element
+  and 'fNumberOfComponents' and 'fNumberOfElements' in G4Material.
+  Adapted code accordingly.
+  Workaround to overcome limitation in Root I/O for object persistency.
+
+08-05-14 P.Gumplinger (materials-V10-00-08)
+- Further attempts at avoiding all Coverity errors
+
+06-04-14 V.Ivanchenko (materials-V10-00-07)
+- G4NistmaterialBuilder - added new material G4_lBr - at STP Bromine
+    is mainly liquid while in NIST DB it is described as a gas.
+    This is a bugfix #1607. Data are taken from
+    http://en.wikipedia.org/wiki/Bromine
+
+30-04-14 P.Gumplinger (materials-V10-00-06)
+- Attempt at avoiding Coverity errors 37180 and 37340
+
+28-04-14 M.Asai (materials-V10-00-05)
+- G4MaterialPropertyTable: fix race condition problem. Addressing to
+  bug report #1590.
+
+22-04-14 G.Cosmo (materials-V10-00-04, materials-V10-00-03)
+- G4Material: corrected initialisation of pointers in fake default constructor
+  per use of persistency.
+
+15-04-14 G.Cosmo (materials-V10-00-02)
+- G4Material: corrected typo in printout for duplicate materials in
+  function InitializePointers().
+
+09-04-14 V.Ivanchenko (materials-V10-00-01)
+- G4Material, G4Element - defined defaulut names and symbols for elements
+    and isotopes if they are not explicitly defined by users - this fixing
+    names for gdml IO which has problem to work with names starting from a
+    decimal number     
+
+14-02-14 V.Ivanchenko (materials-V10-00-00)
+14-02-14 V.Ivanchenko (materials-V10-10-00)
+- G4SandiaTable - make run time methods const, because materials are shared
+    between threads; added new methods GetSandiaCofWater(), 
+    GetWaterEnergyLimit(), GetWaterCofForMaterial()
+
+16-11-13 M.Kelsey (materials-V09-06-34)
+- G4LatticePhysical:  Drop use of G4Transform3D and related objects in favor
+  of simple G4RotationMatrix operating directly on G4ThreeVector.  This
+  should eliminate Windows problems.
+
+15-11-13 M.Kelsey (materials-V09-06-33)
+- G4LatticePhysical.cc:  In RotateTo*() functions, put result into a local
+  variable, and print it out (under verbosity) before returning.  This seems
+  to be the source of the crashes on Windows.
+
+15-11-13 M.Kelsey (materials-V09-06-32)
+- G4LatticeLogical.hh:  Address Coverity #53491-53495, make MAXRES public,
+  to support LatticeReader input checking.
+
+15-11-13 V.Ivanchenko (materials-V09-06-31)
+- G4IonisParamMat - fixed density effect parameterisation using
+    static analysis reported by Andrey Karpov (<karpov@viva64.com>)
+
+15-11-13 M.Kelsey (materials-V09-06-30)
+- G4LatticePhysical.cc:  Add more diagnostic (verbose) output.
+
+14-11-13 M.Kelsey (materials-V09-06-29)
+- G4LatticeLogical, G4LatticePhysical: Add verboseLevel data member with Set
+  function.  Add diagnostic output controlled by verbosity.  This tag may be
+  left out of Release 10.0 since it is past the deadline.
+
+13-11-13 M.Kelsey (materials-V09-06-28)
+- G4LatticeLogical: Add dumping of data, to try to debug problems with phonon
+  example on Windows.  This tag may be left out of Release 10.0 since it is
+  past the deadline.
+
+07-11-13 V.Ivanchenko (materials-V09-06-27)
+- G4IonStoppingData - do not delete G4PhysicsVectors
+
+06-11-13 V.Ivanchenko (materials-V09-06-26)
+- G4SandiaTable, G4ElementData - do not delete G4PhysicsVectors
+
+30-10-13 V.Ivanchenko (materials-V09-06-25)
+- G4SandiaTable, G4StaticSandiaData - V.Grichine added data for water
+
+23-10-13 M.Kelsey (materials-V09-06-24)
+- NEW classes for logical (physics info) and physical (oriented) crystal
+  lattices.  Ported here from exoticphysics/phonons example.
+
+01-10-13 V.Ivanchenko (materials-V09-06-23)
+- G4NistManager - G4Exception for the case when G4NistManager
+    is instantiated in a worker thread 
+
+16-09-13 V.Ivanchenko (materials-V09-06-22)
+- G4NistManager - comment out AutoLock as probably useless
+
+15-08-13 V.Ivanchenko (materials-V09-06-21)
+- G4NistManager - added AutoLock in the constructor to avoid
+    rarely possible situation that any code calls this singleton 
+    class from worker thread
+
+22-07-13 A.Ribon      (materials-V09-06-20)
+- Added forgotten initialization of elm2Data in the default
+  constructor of G4ElementData.
+
+01-07-13 V.Ivanchenko (materials-V09-06-19)
+- G4NistMaterialBuilder - make all access/print methods to be const;
+    added formatting of printout (bug #1423)
+- G4NistElementBuilder - make access/print methods to be const
+- G4ElementData - added array of 2D-tables 
+
+14-06-13 P.Gumplinger (materials-V09-06-18)
+- Partially fix for coverity errors in G4OpticalSurface.cc
+
+06-06-13 V.Ivanchenko (materials-V09-06-17)
+- G4Material - added warning if new material has duplicate name
+
+05-06-13 P.Gumplinger (materials-V09-06-16)
+- Add dichroic filter surface
+
+29-05-13 G.Cosmo (materials-V09-06-15)
+- Replace 'pascal' with 'hep_pascal' in G4NistMaterialBuilder to avoid
+  conflicts on Windows.
+
+24-05-13 V.Ivanchenko (materials-V09-06-14)
+- G4SandiaTable - fixed typo in previous tag
+
+22-05-13 V.Ivanchenko (materials-V09-06-13)
+22-05-13 V.Grichine: G4SandiaTable.hh/.cc were updated to prepare 
+    a material Sandia coefficients without dynamically created arrays.
+
+10-05-13 V.Ivanchenko (materials-V09-06-12)
+- G4NistMaterialBuilder, G4IonisParamMat - minor cleanup of 
+    chemical formula names, removed old commented lines,
+    this is proposed by M.Trocme;
+- G4Element - do not recompute Aeff and Neff (effective
+    material parameters will not be changed); removed old
+    commented lines, remove G4endl from exception description
+- G4Material - removed old commented lines, remove G4endl from 
+    exception description
+
+01-05-13 V.Ivanchenko (materials-V09-06-11)
+- G4NistMaterialBuilder, G4IonisParamMat - updated NIST material 
+  parameters according to the review of  M.Trocme & S.Seltzer:
+   - replaced AddElementByWeightFraction() by AddElementByAtomCount() 
+     as much as possible;
+   - comment out ill-defined material G4_GLUCOSE; 
+   - Fixed density and atom composition of G4_POLYCHLOROSTYRENE, 
+     G4_POLYVINYL_BUTYRAL, G4_TERPHENYL
+- G4SandiaTable - only removed some lines which are commented
+
+25-04-13 V.Ivanchenko (materials-V09-06-10)
+- G4SandiaTable - moved all inline methods to .cc file
+
+22-03-13 V.Ivanchenko (materials-V09-06-09)
+- G4Element, G4Material, G4IonisParamElm, G4IonisParamMat, 
+  G4SandiaTable - use "static const G4double" for const parameters 
+    instead of "const G4double"
+     
+14-03-13 mma (materials-V09-06-08)
+- G4Material: cosmetic in printout (operator<<)
+     
+01-03-13 mma (materials-V09-06-07)
+- G4Element: NaturalAbanbancesFlag -> NaturalAbundanceFlag
+- G4NistElementBuilder - SetNaturalAbundanceFlag(true)
+    
+28-02-13 V.Ivanchenko (materials-V09-06-06)
+- G4SandiaTable - changed signature of GetSandiaCofPerAtom() to make
+    class be thread safe
+- G4Material, G4IonisParamMat - make classes thread safe - objects
+    are shared between all threads
+- G4NistManager, G4NistMaterialBuilder, G4NistElementBuilder - always
+    create isotope vector with natural abundaces
+
+23-02-13 V.Ivanchenko (materials-V09-06-05)
+- G4SandiaTable - attempt to fix compillation problems
+
+22-02-13 V.Ivanchenko (materials-V09-06-04)
+- G4Element - make GetNaturalAbandancesFlag() const
+- G4Isotope, G4Element, G4Material - comment out counters 
+
+21-02-13 V.Ivanchenko (materials-V09-06-03)
+- G4SandiaTable - fixed typo introduced in previous tag, reduced
+    number of static methods/members, removed G4ThreadLocal declarations
+
+20-02-13 V.Ivanchenko (materials-V09-06-02)
+- G4SandiaTable - return back fCumulInterval array to be static
+
+19-02-13 V.Ivanchenko (materials-V09-06-01)
+- G4SandiaTable, G4IonisParamElm, G4IonisParamMat - removed part
+    of G4ThreadLocal declarations and part of static methods/members 
+
+09-01-13 V.Ivanchenko (materials-V09-06-00)
+- G4NistMaterialBuilder fixed: stainless steel parameters from
+  http://www.azom.com/article.aspx?ArticleID=965
+  according to the Geometry Forum post 1251
+
+14-11-12 P. Mato (materials-V09-05-33)
+- Added include G4SystemOfUnits.hh in unit tests 
+
+10-10-12 V.Ivanchenko (materials-V09-05-32)
+- G4ElementData - updated and simplified 
+
+30-08-12 Pere Mato (materials-V09-05-31)
+- Added test/CMakeLists.txt
+
+15-08-12 V.Ivanchenko (materials-V09-05-30)
+- G4AtomicShell - reorder shells decenting in energy (in past shells
+    were ordered by quantum numbers and for high Z atoms low-energy
+    outer shells have lower indexes than some shells with higher quantum 
+    numbers) 
+- G4Material - when construct material from the base one use mean 
+    excitation energy from base material and not recompute from scratch
+- G4NistMaterialBuilder - added G4_THYMINE, G4_CYTOSINE and G4_URACIL;
+    for G4_ADENINE and G4_GUANINE use combination by atom numbers and not
+    by mass fraction
+
+11-07-12 V.Ivanchenko (materials-V09-05-29)
+11-07-12 V.Ivanchenko (materials-V09-05-28)
+- Fixed bug of previous tag
+
+11-07-12 V.Ivanchenko (materials-V09-05-27)
+- G4SandiaTable - move inline methods with static variables to the source
+
+05-07-12 V.Ivanchenko (materials-V09-05-26)
+- G4SandiaTable - remove execution of std::pow from all functions
+    instead use precomuted values in static array, removed
+    unnecessary asserts from inline methods, some CPU performance
+    improvement expected
+
+11-06-12 G.Cosmo (materials-V09-05-25)
+- Explicitly use inclusion of headers for system of units and physical
+  constants, in plan to remove implicit inclusion from globals.hh.
+
+26-05-12 V.Ivanchenko (materials-V09-05-24)
+- G4Element - M.Kesley identified a bug in Neff computation in ref01
+
+23-05-12 G.Cosmo (materials-V09-05-23)
+- Fixed trivial cases of variable shadowing.
+
+23-05-12 V.Ivanchenko (materials-V09-05-22)
+23-05-12 V.Ivanchenko (materials-V09-05-21)
+- G4NistMaterialBuilder : fixed bug introduced in the previous tag
+
+16-05-12 gum (materials-V09-05-20)
+- G4OpticalSurface : trying to fix Coverity report
+- G4NistMaterialBuilder : build H2O via atom count and not mass
+    fraction
+
+09-05-12 V.Ivanchenko (materials-V09-05-19)
+- G4Element, G4Isotope : fixed not important Coverity warning by
+    removing "return" from constructors
+- G4ExtDEDXTable - changed options to open file in order to fix
+    Coverity warning
+     
+01-05-12 mma (materials-V09-05-18)
+- G4Element, G4Material : cosmetic in printing functions
+     
+24-04-12 mma (materials-V09-05-17)
+- G4Material : go back to materials-V09-05-15
+    
+23-04-12 V.Ivanchenko (materials-V09-05-16)
+- G4Material : add fMassOfMolecule computation inside constructors
+    with mass fraction
+- G4Element : normalize to 1 the sum of isotope abundances
+
+21-04-12 V.Ivanchenko (materials-V09-05-15)
+- G4Material : add fMassOfMolecule definition into G4Material constructor 
+    with base material
+     
+21-04-12 mma (materials-V09-05-14)
+- G4Material : fMassOfMolecule, only computed when relevant
+- update test/testMatComponents.cc     
+     
+13-04-12 mma (materials-V09-05-13)
+- G4Material : map<G4Material*,G4double> fMatComponents, filled in AddMaterial()
+- update test/testMatComponents.cc
+     
+12-04-12 mma (materials-V09-05-12)
+- G4Material : new data member fMatComponents (a map), for composite built via
+      AddMaterial()
+- example in test/testMatComponents.cc
+
+05-03-12 V.Ivanchenko (materials-V09-05-11)
+- G4Element - add construction of Isotope vector for all elements,
+    if user does not create isotopes then vector of of isotopes
+    with natural abundances is created using NIST data;
+    extend printout of G4Exceptions
+- G4Isotope - extend printout of G4Exceptions 
+- G4ExtDEDXTable - trying to fix Coverity report
+
+25-02-12 V.Ivanchenko (materials-V09-05-10)
+- G4Material - return back to the version of 9.5
+     
+21-02-12 mma (materials-V09-05-09)
+- G4Material : fZmean, fAmean
+               for single materials : GetZ(), GetA(), GetAtomicMassAmu()
+	       for any materials : GetZmean(), GetAmean(), GetAmeanAmu() 
+     
+20-02-12 mma (materials-V09-05-08)
+- G4Material : fAeff kept in geant4 unit
+  GetAtomicMassAmu()  {return fAeff*mole/g;}
+
+19-02-12 V.Ivanchenko (materials-V09-05-07)
+- G4Material, G4Element, G4Isotope, G4NistManager, G4NistMaterialBuilder,
+  G4NistElement - added or cleaned methods GetA(), GetAtomicMassAmu(),
+  improved comments
+
+14-02-12 V.Ivanchenko (materials-V09-05-06)
+- G4NistManager - fixed compillation problem introduced in previos tags
+
+12-02-12 V.Ivanchenko (materials-V09-05-05)
+- G4Material - provided methods GetZ (effective Z) and GetA (atomic weight)
+    both for simple and compound materials (before was only for simple)
+- G4NistMessenger - cleanup comments
+- G4NistMaterialBuilder - cleanup logic of AddMaterial method
+- G4IonisParamMat - more safe computation of element index and indentifications
+  of Hydrogen and Helium
+
+09-02-12 P.Gumplinger (materials-V09-05-04)
+- G4NistManager         - add ConstructNewIdealGasMaterial
+- G4NistMaterialBuilder - add ConstructNewIdealGasMaterial
+- G4NistElementBuilder  - add GetA(const G4String& symb)
+
+04-02-12 V.Ivanchenko (materials-V09-05-03)
+- G4NistElementBuilder - improved comments
+- G4NistManager - improve comments
+- G4ExtDEDXTable - an extra attempt to fix Coverity warning
+
+24-01-12 P.Gumplinger (materials-V09-05-02)
+- G4OpticalSurface.cc: remove std:: in front of fopen and fscanf
+
+17-01-12 P.Gumplinger (materials-V09-05-01)
+- G4MaterialPropertiesTable.icc: add return statement in GetConstProperty
+  after G4Exception to keep a compiler happy
+
+12-01-12 P.Gumplinger (materials-V09-05-00)
+- G4MaterialPropertiesTable.icc: cosmetic changes to GetProperty,
+    GetConstProperty and ConstPropertyExists methods
+- G4OpticalSurface.cc: avoid compilation warning on Ubuntu
+
+10-11-11 V.Ivanchenko (materials-V09-04-18)
+- G4SandiaTable, G4IonisParamElm, G4IonisParamMat, G4OpticalSurface
+    fixed problems reported by Coverity, mainly in assignment operator
+     
+29-10-11 mma (materials-V09-04-17)
+- G4Exception : unified exceptionCode
+     
+28-10-11 mma (materials-V09-04-16)
+- new scheme for G4Exception
+
+14-10-11 gum (materials-V09-04-15)
+- remove G4MaterialPropertyVector.icc, G4MaterialPropertyVector.cc,
+  G4MPVEntry.hh and G4MPVEntry.cc from sources.cmake and put all
+  entries in alphabetic order
+
+13-10-11 gum (materials-V09-04-14)
+- typedef G4PhysicsOrderedFreeVector G4MaterialPropertyVector;
+  remove G4MPVEntry and modify G4MaterialPropertiesTable accordingly
+     
+20-08-11 mma (materials-V09-04-13)
+- G4Isotope : add flag fm to identify isomer level
+
+14-06-11 V.Ivanchenko (materials-V09-04-12)
+- Fixed typo in previous tag
+
+14-06-11 V.Ivanchenko (materials-V09-04-11)
+- A.Ivanchenko review and updated body tissue compositions
+  according ICRU Report 46 (1992) instead of old data (1975);
+  G4_TESTES_ICRP is renamed to G4_TESTIS_ICRP;
+  removed G4_CYTOSINE, G4_THYMINE, G4_URACIL, because existing 
+  G4_DNA... materials more adequate to DNA applications 
+
+08-06-11 V.Ivanchenko (materials-V09-04-10)
+- G4Material - fixed typo in previous tag
+
+08-06-11 V.Ivanchenko (materials-V09-04-09)
+- G4Element, G4Material - comments to the class are rewritten to
+  address bug report #1220
+- G4NistMaterialBuilder - added two new materials
+
+04-05-11 V.Ivanchenko (materials-V09-04-08)
+03-05-11 V.Ivanchenko (materials-V09-04-07)
+- G4IonisParamMat, G4NistManager, G4NistMessenger - attempt to fix
+  Coverity bugs
+
+01-05-11 V.Ivanchenko (materials-V09-04-06)
+- G4IonisParamMat - cleanup methods, use G4Pow
+- G4NistMaterialBuilder - improved comments 
+
+05-04-11 V.Ivanchenko (materials-V09-04-05)
+- G4IonisParamMat: make method DensityCorrection() inline and make 
+  'twoln10' member of the class
+- G4Material - fixed computation of radiation length and nuclear interaction
+   length when G4Material is constructed from a BaseMaterial
+
+04-04-11 G.Cosmo (materials-V09-04-04)
+- G4IonisParamMat: move method DensityCorrection() to source file, as it is
+  now using static value 'twoln10'. Required for Windows DLLs build.
+
+03-04-11 V.Ivanchenko
+- G4NistManager - implemented forgotten inline method
+
+25-03-11 V.Ivanchenko (materials-V09-04-03)
+- G4ElementData - added extra array
+
+11-03-11 V.Ivanchenko (materials-V09-04-02)
+- G4Material - added extra protections against incorrect mass fraction
+               during material construction
+
+08-03-11 V.Ivanchenko (materials-V09-04-01)
+- G4Material - added Base Material pointer and corresponding methods
+- G4NistMaterial - added constructor of a material using variable
+     density; reduce size of internal vectors
+- G4NistMaterialBuilder - cleanup methods to build materials
+- G4IonisParamMat - use mean ionisation potential provided by user
+     in computation of density effect 
+- G4ExtDEDXTable - try to fix minor Coverity warning
+- G4ElementData - added new class
+
+23-12-10 V.Ivanchenko (materials-V09-04-00)
+- G4SandiaTable - fixed trivial Coverity warning introduced in 
+                  previous tag
+- G4NistMaterialBuilder - fixed warning reported by Coverity concerning 
+                  unnecessary instantiation of an element
+- G4ExtDEDXTable - fixed Coverity warning in RetrievePhysicsTable method
+
+23-11-10 V.Ivanchenko (materials-V09-03-14)
+- G4SandiaTable - V.Grichine Bug fix in G4_Ar 
+
+12-11-10 V.Ivanchenko (materials-V09-03-13)
+12-11-10 V.Grichine Bug fix in G4SandiaTable::SandiaMixing adding 
+         fVerbose and pedantic variable initialisation      
+
+05-11-10 V.Ivanchenko (materials-V09-03-12)
+- Removed obsolete unused data classes G4IronStoppingICRU73, 
+  G4MaterialStoppingICRU73, G4SimpleMaterialStoppingICRU73,
+  data are uploaded from G4LEDATA
+
+04-11-10 V.Ivanchenko (materials-V09-03-11)
+- G4NistMaterialBuilder - added few DNA materials
+
+01-11-10 V.Ivanchenko (materials-V09-03-10)
+- G4NistManager - use G4Pow for fast computations
+- Fixed problems highlighted by the Coverity tool
+
+26-10-10 V.Ivanchenko (materials-V09-03-09)
+- G4NistMaterialBuilder - added BioChemicalMaterials and corresponding
+  access methods
+
+25-10-10 V.Ivanchenko (materials-V09-03-08)
+- Fixed problems highlighted by the Coverity tool, mainly proper 
+  initialisation 
+
+20-05-10 V.Ivanchenko (materials-V09-03-07)
+- G4NistMaterialBuilder - added G4_LUCITE
+
+15-05-10 V.Ivanchenko (materials-V09-03-06)
+- G4DensityEffectData - fixed method GetIndex(Z, state) for Hydrogen
+                        and solid states, rename it to GetElementIndex
+- G4IonisParamMat - fixed typo in the method GetInvA23, use GetElementIndex
+
+10-05-10 V.Ivanchenko (materials-V09-03-05)
+- G4IonisParamMat - added member and method GetInvA23
+
+30-04-10 V.Ivanchenko (materials-V09-03-04)
+- G4AtomicShells - improved performance by adding an array of indexes
+- G4Element - moved include of G4AtomicShells header to the source file  
+
+29-04-10 V.Ivanchenko (materials-V09-03-03)
+- G4NistMaterialBuilder, G4NistManager - added method GetMeanIonisationEnergy
+- G4IonisParamElm - use mean excitation energy from NIST DB; this modification
+                    addressing a problem reported by Wolfgang Lukas for
+                    mean energy deposition in compound materials
+
+23-04-10 V.Ivanchenko (materials-V09-03-02)
+- G4NistMaterialBuilder - added 6 new materials : G4_BRASS, G4_BRONZE,
+          G4_STAINLESS-STEEL, G4_KEVLAR, G4_DACRON, G4_NEOPRENE
+- G4IonisParamMat, G4DensityEffectData - added a possibility to access 
+          density effect data in the case when pure material is not 
+          defined via NIST; atom number and state of such materials 
+          are checked.
+
+22-04-10 P.Gumplinger (materials-V09-03-01) - thanks to Ivana Hrivnacova
+- G4MaterialPropertyVector.cc: 21% speed up of code by removing new/delete
+  of temporary helper object and modifying GetAdjacentBins to allow for a
+  value to match a bin exactly, thus avoiding a whole extra loop.
+  G4OpticalSurface.hh: change the return of GetAngularDistributionValue
+  no longer dereferencing a pointer but return the value at the 
+  array index.
+
+07-01-10 G.Cosmo (materials-V09-03-00)
+- G4OpticalSurface - removed left-over debug test function OverWrite() from
+  header.
+
+03-12-09 V.Ivanchenko (materials-V09-02-24)
+- G4NistMessenger - fixed minor memory leak at destruction
+
+01-12-09 G.Cosmo (materials-V09-02-23)
+- Use G4double in place of G4float in G4DensityEffectData.
+
+30-11-09 V.Ivanchenko (materials-V09-02-22)
+- G4IonisParamMat - fixed liquid Argon problem
+
+24-11-09 V.Ivanchenko (materials-V09-02-21)
+- G4NistMaterialBuilder - allow to use old names of G4 materials
+  G4_NYLON-6/6 and G4_NYLON-6/10 for backward compatibility
+
+19-11-09 P.Gumplinger (materials-V09-02-20)
+- change the code such that the LUT are now read in and kept by
+  G4OpticalSurface and not G4OpBoundaryProcess, reordering in
+  enumeration
+
+19-11-09 V.Ivanchenko (materials-V09-02-19)
+- G4IonisParamMat - fixed crash at destruction
+
+18-11-09 G.Cosmo (materials-V09-02-18)
+- G4IonisParamMat - fix for usage of static data to allow for build of
+  DLLs libraries on Windows.
+
+18-11-09 V.Ivanchenko (materials-V09-02-17)
+- G4IonisParamMat - fixed minor memory leak due to G4DensityEffectData
+
+10-11-09 P.Gumplinger (materials-V09-02-16)
+- increase flexibily of G4SurfaceProperty and G4OpticalSurface classes
+  to allow for Look-Up-Table boundary process simulations.
+  Thanks to Martin Janecek and William Moses from LBNL
+
+09-11-09 V.Ivanchenko (materials-V09-02-15)
+- improved comments to ICRU73 classes
+
+05-11-09 V.Ivanchenko (materials-V09-02-14)
+- G4DensityEffectData - (A.Bagulya) fixed GetIndex method for compounds
+
+04-11-09 P. Gumplinger (materials-V09-02-13)
+- cleanup of include file: G4OpticalSurface.hh (and consequent small
+  change in the imlementation .cc)
+ 
+04-11-09 V.Ivanchenko (materials-V09-02-12)
+- G4VIonDEDXTable - (A.Lechner) added new method (BuildPhysicsVector) which
+                    invoke the build process of physics vectors on demand in
+                    the initialisation phase
+- G4SimpleMaterialStoppingICRU73 - (A.Lechner) added method BuildPhysicsVector
+                    according to change in base class
+- G4MaterialStoppingICRU73 - (A.Lechner) added method BuildPhysicsVector
+                    according to change in base class, changed material name 
+                    from G4_NYLON-6/6 to G4_NYLON-6-6
+- G4IronStoppingICRU73 - (A.Lechner) added method BuildPhysicsVector
+                    according to change in base class
+- G4ExtDEDXTable - (A.Lechner) added method BuildPhysicsVector according to 
+                   change in base class
+- G4IonStoppingData - (A.Lechner) new class, which can read ion stopping power 
+                      vectors contained in G4LEDATA: Allows to include larger
+                      physics vectors than those in the ICRU 73 classes, where
+                      vectors are restricted to the maximum energy 10 MeV/nuc.
+- G4NistMaterialBuilder - (A.Lechner) changed following material names:
+                           * from G4_NYLON-6/6 to G4_NYLON-6-6
+                           * from G4_NYLON-6/10 to G4_NYLON-6-10
+                          to allow matching with ion stopping power data files,
+                          which have material name in the file name  
+- G4DensityEffectData - (A.Bagulya) added method GetIndex
+- G4IonisParamMat - (A.Bagulya) fixed density effect computation;
+                    added plasma energy computation and access to
+                    G4DensityEffectData by the atomic number
+
+01-11-09 A.Lechner (materials-V09-02-11)
+- G4MaterialStoppingICRU73 - (A.Lechner) Extended the energy range of revised
+                             ICRU 73 tables for water from 0.025 - 10 MeV/u to
+                             0.025 - 1 GeV/u. Added new function (AddPhysics-
+                             VectorFullRange) for creating the corresponding
+                             physics vectors.
+
+30-10-09 V.Ivanchenko (materials-V09-02-10)
+- G4DensityEffectData - (A.Bagulya) added data from Atom. Data Nucl. 
+                                  Data Tabl. 30 (1984) 261 accessible
+                                  via material name
+- G4NistMessenger - (A.Bagulya) added UI command to print parameters of
+                    density effect data
+- G4IonisParamMat - added new members: Eplasma, AdjustmentFactor,
+                    Delta0 parameter of density effect parameterization,
+                    and pointer to G4DensityEffectData;
+                    added new access method and method DensityCorrection;
+                    fixed copy constructor
+- G4NistMaterialBuilder - (A.Ivantchenko) changed density of G4_GRAPHITE
+                                  according to PDG'2008, added new
+                                  material G4_GRAPHITE_POROUS
+
+17-09-09 V.Ivanchenko (materials-V09-02-09)
+- G4Element - (V. Grichine) added method GetNbOfShellElectrons which
+                            returns the number of electrons on a shell 
+
+17-07-09 V.Ivanchenko (materials-V09-02-08)
+- G4NistManager, G4NistMessenger, G4NistElementBuilder - improved 
+         implementation of UI commands
+
+25-05-09 V.Ivanchenko (materials-V09-02-07)
+- Renamed G4ExternalDEDXTable class to G4ExtDEDXTable to allow for generation
+  of DLLs on WIN32-VC, where "External" is used to tag symbols in the DLLs
+  generation process.
+
+11-05-09 V.Ivanchenko (materials-V09-02-06)
+- G4ExternalDEDXTable: A.Lechner bug-fix in ClearTable function to avoid 
+                       illegal deletion of physics vectors.
+
+07-05-09 V.Ivanchenko (materials-V09-02-05)
+- G4IronStoppingICRU73: the upper limit of the data vector is extended 
+                        from 10 MeV to 1 GeV; 53 bins are used
+- G4NistMaterialBuilder: mean ionisation potential for G4_WATER is set
+                        to 78 eV according to GSI Annual Report (2008) p.373
+                        and recommendation of Prof.P.Sigmund in order to
+                        consistent with ICRU'73 tables 
+
+29-04-09 V.Ivanchenko (materials-V09-02-04)
+  Fixed ICRI'73 data provided by Prof.P.Sigmund Univ. Southern Denmark
+- G4MaterialStoppingICRU73: G4WATER, G4WATER_VAPOR, G4NYLON-6/6 
+- G4SimpleMaterialStoppingICRU73: G4_Cu
+- G4IronStoppingICRU73: G4WATER data added
+  Also fixed GetDEDX methods in these classes for E=10 MeV (upper limit) 
+
+24-04-09 G.Cosmo (materials-V09-02-03)
+- Make visible GetEntry() accessor in G4MaterialPropertyVector for use
+  restricted to persistency.
+
+20-04-09 G.Cosmo (materials-V09-02-02)
+- Use 'const' references for strings as arguments/return-values in material
+  properties tables and related classes. Inlined some methods and some minor
+  cleanup.
+- Added Entries() method to G4MaterialPropertyVector and accessors for maps
+  in G4MaterialPropertiesTable, required for internal use in persistency of
+  material properties.
+
+18-03-09 A.Lechner, V.Ivanchenko (materials-V09-02-01)
+- New interface class G4VIonDEDXTable for electronic stopping power 
+  tables for ions.
+- New utility class G4ExternalDEDXTable to handle external electronic 
+  stopping power tables for ions.
+- Migrated classes for ICRU'73 stopping power (G4IronStoppingICRU73,
+  G4MaterialStoppingICRU73, G4SimpleMaterialStoppingICRU73) to the
+  the new G4VIonDEDXTable interface:
+  o Changed access methods of physics vectors (vectors can also be
+    identified via atomic number of material if material is pure);
+  o Classes now deliver mass stopping powers instead of stopping powers per 
+    unit length;
+  o Any dependency on ICRU 73 material densities is removed (densities are
+    no longer included in the classes);
+  o Stopping power vectors are now only built on request and no longer in 
+    the constructor.
+
+19-02-09 V.Ivanchenko (materials-V09-02-00)
+- G4MaterialStoppingICRU73: added 4 forgotten materials from ICRU'73.
+- G4SimpleMaterialStoppingICRU73: fixed density of Mo and number of materials.
+
+11-12-08 G.Cosmo (materials-V09-01-20)
+- Added dummy default constructor in G4OpticalSurface and G4SurfaceProperty.
+- Removed debug printout function Overwrite().
+
+14-11-08 G.Cosmo (materials-V09-01-19)
+- Added SetName() method to G4Element, G4Isotope, G4Material for use
+  in detector persistency. Use "const G4String&" for accessors, instead
+  of implicit copy...
+
+02-11-08 V.Ivanchenko (materials-V09-01-18)
+- G4IronStoppingICRU73, G4MaterialStoppingICRU73,
+  G4SimpleMaterialStoppingICRU73: fixed inline methods.
+
+24-10-08 V.Ivanchenko (materials-V09-01-17)
+- G4IronStoppingICRU73, G4MaterialStoppingICRU73,
+  G4SimpleMaterialStoppingICRU73: renamed ICRU'73 data classes and inlined
+  accessors.
+
+20-10-08 V.Ivanchenko (materials-V09-01-16)
+- G4IronStopping, G4MaterialStopping, G4SimpleMaterialStopping: added 
+  ICRU'73 data on stopping powers 25 keV/n - 10 MeV/n
+
+13-08-08 V.Ivanchenko (materials-V09-01-15)
+- G4Material: use array size defined in material constructor, extend it if
+  a component is a compound material 
+
+07-08-08 V.Ivanchenko (materials-V09-01-14)
+- G4NistElementBuilder: use best known parameterisation for total
+  binding energy of atoms, use standard masses for lightest stable isotopes
+- G4NistManager and G4NistElementBuilder: added method 
+  GetTotalElectronBindingEnergy().
+- G4Isotope: use AtomicMass instead of NuclearMass.
+- G4Element: use G4int(fZeff) everywhere in the class.
+
+23-07-08 V.Ivanchenko (materials-V09-01-13)
+- G4NistManager: fixed bug introduced in tag (-11).
+
+21-07-08 P.Gumplinger (materials-V09-01-12)
+- G4SurfaceProperty and G4OpticalSurface, make them truly polymorphic.
+
+17-07-08 V.Ivanchenko (materials-V09-01-11)
+- G4NistManager: added inline methods to speed up EM computations.
+
+16-07-08 P.Gumplinger (materials-V09-01-10)
+- G4SurfaceProperty changed method name from DumpInfo to DumpTableInfo.
+
+08-07-08 V.Ivanchenko (materials-V09-01-09)
+- G4IonisParamMat - added fMeanEnergyPerIon and Set/Get methods
+
+27-06-08 G.Cosmo (materials-V09-01-08)
+- Added virtual destructor to G4OpticalSurface and derivated.
+  Addresses problem report #1014.
+
+05-06-08 P.Gumplinger (materials-V09-01-07)
+- G4MPVEntry, G4MaterialPropertyVector, G4MaterialPropertiesTable -
+  trivial name changes: momentum->energy, momenta->energies
+
+04-06-08 V.Ivanchenko (materials-V09-01-06)
+- G4NistElementBuilder - provided unique name for each isotope of an element
+                         (P.Gumplinger)
+- G4IonisParamElm - added Fermi velocity and L-factor (both used for 
+                    parameterizations of the effective charge and 
+                    stragling of ions);
+- G4IonisParamMat - use Fermi velocity and L-factor from G4IonisParamElm
+
+02-06-08 V.Ivanchenko (materials-V09-01-05)
+- G4Element - extended printput of errors and warnings; more safe check
+              of consistence between Z and A in the constructor
+
+28-04-08 V.Ivanchenko (materials-V09-01-04)
+- G4NistManager, G4NistMaterialBuilder, G4NistElementBuilder 
+  added better comments
+     
+17-03-08 mma (materials-V09-01-03)
+- G4Material : cout << NuclearInteractionLength
+     
+11-03-08 mma (materials-V09-01-02)
+- G4IonisParamMat - remove NistManager dependence
+     
+10-03-08 mma (materials-V09-01-01)
+- G4IonisParamMat - add Birks constant
+  
+06-03-08 V.Ivanchenko (materials-V09-01-00)
+- G4NistMaterialBuilder - use correct dimension for the density for
+  ConstructNewMaterial methods
+- G4Material - improve G4cerr printout
+
+11-12-07 G.Cosmo (materials-V09-00-08)
+- Made GetZ13() and GetLOGA() in G4NistManager not inlined (since they
+  handle static data), to allow for building of DLLs on WIN32-VC platform.
+
+30-10-07 V.Ivanchenko (materials-V09-00-07)
+- G4NistManager and G4NistMaterialBuilder - set default state kStateSolid
+                (before was kStateUndefined) - this modification keep 
+                existing user code unchanged
+
+28-10-07 V.Ivanchenko (materials-V09-00-06)
+- G4NistManager and G4NistMaterialBuilder - extended interfaces to build 
+                new materials: added G4State, temperature, pressure 
+                (gasses are allowed), because of default values for
+                these extra parameters no interface change to users
+
+18-10-07 V.Ivanchenko (materials-V09-00-05)
+- G4NistManager - added deletion of isotopes (fixed problem of double 
+                  deletion); added precomputed Z^1/3 and log(A)
+- G4Material - move registration in MaterialTable from constructors
+               to InitialisePointers; added Imean to printout
+- G4Element  - do not delete isotopes; move registration in ElementTable 
+               from constructors to ComputeDerivedQuantities
+
+01-10-07 V.Ivanchenko (materials-V09-00-04)
+- G4SandiaTable - fixed memory leak
+
+01-10-07 V.Ivanchenko (materials-V09-00-03)
+- G4SandiaTable - separated computations of tables photo-absobtion 
+                  coeffitients for photo-electric effect and PAI model; 
+                  added fMatSandiaMatrixPAI ordered table; 
+                  general cleanup, reduce number of static variables;
+
+27-09-07 V.Ivanchenko (materials-V09-00-02)
+- G4IonisParamMat - add comutation and get methods for parameters of
+  ion inonisation: Fermi energy, effective Z, effective L-factor;
+  they will not be recomputed at each step 
+
+27-07-07 V.Ivanchenko (materials-V09-00-01)
+- G4NistManager - simplified logic of Print methods
+- G4NistElementBuilder  - added protection to Print method
+- G4NistMaterialBuilder - modified FindOrBuildMaterial method - NIST
+                          material is built even user create a material
+                          with the same name, so NIST materials 
+                          parameters cannot be substituted
+- G4Material, G4Element - fix destructors, now all materials and elements
+  are deleted at the end of a run
+
+26-07-07 V.Ivanchenko (materials-V09-00-00)
+- G4Nistmanager provide destruction of all materials and elements
+- G4NistElementBuilder - for given Z build only one Nist element
+     and allow user create other elements with given Z (HP physics
+     requirement)
+
+19-06-07 V.Ivanchenko (materials-V08-03-02)
+- G4SandiaTable - comment out destruction of G4OrderedTable
+
+15-06-07 V.Ivanchenko (materials-V08-03-01)
+- G4SandiaTable - fixed non-initilised pointer in constructor, int -> G4int
+
+14-06-07 V.Ivanchenko (materials-V08-03-00)
+- G4SandiaTable - added deletion of elements of the table in destructor
+
+14-08-07 V.Ivanchenko (materials-V08-03-00a)
+- G4NistElementBuilder - protection (Z>=limitNumElements) inside BuildElement
+                         (Mokka request)
+
+02-05-07 V.Ivanchenko (materials-V08-02-02)
+- G4NistManager and G4NistElementBuilder - add GetNistFirstIsotopeN
+  and GetNumberOfNistIsotopes methods
+
+25-04-07 P.Gumplinger (materials-V08-02-01)
+- add file G4SurfaceProperty.cc, modify G4SurfaceProperty.hh to provide
+  a static G4SurfacePropertyTable akin to G4MaterialTable
+  add G4Exception to SetGROUPVEL when E_photon <= 0
+
+10-07-06 V.Ivanchenko (materials-V08-02-00)
+- G4Material - fill fAtomVector in the case, when material is built
+  from Element mass fractions
+- G4NistMaterialBuilder - add liquids O2 and N2
+- G4NistElementBuilder - add protection Z<=101
+
+27-06-06 V.Ivanchenko (materials-V08-01-01)
+- Add methods to access vector of names of NIST elements and materials 
+  (ILC requirement)
+- Add methods GetAtomicMass, AddIsotopeMass - return atom mass amd 
+  nuclear mass in G4 units
+- Add GetTotalBindingEnergy method to G4AtomicShells
+- Add Get/SetNaturalAbandancesFlag (requirement of hadronic group)
+
+27-06-06 V.Ivanchenko (materials-V08-01-00)
+- G4NistMaterialBuilder - fix graphite desctription
+
+11-05-06 V.Ivanchenko (materials-V08-00-03)
+- G4NistManager and G4NistMaterialBuider - add warning flag to control cout
+- G4NistElementBuilder - do not subtract mass of electrons from NIST mass
+
+02-05-06 V.Ivanchenko (materials-V08-00-02)
+- G4NistManager and G4NistElementBuider - add G4IsotopeAbundance method
+- G4NistElementBuilder - subtract mass of electrons from NIST mass
+
+18-03-06 V.Ivanchenko (materials-V08-00-01)
+- G4NistMaterialManager - fix bug in regime of combine material definition:
+                          partially via NIST DB, partially by user 
+
+09-03-06 V.Ivanchenko (materials-V08-00-00)
+- G4NistMaterialBuilder - Add method  ConstructNewGasMaterial
+- G4Material - minor change of printout
+- G4NistManager - add method GetAtomicMassAmu(Z)
+     
+22-11-05 G.Cosmo (materials-V07-01-03)
+- Additional minor changes needed for direct object persistency.
+
+18-11-05 G.Cosmo (materials-V07-01-02)
+- Additional minor changes needed for direct object persistency.
+  Temporary solution, pending improvements in the external client
+  persistency tool.
+
+15-11-05 mma (materials-V07-01-01)
+- G4bool warning=true in GetMaterial(), GetElement(), GetIsotope().
+  
+09-11-05 G.Cosmo (materials-V07-01-00)
+- Added fake default constructor for isotopes, elements, materials and
+  relevant related classes, for usage of direct object persistency of
+  detector description.
+
+31-10-05 V.Ivanchenko
+- G4NistMaterialBuilder: add chemical formulas for number of materials,
+  add temperature and presure explicitly for each material, that will
+  allow to have other than STP parameters for gases
+
+22-06-05 V.Ivanchenko (materials-V07-00-07)
+- change 1 -> 1.0 for water density
+
+08-06-05 V.Ivanchenko (materials-V07-00-06)
+- take the head of subdirectory - murge tags 04 and 05
+
+16.05.05 P.Gumplinger (materials-V07-00-05)
+- Add SetGROUPVEL() courtesy of Horton-Smith (bug report #741)
+     
+13-05-05 V.Ivanchenko (materials-V07-00-04)
+- add acknowledgement in the Nist classes
+     
+10-05-05 mma (materials-V07-00-03)
+- add a missing coma in G4IonisParamMat::FindMeanExcitationEnergy() - Bug#746
+
+01-04-05 mma (materials-V07-00-02)
+- G4Element: new data member fIndexZ to count the number of elements with same Z
+     
+31.03.05 mma
+- G4Isotope: make A optional (taken from Nist data base by default) 
+- warning in GetMaterial(materialName) and GetElement(elementName)
+
+18.03.05 S.Sadilov (materials-V07-00-01)
+- Fixed compilation problem on Windows for G4NistElementBuilder.
+     
+22.02.05 mma (materials-V07-00-00)
+- new classes G4NistManager, G4NistMessenger
+  deleted G4NistMaterialManager
+       
+11.02.05 mma 
+- new classes G4NistElementBuilder, G4NistMaterialBuilder, G4NistMaterialManager
+  and test/G4NistMaterialTest1.cc, G4NistMaterialTest2.cc
+	 
+07.12.04 G.Cosmo - materials-V06-02-02
+         Implemented migration to <cmath>.
+
+06.09.04 V.Ivant - materials-V06-02-01 
+         Recalculate ionisation parameters after set of new
+         mean ionisation potential; added factor 2 to shell correction term.
+     
+19.07.04 mma - materials-V06-02-00
+         Put a protection in G4AtomicShells::GetNumberOfShells(Z)
+	 
+13.05.04 P.Gumplinger - materials-V06-01-01
+         Added new utility method ConstPropertyExists(const char * key)
+         returning true/false according to the existance of the 'key' in
+         the table G4MaterialPropertiesTable.
+     
+05.03.04 V.Grichine - materials-V06-01-00 
+         new methods for old sorting algorithm for PAI model
+	 
+03.02.04 V.Ivant - materials-V06-00-01
+         Fix problem of destructor of G4SandiaTable
+     
+22.01.04 mma - materials-V06-00-00
+         G4Material.cc: proper STL handdling of theElementVector (Hisaya)
+
+01.12.03 P.Gumplinger - materials-V05-02-00
+         Added base class G4SurfaceProperty.
+         G4OpticalSurface[.hh.cc]: modified to inherit from G4SurfaceProperty.
+
+18.06.03 G.Cosmo - materials-V05-01-01
+         G4Isotope.cc G4Element.cc, G4Material.cc: removed usage of
+         G4USE_STD_NAMESPACE after g4std migration.
+
+19.05.03 G.Cosmo - materials-V05-01-00
+         G4Isotope.cc: fixed bug in operator=.
+         Fixes problem report #429. (M.Maire)
+         G4SandiaTable.cc: cleared trivial pedantic warning.
+
+05.11.02 P.Gumplinger - materials-V04-01-03
+         Add constant material properties to the G4MaterialPropertiesTable
+
+29.10.02 V.Ivanchenko - materials-V04-01-02
+         G4IonisParamMat: Add Set and Find MeanExcitation energy methods.
+         
+17.10.02 V.Ivanchenko - materials-V04-01-01
+         G4IonisParamElm.cc: Fix excitation energy interpolation.
+    
+06.08.02 M.Maire - materials-V04-01-00
+         Remove constructors with chemical formula 
+	      
+06.05.02 M.Maire - materials-V04-00-03
+         Remove the check of the ideal gas state equation
+	     
+16.04.02 M.Maire - materials-V04-00-02
+         G4StaticSandiaData: bug fixed in Pb: comma after  15.861
+	 G4Exception put in constructor with chemical formula 
+	      
+22.02.02 M.Maire - materials-V04-00-01
+         fIndexTable renewed in G4Material, G4Element, G4Isotope.
+
+22.01.02 M.Verderi - materials-V04-00-00
+	 Fixed G4MaterialPropertyVector::AddElement() which wasn't make use
+	 of G4MPVEntry ordering in the G4std::vector<G4MPVEntry*> MPV vector.
+	 This happens since the STL migration (while method "insert" of Rogue-Wave
+	 was taking care about.)
+	 Changes in G4MaterialPropertyVector.hh, G4MaterialPropertyVector.cc
+	 and test/testMaterialPropertyVector.cc
+
+29.11.01 G.Cosmo - materials-V03-02-07
+         Fixed declaration of ostream attributes to use standard 'fmtflags'
+         type for ANSI compilers. Fixes compilation error on gcc-3.0.2.
+         Modified files: G4Isotope.cc, G4Element.cc, G4Material.cc.
+
+28.11.01 G.Cosmo - materials-V03-02-06
+         Fixed bug in G4MaterialPropertyVector::RemoveElement() for the
+         initialisation of a local pointer. Fixes compilation problem on VC++.
+
+31.10.01 M.Maire - materials-V03-02-05 
+         New function G4Materials::SetChemicalFormula().
+
+17.10.01 G.Cosmo - materials-V03-02-04
+         Removed all static inline methods in G4Isotope, G4Element,
+         G4Material and G4SandiaTable. Now placed in respective .cc files.
+         Fixed memory leak in G4SandiaTable::ComputeMatSandiaMatrix(),
+         for deletion of temporary vectors Z, tmp1, tmp2.
+         Moved definitions of G4IsotopeVector and G4ElementVector,
+	 G4ElementTable and G4MaterialTable to the appropriate headers.
+         Replaced NULL with 0 whereever needed.
+
+19.09.01 G.Cosmo - materials-V03-02-03
+         Fixed initialisation of STL collections in costructors and assignment
+         operators. Fixes warnings detected on HP-aCC.
+     
+14.09.01 M.Maire - materials-V03-02-02
+         G4Isotope,Element,Material: IndexInTable is obtained dynamically
+	 via GetIndex(). An Isotope,Element,Material can be deleted.
+	 fCountUse counts the nb of materials which reference a given element.
+	 (idem for elements->isotope) 
+
+31.08.01 P.Gumplinger - materials-V03-02-01
+         Fix printing of property name and check for NULL property vector 
+         pointer in G4MaterialPropertiesTable:DumpTable; and correct warning
+         message in RemoveEntry method.
+         Improve printing in G4MaterialPropertyVector::DumpVector.
+
+17.07.01 M.Verderi - materials-V03-02-00
+	 Complete migration to STL. Tag proposed for testing.
+
+06.06.01 G.Cosmo - materials-V03-01-01
+         Explicitly initialise to zero values of G4DataVector used to create
+         sandia-matrix in method ComputeMatSandiaMatrix().
+         This fix clears warnings detected on HP-aCC.
+         Coworks with tag "global-V03-01-01".
+
+18.05.01 G.Cosmo - materials-V03-01-00
+         Cleared pedantic warnings detected by Linux-g++ with ISO/ANSI setup.
+     
+03.05.01 M.Maire
+         precision(prec) at begin/end of operator<<  Isotope,Element,Material
+     
+02.05.01 Marc+mma
+         protection added in G4Element::AddIsotope() against no coherent Z
+
+03.04.01 M.Maire - materials-V03-00-07
+         removed warning to cerr in GetIsotope(name), GetElement(name),
+	 and GetMaterial(name).
+         fnulcof added as data member in G4SandiaTable.
+     
+22.03.01 M.Maire - materials-V03-00-06
+         revision of destructor, copy constructor, assignement operator in
+	 G4IonisParamElm, G4IonisParamMat, G4Isotope, G4Element, G4Material
+	      
+22.02.01 M.Maire - materials-V03-00-05
+         G4SandiaTable : protection added in GetSandiaCofForMaterial(energy)
+	            
+Feb     16, 01 M.Maire - materials-V03-00-04
+               G4SandiaTable : major bug in GetSandiaCofPerAtom (units!).
+	       redesign of ComputeMatSandiaMatrix.
+	       Include materials-V03-00-02 
+	       
+Feb     05, 01 G.Cosmo - materials-V03-00-03
+               STL migration for G4OrderedTable and G4DataVector.
+               Modified files: G4SandiaTable.cc.
+               NOTE: this tag does not include changes in materials-V03-00-02.
+
+Jan     28, 01 M.Maire - materials-V03-00-02
+               new method G4Material::GetNuclearInterLength()
+	  
+Jan     16, 01 V.Ivanchenko - materials-V03-00-01
+               IonisParamElm.cc : excitation potential is tabulated
+               according ICRU Report #37.
+	       
+Jan     16, 01 L.Urban  - materials-V03-00-00
+               bug fixed in IonisParamMat.cc : E100eV instead of E100keV
+               This bug affected the values of the density correction
+               parameters in the energy loss (dE/dx) computation,
+               its effect was quite big (~ 3-5 % error in dE/dx
+               in the energy range 1 MeV - 50 MeV !!!)
+	       
+Nov     09, 00 V.Grichine - materials-V02-00-01
+               included test/ directory which was not tagged.
+
+August  04, 00 V.Grichine - materials-V02-00-00
+               G4SandiaTable.cc: fixed initialization of pointers in
+	       constructor and corrected deletion of fPhotoAbsorptionCof
+	       in destructor.
+
+June    15, 00 G.Cosmo  - materials-V01-01-00
+               fixed usage of pow(double,double) in G4SandiaTable.
+     
+March   03, 00 M.Maire  - materials-V01-00-00
+               const char* everywhere in G4MaterialPropertiesTable
+	       
+Nov     16, 99 G.Cosmo  - materials-V00-01-03
+               Removed useless inclusion of RW tphdict.h from
+	       G4MaterialPropertiesTable.hh. This tag includes the global
+	       migration RWT->G4RWT (still CVS headers are different on the HEAD).
+
+Nov     09, 99 P.Gumpliger  - materials-V00-01-02
+               changes to comments for Software Reference Manual in
+	       G4MPVEntry.hh, G4MaterialPropertyVector.hh, G4OpticalSurface.hh.
+	       Migrated G4MaterialPropertiesTable from RW dictionary to STL map.
+
+July    28, 99 M.Maire  - materials-V00-01-00
+               new G4Material constructor with chemical formula
+	                 
+August  13, 98 M.Maire  - materials-00-02-01
+               new static method G4Material::GetMaterial(name)     
+     
+July    17, 98 M.Maire  - materials-00-01-04
+               correction in ComputeDensityCorrection() for gas
+               (G4IonisParamMat.cc)    
+     
+July    10, 98 M.Maire  - materials-00-01-03
+               Ionisation parameters put in a subclass
+               coworks with em-00-01-03
+                   
+July     8, 98 M.Maire  - materials-00-01-02
+               restored G4MaterialTable, ElementTable, ElementVector 
+               to be compatible with pre-beta01-02
+               
+July     7, 98 M.Maire  - materials-00-01-01
+               continue cleanup: Elements and Materials
+               new output formats: operator<< overloaded
+               
+June    30, 98 M.Maire  - materials-00-07-01
+               new method AddMaterial() for mixture of mixtures.
+               start the cleanup of the category. G4Isotope done. 
+               G4IsotopeTable typedef directly include in G4Isotope.hh
+               G4MaterialTest.cc illustrate all possible case to 
+               define materials.
+               
+     
+June    06, 98 M.Maire  - materials-00-06-01
+               new G4AtomicShells class (Vladimir)
+               kState = kVacuum removed (minimal lower density set
+                                         by default)
+
+April   17, 98 M.Maire  - materials-00-05-01
+ 
+April   08, 98 G.Cosmo
+- Added fixes for DEC-cxx 6.0 compiler, related to for-loop index
+  declarations. Modified G4SandiaTable.cc.
+
+March     5, 98 M.Maire - materials-00-04-01
+
+January  29, 98 M.Maire - materials-00-03-01
+
+December 19, 97 G.Cosmo - (alpha03)
+- Created.
+

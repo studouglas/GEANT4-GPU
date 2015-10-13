@@ -1,0 +1,158 @@
+//
+// ********************************************************************
+// * License and Disclaimer                                           *
+// *                                                                  *
+// * The  Geant4 software  is  copyright of the Copyright Holders  of *
+// * the Geant4 Collaboration.  It is provided  under  the terms  and *
+// * conditions of the Geant4 Software License,  included in the file *
+// * LICENSE and available at  http://cern.ch/geant4/license .  These *
+// * include a list of copyright holders.                             *
+// *                                                                  *
+// * Neither the authors of this software system, nor their employing *
+// * institutes,nor the agencies providing financial support for this *
+// * work  make  any representation or  warranty, express or implied, *
+// * regarding  this  software system or assume any liability for its *
+// * use.  Please see the license in the file  LICENSE  and URL above *
+// * for the full disclaimer and the limitation of liability.         *
+// *                                                                  *
+// * This  code  implementation is the result of  the  scientific and *
+// * technical work of the GEANT4 collaboration.                      *
+// * By using,  copying,  modifying or  distributing the software (or *
+// * any work based  on the software)  you  agree  to acknowledge its *
+// * use  in  resulting  scientific  publications,  and indicate your *
+// * acceptance of all terms of the Geant4 Software license.          *
+// ********************************************************************
+//
+// $Id: G4MuBetheBlochModel.hh 68035 2013-03-13 14:12:34Z gcosmo $
+//
+// -------------------------------------------------------------------
+//
+// GEANT4 Class header file
+//
+//
+// File name:     G4MuBetheBlochModel
+//
+// Author:        Vladimir Ivanchenko on base of Laszlo Urban code
+//
+// Creation date: 09.08.2002
+//
+// Modifications:
+//
+// 23-12-02 Change interface in order to move to cut per region (V.Ivanchenko)
+// 24-01-03 Make models region aware (V.Ivanchenko)
+// 13-02-03 Add Nama (V.Ivanchenko)
+// 10-02-04 Calculation of radiative corrections using R.Kokoulin model (V.I)
+// 08-04-05 Major optimisation of internal interfaces (V.Ivantchenko)
+// 12-04-05 Add usage of G4EmCorrections (V.Ivanchenko)
+// 13-02-06 ComputeCrossSectionPerElectron, ComputeCrossSectionPerAtom (mma)
+//
+
+//
+// Class Description:
+//
+// Implementation of Bethe-Bloch model of energy loss and
+// delta-electron production by heavy charged particles
+
+// -------------------------------------------------------------------
+//
+
+#ifndef G4MuBetheBlochModel_h
+#define G4MuBetheBlochModel_h 1
+
+#include <CLHEP/Units/PhysicalConstants.h>
+
+#include "G4VEmModel.hh"
+
+class G4ParticleChangeForLoss;
+class G4EmCorrections;
+
+class G4MuBetheBlochModel : public G4VEmModel
+{
+
+public:
+
+  G4MuBetheBlochModel(const G4ParticleDefinition* p = 0,
+                      const G4String& nam = "MuBetheBloch");
+
+  virtual ~G4MuBetheBlochModel();
+
+  virtual void Initialise(const G4ParticleDefinition*, const G4DataVector&);
+
+  virtual G4double MinEnergyCut(const G4ParticleDefinition*,
+				const G4MaterialCutsCouple*);
+			
+  virtual G4double ComputeCrossSectionPerElectron(
+				 const G4ParticleDefinition*,
+				 G4double kineticEnergy,
+				 G4double cutEnergy,
+				 G4double maxEnergy);
+				 
+  virtual G4double ComputeCrossSectionPerAtom(
+				 const G4ParticleDefinition*,
+				 G4double kineticEnergy,
+				 G4double Z, G4double A,
+				 G4double cutEnergy,
+				 G4double maxEnergy);
+				 				 
+  virtual G4double CrossSectionPerVolume(const G4Material*,
+				 const G4ParticleDefinition*,
+				 G4double kineticEnergy,
+				 G4double cutEnergy,
+				 G4double maxEnergy);
+
+  virtual G4double ComputeDEDXPerVolume(const G4Material*,
+                                        const G4ParticleDefinition*,
+                                        G4double kineticEnergy,
+                                        G4double cutEnergy);
+
+  virtual void SampleSecondaries(std::vector<G4DynamicParticle*>*,
+				 const G4MaterialCutsCouple*,
+				 const G4DynamicParticle*,
+				 G4double tmin,
+				 G4double maxEnergy);
+
+protected:
+
+  virtual G4double MaxSecondaryEnergy(const G4ParticleDefinition*,
+				      G4double kinEnergy);
+
+private:
+
+  inline void SetParticle(const G4ParticleDefinition* p);
+
+  // hide assignment operator
+  G4MuBetheBlochModel & operator=(const  G4MuBetheBlochModel &right);
+  G4MuBetheBlochModel(const  G4MuBetheBlochModel&);
+
+  const G4ParticleDefinition* particle;
+  G4ParticleDefinition*       theElectron;
+  G4ParticleChangeForLoss*    fParticleChange;
+  G4EmCorrections*            corr;
+
+  G4double limitKinEnergy;
+  G4double logLimitKinEnergy;
+  G4double mass;
+  G4double massSquare;
+  G4double ratio;
+  G4double twoln10;
+  G4double bg2lim;
+  G4double taulim;
+  G4double alphaprime;
+  static G4double xgi[8],wgi[8];
+};
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
+inline void G4MuBetheBlochModel::SetParticle(const G4ParticleDefinition* p)
+{
+  if(!particle) {
+    particle = p;
+    mass = particle->GetPDGMass();
+    massSquare = mass*mass;
+    ratio = CLHEP::electron_mass_c2/mass;
+  }
+}
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo.....
+
+#endif

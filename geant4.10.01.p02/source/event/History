@@ -1,0 +1,979 @@
+$Id: History 90978 2015-06-12 08:26:22Z gcosmo $
+-------------------------------------------------------------------
+
+     =========================================================
+     Geant4 - an Object-Oriented Toolkit for Simulation in HEP
+     =========================================================
+
+                      Category History file
+                      ---------------------
+This file should be used by G4 developers and category coordinators
+to briefly summarize all major modifications introduced in the code
+and keep track of all category-tags.
+It DOES NOT substitute the  CVS log-message one should put at every
+committal in the CVS repository !
+
+     ----------------------------------------------------------
+     * Reverse chronological order (last date on top), please *
+     ----------------------------------------------------------
+
+June 11th, 2015 A.Dotti (event-V10-00-23)
+- Re-enabling legacy UI commands as in G4 Ver 10.1.p01
+
+June 8th, 2015 A.Dotti
+- Fixing valgring report
+
+June 6th, 2015 A.Dotti (event-V10-00-22)
+- Protecting the command /gps/source/set in case
+  of out-of-bound index.
+
+June 5th, 2015 A.Dotti
+- Further refinement for bug #1744: address case in which 
+  /gps/source/clear is used  
+- Increase verbosity of error message for GPS in case 
+  no sources are defined
+
+May 28th, 2015 A.Dotti
+- Addressing bug #1744
+- Increased level of verbosity of /gps/verbose
+- /gps/verbose now acts globally on all sources in case of multiple ones
+  (no need to activate verbosity for each source)
+
+April 6th, 2015 A.Dotti
+- Coverity fixes
+
+February 20th, 2015 A.Dotti (event-V10-00-21)
+- Clean code and remove not needed thread-local data that 
+  need to be shared for UI commands to work properly 
+  (bug introduced in previous tag)
+
+February 20th, 2015 A.Dotti
+- Bug fixing: bringing back of sharing of random generator for SPSPosDistribution class, wrongly made thread-local
+ 
+February 19th, 2015 A.Dotti
+- Bug fixing for unused variable
+
+February 16th, 2015 A.Dotti
+- Attempting fixing bug #1706
+
+November 20th, 2014 A.Dotti (event-V10-00-19 and -20)
+- Coverity fixes for G4Adjoint* classes
+
+November 20th, 2014 A.Dotti (event-V10-00-18)
+- Coverity fixes for G4SPSEneDistribution
+
+November 6th, 2014 A.Dotti (event-V10-00-17)
+- Coverity fixes for G4SPSEneDistribution
+
+October 22nd, 2014 M.Asai (event-V10-00-16)
+- G4Event.hh: Added const-qualifiers forgot with V10-00-10 tag.
+
+October 16th, 2014 A.Dotti (event-V10-00-15)
+- Adding G4MUTEXDESTROY for GPS classes
+
+October 10th, 2014 A.Dotti (event-V10-00-14)
+- New strategy for GPS messenger: it is instantiated w/ singleton
+  pattern. UI commands are created in a worker thread, but commands
+  are executed by master. Requires intercoms-V10-00-13
+
+October 10th, 2014 A.Dotti (event-V10-00-13)
+- Fix for unitialized array in G4SPSEneDistribution
+
+October 8th, 2014  A.Dotti (event-V10-00-11 and -12)
+- Correction in logic of normalization of sources for
+  GPS.
+- Initialize mutex for G4SPSEneDistribution class
+
+October 1st, 2014  M.Asai (event-V10-00-09 and -10)
+- Introduing the mechanism of G4Event not to be deleted until it is
+  visualized by the other thread.
+
+September 25th, 2014  M.Asai (event-V10-00-08)
+- G4GeneralParticleSourceMessenger.cc : Change G4ParticleTable::GetIon()
+  to G4IonTable::GetIon().
+
+Aug 29th, 2014  A.Dotti (event-V10-00-07)
+- Coverity fix #56594
+
+July 21st, 2014 A.Dotti (event-V10-00-06)
+- Fix for bug #1656: G4SPSPosDistribution::GenerateOne() not 
+  working correctly for GeneratePointsOnSurface() and
+  GeneratePointsInVolume()
+
+June 10th, 2014 A.Dotti (event-V10-00-05)
+- Removing data-race conditions in G4SPSEneDistribution class
+
+June 4th, 2014 A.Dotti (event-V10-00-04)
+- Correcting compilation warnings and errors.
+- Small changes to G4SPSEneDistribution: further memory reduction
+
+June 4th, 2013  L.Desorgher (event-V10-00-03)
+- G4AdjointPrimaryGenerator: Add splitting of fwd gamma primaries to improve 
+  convergence of G4RMC. 
+
+June 3rd, 2014 A.Dotti (event-V10-00-02)
+- First implementation of memory reduction mechanism in MT 
+  courtesy of Andrew Green (Manchester U).
+
+February 21st, 2014  M.Asai (event-V10-00-01)
+- G4SPSPosDistribution::IsSourceConfined() : Add protection against
+  null pointer. Addressing to Bug report #1255.
+
+January 23rd, 2014  M.Asai (event-V10-00-00)
+- Change the default value of Q (charge) for /gun/ion and /gun/ionL commands.
+  Now electrons are fully stripped (i.e. Q = Z) if Q is not specified.
+
+November 7th, 2013  L.Desorgher (event-V09-06-21)
+- Modification of adjoint classes to migrate to the new RMC schema where reverse
+ and forward trackings of  equivalent adjoint and forward primaries are processed
+ in the same events. This in preparation for the migration to the G4MT mode. 
+
+September 9th, 2013  M.Asai (event-V09-06-20)
+- Change the warning message in G4StackManager on missing process
+  manager to be issued only when the verbose level is greater than 0.
+  
+September 6th, 2013  M.Asai (event-V09-06-19)
+- Fix incorrect initialization in G4ParticleGunMessenger class for
+  /gun/ionL command.
+
+September 6th, 2013  M.Asai (event-V09-06-18)
+- Remove G4ParticleTable::GetIon() and use G4IonTable::GetIon()
+  instead.
+
+August 31st, 2013  M.Asai (event-V09-06-17)
+- Fix the way of detecting improper process namager.
+
+August 29th, 2013  M.Asai (event-V09-06-16)
+- Retagged with more optional verbosity.
+
+August 28th, 2013  M.Asai (event-V09-06-15)
+- Split class mechanism of G4ParticleDefinition has been changed.
+  Now all general ions share the object ID with GenericIon so that
+  TLS pointers to G4ProcessManager are not created for such ions.
+
+August 23rd, 2013  M.Asai (event-V09-06-14)
+- G4StackManager now checks a track having proper process manager.
+
+August 14th, 2013  M.Asai (event-V09-06-13)
+- G4ParticleGunMessenger: /gun/particle commands now consults to the particle
+  table for all the available particles except general ions.
+
+August 9th, 2013 Dennis Wright (event-V09-06-12)
+- include G4GeneralParticleSourceMessenger.cc which was omitted in previous tag
+  IonLvlCommand and relevant data members added to
+  G4GeneralParticleSourceMessenger.hh
+
+July 31st, 2013  Dennis Wright (event-V09-06-11)
+- G4ParticleGunMessenger.hh, .cc: add G4UIcommand ionLvlCmd so that particle
+  gun can shoot ions with integer isomer level
+- G4GeneralParticleSourceMessenger.hh: add ionL command (see above comment)
+
+July 11th, 2013, M.Asai (evet-V09-06-10)
+- Remove unnecessary static G4ThreadLocal variables in G4PrimaryTransformer.
+
+June 21, 2013, M.Asai (event-V09-06-09)
+- Clean up G4cout messages for beta release.
+
+June 7th, 2013, M.Asai (event-V09-06-08)
+- Move the access method of G4StateManager::GetStateManager() to the
+  constructor of G4EventManager to reduce the use of TLS pointer.
+
+June 7th, 2013, L.Desorgher (event-V09-06-07)
+- Remove the call of aSolid->SurfaceNormal() in  G4AdjointPosOnPhysVolGenerator::GenerateAPositionOnASolidBoundary that was 
+  generating warnings. Suggested by G. Cosmo
+
+May 26th, 2013, M.Asai (event-V09-06-06)
+- Adding additional checks on file I/O and verbosity to G4HEPEvtInterface.
+
+May 22nd, 2013, B.Morgan (event-V09-06-05)
+- Ensure deletion of "angsigmayCmd1" G4UIcommand instance in destructor of
+  G4GeneralParticleSourceMessenger, fixing minor memory leak.
+
+May 15th, 2013, M.Asai (event-V09-06-04)
+- Change the type of the argument of the constructor of G4HEPEvtInterface
+  from char* to const char*.
+
+Apr. 10th, 2013, G.Cosmo (event-V09-06-03)
+- Cleanup of automatic changes for MT in classes: G4Event, G4HEPEvtParticle,
+  G4TrajectoryContainer, G4AdjointPosOnPhysVolGenerator and G4EventManager.
+
+Feb. 26th, 2013, L.Desorgher (event-V09-06-02)
+- Remove unused variables in G4AdjointPosOnPhysVolGenerator,
+  G4AdjointPosOnPhysVolGenerator, G4GeneralParticleSource,
+  G4SPSEneDistribution, and G4SPSRandomGenerator.
+
+December 4th, 2012, M.Asai (event-V09-06-01)
+- Delete undeleted UI command in the destructor of G4StackMessenger.
+  Addressing problem report #1380.
+
+December 3rd, 2012, M.Asai (event-V09-06-00)
+- Remove obsolete classes G4CellScorer and G4CellScorerStore.
+
+November 27th, 2012, Hisaya Kurashige (event-V09-05-17)
+- Add clearAndDestory() method to G4TrackStack and G4SmartTrackStack 
+  and use this method in G4StackManager::clear()
+  This fixes problem with memory leak
+
+November 9th, 2012, P. Mato (event-V09-05-16)
+- G4StackManager, G4SmartTrackStack: set stack at well defined state at new event
+  This fixes problem with reproducibility
+
+November 8th, 2012, M.Asai (event-V09-05-15)
+- Fixed uninitialized valiables in G4SmartTrackStack.
+
+November 5th, 2012, P. Mato (event-V09-05-14)
+- G4StackManager: moved a bunch of inlined methods from header to the implementation file
+  because the pointer "urgentStack" was visible from client code with a different type.
+  This fixes the crashes observed (only visible on Windows VC10) in the following tests:
+    example-ext-radioactivedecay-rdecay01, example-nov-n04
+
+November 2nd, 2012, M.Asai (event-V09-05-13)
+- Removed inline keyword from G4EventManager::AbortEvent() to prevent incorrect 
+  inlining for VC++ if SmartStack is used.
+
+October 15th, 2012, M.Asai (event-V09-05-12)
+- Added warning messages to G4CennScorer and G4CellScorerStore classes which will 
+be dropped fromversion 10.0.
+
+October 11th, 2012, P.Mato (event-V09-05-11)
+- Fixed warning of a possible use of uninitialized variable
+
+October 10th, 2012, P.Mato (event-V09-05-10)
+- Fixed problem with new implementation of G4StackManager::TransferOneStackedTrack
+
+October 5th, 2012, P.Mato (event-V09-05-09)
+- Fixed problem with G4SmartTrackStack not to use particle defitions 
+  pointers and use PDG code instead
+
+October 5th, 2012, S. Kamperis, P.Mato (event-V09-05-08)
+- G4StackTrack, G4StackedTrack: Changed the implementation of G4StackTrack to use a 
+  std::vector<G4StackedTrack> (by value!) instead of double linked list. Performance
+  has been measured to be 35% better with a simple test program in test/testStackManager.cc
+
+- G4SmartTrackStack: Introduced the changes provided by Stathis Kamperis (GSOC) with the
+  best tunning for the parameters (4-5% persistent reduction in total execution time in FullCMS)
+  See his presentation at: https://indico.cern.ch/getFile.py/access?contribId=35&sessionId=4&resId=0&materialId=slides&confId=199138
+
+- Enabled by default the use of G4SmartTrackStack (-DG4_USESMARTSTACK)
+
+July 5th, 2012, G.Cosmo (event-V09-05-07)
+- Explicitly use inclusion of headers for system of units and physical
+  constants, in plan to remove implicit inclusion from globals.hh.
+
+July 4th, 2012, J.Allison (event-V09-05-06)
+- G4TrajectoryContainer: added private copy constructor and assignment
+  operator in attempt to keep Coverity quiet.
+
+May 24th, 2012, G.Cosmo (event-V09-05-05)
+- Fixed trivial cases of variable shadowing.
+
+April 2nd, 2012, L.Desorgher (event-V09-05-04)
+- Correction for orthogonalization of rotation matrix in  
+  G4SPSPosDistribution::GenerateRotationMatrices() as suggested by
+  Joaquin Phoenix (bug report #1299)
+
+March 8th, 2012, M.Asai (event-V09-05-03)
+- Correct the location of G4Exception to the constructor of
+  G4UserEventAction. 
+
+March 6th, 2012, M.Asai (event-V09-05-02)
+- Add dummy copy constructor and = operator to G4Event. (bug report 1277)
+
+January 12th, 2012, L.Desorgher (event-V09-05-01)
+- Correction for settings of sigmaX and sigmaY in
+  G4SPSPosDistribution::SetBeamSigmaInR () as suggested by
+  Guan, Fada (bug report #1278).
+  
+November 10th, 2011, M.Asai (event-V09-04-09)
+- Fixing Coverity warnings.
+
+October 28th, 2011, M.Asai (event-V09-04-08)
+- Cleaning up
+ -- G4ParticleGun.hh : added "const" to get methods and removed unnecessary inline keyword
+ -- G4SPSPosDistribution.cc : remove warning messages from Xcode on Mac
+
+October 20th, 2011, M.Asai (event-V09-04-07)
+- Removing obsolete G4Exception.
+
+July 7th, 2011, G.Cosmo (event-V09-04-06)
+- Fixed Coverity defects for uninitialised static data.
+
+June 21st, 2011, G.Cosmo (event-V09-04-05)
+- Fixed compilation warnings on gcc-4.6.0 for unused variables in
+  G4SPSPosDistribution and G4AdjointPosOnPhysVolGenerator sources.
+
+June 18th, 2011, H.Kurashige (event-V09-04-04)
+- Modify G4ParticleGun (and related) to use momentum direction
+
+June 16th, 2011, H.Kurashige (event-V09-04-03)
+- Fix bugs in G4HEPEvtInterface. 
+  In creation of G4PrimaryParticle, only PDG code is given to the constructor. Then mass and momentum is set .
+- Modify G4RayShooter and G4SingleParticleSource to use kinetic energy and momentum direction
+  instead of momentum.
+
+June 14th, 2011, H.Kurashige (event-V09-04-02)
+- Modify G4ParticleGun and G4PrimaryTransformer to use kinetic energy and momentum direction
+  instead of momentum.
+  (It requires particles-V09-04-06) 
+
+May 20th, 2011, B.Morgan (event-V09-04-01)
+- CMakeLists.txt : Added G4EVENT_ALLOC_EXPORT compiler definition via 
+  add_definitions so it's applied to all sources in this module.
+
+February 10th, 2011, M.Asai (event-V09-04-00)
+- Adding one more reset of abortRequested flag at the top of G4EventManager::DoProcessing().
+- Addressing to Bug report #1169.
+
+December 15th, 2010, M.Asai (event-V09-03-10)
+- Fixing incorrect destination stack for the case more than three track stacks are used.
+
+November 24th, 2010, M.Asai (event-V09-03-09)
+- Added protection against null pointer : G4TrackStack.cc, G4SmartTrackStack.cc
+
+Novemver 10th, 2010, F.Lei (event-V09-03-08)
+- User can now specify arbitrary energy distribution by supplying the data points
+  in a 2-column (energy<in MeV> and flux) ASCII file, via the UI command
+   /gps/hist/file your_file_name
+- Further update of the auto energy biasing implementation
+- Bug fix (new implementation) in the Spline interpolation implementation
+- Bug fix in the Logarithm interpolation implementation (alpha = -1 case).   
+
+November 8th, 2010, M.Asai (event-V09-03-07)
+- Setting touchable history of the origin to G4Track.
+
+November 2nd, 2010, F.Lei 
+- Implemented concrete destructor for G4SPSEneDistribution (bug #1149)
+- Added automatic energy biasing scheme. Users now can bias the energy distribution
+  sampling to a given power-law distribution (index alpha) via the UI command  
+    /gps/ene/biasAlpha alpha
+  Files affected are
+	G4SingleParticleSource.hh .cc
+	G4SPSEneDistribution.hh .cc  
+	G4SPSRandomGenerator.hh .cc  
+	G4GeneralParticleSourceMessenger.hh .cc
+
+October 27th, 2010, G.Cosmo (event-V09-03-06)
+- Restored DLL setup as originally. Withdrawn changes in last tag.
+
+October 19th, 2010, G.Cosmo (event-V09-03-05)
+- Replaced G4EVENT_ALLOC_EXPORT flag with G4ALLOC_EXPORT for DLL exported
+  symbols.
+
+August 9th, 2010, M.Asai (event-V09-03-04)
+- Fixing electron mass correction for ions in G4PrimaryTransformer.
+
+June 11th, 2010, M.Asai (event-V09-03-03)
+- Remove obsolete CLHEP_HepMC option from G4EventManager class.
+
+May 20th, 2010, F.Lei (event-V09-03-02)
+- Added a number of Get methods to G4SPSEneDistribution.hh
+
+April 19th, 2010, M.Asai (event-V09-03-01)
+- Improving a logic in G4PrimaryTransformer. Addressing the problem report #1101.
+
+April 19th, 2010, M.Asai (event-V09-03-00)
+- Fix warning message in G4SmartTrackStack found with gcc 4.5.0.
+
+Movember 18th, 2009, G.Cosmo (event-V09-02-05)
+- Fixes to "Adjoint" classes to allow build of DLLs on Windows: renamed all
+  methods and data holding "External" as keyword to "Ext".
+  Cleanup of the code: use "const G4String&" instead of "G4String" wherever
+  possible; use G4 types in consistent way; avoid usage of "isNan"; code
+  formatting cleanup; added Geant4 disclaimer.
+
+November 6, 2009, L.Desorgher (event-V09-02-04)
+- First commit of G4Adjoint calsses for event category
+  New classes are G4AdjointPosOnPhysVolGenerator,G4AdjointPrimaryGenerator, G4AdjointStackingAction
+
+September 16, 2009, M.Asai (event-V09-02-03)
+- Improved the logic in G4SmartTrackStack. 
+- Added /event/stack/verbose to have a short report of peak number of tracks in
+  the urgent stack.
+
+August 17, 2009, M.Asai (event-V09-02-02)
+- Introducing G4SmartTrackStack class. By using this new stack as the urgent stack of
+  G4StackManager, the next track poped up from the stack is not necessarily the last
+  track stored in the stack, but the track of same particle type as the previous one, 
+  as long as such a track exists in the urgent stack. This mechanism is expected to 
+  improve the performance for ultra-large scale simulation such as LHC, by increasing
+  the cashe hit rate of the physics tables.
+- The use of G4SmartTrackStack is optional. To use it, uncomment the "#define" line
+  in include/evmandefs.hh.
+
+June 29, 2009, M.Asai (event-V09-02-01)
+- Fix warning message in G4SPSEneDistribution.cc.
+
+February 17, 2009, F. Lei (event-V09-02-00)
+- Minor chnages to G4GeneralParticleSourceMessenger.cc. It now uses the full ranges of units pre-defined in G4 for length, energy and angle.
+
+September 02, 2008, G.Cosmo (event-V09-01-01)
+- Removed some redundant semicolons in G4SPSAngDistribution header...
+
+June 02, 2008, F. Lei (event-V09-01-00)
+- Cleared gcc 4.3 compilation warning (src/G4SPSEneDistribution.cc:1155)
+- Added a few Get methods to G4SPSAngDistribution (bug #1013)
+
+December 4, 2007, F. Lei (event-V09-00-03)
+- Fixed the problem in bug report #988
+
+November 7, 2007, M.Asai (event-V09-00-02)
+- Added private copy constructor and =, ==, += operators to G4ParticleGun. Addressing to Bug Report 984.
+
+October 1, 2007, P.Gumplinger and M.Asai (event-V09-00-01)
+- Add UI commands /gun/momentum and /gun/momentumAmp
+  for example: /gun/momentumAmp 1.0 GeV (not GeV/c)!
+
+September 28, 2007, P.Gumplinger (event-V09-00-00)
+- Add class member particle_momentum and
+  method SetParticleMomentum(G4double)
+
+June 11, 2007, G.Santin (event-V08-03-02)
+- Fix to normalisation of source intensities with multiple sources:
+  G4GeneralParticleSource::IntensityNormalization
+
+June 4, 2007, A.Howard (event-V08-03-01)
+- Put back some classes required for scoring of biasing cells:
+  G4CellScorerStore and G4CellScorer
+
+May 31, 2007, A.Howard (event-V08-03-00)
+- Removal of classes from old biasing/scoring scheme:
+  G4CellScorer, G4CellScorerStore, G4ScoreTable, G4Scorer
+- Files remain on the HEAD for testing purposes
+
+March 8, 2007, M.Asai (event-V08-02-01)
+- Consolidation of previous tag with a new flag in G4EventManager.
+
+March 5, 2007, M.Asai (event-V08-02-00)
+- Prevent from unnecessary creation of G4String objects in G4Event, which were
+default for random number status.
+
+November 17, 2006, F.Lei (event-V08-01-03)
+- Improved implementation of flat_sampling (biasing) for multiple sources in GPS. 
+
+November 17, 2006, F.Lei (event-V08-01-02)
+- First implementation of flat_sampling (biasing) for multiple sources. 
+
+November 10, 2006, F.Lei (event-V08-01-01)
+- Added line 468 to for initialization to G4PSEneDistribution.cc
+
+November 02, 2006, M.Asai (event-V08-01-00)
+- Add a flag in G4Event to keep the particular event object until the end of current run.
+- Add a set method to G4EventManager to control the above flag and add a UI command in G4EvManMessenger.
+
+June 15, 2006, M.Asai (event-V08-00-04)
+- Add zero vector check for polarization of optical photon in G4PrimaryTransformer.
+
+May 10, 2006, M.Asai (event-V08-00-03)
+- Import G4RayShooter from visualization/RayTracer.
+
+May 06, 2006, M.Asai (event-V08-00-02)
+- Store random number status to G4Event.
+
+May 05, 2006, M.Asai (event-V08-00-01)
+- G4EventManager : Set G4Event pointer before the G4State is changed.
+
+March 03, 2006, M.Asai (event-V08-00-00)
+- Bug fix in rarely used G4ParticleGun constructor.
+
+November 30, 2005, G.Cosmo (event-V07-01-05)
+- Trivial fixes to G4SPSAngDistribution and G4SPSPosDistribution for
+  support of CLHEP-2.0.X series.
+
+November 22, 2005, M.Asai (event-V07-01-04)
+- Put G4Exception to the constructors of G4UserEventAction and
+  G4UserStackingAction to protect against their instantiation before
+  G4VUserPhysicsList is instantiated and set to G4RunManager.
+- Put protection against null pointer to
+  G4ParticleGun::SetParticleDefinition().
+
+November 21, 2005, M.Asai (event-V07-01-03)
+- Fix a bug in the previous tag.
+
+November 18, 2005, M.Asai (event-V07-01-02)
+- Migration to sstream.
+- Move G4HepMC classes to examples/extended/eventgenerator/HepMC.
+
+October 20, 2005, Joseph Perl (event-V07-01-01)
+- Tag to co-work with vis-V07-01-05.
+
+Oct 17, 2005 Jane Tinslay
+- Modify GNUmakefile to follow intercoms->graphics_reps migration for 
+  G4VGraphicsScene and G4VVisManager
+
+Sep 05, 2005, F.Lei (event-V07-01-00)
+- Corrected typo in printout in G4GeneralParticleMessenger.cc (bug #786)
+
+Jun 13, 2005, G.Cosmo (event-V07-00-05)
+- Corrected typo in printout in G4GeneralParticleMessenger.cc.
+
+May 30, 2005, M.Asai (event-V07-00-04)
+- Modify G4PrimaryTransformer to accept exotic particles.
+
+May 10, 2005, F.Lei  (event-V07-00-03)
+- commentingt out line 157 in G4SinglePariclesource.cc. Fixing a bug in 
+   particle weight
+
+Apr 26, 2005, M.Asai (event-V07-00-02)
+- Modify G4PrimaryTransformer
+ - to accept shortlived primary particle with proper decay table,
+ - to issue a warning message if a shortlived primary does not have decay table nor 
+   pre-assigned decay mode,
+ - and to add a new virtual method to alter the conversion of such shortlived into
+   a track (default implementation converts it).
+- Modify G4ParticleGun and G4ParticleGunMessenger to accept shortlived primary particle
+  with proper decay table.
+
+Mar 24, 2005, M.Asai (event-V07-00-01)
+- Move G4PrimaryParticle, G4PrimaryVertex, G4VUserPrimaryParticleInformation and
+  G4VUserPrimaryVertexInformation to particles/management.
+- Modify G4PrimaryTransformer to take care of a mass defined in G4PrimaryParticle
+  if it is defined.
+
+Jan 26, 2005, F.Lei  (event-V07-00-00)
+- bug (typo) fix in G4SPSRandomGenerator.cc (lines 608,709)
+- restored the inheritance to G4VPrimaryGenerator for G4GeneralParticleSource
+- bug fix in G4SPSEneDistribution.cc (lines 1168,1169)
+
+Dec 02, 2004, M.Asai (event-V06-02-04)
+- Migration to <cmath>.
+
+Oct 28, 2004, F.Lei  (event-V06-02-03)
+- Added new features, focused beam and multiple vertexes, to GeneralParticleSource.
+
+Aug 10, 2004, M.Asai (event-V06-02-02)
+- G4PrimaryTransformer becomes a base class.
+
+Jul 7, 2004, M.Asai (event-V06-02-01)
+- Treatment of G4UnknownParticle is added to G4PrimaryTransformer.
+
+Jul 1, 2004, G.Cosmo (event-V06-02-00)
+- Trivial fix for porting on gcc-3.4.0 compiler: removed extra semicolons
+  in G4CellScorerStore.cc.
+
+Jun 11, 2004, G.Cosmo (event-V06-01-07)
+- Use global flag G4EVENT_ALLOC_EXPORT to export extern symbols for DLLs.
+  Modified GNUmakefile and rearranged usage of extern symbols in classes.
+
+Jun 9, 2004, G.Cosmo (event-V06-01-06)
+- Adopt G4DLLIMPORT/G4DLLEXPORT technique to handle extern simbols for
+  allowing support of DLLs on Windows.
+- Coworks with "global-V06-01-02b".
+
+Jun 7, 2004, G.Cosmo (event-V06-01-05)
+- Export extern symbols for allowing support of DLLs on Windows. Modified files:
+  G4Event.hh, G4HEPEvtParticle.hh, G4PrimaryParticle.hh, G4PrimaryVertex.hh,
+  G4StackedTrack.hh, G4TrajectoryContainer.hh.
+- GNUmakefile: added definition of GLOBLIBS for DLLs support on Windows.
+- Coworks with "global-V06-01-02a".
+
+May 26, 2004, M.Asai (event-V06-01-04)
+- Fix incorrect behaviour of event abortion requested by BeginOfEventAction.
+
+May 04, 2004, M.Asai (event-V06-01-03)
+- Access methods to G4TrackingManager and G4StackManager are added
+  to G4EventManager.
+
+Apr, 26, 2004, F. Lei (event-V06-01-02)
+- Restored a few methods to G4GeneralParticleSource.hh to maintain backward 
+  compatibility. 
+
+Apr, 5, 2004, F. Lei (event-V06-01-01)
+- Added "UserWRTSurace = true", "UserAngRef= flase" to constructor of 
+  G4SPSAngDistribution.
+- Apply the Max/Min angle limits to the User defined angular distribution case.
+- New formula for conevrting integral spectrum to differential one.
+ 
+Apr, 1, 2004, F. Lei (event-V06-01-00) 
+- Major design iteration of the G4GeneralParticleSource class. The following 
+  new classes have been added:
+	- G4SingleParticleSource
+	- G4SPSEneDistribution
+	- G4SPSAngDistribution
+	- G4SPSPosDistribution
+	- G4SPSRandomGenerator
+  See http://reat.space.qinetiq.com/gps for more details of the changes.
+	
+Mar. 15, 2004, M.Asai (event-V06-00-01)
+- LocateGlobalPointAndSetup() method of G4Navigator is now invoked at the
+  beginning of each event to reset the navigator.
+
+Feb. 22  2004, H.Kurashige (event-V06-00-00)
+- Bug Fix in the destructor of G4ParticleGunMessenger
+
+Nov 19 2003, M.Asai (event-V05-02-09)
+- G4ParticleGun.cc, G4ParticleGunMessenger.cc:
+ - Added protection against shooting shortlived particle.
+
+Oct 13 2003, F.Lei (event-V05-02-08)
+- increased the array size from 256 to 1024 for user defined histograms.
+- Bug fix in G4GeneralParticleSource.cc: make sure the SideRefVec(1/2/3) are unit
+  vectors.
+
+Oct 03 2003, G.Cosmo (event-V05-02-07)
+- GNUmakefile:
+  o added dependency to new module "geometry/navigation".
+  o replaced "digits+hits" with "digits_hits".
+- Coworks with "geometry-V05-02-00" and "digits_hits-V05-02-00".
+
+Oct 01 2003, M.Asai (event-V05-02-06)
+- Set G4DynamicParicle the pointer to the corresponding primary particle.
+
+Sep 12 2003, M.Asai (event-V05-02-05)
+- Introducing G4VUserPrimaryVertexInformation and G4VUserPrimaryParticleInformation
+  classes, which can be associated with G4PrimaryVertex and G4PrimaryParticle,
+  respectively.
+- Adding a treatment of "proper decay time" for preassigned decay products.
+- Introducing G4StackChecker class, a utility class which can be used by a user.
+
+Sep 09 2003, M.Asai (event-V05-02-04)
+- Introducing G4VUserEventInformation class, which can be associated with G4Event.
+
+Aug 13 2003, M.Asai (event-V05-02-03)
+- Introducing another entry method G4EventManager::ProcessOneEvent which takes
+  G4TrackVector class object.
+- Adding a mechanism of merging more than one kinds of primaries (HepHC and
+  G4PrimaryVertex or G4TrackVector and G4PrimaryVertex).
+- Change the trackID numbering scheme for "PostposedToNextEvent" tracks.
+  Now they have negative trackID.
+
+Aug 11 2003, M.Asai (event-V05-02-02)
+- Maintain links between pre-assigned decay products and corresponding primary 
+  particle. Becuse of this, G4PrimaryParticle objects of pre-assigned decay
+  have proper track ID.
+
+Aug 01 2003, M.Asai (event-V05-02-01)
+- Introducing a new entry method G4EventManager::ProcessOneEvent which takes
+  HepMC event class object instead of G4Event object.
+- G4HepMCInterface::HepMC2G4 becomes a static service method.
+- G4HepMCInterface::CheckVertexInsideWorld is moved to G4VPrimaryGenerator and
+  also becomes a static servic method.
+
+Aug 01 2003, M.Asai (event-V05-02-00)
+- With introducing G4RunManagerKernel class in Run category, G4EventManager now
+  toggles the application states between G4State_GeomClosed and G4State_EventProc.
+
+Jun 04 2003, G.Cosmo (event-V05-01-02)
+- Fixes for inclusion of <strstream> in G4HEPEvtInterface.cc in view
+  of the g4std wrappers migration.
+
+Jun 03 2003, G.Cosmo (event-V05-01-01)
+- Fixed trivial warning in G4GeneralParticleSourceMessenger.cc.
+
+May 21 2003, M.Asai (event-V05-01-00)
+- Clean up unused variables.
+
+Dec 06 2002, G.Cosmo (event-V04-01-11)
+- Corrected tag to include also "event-V04-01-09" !!
+
+Dec 04 2002, M.Asai (event-V04-01-10)
+- Migration to new G4ApplicationState
+
+Dec 03 2002, M.Asai (event-V04-01-09)
+- Fix memory leak caused by deleting stacked tracks.
+
+Dec 03 2002, G.Cosmo (event-V04-01-08)
+- Protect code defining interface to HepMC from compilation on Windows systems.
+  Temporarly solution until CLHEP will support the HepMC module on Windows.
+
+Nov 25 2002, M.Asai (event-V04-01-07)
+- Fix a bug in G4CellScorer.cc
+
+Nov 18 2002, M.Asai (event-v04-01-06)
+- Introducing HepMC interfaces
+- Tag for Geant4 5.0 release
+
+Nov 4th 2002 M.Dressel (event-V04-01-05)
+     - remove G4std:: where it does not belong to
+
+Oct 28 2002, M.Dressel (event-V04-01-04)
+- Added G4CellScorer[.hh.cc], G4CellScorerStore[.hh.cc], G4ScoreTable[.hh.cc], G4Scorer[.hh.cc]
+
+Oct 06 2002, M.Asai (event-V04-01-03)
+- Protect user's mis-use of destructor of G4TrajectoryContainer.
+  By design it was expected that G4TrajectoryContainer would be
+  deleted by G4Event destructor, after "clearAndDestroy" is
+  separately invoked.
+
+Aug 19 2002, M.Asai (event-V04-01-02)
+- Change the default value of charge for G4PrimaryParticle.
+
+Aug 13 2002, M.Asai (event-V04-01-01)
+- G4Event: Introducing an EventAborted flag.
+
+Jun 29 2002, V.Ivantchenko (event-V04-01-00)
+- G4PrimaryParticle: fixed initialisation of 'charge' in constructors.
+
+Jun 8 2002, M.Asai (event-V04-00-04)
+- Fix G4TrajectoryContainer to be compliant to gcc-3.1.
+
+May 29 2002, M.Asai (event-V04-00-03)
+- Added TransferOneStackedTrack() method to G4StackManager.
+
+May 15 2002, M.Asai (event-V04-00-02)
+- Introducing new G4TrajectoryContainer class which aggregates STL vector,
+  instead of deriving from STL vector.
+
+Feb 26 2002, G.Cosmo (event-V04-00-01)
+- Optimised implementation of SetNewValue() in G4ParticleGunMessenger and
+  G4GeneralParticleSourceMessenger to allow porting on WIN32-VC for optimised
+  compilation.
+
+Jan 22 2002, M.Asai (event-V04-00-00)
+- Remove the check G4PrimaryTransformer whether the primary vertex is inside
+  the world volume. The check has been moved to G4SteppingManager.
+
+Nov 21 2001, M.Asai (event-V03-02-09)
+- G4PrimaryTransformer.cc: now considering case where a primary is placed on the
+  boundary of the world volume. Added units.
+
+Nov 20 2001, M.Asai (event-V03-02-08)
+- Add check whether the primary vertex is inside of thw world volume.
+- Move set method of position and time from G4ParticleGun to G4VPrimaryGenerator
+  so that G4HEPEvtInterface can accept the primary vertex position
+
+Nov 10 2001, M.Asai (event-V03-02-07)
+- Tagged.
+
+Oct 19 2001, F. Lei
+- Code changes to remove compilation warnings un gcc-2.95.2
+- Added Beam option for generating accerlator beams
+
+Oct 11 2001, G.Cosmo (event-V03-02-06)
+- Replaced inclusions of ctoken.h with G4Tokenizer.hh in
+  G4GeneralParticleSourceMessenger.cc and G4ParticleGunMessenger.cc.
+  Removed comment on RW wrappers.
+- Co-works with tag "globals-V03-02-03" where the STLInterface
+  module has been removed.
+
+Aug 27 2001, M.Asai (event-V03-02-05)
+- Convert NULL to 0 in G4EventManager.cc
+
+Aug 17 2001, M.Asai (event-V03-02-04)
+- G4EventManager.cc is debugged according to bug report 289.
+
+July 19 2001, M.Asai (event-V03-02-03)
+- Tagged 
+
+July 19 2001, F.Lei 
+- Most commands under G4ParticleGun class are now available under GPS
+
+    e.g..
+    /gun/position => /gps/position
+    /gun/direction => /gps/direction
+    /gun/energy  => /gps/energy
+   ...
+
+- Implemented co-ordinates rotation for angular distribution. User defined
+co-ordinates was an option available to user in the messenger but not
+implemented internally in the older version gps.
+Source angular distribution coupled with positional distribution can lead to
+rather strange combinations. To avoid this I used a simple scheme in this
+implementation:
+
+- For cos-law angular distribution the default maxtheta is set to pi/2.
+    instead of pi. The user can of course re-set this to any number between
+        0 - pi.
+
+- Added user defined histogram re-set method. After re-set user can
+      redefine all the histograms. To use
+        /gps/resethist  'histname'
+-  Bug fixed in generating theta, and in calculating the weight.
+
+- Added further guidance in the messenger for the definition of pre-defined
+    energy distributions
+
+Jul 18 2001, M.Asai (event-V03-02-02)
+- Added a new feature for the user to increase the number of waiting stacks.
+
+Jul 17 2001, M.Asai (event-V03-02-01)
+- G4PrimaryParticle now stores the proper trackID.
+
+Jul 13 2001, G.Cosmo (event-V03-02-00)
+- Cleanup of pedantic warnings in Linux-g++ ANSI setup.
+- Corrected "int" to "G4int".
+- Corrected "NULL" to "0".
+- Synchronised with HEAD revision after inclusion of disclaimer
+  liability.
+
+Jun 28 2001, G.Cosmo (event-V03-01-01)
+- Added CVS headers to G4GeneralParticleSource[.hh.cc] and
+  G4GeneralParticleSourceMessenger[.hh.cc].
+  Removed <CR> characters and corrected format for comments to
+  appear in the Software Reference Manual.
+
+Apr 20 2001, G.Cosmo (event-V03-01-00)
+- Modified G4GeneralParticleSource.cc according to recent migration to
+  STL vector for the geometry domain (tag "geometry-V03-01-00").
+
+Feb 8 2001, M.Asai (event-V03-00-03)
+- Migration to STL vector classes
+  affected files :
+./event/include/G4HEPEvtInterface.hh
+./event/include/G4PrimaryParticle.hh
+./event/include/G4TrajectoryContainer.hh
+./event/src/G4EventManager.cc
+./event/src/G4GeneralParticleSource.cc
+./event/src/G4HEPEvtInterface.cc
+./event/src/G4PrimaryParticle.cc
+./event/src/G4PrimaryTransformer.cc
+
+Feb 7 2001, M.Asai (event-V03-00-02)
+- Add proper time to G4PrimaryParticle
+
+Feb 7 2001, M.Asai (event-V03-00-01)
+- Fix syntax errors in G4GeneralSourceParticle.cc
+
+Feb 5 2001, M.Asai (event-V03-00-00)
+
+Jan 26 2001, F. Lei
+- bug fixing in G4GeneralSourceParticle.cc
+ replace: 
+          posphi = acos(tx/sin(posthe));
+ 
+ with:
+          if (posthe != 0. && posthe != pi) 
+             posphi = acos(tx/sin(posthe)); 
+          else 
+             posphi = 0.0;
+	  endif
+
+Nov 20 2000, G.Cosmo (event-V02-00-04)
+- Removed data-logs from test directory.
+
+Nov 13 2000, M.Asai (event-V02-00-03)
+
+Nov 10 2000, F.Lei
+- Adding src and include sub-directory and files to test/GeneralParticleSource
+- Improving the speed in  G4GeneralParticleSource::GenerateIsotropicFlux() and
+   G4GeneralParticleSource::GenerateCoslawFlux()
+-    some bug fixing:
+          i) dclared ' G4int count' in all ****Interpolation functions
+          ii) added ' return (0.) ' to GenerateUserDefTheta and GenerateUserDefPhi 
+              as default.
+	  iii) changed
+	       #include <iostream.h>
+		 to #include "g4std/fstream"
+	      in G4GeneralParicleSourceMessenger.cc
+
+Nov 9 2000, M.Asai (tag event-V02-00-02)
+- Adding /source/event/test and GeneralParticleSource sub-directory.
+
+Oct 31 2000, F.Lei
+  G4GeneralParticleSource:
+  G4GeneralParticleSourceMessenger: 
+ 	G4GeneralParticleSource is an alternative primary source
+	generator to G4ParticleGun. It has all the functions of 
+	G4ParticleGun plus many options for specifing the primary 
+	event particle and vertex.
+
+ - added  -I$(G4BASE)/global/HEPNumerics/include \
+      to GNUMakefile
+
+
+Oct 19 2000, M.Asai (tag event-V02-00-01)
+  G4ParticleGun :  Add Set/GetParticleCharge methods for ions.
+  G4ParticleGunMessenger : Add new command of /gun/ion
+                         : Modify command of /gun/particle
+  G4PrimaryParticle : Add Set/GetCharge methods
+                    : Add weight
+  G4PrimaryVertex : Add weight
+  G4PrimaryTransformer : Use G4PrimaryParticle::GetCharge to give dynamic charge
+                         in G4DynamicParticle
+                       : Set weight of G4Track 
+
+July 22 2000, M.Asai (tag event-V02-00-00)
+- Adding some new Set methods to G4PrimaryVertex and G4PrimaryParticle
+  classes.
+
+Jan 26, 00, M.Asai (tag event-V01-00-01)
+- Corrections for trajectories of suspended tracks
+- This tag requires tracking-V01-00-01
+
+Jan 12, 00, M.Asai (tag event-V01-00-00)
+- G4EventManager becomes a singleton.
+- G4EventManager keeps the pointers of all user action classes except
+ run action.
+- Null pointer protections are added for SetUserAction methods in
+ G4EventManager and G4StackManager.
+
+Nov 4, 99, M.Asai (tag event-V00-01-01)
+- Comments are enriched for the software reference manual
+
+Oct 4, 99, J.Allison (tag event-V00-01-00)
+- Removed -I$(G4BASE)/graphics_reps/include from GNUmakefile (no
+  longer necessary after G4VVisManager moved to intercoms).
+
+Jun 7, 99, J.Allison (tag event-01-00-03)
+- Trapped "G4HEPEvtInterface:: cannot open file."
+
+Apr 15, 99 M.Asai (tag event-01-00-02)
+- Catch up the changes of trajectory classes in tracking category.
+
+Apr 09, 99 M.Asai (tag event-01-00-01)
+- Change the pointer arguments in user action classes to const.
+
+Nov 11, 98 M.Asai (tag event-00-03-04)
+- Optimize G4PrimaryVertex for events such as having huge number
+  of primaries.
+
+Oct 10, 98 M.Asai (tag event-00-03-03)
+- Bug fix in G4PrimaryVertex.
+- Add verbosity to G4PrimaryXXX.
+
+Oct 01, 98 M.Asai (tag event-00-03-02)
+- Introducing a new inlined method in G4ParticleGun.hh.
+
+Sep. 21, 98 M.Asai (tag event-00-03-01)
+- Inclusion of "G4HCofThisEvent.hh" and "G4DCofThisEvent.hh" moved
+  from "G4Event.cc" to "G4Event.hh", to avoid the link problem on
+  HP-CC (not aCC).
+
+July 19, 98 M.Asai (tag event-00-01-03)
+- More tight check against EoF in G4HEPEvtInterface
+
+July 15, 98 M.Asai (tag event-00-01-02)
+
+July 4, 98 M.Asai (tag event-00-01-01)
+- ready for the beta release
+
+June 30, 98 M.Asai (tag event-00-07-01)
+- Introduce shortlived particles
+
+June 22, 98 P. Urban
+- Preliminary results of tracking optimisation merged into the HEAD.
+- tagged as event-00-06-03
+
+June 10, 98 M.Asai
+- G4ParticleGunMessenger.cc is modified to catch up the new G4UIcommand
+- tagged as event-00-06-02
+
+June 8, 98 M.Asai
+- tagged as event-00-06-01
+
+June 6, 98 M.Asai
+- G4Event and G4EventManager is updated for the new "digita+hits" scheme
+- GNUmakefile is updated
+
+May 6, 98 M.Asai
+- G4ParticleGun is cleaned up.
+
+April 29, 98 G.Cosmo (event-00-05-02)
+- Removed print-out of track's pointers from verbose level in
+  G4EventManager.cc (P.Urban)
+
+April 22, 98 M.Asai
+- Tagged as event-00-05-01
+
+April 9, 98 G.Cosmo
+- Porting on DEC-cxx 6.0.
+  Removed meaningless usage of "const" qualifier from functions
+  return type for basic types by value. Modified files:
+  G4StackManager.hh, G4TrackStack.hh
+
+April 6, 97 M.Nagamatu
+- modified G4ParticleGunMessenger.cc to fix the "Unit length" of
+ /gun/position command.
+
+December 19, 97 G. Cosmo - (alpha03)
+
+- Created.

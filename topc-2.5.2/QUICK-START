@@ -1,0 +1,134 @@
+             Quick Start: Installation and Test Run
+
+                       "Difficulty?" exclaimed Ford. "Difficulty?  What
+                   do you mean difficulty?  [The wheel is] the single
+                   simplest machine in the universe!"  ...
+                       "All right, Mr. Wiseguy,"  she said,  "you're so
+                   clever, you tell us what color it should be."
+                       from "The Restaurant at the End of the Universe"
+                       by Douglas Adams
+
+
+   This is version 2.5.2 of Task Oriented Parallel C/C++ (`TOP-C').
+   See http://www.ccs.neu.edu/home/gene/topc.html for general
+   information on obtaining source, overview slides of `TOP-C',
+   previous `TOP-C' applications, etc.
+                                                      Gene Cooperman
+                                                      gene@ccs.neu.edu
+
+   It has been tested and works on several workstation
+   architectures. It provides task-oriented parallelism to the end user.
+   The same application source code (or object code) can be executed (or
+   linked) with any of the following communication libraries using the
+   topcc command (a substitute for cc or gcc):
+    1. a distributed memory library using MPI (MPI subset, mpinu,
+       included in distribution); or
+    2. a shared memory library using threads; or
+    3. a single-process sequential library (useful for development and
+       debugging).
+
+   The `TOP-C' model has been successfully used for some very large
+   computations.
+   (See http://www.ccs.neu.edu/home/gene/par-tools.html
+    and http://www.ccs.neu.edu/home/gene/pargeant4.html)
+
+   To unpack:
+
+
+  gunzip topc.tar.gz
+  tar xvf topc.tar
+  cd topc
+  ./configure
+  make
+
+   If you are impatient, you can immediately do:
+
+
+  cd bin
+  make parfactor
+  > FACTORING 123456789
+  > ./a.out 123456789
+  > master -> 1: 2
+  > master -> 2: 1002
+  > 1 -> master: TRUE
+  >   UPDATE: TRUE
+  > ...
+  > 3 3 3607 3803
+   and see a demonstration for factoring numbers by a Euclidean sieve.
+   Then try: ./a.out YOUR_NUMBER
+   Read bin/Makefile for an example of compiling a `TOP-C' program.
+
+   If you want to use more or different slave processes, modify
+   `bin/procgroup'. Then, again:
+
+
+  cd bin
+  ./a.out YOUR_NUMBER
+
+   And compare with your results using a single slave process:
+
+
+  ./a.out --TOPC-num-slaves=1 YOUR_NUMBER
+
+   Or investigate what other command-line TOP-C options are available for
+   a.out.
+
+
+  ./a.out --TOPC-help
+
+   Other TOP-C applications besides parfactor are in the directory
+   `../examples'. For example, if you would like to try `parquicksort.c',
+   then from the `bin' directory, try:
+
+
+  make check TEST_FILE=parquicksort
+
+   When you write your own `TOP-C' application, `app.c', make sure that
+   it contains #include <topc.h> at the top, and that you have a
+   procgroup file in the current directory, and then:
+
+
+  bin/topcc --mpi -o app app.c
+  # or else:  bin/topc++ --mpi -o app app.cc
+  ./app
+
+   `topcc' is a wrapper for your standard C compiler. It accepts all the
+   standard compiler command line options, plus a few more. `topc++'
+   also exists. [NOTE: bin/topcc --help and bin/topc++ --help both work
+   and `doc/topcc.1' exists ]
+
+   This might be a good point to download and print at least the first
+   half of the manual, or else make it from the doc directory:
+               (cd doc; make pdf; make ps)
+   Note that the table of contents may appear at the
+   end of the documentation after the index. See Appendix A. Summary of
+   `TOP-C' Commands, for a list of the `TOP-C' commands. See B. Example
+   `TOP-C' Application, for a simple `TOP-C' example application
+   involving only trivial parallelism. The `examples' subdirectory
+   provides more detailed examples. A tutorial is available from the web
+   page, http://www.ccs.neu.edu/home/gene/topc.html.
+
+   Finally, if you want to install `TOP-C' permanently, type
+
+  ./configure                 # Install in /usr/local
+  ./configure --prefix=$HOME  # Install in home directory
+  make install
+
+   This adds a man page, an info file (try info topc), etc. HTML
+   documentation is available in the `doc' subdirectory of the `TOP-C'
+   distribution. By default, `TOP-C' will install in `/usr/local',
+   requiring root privilege.  If you configured --prefix=$HOME,
+   TOP-C' will create files in `$HOME/bin', `$HOME/lib',
+   `$HOME/include', `$HOME/man' and `$HOME/info'. If you want to make
+   `TOP-C' with cc instead of gcc, type:
+
+
+  env CC=cc ./configure --cache-file=/dev/null
+
+   CFLAGS, CXX (for topc++ and CXXFLAGS can also be set. For other
+   configuration options, type:
+
+  ./configure --help
+
+   Please write the author, Gene Cooperman (gene@ccs.neu.edu), if
+   there are any questions.
