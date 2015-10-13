@@ -11,6 +11,9 @@
 
 # Geant / G4STORK build files
 G4STORK/Build/*
+G4STORK/include/Marshaled*
+G4STORK/include/*.msh
+
 geant4.10.01.p02-build/*
 geant4.10.01.p02-install/*
 geant4.10.01.p02/examples/*
