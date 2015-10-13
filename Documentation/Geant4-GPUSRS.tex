@@ -17,7 +17,7 @@
 \newcommand{\todo}[1]{\textcolor{red}{[TODO: #1]}} \else
 \newcommand{\authornote}[3]{} \newcommand{\todo}[1]{} \fi
 \newcommand{\wss}[1]{\authornote{magenta}{SS}{#1}}
-\newcommand{\ds}[1]{\authornote{blue}{DN}{#1}}
+\newcommand{\ds}[1]{\authornote{blue}{DS}{#1}} %I fixed your comment code again -- DS
 % End Comments ---------------------------------------------------------------
 
 \renewcommand\thesubsubsection{\thesection.\arabic{subsection}.\alph{subsubsection}}
@@ -113,7 +113,9 @@ The stakeholders that are currently involved with the project are:
 \end{itemize}
 
 \subsubsection{The Client}
-The clients for the project are the Dr. Buijs and his grad student Wesley Ford, representing the McMaster Engineering Physics Department. The clients proposed the project because they have invested interest in running G4-STORK simulations more efficiently. They will be using the parallelized code to run and study nuclear simulations, and require that the code executes much more quickly to obtain useful data.
+The clients for the project are
+\ds{Unnecessary ``the"}
+Dr. Buijs and his grad student Wesley Ford, representing the McMaster Engineering Physics Department. The clients proposed the project because they have invested interest in running G4-STORK simulations more efficiently. They will be using the parallelized code to run and study nuclear simulations, and require that the code executes much more quickly to obtain useful data.
 	
 \subsubsection{The Customer}
 The customer in this case also includes the clients. As such they will be the part of the end-user group that we will cater to.
@@ -131,7 +133,9 @@ Graduate students and professors from the McMaster Engineering Physics Departmen
 Consider Matt Douglas, a graduate student in the Engineering Physics Department. Matt wants to study how particles in McMaster's nuclear reactor affect each other, given some specific starting conditions, and a very large number of particles. Matt knows how to use the existing G4-STORK program, but it will take weeks to run the computations. Matt inputs his desired number of particles and specific starting conditions into a G4-STORK simulation. He enables the GPU features of the new product, and successfully runs the simulation in a reasonable amount of time. He observes interesting results that would not have been feasible to obtain with the old product.\\
 
 \subsubsection{Priorities Assigned to Users}
-Priority will be given to Wesley Ford, the grad student that proposed the project to Dr. Buijs. He will be the primary user of G4-STORK as it is integral to his current research.
+Priority will be given to Wesley Ford, the grad
+\ds{``graduate"}
+student that proposed the project to Dr. Buijs. He will be the primary user of G4-STORK as it is integral to his current research.
 
 % =============================== Section =============================== %
 \section{Project Constraints}
@@ -140,6 +144,7 @@ Priority will be given to Wesley Ford, the grad student that proposed the projec
 \subsection{Mandated Constraints} % Rob
 There are global constraints put in place by the existing software, the stakeholders, and the structure of 4ZP6. The project must be built upon the existing GEANT-4 code, which is used by G4-STORK to run the simulation. The final product must be able to run any code/simulation that ran on the existing software. The software must run in parallel on a NVIDIA GPU. Additionally, the final product needs to be completed by the end of April, 2016. If these global constraints are not met the final product is not acceptable.\\
 
+\ds{Why an NVIDIA GPU? Was that constrained by your client?}
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Naming Conventions \& Terminology} % Stuart
 Throughout the document, ``the project'', ``the product'', and/or ``the software'' all refer to the modified GEANT-4 code that will include the capability to be run on a GPU. The ``existing software'' refers to the current GEANT-4 simulation toolkit.\\
@@ -192,9 +197,10 @@ The project, G4-STORK, is currently at a point where it is able to run all neces
 \begin{figure}[h]
 \includegraphics[width=\textwidth]{WorkContextDiagram} 
 \end{figure} 
-
+\ds{Figure caption?}
 \subsubsection{Work Partitioning}
 All tasks will be divided equally among all members of the development team. The team will work together to initially define the interface for using the GPU to run calculations, and once that is completed each member will independently work on porting specific classes to the GPU. Testing will be done throughout the development by the developers. This ensures that all developers are able to easily debug their contributions.
+\ds{This section is supposed to show a breakdown of the business use cases}
 
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Business Data Model \& Data Dictionary} % Rob
@@ -217,6 +223,8 @@ The following table outlines the use cases for the product.
 \end{table}
 
 Descriptions of each PUC, referenced by PUC \# are as follows.
+\ds{PUC is not in your glossary}.
+
 \begin{enumerate}
 \item \label{PUC_SimulatingParticles} The software will be used by researchers wishing to simulate large numbers of particles interactions with materials. The researcher sets simulation parameters, including the number of particles, their lifetime, and the material properties before running the simulation. On completion, the program gives back a map of where each particle traveled, so researchers can study where the particles are most probably to end up.
 \end{enumerate}
@@ -243,6 +251,9 @@ Descriptions of each PUC, referenced by PUC \# are as follows.
 {User should be able to quickly enable GPU computations after referencing the documentation. If their hardware is compatible, their project should run with no errors.}
 {High}
 {Created September 29, 2015}
+\ds{Your description shouldn't include ``should be easy". 
+It should be detailing \emph{what} the product is supposed to do.
+Ease of use is a non-functional requirement.}
 \\\\
 
 \requirement
@@ -254,6 +265,7 @@ Descriptions of each PUC, referenced by PUC \# are as follows.
 {Running an existing simulation should execute on the CPU by default as before with no performance regressions and identical results.}
 {High}
 {Created September 29, 2015}
+\ds{This requirement should be split. The default case should have its own requirement.}
 \\\\
 
 \requirement
@@ -265,11 +277,17 @@ Descriptions of each PUC, referenced by PUC \# are as follows.
 {Any computer that can currently run the existing product should be able to run the new product.}
 {Medium}
 {Created September 29, 2015}
+\ds{This requirement should be split. There should be one for detecting hardware and
+one for what to do based on hardware detected.}
+
+\ds{Will users be aware of whether or not their machine can run the code
+on the GPU?}
 
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Look and Feel Requirements}\label{ReqType_Look} % Victor
 \subsubsection{Appearance Requirements}
 NA -- The scope of the project does not include any visual aspects. Simulations are run through the command line.
+\ds{Then why does your 4.1.b diagram show ``Visualizations rendered and stored?"}
 
 \subsubsection{Style Requirements} 
 \requirement
@@ -281,7 +299,7 @@ NA -- The scope of the project does not include any visual aspects. Simulations 
 {Any persons with an understanding of the existing project should be able to clearly understand the modified code.}
 {Medium}
 {Created October 6, 2015}
-
+\ds{This is not a requirement for your end-product.}
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Usability and Humanity Requirements}\label{ReqType_Usabil} % Rob
 
@@ -306,6 +324,7 @@ NA -- The scope of the project does not include any visual aspects. Simulations 
 {A given user with personal (non-technical) barriers to achieving complete satisfaction with the software will be responsible for overcoming such barriers.}
 {Medium}
 {Created October 6, 2015}
+\ds{``Rigorous"}
 
 \subsubsection{Learning Requirements}
 \requirement
@@ -331,6 +350,7 @@ NA\\
 {A blind university student who potentially has trouble using a shell based operating system may have trouble with the software.}
 {Medium}
 {Created October 6, 2015}
+\ds{Bad fit criterion}
 
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Performance Requirements}\label{ReqType_Performance}
@@ -373,6 +393,8 @@ NA -- The software is not used in safety critical environments. It is a tool for
 \subsubsection{Robustness or Fault-Tolerance Requirements}
 NA -- The product does not need to maintain standards during an unforseen event. It does not handle any sensitive data, and is not constantly required to be running by its users.
 
+\ds{Shouldn't there be some safeguards in case of an error?}
+
 \subsubsection{Capacity Requirements}
 \requirement
 {Req_Capacity}
@@ -386,6 +408,9 @@ NA -- The product does not need to maintain standards during an unforseen event.
 
 \subsubsection{Scalability Requirements}
 NA -- The product will be used by single researchers, and is run locally on their machines.
+
+\ds{What if the researchers wanted to run it on a server with multiple GPUs
+(or hundreds of CPU cores?)}
 
 \subsubsection{Longevity Requirements}
 NA -- The product is to be completed by April 2016, and there are no plans to extend that lifetime.
@@ -448,6 +473,7 @@ There will be a setup.txt file describing briefly how to add a function and set 
 
 \subsubsection{Adaptability Requirements}
 The completed project is expected to run on Fedora and OSx. 
+\ds{Why only those?}
 
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Security Requirements}\label{ReqType_Security} % Rob
@@ -535,15 +561,24 @@ NA -- There are no existing products that can be copied.
 \subsection{New Problems}\label{SubSec_NewProbs} % Stuart
 \subsubsection{Effects on the Current Environment}
 The new product will be designed as an opt-in addition to the existing product. That is, unless manually changed by the user, the program will execute identically as before, running on the CPU. The motivation for this is to ensure compatibility, as the programming environment for GP-GPU programming is restricted to certain hardware. The current environment will not be affected by the changes unless the user specifically decides to use them.
+\ds{You are describing design decisions, not effects on the current environment}
 
 \subsubsection{Effects on the Installed Systems}
 Requirement \ref{Req_EasyChange} specifies the importance of creating a simple interface for the user to enable the changes in the new system, or revert to the previous one. Changes to the code will be isolated, and only used when they are manually enabled.
+\ds{Again you are talking about design. Here you should be detailing what your
+how your product interfaces with the existing system. Are there any potential
+conflicts that would need to be solved (i.e. by your design decision)?}
 
 \subsubsection{Potential User Problems}
 Due to the separation of the changes and the existing product, users will not negatively respond to the changes, indeed they won't even notice them unless actively looking. To use the new product's features, users will enable them and then execute the program in an identical manner to how the existing software works (requirement \ref{Req_EasyChange}).
+\ds{You are again making design decisions instead of detailing potential problems
+to be solved by those decisions}
 
 \subsubsection{Limitations of the Anticipated Implementation Environment That May Inhibit the New Product}
-To run the GP-GPU computations, specific hardware is required (recent NVIDIA graphics card).
+To run the GP-GPU computations, specific hardware is required
+\ds{You should stop here, unless you explained (in the constraints section)
+why you need an NVIDIA card. Also, what is ``recent"?}
+(recent NVIDIA graphics card).
 
 \subsubsection{Follow-Up Problems}
 There are a number of potential situations that could lead to the product failing. We are confident that we will be able to succeed, however we realize that there is a possibility of failure, and have outlined the potential causes below.
@@ -588,7 +623,8 @@ Because our software has research based aspirations and goals, some traditional 
 \begin{itemize}
 	\item Excessive schedule pressure
 	\item Technical/Resource limitations
-	\item Inadequate measurements
+	\item Inadequate measurements 
+	\ds{What do you mean by this?}
 	\item Optimistic time constraints
 \end{itemize}
 
