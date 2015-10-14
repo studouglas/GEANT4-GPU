@@ -187,9 +187,12 @@ StorkNeutronData StorkHadronFissionProcess::GetADelayedNeutron(
 	// Find the appropriate interaction
 	try
 	{
-		theFissionModel = ChooseHadronicInteraction(
-												aNeutron->GetKineticEnergy(),
-												theMat, anElement);
+        // Incorrect num args (Stuart, Oct 14)
+        //theFissionModel = ChooseHadronicInteraction(aNeutron->GetKineticEnergy(), theMat, anElement);
+
+        // Temporarily changed so it compiles -- NOT CORRECT
+        const G4HadProjectile* tempProjectile = reinterpret_cast<G4HadProjectile*>(&theProjectile);
+        theFissionModel = ChooseHadronicInteraction(*tempProjectile, theTarget, theMat, anElement);
 	}
 	catch(G4HadronicException & aE)
 	{

@@ -16,7 +16,9 @@
 #include "G4Nucleus.hh"
 #include "G4Track.hh"
 #include "G4HadProjectile.hh"
-#include "G4ReactionDynamics.hh"
+
+// File couldn't be found (Stuart, Oct 14)
+//#include "G4ReactionDynamics.hh"
 
 class StorkHadronicInteraction: public G4HadronicInteraction
 {

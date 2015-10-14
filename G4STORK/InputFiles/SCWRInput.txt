@@ -1,0 +1,45 @@
+# Input for quater lattice cell SCWR
+
+# Build a quarter lattice cell SCWR
+WORLD SCWR
+
+# Number of runs, events per run and primaries per event
+NUM_RUNS 100
+NUM_EVENTS 40
+NUM_PRIMARY_PER_EVENT 40
+
+#CS Datat Directory
+CS_DATA_DIR DEFAULT
+
+# Uniform source ditribution around the fuel
+#UNIFORM_DIST_WITH_DIM 1 G4Tubs 1 4.7 7.2 0.5 25. 0. 0.
+
+# Initial random seed
+SEED 2013092304
+
+# Produce delayed neutrons instantaneously
+INSTANT_DELAYED 1
+
+# Periodic Boundary condition
+PERIODIC_BC 6 -nx nx -ny ny nz -nz
+
+# Periodic Boundary condition
+REFLECT_BC 0
+
+# Duration of each run (ns)
+RUN_DURATION 1e5
+
+# Initial neutron energy (MeV)
+NEUTRON_ENERGY 2.0
+
+# Initial Neutron Dist
+#INITIAL_SOURCE_FILE Src_SCWR-100.txt
+
+# Output files 
+OUTPUT_LOG Log_SCWR.txt
+OUTPUT_SOURCE Src_SCWR.txt
+OUTPUT_FISSION Fis_SCWR.txt
+
+# Frequency of source output
+OUTPUT_SRC_FREQ 50
+

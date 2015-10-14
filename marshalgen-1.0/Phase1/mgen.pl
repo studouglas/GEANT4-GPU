@@ -680,7 +680,7 @@ sub annotate_ptr_as_array {
     if($isPrimitiveType){
 	$annot.= "\t\t\tEXTEND_BUFFER\(sizeof\($strElementType\)\);\n";	
 	$annot.= "\t\t\tmemcpy\(\$\$\+copy_off\, &\$ELEMENT, sizeof\($strElementType\)\);\n";
-	$annot.= "\t\t\tcopy_off \+\= sizeof\($strElementType\)\);\n";
+	$annot.= "\t\t\tcopy_off \+\= sizeof\($strElementType\);\n";
     }else{
 	$annot.= "\t\t\tEXTEND_BUFFER\(marEle\.getBufferSize\(\)\);\n";
 	$annot.= "\t\t\tmemcpy\(\$\$\+copy_off\, marEle\.getBuffer\(\)\, marEle\.getBufferSize\(\)\);\n";

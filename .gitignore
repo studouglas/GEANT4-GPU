@@ -9,6 +9,10 @@
 *.toc
 *.out
 
+# Xcode project files
+G4STORK/Build-Xcode
+geant4.10.01.p02-build-xcode
+
 # Geant / G4STORK build files
 G4STORK/Build/*
 G4STORK/include/Marshaled*

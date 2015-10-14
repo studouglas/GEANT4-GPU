@@ -49,7 +49,10 @@ Installation
 3. `make`<br>
 4. At this point, make sure that the `usr/local/marshalgen-1.0` folder exists
 and contains all the same files as the *marshalgen-1.0* folder in GEANT4-GPU. If
-not, simply copy those files into `usr/local/marshalgen-1.0`.
+not, simply copy those files into `usr/local/marshalgen-1.0`.<br>
+5. Note: there is a syntax error in marshalgen-1.0/Phase1/mgen.pl line 683 (one
+extra `\)` before the `;\n";`. The version in the repo is fixed, but if you 
+downloaded marshalgen from another source, you need to fix this)
 
 **Install GEANT-4**<br>
 1. (Fedora only) `yum install expat-devel`<br>
@@ -69,17 +72,40 @@ geant4.10.01.p02-install /path/to/GEANT4-GPU/geant4.10.01.p02`<br>
 5. `cmake -DTOPC_USE=1 -DGeant4_DIR=/path/to/GEANT4-GPU/geant4.10.01.p02-
 install/lib/Geant4.10.00.p02/Geant4Config.cmake ../` (note: it may be *lib64*
  instead of *lib* on Linux)<br>
-6. `make -f MarshalMakefile` (note: if this fails, make sure
+6. `make -f ../MarshalMakefile` (note: if this fails, make sure
 `usr/local/marshalgen-1.0` contains the `marshalgen` binary)<br>
 7. `make -jN` where `N` is the number of processors on your computer
+8. Open `/path/to/GEANT4-GPU/Build/addFilesG4STORK` and modify the top few 
+variables with the correct paths for your install.
+
+**Recompiling after changes**<br>
+Every time you change the source code of G4STORK or GEANT4, you need to 
+recompile. From `/path/to/GEANT4-GPU/G4STORK/Build` run the recompile script to
+recompile the project with:
+```
+./addfilesG4STORK
+```
+You can optionally add arguments when running the script, open it in a text 
+editor to see available arguments.
+
+Once that is done, the g4stork executable should be updated to include the 
+changes to your code.
 
 **Testing Installation**<br>
-To test that everything installed properly, (TODO: figure out a test).
-
+To test that everything installed properly, run the following command from 
+`/path/to/GEANT4-GPU/G4STORK/Build`: 
+```
+./g4stork ../InputFiles/C6Lattice.txt
+```
+If it runs with no errors, then you should be all set up!
 
 Troubleshooting
 ==========
-
+Potential problems include:
+- Spaces in pathname to GEANT-GPU
+- Unsupported OS
+- Newer version of Clang (included with Xcode 7), download Xcode 6 and uninstall
+ Xcode 7 if this is the case
 
 FAQ
 ==========
