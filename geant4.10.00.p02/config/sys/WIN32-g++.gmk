@@ -1,0 +1,88 @@
+#
+# ------ GNU/WIN32 CYGWIN ------   !!! not supported !!!
+#                             Cygnus CygWin - gcc-3.2 and higher
+#                                       Windows XP
+#
+# Stefano Agostinelli (agos001@pn.itnet.it) - IST Group, Genova
+#
+ifeq ($(G4SYSTEM),WIN32-g++)
+  CXX       := g++
+  CXXFLAGS  := -W -Wall -ansi -pedantic -Wno-non-virtual-dtor -Wno-long-long
+  CXXFLAGS  += -Wwrite-strings -Wpointer-arith -Woverloaded-virtual -pipe
+  ifdef G4OPTIMISE
+    CXXFLAGS  += -O
+    FCFLAGS   := -O
+    CCFLAGS   := -O
+  else
+    ifdef G4DEBUG
+      CXXFLAGS  += -g
+      FCFLAGS   := -g
+      CCFLAGS   := -g
+    endif
+  endif
+  ifdef G4PROFILE
+    CXXFLAGS  += -pg
+    FCFLAGS   += -pg
+    CCFLAGS   += -pg
+  endif
+  ifdef G4OPTDEBUG
+    CXXFLAGS  += -O2 -g
+    FCFLAGS   += -O2 -g
+    CCFLAGS   += -O2 -g
+  endif
+  ifdef G4LIB_BUILD_SHARED
+    CXXFLAGS  += -fPIC
+    FCFLAGS   += -fPIC
+    CCFLAGS   += -fPIC
+  endif
+
+  G4RUNPATHOPTION := -Wl,-rpath 
+  SHEXT   := so
+  ECHO    := echo -e
+  GREP := /usr/bin/grep
+  SED  := /usr/bin/sed
+  CAT  := /usr/bin/cat
+  CUT  := /usr/bin/cut
+
+  FC := g77
+  FCFLAGS += -fno-automatic -fno-backslash -fno-second-underscore
+  FCLIBS := -lg2c -lnsl
+  LOADLIBS += -lm -lstdc++
+  ifndef X11FLAGS
+    X11FLAGS  := -I/usr/include/X11/extensions -I/usr/include/X11
+  endif
+  ifndef X11LIBS
+    X11LIBS   := -L/usr/X11R6/lib  -lXmu -lXt -lXext -lX11 -lXi -lSM -lICE
+  endif
+  ifndef XMFLAGS
+    XMFLAGS   := -I/usr/X11R6/include
+  endif
+  ifndef XMLIBS
+    XMLIBS    := -lXm -lXpm
+  endif
+  ifndef XAWFLAGS
+    XAWFLAGS  := -I/usr/X11R6/include
+  endif
+  ifndef XAWLIBS
+    XAWLIBS   := -lXaw
+  endif
+  ifndef OGLFLAGS
+    OGLFLAGS  := -I$(OGLHOME)/include 
+  endif
+  ifndef OGLLIBS
+    OGLLIBS   := -L$(OGLHOME)/lib -lGLU -lGL
+  endif
+  define build-granular-shared-lib
+    @libdir=`(cd $(@D);/bin/pwd)`; \
+     cd $(G4TMPDIR); \
+     $(CXX) -Wl,-soname,$(@F) -shared -o $$libdir/$(@F) $(INTYLIBS) *.o
+  endef
+  define build-global-shared-lib
+    @libdir=`(cd $(@D);/bin/pwd)`; \
+     cd $(G4TMP)/$(G4SYSTEM); \
+     $(CXX) -Wl,-soname,$(@F) -shared -o $$libdir/$(@F) $(INTYLIBS) \
+                    $(foreach dir,$(SUBLIBS),$(dir)/*.o);
+  endef
+
+endif
+

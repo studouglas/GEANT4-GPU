@@ -10,17 +10,17 @@
 *.out
 
 # Xcode project files
-G4STORK/Build-Xcode
-geant4.10.01.p02-build-xcode
+G4STORK/Build-xcode
+geant4.10.00.p02-build-xcode
 
 # Geant / G4STORK build files
 G4STORK/Build/*
 G4STORK/include/Marshaled*
 G4STORK/include/*.msh
 
-geant4.10.01.p02-build/*
-geant4.10.01.p02-install/*
-geant4.10.01.p02/examples/*
+geant4.10.00.p02-build/*
+geant4.10.00.p02-install/*
+geant4.10.00.p02/examples/*
 
 marshalgen-1.0/Examples
 marshalgen-1.0/Phase2/*.yy.*

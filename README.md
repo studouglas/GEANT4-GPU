@@ -99,6 +99,13 @@ To test that everything installed properly, run the following command from
 ```
 If it runs with no errors, then you should be all set up!
 
+**Helpful Tips**<br>
+It is recommended to add a line to your bash_profile that loads the Geant4
+environment variables, like so:
+```
+source /path/to/geant4.10.00.p02-install/bin/geant4.sh
+```
+
 Troubleshooting
 ==========
 Potential problems include:
