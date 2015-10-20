@@ -17,6 +17,8 @@ system.
 ## Table of Contents
 **[Prerequisites](#prerequisites)**<br>
 **[Installation](#installation)**<br>
+**[Testing Installation](#testing-installation)**<br>
+**[Compiling After Changes](#compiling-after-changes)**<br>
 **[Troubleshooting](#troubleshooting)**<br>
 **[FAQ](#FAQ)**<br>
 
@@ -78,7 +80,36 @@ install/lib/Geant4.10.00.p02/Geant4Config.cmake ../` (note: it may be *lib64*
 8. Open `/path/to/GEANT4-GPU/Build/addFilesG4STORK` and modify the top few 
 variables with the correct paths for your install.
 
-**Recompiling after changes**<br>
+**Helpful Tips**<br>
+It is recommended to add a line to your bash_profile that loads the Geant4
+environment variables, like so:
+```
+source /path/to/geant4.10.00.p02-install/bin/geant4.sh
+```
+
+Testing Installation
+==========
+**Testing GEANT4**<br>
+There are several basic examples included with GEANT4 which can be run to test 
+the install. To run the example `B1`:<br>
+1. `cd /path/to/GEANT4-GPU/geant4.10.00.p02/examples/basic`<br>
+2. `mkdir B1-build`<br>
+3. `cd B1-build`<br>
+4. `cmake -DGeant4_DIR=/path/to/GEANT4-GPU/geant4.10.00.p02-install/lib/Geant4-10.0.2 ../B1`<br>
+5. `make -jN` where `N` is the number of cores on your machine<br>
+6. `./exampleB1`
+
+**Testing G4-STORK**<br>
+To test that everything installed properly, run the following command from 
+`/path/to/GEANT4-GPU/G4STORK/Build`: 
+```
+./g4stork ../InputFiles/C6Lattice.txt
+```
+If it runs with no errors, then you should be all set up!
+
+
+Compiling After Changes
+==========
 Every time you change the source code of G4STORK or GEANT4, you need to 
 recompile. From `/path/to/GEANT4-GPU/G4STORK/Build` run the recompile script to
 recompile the project with:
@@ -90,21 +121,6 @@ editor to see available arguments.
 
 Once that is done, the g4stork executable should be updated to include the 
 changes to your code.
-
-**Testing Installation**<br>
-To test that everything installed properly, run the following command from 
-`/path/to/GEANT4-GPU/G4STORK/Build`: 
-```
-./g4stork ../InputFiles/C6Lattice.txt
-```
-If it runs with no errors, then you should be all set up!
-
-**Helpful Tips**<br>
-It is recommended to add a line to your bash_profile that loads the Geant4
-environment variables, like so:
-```
-source /path/to/geant4.10.00.p02-install/bin/geant4.sh
-```
 
 Troubleshooting
 ==========
