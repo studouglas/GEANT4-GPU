@@ -21,6 +21,7 @@ G4STORK/include/*.msh
 geant4.10.00.p02-build/*
 geant4.10.00.p02-install/*
 geant4.10.00.p02/examples/*
+!geant4.10.00.p02/examples/basic
 
 marshalgen-1.0/Examples
 marshalgen-1.0/Phase2/*.yy.*
