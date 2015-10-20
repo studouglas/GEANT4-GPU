@@ -1,6 +1,6 @@
 \documentclass[12pt]{article}
 \usepackage[margin=1.4in]{geometry}
-
+\usepackage{hyperref}
 % Comments ------------------------------------------------ 
 \usepackage{xcolor}
 \newif\ifcomments\commentstrue
@@ -12,30 +12,35 @@
 \newcommand{\wss}[1]{\authornote{magenta}{SS}{#1}}
 \newcommand{\ds}[1]{\authornote{blue}{DS}{#1}} % End Comments
 %---------------------------------------------
-
+\setlength{\parindent}{0pt}
 
 % ============================ BEGIN DOCUMENT =============================== %
 \begin{document}
 
 
 \title{\vspace{-4em}Proof of Concept Plan for GEANT4-GPU} \author{Stuart Douglas
-(1214422), Matthew Pagnan (1208693), \\ Rob Gorrie (1222547), Victor Reginato
-(1209975)}
+(dougls2), Matthew Pagnan (pagnanmm), \\ Rob Gorrie (gorrierw), Victor Reginato
+(reginavb)}
 	
 \maketitle
 
+\textbf{Significant Risks}\\
+The majority of the risks posed by the project relate to the integration of changes to the (large) existing codebase:
+\begin{itemize}
+\item Installation of GEANT4 and G4-STORK taking too long due to their complexity, and numerous dependencies
+\item Learning curve for existing G4-STORK codebase is too steep, cannot gain adequate understanding to implement changes in time constraints
+\item The current product's interface for the specific algorithms that will be ported to the GPU is not well-enough defined to have a simple mechanism to enable or disable GPU execution
+\item Unable to invoke CUDA code from within the G4-STORK program when it's running due to technical barriers
+\end{itemize}
 
-\noindent \textbf{Significant Risks}\\
+\textbf{Demonstration Plan}\\
+The goal of the project is to port GEANT4 simulations to run on a GPU to reduce computation time. Our proof of concept plan aims to show how we can overcome the biggest risks associated with that -- setting up development environments with the existing codebase, as well as invoking a CUDA program on the GPU from G4-STORK.
+There will be three aspects of the demonstration:
 
-\noindent \textbf{Demonstration Plan}\\
-\noindent
-We are trying to prove that by running GEANT4 simulations on a GPU we can reduce the amount of time it takes for computation.\\
+\begin{enumerate}
+\item Run an existing GEANT4 example to demonstrate the installation of GEANT4 and its dependencies
+\item \label{stork} Run our modified G4-STORK program with a flag or similar mechanism \emph{disabling} GPU execution. The program will take input parameters, run a simulation, and produce an output file.
+\item Run our modified G4-STORK program with a flag or similar mechanism \emph{enabling} GPU execution. The program will take input parameters as in (\ref{stork}), but will additionally invoke a trivial CUDA program which will send a simple result (e.g. a vector or an integer) back to G4-STORK, which will print it to the console. After that, the simulation will continue and an identical output file to (\ref{stork}) will be created.
+\end{enumerate}
 
-\noindent
-A simple example will be run using GEANT4 without any of the GPU code. This test will be benchmarked to show empirical data. The same example will be run again, this time using the GPU code. The test will also be benchmarked so we can compare the run times of both tests.\\
-
-\noindent
-If the second test has a lower computation time then we have proven that running GEANT4 simulations with GPU's does in fact reduce computation time
-
- 
 \end{document}
