@@ -7,7 +7,7 @@
 *.log
 *.synctex.gz
 *.toc
-*.out
+Documentation/*/*.out
 
 # Xcode project files
 G4STORK/Build-xcode
