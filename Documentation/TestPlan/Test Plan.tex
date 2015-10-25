@@ -79,6 +79,7 @@ Initial draft of document & Stuart, Matthew, Rob, Victor & 2015-10-26\\
 
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Summary} % Matt
+GEANT4-GPU will be a library for GEANT4 that will make use of the GPU's processing power to reduce the computation times of GEANT4 programs while still outputting the same results as if GEANT4 was run without the GPU code. This testing plan outlines how the development team is expected to test these two aspects with the use of unit testing, system testing, structural testing and code testing.
 
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Risks} % Stuart
@@ -120,7 +121,20 @@ The GEANT4 project is heavily dependent on random numbers. Random numbers are us
 \section{Test Types}
 
 % ----------------------------- Sub Section ----------------------------- %
-\subsection{Black-Box Testing} % Matt
+\subsection{Manual and Automatic Testing} % Matt
+Manual testing needs to be conducted by people, where test cases and inspections are manually performed. On the other hand, automated testing relies less on people and performs tests quickly and effectively returning feedback on results not meeting expectations. Manual testing is more flexible; However, it is far more time consuming.\\
+
+Our System testing shall be done manually since there is some graphical output. Most of the system tests will have a unique output format that our tester will have to verify that it is correct. Our unit testing shall be mostly automated.\\ 
+
+% ----------------------------- Sub Section ----------------------------- %
+\subsection{System Testing} % Matt
+There are several examples that come with GEANT4 which we shall use along with other simple test files we will create ourselves. There are some specific test files the engineering physics department has run on the non-GPU GEANT4 system that we will also use for testing. Due to the time it takes for computation for some of these test files on the non-GPU system we will not run many of those files again on the non-GPU system in order to compare them with the GEANT4-GPU computation times. In those cases we will run those files only on GEANT4-GPU to ensure that those files are still able to run.
+
+% ----------------------------- Sub Section ----------------------------- %
+\subsection{Structural Testing (Stress Testing)} % Matt
+Structural tests focus on the program's internal structure by evaluating the structure and the non-functional requirements of the system, particularly on any abnormal or extreme behavior.\\ 
+
+We will have several tests where there will be an extremely high number of particles to process. We will test to see how this affects the computation time compared to the non-GPU code. We will also check to ensure that the large number of particles does not crash the system when it doesn't on the non-GPU code.
 
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Unit Testing} % Stuart
@@ -136,6 +150,24 @@ The GEANT4 project is heavily dependent on random numbers. Random numbers are us
 
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Description of Factor} % Matt
+\subsubsection{Correctness}
+Tests run on GEANT4-GPU should provide the same resulting output as tests run on the non-GPU GEANT4\\\\
+\textbf{Rationale}\\
+In order for GEANT4-GPU to be of use it must still be able to compute the correct outputs. \\\\
+\textbf{Methods of testing}
+\begin{itemize}
+\item The output of tests run on GEANT4-GPU will be compared with the output of tests run on the non-GPU GEANT4
+\end{itemize}
+
+\subsubsection{Performance}
+Tests run on GEANT4-GPU should take less time to compute compared to the same tests run on the non-GPU GEANT4\\\\
+\textbf{Rationale}\\
+The focus of this project is to reduce the computation time for GEANT4 programs by using a GPU. \\\\
+\textbf{Methods of testing}
+\begin{itemize}
+\item Compare the computation times of tests run on GEANT4-GPU with the computation times of test run on the non-GPU GEANT4 to see if the GEANT4-GPU computation times are smaller.
+\item Stress test GEANT4-GPU by having it compute programs that would take an infeasible amount of time to compute on non-GPU GEANT4.
+\end{itemize}
 
 % =============================== Section =============================== %
 \section{Test Items}
@@ -150,7 +182,8 @@ The GEANT4 project is heavily dependent on random numbers. Random numbers are us
 \subsection{User Manual Testing} % Rob
 
 % ----------------------------- Sub Section ----------------------------- %
-\subsection{Error Handling Testing} % Matt
+\subsection{Error Handling Testing} % Matt 
+Error handling indicates tot he extent at which users can recover or know the basis of an error occurring in the system. Error handling would imply trying to find ways of committing errors, such as inputting too many or too few arguments or wrong data in general. For examples, if users try to call one of the new functions and provide it with the wrong types of data, they must be clearly shown the reason for their failure and, if possible, present a solution. Error handling would be performed both, manually and in an automated setting, once a set of potential errors are discussed and figured out amongst the members of the testing team.
 
 % =============================== Section =============================== %
 \section{Automated Testing Plans} % Stu
