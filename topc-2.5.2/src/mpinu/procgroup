@@ -2,8 +2,8 @@
 # src/mpinu/procgroup.  Generated from procgroup.in by configure.
 
 local 0
-localhost 1 /Users/stuart/Documents/4th_Year/CS_4ZP6/GEANT4-GPU/topc-2.5.2/src/mpinu/hello_mpi
-localhost 1 /Users/stuart/Documents/4th_Year/CS_4ZP6/GEANT4-GPU/topc-2.5.2/src/mpinu/hello_mpi
+localhost 1 /home/kason/school/4zp6/repo/GEANT4-GPU/topc-2.5.2/src/mpinu/hello_mpi
+localhost 1 /home/kason/school/4zp6/repo/GEANT4-GPU/topc-2.5.2/src/mpinu/hello_mpi
 # localhost 1 pargapmpi
 
 # The general format is that "local 0" implies creation of a master.

@@ -6,7 +6,7 @@ if test "$1" == ""; then
   exit 1
 fi
 
-dir=/Users/stuart/Documents/4th_Year/CS_4ZP6/GEANT4-GPU/topc-2.5.2/utils
+dir=/home/kason/school/4zp6/repo/GEANT4-GPU/topc-2.5.2/utils
 
 if test ! -x $dir/ssh-procgroup; then
   echo "$dir:  gcc -o ssh-procgroup ssh-procgroup.c"
