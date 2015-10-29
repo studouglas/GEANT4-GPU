@@ -71,8 +71,7 @@ geant4.10.01.p02-install /path/to/GEANT4-GPU/geant4.10.01.p02`<br>
 2. `cd /path/to/GEANT4-GPU/G4STORK/Build`<br>
 3. `source /path/to/GEANT4-GPU/geant4.10.01.p02-install/bin/geant4.sh`<br>
 4. `rm -rf CMakeCache.txt CMakeFiles/`<br>
-5. `cmake -DTOPC_USE=1 -DGeant4_DIR=/path/to/GEANT4-GPU/geant4.10.01.p02-
-install/lib/Geant4.10.00.p02/Geant4Config.cmake ../` (note: it may be *lib64*
+5. `cmake -DTOPC_USE=1 -DGeant4_DIR=/path/to/GEANT4-GPU/geant4.10.01.p02-install/lib/Geant4.10.00.p02/Geant4Config.cmake ../` (note: it may be *lib64*
  instead of *lib* on Linux)<br>
 6. `make -f ../MarshalMakefile` (note: if this fails, make sure
 `usr/local/marshalgen-1.0` contains the `marshalgen` binary)<br>
@@ -80,7 +79,7 @@ install/lib/Geant4.10.00.p02/Geant4Config.cmake ../` (note: it may be *lib64*
 8. Open `/path/to/GEANT4-GPU/Build/addFilesG4STORK` and modify the top few 
 variables with the correct paths for your install.
 
-**Helpful Tips**<br>
+**Setting Environment Variables**<br>
 It is recommended to add a line to your bash_profile that loads the Geant4
 environment variables, like so:
 ```
@@ -103,7 +102,7 @@ the install. To run the example `B1`:<br>
 To test that everything installed properly, run the following command from 
 `/path/to/GEANT4-GPU/G4STORK/Build`: 
 ```
-./g4stork ../InputFiles/C6Lattice.txt
+./g4stork ../InputFiles/C6LatticeInput.txt
 ```
 If it runs with no errors, then you should be all set up!
 

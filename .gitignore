@@ -17,7 +17,10 @@ geant4.10.00.p02-build-xcode
 G4STORK/Build/*
 G4STORK/include/Marshaled*
 G4STORK/include/*.msh
+G4STORK/OutputFiles
+G4STORK/SourceFiles
 
+geant4.10.00.p02/tmp
 geant4.10.00.p02-build/*
 geant4.10.00.p02-install/*
 geant4.10.00.p02/examples/*

@@ -4,15 +4,16 @@
 WORLD C6Lattice
 
 # Number of runs, events per run and primaries per event
-NUM_RUNS 100
+NUM_RUNS 5
 NUM_EVENTS 12
-NUM_PRIMARY_PER_EVENT 30
+NUM_PRIMARY_PER_EVENT 20
 
 #Cross-section Data Directory
 CS_DATA_DIR DEFAULT
 
 #Final State Data Directory
-FS_DATA_DIR /home/SuperKamiGuru/NuclearSim/Data/ZippedG4NDL/0K/
+#FS_DATA_DIR /home/SuperKamiGuru/NuclearSim/Data/ZippedG4NDL/0K/
+FS_DATA_DIR DEFAULT
 
 # Uniform source ditribution around the fuel
 #UNIFORM_DIST_WITH_DIM 1 G4Tubs 1 4.7 7.2 0.5 25. 0. 0.
@@ -21,7 +22,7 @@ FS_DATA_DIR /home/SuperKamiGuru/NuclearSim/Data/ZippedG4NDL/0K/
 SEED 2013092304
 
 # Produce delayed neutrons instantaneously
-# Gives error when running -- temporarily disable (Stuart, Oct 14) INSTANT_DELAYED 1
+DELAYED_OPTION 1
 
 # Periodic Boundary condition
 PERIODIC_BC 0
@@ -39,7 +40,7 @@ NEUTRON_ENERGY 2.0
 #INITIAL_SOURCE_FILE Src_SCWRJason-100.txt
 
 # Output files 
-OUTPUT_LOG Log_C6Lattice.txt
+OUTPUT_LOG /Users/stuart/Documents/4th_Year/CS_4ZP6/GEANT4-GPU/G4STORK/OutputFiles/Log_C6Lattice.txt
 #OUTPUT_SOURCE Src_C6Lattice.txt
 #OUTPUT_FISSION Fis_C6Lattice.txt
 
