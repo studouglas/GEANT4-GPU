@@ -7,9 +7,11 @@
 \usepackage{listings}
 \usepackage{titling}
 \usepackage{tabularx}
+\usepackage{booktabs}
 \usepackage{hyperref}
 \usepackage{makecell}
-
+\usepackage{caption}
+\captionsetup[table]{skip=2pt}
 % Comments --------------------------------------------------------------------
 \usepackage{xcolor}
 \newif\ifcomments\commentstrue
@@ -22,9 +24,12 @@
 
 \setlength\parindent{0pt} % Cleaner look
 
-% Keep track of requirement numbers
+
 \newcounter{RiskNumCounter}
 \setcounter{RiskNumCounter}{0}
+\newcounter{TestCounter}
+\setcounter{TestCounter}{0}
+
 
 % Title Page -----------------------------------------------------------------
 \title{
@@ -65,14 +70,28 @@ All major edits to this document will be recorded in the table below.
 
 \begin{table}[h]
 \centering
-\caption{Revision History}
-\begin{tabular}{|l|l|l|}
-\Xhline{2\arrayrulewidth}
-\bf Description of Changes & \bf Author & \bf Date\\\hline
+\caption{Revision History}\label{Table_Revision}
+\begin{tabular}{lll}
+\toprule
+\bf Description of Changes & \bf Author & \bf Date\\\midrule
 Initial draft of document & Stuart, Matthew, Rob, Victor & 2015-10-26\\
-\Xhline{2\arrayrulewidth}
+\bottomrule
 \end{tabular}
 \end{table}
+
+% =============================== Section =============================== %
+\section*{List of Tables}
+
+\begin{center}
+\begin{tabular}{cl}
+\toprule
+\bf Table \# & \bf Title\\\midrule
+\ref{Table_Revision} & Revision History\\
+\ref{Table_Risks} & Risks\\
+\ref{Table_UnitTests} & Unit Tests\\
+\bottomrule
+\end{tabular}
+\end{center}
 
 % =============================== Section =============================== %
 \section{General Information}
@@ -87,24 +106,24 @@ The following table outlines the major risks associated with the testing of the 
 
 \begin{table}[h]
 \centering
-\caption{Risks}
-\begin{tabularx}{\textwidth}{|c|X|l|}
-\hline
-\textbf{Risk \#} & \textbf{Summary} & \textbf{Severity}\\\hline
+\caption{Risks}\label{Table_Risks}
+\begin{tabularx}{\textwidth}{cXl}
+\toprule
+\textbf{Risk \#} & \textbf{Summary} & \textbf{Severity}\\\midrule
 
 \refstepcounter{RiskNumCounter} \arabic{RiskNumCounter} \label{R_RandNums} 
 & differing order of random numbers on GPU could lead to difficulty comparing results with simulations run on CPU 
-& Very High
-\\\hline
+& Very High\\
 
 \refstepcounter{RiskNumCounter} \arabic{RiskNumCounter} \label{R_IsolateFunctions} 
 & isolating GEANT4 methods to test with unit tests may be too difficult 
-& High\\\hline
+& High\\
 
 \refstepcounter{RiskNumCounter} \arabic{RiskNumCounter} \label{R_Time} 
 & running time of tests will be too long to run them frequently 
-& High\\\hline
+& High\\
 
+\bottomrule
 \end{tabularx}
 \end{table}
 
@@ -146,7 +165,11 @@ We will have several tests where there will be an extremely high number of parti
 
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Unit Testing} % Stuart
+Unit tests will be created throughout development as functions and classes are ported to the GPU. Before porting a specific function of a class, a variety of inputs covering all edge cases for the function (i.e. input is 0, negative, very large, very small) as well as several ``normal'' cases will be created. The results of the function for each of the inputs will be recorded, and a test case will be added to test whether the outputs are the same with GPU computation enabled (once it's implemented). Due to the nature of this testing strategy, explicit unit tests are not currently known, as no functions have yet been ported to the GPU. We have identified the following functions that we are likely to port to the GPU, and explain how each unit test will work for them.
 
+\begin{table}[h]
+
+\end{table}
 
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Code Testing} % Victor
@@ -197,13 +220,28 @@ Error handling indicates the extent to which users can recover from or know the 
 
 % =============================== Section =============================== %
 \section{Automated Testing Plans} % Stu
-System tests and unit testing will both be automated, as they will be run frequently throughout the development process. 
+System tests and unit testing will both be automated, as they will be run frequently throughout the development process.\\
 
 \textbf{System Testing}\\
-A small script will be created to run the chosen example file and compare the output file with the correct output file from the existing product. If the results are the same within a margin of error elicited from consultation with the stakeholders, then the test is passed. Although the test itself will be automated, we will manually run the test. This will let us try out different example files at different times, and to choose more complex ones when larger changes are made. The output files contain run-time data which we will use to evaluate performance.
+A small script will be created to run the chosen example file and compare the output file with the correct output file from the existing product. If the results are the same within a margin of error elicited from consultation with the stakeholders, then the test is passed. Although the test itself will be automated, we will manually run the test. This will let us try out different example files at different times, and to choose more complex ones when larger changes are made. The output files contain run-time data which we will use to evaluate performance.\\
 
 \textbf{Unit Testing}\\
-A testing class will be added to the project which will contain all unit tests. These will be created as we port functions to the GPU by deciding on several inputs and recording the results as well as the running time from the existing CPU-bound product. The testing class will then call the ported function with the same inputs and verify that the outputs are the same. The testing function will record performance while it runs to ensure that the changes are positive from a performance standpoint. If the results for all functions in the testing class match the expected results, the unit tests have passed. We will manually run the unit tests throughout development as the developer sees fit. As well as those frequent tests, all unit tests must pass before any code is merged into the repository. Changes that cause a performance regression will be allowed, under the assumption that they will be improved upon until their performance is better than the existing non-GPU functions.
+A testing class will be added to the project which will contain all unit tests. These will be created as we port functions to the GPU by deciding on several inputs and recording the results as well as the running time from the existing CPU-bound product. The testing class will then call the ported function with the same inputs and verify that the outputs are the same. The testing function will record performance while it runs to ensure that the changes are positive from a performance standpoint. If the results for all functions in the testing class match the expected results, the unit tests have passed. We will manually run the unit tests throughout development as the developer sees fit. As well as those frequent tests, all unit tests must pass before any code is merged into the repository. Changes that cause a performance regression will be allowed, under the assumption that they will be improved upon until their performance is better than the existing non-GPU functions.\\
+
+\begin{table}[h]
+\centering
+\caption{Unit Tests}\label{Table_UnitTests}
+\begin{tabular}{clll}
+\toprule
+\bf Test \# & \bf Inputs & \bf Outputs & \bf Description\\\midrule
+\refstepcounter{TestCounter}\arabic{TestCounter} & 0,4 & 55 & Adding two vectors\\
+\refstepcounter{TestCounter}\arabic{TestCounter} & 0,4 & 55 & Adding two vectors\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% =============================== Section =============================== %
+\section{Proof of Concept Test}
 
 % =============================== Section =============================== %
 \section{Schedule}
