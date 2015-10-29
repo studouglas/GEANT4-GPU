@@ -109,7 +109,15 @@ The following table outlines the major risks associated with the testing of the 
 \end{table}
 
 \textbf{Risk \ref{R_RandNums} -- Random Numbers}:\\
-The GEANT4 project is heavily dependent on random numbers. Random numbers are used to determine attributes about particles (indepedent of all other particles) as they move through the system. By parallelizing the workload, the order in which the particles are evaluated may change, causing it to draw a different random number from the sequence, leading to different results.
+The GEANT4 project is heavily dependent on random numbers. Random numbers are used to determine attributes about particles (indepedent of all other particles) as they move through the system. By parallelizing the workload, the order in which the particles are evaluated may change, causing it to draw a different random number from the sequence, leading to different results. If it is decided to generate the random numbers using GPU API calls, then they will certainly be different than in the serial, CPU version of the software.\\
+
+Two solutions to this problem have been discussed. The first is to develop a solution to pass the CPU-generated numbers to the GPU while ensuring they remain in sync to the order they would be received in the serial version. This would require extra development work, but would ensure that testing the product against the existing system can be done in a straight-forward manner. The alternative is to test the software based on degree of similarity between single points of summarizing data (e.g. a mean). Comparing the products in this manner would have us check that the results are within a given margin of error, and if so the product would be deemed correct. This is the solution we are planning on implementing at this point, however if it does not seem feasible during the design and development phases we are open to exploring solution one.\\
+
+\textbf{Risk \ref{R_IsolateFunctions} -- Isoating Functions}:\\
+The codebase of GEANT4 is large and complex, a potential testing risk would be that the functions to be parallelized are not well-enough isolated to easily test inputs and outputs. The objects used in GEANT4's calculations are large and often dependent on other objects. To mitigate this testing risk, development will focus on porting single functions in classes to be tested, and unit testing will test those specific functions.\\
+
+\textbf{Risk \ref{R_Time} -- Test Runtime}\\
+Running a full system test on the modified code is a computationally intensive procedure. Even with a relatively small number of particles the computation could take several hours. With a larger, more realistic number of particles, running the program could take on the order of days. This would prevent frequent system testing, and the team would have to rely on unit tests during development. To address this risk, we will use relatively simple examples for most system tests (i.e. with few particles) and we will run those tests regularly along with unit tests. After large changes, more complex system tests will be run to ensure that the correctness has not been affected when using larger, more realistic examples.
 
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Constraints} % Victor
@@ -124,11 +132,11 @@ The GEANT4 project is heavily dependent on random numbers. Random numbers are us
 \subsection{Manual and Automatic Testing} % Matt
 Manual testing needs to be conducted by people, where test cases and inspections are manually performed. On the other hand, automated testing relies less on people and performs tests quickly and effectively returning feedback on results not meeting expectations. Manual testing is more flexible; However, it is far more time consuming.\\
 
-Our System testing shall be done manually since there is some graphical output. Most of the system tests will have a unique output format that our tester will have to verify that it is correct. Our unit testing shall be mostly automated.\\ 
+Our system testing will be done automatically -- a small script will be written to run the example and check the output file against an output file from the existing product. Unit tests will also be automated, by passing in specific inputs to modified functions and checking that ouput against the correct output from the existing product.\\ 
 
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{System Testing} % Matt
-There are several examples that come with GEANT4 which we shall use along with other simple test files we will create ourselves. There are some specific test files the engineering physics department has run on the non-GPU GEANT4 system that we will also use for testing. Due to the time it takes for computation for some of these test files on the non-GPU system we will not run many of those files again on the non-GPU system in order to compare them with the GEANT4-GPU computation times. In those cases we will run those files only on GEANT4-GPU to ensure that those files are still able to run.
+There are several examples that come with GEANT4 as well as some created by McMaster's Engineering Physics department for G4-STORK. Both examples in G4-STORK and GEANT4 will be used for system testing. Due to the compuation time for some of the exmaples, they will be run less frequently than the simpler ones. This will let us run system tests regularly on the simple files, while checking that more realistic examples are also correct after bigger changes.
 
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Structural Testing (Stress Testing)} % Matt
@@ -138,6 +146,7 @@ We will have several tests where there will be an extremely high number of parti
 
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Unit Testing} % Stuart
+
 
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Code Testing} % Victor
@@ -151,22 +160,22 @@ We will have several tests where there will be an extremely high number of parti
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Description of Factor} % Matt
 \subsubsection{Correctness}
-Tests run on GEANT4-GPU should provide the same resulting output as tests run on the non-GPU GEANT4\\\\
+Tests run on the GPU-enabled product should provide the same resulting output as tests run on the existing product\\\\
 \textbf{Rationale}\\
-In order for GEANT4-GPU to be of use it must still be able to compute the correct outputs. \\\\
+In order for the product to be of use it must be able to compute the correct outputs.\\\\
 \textbf{Methods of testing}
 \begin{itemize}
-\item The output of tests run on GEANT4-GPU will be compared with the output of tests run on the non-GPU GEANT4
+\item The output files of tests run on the product will be compared with the output files of tests run on the non-GPU existing product
 \end{itemize}
 
 \subsubsection{Performance}
-Tests run on GEANT4-GPU should take less time to compute compared to the same tests run on the non-GPU GEANT4\\\\
+Tests run with the GPU functionality enabled should take less time to compute compared to the same tests run on the the existing CPU-based product\\\\
 \textbf{Rationale}\\
-The focus of this project is to reduce the computation time for GEANT4 programs by using a GPU. \\\\
+The focus of this project is to reduce the computation time for G4-STORK by parallelizing functions on a GPU. \\\\
 \textbf{Methods of testing}
 \begin{itemize}
-\item Compare the computation times of tests run on GEANT4-GPU with the computation times of test run on the non-GPU GEANT4 to see if the GEANT4-GPU computation times are smaller.
-\item Stress test GEANT4-GPU by having it compute programs that would take an infeasible amount of time to compute on non-GPU GEANT4.
+\item Compare the computation times of tests run on the product with GPU enabled with the computation times of test run on the existing product to see if the GPU-based computation times are smaller.
+\item Stress test the product by having it compute programs that would take an infeasible amount of time to compute on the serial, CPU-bound existing product.
 \end{itemize}
 
 % =============================== Section =============================== %
@@ -174,6 +183,7 @@ The focus of this project is to reduce the computation time for GEANT4 programs 
 
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Requirements Testing} % Stuart
+Testing requirements refers to tests which verify that documented requirements are met. The requirements documentation includes a variety of non-functional and functional requirements to be tested. The unit and system tests that will be run frequently will be aimed at testing the functional requirements related to the correctness of the system, as well as the non-functional requirements related to performance. At the end of development of Revision 0, other requirements will be tested. The results from those evaluations will lead to decisions made for the final product.
 
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Code Testing} % Victor
@@ -183,10 +193,17 @@ The focus of this project is to reduce the computation time for GEANT4 programs 
 
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Error Handling Testing} % Matt 
-Error handling indicates tot he extent at which users can recover or know the basis of an error occurring in the system. Error handling would imply trying to find ways of committing errors, such as inputting too many or too few arguments or wrong data in general. For examples, if users try to call one of the new functions and provide it with the wrong types of data, they must be clearly shown the reason for their failure and, if possible, present a solution. Error handling would be performed both, manually and in an automated setting, once a set of potential errors are discussed and figured out amongst the members of the testing team.
+Error handling indicates the extent to which users can recover from or know the basis of an error occurring in the system. Error handling would imply trying to find ways of committing errors, such as passing in invalid input or function arguments. For examples, if users try to call one of the new parallelized functions and provide it with the wrong types of data, they must be clearly shown the reason for their failure and, if possible, be presented with a solution. Error handling would be performed both manually and in an automated setting, once a set of potential errors are discussed and figured out amongst the members of the testing team.
 
 % =============================== Section =============================== %
 \section{Automated Testing Plans} % Stu
+System tests and unit testing will both be automated, as they will be run frequently throughout the development process. 
+
+\textbf{System Testing}\\
+A small script will be created to run the chosen example file and compare the output file with the correct output file from the existing product. If the results are the same within a margin of error elicited from consultation with the stakeholders, then the test is passed. Although the test itself will be automated, we will manually run the test. This will let us try out different example files at different times, and to choose more complex ones when larger changes are made. The output files contain run-time data which we will use to evaluate performance.
+
+\textbf{Unit Testing}\\
+A testing class will be added to the project which will contain all unit tests. These will be created as we port functions to the GPU by deciding on several inputs and recording the results as well as the running time from the existing CPU-bound product. The testing class will then call the ported function with the same inputs and verify that the outputs are the same. The testing function will record performance while it runs to ensure that the changes are positive from a performance standpoint. If the results for all functions in the testing class match the expected results, the unit tests have passed. We will manually run the unit tests throughout development as the developer sees fit. As well as those frequent tests, all unit tests must pass before any code is merged into the repository. Changes that cause a performance regression will be allowed, under the assumption that they will be improved upon until their performance is better than the existing non-GPU functions.
 
 % =============================== Section =============================== %
 \section{Schedule}
