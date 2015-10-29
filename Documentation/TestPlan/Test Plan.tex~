@@ -7,9 +7,12 @@
 \usepackage{listings}
 \usepackage{titling}
 \usepackage{tabularx}
+\usepackage{booktabs}
 \usepackage{hyperref}
 \usepackage{makecell}
-
+\usepackage{caption}
+\usepackage{array}
+\captionsetup[table]{skip=2pt}
 % Comments --------------------------------------------------------------------
 \usepackage{xcolor}
 \newif\ifcomments\commentstrue
@@ -22,9 +25,12 @@
 
 \setlength\parindent{0pt} % Cleaner look
 
-% Keep track of requirement numbers
+
 \newcounter{RiskNumCounter}
 \setcounter{RiskNumCounter}{0}
+\newcounter{TestCounter}
+\setcounter{TestCounter}{0}
+
 
 % Title Page -----------------------------------------------------------------
 \title{
@@ -65,21 +71,39 @@ All major edits to this document will be recorded in the table below.
 
 \begin{table}[h]
 \centering
-\caption{Revision History}
-\begin{tabular}{|l|l|l|}
-\Xhline{2\arrayrulewidth}
-\bf Description of Changes & \bf Author & \bf Date\\\hline
+\caption{Revision History}\label{Table_Revision}
+\begin{tabular}{lll}
+\toprule
+\bf Description of Changes & \bf Author & \bf Date\\\midrule
 Initial draft of document & Stuart, Matthew, Rob, Victor & 2015-10-26\\
-\Xhline{2\arrayrulewidth}
+\bottomrule
 \end{tabular}
 \end{table}
+
+% =============================== Section =============================== %
+\section*{List of Tables}
+
+\begin{center}
+\begin{tabular}{cl}
+\toprule
+\bf Table \# & \bf Title\\\midrule
+\ref{Table_Revision} & Revision History\\
+\ref{Table_Risks} & Risks\\
+\ref{Table_References} & References\\
+\ref{Table_SystemTests} & System Tests\\
+\ref{Table_UnitTestsTimes} & Unit Tests - \emph{Times} function\\
+\ref{Table_UnitTestsPlus} & Unit Tests - $+$ function\\
+\ref{Table_RequirementsTests} & Requirements Tests\\
+\bottomrule
+\end{tabular}
+\end{center}
 
 % =============================== Section =============================== %
 \section{General Information}
 
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Summary} % Matt
-GEANT4-GPU will be a library for GEANT4 that will make use of the GPU's processing power to reduce the computation times of GEANT4 programs while still outputting the same results as if GEANT4 was run without the GPU code. This testing plan outlines how the development team is expected to test these two aspects with the use of unit testing, system testing, structural testing and code testing.
+The product, GEANT4-GPU, will be a modified version of G4-STORK that will leverage GPU computing to increase performance while still outputting the same results as the existing, CPU-based G4-STORK project. This testing plan outlines how the development team is expected to test the correctness and performance of the product through the use of unit testing, system testing, and code testing.
 
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Risks} % Stuart
@@ -87,123 +111,376 @@ The following table outlines the major risks associated with the testing of the 
 
 \begin{table}[h]
 \centering
-\caption{Risks}
-\begin{tabularx}{\textwidth}{|c|X|l|}
-\hline
-\textbf{Risk \#} & \textbf{Summary} & \textbf{Severity}\\\hline
+\caption{Risks}\label{Table_Risks}
+\begin{tabularx}{\textwidth}{cXl}
+\toprule
+\textbf{Risk \#} & \textbf{Summary} & \textbf{Severity}\\\midrule
 
 \refstepcounter{RiskNumCounter} \arabic{RiskNumCounter} \label{R_RandNums} 
 & differing order of random numbers on GPU could lead to difficulty comparing results with simulations run on CPU 
-& Very High
-\\\hline
+& Very High\\
 
 \refstepcounter{RiskNumCounter} \arabic{RiskNumCounter} \label{R_IsolateFunctions} 
 & isolating GEANT4 methods to test with unit tests may be too difficult 
-& High\\\hline
+& High\\
 
 \refstepcounter{RiskNumCounter} \arabic{RiskNumCounter} \label{R_Time} 
 & running time of tests will be too long to run them frequently 
-& High\\\hline
+& High\\
 
+\bottomrule
 \end{tabularx}
 \end{table}
-
+\newpage
 \textbf{Risk \ref{R_RandNums} -- Random Numbers}:\\
-The GEANT4 project is heavily dependent on random numbers. Random numbers are used to determine attributes about particles (indepedent of all other particles) as they move through the system. By parallelizing the workload, the order in which the particles are evaluated may change, causing it to draw a different random number from the sequence, leading to different results. If it is decided to generate the random numbers using GPU API calls, then they will certainly be different than in the serial, CPU version of the software.\\
+The GEANT4 project is heavily dependent on random numbers. Random numbers are used to determine attributes about particles (independent of all other particles) as they move through the system. By parallelizing the workload, the order in which the particles are evaluated may change, causing it to draw a different random number from the sequence, leading to different results. If it is decided to generate the random numbers using GPU API calls, then they will certainly be different than in the serial, CPU version of the software.\\
 
-Two solutions to this problem have been discussed. The first is to develop a solution to pass the CPU-generated numbers to the GPU while ensuring they remain in sync to the order they would be received in the serial version. This would require extra development work, but would ensure that testing the product against the existing system can be done in a straight-forward manner. The alternative is to test the software based on degree of similarity between single points of summarizing data (e.g. a mean). Comparing the products in this manner would have us check that the results are within a given margin of error, and if so the product would be deemed correct. This is the solution we are planning on implementing at this point, however if it does not seem feasible during the design and development phases we are open to exploring solution one.\\
+Two solutions to this problem have been discussed. The first is to develop a solution to pass the CPU-generated numbers to the GPU while ensuring they remain in sync to the order they would be received in the serial version. This would require extra development work, but would ensure that testing the product against the existing system can be done in a straight-forward manner. The alternative is to test the software based on degree of similarity between single points of summarizing data (e.g. a mean). Comparing the products in this manner would have the developers check that the results are within a given margin of error, and if so the product would be deemed correct. This is the solution that is planning on being implemented at this point, however if it does not seem feasible during the design and development phases the developers are open to exploring solution one.\\
 
-\textbf{Risk \ref{R_IsolateFunctions} -- Isoating Functions}:\\
+\textbf{Risk \ref{R_IsolateFunctions} -- Isolating Functions}:\\
 The codebase of GEANT4 is large and complex, a potential testing risk would be that the functions to be parallelized are not well-enough isolated to easily test inputs and outputs. The objects used in GEANT4's calculations are large and often dependent on other objects. To mitigate this testing risk, development will focus on porting single functions in classes to be tested, and unit testing will test those specific functions.\\
 
 \textbf{Risk \ref{R_Time} -- Test Runtime}\\
-Running a full system test on the modified code is a computationally intensive procedure. Even with a relatively small number of particles the computation could take several hours. With a larger, more realistic number of particles, running the program could take on the order of days. This would prevent frequent system testing, and the team would have to rely on unit tests during development. To address this risk, we will use relatively simple examples for most system tests (i.e. with few particles) and we will run those tests regularly along with unit tests. After large changes, more complex system tests will be run to ensure that the correctness has not been affected when using larger, more realistic examples.
+Running a full system test on the modified code is a computationally intensive procedure. Even with a relatively small number of particles the computation could take several hours. With a larger, more realistic number of particles, running the program could take on the order of days. This would prevent frequent system testing, and the team would have to rely on unit tests during development. To address this risk, relatively simple examples will be used for most system tests (i.e. with few particles) and they will be run tests regularly along with unit tests. After large changes, more complex system tests will be run to ensure that the correctness has not been affected when using larger, more realistic examples.
 
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Constraints} % Victor
 
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Definitions and Acronyms} % Rob
+\begin{table}[h]
+\centering
+\caption{Definitions and Acronyms}
+\begin{tabular}{|l|l|l|}
+\Xhline{2\arrayrulewidth}
+\bf Acronym/Definition & \bf Definition\\\hline
+GEANT-4 & open-source software toolkit used to simulate the passage of particles through matter\\
+G4-STORK & (Geant-4 STOchastic Reactor Kinetics), fork of GEANT-4 developed by McMaster's Engineering Physics department to simulate McMaster's nuclear reactor\\
+GPU & graphics processing unit, well-suited to parallel computing tasks\\
+CPU & computer (central) processing unit, general computer processor well suited to serial tasks\\
+GP-GPU & concept of running "general purpose" computations on the GPU\\
+CUDA & parallel computing architecture for general purpose programming on GPU, developed by NVIDIA\\
+PoC & proof of concept\\
+SRS & software requirements specification\\
+\Xhline{2\arrayrulewidth}
+\end{tabular}
+\end{table}
+<<<<<<< HEAD
+
+% =============================== Section =============================== %
+\section{Test Types}
+
+=======
+>>>>>>> 38578bd2ffdd9c2d15f5942d3f8a1cf8b3bd41fc
+% ----------------------------- Sub Section ----------------------------- %
+\subsection{References}
+The following documents are referenced within this test plan. ``Pathname'' refers to the name of the file as it exists in the project repository.
+\begin{table}[h]
+\centering
+\caption{References}\label{Table_References}
+\begin{tabular}{>{\raggedright\arraybackslash}p{0.3\textwidth}>{\raggedright\arraybackslash}p{0.3\textwidth}>{\raggedright\arraybackslash}p{0.4\textwidth}}
+\toprule
+\bf Title & \bf Pathname & \bf Description\\\midrule
+Software Requirements Specification & GEANT4-GPUSRS.pdf & Requirements specification for the project\\
+Proof of Concept Plan & PoC Plan.pdf & description of demonstration to be prepared for project proof of concept\\
+\bottomrule
+\end{tabular}
+\end{table}
 
 % =============================== Section =============================== %
 \section{Test Types}
 
 % ----------------------------- Sub Section ----------------------------- %
-\subsection{Manual and Automatic Testing} % Matt
-Manual testing needs to be conducted by people, where test cases and inspections are manually performed. On the other hand, automated testing relies less on people and performs tests quickly and effectively returning feedback on results not meeting expectations. Manual testing is more flexible; However, it is far more time consuming.\\
-
-Our system testing will be done automatically -- a small script will be written to run the example and check the output file against an output file from the existing product. Unit tests will also be automated, by passing in specific inputs to modified functions and checking that ouput against the correct output from the existing product.\\ 
-
-% ----------------------------- Sub Section ----------------------------- %
 \subsection{System Testing} % Matt
-There are several examples that come with GEANT4 as well as some created by McMaster's Engineering Physics department for G4-STORK. Both examples in G4-STORK and GEANT4 will be used for system testing. Due to the compuation time for some of the exmaples, they will be run less frequently than the simpler ones. This will let us run system tests regularly on the simple files, while checking that more realistic examples are also correct after bigger changes.
+There are several examples included with the GEANT4 toolkit as well as some created by McMaster's Engineering Physics department for G4-STORK. Both examples in G4-STORK and GEANT4 will be used for system testing. Due to the computation time for some of the examples, they will be run less frequently than the simpler ones. This will let the developers run system tests regularly on the simple files, while checking that more realistic, complex examples are also correct after bigger changes.
+\newpage
+
+\begin{table}[h]
+\centering
+\caption{System Tests}\label{Table_SystemTests}
+\begin{tabular}{cc >{\raggedright\arraybackslash}p{2.8cm}>{\raggedright\arraybackslash}p{3cm}>{\raggedright\arraybackslash}p{4.5cm}}
+\toprule
+\bf \# & \bf Initial State & \bf Inputs & \bf Outputs & \bf Description\\\midrule
+
+\stepcounter{TestCounter}\arabic{TestCounter} 
+& Fresh start up 
+& Runs = 50
+Events = 12
+Particles = 20
+& Same output as non-GPU G4STORK 
+&  SCWRDopplerInput.txt -- Default example\\\midrule
+
+\stepcounter{TestCounter}\arabic{TestCounter}
+& Fresh start up 
+& Runs = 1
+Events = 12
+Particles = 20
+& Same output as non-GPU G4STORK 
+& SCWRDopplerInput.txt -- 1 run\\\midrule
+
+\stepcounter{TestCounter}\arabic{TestCounter}
+& Fresh start up 
+& Runs = 500
+Events = 12
+Particles = 20
+& Same output as non-GPU G4STORK 
+& SCWRDopplerInput.txt -- Many runs\\\midrule
+
+\stepcounter{TestCounter}\arabic{TestCounter}
+& Fresh start up 
+& Runs = 50
+Events = 2
+Particles = 20
+& Same output as non-GPU G4STORK 
+& SCWRDopplerInput.txt -- Short simulation\\\midrule
+
+\stepcounter{TestCounter}\arabic{TestCounter}
+& Fresh start up 
+& Runs = 50
+Events = 60
+Particles = 20
+& Same output as non-GPU G4STORK 
+& SCWRDopplerInput.txt -- Long simulation\\\midrule
+
+\stepcounter{TestCounter}\arabic{TestCounter}
+& Fresh start up 
+& Runs = 50
+Events = 12
+Particles = 2
+& Same output as non-GPU G4STORK 
+& SCWRDopplerInput.txt -- Few Particles\\\midrule
+
+\stepcounter{TestCounter}\arabic{TestCounter}
+& Fresh start up 
+& Runs = 50
+Events = 12
+Particles = 2000
+& Same output as non-GPU G4STORK 
+& SCWRDopplerInput.txt -- Many Particles\\
+
+\bottomrule
+\end{tabular}
+\end{table}
 
 % ----------------------------- Sub Section ----------------------------- %
-\subsection{Structural Testing (Stress Testing)} % Matt
-Structural tests focus on the program's internal structure by evaluating the structure and the non-functional requirements of the system, particularly on any abnormal or extreme behavior.\\ 
+\subsection{Unit Testing} % Stuart  
+Unit tests will be created throughout development as functions and classes are ported to the GPU. Before porting a specific function of a class, a variety of inputs covering edge cases for the function as well as several ``normal'' cases will be created. The results of the function for each of the inputs will be recorded from the CPU version, and a test case will be added to test whether the outputs are the same with GPU computation enabled (once it's implemented). Due to the nature of this testing strategy, most explicit unit tests are not currently known, as no functions have yet been ported to the GPU. The following functions have been identified that are likely to be ported first to the GPU, and the tests to be created for them have been noted as well.\\
+\newpage
 
-We will have several tests where there will be an extremely high number of particles to process. We will test to see how this affects the computation time compared to the non-GPU code. We will also check to ensure that the large number of particles does not crash the system when it doesn't on the non-GPU code.
+\begin{table}[!h]
+\centering
+\caption{Unit Testing -- \emph{G4NeutronHPVector.hh::Times(G4double factor)}}\label{Table_UnitTestsTimes}
+\begin{tabular}{p{0.15in}>{\raggedright\arraybackslash}p{1in}>{\raggedright\arraybackslash}p{0.6in}>{\raggedright\arraybackslash}p{1.5in}>{\raggedright\arraybackslash}p{2in}}
+\toprule
+\bf \# & \bf Initial State & \bf Inputs & \bf Outputs & \bf Description\\\midrule
 
-% ----------------------------- Sub Section ----------------------------- %
-\subsection{Unit Testing} % Stuart
+\stepcounter{TestCounter}\arabic{TestCounter}
+& object represents vector (1,2,...,512) 
+& factor: 0 
+& no output, vector object now represents vector (0,0,...,0) of length 512 
+& multiplying non-zero vector object by 0 should change the object's state to a zero-vector of the same length\\\midrule
 
+\stepcounter{TestCounter}\arabic{TestCounter} 
+& object represents vector (1,2,...,512) 
+& factor: -1 
+& no output, vector object now represents vector (-1,-2,...,-512)
+& multiplying non-zero vector object by -1 should change the sign of all elements\\\midrule
+
+\stepcounter{TestCounter}\arabic{TestCounter} 
+& object represents vector (1,2,...,512) 
+& factor: 1 
+& no output, vector object still represents vector (1,2,...,512)
+& multiplying non-zero vector object by 1 should not change the object's state\\\midrule
+
+\stepcounter{TestCounter}\arabic{TestCounter} 
+& object represents vector (1,2,...,512) 
+& factor: 4 
+& no output, vector object still represents vector (4,8,...,2048)
+& multiplying non-zero vector object by 4 should multiply each element by 4\\\midrule
+
+\stepcounter{TestCounter}\arabic{TestCounter} 
+& object represents vector (0,0,...,0) 
+& factor: 0 
+& no output, vector object still represents vector (0,0,...,0)
+& multiplying zero vector object by 0 should not change the object's state\\\midrule
+
+\stepcounter{TestCounter}\arabic{TestCounter} 
+& object represents vector (0,0,...,0) 
+& factor: -1 
+& no output, vector object still represents vector (0,0,...,0)
+& multiplying zero vector object by -1 should not change the object's state\\\midrule
+
+\stepcounter{TestCounter}\arabic{TestCounter} 
+& object represents vector (0,0,...,0) 
+& factor: 1 
+& no output, vector object still represents vector (0,0,...,0)
+& multiplying zero vector object by 1 should not change the object's state\\\midrule
+
+\stepcounter{TestCounter}\arabic{TestCounter} 
+& object represents vector (0,0,...,0) 
+& factor: 4 
+& no output, vector object still represents vector (0,0,...,0)
+& multiplying zero vector object by 4 should not change the object's state\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[!h]
+\centering
+\caption{Unit Testing -- \emph{G4NeutronHPVector.cc:: G4NeutronHPVector\& operator + (G4NeutronHPVector *left, G4NeutronHPVector *right)}}\label{Table_UnitTestsPlus}
+\begin{tabular}{p{0.15in}>{\raggedright\arraybackslash}p{1in}>{\raggedright\arraybackslash}p{1.1in}>{\raggedright\arraybackslash}p{1.5in}>{\raggedright\arraybackslash}p{1.5in}}
+\toprule
+\bf \# & \bf Initial State & \bf Inputs & \bf Outputs & \bf Description\\\midrule
+
+\stepcounter{TestCounter}\arabic{TestCounter} 
+& NA (vectors passed as arguments)
+& left: (1,2,...,512), right: (2,4,6,...,1048)
+& vector object representing (3,6,...,1560) 
+& adding two non-zero vectors should output the correct vector\\\midrule
+
+\stepcounter{TestCounter}\arabic{TestCounter} 
+& NA (vectors passed as arguments)
+& left: (2,4,6,...,1048), right: (1,2,...,512)
+& vector object representing (3,6,...,1560) 
+& adding two non-zero vectors should output the correct vector\\\midrule
+
+\stepcounter{TestCounter}\arabic{TestCounter} 
+& NA (vectors passed as arguments)
+& left: (1,2,...,512), right: (0,0,0,...,0) of length 512
+& vector object representing (1,2,...,512) 
+& adding a zero-vector to a non-zero vector should output the non-zero vector\\\midrule
+
+\stepcounter{TestCounter}\arabic{TestCounter} 
+& NA (vectors passed as arguments)
+& left: (0,0,...,0) of length 512, right: (1,2,...,512)
+& vector object representing (1,2,...,512) 
+& adding a zero-vector to a non-zero vector should output the non-zero vector\\\midrule
+
+\stepcounter{TestCounter}\arabic{TestCounter} 
+& NA (vectors passed as arguments)
+& left: (-1,-2,...,-512), right: (1,2,...,512)
+& vector object representing (0,0,...,0) of length 512 
+& adding a vector to its inverse should output the zero vector\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\newpage
+The unit tests as described in tables \ref{Table_UnitTestsTimes} and \ref{Table_UnitTestsPlus} are not complete -- as the project progresses the number of tests will increase. Since functions are being ported one-at-a-time to the GPU, having full (or near-full) coverage is relatively straightforward. To accomplish this, every ported function must have a series of associated unit tests that cover a variety of edge and normal cases. Combined with system tests to test how all the parts work together, test coverage will be exhaustive.
 
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Code Testing} % Victor
+
+% ----------------------------- Sub Section ----------------------------- %
+\subsection{Requirements Testing} % Stuart
+Testing requirements refers to tests which verify that documented requirements are met. The requirements documentation includes a variety of non-functional and functional requirements to be tested. The unit and system tests that will be run frequently will be aimed at testing the functional requirements related to the correctness of the system, as well as the non-functional requirements related to performance. At the end of development of Revision 0, other requirements will be tested. The results from those evaluations will lead to decisions made for the final product. The following table outlines Requirements Tests to be performed at the end of Revision 0 (not including those covered by unit  and system tests. Requirement number refers to that of the System Requirements Specification.
+
+\begin{table}[!h]
+\centering
+\caption{Requirements Testing -- Tests for Revision 0}\label{Table_RequirementsTests}
+\begin{tabular}{p{0.3in}>{\raggedright\arraybackslash}p{0.3in}>{\raggedright\arraybackslash}p{0.5in}>{\raggedright\arraybackslash}p{0.6in}>{\raggedright\arraybackslash}p{3.5in}}
+\toprule
+\bf Test \# & \bf Req. \# & \bf Inputs & \bf Outputs & \bf Description\\\midrule
+
+\stepcounter{TestCounter}\arabic{TestCounter} 
+& 2
+& NA
+& NA
+& enabling GPU computations should be straightforward -- an extra flag for the CMake tool will be used to enable or disable it\\\midrule
+
+\stepcounter{TestCounter}\arabic{TestCounter} 
+& 4
+& NA
+& NA
+& trying to enable GPU computations on a computer with incompatible hardware should result in an appropriate error message\\\midrule
+
+\stepcounter{TestCounter}\arabic{TestCounter} 
+& 12
+& NA
+& NA
+& software should be at least as stable as existing product -- running the new product with input files known to work on the existing product should not cause unexpected behaviour (i.e. crashing)\\\midrule
+
+\stepcounter{TestCounter}\arabic{TestCounter} 
+& 16
+& NA
+& NA
+& clear installation instructions shall be included with the product -- a user comfortable with G4-STORK should be able to follow the instructions to install the product without any issues\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% ----------------------------- Sub Section ----------------------------- %
+\subsection{Performance Profiling}
+Performance results (i.e. how much improvement there is) will be measured through the system testing, however performance profiling during development will use proprietary CUDA profiling tools, as well as more general profiling software. 
+
+\subsubsection{General Profiling}
+Initially during development, the ``Time Profiling'' tool of the ``Instruments'' software package will be used to identify the most time consuming operations of the G4-STORK codebase. Identifying these operations first will allow the developers to easily pinpoint the areas that would best benefit from being ported to the GPU. As more functions are ported, the developers will continue to use ``Time Profiling'' to identify bottlenecks.
+
+\subsubsection{CUDA Profiling}
+NVIDIA has developed a solution for profiling CUDA code, called the ``NVIDIA Visual Profiler''. This tool will be used extensively to identify the areas of the CUDA code that can be improved, and to better understand how the software is using the hardware. This profiler is available as a plugin for the Eclipse IDE, and very thoroughly analyzes CUDA code for improvements.
 
 % =============================== Section =============================== %
 \section{Testing Factors}
 
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Factors to be Tested} % Rob
+The purpoes of this section is to shed light on the features and properties of the system that we wish to stress and test. The chart below provides a brief description of every property we aim to measure and a method as means for measuring.\\
+
+\begin{table}[h]
+\centering
+\caption{Test Factors}
+\begin{tabular}{|l|l|l|}
+\Xhline{2\arrayrulewidth}
+\bf Factors & \bf Description & \bf Test Method\\\hline
+Reliability & Consistent performance of functions in routine circumstances & Unit Testing, requirements\\
+File Integrity & Accuracy and relevance of related output and input data & Unit Testing, requirements\\
+Access Control & Appropriate access to necessary resources & Unit Testing\\
+Correctness & Objective success or failure of a function & Unit Testing\\
+Performance & Quantitative and Qualitative measure of temporal performance and stability in a particular workload & Unit Testing, black-box, stress\\
+\Xhline{2\arrayrulewidth}
+\end{tabular}
+\end{table}
 
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Description of Factor} % Matt
 \subsubsection{Correctness}
-Tests run on the GPU-enabled product should provide the same resulting output as tests run on the existing product\\\\
+Tests run on the GPU-enabled product should provide the same output as tests run on the existing product.\\
+
 \textbf{Rationale}\\
-In order for the product to be of use it must be able to compute the correct outputs.\\\\
+In order for the product to be of use it must be able to compute the correct outputs.\\
+
 \textbf{Methods of testing}
 \begin{itemize}
 \item The output files of tests run on the product will be compared with the output files of tests run on the non-GPU existing product
+\item See risk \ref{R_RandNums} for more information on how they will be compared
 \end{itemize}
 
 \subsubsection{Performance}
-Tests run with the GPU functionality enabled should take less time to compute compared to the same tests run on the the existing CPU-based product\\\\
+Tests run with the GPU functionality enabled should take less time to compute compared to the same tests run on the the existing CPU-based product.\\
+
 \textbf{Rationale}\\
-The focus of this project is to reduce the computation time for G4-STORK by parallelizing functions on a GPU. \\\\
+The focus of this project is to reduce the computation time for G4-STORK by parallelizing functions on a GPU.\\
+
 \textbf{Methods of testing}
 \begin{itemize}
 \item Compare the computation times of tests run on the product with GPU enabled with the computation times of test run on the existing product to see if the GPU-based computation times are smaller.
-\item Stress test the product by having it compute programs that would take an infeasible amount of time to compute on the serial, CPU-bound existing product.
 \end{itemize}
+ 
+% =============================== Section =============================== %
+\section{Manual and Automated Testing}
+Manual testing needs to be conducted by people, where test cases and inspections are manually performed. On the other hand, automated testing relies less on people and performs tests quickly and effectively returning feedback on results not meeting expectations. Manual testing is more flexible; However, it is far more time consuming.\\
+
+Our system testing will be done automatically -- a small script will be written to run the example and check the output file against an output file from the existing product. Unit tests will also be automated, by passing in specific inputs to modified functions and checking that output against the correct output from the existing product.
+
+\subsection{Automated System Testing}
+A small script will be created to run the chosen example file and compare the output file with the correct output file from the existing product. If the results are the same within a margin of error elicited from consultation with the stakeholders, then the test is passed. Although the test itself will be automated, it will be manually run by the developers. This will let the developers try out different example files at different times, and to choose more complex ones when larger changes are made. The output files contain run-time data which will be used to evaluate performance.
+
+\subsection{Automated Unit Testing}
+A testing class will be added to the project which will contain all unit tests. These will be created as functions are ported to the GPU by deciding on several inputs and recording the results as well as the running time from the existing CPU-bound product. The testing class will then call the ported function with the same inputs and verify that the outputs are the same. The testing function will record performance while it runs to ensure that the changes are positive from a performance standpoint. If the results for all functions in the testing class match the expected results, the unit tests have passed. The unit tests will be manually run throughout development as the developer sees fit. As well as those frequent tests, all unit tests must pass before any code is merged into the repository. Changes that cause a performance regression will be allowed, under the assumption that they will be improved upon until their performance is better than the existing non-GPU functions.
 
 % =============================== Section =============================== %
-\section{Test Items}
-
-% ----------------------------- Sub Section ----------------------------- %
-\subsection{Requirements Testing} % Stuart
-Testing requirements refers to tests which verify that documented requirements are met. The requirements documentation includes a variety of non-functional and functional requirements to be tested. The unit and system tests that will be run frequently will be aimed at testing the functional requirements related to the correctness of the system, as well as the non-functional requirements related to performance. At the end of development of Revision 0, other requirements will be tested. The results from those evaluations will lead to decisions made for the final product.
-
-% ----------------------------- Sub Section ----------------------------- %
-\subsection{Code Testing} % Victor
-
-% ----------------------------- Sub Section ----------------------------- %
-\subsection{User Manual Testing} % Rob
-
-% ----------------------------- Sub Section ----------------------------- %
-\subsection{Error Handling Testing} % Matt 
-Error handling indicates the extent to which users can recover from or know the basis of an error occurring in the system. Error handling would imply trying to find ways of committing errors, such as passing in invalid input or function arguments. For examples, if users try to call one of the new parallelized functions and provide it with the wrong types of data, they must be clearly shown the reason for their failure and, if possible, be presented with a solution. Error handling would be performed both manually and in an automated setting, once a set of potential errors are discussed and figured out amongst the members of the testing team.
-
-% =============================== Section =============================== %
-\section{Automated Testing Plans} % Stu
-System tests and unit testing will both be automated, as they will be run frequently throughout the development process. 
-
-\textbf{System Testing}\\
-A small script will be created to run the chosen example file and compare the output file with the correct output file from the existing product. If the results are the same within a margin of error elicited from consultation with the stakeholders, then the test is passed. Although the test itself will be automated, we will manually run the test. This will let us try out different example files at different times, and to choose more complex ones when larger changes are made. The output files contain run-time data which we will use to evaluate performance.
-
-\textbf{Unit Testing}\\
-A testing class will be added to the project which will contain all unit tests. These will be created as we port functions to the GPU by deciding on several inputs and recording the results as well as the running time from the existing CPU-bound product. The testing class will then call the ported function with the same inputs and verify that the outputs are the same. The testing function will record performance while it runs to ensure that the changes are positive from a performance standpoint. If the results for all functions in the testing class match the expected results, the unit tests have passed. We will manually run the unit tests throughout development as the developer sees fit. As well as those frequent tests, all unit tests must pass before any code is merged into the repository. Changes that cause a performance regression will be allowed, under the assumption that they will be improved upon until their performance is better than the existing non-GPU functions.
+\section{Proof of Concept Test}
+As documented in the Proof of Concept Plan, the demonstration will include running G4-STORK examples with and without GPU computation enabled, as well as a very minor CUDA example. Since it is not planned to have any ported functions running on the GPU, unit tests will not be used at this point. A full system test will be used to verify that adding the small CUDA example does not impact the results. It is expected that the CUDA example won't affect the results, as it will not be passing any data back to G4-STORK to be used. The empty unit testing file (along with a trivial unit test) will be included in the project, and may be demonstrated if requested.
 
 % =============================== Section =============================== %
 \section{Schedule}
@@ -213,5 +490,19 @@ A testing class will be added to the project which will contain all unit tests. 
 
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Deliverables} % Rob
+The deliverables specific to testing are as follows:\\
+\begin{table}[h]
+\centering
+\caption{Timeline of Deriverables}
+\begin{tabular}{|l|l|l|}
+\Xhline{2\arrayrulewidth}
+\bf Deliverable & \bf Description & \bf Date\\\hline
+Test Plan Revision 0 & set guidelines and objectives for testing, subject to change & October 30\\
+Test Report Revision 0 & report on progress, history, and results regarding testing and test methods & March 21\\
+Test Plan Final & rigorously  & April 1\\
+Test Report Final & & April 1\\
+\Xhline{2\arrayrulewidth}
+\end{tabular}
+\end{table}
 
 \end{document}

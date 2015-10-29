@@ -148,7 +148,23 @@ Running a full system test on the modified code is a computationally intensive p
 
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Definitions and Acronyms} % Rob
-
+\begin{table}[h]
+\centering
+\caption{Definitions and Acronyms}
+\begin{tabular}{|l|l|l|}
+\Xhline{2\arrayrulewidth}
+\bf Acronym/Definition & \bf Definition\\\hline
+GEANT-4 & open-source software toolkit used to simulate the passage of particles through matter\\
+G4-STORK & (Geant-4 STOchastic Reactor Kinetics), fork of GEANT-4 developed by McMaster's Engineering Physics department to simulate McMaster's nuclear reactor\\
+GPU & graphics processing unit, well-suited to parallel computing tasks\\
+CPU & computer (central) processing unit, general computer processor well suited to serial tasks\\
+GP-GPU & concept of running "general purpose" computations on the GPU\\
+CUDA & parallel computing architecture for general purpose programming on GPU, developed by NVIDIA\\
+PoC & proof of concept\\
+SRS & software requirements specification\\
+\Xhline{2\arrayrulewidth}
+\end{tabular}
+\end{table}
 <<<<<<< HEAD
 
 % =============================== Section =============================== %
@@ -408,6 +424,22 @@ NVIDIA has developed a solution for profiling CUDA code, called the ``NVIDIA Vis
 
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Factors to be Tested} % Rob
+The purpoes of this section is to shed light on the features and properties of the system that we wish to stress and test. The chart below provides a brief description of every property we aim to measure and a method as means for measuring.\\
+
+\begin{table}[h]
+\centering
+\caption{Test Factors}
+\begin{tabular}{|l|l|l|}
+\Xhline{2\arrayrulewidth}
+\bf Factors & \bf Description & \bf Test Method\\\hline
+Reliability & Consistent performance of functions in routine circumstances & Unit Testing, requirements\\
+File Integrity & Accuracy and relevance of related output and input data & Unit Testing, requirements\\
+Access Control & Appropriate access to necessary resources & Unit Testing\\
+Correctness & Objective success or failure of a function & Unit Testing\\
+Performance & Quantitative and Qualitative measure of temporal performance and stability in a particular workload & Unit Testing, black-box, stress\\
+\Xhline{2\arrayrulewidth}
+\end{tabular}
+\end{table}
 
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Description of Factor} % Matt
@@ -458,5 +490,19 @@ As documented in the Proof of Concept Plan, the demonstration will include runni
 
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Deliverables} % Rob
+The deliverables specific to testing are as follows:\\
+\begin{table}[h]
+\centering
+\caption{Timeline of Deriverables}
+\begin{tabular}{|l|l|l|}
+\Xhline{2\arrayrulewidth}
+\bf Deliverable & \bf Description & \bf Date\\\hline
+Test Plan Revision 0 & set guidelines and objectives for testing, subject to change & October 30\\
+Test Report Revision 0 & report on progress, history, and results regarding testing and test methods & March 21\\
+Test Plan Final & rigorously outline test cases and considerations in preperation for the projects final release & April 1\\
+Test Report Final & report on the final results of tests performed and provide relevant analytics & April 1\\
+\Xhline{2\arrayrulewidth}
+\end{tabular}
+\end{table}
 
 \end{document}
