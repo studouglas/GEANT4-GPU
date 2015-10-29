@@ -90,6 +90,7 @@ Initial draft of document & Stuart, Matthew, Rob, Victor & 2015-10-26\\
 \ref{Table_Revision} & Revision History\\
 \ref{Table_Risks} & Risks\\
 \ref{Table_References} & References\\
+\ref{Table_SystemTests} & System Tests\\
 \ref{Table_UnitTestsTimes} & Unit Tests - \emph{Times} function\\
 \ref{Table_UnitTestsPlus} & Unit Tests - $+$ function\\
 \ref{Table_RequirementsTests} & Requirements Tests\\
@@ -169,51 +170,79 @@ Proof of Concept Plan & PoC Plan.pdf & description of demonstration to be prepar
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{System Testing} % Matt
 There are several examples included with the GEANT4 toolkit as well as some created by McMaster's Engineering Physics department for G4-STORK. Both examples in G4-STORK and GEANT4 will be used for system testing. Due to the computation time for some of the examples, they will be run less frequently than the simpler ones. This will let the developers run system tests regularly on the simple files, while checking that more realistic, complex examples are also correct after bigger changes.
+\newpage
 
-% ----------------------------- Sub Section ----------------------------- %
-\subsection{Unit Testing} % Stuart  
-Unit tests will be created throughout development as functions and classes are ported to the GPU. Before porting a specific function of a class, a variety of inputs covering edge cases for the function as well as several ``normal'' cases will be created. The results of the function for each of the inputs will be recorded from the CPU version, and a test case will be added to test whether the outputs are the same with GPU computation enabled (once it's implemented). Due to the nature of this testing strategy, most explicit unit tests are not currently known, as no functions have yet been ported to the GPU. The following functions have been identified that are likely to be ported first to the GPU, and the tests to be created for them have been noted as well.\\
-
-\begin{table}[!h]
+\begin{table}[h]
 \centering
-\caption{Unit Testing -- \emph{G4NeutronHPVector.cc:: G4NeutronHPVector\& operator + (G4NeutronHPVector *left, G4NeutronHPVector *right)}}\label{Table_UnitTestsPlus}
-\begin{tabular}{p{0.15in}>{\raggedright\arraybackslash}p{1in}>{\raggedright\arraybackslash}p{1.1in}>{\raggedright\arraybackslash}p{1.5in}>{\raggedright\arraybackslash}p{1.5in}}
+\caption{System Tests}\label{Table_SystemTests}
+\begin{tabular}{cc >{\raggedright\arraybackslash}p{2.8cm}>{\raggedright\arraybackslash}p{3cm}>{\raggedright\arraybackslash}p{4.5cm}}
 \toprule
 \bf \# & \bf Initial State & \bf Inputs & \bf Outputs & \bf Description\\\midrule
 
 \stepcounter{TestCounter}\arabic{TestCounter} 
-& NA (vectors passed as arguments)
-& left: (1,2,...,512), right: (2,4,6,...,1048)
-& vector object representing (3,6,...,1560) 
-& adding two non-zero vectors should output the correct vector\\\midrule
+& Fresh start up 
+& Runs = 50
+Events = 12
+Particles = 20
+& Same output as non-GPU G4STORK 
+&  SCWRDopplerInput.txt -- Default example\\\midrule
 
-\stepcounter{TestCounter}\arabic{TestCounter} 
-& NA (vectors passed as arguments)
-& left: (2,4,6,...,1048), right: (1,2,...,512)
-& vector object representing (3,6,...,1560) 
-& adding two non-zero vectors should output the correct vector\\\midrule
+\stepcounter{TestCounter}\arabic{TestCounter}
+& Fresh start up 
+& Runs = 1
+Events = 12
+Particles = 20
+& Same output as non-GPU G4STORK 
+& SCWRDopplerInput.txt -- 1 run\\\midrule
 
-\stepcounter{TestCounter}\arabic{TestCounter} 
-& NA (vectors passed as arguments)
-& left: (1,2,...,512), right: (0,0,0,...,0) of length 512
-& vector object representing (1,2,...,512) 
-& adding a zero-vector to a non-zero vector should output the non-zero vector\\\midrule
+\stepcounter{TestCounter}\arabic{TestCounter}
+& Fresh start up 
+& Runs = 500
+Events = 12
+Particles = 20
+& Same output as non-GPU G4STORK 
+& SCWRDopplerInput.txt -- Many runs\\\midrule
 
-\stepcounter{TestCounter}\arabic{TestCounter} 
-& NA (vectors passed as arguments)
-& left: (0,0,...,0) of length 512, right: (1,2,...,512)
-& vector object representing (1,2,...,512) 
-& adding a zero-vector to a non-zero vector should output the non-zero vector\\\midrule
+\stepcounter{TestCounter}\arabic{TestCounter}
+& Fresh start up 
+& Runs = 50
+Events = 2
+Particles = 20
+& Same output as non-GPU G4STORK 
+& SCWRDopplerInput.txt -- Short simulation\\\midrule
 
-\stepcounter{TestCounter}\arabic{TestCounter} 
-& NA (vectors passed as arguments)
-& left: (-1,-2,...,-512), right: (1,2,...,512)
-& vector object representing (0,0,...,0) of length 512 
-& adding a vector to its inverse should output the zero vector\\
+\stepcounter{TestCounter}\arabic{TestCounter}
+& Fresh start up 
+& Runs = 50
+Events = 60
+Particles = 20
+& Same output as non-GPU G4STORK 
+& SCWRDopplerInput.txt -- Long simulation\\\midrule
+
+\stepcounter{TestCounter}\arabic{TestCounter}
+& Fresh start up 
+& Runs = 50
+Events = 12
+Particles = 2
+& Same output as non-GPU G4STORK 
+& SCWRDopplerInput.txt -- Few Particles\\\midrule
+
+\stepcounter{TestCounter}\arabic{TestCounter}
+& Fresh start up 
+& Runs = 50
+Events = 12
+Particles = 2000
+& Same output as non-GPU G4STORK 
+& SCWRDopplerInput.txt -- Many Particles\\
 
 \bottomrule
 \end{tabular}
 \end{table}
+
+% ----------------------------- Sub Section ----------------------------- %
+\subsection{Unit Testing} % Stuart  
+Unit tests will be created throughout development as functions and classes are ported to the GPU. Before porting a specific function of a class, a variety of inputs covering edge cases for the function as well as several ``normal'' cases will be created. The results of the function for each of the inputs will be recorded from the CPU version, and a test case will be added to test whether the outputs are the same with GPU computation enabled (once it's implemented). Due to the nature of this testing strategy, most explicit unit tests are not currently known, as no functions have yet been ported to the GPU. The following functions have been identified that are likely to be ported first to the GPU, and the tests to be created for them have been noted as well.\\
+\newpage
 
 \begin{table}[!h]
 \centering
@@ -269,14 +298,52 @@ Unit tests will be created throughout development as functions and classes are p
 & factor: 4 
 & no output, vector object still represents vector (0,0,...,0)
 & multiplying zero vector object by 4 should not change the object's state\\
-
 \bottomrule
 \end{tabular}
 \end{table}
 
+\begin{table}[!h]
+\centering
+\caption{Unit Testing -- \emph{G4NeutronHPVector.cc:: G4NeutronHPVector\& operator + (G4NeutronHPVector *left, G4NeutronHPVector *right)}}\label{Table_UnitTestsPlus}
+\begin{tabular}{p{0.15in}>{\raggedright\arraybackslash}p{1in}>{\raggedright\arraybackslash}p{1.1in}>{\raggedright\arraybackslash}p{1.5in}>{\raggedright\arraybackslash}p{1.5in}}
+\toprule
+\bf \# & \bf Initial State & \bf Inputs & \bf Outputs & \bf Description\\\midrule
+
+\stepcounter{TestCounter}\arabic{TestCounter} 
+& NA (vectors passed as arguments)
+& left: (1,2,...,512), right: (2,4,6,...,1048)
+& vector object representing (3,6,...,1560) 
+& adding two non-zero vectors should output the correct vector\\\midrule
+
+\stepcounter{TestCounter}\arabic{TestCounter} 
+& NA (vectors passed as arguments)
+& left: (2,4,6,...,1048), right: (1,2,...,512)
+& vector object representing (3,6,...,1560) 
+& adding two non-zero vectors should output the correct vector\\\midrule
+
+\stepcounter{TestCounter}\arabic{TestCounter} 
+& NA (vectors passed as arguments)
+& left: (1,2,...,512), right: (0,0,0,...,0) of length 512
+& vector object representing (1,2,...,512) 
+& adding a zero-vector to a non-zero vector should output the non-zero vector\\\midrule
+
+\stepcounter{TestCounter}\arabic{TestCounter} 
+& NA (vectors passed as arguments)
+& left: (0,0,...,0) of length 512, right: (1,2,...,512)
+& vector object representing (1,2,...,512) 
+& adding a zero-vector to a non-zero vector should output the non-zero vector\\\midrule
+
+\stepcounter{TestCounter}\arabic{TestCounter} 
+& NA (vectors passed as arguments)
+& left: (-1,-2,...,-512), right: (1,2,...,512)
+& vector object representing (0,0,...,0) of length 512 
+& adding a vector to its inverse should output the zero vector\\
+\bottomrule
+\end{tabular}
+\end{table}
 
 \newpage
-The unit tests as described in tables \ref{Table_UnitTestsPlus} and \ref{Table_UnitTestsTimes} are not complete -- as the project progresses the number of tests will increase. Since functions are being ported one-at-a-time to the GPU, having full (or near-full) coverage is relatively straightforward. To accomplish this, every ported function must have a series of associated unit tests that cover a variety of edge and normal cases. Combined with system tests to test how all the parts work together, test coverage will be exhaustive.
+The unit tests as described in tables \ref{Table_UnitTestsTimes} and \ref{Table_UnitTestsPlus} are not complete -- as the project progresses the number of tests will increase. Since functions are being ported one-at-a-time to the GPU, having full (or near-full) coverage is relatively straightforward. To accomplish this, every ported function must have a series of associated unit tests that cover a variety of edge and normal cases. Combined with system tests to test how all the parts work together, test coverage will be exhaustive.
 
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Code Testing} % Victor
@@ -284,7 +351,6 @@ The unit tests as described in tables \ref{Table_UnitTestsPlus} and \ref{Table_U
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Requirements Testing} % Stuart
 Testing requirements refers to tests which verify that documented requirements are met. The requirements documentation includes a variety of non-functional and functional requirements to be tested. The unit and system tests that will be run frequently will be aimed at testing the functional requirements related to the correctness of the system, as well as the non-functional requirements related to performance. At the end of development of Revision 0, other requirements will be tested. The results from those evaluations will lead to decisions made for the final product. The following table outlines Requirements Tests to be performed at the end of Revision 0 (not including those covered by unit  and system tests. Requirement number refers to that of the System Requirements Specification.
-\newpage
 
 \begin{table}[!h]
 \centering
