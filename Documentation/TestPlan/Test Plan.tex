@@ -157,7 +157,86 @@ Our system testing will be done automatically -- a small script will be written 
 
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{System Testing} % Matt
-There are several examples that come with GEANT4 as well as some created by McMaster's Engineering Physics department for G4-STORK. Both examples in G4-STORK and GEANT4 will be used for system testing. Due to the compuation time for some of the exmaples, they will be run less frequently than the simpler ones. This will let us run system tests regularly on the simple files, while checking that more realistic examples are also correct after bigger changes.
+There are several examples that come with GEANT4 as well as some created by McMaster's Engineering Physics department for G4-STORK. Both examples in G4-STORK and GEANT4 will be used for system testing. Due to the compuation time for some of the exmaples, they will be run less frequently than the simpler ones. This will let us run system tests regularly on the simple files, while checking that more realistic examples are also correct after bigger changes.\\
+
+
+\begin{table}[h]
+\centering
+\caption{System Tests}\label{Table_SystemTests}
+\begin{tabular}{ | c | c | p{3cm} | p{5cm}| p{4.5cm} |}\toprule
+\bf \# & \bf Initial State & \bf Inputs & \bf Outputs & \bf Description\\\midrule
+
+\refstepcounter{TestCounter}\arabic{TestCounter} 
+& Fresh start up 
+& \shortstack{
+Runs = 50 \\
+Events = 12  \\
+Particles = 20 }
+& Same output as non-GPU G4STORK 
+&  SCWRDopplerInput.txt -- Default example\\\midrule
+
+\refstepcounter{TestCounter}\arabic{TestCounter}
+& Fresh start up 
+& \shortstack{ 
+Runs = 1 \\
+ Events = 12 \\
+Particles = 20 }
+& Same output as non-GPU G4STORK 
+& SCWRDopplerInput.txt -- 1 run\\
+
+\hline
+\refstepcounter{TestCounter}\arabic{TestCounter}
+& Fresh start up 
+& \shortstack{ 
+Runs = 500 \\
+Events = 12 \\
+Particles = 20 }
+& Same output as non-GPU G4STORK 
+& SCWRDopplerInput.txt -- Many runs\\
+
+\hline
+\refstepcounter{TestCounter}\arabic{TestCounter}
+& Fresh start up 
+& \shortstack{ 
+Runs = 50 \\
+Events = 2 \\
+Particles = 20} 
+& Same output as non-GPU G4STORK 
+& SCWRDopplerInput.txt -- Short simulation\\
+
+\hline
+\refstepcounter{TestCounter}\arabic{TestCounter}
+& Fresh start up 
+&\shortstack{ 
+Runs = 50 \\
+Events = 60 \\
+Particles = 20 }
+& Same output as non-GPU G4STORK 
+& SCWRDopplerInput.txt -- Long simulation\\
+
+\hline
+\refstepcounter{TestCounter}\arabic{TestCounter}
+& Fresh start up 
+&\shortstack{ 
+Runs = 50 \\
+Events = 12 \\
+Particles = 2 }
+& Same output as non-GPU G4STORK 
+& SCWRDopplerInput.txt -- Few Particles\\
+
+\hline
+\refstepcounter{TestCounter}\arabic{TestCounter}
+& Fresh start up 
+&\shortstack{ 
+Runs = 50 \\
+Events = 12 \\
+Particles = 2000} 
+& Same output as non-GPU G4STORK 
+& SCWRDopplerInput.txt -- Many Particles\\
+
+\bottomrule
+\end{tabular}
+\end{table}
 
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Structural Testing (Stress Testing)} % Matt
