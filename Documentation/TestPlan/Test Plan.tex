@@ -145,7 +145,9 @@ Running a full system test on the modified code is a computationally intensive p
 
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Constraints} % Victor
+\textbf{Time}\\
 Time is one of the largest constraints, the completed project is due next April, which is 6 months from the initial revision of this document. In order to perform rigorous testing on all functions, classes, and sections of code that have been parallelized, a  large amount of time is required. G4-STORK is a large library with many different objects and functions, with each section contributing to the overall performance. Each addition of a control branch to the code must be tested to ensure that the original functionality is preserved. Maximizing performance while minimizing changes to the actual code should help to deal with the time constraint.
+\textbf{}\\
 
 
 % ----------------------------- Sub Section ----------------------------- %
@@ -366,7 +368,35 @@ The unit tests as described in tables \ref{Table_UnitTestsTimes} and \ref{Table_
 
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Code Testing} % Victor
-Testing the code will be done manually due to the variation in the snippets of code that will be added. Tests will based on the addition of control branches to current sections of code. When new conditionals are added, tests will be done to ensure that there are no differences in the expected output. Most of the conditionals The majority of the already implemented G4STORK code will not be tested for errors
+Testing the code will be done manually due to the variation in the snippets of code that will be added. Tests will based on the addition of control branches to current sections of code. When new conditionals are added, tests will be done to ensure that there are no differences in the expected output. Since the code that needs to be added is currently unknown, the tests described in the following table are general examples of how likely additions to existing code will be tested. To minimize the risk of adverse side effects after adding code, variables before and after a conditional or new statement are recorded and any changes are noted. If the changes were not intended the code added is likely at risk of causing errors. 
+
+\begin{table}[!h]
+\centering
+\caption{Code Testing}\label{Table_CodeTests}
+\begin{tabular}{p{0.15in}>{\raggedright\arraybackslash}p{1in}>{\raggedright\arraybackslash}p{1.1in}>{\raggedright\arraybackslash}p{1.5in}>{\raggedright\arraybackslash}p{1.5in}}
+\toprule
+\bf \# & \bf Type of code added & \bf Inputs & \bf Outputs & \bf Description\\\midrule
+
+\stepcounter{TestCounter}\arabic{TestCounter} 
+& IF statement control branch added
+& Variables in the class, or function before the if
+& Variables in the class, or function after the if
+& Ensure that the statement(s) in the if did not change the variables in an unexpected way. Ensure the execution of the code when the condition is false is the same when the condition is true\\\midrule
+
+\stepcounter{TestCounter}\arabic{TestCounter} 
+& IF ELSE statement control branch added
+& Variables in the class, or function before the if else
+& Variables in the class, or function after the if else
+& Ensure that the statement(s) in the if else did not change the variables in an unexpected way. Ensure the execution of the code when the condition is false is the same when the condition is true\\\midrule
+
+\stepcounter{TestCounter}\arabic{TestCounter} 
+& Statement added
+& Variables in the class, or function before the statement
+& Variables in the class, or function after the statement
+& Ensure all variables not modified by the statement are the same. Ensure the execution of the code with and without the statement is the same\\\midrule
+
+\end{tabular}
+\end{table}
 
 
 % ----------------------------- Sub Section ----------------------------- %
