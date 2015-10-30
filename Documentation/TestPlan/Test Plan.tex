@@ -7,6 +7,7 @@
 \usepackage{listings}
 \usepackage{titling}
 \usepackage{tabularx}
+\usepackage{longtable}
 \usepackage{booktabs}
 \usepackage{hyperref}
 \usepackage{makecell}
@@ -75,6 +76,8 @@ All major edits to this document will be recorded in the table below.
 \begin{tabular}{lll}
 \toprule
 \bf Description of Changes & \bf Author & \bf Date\\\midrule
+Reformatting Tables & Matthew & 2015-10-30\\
+Added System test cases & Matthew & 2015-10-29\\
 Initial draft of document & Stuart, Matthew, Rob, Victor & 2015-10-26\\
 \bottomrule
 \end{tabular}
@@ -89,6 +92,7 @@ Initial draft of document & Stuart, Matthew, Rob, Victor & 2015-10-26\\
 \bf Table \# & \bf Title\\\midrule
 \ref{Table_Revision} & Revision History\\
 \ref{Table_Risks} & Risks\\
+\ref{Table_Acronyms} & Definitions and Acronyms\\
 \ref{Table_References} & References\\
 \ref{Table_SystemTests} & System Tests\\
 \ref{Table_UnitTestsTimes} & Unit Tests - \emph{Times} function\\
@@ -98,6 +102,8 @@ Initial draft of document & Stuart, Matthew, Rob, Victor & 2015-10-26\\
 \end{tabular}
 \end{center}
 
+
+
 % =============================== Section =============================== %
 \section{General Information}
 
@@ -105,14 +111,14 @@ Initial draft of document & Stuart, Matthew, Rob, Victor & 2015-10-26\\
 \subsection{Summary} % Matt
 The product, GEANT4-GPU, will be a modified version of G4-STORK that will leverage GPU computing to increase performance while still outputting the same results as the existing, CPU-based G4-STORK project. This testing plan outlines how the development team is expected to test the correctness and performance of the product through the use of unit testing, system testing, and code testing.
 
+\newpage
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Risks} % Stuart
 The following table outlines the major risks associated with the testing of the product. A more detailed analysis of each of the risks follows the table.
 
-\begin{table}[h]
-\centering
-\caption{Risks}\label{Table_Risks}
-\begin{tabularx}{\textwidth}{cXl}
+\begin{centering}
+\begin{longtable}{>{\raggedright\arraybackslash}p{0.1\textwidth}>{\raggedright\arraybackslash}p{0.7\textwidth}>{\raggedright\arraybackslash}p{0.2\textwidth}}
+\caption{Risks}\label{Table_Risks}\\
 \toprule
 \textbf{Risk \#} & \textbf{Summary} & \textbf{Severity}\\\midrule
 
@@ -129,9 +135,8 @@ The following table outlines the major risks associated with the testing of the 
 & High\\
 
 \bottomrule
-\end{tabularx}
-\end{table}
-\newpage
+\end{longtable}
+\end{centering}
 \textbf{Risk \ref{R_RandNums} -- Random Numbers}:\\
 The GEANT4 project is heavily dependent on random numbers. Random numbers are used to determine attributes about particles (independent of all other particles) as they move through the system. By parallelizing the workload, the order in which the particles are evaluated may change, causing it to draw a different random number from the sequence, leading to different results. If it is decided to generate the random numbers using GPU API calls, then they will certainly be different than in the serial, CPU version of the software.\\
 
@@ -140,22 +145,20 @@ Two solutions to this problem have been discussed. The first is to develop a sol
 \textbf{Risk \ref{R_IsolateFunctions} -- Isolating Functions}:\\
 The codebase of GEANT4 is large and complex, a potential testing risk would be that the functions to be parallelized are not well-enough isolated to easily test inputs and outputs. The objects used in GEANT4's calculations are large and often dependent on other objects. To mitigate this testing risk, development will focus on porting single functions in classes to be tested, and unit testing will test those specific functions.\\
 
+\newpage
 \textbf{Risk \ref{R_Time} -- Test Runtime}\\
 Running a full system test on the modified code is a computationally intensive procedure. Even with a relatively small number of particles the computation could take several hours. With a larger, more realistic number of particles, running the program could take on the order of days. This would prevent frequent system testing, and the team would have to rely on unit tests during development. To address this risk, relatively simple examples will be used for most system tests (i.e. with few particles) and they will be run tests regularly along with unit tests. After large changes, more complex system tests will be run to ensure that the correctness has not been affected when using larger, more realistic examples.
 
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Constraints} % Victor
-\textbf{Time}\\
 Time is one of the largest constraints, the completed project is due next April, which is 6 months from the initial revision of this document. In order to perform rigorous testing on all functions, classes, and sections of code that have been parallelized, a  large amount of time is required. G4-STORK is a large library with many different objects and functions, with each section contributing to the overall performance. Each addition of a control branch to the code must be tested to ensure that the original functionality is preserved. Maximizing performance while minimizing changes to the actual code should help to deal with the time constraint.
-\textbf{}\\
 
 
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Definitions and Acronyms} % Rob
-\begin{table}[h]
-\centering
-\caption{Definitions and Acronyms}
-\begin{tabular}{|l|l|l|}
+\begin{centering}
+\begin{longtable}{>{\raggedright\arraybackslash}p{0.3\textwidth}>{\raggedright\arraybackslash}p{0.7\textwidth}}
+\caption{Definitions and Acronyms}\label{Table_Acronyms}\\
 \Xhline{2\arrayrulewidth}
 \bf Acronym/Definition & \bf Definition\\\hline
 GEANT-4 & open-source software toolkit used to simulate the passage of particles through matter\\
@@ -167,23 +170,23 @@ CUDA & parallel computing architecture for general purpose programming on GPU, d
 PoC & proof of concept\\
 SRS & software requirements specification\\
 \Xhline{2\arrayrulewidth}
-\end{tabular}
-\end{table}
+\end{longtable}
+\end{centering}
 
 % ----------------------------- Sub Section ----------------------------- %
-\subsection{References}
-The following documents are referenced within this test plan. ``Pathname'' refers to the name of the file as it exists in the project repository.
-\begin{table}[h]
-\centering
-\caption{References}\label{Table_References}
-\begin{tabular}{>{\raggedright\arraybackslash}p{0.3\textwidth}>{\raggedright\arraybackslash}p{0.3\textwidth}>{\raggedright\arraybackslash}p{0.4\textwidth}}
+\subsection{References}% Victor
+The following documents are referenced within this test plan.
+\begin{centering}
+\begin{longtable}{>{\raggedright\arraybackslash}p{0.3\textwidth}>{\raggedright\arraybackslash}p{0.3\textwidth}>{\raggedright\arraybackslash}p{0.4\textwidth}}
+\caption{Referenced Documents}\label{Table_References}\\
 \toprule
-\bf Title & \bf Pathname & \bf Description\\\midrule
-Software Requirements Specification & GEANT4-GPUSRS.pdf & Requirements specification for the project\\
-Proof of Concept Plan & PoC Plan.pdf & description of demonstration to be prepared for project proof of concept\\
+\bf Document & \bf Author(s) & \bf Version/Date\\\midrule
+GEANT-4 GPU Port: SRS & Stuart, Matthew, Rob, Victor & 0/2015-10-12\\
+PoC Plan for GEANT4-GPU & Stuart, Matthew, Rob, Victor & 2015-10-20\\
+UniNotesTestPlan & Umar Khan, Ashwin Samtani, Olakotumbo Agia & 1/2014-04-16\\
 \bottomrule
-\end{tabular}
-\end{table}
+\end{longtable}
+\end{centering}
 
 % =============================== Section =============================== %
 \section{Test Types}
@@ -191,22 +194,18 @@ Proof of Concept Plan & PoC Plan.pdf & description of demonstration to be prepar
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{System Testing} % Matt
 There are several examples included with the GEANT4 toolkit as well as some created by McMaster's Engineering Physics department for G4-STORK. Both examples in G4-STORK and GEANT4 will be used for system testing. Due to the computation time for some of the examples, they will be run less frequently than the simpler ones. This will let the developers run system tests regularly on the simple files, while checking that more realistic, complex examples are also correct after bigger changes.
-\newpage
 
-\begin{table}[h]
-\centering
-\caption{System Tests}\label{Table_SystemTests}
-\begin{tabular}{cc >{\raggedright\arraybackslash}p{2.8cm}>{\raggedright\arraybackslash}p{3cm}>{\raggedright\arraybackslash}p{4.5cm}}
-\toprule
+\begin{centering}
+\begin{longtable}{cc >{\raggedright\arraybackslash}p{2.8cm}>{\raggedright\arraybackslash}p{3cm}>{\raggedright\arraybackslash}p{4.5cm}}
+\caption{System Tests}\label{Table_SystemTests}\\
 \bf \# & \bf Initial State & \bf Inputs & \bf Outputs & \bf Description\\\midrule
-
 \stepcounter{TestCounter}\arabic{TestCounter} 
 & Fresh start up 
 & Runs = 50
 Events = 12
 Particles = 20
 & Same output as non-GPU G4STORK 
-&  SCWRDopplerInput.txt -- Default example\\\midrule
+&  SCWRDopplerInput.txt -- Default example\\\hline
 
 \stepcounter{TestCounter}\arabic{TestCounter}
 & Fresh start up 
@@ -214,7 +213,7 @@ Particles = 20
 Events = 12
 Particles = 20
 & Same output as non-GPU G4STORK 
-& SCWRDopplerInput.txt -- 1 run\\\midrule
+& SCWRDopplerInput.txt -- 1 run\\\hline
 
 \stepcounter{TestCounter}\arabic{TestCounter}
 & Fresh start up 
@@ -222,7 +221,7 @@ Particles = 20
 Events = 12
 Particles = 20
 & Same output as non-GPU G4STORK 
-& SCWRDopplerInput.txt -- Many runs\\\midrule
+& SCWRDopplerInput.txt -- Many runs\\\hline
 
 \stepcounter{TestCounter}\arabic{TestCounter}
 & Fresh start up 
@@ -230,7 +229,7 @@ Particles = 20
 Events = 2
 Particles = 20
 & Same output as non-GPU G4STORK 
-& SCWRDopplerInput.txt -- Short simulation\\\midrule
+& SCWRDopplerInput.txt -- Short simulation\\\hline
 
 \stepcounter{TestCounter}\arabic{TestCounter}
 & Fresh start up 
@@ -238,7 +237,7 @@ Particles = 20
 Events = 60
 Particles = 20
 & Same output as non-GPU G4STORK 
-& SCWRDopplerInput.txt -- Long simulation\\\midrule
+& SCWRDopplerInput.txt -- Long simulation\\\hline
 
 \stepcounter{TestCounter}\arabic{TestCounter}
 & Fresh start up 
@@ -246,7 +245,7 @@ Particles = 20
 Events = 12
 Particles = 2
 & Same output as non-GPU G4STORK 
-& SCWRDopplerInput.txt -- Few Particles\\\midrule
+& SCWRDopplerInput.txt -- Few Particles\\\hline
 
 \stepcounter{TestCounter}\arabic{TestCounter}
 & Fresh start up 
@@ -254,24 +253,35 @@ Particles = 2
 Events = 12
 Particles = 2000
 & Same output as non-GPU G4STORK 
-& SCWRDopplerInput.txt -- Many Particles\\
+& SCWRDopplerInput.txt -- Many Particles\\\hline
 
-\bottomrule
-\end{tabular}
-\end{table}
+\stepcounter{TestCounter}\arabic{TestCounter} 
+& Fresh start up 
+& Runs = 1
+Events = 2
+Particles = 2
+& Same output as non-GPU G4STORK 
+&  SCWRDopplerInput.txt  -- Minimum stress\\\hline
 
+\stepcounter{TestCounter}\arabic{TestCounter} 
+& Fresh start up 
+& Runs = 500
+Events = 60
+Particles = 2000
+& Same output as non-GPU G4STORK 
+&  SCWRDopplerInput.txt  -- Stress test\\
+\hline
+\end{longtable}
+\end{centering}
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Unit Testing} % Stuart  
 Unit tests will be created throughout development as functions and classes are ported to the GPU. Before porting a specific function of a class, a variety of inputs covering edge cases for the function as well as several ``normal'' cases will be created. The results of the function for each of the inputs will be recorded from the CPU version, and a test case will be added to test whether the outputs are the same with GPU computation enabled (once it's implemented). Due to the nature of this testing strategy, most explicit unit tests are not currently known, as no functions have yet been ported to the GPU. The following functions have been identified that are likely to be ported first to the GPU, and the tests to be created for them have been noted as well.\\
-\newpage
 
-\begin{table}[!h]
-\centering
-\caption{Unit Testing -- \emph{G4NeutronHPVector.hh::Times(G4double factor)}}\label{Table_UnitTestsTimes}
-\begin{tabular}{p{0.15in}>{\raggedright\arraybackslash}p{1in}>{\raggedright\arraybackslash}p{0.6in}>{\raggedright\arraybackslash}p{1.5in}>{\raggedright\arraybackslash}p{2in}}
-\toprule
+\begin{centering}
+\begin{longtable}{p{0.15in}>{\raggedright\arraybackslash}p{1in}>{\raggedright\arraybackslash}p{0.6in}>{\raggedright\arraybackslash}p{1.5in}>{\raggedright\arraybackslash}p{2in}}
+
+\caption{Unit Testing -- \emph{G4NeutronHPVector.hh::Times(G4double factor)}}\label{Table_UnitTestsTimes}\\
 \bf \# & \bf Initial State & \bf Inputs & \bf Outputs & \bf Description\\\midrule
-
 \stepcounter{TestCounter}\arabic{TestCounter}
 & object represents vector (1,2,...,512) 
 & factor: 0 
@@ -320,13 +330,13 @@ Unit tests will be created throughout development as functions and classes are p
 & no output, vector object still represents vector (0,0,...,0)
 & multiplying zero vector object by 4 should not change the object's state\\
 \bottomrule
-\end{tabular}
-\end{table}
+\end{longtable}
+\end{centering}
 
-\begin{table}[!h]
-\centering
-\caption{Unit Testing -- \emph{G4NeutronHPVector.cc:: G4NeutronHPVector\& operator + (G4NeutronHPVector *left, G4NeutronHPVector *right)}}\label{Table_UnitTestsPlus}
-\begin{tabular}{p{0.15in}>{\raggedright\arraybackslash}p{1in}>{\raggedright\arraybackslash}p{1.1in}>{\raggedright\arraybackslash}p{1.5in}>{\raggedright\arraybackslash}p{1.5in}}
+\begin{centering}
+\begin{longtable}{p{0.15in}>{\raggedright\arraybackslash}p{1in}>{\raggedright\arraybackslash}p{1.1in}>{\raggedright\arraybackslash}p{1.5in}>{\raggedright\arraybackslash}p{1.5in}}
+\caption{Unit Testing -- \emph{G4NeutronHPVector.cc:: G4NeutronHPVector\& operator + (G4NeutronHPVector *left, G4NeutronHPVector *right)}}\label{Table_UnitTestsPlus}\\
+
 \toprule
 \bf \# & \bf Initial State & \bf Inputs & \bf Outputs & \bf Description\\\midrule
 
@@ -360,43 +370,14 @@ Unit tests will be created throughout development as functions and classes are p
 & vector object representing (0,0,...,0) of length 512 
 & adding a vector to its inverse should output the zero vector\\
 \bottomrule
-\end{tabular}
-\end{table}
+\end{longtable}
+\end{centering}
 
-\newpage
 The unit tests as described in tables \ref{Table_UnitTestsTimes} and \ref{Table_UnitTestsPlus} are not complete -- as the project progresses the number of tests will increase. Since functions are being ported one-at-a-time to the GPU, having full (or near-full) coverage is relatively straightforward. To accomplish this, every ported function must have a series of associated unit tests that cover a variety of edge and normal cases. Combined with system tests to test how all the parts work together, test coverage will be exhaustive.
 
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Code Testing} % Victor
-Testing the code will be done manually due to the variation in the snippets of code that will be added. Tests will based on the addition of control branches to current sections of code. When new conditionals are added, tests will be done to ensure that there are no differences in the expected output. Since the code that needs to be added is currently unknown, the tests described in the following table are general examples of how likely additions to existing code will be tested. To minimize the risk of adverse side effects after adding code, variables before and after a conditional or new statement are recorded and any changes are noted. If the changes were not intended the code added is likely at risk of causing errors. 
-
-\begin{table}[!h]
-\centering
-\caption{Code Testing}\label{Table_CodeTests}
-\begin{tabular}{p{0.15in}>{\raggedright\arraybackslash}p{1in}>{\raggedright\arraybackslash}p{1.1in}>{\raggedright\arraybackslash}p{1.5in}>{\raggedright\arraybackslash}p{1.5in}}
-\toprule
-\bf \# & \bf Type of code added & \bf Inputs & \bf Outputs & \bf Description\\\midrule
-
-\stepcounter{TestCounter}\arabic{TestCounter} 
-& IF statement control branch added
-& Variables in the class, or function before the if
-& Variables in the class, or function after the if
-& Ensure that the statement(s) in the if did not change the variables in an unexpected way. Ensure the execution of the code when the condition is false is the same when the condition is true\\\midrule
-
-\stepcounter{TestCounter}\arabic{TestCounter} 
-& IF ELSE statement control branch added
-& Variables in the class, or function before the if else
-& Variables in the class, or function after the if else
-& Ensure that the statement(s) in the if else did not change the variables in an unexpected way. Ensure the execution of the code when the condition is false is the same when the condition is true\\\midrule
-
-\stepcounter{TestCounter}\arabic{TestCounter} 
-& Statement added
-& Variables in the class, or function before the statement
-& Variables in the class, or function after the statement
-& Ensure all variables not modified by the statement are the same. Ensure the execution of the code with and without the statement is the same\\\midrule
-
-\end{tabular}
-\end{table}
+Testing the code will be done manually due to the variation in the snippets of code that will be added. Tests will based on the addition of control branches to current sections of code. When new conditionals are added, tests will be done to ensure that there are no differences in the expected output. Most of the conditionals The majority of the already implemented G4STORK code will not be tested for errors
 
 
 % ----------------------------- Sub Section ----------------------------- %
@@ -447,6 +428,7 @@ Initially during development, the ``Time Profiling'' tool of the ``Instruments''
 \subsubsection{CUDA Profiling}
 NVIDIA has developed a solution for profiling CUDA code, called the ``NVIDIA Visual Profiler''. This tool will be used extensively to identify the areas of the CUDA code that can be improved, and to better understand how the software is using the hardware. This profiler is available as a plugin for the Eclipse IDE, and very thoroughly analyzes CUDA code for improvements.
 
+\newpage
 % =============================== Section =============================== %
 \section{Testing Factors}
 
@@ -457,18 +439,15 @@ The purpoes of this section is to shed light on the features and properties of t
 \begin{table}[h]
 \centering
 \caption{Test Factors}
-\begin{tabular}{|l|l|l|}
+\begin{tabular}{>{\raggedright\arraybackslash}p{0.2\textwidth}>{\raggedright\arraybackslash}p{0.5\textwidth}>{\raggedright\arraybackslash}p{0.3\textwidth}}
 \Xhline{2\arrayrulewidth}
 \bf Factors & \bf Description & \bf Test Method\\\hline
-Reliability & Consistent performance of functions in routine circumstances & Unit Testing, requirements\\
-File Integrity & Accuracy and relevance of related output and input data & Unit Testing, requirements\\
-Access Control & Appropriate access to necessary resources & Unit Testing\\
-Correctness & Objective success or failure of a function & Unit Testing\\
-Performance & Quantitative and Qualitative measure of temporal performance and stability in a particular workload & Unit Testing, black-box, stress\\
+Correctness & Objective success or failure of a function & Unit Testing\\\hline
+Performance & Quantitative and Qualitative measure of temporal performance and stability in a particular workload & Unit Testing, black-box, stress\\\hline
+Reliability & Consistent performance of functions in routine circumstances & Unit Testing, requirements\\\hline
 \Xhline{2\arrayrulewidth}
 \end{tabular}
 \end{table}
-
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Description of Factor} % Matt
 \subsubsection{Correctness}
@@ -482,7 +461,7 @@ In order for the product to be of use it must be able to compute the correct out
 \item The output files of tests run on the product will be compared with the output files of tests run on the non-GPU existing product
 \item See risk \ref{R_RandNums} for more information on how they will be compared
 \end{itemize}
-
+\newpage
 \subsubsection{Performance}
 Tests run with the GPU functionality enabled should take less time to compute compared to the same tests run on the the existing CPU-based product.\\
 
@@ -493,7 +472,17 @@ The focus of this project is to reduce the computation time for G4-STORK by para
 \begin{itemize}
 \item Compare the computation times of tests run on the product with GPU enabled with the computation times of test run on the existing product to see if the GPU-based computation times are smaller.
 \end{itemize}
- 
+
+\subsubsection{Reliability}
+Consistent performance of functions in routine circumstances.\\
+
+\textbf{Rationale}\\
+Research software requires functions to perform reliably in order to produce results that can be duplicated.\\
+
+\textbf{Methods of testing}
+\begin{itemize}
+\item Running the same test multiple times should produce the same result every time.
+\end{itemize} 
 % =============================== Section =============================== %
 \section{Manual and Automated Testing}
 Manual testing needs to be conducted by people, where test cases and inspections are manually performed. On the other hand, automated testing relies less on people and performs tests quickly and effectively returning feedback on results not meeting expectations. Manual testing is more flexible; However, it is far more time consuming.\\
@@ -515,24 +504,19 @@ As documented in the Proof of Concept Plan, the demonstration will include runni
 
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Testing Schedule} % Victor
-
-
-
+\newpage
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Deliverables} % Rob
-The deliverables specific to testing are as follows:\\
-\begin{table}[h]
-\centering
-\caption{Timeline of Deriverables}
-\begin{tabular}{|l|l|l|}
-\Xhline{2\arrayrulewidth}
+The deliverables specific to testing are as follows:
+\begin{centering}
+\begin{longtable}{>{\raggedright\arraybackslash}p{0.2\textwidth}>{\raggedright\arraybackslash}p{0.5\textwidth}>{\raggedright\arraybackslash}p{0.3\textwidth}}
+\caption{Timeline of Deriverables}\\
 \bf Deliverable & \bf Description & \bf Date\\\hline
-Test Plan Revision 0 & set guidelines and objectives for testing, subject to change & October 30\\
-Test Report Revision 0 & report on progress, history, and results regarding testing and test methods & March 21\\
-Test Plan Final & rigorously outline test cases and considerations in preperation for the projects final release & April 1\\
-Test Report Final & report on the final results of tests performed and provide relevant analytics & April 1\\
-\Xhline{2\arrayrulewidth}
-\end{tabular}
-\end{table}
+Test Plan Revision 0 & set guidelines and objectives for testing, subject to change & October 30\\\hline
+Test Report Revision 0 & report on progress, history, and results regarding testing and test methods & March 21\\\hline
+Test Plan Final & rigorously outline test cases and considerations in preperation for the projects final release & April 1\\\hline
+Test Report Final & report on the final results of tests performed and provide relevant analytics & April 1\\\hline
+\end{longtable}
+\end{centering}
 
 \end{document}
