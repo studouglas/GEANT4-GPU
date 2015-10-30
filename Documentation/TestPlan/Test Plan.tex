@@ -147,6 +147,8 @@ Running a full system test on the modified code is a computationally intensive p
 \subsection{Constraints} % Victor
 \textbf{Time}\\
 Time is one of the largest constraints, the completed project is due next April, which is 6 months from the initial revision of this document. In order to perform rigorous testing on all functions, classes, and sections of code that have been parallelized, a  large amount of time is required. G4-STORK is a large library with many different objects and functions, with each section contributing to the overall performance. Each addition of a control branch to the code must be tested to ensure that the original functionality is preserved. Maximizing performance while minimizing changes to the actual code should help to deal with the time constraint.
+\textbf{}\\
+
 
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Definitions and Acronyms} % Rob
@@ -450,7 +452,7 @@ NVIDIA has developed a solution for profiling CUDA code, called the ``NVIDIA Vis
 
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Factors to be Tested} % Rob
-The purpose of this section is to shed light on the features and properties of the system that we wish to stress and test. The chart below provides a brief description of every property we aim to measure and a method as means for measuring.\\
+The purpoes of this section is to shed light on the features and properties of the system that we wish to stress and test. The chart below provides a brief description of every property we aim to measure and a method as means for measuring.\\
 
 \begin{table}[h]
 \centering
@@ -513,7 +515,8 @@ As documented in the Proof of Concept Plan, the demonstration will include runni
 
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Testing Schedule} % Victor
-Code tests will be performed as necessary, for example when the impact of a conditional or statement is unknown on the overall result. This would happen when code is needed to be re-written or re ordered to achieve a speedup using CUDA. %not finished%
+
+
 
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Deliverables} % Rob
