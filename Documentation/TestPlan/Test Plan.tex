@@ -99,6 +99,21 @@ Initial draft of document & Stuart, Matthew, Rob, Victor & 2015-10-26\\
 \end{center}
 
 % =============================== Section =============================== %
+\section*{References} % Victor
+\begin{table}[h]
+\centering
+\caption{Referenced Documents}\label{Table_References}
+\begin{tabular}{lll}
+\toprule
+\bf Document & \bf Author(s) & \bf Version/Date\\\midrule
+GEANT-4 GPU Port: SRS & Stuart, Matthew, Rob, Victor & 0/2015-10-12\\
+PoC Plan for GEANT4-GPU & Stuart, Matthew, Rob, Victor & 2015-10-20\\
+UniNotesTestPlan & Umar Khan, Ashwin Samtani, Olakotumbo Agia & 1/2014-04-16\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% =============================== Section =============================== %
 \section{General Information}
 
 % ----------------------------- Sub Section ----------------------------- %
@@ -143,8 +158,10 @@ The codebase of GEANT4 is large and complex, a potential testing risk would be t
 \textbf{Risk \ref{R_Time} -- Test Runtime}\\
 Running a full system test on the modified code is a computationally intensive procedure. Even with a relatively small number of particles the computation could take several hours. With a larger, more realistic number of particles, running the program could take on the order of days. This would prevent frequent system testing, and the team would have to rely on unit tests during development. To address this risk, relatively simple examples will be used for most system tests (i.e. with few particles) and they will be run tests regularly along with unit tests. After large changes, more complex system tests will be run to ensure that the correctness has not been affected when using larger, more realistic examples.
 
-% ----------------------------- Sub Section ----------------------------- %
+\% ----------------------------- Sub Section ----------------------------- %
 \subsection{Constraints} % Victor
+Time is one of the largest constraints, the completed project is due next April, which is 6 months from the initial revision of this document. In order to perform rigorous testing on all functions, classes, and sections of code that have been parallelized, a  large amount of time is required. G4-STORK is a large library with many different objects and functions, with each section contributing to the overall performance. Each addition of a control branch to the code must be tested to ensure that the original functionality is preserved. Maximizing performance while minimizing changes to the actual code should help to deal with the time constraint.
+
 
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Definitions and Acronyms} % Rob
@@ -370,6 +387,8 @@ The unit tests as described in tables \ref{Table_UnitTestsTimes} and \ref{Table_
 
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Code Testing} % Victor
+Testing the code will be done manually due to the variation in the snippets of code that will be added. Tests will based on the addition of control branches to current sections of code. When new conditionals are added, tests will be done to ensure that there are no differences in the expected output. Most of the conditionals The majority of the already implemented G4STORK code will not be tested for errors
+
 
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Requirements Testing} % Stuart
