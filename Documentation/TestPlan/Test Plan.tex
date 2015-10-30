@@ -117,7 +117,7 @@ The product, GEANT4-GPU, will be a modified version of G4-STORK that will levera
 The following table outlines the major risks associated with the testing of the product. A more detailed analysis of each of the risks follows the table.
 
 \begin{centering}
-\begin{longtable}{>{\raggedright\arraybackslash}p{0.1\textwidth}>{\raggedright\arraybackslash}p{0.7\textwidth}>{\raggedright\arraybackslash}p{0.2\textwidth}}
+\begin{longtable}{>{\raggedright\arraybackslash}p{0.1\textwidth}>{\raggedright\arraybackslash}p{0.6\textwidth}>{\raggedright\arraybackslash}p{0.2\textwidth}}
 \caption{Risks}\label{Table_Risks}\\
 \toprule
 \textbf{Risk \#} & \textbf{Summary} & \textbf{Severity}\\\midrule
@@ -134,9 +134,10 @@ The following table outlines the major risks associated with the testing of the 
 & running time of tests will be too long to run them frequently 
 & High\\
 
-\bottomrule
+\bottomrule\\
 \end{longtable}
 \end{centering}
+
 \textbf{Risk \ref{R_RandNums} -- Random Numbers}:\\
 The GEANT4 project is heavily dependent on random numbers. Random numbers are used to determine attributes about particles (independent of all other particles) as they move through the system. By parallelizing the workload, the order in which the particles are evaluated may change, causing it to draw a different random number from the sequence, leading to different results. If it is decided to generate the random numbers using GPU API calls, then they will certainly be different than in the serial, CPU version of the software.\\
 
@@ -145,7 +146,6 @@ Two solutions to this problem have been discussed. The first is to develop a sol
 \textbf{Risk \ref{R_IsolateFunctions} -- Isolating Functions}:\\
 The codebase of GEANT4 is large and complex, a potential testing risk would be that the functions to be parallelized are not well-enough isolated to easily test inputs and outputs. The objects used in GEANT4's calculations are large and often dependent on other objects. To mitigate this testing risk, development will focus on porting single functions in classes to be tested, and unit testing will test those specific functions.\\
 
-\newpage
 \textbf{Risk \ref{R_Time} -- Test Runtime}\\
 Running a full system test on the modified code is a computationally intensive procedure. Even with a relatively small number of particles the computation could take several hours. With a larger, more realistic number of particles, running the program could take on the order of days. This would prevent frequent system testing, and the team would have to rely on unit tests during development. To address this risk, relatively simple examples will be used for most system tests (i.e. with few particles) and they will be run tests regularly along with unit tests. After large changes, more complex system tests will be run to ensure that the correctness has not been affected when using larger, more realistic examples.
 
@@ -157,10 +157,9 @@ Time is one of the largest constraints, the completed project is due next April,
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Definitions and Acronyms} % Rob
 \begin{centering}
-\begin{longtable}{>{\raggedright\arraybackslash}p{0.3\textwidth}>{\raggedright\arraybackslash}p{0.7\textwidth}}
-\caption{Definitions and Acronyms}\label{Table_Acronyms}\\
-\Xhline{2\arrayrulewidth}
-\bf Acronym/Definition & \bf Definition\\\hline
+\begin{longtable}{>{\raggedright\arraybackslash}p{0.25\textwidth}>{\raggedright\arraybackslash}p{0.65\textwidth}}
+\caption{Definitions and Acronyms}\label{Table_Acronyms}\\\toprule
+\bf Acronym & \bf Definition\\\midrule
 GEANT-4 & open-source software toolkit used to simulate the passage of particles through matter\\
 G4-STORK & (Geant-4 STOchastic Reactor Kinetics), fork of GEANT-4 developed by McMaster's Engineering Physics department to simulate McMaster's nuclear reactor\\
 GPU & graphics processing unit, well-suited to parallel computing tasks\\
@@ -168,8 +167,7 @@ CPU & computer (central) processing unit, general computer processor well suited
 GP-GPU & concept of running "general purpose" computations on the GPU\\
 CUDA & parallel computing architecture for general purpose programming on GPU, developed by NVIDIA\\
 PoC & proof of concept\\
-SRS & software requirements specification\\
-\Xhline{2\arrayrulewidth}
+SRS & software requirements specification\\\bottomrule
 \end{longtable}
 \end{centering}
 
@@ -177,12 +175,12 @@ SRS & software requirements specification\\
 \subsection{References}% Victor
 The following documents are referenced within this test plan.
 \begin{centering}
-\begin{longtable}{>{\raggedright\arraybackslash}p{0.3\textwidth}>{\raggedright\arraybackslash}p{0.3\textwidth}>{\raggedright\arraybackslash}p{0.4\textwidth}}
+\begin{longtable}{>{\raggedright\arraybackslash}p{0.4\textwidth}>{\raggedright\arraybackslash}p{0.3\textwidth}>{\raggedright\arraybackslash}p{0.2\textwidth}}
 \caption{Referenced Documents}\label{Table_References}\\
 \toprule
 \bf Document & \bf Author(s) & \bf Version/Date\\\midrule
-GEANT-4 GPU Port: SRS & Stuart, Matthew, Rob, Victor & 0/2015-10-12\\
-PoC Plan for GEANT4-GPU & Stuart, Matthew, Rob, Victor & 2015-10-20\\
+GEANT-4 GPU Port: SRS & Stuart, Matthew, Rob, Victor & 0/2015-10-12\\\midrule
+PoC Plan for GEANT4-GPU & Stuart, Matthew, Rob, Victor & 2015-10-20\\\midrule
 UniNotesTestPlan & Umar Khan, Ashwin Samtani, Olakotumbo Agia & 1/2014-04-16\\
 \bottomrule
 \end{longtable}
@@ -197,7 +195,7 @@ There are several examples included with the GEANT4 toolkit as well as some crea
 
 \begin{centering}
 \begin{longtable}{cc >{\raggedright\arraybackslash}p{2.8cm}>{\raggedright\arraybackslash}p{3cm}>{\raggedright\arraybackslash}p{4.5cm}}
-\caption{System Tests}\label{Table_SystemTests}\\
+\caption{System Tests}\label{Table_SystemTests}\\\toprule
 \bf \# & \bf Initial State & \bf Inputs & \bf Outputs & \bf Description\\\midrule
 \stepcounter{TestCounter}\arabic{TestCounter} 
 & Fresh start up 
@@ -205,7 +203,7 @@ There are several examples included with the GEANT4 toolkit as well as some crea
 Events = 12
 Particles = 20
 & Same output as non-GPU G4STORK 
-&  SCWRDopplerInput.txt -- Default example\\\hline
+&  SCWRDopplerInput.txt -- Default example\\\midrule
 
 \stepcounter{TestCounter}\arabic{TestCounter}
 & Fresh start up 
@@ -213,7 +211,7 @@ Particles = 20
 Events = 12
 Particles = 20
 & Same output as non-GPU G4STORK 
-& SCWRDopplerInput.txt -- 1 run\\\hline
+& SCWRDopplerInput.txt -- 1 run\\\midrule
 
 \stepcounter{TestCounter}\arabic{TestCounter}
 & Fresh start up 
@@ -221,7 +219,7 @@ Particles = 20
 Events = 12
 Particles = 20
 & Same output as non-GPU G4STORK 
-& SCWRDopplerInput.txt -- Many runs\\\hline
+& SCWRDopplerInput.txt -- Many runs\\\midrule
 
 \stepcounter{TestCounter}\arabic{TestCounter}
 & Fresh start up 
@@ -229,7 +227,7 @@ Particles = 20
 Events = 2
 Particles = 20
 & Same output as non-GPU G4STORK 
-& SCWRDopplerInput.txt -- Short simulation\\\hline
+& SCWRDopplerInput.txt -- Short simulation\\\midrule
 
 \stepcounter{TestCounter}\arabic{TestCounter}
 & Fresh start up 
@@ -237,7 +235,7 @@ Particles = 20
 Events = 60
 Particles = 20
 & Same output as non-GPU G4STORK 
-& SCWRDopplerInput.txt -- Long simulation\\\hline
+& SCWRDopplerInput.txt -- Long simulation\\\midrule
 
 \stepcounter{TestCounter}\arabic{TestCounter}
 & Fresh start up 
@@ -245,7 +243,7 @@ Particles = 20
 Events = 12
 Particles = 2
 & Same output as non-GPU G4STORK 
-& SCWRDopplerInput.txt -- Few Particles\\\hline
+& SCWRDopplerInput.txt -- Few Particles\\\midrule
 
 \stepcounter{TestCounter}\arabic{TestCounter}
 & Fresh start up 
@@ -253,7 +251,7 @@ Particles = 2
 Events = 12
 Particles = 2000
 & Same output as non-GPU G4STORK 
-& SCWRDopplerInput.txt -- Many Particles\\\hline
+& SCWRDopplerInput.txt -- Many Particles\\\midrule
 
 \stepcounter{TestCounter}\arabic{TestCounter} 
 & Fresh start up 
@@ -261,7 +259,7 @@ Particles = 2000
 Events = 2
 Particles = 2
 & Same output as non-GPU G4STORK 
-&  SCWRDopplerInput.txt  -- Minimum stress\\\hline
+&  SCWRDopplerInput.txt  -- Minimum stress\\\midrule
 
 \stepcounter{TestCounter}\arabic{TestCounter} 
 & Fresh start up 
@@ -280,7 +278,7 @@ Unit tests will be created throughout development as functions and classes are p
 \begin{centering}
 \begin{longtable}{p{0.15in}>{\raggedright\arraybackslash}p{1in}>{\raggedright\arraybackslash}p{0.6in}>{\raggedright\arraybackslash}p{1.5in}>{\raggedright\arraybackslash}p{2in}}
 
-\caption{Unit Testing -- \emph{G4NeutronHPVector.hh::Times(G4double factor)}}\label{Table_UnitTestsTimes}\\
+\caption{Unit Testing -- \emph{G4NeutronHPVector.hh::Times(G4double factor)}}\label{Table_UnitTestsTimes}\\\toprule
 \bf \# & \bf Initial State & \bf Inputs & \bf Outputs & \bf Description\\\midrule
 \stepcounter{TestCounter}\arabic{TestCounter}
 & object represents vector (1,2,...,512) 
@@ -428,7 +426,6 @@ Initially during development, the ``Time Profiling'' tool of the ``Instruments''
 \subsubsection{CUDA Profiling}
 NVIDIA has developed a solution for profiling CUDA code, called the ``NVIDIA Visual Profiler''. This tool will be used extensively to identify the areas of the CUDA code that can be improved, and to better understand how the software is using the hardware. This profiler is available as a plugin for the Eclipse IDE, and very thoroughly analyzes CUDA code for improvements.
 
-\newpage
 % =============================== Section =============================== %
 \section{Testing Factors}
 
@@ -439,7 +436,7 @@ The purpoes of this section is to shed light on the features and properties of t
 \begin{table}[h]
 \centering
 \caption{Test Factors}
-\begin{tabular}{>{\raggedright\arraybackslash}p{0.2\textwidth}>{\raggedright\arraybackslash}p{0.5\textwidth}>{\raggedright\arraybackslash}p{0.3\textwidth}}
+\begin{tabular}{>{\raggedright\arraybackslash}p{0.2\textwidth}>{\raggedright\arraybackslash}p{0.4\textwidth}>{\raggedright\arraybackslash}p{0.3\textwidth}}
 \Xhline{2\arrayrulewidth}
 \bf Factors & \bf Description & \bf Test Method\\\hline
 Correctness & Objective success or failure of a function & Unit Testing\\\hline
@@ -461,7 +458,7 @@ In order for the product to be of use it must be able to compute the correct out
 \item The output files of tests run on the product will be compared with the output files of tests run on the non-GPU existing product
 \item See risk \ref{R_RandNums} for more information on how they will be compared
 \end{itemize}
-\newpage
+
 \subsubsection{Performance}
 Tests run with the GPU functionality enabled should take less time to compute compared to the same tests run on the the existing CPU-based product.\\
 
@@ -510,12 +507,13 @@ As documented in the Proof of Concept Plan, the demonstration will include runni
 The deliverables specific to testing are as follows:
 \begin{centering}
 \begin{longtable}{>{\raggedright\arraybackslash}p{0.2\textwidth}>{\raggedright\arraybackslash}p{0.5\textwidth}>{\raggedright\arraybackslash}p{0.3\textwidth}}
-\caption{Timeline of Deriverables}\\
-\bf Deliverable & \bf Description & \bf Date\\\hline
-Test Plan Revision 0 & set guidelines and objectives for testing, subject to change & October 30\\\hline
-Test Report Revision 0 & report on progress, history, and results regarding testing and test methods & March 21\\\hline
-Test Plan Final & rigorously outline test cases and considerations in preperation for the projects final release & April 1\\\hline
-Test Report Final & report on the final results of tests performed and provide relevant analytics & April 1\\\hline
+\caption{Timeline of Deriverables}\\\toprule
+\bf Deliverable & \bf Description & \bf Date\\\toprule
+
+Test Plan Revision 0 & set guidelines and objectives for testing, subject to change & October 30\\\midrule
+Test Report Revision 0 & report on progress, history, and results regarding testing and test methods & March 21\\\midrule
+Test Plan Final & rigorously outline test cases and considerations in preperation for the projects final release & April 1\\\midrule
+Test Report Final & report on the final results of tests performed and provide relevant analytics & April 1\\\bottomrule
 \end{longtable}
 \end{centering}
 
