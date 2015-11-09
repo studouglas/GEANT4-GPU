@@ -292,6 +292,8 @@ Particles = 2000
 \subsection{Unit Testing}  
 Unit tests will be created throughout development as functions and classes are ported to the GPU. Before porting a specific function of a class, a variety of inputs covering edge cases for the function as well as several ``normal'' cases will be created. The results of the function for each of the inputs will be recorded from the CPU version, and a test case will be added to test whether the outputs are the same with GPU computation enabled (once it's implemented). Due to the nature of this testing strategy, most explicit unit tests are not currently known, as no functions have yet been ported to the GPU. The following functions have been identified that are likely to be ported first to the GPU, and the tests to be created for them have been noted as well.\\
 
+\ds{What unit testing framework are you planning to use?}
+
 \begin{center}
 \begin{longtable}{p{0.15in}>{\raggedright\arraybackslash}p{1in}>{\raggedright\arraybackslash}p{0.6in}>{\raggedright\arraybackslash}p{1.5in}>{\raggedright\arraybackslash}p{2in}}
 \caption{Unit Testing -- \emph{G4NeutronHPVector.hh::Times(G4double factor)}}\label{Table_UnitTestsTimes}\\\toprule
@@ -395,7 +397,9 @@ The unit tests as described in tables \ref{Table_UnitTestsTimes} and \ref{Table_
 
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Code Testing} % Victor
-The developers will following strict code testing guidelines to help reduce coding errors and improve collaboration. This will be done by adhering to the \emph{Feature Branch Workflow} and enforcing code reviews for every commit. Developers will create separate branches for each new feature, commit to that branch and then push it to the repository. Using GitHub's pull request feature, all branches will go through a code review process. The author will open a pull request for their feature, and a different developer (to be chosen based on availibility and knowledge of the feature) will be assigned as reviewer. The reviewer will manually read through the changes on GitHub and post comments as necessary. After comments have been addressed, the reviewer will merge the feature branch into the master. Following such a strict model will ensure that all committed code is double-checked by a different developer, which can catch many bugs and errors. This practice will not apply to changes to documentation.
+The developers will following strict code testing guidelines to help reduce coding errors and improve collaboration. This will be done by adhering to the \emph{Feature Branch Workflow} and enforcing code reviews for every commit. Developers will create separate branches for each new feature, commit to that branch and then push it to the repository. Using GitHub's pull request feature, all branches will go through a code review process. The author will open a pull request for their feature, and a different developer (to be chosen based on availibility
+\ds{``availability"}
+and knowledge of the feature) will be assigned as reviewer. The reviewer will manually read through the changes on GitHub and post comments as necessary. After comments have been addressed, the reviewer will merge the feature branch into the master. Following such a strict model will ensure that all committed code is double-checked by a different developer, which can catch many bugs and errors. This practice will not apply to changes to documentation.
 
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Requirements Testing} % Stuart
@@ -451,7 +455,9 @@ NVIDIA has developed a solution for profiling CUDA code, called the ``NVIDIA Vis
 
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Factors to be Tested} % Rob
-The purpoes of this section is to shed light on the features and properties of the system that we wish to stress and test. The chart below provides a brief description of every property we aim to measure and a method as means for measuring.\\
+The purpoes
+\ds{``purpose"}
+of this section is to shed light on the features and properties of the system that we wish to stress and test. The chart below provides a brief description of every property we aim to measure and a method as means for measuring.\\
 
 \begin{table}[h]
 \centering
@@ -461,7 +467,9 @@ The purpoes of this section is to shed light on the features and properties of t
 
 \bf Factors & \bf Description & \bf Test Method\\\midrule
 Correctness & Objective success or failure of a function & Unit Testing\\\midrule
-Performance & Quantitative and Qualitative measure of temporal performance and stability in a particular workload & Unit Testing, black-box, stress\\\midrule
+Performance & Quantitative and Qualitative measure of temporal performance and stability in a particular workload & Unit Testing, black-box, stress
+\ds{How are you stress-testing the system?}
+\\\midrule
 Reliability & Consistent performance of functions in routine circumstances & Unit Testing, requirements\\\midrule
 
 \bottomrule
@@ -543,6 +551,8 @@ The testing schedule can be summarized as follows: manual code reviews for every
 \end{longtable}
 \end{center}
 
+\ds{Who will be doing what?}
+
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Deliverables} % Rob
 The deliverables specific to testing are as follows:
@@ -554,10 +564,16 @@ The deliverables specific to testing are as follows:
 \bf Date & \bf Deliverable & \bf Description\\\toprule
 2015-10-30 & Test Plan Revision 0 & set guidelines and objectives for testing, subject to change\\\midrule
 2016-03-21 & Test Report Revision 0 & report on progress, history, and results regarding testing and test methods\\\midrule
-2016-04-01 & Test Plan Final & rigorously outline test cases and considerations in preperation for the projects final release\\\midrule
+2016-04-01 & Test Plan Final & rigorously outline test cases and considerations in preperation
+\ds{``preparation"}
+for the projects final release\\\midrule
 2016-04-01 & Test Report Final & report on the final results of tests performed and provide relevant analytics\\\bottomrule
 
 \end{longtable}
 \end{center}
+
+\ds{Will you be doing any tests that result in exceptions? How will those be performed?
+ You are missing a lot of edge/boundary test cases (or you do not make it clear that
+ they are being tested).}
 
 \end{document}
