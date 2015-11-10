@@ -1,6 +1,7 @@
 # General
 *.DS_Store
 *.o
+*~
 
 # Latex
 *.aux
