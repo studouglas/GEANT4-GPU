@@ -7,6 +7,7 @@
 \usepackage{listings}
 \usepackage{titling}
 \usepackage{tabularx}
+\usepackage{longtable}
 \usepackage{booktabs}
 \usepackage{hyperref}
 \usepackage{makecell}
@@ -73,9 +74,14 @@ All major edits to this document will be recorded in the table below.
 \centering
 \caption{Revision History}\label{Table_Revision}
 \begin{tabular}{lll}
+
 \toprule
 \bf Description of Changes & \bf Author & \bf Date\\\midrule
+Added Test Schedule Table & Stuart & 2015-10-30\\
+Reformatted Tables & Matthew & 2015-10-30\\
+Added System test cases & Matthew & 2015-10-29\\
 Initial draft of document & Stuart, Matthew, Rob, Victor & 2015-10-26\\
+
 \bottomrule
 \end{tabular}
 \end{table}
@@ -86,17 +92,24 @@ Initial draft of document & Stuart, Matthew, Rob, Victor & 2015-10-26\\
 \begin{center}
 \begin{tabular}{cl}
 \toprule
+
 \bf Table \# & \bf Title\\\midrule
 \ref{Table_Revision} & Revision History\\
 \ref{Table_Risks} & Risks\\
+\ref{Table_Acronyms} & Definitions and Acronyms\\
 \ref{Table_References} & References\\
 \ref{Table_SystemTests} & System Tests\\
 \ref{Table_UnitTestsTimes} & Unit Tests - \emph{Times} function\\
 \ref{Table_UnitTestsPlus} & Unit Tests - $+$ function\\
 \ref{Table_RequirementsTests} & Requirements Tests\\
+\ref{Table_TestFactors} & Test Factors\\
+\ref{Table_Schedule} & Testing Schedule\\
+\ref{Table_Deliverables} & Timeline of Deliverables\\
+
 \bottomrule
 \end{tabular}
 \end{center}
+
 
 % =============================== Section =============================== %
 \section{General Information}
@@ -109,11 +122,11 @@ The product, GEANT4-GPU, will be a modified version of G4-STORK that will levera
 \subsection{Risks} % Stuart
 The following table outlines the major risks associated with the testing of the product. A more detailed analysis of each of the risks follows the table.
 
-\begin{table}[h]
-\centering
-\caption{Risks}\label{Table_Risks}
-\begin{tabularx}{\textwidth}{cXl}
+\begin{center}
+\begin{longtable}{>{\raggedright\arraybackslash}p{0.1\textwidth}>{\raggedright\arraybackslash}p{0.6\textwidth}>{\raggedright\arraybackslash}p{0.2\textwidth}}
+\caption{Risks}\label{Table_Risks}\\
 \toprule
+
 \textbf{Risk \#} & \textbf{Summary} & \textbf{Severity}\\\midrule
 
 \refstepcounter{RiskNumCounter} \arabic{RiskNumCounter} \label{R_RandNums} 
@@ -128,10 +141,10 @@ The following table outlines the major risks associated with the testing of the 
 & running time of tests will be too long to run them frequently 
 & High\\
 
-\bottomrule
-\end{tabularx}
-\end{table}
-\newpage
+\bottomrule\\
+\end{longtable}
+\end{center}
+
 \textbf{Risk \ref{R_RandNums} -- Random Numbers}:\\
 The GEANT4 project is heavily dependent on random numbers. Random numbers are used to determine attributes about particles (independent of all other particles) as they move through the system. By parallelizing the workload, the order in which the particles are evaluated may change, causing it to draw a different random number from the sequence, leading to different results. If it is decided to generate the random numbers using GPU API calls, then they will certainly be different than in the serial, CPU version of the software.\\
 
@@ -145,47 +158,46 @@ Running a full system test on the modified code is a computationally intensive p
 
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Constraints} % Victor
+Time is one of the largest constraints, the completed project is due next April, which is 6 months from the initial revision of this document. In order to perform rigorous testing on all functions, classes, and sections of code that have been parallelized, a  large amount of time is required. G4-STORK is a large library with many different objects and functions, with each section contributing to the overall performance. Each addition of a control branch to the code must be tested to ensure that the original functionality is preserved. Maximizing performance while minimizing changes to the actual code should help to deal with the time constraint.
 
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Definitions and Acronyms} % Rob
-\begin{table}[h]
-\centering
-\caption{Definitions and Acronyms}
-\begin{tabular}{|l|l|l|}
-\Xhline{2\arrayrulewidth}
-\bf Acronym/Definition & \bf Definition\\\hline
-GEANT-4 & open-source software toolkit used to simulate the passage of particles through matter\\
-G4-STORK & (Geant-4 STOchastic Reactor Kinetics), fork of GEANT-4 developed by McMaster's Engineering Physics department to simulate McMaster's nuclear reactor\\
-GPU & graphics processing unit, well-suited to parallel computing tasks\\
-CPU & computer (central) processing unit, general computer processor well suited to serial tasks\\
-GP-GPU & concept of running "general purpose" computations on the GPU\\
-CUDA & parallel computing architecture for general purpose programming on GPU, developed by NVIDIA\\
-PoC & proof of concept\\
-SRS & software requirements specification\\
-\Xhline{2\arrayrulewidth}
-\end{tabular}
-\end{table}
-<<<<<<< HEAD
-
-% =============================== Section =============================== %
-\section{Test Types}
-
-=======
->>>>>>> 38578bd2ffdd9c2d15f5942d3f8a1cf8b3bd41fc
-% ----------------------------- Sub Section ----------------------------- %
-\subsection{References}
-The following documents are referenced within this test plan. ``Pathname'' refers to the name of the file as it exists in the project repository.
-\begin{table}[h]
-\centering
-\caption{References}\label{Table_References}
-\begin{tabular}{>{\raggedright\arraybackslash}p{0.3\textwidth}>{\raggedright\arraybackslash}p{0.3\textwidth}>{\raggedright\arraybackslash}p{0.4\textwidth}}
+\begin{center}
+\begin{longtable}{>{\raggedright\arraybackslash}p{0.25\textwidth}>{\raggedright\arraybackslash}p{0.65\textwidth}}
+\caption{Definitions and Acronyms}\label{Table_Acronyms}\\
 \toprule
-\bf Title & \bf Pathname & \bf Description\\\midrule
-Software Requirements Specification & GEANT4-GPUSRS.pdf & Requirements specification for the project\\
-Proof of Concept Plan & PoC Plan.pdf & description of demonstration to be prepared for project proof of concept\\
+
+\bf Acronym & \bf Definition\\\midrule
+GEANT-4 & open-source software toolkit used to simulate the passage of particles through matter\\\midrule
+G4-STORK & (Geant-4 STOchastic Reactor Kinetics), fork of GEANT-4 developed by McMaster's Engineering Physics department to simulate McMaster's nuclear reactor\\\midrule
+GPU & graphics processing unit, well-suited to parallel computing tasks\\\midrule
+CPU & computer (central) processing unit, general computer processor well suited to serial tasks\\\midrule
+GP-GPU & concept of running "general purpose" computations on the GPU\\\midrule
+CUDA & parallel computing architecture for general purpose programming on GPU, developed by NVIDIA\\\midrule
+PoC & proof of concept\\\midrule
+SRS & software requirements specification\\
+
 \bottomrule
-\end{tabular}
-\end{table}
+\end{longtable}
+\end{center}
+
+% ----------------------------- Sub Section ----------------------------- %
+\subsection{References}% Victor
+The following documents are referenced within this test plan.
+
+\begin{center}
+\begin{longtable}{>{\raggedright\arraybackslash}p{0.2\textwidth}>{\raggedright\arraybackslash}p{0.3\textwidth}>{\raggedright\arraybackslash}p{0.35\textwidth}}
+\caption{Referenced Documents}\label{Table_References}\\
+\toprule
+
+\bf Title & \bf Author(s) & \bf Description\\\midrule
+GEANT-4 GPU Port: SRS & Stuart, Matthew, Rob, Victor & Requirements specification for the project\\\midrule
+PoC Plan for GEANT4-GPU & Stuart, Matthew, Rob, Victor & Demonstration details for product's Proof of Concept\\\midrule
+UniNotesTestPlan & Umar Khan, Ashwin Samtani, Olakotumbo Agia & Test plan outline / framework\\
+
+\bottomrule
+\end{longtable}
+\end{center}
 
 % =============================== Section =============================== %
 \section{Test Types}
@@ -193,15 +205,13 @@ Proof of Concept Plan & PoC Plan.pdf & description of demonstration to be prepar
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{System Testing} % Matt
 There are several examples included with the GEANT4 toolkit as well as some created by McMaster's Engineering Physics department for G4-STORK. Both examples in G4-STORK and GEANT4 will be used for system testing. Due to the computation time for some of the examples, they will be run less frequently than the simpler ones. This will let the developers run system tests regularly on the simple files, while checking that more realistic, complex examples are also correct after bigger changes.
-\newpage
 
-\begin{table}[h]
-\centering
-\caption{System Tests}\label{Table_SystemTests}
-\begin{tabular}{cc >{\raggedright\arraybackslash}p{2.8cm}>{\raggedright\arraybackslash}p{3cm}>{\raggedright\arraybackslash}p{4.5cm}}
+\begin{center}
+\begin{longtable}{cc >{\raggedright\arraybackslash}p{2.8cm}>{\raggedright\arraybackslash}p{3cm}>{\raggedright\arraybackslash}p{4.5cm}}
+\caption{System Tests}\label{Table_SystemTests}\\
 \toprule
-\bf \# & \bf Initial State & \bf Inputs & \bf Outputs & \bf Description\\\midrule
 
+\bf \# & \bf Initial State & \bf Inputs & \bf Outputs & \bf Description\\\midrule
 \stepcounter{TestCounter}\arabic{TestCounter} 
 & Fresh start up 
 & Runs = 50
@@ -256,24 +266,39 @@ Particles = 2
 Events = 12
 Particles = 2000
 & Same output as non-GPU G4STORK 
-& SCWRDopplerInput.txt -- Many Particles\\
+& SCWRDopplerInput.txt -- Many Particles\\\midrule
+
+\stepcounter{TestCounter}\arabic{TestCounter} 
+& Fresh start up 
+& Runs = 1
+Events = 2
+Particles = 2
+& Same output as non-GPU G4STORK 
+&  SCWRDopplerInput.txt  -- Minimum stress\\\midrule
+
+\stepcounter{TestCounter}\arabic{TestCounter} 
+& Fresh start up 
+& Runs = 500
+Events = 60
+Particles = 2000
+& Same output as non-GPU G4STORK 
+&  SCWRDopplerInput.txt  -- Stress test\\
 
 \bottomrule
-\end{tabular}
-\end{table}
+\end{longtable}
+\end{center}
 
 % ----------------------------- Sub Section ----------------------------- %
-\subsection{Unit Testing} % Stuart  
+\subsection{Unit Testing}  
 Unit tests will be created throughout development as functions and classes are ported to the GPU. Before porting a specific function of a class, a variety of inputs covering edge cases for the function as well as several ``normal'' cases will be created. The results of the function for each of the inputs will be recorded from the CPU version, and a test case will be added to test whether the outputs are the same with GPU computation enabled (once it's implemented). Due to the nature of this testing strategy, most explicit unit tests are not currently known, as no functions have yet been ported to the GPU. The following functions have been identified that are likely to be ported first to the GPU, and the tests to be created for them have been noted as well.\\
-\newpage
 
-\begin{table}[!h]
-\centering
-\caption{Unit Testing -- \emph{G4NeutronHPVector.hh::Times(G4double factor)}}\label{Table_UnitTestsTimes}
-\begin{tabular}{p{0.15in}>{\raggedright\arraybackslash}p{1in}>{\raggedright\arraybackslash}p{0.6in}>{\raggedright\arraybackslash}p{1.5in}>{\raggedright\arraybackslash}p{2in}}
-\toprule
+\ds{What unit testing framework are you planning to use?}
+
+\begin{center}
+\begin{longtable}{p{0.15in}>{\raggedright\arraybackslash}p{1in}>{\raggedright\arraybackslash}p{0.6in}>{\raggedright\arraybackslash}p{1.5in}>{\raggedright\arraybackslash}p{2in}}
+\caption{Unit Testing -- \emph{G4NeutronHPVector.hh::Times(G4double factor)}}\label{Table_UnitTestsTimes}\\\toprule
+
 \bf \# & \bf Initial State & \bf Inputs & \bf Outputs & \bf Description\\\midrule
-
 \stepcounter{TestCounter}\arabic{TestCounter}
 & object represents vector (1,2,...,512) 
 & factor: 0 
@@ -321,14 +346,16 @@ Unit tests will be created throughout development as functions and classes are p
 & factor: 4 
 & no output, vector object still represents vector (0,0,...,0)
 & multiplying zero vector object by 4 should not change the object's state\\
-\bottomrule
-\end{tabular}
-\end{table}
 
-\begin{table}[!h]
-\centering
-\caption{Unit Testing -- \emph{G4NeutronHPVector.cc:: G4NeutronHPVector\& operator + (G4NeutronHPVector *left, G4NeutronHPVector *right)}}\label{Table_UnitTestsPlus}
-\begin{tabular}{p{0.15in}>{\raggedright\arraybackslash}p{1in}>{\raggedright\arraybackslash}p{1.1in}>{\raggedright\arraybackslash}p{1.5in}>{\raggedright\arraybackslash}p{1.5in}}
+\bottomrule
+\end{longtable}
+\end{center}
+
+
+\begin{center}
+\begin{longtable}{p{0.15in}>{\raggedright\arraybackslash}p{1in}>{\raggedright\arraybackslash}p{1.1in}>{\raggedright\arraybackslash}p{1.5in}>{\raggedright\arraybackslash}p{1.5in}}
+\caption{Unit Testing -- \emph{G4NeutronHPVector.cc:: G4NeutronHPVector\& operator + (G4NeutronHPVector *left, G4NeutronHPVector *right)}}\label{Table_UnitTestsPlus}\\
+
 \toprule
 \bf \# & \bf Initial State & \bf Inputs & \bf Outputs & \bf Description\\\midrule
 
@@ -361,15 +388,18 @@ Unit tests will be created throughout development as functions and classes are p
 & left: (-1,-2,...,-512), right: (1,2,...,512)
 & vector object representing (0,0,...,0) of length 512 
 & adding a vector to its inverse should output the zero vector\\
-\bottomrule
-\end{tabular}
-\end{table}
 
-\newpage
+\bottomrule
+\end{longtable}
+\end{center}
+
 The unit tests as described in tables \ref{Table_UnitTestsTimes} and \ref{Table_UnitTestsPlus} are not complete -- as the project progresses the number of tests will increase. Since functions are being ported one-at-a-time to the GPU, having full (or near-full) coverage is relatively straightforward. To accomplish this, every ported function must have a series of associated unit tests that cover a variety of edge and normal cases. Combined with system tests to test how all the parts work together, test coverage will be exhaustive.
 
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Code Testing} % Victor
+The developers will following strict code testing guidelines to help reduce coding errors and improve collaboration. This will be done by adhering to the \emph{Feature Branch Workflow} and enforcing code reviews for every commit. Developers will create separate branches for each new feature, commit to that branch and then push it to the repository. Using GitHub's pull request feature, all branches will go through a code review process. The author will open a pull request for their feature, and a different developer (to be chosen based on availibility
+\ds{``availability"}
+and knowledge of the feature) will be assigned as reviewer. The reviewer will manually read through the changes on GitHub and post comments as necessary. After comments have been addressed, the reviewer will merge the feature branch into the master. Following such a strict model will ensure that all committed code is double-checked by a different developer, which can catch many bugs and errors. This practice will not apply to changes to documentation.
 
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Requirements Testing} % Stuart
@@ -405,6 +435,7 @@ Testing requirements refers to tests which verify that documented requirements a
 & NA
 & NA
 & clear installation instructions shall be included with the product -- a user comfortable with G4-STORK should be able to follow the instructions to install the product without any issues\\
+
 \bottomrule
 \end{tabular}
 \end{table}
@@ -424,20 +455,24 @@ NVIDIA has developed a solution for profiling CUDA code, called the ``NVIDIA Vis
 
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Factors to be Tested} % Rob
-The purpoes of this section is to shed light on the features and properties of the system that we wish to stress and test. The chart below provides a brief description of every property we aim to measure and a method as means for measuring.\\
+The purpoes
+\ds{``purpose"}
+of this section is to shed light on the features and properties of the system that we wish to stress and test. The chart below provides a brief description of every property we aim to measure and a method as means for measuring.\\
 
 \begin{table}[h]
 \centering
-\caption{Test Factors}
-\begin{tabular}{|l|l|l|}
-\Xhline{2\arrayrulewidth}
-\bf Factors & \bf Description & \bf Test Method\\\hline
-Reliability & Consistent performance of functions in routine circumstances & Unit Testing, requirements\\
-File Integrity & Accuracy and relevance of related output and input data & Unit Testing, requirements\\
-Access Control & Appropriate access to necessary resources & Unit Testing\\
-Correctness & Objective success or failure of a function & Unit Testing\\
-Performance & Quantitative and Qualitative measure of temporal performance and stability in a particular workload & Unit Testing, black-box, stress\\
-\Xhline{2\arrayrulewidth}
+\caption{Test Factors}\label{Table_TestFactors}
+\begin{tabular}{>{\raggedright\arraybackslash}p{0.2\textwidth}>{\raggedright\arraybackslash}p{0.4\textwidth}>{\raggedright\arraybackslash}p{0.3\textwidth}}
+\toprule
+
+\bf Factors & \bf Description & \bf Test Method\\\midrule
+Correctness & Objective success or failure of a function & Unit Testing\\\midrule
+Performance & Quantitative and Qualitative measure of temporal performance and stability in a particular workload & Unit Testing, black-box, stress
+\ds{How are you stress-testing the system?}
+\\\midrule
+Reliability & Consistent performance of functions in routine circumstances & Unit Testing, requirements\\\midrule
+
+\bottomrule
 \end{tabular}
 \end{table}
 
@@ -465,7 +500,17 @@ The focus of this project is to reduce the computation time for G4-STORK by para
 \begin{itemize}
 \item Compare the computation times of tests run on the product with GPU enabled with the computation times of test run on the existing product to see if the GPU-based computation times are smaller.
 \end{itemize}
- 
+
+\subsubsection{Reliability}
+Consistent performance of functions in routine circumstances.\\
+
+\textbf{Rationale}\\
+Research software requires functions to perform reliably in order to produce results that can be duplicated.\\
+
+\textbf{Methods of testing}
+\begin{itemize}
+\item Running the same test multiple times should produce the same result every time.
+\end{itemize} 
 % =============================== Section =============================== %
 \section{Manual and Automated Testing}
 Manual testing needs to be conducted by people, where test cases and inspections are manually performed. On the other hand, automated testing relies less on people and performs tests quickly and effectively returning feedback on results not meeting expectations. Manual testing is more flexible; However, it is far more time consuming.\\
@@ -484,25 +529,51 @@ As documented in the Proof of Concept Plan, the demonstration will include runni
 
 % =============================== Section =============================== %
 \section{Schedule}
+The testing schedule can be summarized as follows: manual code reviews for every commit, unit tests added for every ported function and run throughout development and passed before every commit, system tests run throughout development and passed before every commit, performance profiling used throughout development, requirements testing done for Revision 0. The following testing timeline will be followed. The \emph{date} column refers to the date by which the event shall be completed, if it is not a range.
 
-% ----------------------------- Sub Section ----------------------------- %
-\subsection{Testing Schedule} % Victor
+\begin{center}
+\begin{longtable}{>{\raggedright\arraybackslash}p{0.15\textwidth}>{\raggedright\arraybackslash}p{0.2\textwidth}>{\raggedright\arraybackslash}p{0.55\textwidth}}
+\caption{Testing Schedule}\label{Table_Schedule}\\\toprule
+
+\bf Date & \bf Test Type & \bf Event\\\toprule
+2015-11-04 & System Test & Input files will be chosen for system tests, and their outputs on the existing product recorded\\\midrule
+2015-11-04 & System Test & Script will be created to run system test and compare results. Running the script on the existing product will pass\\\midrule
+2015-11-04 - 2016-04-01 & System Test & System tests will be run throughout development, and must be passed before every commit\\\midrule
+2015-11-04 - 2016-04-01 & Code Testing & All changes will be reviewed by a different developer before merging\\\midrule
+2015-11-06 & Performance Profiling & Profiling tools will be used to identify the most computationally involved portions of the codebase\\\midrule
+2015-11-10 & Unit Test & Unit tests framework file will be created and added to the project. Methods will be added to run tests and report their results.\\\midrule
+2016-11-10 & Unit Test & Two trivial unit tests (one that will fail, one that will pass) will be added to unit tests file. Running the unit tests should produce expected outputs.\\\midrule
+2015-11-10 - 2016-04-01 & Unit Test & Unit tests will be added throughout development for every function that is ported to the GPU.\\\midrule
+2015-11-10 - 2016-04-01 & Unit Test & Unit tests will be run throughout development, and must be passed before every commit\\\midrule
+2016-02-10 & Requirements Testing & All requirements tests will be evaluated at Revision 0, results will guide product development for Revision 1.\\
+
+\bottomrule
+\end{longtable}
+\end{center}
+
+\ds{Who will be doing what?}
 
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Deliverables} % Rob
-The deliverables specific to testing are as follows:\\
-\begin{table}[h]
-\centering
-\caption{Timeline of Deriverables}
-\begin{tabular}{|l|l|l|}
-\Xhline{2\arrayrulewidth}
-\bf Deliverable & \bf Description & \bf Date\\\hline
-Test Plan Revision 0 & set guidelines and objectives for testing, subject to change & October 30\\
-Test Report Revision 0 & report on progress, history, and results regarding testing and test methods & March 21\\
-Test Plan Final & rigorously outline test cases and considerations in preperation for the projects final release & April 1\\
-Test Report Final & report on the final results of tests performed and provide relevant analytics & April 1\\
-\Xhline{2\arrayrulewidth}
-\end{tabular}
-\end{table}
+The deliverables specific to testing are as follows:
+
+\begin{center}
+\begin{longtable}{>{\raggedright\arraybackslash}p{0.2\textwidth}>{\raggedright\arraybackslash}p{0.25\textwidth}>{\raggedright\arraybackslash}p{0.45\textwidth}}
+\caption{Timeline of Deriverables}\label{Table_Deliverables}\\\toprule
+
+\bf Date & \bf Deliverable & \bf Description\\\toprule
+2015-10-30 & Test Plan Revision 0 & set guidelines and objectives for testing, subject to change\\\midrule
+2016-03-21 & Test Report Revision 0 & report on progress, history, and results regarding testing and test methods\\\midrule
+2016-04-01 & Test Plan Final & rigorously outline test cases and considerations in preperation
+\ds{``preparation"}
+for the projects final release\\\midrule
+2016-04-01 & Test Report Final & report on the final results of tests performed and provide relevant analytics\\\bottomrule
+
+\end{longtable}
+\end{center}
+
+\ds{Will you be doing any tests that result in exceptions? How will those be performed?
+ You are missing a lot of edge/boundary test cases (or you do not make it clear that
+ they are being tested).}
 
 \end{document}
