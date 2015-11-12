@@ -1,0 +1,2 @@
+/home/kason/school/4zp6/repo/GEANT4-GPU/geant4.10.00.p02/examples/basic/B1-build/CMakeFiles/B1.dir
+/home/kason/school/4zp6/repo/GEANT4-GPU/geant4.10.00.p02/examples/basic/B1-build/CMakeFiles/exampleB1.dir
