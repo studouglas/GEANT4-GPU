@@ -37,27 +37,48 @@ outSmallBeamLogical(0), outLargeBeamLogical(0), alumShellLogical(0), cellLogical
 SLOWPOKEConstructor::~SLOWPOKEConstructor()
 {
 	// Delete visualization attributes
-	delete ZirconiumAtt1;
-	delete ZirconiumAtt2;
-	delete ZirconiumAtt3;
-	delete AirGapAtt;
-	delete FuelRodAtt;
-	delete ReflectorAtt;
-	delete D2OContainerAtt;
-	delete D2OAtt;
-    delete contRodZirVisAtt;
-    delete contRodAlumVisAtt;
-    delete contRodCadVisAtt;
-    delete contRodCentVisAtt;
-    delete insAlumVisAtt;
-    delete insBeamVisAtt;
-    delete outSmallAlumVisAtt;
-    delete outLargeAlumVisAtt;
-    delete cadLinTubeVisAtt;
-    delete outSmallBeamVisAtt;
-    delete outLargeBeamVisAtt;
-    delete alumShellVisAtt;
-    delete cellVisAtt;
+	if (ZirconiumAtt1)
+        delete ZirconiumAtt1;
+    if (ZirconiumAtt2)
+        delete ZirconiumAtt2;
+    if (ZirconiumAtt3)
+        delete ZirconiumAtt3;
+    if (AirGapAtt)
+        delete AirGapAtt;
+    if (FuelRodAtt)
+        delete FuelRodAtt;
+    if (ReflectorAtt)
+        delete ReflectorAtt;
+    if (D2OContainerAtt)
+        delete D2OContainerAtt;
+    if (D2OAtt)
+        delete D2OAtt;
+    if (contRodZirVisAtt)
+        delete contRodZirVisAtt;
+    if (contRodAlumVisAtt)
+        delete contRodAlumVisAtt;
+    if (contRodCadVisAtt)
+        delete contRodCadVisAtt;
+    if (contRodCentVisAtt)
+        delete contRodCentVisAtt;
+    if (insAlumVisAtt)
+        delete insAlumVisAtt;
+    if (insBeamVisAtt)
+        delete insBeamVisAtt;
+    if (outSmallAlumVisAtt)
+        delete outSmallAlumVisAtt;
+    if (outLargeAlumVisAtt)
+        delete outLargeAlumVisAtt;
+    if (cadLinTubeVisAtt)
+        delete cadLinTubeVisAtt;
+    if (outSmallBeamVisAtt)
+        delete outSmallBeamVisAtt;
+    if (outLargeBeamVisAtt)
+        delete outLargeBeamVisAtt;
+    if (alumShellVisAtt)
+        delete alumShellVisAtt;
+    if (cellVisAtt)
+        delete cellVisAtt;
 
     //if(FissionMap) { delete FissionMap; }
 }

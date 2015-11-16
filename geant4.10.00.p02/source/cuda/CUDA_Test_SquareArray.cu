@@ -1,10 +1,9 @@
-#include <stdio.h>
 #include <cuda_runtime.h>
 #include <cuda.h>
-#include "DeviceMain.h"
+#include "CUDA_G4NeutronHPVector.h"
 
 // Kernel that executes on the CUDA device
-__global__ 
+__global__
 void square_array(float *a, int N)
 {
   int idx = blockIdx.x * blockDim.x + threadIdx.x;

@@ -33,6 +33,11 @@
 #include "G4NeutronHPVector.hh"
 #include "G4SystemOfUnits.hh"
 
+#define CUDA_ENABLED 1
+#if CUDA_ENABLED
+#include "CUDA_G4NeutronHPVector.h"
+#endif
+
   // if the ranges do not match, constant extrapolation is used.
   G4NeutronHPVector & operator + (G4NeutronHPVector & left, G4NeutronHPVector & right)
   {
@@ -285,6 +290,12 @@
     
   void G4NeutronHPVector::ThinOut(G4double precision)
   {
+
+#if CUDA_ENABLED
+      float result = squareArray(100);
+      G4cout <<"G4NeutronHPVector::ThinOut test on GPU result: "<< result << G4endl;
+#endif
+
     // anything in there?
     if(GetVectorLength()==0) return;
     // make the new vector

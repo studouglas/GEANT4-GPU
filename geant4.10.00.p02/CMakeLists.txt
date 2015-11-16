@@ -22,7 +22,7 @@ endif()
 #------------------------------------------------------------------------------
 # - Define CMake requirements and override make rules as needed
 #
-cmake_minimum_required(VERSION 2.6.4 FATAL_ERROR)
+cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
 set(CMAKE_USER_MAKE_RULES_OVERRIDE_CXX
    ${CMAKE_SOURCE_DIR}/cmake/Modules/Geant4MakeRules_cxx.cmake)
 
@@ -33,6 +33,21 @@ set(CMAKE_USER_MAKE_RULES_OVERRIDE_CXX
 # - Project definition
 #
 project(Geant4)
+
+
+#----------------------------------------------------------------------------
+if (GEANT4_CUDA_ENABLED)
+    find_package(CUDA)
+    set(CUDA_NVCC_FLAGS ${CUDA_NVCC_FLAGS};-gencode arch=compute_20,code=sm_20)
+    cuda_compile(VECTOR_O source/cuda/CUDA_G4NeutronHPVector.cu)
+    cuda_add_executable(
+	cuda_g4neutronhpvector
+	source/cuda/CUDA_G4NeutronHPVector.cu
+	source/cuda/CUDA_G4NeutronHPVector.h
+	source/processes/hadronic/models/neutron_hp/src/G4NeutronHPVector.cc
+	source/processes/hadronic/models/neutron_hp/include/G4NeutronHPVector.hh)
+endif()
+#----------------------------------------------------------------------------
 
 
 #----------------------------------------------------------------------------
@@ -143,7 +158,6 @@ install(DIRECTORY examples
   PATTERN "CVS" EXCLUDE
   PATTERN ".svn" EXCLUDE
   )
-
 
 #-----------------------------------------------------------------------------
 # Provide packaging with CPack.

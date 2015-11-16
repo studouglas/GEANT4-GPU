@@ -15,6 +15,8 @@ G4STORK/Build-xcode
 G4STORK/Build-xcode-serial
 geant4.10.00.p02-build-xcode
 
+CUDA-test/bin
+
 # Geant / G4STORK build files
 G4STORK/Build/*
 G4STORK/include/Marshaled*
