@@ -26,6 +26,7 @@ G4STORK/SourceFiles
 
 geant4.10.00.p02/tmp
 geant4.10.00.p02-build/*
+geant4.10.00.p02-build2
 geant4.10.00.p02-install/*
 geant4.10.00.p02/examples/*
 !geant4.10.00.p02/examples/basic/B1

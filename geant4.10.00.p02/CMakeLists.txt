@@ -34,22 +34,6 @@ set(CMAKE_USER_MAKE_RULES_OVERRIDE_CXX
 #
 project(Geant4)
 
-
-#----------------------------------------------------------------------------
-if (GEANT4_CUDA_ENABLED)
-    find_package(CUDA)
-    set(CUDA_NVCC_FLAGS ${CUDA_NVCC_FLAGS};-gencode arch=compute_20,code=sm_20)
-    cuda_compile(VECTOR_O source/cuda/CUDA_G4NeutronHPVector.cu)
-    cuda_add_executable(
-	cuda_g4neutronhpvector
-	source/cuda/CUDA_G4NeutronHPVector.cu
-	source/cuda/CUDA_G4NeutronHPVector.h
-	source/processes/hadronic/models/neutron_hp/src/G4NeutronHPVector.cc
-	source/processes/hadronic/models/neutron_hp/include/G4NeutronHPVector.hh)
-endif()
-#----------------------------------------------------------------------------
-
-
 #----------------------------------------------------------------------------
 # - Prepend our own CMake Modules to the search path
 # This allows us to customize, add, and factor out functionality
