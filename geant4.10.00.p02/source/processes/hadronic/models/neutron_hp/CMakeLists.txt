@@ -11,7 +11,7 @@
 #
 #------------------------------------------------------------------------------
 
-add_subdirectory(cuda)
+#add_subdirectory(cuda)
 
 if(GEANT4_BUILD_GRANULAR_LIBS)
     include(Geant4MacroLibraryTargets)
