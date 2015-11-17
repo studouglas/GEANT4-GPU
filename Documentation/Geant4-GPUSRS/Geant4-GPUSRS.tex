@@ -18,6 +18,7 @@
 \newcommand{\authornote}[3]{} \newcommand{\todo}[1]{} \fi
 \newcommand{\wss}[1]{\authornote{magenta}{SS}{#1}}
 \newcommand{\ds}[1]{\authornote{blue}{DS}{#1}} %I fixed your comment code again -- DS
+\newcommand{\mmp}[1]{\authornote{green}{MP}{#1}}
 % End Comments ---------------------------------------------------------------
 
 \renewcommand\thesubsubsection{\thesection.\arabic{subsection}.\alph{subsubsection}}
@@ -113,8 +114,8 @@ The stakeholders that are currently involved with the project are:
 \end{itemize}
 
 \subsubsection{The Client}
-The clients for the project are
-\ds{Unnecessary ``the"}
+Clients for the project are
+\ds{Unnecessary ``the"}\mmp{Fixed}
 Dr. Buijs and his grad student Wesley Ford, representing the McMaster Engineering Physics Department. The clients proposed the project because they have invested interest in running G4-STORK simulations more efficiently. They will be using the parallelized code to run and study nuclear simulations, and require that the code executes much more quickly to obtain useful data.
 	
 \subsubsection{The Customer}
@@ -142,9 +143,11 @@ student that proposed the project to Dr. Buijs. He will be the primary user of G
 
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Mandated Constraints} % Rob
-There are global constraints put in place by the existing software, the stakeholders, and the structure of 4ZP6. The project must be built upon the existing GEANT-4 code, which is used by G4-STORK to run the simulation. The final product must be able to run any code/simulation that ran on the existing software. The software must run in parallel on a NVIDIA GPU. Additionally, the final product needs to be completed by the end of April, 2016. If these global constraints are not met the final product is not acceptable.\\
+There are global constraints put in place by the existing software, the stakeholders, and the structure of 4ZP6. The project must be built upon the existing GEANT-4 code, which is used by G4-STORK to run the simulation. The final product must be able to run any code/simulation that ran on the existing software. The GPU code being used to speed up the simulation is only able to be run on a NVIDIA GPU. Therefore the software must run in parallel on a NVIDIA GPU . Additionally, the final product needs to be completed by the end of April, 2016. If these global constraints are not met the final product is not acceptable.\\
 
-\ds{Why an NVIDIA GPU? Was that constrained by your client?}
+
+
+\ds{Why an NVIDIA GPU? Was that constrained by your client?}\mmp{Added an explanation for why we are constrained to using an NVIDIA GPU}
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Naming Conventions \& Terminology} % Stuart
 Throughout the document, ``the project'', ``the product'', and/or ``the software'' all refer to the modified GEANT-4 code that will include the capability to be run on a GPU. The ``existing software'' refers to the current GEANT-4 simulation toolkit.\\
@@ -243,20 +246,6 @@ Descriptions of each PUC, referenced by PUC \# are as follows.
 \\\\
 
 \requirement
-{Req_EasyChange}
-{ReqType_Functional}
-{PUC_SimulatingParticles}
-{Changing existing projects to run with new GPU functions should be easy}
-{Design requirement, the user is able to easily choose to run old or new projects on the GPU.}
-{User should be able to quickly enable GPU computations after referencing the documentation. If their hardware is compatible, their project should run with no errors.}
-{High}
-{Created September 29, 2015}
-\ds{Your description shouldn't include ``should be easy". 
-It should be detailing \emph{what} the product is supposed to do.
-Ease of use is a non-functional requirement.}
-\\\\
-
-\requirement
 {Req_NoChangeOld}
 {ReqType_Functional}
 {PUC_SimulatingParticles}
@@ -313,6 +302,20 @@ NA -- The scope of the project does not include any visual aspects. Simulations 
 {Any given McMaster undergrad with experience in quantum mechanics, linear algebra, and computer programming should be able to learn to use the software.}
 {Medium}
 {Created October 6, 2015}
+\\\\
+
+\requirement
+{Req_EasyChange}
+{ReqType_Functional}
+{PUC_SimulatingParticles}
+{Changing existing projects to run with new GPU functions should be easy}
+{Design requirement, the user is able to easily choose to run old or new projects on the GPU.}
+{User should be able to quickly enable GPU computations after referencing the documentation. If their hardware is compatible, their project should run with no errors.}
+{High}
+{Created September 29, 2015}
+\ds{Your description shouldn't include ``should be easy". 
+It should be detailing \emph{what} the product is supposed to do.
+Ease of use is a non-functional requirement.}\mmp{Moved to Ease of Use Requirements}
 
 \subsubsection{Personalization and Internationalization Requirements}
 \requirement
@@ -320,11 +323,11 @@ NA -- The scope of the project does not include any visual aspects. Simulations 
 {ReqType_Usabil}
 {PUC_SimulatingParticles}
 {There will be no adjustments for personal and international preferences offered.}
-{The software follows a rigerous scientific standard.}
+{The software follows a rigorous scientific standard.}
 {A given user with personal (non-technical) barriers to achieving complete satisfaction with the software will be responsible for overcoming such barriers.}
 {Medium}
 {Created October 6, 2015}
-\ds{``Rigorous"}
+\ds{``Rigorous"} \mmp{fixed spelling}
 
 \subsubsection{Learning Requirements}
 \requirement
@@ -472,8 +475,8 @@ Baeause G4-STORK is open source, the code written can be maintained by anyone. T
 There will be a setup.txt file describing briefly how to add a function and set inital parameters. 
 
 \subsubsection{Adaptability Requirements}
-The completed project is expected to run on Fedora and OSx. 
-\ds{Why only those?}
+G4STORK is only able to be run on Fedora and OSx. Therefore the project is constrained to only being able to run on Fedora and OSx. Thus the completed project is expected to run on Fedora and OSx. 
+\ds{Why only those?} \mmp{added explanation to why project will run only on Fedora and OSx}
 
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Security Requirements}\label{ReqType_Security} % Rob
@@ -577,8 +580,8 @@ to be solved by those decisions}
 \subsubsection{Limitations of the Anticipated Implementation Environment That May Inhibit the New Product}
 To run the GP-GPU computations, specific hardware is required
 \ds{You should stop here, unless you explained (in the constraints section)
-why you need an NVIDIA card. Also, what is ``recent"?}
-(recent NVIDIA graphics card).
+why you need an NVIDIA card. Also, what is ``recent"?}\mmp{I explained why we need an NVIDIA card. did not explain recent. TODO}
+(NVIDIA graphics card).
 
 \subsubsection{Follow-Up Problems}
 There are a number of potential situations that could lead to the product failing. We are confident that we will be able to succeed, however we realize that there is a possibility of failure, and have outlined the potential causes below.

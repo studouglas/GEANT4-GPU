@@ -39,8 +39,8 @@ There will be three aspects of the demonstration:
 
 \begin{enumerate}
 \item Run an existing GEANT4 example to demonstrate the installation of GEANT4 and its dependencies
-\item \label{stork} Run our modified G4-STORK program with a flag or similar mechanism \emph{disabling} GPU execution. The program will take input parameters, run a simulation, and produce an output file.
-\item Run our modified G4-STORK program with a flag or similar mechanism \emph{enabling} GPU execution. The program will take input parameters as in (\ref{stork}), but will additionally invoke a trivial CUDA program which will send a simple result (e.g. a vector or an integer) back to G4-STORK, which will print it to the console. After that, the simulation will continue and an identical output file to (\ref{stork}) will be created.
+\item \label{stork} Run our modified GEANT4 program with a flag or similar mechanism \emph{disabling} GPU execution. The program will take input parameters, run a simulation, and produce an output file.
+\item Run our modified GEANT4 program with a flag or similar mechanism \emph{enabling} GPU execution. The program will take input parameters as in (\ref{stork}), but will additionally invoke a trivial CUDA program which will send a simple result (e.g. a vector or an integer) back to GEANT4, which will print it to the console. After that, the simulation will continue and an identical output file to (\ref{stork}) will be created.
 \end{enumerate}
 
 \end{document}
