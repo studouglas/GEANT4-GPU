@@ -15,6 +15,9 @@
 #
 #-----------------------------------------------------------------------
 
+# Include CUDA
+include_directories(cuda)
+
 # List external includes needed.
 include_directories(${CLHEP_INCLUDE_DIRS})
 include_directories(${ZLIB_INCLUDE_DIRS})
@@ -50,6 +53,7 @@ include_directories(${CMAKE_SOURCE_DIR}/source/track/include)
 include(Geant4MacroDefineModule)
 GEANT4_DEFINE_MODULE(NAME G4had_neu_hp
   HEADERS
+    ../cuda/CUDA_G4NeutronHPVector.h
     G4NeutronHPList.hh
     G4InterpolationIterator.hh
     G4NeutronHPIsoData.hh
@@ -187,6 +191,7 @@ GEANT4_DEFINE_MODULE(NAME G4had_neu_hp
 	G4WattFissionSpectrumValues.hh
 ### FissionFragment Generator - end
   SOURCES
+    ../cuda/CUDA_G4NeutronHPVector.cu
     G4NeutronHPIsoData.cc
     G4InterpolationManager.cc
     G4NeutronHPLevel.cc
@@ -306,6 +311,7 @@ GEANT4_DEFINE_MODULE(NAME G4had_neu_hp
 	G4WendtFissionFragmentGenerator.cc
 ### Fission Fragment Generator - end
   GRANULAR_DEPENDENCIES
+    CUDA_G4NeutronHPVector
     G4baryons
     G4bosons
     G4geometrymng
@@ -335,6 +341,7 @@ GEANT4_DEFINE_MODULE(NAME G4had_neu_hp
     G4particles
     G4track
   LINK_LIBRARIES
+    CUDA_G4NeutronHPVector
     ${ZLIB_LIBRARIES}
   )
 
