@@ -33,9 +33,9 @@
 #include "G4NeutronHPVector.hh"
 #include "G4SystemOfUnits.hh"
 
-#define CUDA_ENABLED 1
-#if CUDA_ENABLED
-#include "CUDA_G4NeutronHPVector.h"
+
+#if GEANT4_CUDA_ENABLED
+	#include "CUDA_G4NeutronHPVector.h"
 #endif
 
   // if the ranges do not match, constant extrapolation is used.
@@ -84,6 +84,7 @@
 
   G4NeutronHPVector::G4NeutronHPVector()
   {
+  	G4cout << "G4NeutronHPVector Constructed (no params)" << G4endl;
     theData = new G4NeutronHPDataPoint[20]; 
     nPoints=20;
     nEntries=0;
@@ -100,6 +101,7 @@
   
   G4NeutronHPVector::G4NeutronHPVector(G4int n)
   {
+  	G4cout << "G4NeutronHPVector Constructed (n: " << n << ")" << G4endl;
     nPoints=std::max(n, 20);
     theData = new G4NeutronHPDataPoint[nPoints]; 
     nEntries=0;
@@ -150,6 +152,7 @@
   
   G4double G4NeutronHPVector::GetXsec(G4double e) 
   {
+    G4cout << "G4NeutronHPVector::GetXSec Called, GPU on: " << GEANT4_CUDA_ENABLED << G4endl;
     if(nEntries == 0) return 0;
     if(!theHash.Prepared()) Hash();
     G4int min = theHash.GetMinIndex(e);
@@ -291,10 +294,10 @@
   void G4NeutronHPVector::ThinOut(G4double precision)
   {
 
-#if CUDA_ENABLED
-      float result = squareArray(100);
-      G4cout <<"G4NeutronHPVector::ThinOut test on GPU result: "<< result << G4endl;
-#endif
+//#if CUDA_ENABLED
+//      float result = squareArray(100);
+//      G4cout <<"G4NeutronHPVector::ThinOut test on GPU result: "<< result << G4endl;
+//#endif
 
     // anything in there?
     if(GetVectorLength()==0) return;

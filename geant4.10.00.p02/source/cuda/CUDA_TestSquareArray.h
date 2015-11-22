@@ -1,1 +1,0 @@
-float squareArray(int N);

@@ -15,7 +15,8 @@ G4STORK/Build-xcode
 G4STORK/Build-xcode-serial
 geant4.10.00.p02-build-xcode
 
-CUDA-test/bin
+CUDA_simpleTest/bin
+CUDA_Hadr04/bin
 
 # Geant / G4STORK build files
 G4STORK/Build/*
@@ -26,6 +27,7 @@ G4STORK/SourceFiles
 
 geant4.10.00.p02/tmp
 geant4.10.00.p02-build/*
+geant4.10.00.p02-build2
 geant4.10.00.p02-install/*
 geant4.10.00.p02/examples/*
 !geant4.10.00.p02/examples/basic/B1
