@@ -311,7 +311,7 @@ GEANT4_DEFINE_MODULE(NAME G4had_neu_hp
 	G4WendtFissionFragmentGenerator.cc
 ### Fission Fragment Generator - end
   GRANULAR_DEPENDENCIES
-    CUDA_G4NeutronHPVector
+    #CUDA_G4NeutronHPVector
     G4baryons
     G4bosons
     G4geometrymng
@@ -341,7 +341,7 @@ GEANT4_DEFINE_MODULE(NAME G4had_neu_hp
     G4particles
     G4track
   LINK_LIBRARIES
-    CUDA_G4NeutronHPVector
+    #CUDA_G4NeutronHPVector
     ${ZLIB_LIBRARIES}
   )
 

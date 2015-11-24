@@ -34,9 +34,9 @@
 #include "G4SystemOfUnits.hh"
 
 
-#if GEANT4_CUDA_ENABLED
-	#include "CUDA_G4NeutronHPVector.h"
-#endif
+//#if GEANT4_CUDA_ENABLED
+//	#include "CUDA_G4NeutronHPVector.h"
+//#endif
 
   // if the ranges do not match, constant extrapolation is used.
   G4NeutronHPVector & operator + (G4NeutronHPVector & left, G4NeutronHPVector & right)
@@ -152,7 +152,7 @@
   
   G4double G4NeutronHPVector::GetXsec(G4double e) 
   {
-    G4cout << "G4NeutronHPVector::GetXSec Called, GPU on: " << GEANT4_CUDA_ENABLED << G4endl;
+    //G4cout << "G4NeutronHPVector::GetXSec Called, GPU on: " << GEANT4_CUDA_ENABLED << G4endl;
     if(nEntries == 0) return 0;
     if(!theHash.Prepared()) Hash();
     G4int min = theHash.GetMinIndex(e);
