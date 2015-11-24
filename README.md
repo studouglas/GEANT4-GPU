@@ -80,14 +80,13 @@ variables with the correct paths for your install.
 
 **Installing Geant4 on McMaster's Server (no root privileges)**<br>
 1. SSH into one of McMaster's servers (i.e. `ssh yourMacId@gpu1.mcmaster.ca`), account is on a shared drive across all department servers so once you install once you can access it from any one.
-2. Set up your .gitconfig file and clone the repo in your home folder (path is `/u50/yourMacId/`)
-3. You'll need to install expat and cmake, to do this download the latest versions of both onto your regular desktop.
-4. Copy both tarred files to McMaster's server via SSH: `scp cmake-3.4.0.tar yourMacId@gpu1.mcmaster.ca:/u50/yourMacId/` and `scp expat-2.0.1.tar yourMacId@gpu1.mcmaster.ca:/u50/yourMacId/`
-5. Return to your SSH terminal and untar both files (this may take a while): `tar -xvf cmake-3.4.0.tar; tar -xvf expat-2.0.1.tar`
+2. Set up your .gitconfig file, ssh keys, and clone the repo in your home folder (path is `/u50/yourMacId/`)
+3. You'll need to install cmake, to do this download the latest version onto your regular desktop
+4. Copy the tarred file to McMaster's server via SSH: `scp cmake-3.4.0.tar yourMacId@gpu1.mcmaster.ca:/u50/yourMacId/`
+5. Return to your SSH terminal and untar the file (this may take a while): `tar -xvf cmake-3.4.0.tar`
 6. Build and install cmake: `cd cmake-3.4.0;./bootstrap;make;make install`
-7. Build and install expat: `mkdir bin;cd expat-2.0.1;./configure --prefix=/u50/yourMacId/bin;make;make install`
 8. Add cmake's bin folder to your path. Open `/u50/yourMacId/.bash_profile` and add the following line right before `export PATH`: `PATH=$PATH:$HOME/cmake-3.4.0/bin`
-9. Follow the instructions above to "Install GEANT-4" (starting from 2)
+9. Follow the instructions above to "Install GEANT-4" (starting from 2), and add the following flag to the cmake command in step 4: `-DGEANT4_USE_SYSTEM_EXPAT=OFF`
 
 **Setting Environment Variables**<br>
 It is recommended to add a line to your bash_profile that loads the Geant4
