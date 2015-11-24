@@ -1,7 +1,6 @@
 cmake_minimum_required (VERSION 2.8)
 
 option (GEANT4_ENABLE_CUDA "Use CUDA to run simulations in parallel on the GPU" ON)
-#add_subdirectory(Hadr04)
 	
 if (GEANT4_ENABLE_CUDA)
 	find_package (CUDA REQUIRED)
