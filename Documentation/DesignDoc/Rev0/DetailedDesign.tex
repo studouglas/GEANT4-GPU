@@ -1,0 +1,45 @@
+\documentclass[12pt]{article}
+
+% Packages
+\usepackage[margin=1.2in]{geometry}
+\usepackage{graphicx}
+\usepackage{enumerate}
+\usepackage{listings}
+\usepackage{titling}
+\usepackage{tabularx}
+\usepackage{longtable}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{makecell}
+\usepackage{caption}
+\usepackage{array}
+\captionsetup[table]{skip=2pt}
+% Comments --------------------------------------------------------------------
+\usepackage{xcolor}
+\newif\ifcomments\commentstrue
+\ifcomments \newcommand{\authornote}[3]{\textcolor{#1}{[#3 ---#2]}}
+\newcommand{\todo}[1]{\textcolor{red}{[TODO: #1]}} \else
+\newcommand{\authornote}[3]{} \newcommand{\todo}[1]{} \fi
+\newcommand{\wss}[1]{\authornote{magenta}{SS}{#1}}
+\newcommand{\ds}[1]{\authornote{blue}{DS}{#1}}
+% End Comments ---------------------------------------------------------------
+
+
+%title page format?%
+
+
+% ============================== BEGIN DOCUMENT ============================= %
+\begin{document}
+
+% ============================== Title Page ============================= %
+%\maketitle
+%\newpage
+
+% ================================= TOC ================================= %
+%\newgeometry{bottom=1.1in, top=1.1in}
+%\tableofcontents
+%\newpage
+%\pagenumbering{arabic}
+%\restoregeometry
+
+\end{document}
