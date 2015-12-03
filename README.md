@@ -60,7 +60,7 @@ downloaded marshalgen from another source, you need to fix this)
 1. (Fedora only) `yum install expat-devel`<br>
 2. `mkdir /path/to/GEANT4-GPU/geant4.10.00.p02-build /path/to/GEANT4-GPU/
 geant4.10.00.p02-install`<br>
-3. `cd /path/to/GEANT4-GPU/geant4.10.01.p02-build`<br>
+3. `cd /path/to/GEANT4-GPU/geant4.10.00.p02-build`<br>
 4. `cmake -DGEANT4_INSTALL_DATA=ON -DCMAKE_INSTALL_PREFIX=/path/to/GEANT4-GPU/geant4.10.00.p02-install /path/to/GEANT4-GPU/geant4.10.00.p02`<br>
 5. `make -jN` where `N` is the number of processors on your computer<br>
 6. `make install`
@@ -68,7 +68,7 @@ geant4.10.00.p02-install`<br>
 **Install G4-STORK**<br>
 1. `mkdir /path/to/GEANT4-GPU/G4STORK/Build`<br>
 2. `cd /path/to/GEANT4-GPU/G4STORK/Build`<br>
-3. `source /path/to/GEANT4-GPU/geant4.10.01.p02-install/bin/geant4.sh`<br>
+3. `source /path/to/GEANT4-GPU/geant4.10.00.p02-install/bin/geant4.sh`<br>
 4. `rm -rf CMakeCache.txt CMakeFiles/`<br>
 5. `cmake -DTOPC_USE=1 -DGeant4_DIR=/path/to/GEANT4-GPU/geant4.10.01.p02-install/lib/Geant4.10.00.p02/Geant4Config.cmake ../` (note: it may be *lib64*
  instead of *lib* on Linux)<br>
