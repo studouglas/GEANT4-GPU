@@ -85,7 +85,8 @@ function(__configure_cxxstd_clang)
   message(STATUS "Clang version : ${_clangcxx_version}")
 
   if(_clangcxx_version VERSION_LESS 2.9)
-    set(_CXXSTDS "c++98")
+    # OSX gives 'invalid flag std=c++98' if enabled due to CUDA C compiler trying to use it
+    #set(_CXXSTDS "c++98")
   else()
     set(_CXXSTDS "c++98" "c++0x" "c++11")
   endif()
