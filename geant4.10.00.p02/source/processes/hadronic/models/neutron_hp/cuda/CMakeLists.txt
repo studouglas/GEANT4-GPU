@@ -10,4 +10,6 @@ if (GEANT4_ENABLE_CUDA)
 
 	LIST(APPEND CUDA_NVCC_FLAGS --compiler-options -fno-strict-aliasing -lineinfo -use_fast_math -Xptxas -dlcm=cg)
 	LIST(APPEND CUDA_NVCC_FLAGS -gencode arch=compute_30,code=sm_30)
+
+	target_link_libraries(CUDA_G4NeutronHPVector ${GEANT4_LIBRARIES})
 endif()

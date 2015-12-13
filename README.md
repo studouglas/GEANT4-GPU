@@ -119,16 +119,7 @@ If it runs with no errors, then you should be all set up!
 Compiling After Changes
 ==========
 Every time you change the source code of G4STORK or GEANT4, you need to 
-recompile. From `/path/to/GEANT4-GPU/G4STORK/Build` run the recompile script to
-recompile the project with:
-```
-./addfilesG4STORK
-```
-You can optionally add arguments when running the script, open it in a text 
-editor to see available arguments.
-
-Once that is done, the g4stork executable should be updated to include the 
-changes to your code.
+recompile. From `/path/to/GEANT4-GPU/geant4.10.00.p02-build` rerun the cmake command from *Install GEANT-4: Step 4*, run `make`, and then run `make install`. Note that you only need to rerun cmake if you modified any CMake files, but you must always run the two make commands.
 
 Troubleshooting
 ==========
