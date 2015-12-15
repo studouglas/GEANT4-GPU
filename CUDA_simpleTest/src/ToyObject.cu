@@ -1,48 +1,35 @@
-#include <stdio.h>
-#include <cuda_runtime.h>
-#include <cuda.h>
-#include "DeviceMain.h"
-#include <vector>
-
-class ToyClass
+int main(int argc, char ** argv)
 {
-	public:
-	int* data;
-	
-	ToyClass(int x)
-	{
-		data = new int[1];
-		data[0] = x;
-	}
-	void add_one()
-	{
-		data[0] = data[0] + 1;
-	}
-};
+    int n = 1000000;
+    if(argc > 1) { n = atoi(argv[1]);}     // Number of particles
+    if(argc > 2) { srand(atoi(argv[2])); } // Random seed
 
-__global__ void useClass(ToyClass *toyClass)
-{
-	printf("%d\n", toyClass->data[0]);
-}
+    particle * pArray = new particle[n];
+    particle * devPArray = NULL;
+    cudaMalloc(&devPArray, n*sizeof(particle));
+    cudaMemcpy(devPArray, pArray, n*sizeof(particle), cudaMemcpyHostToDevice);
+    for(int i=0; i<1000; i++)
+    {   // Random distance each step
+        float dt = (float)rand()/(float) RAND_MAX;
+        advanceParticles<<< 1 +  n/256, 256>>>(dt, devPArray, n);
+        cudaDeviceSynchronize();
+    }
 
-int main()
-{
-	ToyClass c(1);
-	// create class storage on device and copy top level class
-	ToyClass *d_c;
-	cudaMalloc((void **)&d_c, sizeof(ToyClass));
-	cudaMemcpy(d_c, &c, sizeof(ToyClass), cudaMemcpyHostToDevice);
-	// make an allocated region on device for use by pointer in class
-	int *hostdata;
-	cudaMalloc((void **)&hostdata, sizeof(int));
-	cudaMemcpy(hostdata, c.data, sizeof(int), cudaMemcpyHostToDevice);
-	// copy pointer to allocated device storage to device class
-	cudaMemcpy(&(d_c->data), &hostdata, sizeof(int *), cudaMemcpyHostToDevice);
-	useClass<<<1,1>>>(d_c);
-	cudaDeviceSynchronize();
-	
-	return 0;
-
-
-
+    cudaMemcpy(pArray, devPArray, n*sizeof(particle), cudaMemcpyDeviceToHost);
+    v3 totalDistance(0,0,0);
+    v3 temp;
+    for(int i=0; i<n; i++)
+    {
+        temp = pArray[i].getTotalDistance();
+        totalDistance.x += temp.x;
+        totalDistance.y += temp.y;
+        totalDistance.z += temp.z;
+    }
+    float avgX = totalDistance.x /(float)n;
+    float avgY = totalDistance.y /(float)n;
+    float avgZ = totalDistance.z /(float)n;
+    float avgNorm = sqrt(avgX*avgX + avgY*avgY + avgZ*avgZ);
+    printf("Moved %d particles 1000 steps. Average distance traveled is |(%f, %f, %f)| = %f\n",
+                                          n, avgX, avgY, avgZ, avgNorm);
+    return 0;
 }
