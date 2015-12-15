@@ -33,14 +33,16 @@
 #include "G4NeutronHPVector.hh"
 #include "G4SystemOfUnits.hh"
 
-
-//#if GEANT4_CUDA_ENABLED
-//	#include "CUDA_G4NeutronHPVector.h"
-//#endif
+ // if set to 1, then tries to execute cuda code which fails due to linking problems
+#define GEANT4_ENABLE_CUDA 0
+#if GEANT4_ENABLE_CUDA
+	#include "CUDA_G4NeutronHPVector.h"
+#endif
 
   // if the ranges do not match, constant extrapolation is used.
   G4NeutronHPVector & operator + (G4NeutronHPVector & left, G4NeutronHPVector & right)
   {
+    G4cout << "G4NeutronHPVector plus operator" << G4endl;
     G4NeutronHPVector * result = new G4NeutronHPVector;
     G4int j=0;
     G4double x;
@@ -85,6 +87,53 @@
   G4NeutronHPVector::G4NeutronHPVector()
   {
   	G4cout << "G4NeutronHPVector Constructed (no params)" << G4endl;
+    
+
+    #define arraySize 15
+    int *arr1 = new int[arraySize];
+    int *arr2 = new int[arraySize];
+    for (int i = 0; i < arraySize; i++) {
+      arr1[i] = (int)rand() % 100;
+      arr2[i] = (int)rand() % 100;
+    }
+    int *sum = new int[arraySize];
+    
+    #if GEANT4_ENABLE_CUDA
+      G4cout << "\n***************************** CUDA ***********************************" << G4endl;
+      std::clock_t start = std::clock();
+      CUDA_sumArrays(arr1, arr2, sum, arraySize);
+      std::clock_t end = std::clock();
+
+      G4cout << "Sum of [";
+      for (int i = 0; i < arraySize; i++) {
+        if (i == arraySize-1)
+          G4cout << arr1[i] << "]";
+        else
+          G4cout << arr1[i] << ", ";
+      }
+      G4cout << "\nand of [";
+      for (int i = 0; i < arraySize; i++) {
+        if (i == arraySize-1)
+          G4cout << arr2[i] << "]";
+        else
+          G4cout << arr2[i] << ", ";
+      }
+      G4cout << "\n Array [";
+      for (int i = 0; i < arraySize; i++) {
+        if (i == arraySize-1)
+          G4cout << sum[i] << "]";
+        else
+          G4cout << sum[i] << ", ";
+      }
+      G4cout << "\nComputation done in " << double(end-start)/CLOCKS_PER_SEC << " s" << G4endl;
+      G4cout << "******************************** CUDA ********************************\n" << G4endl;
+    #else 
+      G4cout << "CUDA is disabled -- G4NeutronHPVector::G4NeutronHPVector()" << G4endl;
+    #endif
+
+
+
+
     theData = new G4NeutronHPDataPoint[20]; 
     nPoints=20;
     nEntries=0;
@@ -116,6 +165,7 @@
 
   G4NeutronHPVector::~G4NeutronHPVector()
   {
+    G4cout << "G4NeutronHPVector destroyed" << G4endl;
 //    if(Verbose==1)G4cout <<"G4NeutronHPVector::~G4NeutronHPVector"<<G4endl;
       delete [] theData;
 //    if(Verbose==1)G4cout <<"Vector: delete theData"<<G4endl;
@@ -128,6 +178,7 @@
   G4NeutronHPVector & G4NeutronHPVector::  
   operator = (const G4NeutronHPVector & right)
   {
+    G4cout << "G4NeutronHPVector == operator" << G4endl;
     if(&right == this) return *this;
     
     G4int i;
@@ -152,7 +203,8 @@
   
   G4double G4NeutronHPVector::GetXsec(G4double e) 
   {
-    //G4cout << "G4NeutronHPVector::GetXSec Called, GPU on: " << GEANT4_CUDA_ENABLED << G4endl;
+    //G4cout << "G4NeutronHPVector getxsec" << G4endl;
+    
     if(nEntries == 0) return 0;
     if(!theHash.Prepared()) Hash();
     G4int min = theHash.GetMinIndex(e);
@@ -202,6 +254,7 @@
 
   void G4NeutronHPVector::Dump()
   {
+    G4cout << "G4NeutronHPVector Dump" << G4endl;
     G4cout << nEntries<<G4endl;
     for(G4int i=0; i<nEntries; i++)
     {
@@ -215,6 +268,7 @@
   
   void G4NeutronHPVector::Check(G4int i)
   {
+    //G4cout << "G4NeutronHPVector Check" << G4endl;
     if(i>nEntries) throw G4HadronicException(__FILE__, __LINE__, "Skipped some index numbers in G4NeutronHPVector");
     if(i==nPoints)
     {
@@ -231,6 +285,7 @@
   Merge(G4InterpolationScheme aScheme, G4double aValue, 
         G4NeutronHPVector * active, G4NeutronHPVector * passive)
   { 
+    G4cout << "G4NeutronHPVector Merge" << G4endl;
     // interpolate between labels according to aScheme, cut at aValue, 
     // continue in unknown areas by substraction of the last difference.
     
@@ -293,7 +348,7 @@
     
   void G4NeutronHPVector::ThinOut(G4double precision)
   {
-
+G4cout << "G4NeutronHPVector THINOUT" << G4endl;
 //#if CUDA_ENABLED
 //      float result = squareArray(100);
 //      G4cout <<"G4NeutronHPVector::ThinOut test on GPU result: "<< result << G4endl;
@@ -345,6 +400,7 @@
 
   G4bool G4NeutronHPVector::IsBlocked(G4double aX)
   {
+    G4cout << "G4NeutronHPVector isBlocked" << G4endl;
     G4bool result = false;
     std::vector<G4double>::iterator i;
     for(i=theBlocked.begin(); i!=theBlocked.end(); i++)
@@ -362,6 +418,7 @@
 
   G4double G4NeutronHPVector::Sample() // Samples X according to distribution Y
   {
+    G4cout << "G4NeutronHPVector Sample" << G4endl;
     G4double result;
     G4int j;
     for(j=0; j<GetVectorLength(); j++)
@@ -455,6 +512,7 @@
 
   G4double G4NeutronHPVector::Get15percentBorder()
   {    
+    G4cout << "G4NeutronHPVector Get15percentBorder" << G4endl;
     if(the15percentBorderCash>-DBL_MAX/2.) return the15percentBorderCash;
     G4double result;
     if(GetVectorLength()==1)
@@ -483,6 +541,7 @@
 
   G4double G4NeutronHPVector::Get50percentBorder()
   {    
+    G4cout << "G4NeutronHPVector Get50percentBorder" << G4endl;
     if(the50percentBorderCash>-DBL_MAX/2.) return the50percentBorderCash;
     G4double result;
     if(GetVectorLength()==1)

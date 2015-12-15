@@ -16,7 +16,7 @@
 #-----------------------------------------------------------------------
 
 # Include CUDA
-include_directories(cuda)
+include_directories(${CMAKE_SOURCE_DIR}/source/processes/hadronic/models/neutron_hp/cuda)
 
 # List external includes needed.
 include_directories(${CLHEP_INCLUDE_DIRS})
@@ -311,7 +311,6 @@ GEANT4_DEFINE_MODULE(NAME G4had_neu_hp
 	G4WendtFissionFragmentGenerator.cc
 ### Fission Fragment Generator - end
   GRANULAR_DEPENDENCIES
-    #CUDA_G4NeutronHPVector
     G4baryons
     G4bosons
     G4geometrymng
@@ -342,6 +341,14 @@ GEANT4_DEFINE_MODULE(NAME G4had_neu_hp
     G4track
   LINK_LIBRARIES
     #CUDA_G4NeutronHPVector
+    # if uncommented, then when running hadr04 we get error:
+    # ===
+    # dyld: Library not loaded: libCUDA_G4NeutronHPVector.dylib
+    # Referenced from: /Users/stuart/Documents/4th_Year/CS_4ZP6/GEANT4-GPU/geant4.10.00.p02-install/lib/libG4Tree.dylib
+    # Reason: image not found
+    # Trace/BPT trap: 5
+    # ===
+    
     ${ZLIB_LIBRARIES}
   )
 
