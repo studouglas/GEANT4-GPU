@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?><project name="Capstone" company="4ZP6" webLink="http://" view-date="2015-12-25" view-index="0" gantt-divider-location="360" resource-divider-location="300" version="2.7.1" locale="en_CA">
+<?xml version="1.0" encoding="UTF-8"?><project name="Capstone" company="4ZP6" webLink="http://" view-date="2015-12-11" view-index="0" gantt-divider-location="360" resource-divider-location="300" version="2.7.1" locale="en_CA">
     <description><![CDATA[Capstone project for Geant-4GPU]]></description>
-    <view zooming-state="default:2" id="gantt-chart">
+    <view zooming-state="default:0" id="gantt-chart">
         <field id="tpd3" name="Name" width="70" order="0"/>
         <field id="tpd4" name="Begin date" width="7" order="1"/>
         <field id="tpd5" name="End date" width="21" order="2"/>
@@ -8,8 +8,8 @@
         <option id="color.recent"><![CDATA[#33cc00]]></option>
     </view>
     <view id="resource-table">
-        <field id="0" name="Name" width="70" order="0"/>
-        <field id="1" name="Default role" width="29" order="1"/>
+        <field id="0" name="Name" width="56" order="0"/>
+        <field id="1" name="Default role" width="43" order="1"/>
     </view>
     <!-- -->
     <calendars>
@@ -80,6 +80,32 @@
     </resources>
     <allocations>
         <allocation task-id="2" resource-id="0" function="Default:0" responsible="true" load="100.0"/>
+        <allocation task-id="6" resource-id="0" function="Default:0" responsible="true" load="100.0"/>
+        <allocation task-id="35" resource-id="0" function="Default:0" responsible="true" load="100.0"/>
+        <allocation task-id="9" resource-id="0" function="Default:0" responsible="true" load="100.0"/>
+        <allocation task-id="32" resource-id="0" function="Default:0" responsible="true" load="100.0"/>
+        <allocation task-id="38" resource-id="0" function="Default:0" responsible="true" load="100.0"/>
+        <allocation task-id="4" resource-id="0" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="12" resource-id="0" function="Default:0" responsible="true" load="100.0"/>
+        <allocation task-id="21" resource-id="0" function="Default:0" responsible="true" load="100.0"/>
+        <allocation task-id="23" resource-id="0" function="Default:0" responsible="true" load="100.0"/>
+        <allocation task-id="35" resource-id="1" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="4" resource-id="1" function="Default:0" responsible="true" load="100.0"/>
+        <allocation task-id="9" resource-id="1" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="38" resource-id="1" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="14" resource-id="1" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="25" resource-id="1" function="Default:0" responsible="true" load="100.0"/>
+        <allocation task-id="9" resource-id="2" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="32" resource-id="2" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="38" resource-id="2" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="19" resource-id="2" function="Default:0" responsible="true" load="100.0"/>
+        <allocation task-id="27" resource-id="2" function="Default:0" responsible="true" load="100.0"/>
+        <allocation task-id="35" resource-id="3" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="9" resource-id="3" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="32" resource-id="3" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="38" resource-id="3" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="6" resource-id="3" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="17" resource-id="3" function="Default:0" responsible="true" load="100.0"/>
     </allocations>
     <vacations/>
     <taskdisplaycolumns>
