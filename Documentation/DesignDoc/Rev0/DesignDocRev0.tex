@@ -51,8 +51,13 @@ Stuart Douglas -- 1214422
 \tableofcontents
  
 \section{Introduction}% ============== Matt
-The following document details the Module Interface Specifications for the implemented modules in Geant4-GPU. It is intended to ease navigation through the program for design and maintenance purposes.\\
-
+\subsection{Purpose}
+The purpose of GEANT4-GPU is to reduce the computation times of particle simulations.
+\subsection{Description}
+The project aims to improve the computation times of GEANT4 particle simulations by running simulations on the GPU. GEANT4-GPU will allow users to 
+build GEANT4 with an enable GPU acceleration option. Our implementation will be available on Mac, Linux and Windows operating systems with NVIDIA graphics cards. GEANT4-GPU must be able to do particle simulations much faster than running the simulations on a GEANT4 build that runs entirely on the CPU.
+\subsection{Scope}
+The scope of GEANT4-GPU will be limited to Engineering Physics simulations; particularly those that make use of the NeutronHPVector class.
 
 \section{Anticipated and unlikely changes}
 \subsection{Likely Changes} %========== Rob
