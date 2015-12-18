@@ -59,6 +59,22 @@ build GEANT4 with an enable GPU acceleration option. Our implementation will be 
 \subsection{Scope}
 The scope of GEANT4-GPU will be limited to Engineering Physics simulations; particularly those that make use of the NeutronHPVector class.
 
+
+\section*{Revision History}
+All major edits to this document will be recorded in the table below.
+
+\begin{table}[h]
+\centering
+\caption{Revision History}\label{Table_Revision}
+\begin{tabular}{lll}
+
+\toprule
+\bf Description of Changes & \bf Author & \bf Date\\\midrule
+Set up sections and filled out Introduction section & Matthew & 2015-12-15\\
+\bottomrule
+\end{tabular}
+\end{table}
+
 \section{Anticipated and unlikely changes}
 \subsection{Likely Changes} %========== Rob
 
@@ -85,11 +101,31 @@ The scope of GEANT4-GPU will be limited to Engineering Physics simulations; part
 \subsubsection{State Variables}% ================== Matt
 
 \subsubsection{Environment Variables}% ============== Matt
+There are no environment variables for this Module.
 
 \subsubsection{Assumption}% ==================== Stuart	
 
 \subsubsection{Access Program Semantics}% =========== Victor
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ---- NeutronHPVector
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ----- Cmake Files
+\section{MIS of CMake Files}
+
+\subsection{Interface Syntax}% ================ Victor
+
+\subsection{Exported Access Programs}% ============ Rob
+
+\subsection{Interface Semantics}
+
+\subsubsection{State Variables}% ================== Matt
+
+\subsubsection{Environment Variables}% ============== Matt
+NeutronHPVectorGPU.cu : cuda file with GPU code
+
+\subsubsection{Assumption}% ==================== Stuart	
+
+\subsubsection{Access Program Semantics}% =========== Victor
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ---- Cmake Files
 
 
 \end{document}
