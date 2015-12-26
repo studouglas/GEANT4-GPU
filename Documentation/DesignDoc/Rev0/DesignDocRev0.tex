@@ -85,7 +85,8 @@ Set up sections and filled out Introduction section & Matthew & 2015-12-15\\
 \section{Connection between requirements and design}% ===== Stuart
 
 \section{Traceability matrices}% =========== Victor
-
+\subsection{Note About G4 variables}
+Geant4 uses it's own version of the standard variables (G3int, G4bool, G4double, etc). These variables behave exactly like their non G4 counterparts. These G4 variables were implemented as a standard.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ----- NeutronHPDataPoint
 \section{MIS of NeutronHPDataPoint}
@@ -119,6 +120,24 @@ There are no environment variables for this Module.
 \subsection{Interface Semantics}
 
 \subsubsection{State Variables}% ================== Matt
+G4NeutronHPInterPolator : theLin\\
+totalIntegral : G4double\\
+G4NeutronHPDataPoint * : theData\\
+G4InterpolationManager : theManager\\
+G4double * : theIntegral\\
+G4int : nEntries\\
+G4int : nPoints\\
+G4double : label\\
+G4NeutronInterpolator : theInt\\
+G4int : Verbose\\
+G4int : isFreed\\
+G4NeutronHPHash : theHash\\
+G4double : maxValue\\
+vector<G4double> : theBlocked\\
+vector <G4double> : theBuffered\\
+G4double : the15percentBorderCash\\
+G4double : the50percentBorderCash
+
 
 \subsubsection{Environment Variables}% ============== Matt
 There are no environment variables for this Module.
