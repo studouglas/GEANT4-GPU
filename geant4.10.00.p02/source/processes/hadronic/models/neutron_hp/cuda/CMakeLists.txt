@@ -6,7 +6,8 @@ if (GEANT4_ENABLE_CUDA)
 	find_package (CUDA REQUIRED)
 
 	include_directories(/usr/local/cuda/include)
-	cuda_add_library (CUDA_G4NeutronHPVector SHARED CUDA_G4NeutronHPVector.h CUDA_G4NeutronHPVector.cu)
+	include_directories(${CMAKE_SOURCE_DIR}/source/processes/hadronic/models/neutron_hp/cuda/include)
+	cuda_add_library (CUDA_G4NeutronHPVector SHARED include/CUDA_G4NeutronHPVector.h src/CUDA_G4NeutronHPVector.cu)
 
 	LIST(APPEND CUDA_NVCC_FLAGS --compiler-options -fno-strict-aliasing -lineinfo -use_fast_math -Xptxas -dlcm=cg)
 	LIST(APPEND CUDA_NVCC_FLAGS -gencode arch=compute_30,code=sm_30)
