@@ -1,0 +1,180 @@
+\documentclass[12pt]{article}
+
+% Packages
+\usepackage[margin=1.2in]{geometry}
+\usepackage{graphicx}
+\usepackage{enumerate}
+\usepackage{listings}
+\usepackage{titling}
+\usepackage{tabularx}
+\usepackage{longtable}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{makecell}
+\usepackage{caption}
+\usepackage{array}
+\captionsetup[table]{skip=2pt}
+% Comments --------------------------------------------------------------------
+\usepackage{xcolor}
+\newif\ifcomments\commentstrue
+\ifcomments \newcommand{\authornote}[3]{\textcolor{#1}{[#3 ---#2]}}
+\newcommand{\todo}[1]{\textcolor{red}{[TODO: #1]}} \else
+\newcommand{\authornote}[3]{} \newcommand{\todo}[1]{} \fi
+\newcommand{\wss}[1]{\authornote{magenta}{SS}{#1}}
+\newcommand{\ds}[1]{\authornote{blue}{DS}{#1}}
+% End Comments ---------------------------------------------------------------
+
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+\title{
+\LARGE GEANT-4 GPU Port:
+\\\vspace{10mm}
+\large \textbf{Design Document: System Architecture}
+\vspace{20mm}
+}
+\author{
+Stuart Douglas -- 1214422
+\\Matthew Pagnan -- 1208693
+\\Rob Gorrie -- 1222547
+\\Victor Reginato -- 1209975
+\vspace{10mm}
+}
+\date{\today}
+	
+\maketitle
+\newpage
+
+\renewcommand{\contentsname}{Table of Contents}
+\tableofcontents
+ 
+\section{Introduction}% ============== Matt
+\subsection{Purpose}
+The purpose of GEANT4-GPU is to reduce the computation times of particle simulations using the GEANT4 simulation library.
+
+\subsection{Description}
+The project aims to improve the computation times of Geant4 particle simulations by running certain parallel operations on a GPU. GEANT4-GPU will be a fork of the existing Geant4 system with the additional option for users with compatible hardware to run operations on the GPU for improved performane. This functionality will be available on Mac, Linux and Windows operating systems running on computers with NVIDIA graphics cards (G8X series or later).\\
+
+The design strategy for the project will be based on taking a specific, computationally heavy class from Geant4 and creating a class that fulfills the same interface but that runs on the GPU. This will be repeated for many classes until the project's deadline has been reached. The user will have the option of using the existing classes (running on the CPU) or the new ones (running on the GPU).
+
+\subsection{Scope}
+The scope of the project in terms of modules to port to the GPU will be limited to physics simulations run by the McMaster Engineering Physics department.
+
+\section*{Revision History}
+All major edits to this document will be recorded in the table below.
+
+\begin{table}[h]
+\centering
+\caption{Revision History}\label{Table_Revision}
+\begin{tabular}{lll}
+
+\toprule
+\bf Description of Changes & \bf Author & \bf Date\\\midrule
+Set up sections and filled out Introduction section & Matthew & 2015-12-15\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Anticipated and unlikely changes}
+\subsection{Likely Changes} %========== Rob
+
+\subsection{Unlikely Changes} %========= Rob
+
+\section{Module Hierarchy}%============= Stuart
+
+\section{Connection between requirements and design}% ===== Stuart
+
+\section{Traceability matrices}% =========== Victor
+\subsection{Note About G4 variables}
+Geant4 uses its own basic types for standard C++ types (G4int, G4bool, G4double, etc). These types are currently just \texttt{typedefs} to the respective type as defined in the system libraries.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ----- NeutronHPDataPoint
+\section{MIS of NeutronHPDataPoint}
+
+\subsection{Interface Syntax}% ================ Victor
+
+\subsection{Exported Access Programs}% ============ Rob
+
+\subsection{Interface Semantics}
+
+\subsubsection{State Variables}% ================== Matt
+\begin{itemize}
+\item energy : G4Double
+\item xSec : G4Double
+\end{itemize}
+
+\subsubsection{Environment Variables}% ============== Matt
+There are no environment variables for this Module.
+
+\subsubsection{Assumption}% ==================== Stuart	
+
+\subsubsection{Access Program Semantics}% =========== Victor
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ---- NeutronHPDataPoint
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ----- NeutronHPVector
+\section{MIS of NeutronHPVector}
+
+\subsection{Interface Syntax}% ================ Victor
+
+\subsection{Exported Access Programs}% ============ Rob
+
+\subsection{Interface Semantics}
+
+\subsubsection{State Variables}% ================== Matt
+\begin{itemize}
+\item G4NeutronHPInterPolator : theLine
+\item totalIntegral : G4double
+\item G4NeutronHPDataPoint * : theData
+\item G4InterpolationManager : theManager
+\item G4double * : theIntegral
+\item G4int : nEntries
+\item G4int : nPoints
+\item G4double : label
+\item G4NeutronInterpolator : theInt
+\item G4int : Verbose
+\item G4int : isFreed
+\item G4NeutronHPHash : theHash
+\item G4double : maxValue
+\item vector\textless G4double\textgreater : theBlocked
+\item vector\textless G4double\textgreater : theBuffered
+\item G4double : the15percentBorderCash
+\item G4double : the50percentBorderCash
+\end{itemize}
+
+\subsubsection{Environment Variables}% ============== Matt
+There are no environment variables for this Module.
+
+\subsubsection{Assumption}% ==================== Stuart	
+
+\subsubsection{Access Program Semantics}% =========== Victor
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ---- NeutronHPVector
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ----- Cmake Files
+\section{MIS of CMake Files}
+
+\subsection{Interface Syntax}% ================ Victor
+
+\subsection{Exported Access Programs}% ============ Rob
+
+\subsection{Interface Semantics}
+
+\subsubsection{State Variables}% ================== Matt
+\begin{itemize}
+\item useCuda : Bool
+\end{itemize}
+
+\subsubsection{Environment Variables}% ============== Matt
+\begin{itemize}
+\item NeutronHPVectorGPU.cu : cuda file with GPU code
+\end{itemize}
+
+
+\subsubsection{Assumption}% ==================== Stuart	
+
+\subsubsection{Access Program Semantics}% =========== Victor
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ---- Cmake Files
+
+
+\end{document}
