@@ -134,8 +134,8 @@ Graduate students and professors from the McMaster Engineering Physics Departmen
 Consider Matt Douglas, a graduate student in the Engineering Physics Department. Matt wants to study how particles in McMaster's nuclear reactor affect each other, given some specific starting conditions, and a very large number of particles. Matt knows how to use the existing G4-STORK program, but it will take weeks to run the computations. Matt inputs his desired number of particles and specific starting conditions into a G4-STORK simulation. He enables the GPU features of the new product, and successfully runs the simulation in a reasonable amount of time. He observes interesting results that would not have been feasible to obtain with the old product.\\
 
 \subsubsection{Priorities Assigned to Users}
-Priority will be given to Wesley Ford, the grad
-\ds{``graduate"}
+Priority will be given to Wesley Ford, the graduate
+\ds{``graduate"} \mmp{fixed}
 student that proposed the project to Dr. Buijs. He will be the primary user of G4-STORK as it is integral to his current research.
 
 % =============================== Section =============================== %
@@ -167,7 +167,8 @@ G4-STORK & (Geant-4 STOchastic Reactor Kinetics), fork of GEANT-4 developed by M
 GPU & graphics processing unit, well-suited to parallel computing tasks\\\hline
 CPU & computer processing unit, general computer processor well-suited to serial tasks\\\hline
 GP-GPU & concept of running ``general-purpose" computations on the GPU\\\hline
-CUDA & parallel computing architecture for general purpose programming on GPU, developed by NVIDIA\\
+CUDA & parallel computing architecture for general purpose programming on GPU, developed by NVIDIA\\\hline
+PUC & Product Use case\\
 \Xhline{2\arrayrulewidth}
 \end{tabularx}
 \end{table}
@@ -226,7 +227,7 @@ The following table outlines the use cases for the product.
 \end{table}
 
 Descriptions of each PUC, referenced by PUC \# are as follows.
-\ds{PUC is not in your glossary}.
+\ds{PUC is not in your glossary}. \mmp{added PUC to glossary}
 
 \begin{enumerate}
 \item \label{PUC_SimulatingParticles} The software will be used by researchers wishing to simulate large numbers of particles interactions with materials. The researcher sets simulation parameters, including the number of particles, their lifetime, and the material properties before running the simulation. On completion, the program gives back a map of where each particle traveled, so researchers can study where the particles are most probably to end up.
@@ -249,13 +250,33 @@ Descriptions of each PUC, referenced by PUC \# are as follows.
 {Req_NoChangeOld}
 {ReqType_Functional}
 {PUC_SimulatingParticles}
-{Existing projects should not be affected by the new code. By default, they will continue to run on the CPU.}
+{Existing projects should not be affected by the new code.}
 {Design Requirement, need to ensure that users can continue to use GEANT-4 as before.}
-{Running an existing simulation should execute on the CPU by default as before with no performance regressions and identical results.}
+{Running an existing simulation should produce identical results.}
 {High}
 {Created September 29, 2015}
-\ds{This requirement should be split. The default case should have its own requirement.}
+\ds{This requirement should be split. The default case should have its own requirement.}\mmp{split requirement into two}
 \\\\
+
+\requirement
+{Req_Defualt}
+{RegType_Functional}
+{PUC_SimulatingParticles}
+{If the user does not specify Geant4 to run on the GPU then it shall run on the CPU by default.}
+{User should be able to use Geant4 with the GPU acceleration the exact same way they used it before}
+{Running Geant4 without specifying to use the GPU will not run any code on the GPU}
+{Low}
+{Created January 8, 2016}
+
+\requirement
+{Req_HardwareDetection}
+{Req_Type_Functional}
+{PUC_SimulatingParticles}
+{GEANT4-GPU should be able to detect if the computer has a compatible graphics card that can run the GPU code}
+{Don't want GEANT4 to try to run GPU code on a graphics card that is not compatible}
+{When building GEANT4-GPU, The system should inform the user if they have a compatible graphics card or not}
+{Medium}
+{Created January 8 2016}
 
 \requirement
 {Req_CompatableGPU}
@@ -267,10 +288,10 @@ Descriptions of each PUC, referenced by PUC \# are as follows.
 {Medium}
 {Created September 29, 2015}
 \ds{This requirement should be split. There should be one for detecting hardware and
-one for what to do based on hardware detected.}
+one for what to do based on hardware detected.}\mmp{split into two requirements}
 
 \ds{Will users be aware of whether or not their machine can run the code
-on the GPU?}
+on the GPU?}\mmp{This was taken care of in requirement HardwareDetection}
 
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Look and Feel Requirements}\label{ReqType_Look} % Victor
@@ -279,16 +300,17 @@ NA -- The scope of the project does not include any visual aspects. Simulations 
 \ds{Then why does your 4.1.b diagram show ``Visualizations rendered and stored?"}
 
 \subsubsection{Style Requirements} 
-\requirement
-{Req_CodeOrganization}
-{ReqType_Look}
-{PUC_SimulatingParticles}
-{The code should be well organized and appear readable to any who might want to edit it.}
-{Revised code should not inhibit the modifying or understanding of G4-STORK}
-{Any persons with an understanding of the existing project should be able to clearly understand the modified code.}
-{Medium}
-{Created October 6, 2015}
-\ds{This is not a requirement for your end-product.}
+NA - No Style Requirements
+%\requirement
+%{Req_CodeOrganization}
+%{ReqType_Look}
+%{PUC_SimulatingParticles}
+%{The code should be well organized and appear readable to any who might want to edit it.}
+%{Revised code should not inhibit the modifying or understanding of G4-STORK}
+%{Any persons with an understanding of the existing project should be able to clearly understand the modified code.}
+%{Medium}
+%{Created October 6, 2015}
+\ds{This is not a requirement for your end-product.}\\mmp{commented out the CodeOrganization requirement}
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Usability and Humanity Requirements}\label{ReqType_Usabil} % Rob
 
@@ -350,10 +372,10 @@ NA\\
 {PUC_SimulatingParticles}
 {The software should be accessible to any person who can learn and use a shell based operating system.}
 {Vision/reading/typing is required for the operation of the software, and there will be no accessibility alternatives offered.}
-{A blind university student who potentially has trouble using a shell based operating system may have trouble with the software.}
+{A person with no disabilities and a knowledge on shell based operating systems should be able to run the software.}
 {Medium}
 {Created October 6, 2015}
-\ds{Bad fit criterion}
+\ds{Bad fit criterion}\mmp{changed fit criterion}
 
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Performance Requirements}\label{ReqType_Performance}
@@ -394,9 +416,17 @@ NA -- The software is not used in safety critical environments. It is a tool for
 {Created September 27, 2015}
 
 \subsubsection{Robustness or Fault-Tolerance Requirements}
-NA -- The product does not need to maintain standards during an unforseen event. It does not handle any sensitive data, and is not constantly required to be running by its users.
-
+\requirement
+{Req_errorHandling}
+{ReqType_Performance}
+{PUC_simulatingParticles}
+{If an error occurs, the product will throw an exception with a description why the exception happened the same way GEANT4 would throw an exception}
+{Throwing an exception as a safeguard in case of an error}
+{When an error occurs an exception is thrown and the user it notified about it.}
+{Medium}
+{Created January 8 2016}
 \ds{Shouldn't there be some safeguards in case of an error?}
+\mmp{added a requirement for safeguarding in case of an error}
 
 \subsubsection{Capacity Requirements}
 \requirement
@@ -410,10 +440,10 @@ NA -- The product does not need to maintain standards during an unforseen event.
 {Created September 27, 2015}
 
 \subsubsection{Scalability Requirements}
-NA -- The product will be used by single researchers, and is run locally on their machines.
+NA -- The product will be used by single researchers, and is run locally on their machines. This project does not encompass the giving the functionality for distributing GEANT4-GPU to multiple GPU's. 
 
 \ds{What if the researchers wanted to run it on a server with multiple GPUs
-(or hundreds of CPU cores?)}
+(or hundreds of CPU cores?)}\mmp{added a statement indicating this project does not encompass distributed system gpu functionality.}
 
 \subsubsection{Longevity Requirements}
 NA -- The product is to be completed by April 2016, and there are no plans to extend that lifetime.
@@ -626,8 +656,8 @@ Because our software has research based aspirations and goals, some traditional 
 \begin{itemize}
 	\item Excessive schedule pressure
 	\item Technical/Resource limitations
-	\item Inadequate measurements 
-	\ds{What do you mean by this?}
+	%\item Inadequate measurements
+	\ds{What do you mean by this?}\mmp{commented out the inadequate measurements item}
 	\item Optimistic time constraints
 \end{itemize}
 
