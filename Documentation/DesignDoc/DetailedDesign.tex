@@ -23,7 +23,7 @@
 \newcommand{\wss}[1]{\authornote{magenta}{SS}{#1}}
 \newcommand{\ds}[1]{\authornote{blue}{DS}{#1}}
 % End Comments ---------------------------------------------------------------
-
+\setlength{\parindent}{0pt}
 
 % Title Page -----------------------------------------------------------------
 \title{
@@ -33,14 +33,14 @@
 \vspace{40mm}
 }
 \author{
-Team 8
+\textbf{Team 8}
 \\Stuart Douglas -- dougls2
 \\Matthew Pagnan -- pagnanmm
 \\Rob Gorrie -- gorrierw
 \\Victor Reginato -- reginavp
 \vspace{10mm}
 }
-\date{\vfill \textbf{Design Document Version 0}\\ \today}
+\date{\vfill \textbf{Detailed Design: Version 0}\\ \today}
 % End Title Page -------------------------------------------------------------
 
 
@@ -53,10 +53,138 @@ Team 8
 \newpage
 
 % ================================= TOC ================================= %
-\newgeometry{bottom=1.1in, top=1.1in}
+\renewcommand{\contentsname}{Table of Contents}
 \tableofcontents
 \newpage
 \pagenumbering{arabic}
-\restoregeometry
+
+\section{Introduction}
+\subsection{Revision History}
+All major edits to this document will be recorded in the table below.
+
+\begin{table}[h]
+\centering
+\caption{Revision History}\label{Table_Revision}
+\begin{tabular}{lll}
+
+\toprule
+\bf Description of Changes & \bf Author & \bf Date\\\midrule
+Set up sections and filled out Introduction section & Matthew & 2015-12-15\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Note About G4 variables}
+Geant4 uses its own basic types for standard C++ types (G4int, G4bool, G4double, etc). These types are currently just \texttt{typedefs} to the respective type as defined in the system libraries.
+
+\subsection{Document Structure \& Template}
+The design documentation for the project is based off of templates from WHAT TEMPLATES??????, and is broken into two main documents.\\
+
+The system architecture document details the system architecture, including an overview of the modules that make up the system, analysis of aspects that are likely and unlikely to change, reasoning behind the high-level decisions, and a table showing how each requirement is addressed in the proposed design.\\
+
+This detailed design document covers the specifics of several key modules in the project. For each module, an MIS is given fully detailing the interface of the module. Then, the methods for handling errors within the module are discussed, and finally the main algorithms and data structures used by the module are presented.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ----- NeutronHPDataPoint
+\section{NeutronHPDataPoint}
+
+\subsection{MIS (Module Interface Specification)}
+\subsubsection{Interface Syntax}% ================ Victor
+
+\subsubsection{Exported Access Programs}% ============ Rob
+
+\subsubsection{Interface Semantics}
+
+\subsubsection{State Variables}% ================== Matt
+\begin{itemize}
+\item energy : G4Double
+\item xSec : G4Double
+\end{itemize}
+
+\subsubsection{Environment Variables}% ============== Matt
+There are no environment variables for this Module.
+
+\subsubsection{Assumption}% ==================== Stuart	
+
+\subsubsection{Access Program Semantics}% =========== Victor
+
+\subsection{Error Handling}
+
+\subsection{Key Algorithms}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ---- NeutronHPDataPoint
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ----- NeutronHPVector
+\section{NeutronHPVector}
+
+\subsection{MIS (Module Interface Specification)}
+\subsubsection{Interface Syntax}% ================ Victor
+
+\subsubsection{Exported Access Programs}% ============ Rob
+
+\subsubsection{Interface Semantics}
+
+\subsubsection{State Variables}% ================== Matt
+\begin{itemize}
+\item G4NeutronHPInterPolator : theLine
+\item totalIntegral : G4double
+\item G4NeutronHPDataPoint * : theData
+\item G4InterpolationManager : theManager
+\item G4double * : theIntegral
+\item G4int : nEntries
+\item G4int : nPoints
+\item G4double : label
+\item G4NeutronInterpolator : theInt
+\item G4int : Verbose
+\item G4int : isFreed
+\item G4NeutronHPHash : theHash
+\item G4double : maxValue
+\item vector\textless G4double\textgreater : theBlocked
+\item vector\textless G4double\textgreater : theBuffered
+\item G4double : the15percentBorderCash
+\item G4double : the50percentBorderCash
+\end{itemize}
+
+\subsubsection{Environment Variables}% ============== Matt
+There are no environment variables for this Module.
+
+\subsubsection{Assumption}% ==================== Stuart	
+
+\subsubsection{Access Program Semantics}% =========== Victor
+
+\subsection{Error Handling}
+
+\subsection{Key Algorithms}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ---- NeutronHPVector
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ----- Cmake Files
+\section{CMake Files}
+
+\subsection{MIS (Module Interface Specification)}
+\subsubsection{Interface Syntax}% ================ Victor
+
+\subsubsection{Exported Access Programs}% ============ Rob
+
+\subsubsection{Interface Semantics}
+
+\subsubsection{State Variables}% ================== Matt
+\begin{itemize}
+\item useCuda : Bool
+\end{itemize}
+
+\subsubsection{Environment Variables}% ============== Matt
+\begin{itemize}
+\item NeutronHPVectorGPU.cu : cuda file with GPU code
+\end{itemize}
+
+
+\subsubsection{Assumption}% ==================== Stuart	
+
+\subsubsection{Access Program Semantics}% =========== Victor
+
+\subsection{Error Handling}
+
+\subsection{Key Algorithms}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ---- Cmake Files
 
 \end{document}

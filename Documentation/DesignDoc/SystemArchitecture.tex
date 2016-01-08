@@ -23,34 +23,95 @@
 \newcommand{\wss}[1]{\authornote{magenta}{SS}{#1}}
 \newcommand{\ds}[1]{\authornote{blue}{DS}{#1}}
 % End Comments ---------------------------------------------------------------
-
 \setlength{\parindent}{0pt}
 
-\begin{document}
-
+% Title Page -----------------------------------------------------------------
 \title{
 \LARGE GEANT-4 GPU Port:
 \\\vspace{10mm}
 \large \textbf{Design Document: System Architecture}
-\vspace{20mm}
+\vspace{40mm}
 }
 \author{
-Stuart Douglas -- 1214422
-\\Matthew Pagnan -- 1208693
-\\Rob Gorrie -- 1222547
-\\Victor Reginato -- 1209975
+\textbf{Team 8}
+\\Stuart Douglas -- dougls2
+\\Matthew Pagnan -- pagnanmm
+\\Rob Gorrie -- gorrierw
+\\Victor Reginato -- reginavp
 \vspace{10mm}
 }
-\date{\today}
-	
+\date{\vfill \textbf{System Architecture: Version 0}\\ \today}
+% End Title Page -------------------------------------------------------------
+
+% ============================== BEGIN DOCUMENT ============================= %
+\begin{document}
+\pagenumbering{gobble} % start numbering after TOC
+
+% ============================== Title Page ============================= %
 \maketitle
 \newpage
 
+% ================================= TOC ================================= %
 \renewcommand{\contentsname}{Table of Contents}
 \tableofcontents
- 
+\newpage
+\pagenumbering{arabic}
+
 \section{Introduction}% ============== Matt
-\subsection{Purpose}
+\subsection{Revision History}
+All major edits to this document will be recorded in the table below.
+
+\begin{table}[h]
+\centering
+\caption{Revision History}\label{Table_Revision}
+\begin{tabularx}{\textwidth}{Xll}
+\toprule
+\bf Description of Changes & \bf Author & \bf Date\\\midrule
+Set up sections and filled out Introduction section & Matthew & 2015-12-15\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{Terms Used}
+\begin{table}[h]
+\centering
+\caption{Glossary}\label{Table_Glossary}
+\begin{tabularx}{\textwidth}{lX}
+\toprule
+\bf Term & \bf Description\\\midrule\vspace{1mm}
+Geant4 & open-source software toolkit for simulating particle interactions\\\vspace{1mm}
+G4-STORK & fork of Geant4 developed by McMaster's Engineering Physics department to simulate McMaster's nuclear reactor\\\vspace{1mm}
+GPU & graphics processing unit, well-suited to parallel computing tasks\\\vspace{1mm}
+CPU & computer processing unit, well-suited to serial tasks\\\vspace{1mm}
+CUDA & parallel computing architecture for GPU programming, developed by NVIDIA\\\vspace{1mm}
+NVIDIA & computer hardware and software company specializing in GPU's\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{List of Tables}
+\begin{center}
+\begin{tabular}{cl}
+\toprule
+\bf Table \# & \bf Title\\\midrule
+\ref{Table_Revision} & Revision History\\
+\ref{Table_Glossary} & Glossary\\
+\ref{Table_RequirementsAndDesign} & Traceability of Requirements and Design\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{List of Figures}
+\begin{center}
+\begin{tabular}{cl}
+\toprule
+\bf Figure \# & \bf Title\\\midrule
+\bottomrule
+\end{tabular}
+\end{center}
+
+\section{Overview}
+\subsection{Purpose of Project}
 The purpose of GEANT4-GPU is to reduce the computation times of particle simulations using the GEANT4 simulation library.
 
 \subsection{Description}
@@ -58,123 +119,79 @@ The project aims to improve the computation times of Geant4 particle simulations
 
 The design strategy for the project will be based on taking a specific, computationally heavy class from Geant4 and creating a class that fulfills the same interface but that runs on the GPU. This will be repeated for many classes until the project's deadline has been reached. The user will have the option of using the existing classes (running on the CPU) or the new ones (running on the GPU).
 
-\subsection{Scope}
-The scope of the project in terms of modules to port to the GPU will be limited to physics simulations run by the McMaster Engineering Physics department.
+\subsection{Document Structure \& Template}
+The design documentation for the project is based off of WHAT TEMPLATES?????? and is broken into two main documents.\\
 
-\section*{Revision History}
-All major edits to this document will be recorded in the table below.
+This system architecture document details the system architecture, including an overview of the modules that make up the system, analysis of aspects that are likely and unlikely to change, reasoning behind the high-level decisions, and a table showing how each requirement is addressed in the proposed design.\\
+
+A separate detailed design document covers the specifics of several key modules in the project. This includes the interface specification and implementation decisions.
+
+\section{Important Design Decisions \& Reasoning}
+\subsection{GPU Computing for Geant4}
+\subsection{CUDA}
+\subsection{GPU Integration Approach}
+\subsection{G4NeutronHPVector}\label{subsec_G4NeutronHPVector}
+
+\section{Likely and Unlikely Changes}
+
+\subsection{Likely Changes} %========== Rob
+\begin{enumerate}
+\item
+\end{enumerate}
+
+\subsection{Unlikely Changes} %========= Rob
+\begin{enumerate}
+\item
+\end{enumerate}
+
+\subsection{Traceability of Likely Changes to Design Components}
+
+\section{Module Hierarchy}%============= Stuart
+\subsection{Decomposition of Components}
+The project is based off of Geant4, an existing software system, and modifying specific modules of that system. As such, components do not need to be decomposed, instead the decomposition of the existing system will guide the modules in the project development.\\
+
+Each module in Geant4 is represented by a C++ class, and the project will port certain of said classes to the GPU. The decision of which classes to port to the GPU is derived from performance analysis of the program, with the most computationally time-consuming classes being the targets for GPU porting, such as G4NeutronHPVector as documented in section \ref{subsec_G4NeutronHPVector}.
+
+\subsection{Uses Hierarchy}
+Since each modified module of the project will have a direct 1-to-1 relationship with an existing module in Geant4, the uses hierarchy with the new, GPU-enabled classes will be identical to the existing uses hierarchy of Geant4 with their corresponding existing classes.\\
+
+Geant4 is an extremely large system with many modules, so its entire uses hierarchy will not be documented here. Instead, the following hierarchy focuses on the G4NeutronHPVector class, which is currently the focus of the project. Ellipsis indicate other modules from Geant4 that do not need to be considered for the G4NeutronHPVector module.
+
+\section{Traceability of Requirements and Design Components}% ===== Stuart
+The following section outlines each requirement and what section of the design document addresses it.
 
 \begin{table}[h]
 \centering
-\caption{Revision History}\label{Table_Revision}
-\begin{tabular}{lll}
+\caption{Requirements and Design Relationship}\label{Table_RequirementsAndDesign}
+\begin{tabularx}{\textwidth}{cXX}
 
 \toprule
-\bf Description of Changes & \bf Author & \bf Date\\\midrule
-Set up sections and filled out Introduction section & Matthew & 2015-12-15\\
+\bf Req. \# & \bf Req. Description & \bf Design Component\\\midrule
+1  & computations run on GPU & entire document\\\hline
+2  &  & \\\hline
+3  &  & \\\hline
+4  &  & \\\hline
+5  &  & \\\hline
+6  &  & \\\hline
+7  &  & \\\hline
+8  &  & \\\hline
+9  &  & \\\hline
+10 &  & \\\hline
+11 &  & \\\hline
+12 &  & \\\hline
+13 &  & \\\hline
+14 &  & \\\hline
+15 &  & \\\hline
+16 &  & \\\hline
+17 &  & \\\hline
+18 &  & \\\hline
+19 &  & \\\hline
+20 &  & \\\hline
+21 &  & \\\hline
+22 &  & \\\hline
+23 &  & \\
 \bottomrule
-\end{tabular}
+\end{tabularx}
 \end{table}
-
-\section{Anticipated and unlikely changes}
-\subsection{Likely Changes} %========== Rob
-
-\subsection{Unlikely Changes} %========= Rob
-
-\section{Module Hierarchy}%============= Stuart
-
-\section{Connection between requirements and design}% ===== Stuart
-
-\section{Traceability matrices}% =========== Victor
-\subsection{Note About G4 variables}
-Geant4 uses its own basic types for standard C++ types (G4int, G4bool, G4double, etc). These types are currently just \texttt{typedefs} to the respective type as defined in the system libraries.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ----- NeutronHPDataPoint
-\section{MIS of NeutronHPDataPoint}
-
-\subsection{Interface Syntax}% ================ Victor
-
-\subsection{Exported Access Programs}% ============ Rob
-
-\subsection{Interface Semantics}
-
-\subsubsection{State Variables}% ================== Matt
-\begin{itemize}
-\item energy : G4Double
-\item xSec : G4Double
-\end{itemize}
-
-\subsubsection{Environment Variables}% ============== Matt
-There are no environment variables for this Module.
-
-\subsubsection{Assumption}% ==================== Stuart	
-
-\subsubsection{Access Program Semantics}% =========== Victor
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ---- NeutronHPDataPoint
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ----- NeutronHPVector
-\section{MIS of NeutronHPVector}
-
-\subsection{Interface Syntax}% ================ Victor
-
-\subsection{Exported Access Programs}% ============ Rob
-
-\subsection{Interface Semantics}
-
-\subsubsection{State Variables}% ================== Matt
-\begin{itemize}
-\item G4NeutronHPInterPolator : theLine
-\item totalIntegral : G4double
-\item G4NeutronHPDataPoint * : theData
-\item G4InterpolationManager : theManager
-\item G4double * : theIntegral
-\item G4int : nEntries
-\item G4int : nPoints
-\item G4double : label
-\item G4NeutronInterpolator : theInt
-\item G4int : Verbose
-\item G4int : isFreed
-\item G4NeutronHPHash : theHash
-\item G4double : maxValue
-\item vector\textless G4double\textgreater : theBlocked
-\item vector\textless G4double\textgreater : theBuffered
-\item G4double : the15percentBorderCash
-\item G4double : the50percentBorderCash
-\end{itemize}
-
-\subsubsection{Environment Variables}% ============== Matt
-There are no environment variables for this Module.
-
-\subsubsection{Assumption}% ==================== Stuart	
-
-\subsubsection{Access Program Semantics}% =========== Victor
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ---- NeutronHPVector
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ----- Cmake Files
-\section{MIS of CMake Files}
-
-\subsection{Interface Syntax}% ================ Victor
-
-\subsection{Exported Access Programs}% ============ Rob
-
-\subsection{Interface Semantics}
-
-\subsubsection{State Variables}% ================== Matt
-\begin{itemize}
-\item useCuda : Bool
-\end{itemize}
-
-\subsubsection{Environment Variables}% ============== Matt
-\begin{itemize}
-\item NeutronHPVectorGPU.cu : cuda file with GPU code
-\end{itemize}
-
-
-\subsubsection{Assumption}% ==================== Stuart	
-
-\subsubsection{Access Program Semantics}% =========== Victor
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ---- Cmake Files
-
 
 \end{document}
