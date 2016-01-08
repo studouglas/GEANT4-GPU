@@ -128,7 +128,10 @@ A separate detailed design document covers the specifics of several key modules 
 
 \section{Important Design Decisions \& Reasoning}
 \subsection{GPU Computing for Geant4}
+GEANT4 simulations typically involve simulating the movement of billions of particles. These particles move independently of the other particles. Currently the particles are all stored in an array that the CPU has to go through moving each particle one by one. Considering how many particles this array holds this is a rather time consuming operation, especially since this movement of the particles is done often. 
+Due to the nature of the particles being able to move independently of each other this is a problem that can be easily parallelized. Since the act of moving a particle is so simple GPU cores are able to execute these types of functions. So instead of parallelizing GEANT4 on multiple CPU's we can instead parallelize the code to run on all the GPU cores since the GPU has many more cores than the CPU it is able to run the parallelized code much faster.
 \subsection{CUDA}
+NVIDA recently created a toolkit to make creating parallel code on the GPU much easier. Due to how accessible and easy to use CUDA is to parallelize existing code CUDA was chosen to be as the architecture to be used for this project as it would require the least amount of understanding of the existing GEANT4 functions to produce speedups. 
 \subsection{GPU Integration Approach}
 \subsection{G4NeutronHPVector}\label{subsec_G4NeutronHPVector}
 
