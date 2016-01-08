@@ -92,22 +92,6 @@ Geant4 uses it's own version of the standard variables (G3int, G4bool, G4double,
 \section{MIS of NeutronHPDataPoint}
 
 \subsection{Interface Syntax}% ================ Victor
-\begin{tabular}{| l | l | l |  l |}
-\hline
-Routine Name & Input & Output & Exceptions \\ \hline
-G4NeutronHPDataPoint &  &  &  \\ \hline
-G4NeutronHPDataPoint & G4double, G4double &  & \\ \hline
-operator(REVISE THIS) & G4NeutronHPDataPoint &  & \\ \hline
-GetEnergy & & G4double &  \\ \hline
-GetXsection & & G4double &  \\ \hline
-SetEnergy & G4double & & \\ \hline
-SetXsection & G4double & & \\ \hline
-GetX & & G4double &  \\ \hline
-GetY & & G4double &  \\ \hline
-SetX & G4double & & \\ \hline
-SetY & G4double & & \\ \hline
-SetData & G4double, G4double & &\\ \hline
-\end{tabular}
 
 \subsection{Exported Access Programs}% ============ Rob
 
@@ -116,8 +100,6 @@ SetData & G4double, G4double & &\\ \hline
 \subsubsection{State Variables}% ================== Matt
 energy : G4Double\\
 xSec    : G4Double
-
-%state invariant
 
 \subsubsection{Environment Variables}% ============== Matt
 There are no environment variables for this Module.
@@ -132,73 +114,10 @@ There are no environment variables for this Module.
 \section{MIS of NeutronHPVector}
 
 \subsection{Interface Syntax}% ================ Victor
-%NOTE friend allows members that are not an instance of a particular class, to access private variables the left and right vector are %allowed to access the middle vectors private variables, and the operator function also has access to those variables 
-\begin{tabular}{| p{4cm} | p{4cm} | p{4cm} |  p{4cm} |}
-\hline
-Routine Name & Input & Output & Exceptions \\ \hline
-G4NeutronHPVector & & & \\ \hline
-G4NeutronHPVector & G4int & & \\ \hline
-SetVerbose & G4int & & \\ \hline
-Times &G4double & & \\ \hline
-SetPoint  &G4int, G4NeutronHPDataPoint & & \\ \hline
-SetData & G4int, G4double,G4double& & \\ \hline
-SetX & G4int, G4double & & \\ \hline
-SetEnergy & G4int, G4double & & \\ \hline
-SetY & G4int, G4double & & \\ \hline
-SetXsec & G4int, G4double & & \\ \hline
-GetEnergy & G4int & G4double & \\ \hline
-GetXsec & G4int & G4double & \\ \hline
-GetXsec & G4double & G4double & \\ \hline
-GetXsec & G4double,G4int & G4double & \\ \hline
-GetX & G4int & G4double & \\ \hline
-GetY & G4double & G4double & \\ \hline
-GetY & G4int & G4double & \\ \hline
-GetVectorLength & & G4int & \\ \hline
-GetPoint & G4int & const G4NeutronHPDataPoint \& & \\ \hline
-Hash & & & \\ \hline
-ReHash & & & \\ \hline
-InitInterpolation & istream & & \\ \hline
-Init & istream,G4int, G4double, G4double& & \\ \hline
-Init & istream, G4double,G4double & & \\ \hline
-ThinOut & G4double & & \\ \hline
-SetLabel & G4double & & \\ \hline
-GetLabel & & G4double & \\ \hline
-CleanUp & & & \\ \hline
-\end{tabular}
-\\
-\\
-\\
-\begin{tabular}{| p{4cm} | p{4cm} | p{4cm} |  p{4cm} |}
-\hline
-Routine Name & Input & Output & Exceptions \\ \hline
-Sample & & G4double & \\ \hline
-Debug & & G4double * & \\ \hline
-Merge & G4NeutronHPVector *,  G4NeutronHPVector *& & \\ \hline
-Merge & G4InterpolationScheme, & & \\ 
-&  G4double,  & & \\
-& G4NeutronHPVector *,  & & \\
-& G4NeutronHPVector * & & \\ \hline
-SampleLin & & G4double & \\ \hline
-IntegrateAndNormalise & & & \\ \hline
-Integrate & & & \\ \hline
-GetIntegral & & G4double & \\ \hline
-SetInterpolation- Manager & const G4InterpolationManager \& & & \\ \hline
-SetInterpolation- Manager & G4InterpolationManager \& & & \\ \hline
-G4Interpolation- Manager & & const G4Interpolation- Manager  \& & \\ \hline
-SetScheme & G4int,const G4InterpolationScheme \& & & \\ \hline
-GetScheme & G4int & G4InterpolationScheme & \\ \hline
-GetMeanX & & G4double & \\ \hline
-GetBlocked & & vector\textless G4double\textgreater & \\ \hline
-GetBuffered & & vector\textless G4double\textgreater & \\ \hline
-Get15percentBorder & & G4double & \\ \hline
-Get50percentBorder & & G4double & \\ \hline
-Check & G4int & & \\ \hline
-IsBlocked & G4double & G4bool & \\ \hline
-\end{tabular}
 
 \subsection{Exported Access Programs}% ============ Rob
 
-\subsection{Interface Semantics} 
+\subsection{Interface Semantics}
 
 \subsubsection{State Variables}% ================== Matt
 G4NeutronHPInterPolator : theLin\\
@@ -232,12 +151,6 @@ There are no environment variables for this Module.
 \section{MIS of CMake Files}
 
 \subsection{Interface Syntax}% ================ Victor
-\begin{tabular}{| p{4cm} | p{4cm} | p{4cm} |  p{4cm} |}
-\hline
-Routine Name & Input & Output & Exceptions \\ \hline
-cmake_minimum_required & [VERSION], [FATAL_ERROR]& & \\ \hline
-
-\end{tabular}
 
 \subsection{Exported Access Programs}% ============ Rob
 
