@@ -103,7 +103,7 @@ the install. To run the example `B1`:<br>
 1. `cd /path/to/GEANT4-GPU/geant4.10.00.p02/examples/basic`<br>
 2. `mkdir B1-build`<br>
 3. `cd B1-build`<br>
-4. `cmake -DGeant4_DIR=/path/to/GEANT4-GPU/geant4.10.00.p02-install/lib/Geant4-10.0.2 ../B1`<br>
+4. `cmake -D  CMAKE_CXX_COMPILER=nvcc -DGeant4_DIR=/path/to/GEANT4-GPU/geant4.10.00.p02-install/lib/Geant4-10.0.2 ../B1`<br>
 5. `make -jN` where `N` is the number of cores on your machine<br>
 6. `./exampleB1`
 

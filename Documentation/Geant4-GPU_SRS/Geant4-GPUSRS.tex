@@ -282,7 +282,7 @@ Descriptions of each PUC, referenced by PUC \# are as follows.
 {Req_CompatableGPU}
 {ReqType_Functional}
 {PUC_SimulatingParticles}
-{Trying to run the simulation on the GPU with a computer that does not have a compatible graphics card should be detected and cause it to run on CPU like before.}
+{Trying to enable GPU computing with a computer that does not have a compatible graphics card should be detected and not be allowed.}
 {New product should not limit the amount of users who can use GEANT-4}
 {Any computer that can currently run the existing product should be able to run the new product.}
 {Medium}
@@ -310,21 +310,21 @@ NA - No Style Requirements
 %{Any persons with an understanding of the existing project should be able to clearly understand the modified code.}
 %{Medium}
 %{Created October 6, 2015}
-\ds{This is not a requirement for your end-product.}\\mmp{commented out the CodeOrganization requirement}
+\ds{This is not a requirement for your end-product.}\mmp{commented out the CodeOrganization requirement}
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Usability and Humanity Requirements}\label{ReqType_Usabil} % Rob
 
 \subsubsection{Ease of Use Requirements}
-\requirement
-{Req_Ease of Use}
-{ReqType_Usabil}
-{PUC_SimulatingParticles}
-{The functionality and procedures involved should be manageable for a university undergraduate (or higher) with experience in quantum mechanics, linear algebra, and computer programming.}
-{The software is extremely technical, and requires exposure and understanding to quantum physics and computer programming.}
-{Any given McMaster undergrad with experience in quantum mechanics, linear algebra, and computer programming should be able to learn to use the software.}
-{Medium}
-{Created October 6, 2015}
-\\\\
+%\requirement
+%{Req_Ease of Use}
+%{ReqType_Usabil}
+%{PUC_SimulatingParticles}
+%{The functionality and procedures involved should be manageable for a university undergraduate (or higher) with experience in quantum mechanics, linear algebra, and computer programming.}
+%{The software is extremely technical, and requires exposure and understanding to quantum physics and computer programming.}
+%{Any given McMaster undergrad with experience in quantum mechanics, linear algebra, and computer programming should be able to learn to use the software.}
+%{Medium}
+%{Created October 6, 2015}
+%\\\\
 
 \requirement
 {Req_EasyChange}
@@ -340,42 +340,45 @@ It should be detailing \emph{what} the product is supposed to do.
 Ease of use is a non-functional requirement.}\mmp{Moved to Ease of Use Requirements}
 
 \subsubsection{Personalization and Internationalization Requirements}
-\requirement
-{Req_Personalization and Internationalization}
-{ReqType_Usabil}
-{PUC_SimulatingParticles}
-{There will be no adjustments for personal and international preferences offered.}
-{The software follows a rigorous scientific standard.}
-{A given user with personal (non-technical) barriers to achieving complete satisfaction with the software will be responsible for overcoming such barriers.}
-{Medium}
-{Created October 6, 2015}
-\ds{``Rigorous"} \mmp{fixed spelling}
+NA -- There will be no adjustments for personal and international preferences offered.
+%\requirement
+%{Req_Personalization and Internationalization}
+%{ReqType_Usabil}
+%{PUC_SimulatingParticles}
+%{There will be no adjustments for personal and international preferences offered.}
+%{The software follows a rigorous scientific standard.}
+%{A given user with personal (non-technical) barriers to achieving complete satisfaction with the software will be responsible for overcoming such barriers.}
+%{Medium}
+%{Created October 6, 2015}
+%\ds{``Rigorous"} \mmp{fixed spelling}
 
 \subsubsection{Learning Requirements}
-\requirement
-{Req_Learning}
-{ReqType_Usabil}
-{PUC_SimulatingParticles}
-{Utilization of the software should be learnable given 2-3 weeks of training.}
-{Although the prerequisite knowledge assumed of the user is massive, the learning curve for such a person is not.}
-{Any university undergraduate student with solid foundations in quantum mechanics and computer programming should be able to learn to operate the software in roughly 2 or 3 weeks.}
-{Medium}
-{Created October 6, 2015}
+NA -- The software will not have any specific learning requirements beyond knowledge of using existing Geant4
+%\requirement
+%{Req_Learning}
+%{ReqType_Usabil}
+%{PUC_SimulatingParticles}
+%{Utilization of the software should be learnable given 2-3 weeks of training.}
+%{Although the prerequisite knowledge assumed of the user is massive, the learning curve for such a person is not.}
+%{Any university undergraduate student with solid foundations in quantum mechanics and computer programming should be able to learn to operate the software in roughly 2 or 3 weeks.}
+%{Medium}
+%{Created October 6, 2015}
 
 \subsubsection{Understandability and Politeness Requirements}
-NA\\
+NA
 
 \subsubsection{Accessibility Requirements}
-\requirement
-{Req_Accessibility}
-{ReqType_Usabil}
-{PUC_SimulatingParticles}
-{The software should be accessible to any person who can learn and use a shell based operating system.}
-{Vision/reading/typing is required for the operation of the software, and there will be no accessibility alternatives offered.}
-{A person with no disabilities and a knowledge on shell based operating systems should be able to run the software.}
-{Medium}
-{Created October 6, 2015}
-\ds{Bad fit criterion}\mmp{changed fit criterion}
+NA -- The software will not provide any specific support for accessibility.
+%\requirement
+%{Req_Accessibility}
+%{ReqType_Usabil}
+%{PUC_SimulatingParticles}
+%{The software should be accessible to any person who can learn and use a shell based operating system.}
+%{Vision/reading/typing is required for the operation of the software, and there will be no accessibility alternatives offered.}
+%{A person with no disabilities and a knowledge on shell based operating systems should be able to run the software.}
+%{Medium}
+%{Created October 6, 2015}
+%\ds{Bad fit criterion}\mmp{changed fit criterion}
 
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Performance Requirements}\label{ReqType_Performance}
@@ -384,7 +387,7 @@ NA\\
 {Req_SpeedLatency}
 {ReqType_Performance}
 {PUC_SimulatingParticles}
-{Decrease the time it takes to run a particle simulation while maintaining the same output.}
+{Decrease the time it takes to run a particle simulation on the GPU while maintaining the same output.}
 {The entire purpose of the project is to improve the speed of the simulation.}
 {Running a simulation with a given set of input parameters should complete significantly faster on the product as compared to the existing software. Both should have identical outputs.}
 {Very High}
@@ -429,15 +432,16 @@ NA -- The software is not used in safety critical environments. It is a tool for
 \mmp{added a requirement for safeguarding in case of an error}
 
 \subsubsection{Capacity Requirements}
-\requirement
-{Req_Capacity}
-{ReqType_Performance}
-{PUC_SimulatingParticles}
-{Due to speed improvements (requirement \ref{Req_SpeedLatency}) a larger number of particles should be able to be simulated in the same period of time.}
-{Increasing the number of particles in the simulation will allow researchers to better simulate real-world interactions.}
-{A simulation running on the new product will be able to simulate a significantly larger number of particles in the same time as the same simulation on the existing product.}
-{High}
-{Created September 27, 2015}
+NA -- see requirement \ref{Req_SpeedLatency}.
+%\requirement
+%{Req_Capacity}
+%{ReqType_Performance}
+%{PUC_SimulatingParticles}
+%{Due to speed improvements (requirement \ref{Req_SpeedLatency}) a larger number of particles should be able to be simulated in the same period of time.}
+%{Increasing the number of particles in the simulation will allow researchers to better simulate real-world interactions.}
+%{A simulation running on the new product will be able to simulate a significantly larger number of particles in the same time as the same simulation on the existing product.}
+%{High}
+%{Created September 27, 2015}
 
 \subsubsection{Scalability Requirements}
 NA -- The product will be used by single researchers, and is run locally on their machines. This project does not encompass the giving the functionality for distributing GEANT4-GPU to multiple GPU's. 
@@ -452,23 +456,24 @@ NA -- The product is to be completed by April 2016, and there are no plans to ex
 \subsection{Operational and Environmental Requirements}\label{ReqType_Enviro} % Matt
 
 \subsubsection{Expected Physical Environment}
-\requirement
-{Req_PhysEnviro}
-{ReqType_Enviro}
-{PUC_SimulatingParticles}
-{The product shall be used by an Engineering Physics professor, researcher or student who will be sitting down in a temperature controlled environment.}
-{The product should typically only be used in an office environment.}
-{95\% of all uses of the product will be used by Engineering Physics professors, researchers or students in sitting down in temperature controlled environments.}
-{Low}
-{Created October 4, 2015}
+The product shall be used by an Engineering Physics professor, researcher or student who will be sitting down in a temperature controlled environment.
+%\requirement
+%{Req_PhysEnviro}
+%{ReqType_Enviro}
+%{PUC_SimulatingParticles}
+%{The product shall be used by an Engineering Physics professor, researcher or student who will be sitting down in a temperature controlled environment.}
+%{The product should typically only be used in an office environment.}
+%{95\% of all uses of the product will be used by Engineering Physics professors, researchers or students in sitting down in temperature controlled environments.}
+%{Low}
+%{Created October 4, 2015}
 
 \subsubsection{Requirements for interfacing with adjacent Systems}
 \requirement
 {Req_BackwardsCompatible}
 {ReqType_Enviro}
 {PUC_SimulatingParticles}
-{The product shall work with the last four versions of GEANT-4}
-{Backwards compatibility is a nice thing to have.}
+{The product shall work with GEANT-4 10.00.p02 and later (barring breaking changes in Geant4 introduced after the project's completion date).}
+{Support for most recent versions is desireable to users.}
 {At least the last four versions of GEANT-4 will be able to run this product.}
 {Low}
 {Created October 4, 2015}
@@ -478,7 +483,7 @@ NA -- The product is to be completed by April 2016, and there are no plans to ex
 {Req_Distro}
 {ReqType_Enviro}
 {PUC_SimulatingParticles}
-{The product will available on a public repository along with clear instructions for installation}
+{The product will be available on a public repository along with clear instructions for installation}
 {Want to make the product easily available}
 {90\% of users should be able to acquire the product with out much trouble}
 {Low}
@@ -499,13 +504,13 @@ NA -- The product is to be completed by April 2016, and there are no plans to ex
 \subsection{Maintainability and Support Requirements} % Victor
 
 \subsubsection{Maintenance Requirements}
-Baeause G4-STORK is open source, the code written can be maintained by anyone. The original developers will not be maintaining the code, it will have to be done by end users. 
+Because G4-STORK is open source, the code written can be maintained by anyone. The original developers will not be maintaining the code, it will have to be done by end users. 
 
 \subsubsection{Supportability Requirements}
 There will be a setup.txt file describing briefly how to add a function and set inital parameters. 
 
 \subsubsection{Adaptability Requirements}
-G4STORK is only able to be run on Fedora and OSx. Therefore the project is constrained to only being able to run on Fedora and OSx. Thus the completed project is expected to run on Fedora and OSx. 
+G4STORK is only able to be run on Fedora and OS X. Therefore the project is constrained to only being able to run on Fedora and OS X. Thus the completed project is expected to run on Fedora and OS X. 
 \ds{Why only those?} \mmp{added explanation to why project will run only on Fedora and OSx}
 
 % ----------------------------- Sub Section ----------------------------- %
@@ -522,39 +527,43 @@ G4STORK is only able to be run on Fedora and OSx. Therefore the project is const
 {Created October 6, 2015}
 
 \subsubsection{Integrity Requirements}
-\requirement
-{Req_Integrity}
-{ReqType_Security}
-{PUC_SimulatingParticles}
-{There will be no compromise on the integrity of data outside of physical hardware malfunctions.}
-{All data is stored locally and unaltered.}
-{A user upon gathering input or output data should never find that their data has been compromised.}
-{High}
-{Created October 6, 2015}
+NA -- There will be no compromise on the integrity of data outside of physical hardware malfunctions.
+%\requirement
+%{Req_Integrity}
+%{ReqType_Security}
+%{PUC_SimulatingParticles}
+%{There will be no compromise on the integrity of data outside of physical hardware malfunctions.}
+%{All data is stored locally and unaltered.}
+%{A user upon gathering input or output data should never find that their data has been compromised.}
+%{High}
+%{Created October 6, 2015}
 
 \subsubsection{Privacy Requirements}
-\requirement
-{Req_Privacy}
-{ReqType_Security}
-{PUC_SimulatingParticles}
-{The privacy of the data will be managed entirely by and at the discretion of the user.}
-{The data is stored and manipulated entirely locally.}
-{No user will ever find that their data has been shared without their discretion.}
-{High}
-{Created October 6, 2015}
+NA -- The privacy of the data will be managed entirely by and at the discretion of the user.
+%\requirement
+%{Req_Privacy}
+%{ReqType_Security}
+%{PUC_SimulatingParticles}
+%{The privacy of the data will be managed entirely by and at the discretion of the user.}
+%{The data is stored and manipulated entirely locally.}
+%{No user will ever find that their data has been shared without their discretion.}
+%{High}
+%{Created October 6, 2015}
 
 \subsubsection{Audit Requirements}
+NA -- The software does not need to meet any specific audits.
 
 \subsubsection{Immunity Requirements}
-\requirement
-{Req_Immunity}
-{ReqType_Security}
-{PUC_SimulatingParticles}
-{There will be no specific features to ensure immunity.}
-{The only impact external software can have on the program is a cut in performance.}
-{The user will be held responsible for ensuring that no external software is hogging the resources required for the project to run at optimal performance.}
-{Medium}
-{Created October 6, 2015}
+NA -- There will be no specific features to ensure immunity.
+%\requirement
+%{Req_Immunity}
+%{ReqType_Security}
+%{PUC_SimulatingParticles}
+%{There will be no specific features to ensure immunity.}
+%{The only impact external software can have on the program is a cut in performance.}
+%{The user will be held responsible for ensuring that no external software is hogging the resources required for the project to run at optimal performance.}
+%{Medium}
+%{Created October 6, 2015}
 
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Cultural Requirements} % Stuart
