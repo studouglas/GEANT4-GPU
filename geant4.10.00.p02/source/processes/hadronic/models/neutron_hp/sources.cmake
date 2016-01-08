@@ -16,7 +16,7 @@
 #-----------------------------------------------------------------------
 
 # Include CUDA
-include_directories(${CMAKE_SOURCE_DIR}/source/processes/hadronic/models/neutron_hp/cuda)
+include_directories(${CMAKE_SOURCE_DIR}/source/processes/hadronic/models/neutron_hp/cuda/include)
 
 # List external includes needed.
 include_directories(${CLHEP_INCLUDE_DIRS})
@@ -53,7 +53,7 @@ include_directories(${CMAKE_SOURCE_DIR}/source/track/include)
 include(Geant4MacroDefineModule)
 GEANT4_DEFINE_MODULE(NAME G4had_neu_hp
   HEADERS
-    ../cuda/CUDA_G4NeutronHPVector.h
+    ../cuda/include/CUDA_G4NeutronHPVector.h
     G4NeutronHPList.hh
     G4InterpolationIterator.hh
     G4NeutronHPIsoData.hh
@@ -191,7 +191,7 @@ GEANT4_DEFINE_MODULE(NAME G4had_neu_hp
 	G4WattFissionSpectrumValues.hh
 ### FissionFragment Generator - end
   SOURCES
-    ../cuda/CUDA_G4NeutronHPVector.cu
+    ../cuda/src/CUDA_G4NeutronHPVector.cu
     G4NeutronHPIsoData.cc
     G4InterpolationManager.cc
     G4NeutronHPLevel.cc
@@ -340,7 +340,7 @@ GEANT4_DEFINE_MODULE(NAME G4had_neu_hp
     G4particles
     G4track
   LINK_LIBRARIES
-    #CUDA_G4NeutronHPVector
+    CUDA_G4NeutronHPVector
     # if uncommented, then when running hadr04 we get error:
     # ===
     # dyld: Library not loaded: libCUDA_G4NeutronHPVector.dylib

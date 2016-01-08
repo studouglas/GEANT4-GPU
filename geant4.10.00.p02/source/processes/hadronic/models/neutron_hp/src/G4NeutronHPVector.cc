@@ -34,7 +34,7 @@
 #include "G4SystemOfUnits.hh"
 
  // if set to 1, then tries to execute cuda code which fails due to linking problems
-#define GEANT4_ENABLE_CUDA 0
+#define GEANT4_ENABLE_CUDA 1
 #if GEANT4_ENABLE_CUDA
 	#include "CUDA_G4NeutronHPVector.h"
 #endif

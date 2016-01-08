@@ -24,16 +24,14 @@
 \newcommand{\ds}[1]{\authornote{blue}{DS}{#1}}
 % End Comments ---------------------------------------------------------------
 
-
-%title page format?%
-
+\setlength{\parindent}{0pt}
 
 \begin{document}
 
 \title{
 \LARGE GEANT-4 GPU Port:
 \\\vspace{10mm}
-\large \textbf{Design Document}
+\large \textbf{Design Document: System Architecture}
 \vspace{20mm}
 }
 \author{
@@ -48,17 +46,20 @@ Stuart Douglas -- 1214422
 \maketitle
 \newpage
 
+\renewcommand{\contentsname}{Table of Contents}
 \tableofcontents
  
 \section{Introduction}% ============== Matt
 \subsection{Purpose}
-The purpose of GEANT4-GPU is to reduce the computation times of particle simulations.
-\subsection{Description}
-The project aims to improve the computation times of GEANT4 particle simulations by running simulations on the GPU. GEANT4-GPU will allow users to 
-build GEANT4 with an enable GPU acceleration option. Our implementation will be available on Mac, Linux and Windows operating systems with NVIDIA graphics cards. GEANT4-GPU must be able to do particle simulations much faster than running the simulations on a GEANT4 build that runs entirely on the CPU.
-\subsection{Scope}
-The scope of GEANT4-GPU will be limited to Engineering Physics simulations; particularly those that make use of the NeutronHPVector class.
+The purpose of GEANT4-GPU is to reduce the computation times of particle simulations using the GEANT4 simulation library.
 
+\subsection{Description}
+The project aims to improve the computation times of Geant4 particle simulations by running certain parallel operations on a GPU. GEANT4-GPU will be a fork of the existing Geant4 system with the additional option for users with compatible hardware to run operations on the GPU for improved performane. This functionality will be available on Mac, Linux and Windows operating systems running on computers with NVIDIA graphics cards (G8X series or later).\\
+
+The design strategy for the project will be based on taking a specific, computationally heavy class from Geant4 and creating a class that fulfills the same interface but that runs on the GPU. This will be repeated for many classes until the project's deadline has been reached. The user will have the option of using the existing classes (running on the CPU) or the new ones (running on the GPU).
+
+\subsection{Scope}
+The scope of the project in terms of modules to port to the GPU will be limited to physics simulations run by the McMaster Engineering Physics department.
 
 \section*{Revision History}
 All major edits to this document will be recorded in the table below.
@@ -86,7 +87,7 @@ Set up sections and filled out Introduction section & Matthew & 2015-12-15\\
 
 \section{Traceability matrices}% =========== Victor
 \subsection{Note About G4 variables}
-Geant4 uses it's own version of the standard variables (G3int, G4bool, G4double, etc). These variables behave exactly like their non G4 counterparts. These G4 variables were implemented as a standard.
+Geant4 uses its own basic types for standard C++ types (G4int, G4bool, G4double, etc). These types are currently just \texttt{typedefs} to the respective type as defined in the system libraries.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ----- NeutronHPDataPoint
 \section{MIS of NeutronHPDataPoint}
@@ -98,8 +99,10 @@ Geant4 uses it's own version of the standard variables (G3int, G4bool, G4double,
 \subsection{Interface Semantics}
 
 \subsubsection{State Variables}% ================== Matt
-energy : G4Double\\
-xSec    : G4Double
+\begin{itemize}
+\item energy : G4Double
+\item xSec : G4Double
+\end{itemize}
 
 \subsubsection{Environment Variables}% ============== Matt
 There are no environment variables for this Module.
@@ -120,24 +123,25 @@ There are no environment variables for this Module.
 \subsection{Interface Semantics}
 
 \subsubsection{State Variables}% ================== Matt
-G4NeutronHPInterPolator : theLin\\
-totalIntegral : G4double\\
-G4NeutronHPDataPoint * : theData\\
-G4InterpolationManager : theManager\\
-G4double * : theIntegral\\
-G4int : nEntries\\
-G4int : nPoints\\
-G4double : label\\
-G4NeutronInterpolator : theInt\\
-G4int : Verbose\\
-G4int : isFreed\\
-G4NeutronHPHash : theHash\\
-G4double : maxValue\\
-vector<G4double> : theBlocked\\
-vector <G4double> : theBuffered\\
-G4double : the15percentBorderCash\\
-G4double : the50percentBorderCash
-
+\begin{itemize}
+\item G4NeutronHPInterPolator : theLine
+\item totalIntegral : G4double
+\item G4NeutronHPDataPoint * : theData
+\item G4InterpolationManager : theManager
+\item G4double * : theIntegral
+\item G4int : nEntries
+\item G4int : nPoints
+\item G4double : label
+\item G4NeutronInterpolator : theInt
+\item G4int : Verbose
+\item G4int : isFreed
+\item G4NeutronHPHash : theHash
+\item G4double : maxValue
+\item vector\textless G4double\textgreater : theBlocked
+\item vector\textless G4double\textgreater : theBuffered
+\item G4double : the15percentBorderCash
+\item G4double : the50percentBorderCash
+\end{itemize}
 
 \subsubsection{Environment Variables}% ============== Matt
 There are no environment variables for this Module.
@@ -157,10 +161,15 @@ There are no environment variables for this Module.
 \subsection{Interface Semantics}
 
 \subsubsection{State Variables}% ================== Matt
-useCuda : Bool
+\begin{itemize}
+\item useCuda : Bool
+\end{itemize}
 
 \subsubsection{Environment Variables}% ============== Matt
-NeutronHPVectorGPU.cu : cuda file with GPU code
+\begin{itemize}
+\item NeutronHPVectorGPU.cu : cuda file with GPU code
+\end{itemize}
+
 
 \subsubsection{Assumption}% ==================== Stuart	
 
