@@ -4,6 +4,7 @@
 \usepackage[margin=1.2in]{geometry}
 \usepackage{graphicx}
 \usepackage{enumerate}
+\usepackage{colortbl}
 \usepackage{listings}
 \usepackage{titling}
 \usepackage{tabularx}
@@ -131,6 +132,12 @@ A separate detailed design document covers the specifics of several key modules 
 \subsection{GPU Computing for Geant4} % matt
 \subsection{CUDA} % matt
 \subsection{GPU Integration Approach} % stu
+When considering how to integrate the GPU computations with the non-ported procedures that run on the CPU there were several options. The first option would be to port the entire Geant4 toolkit to run 100\% on the GPU. This would see the biggest speedup, but is far beyond the scope of this project and the resources available. A more realistic alternative is to take several key classes and implement their functions on the GPU. The existing functions on the CPU would make the necessary calls to the GPU to execute the corresponding function and receive the result when the GPU finishes and return it to the caller. The advantage of this approach is that the work is easier to break down and distribute, and will focus efforts on the modules and functions within those modules that require speed improvements the most.\\
+
+When a ported module is first initialized, it will also initialize a copy on the GPU, and every time data is updated those updates will be applied to the GPU class as well. Then, when a function is called, the GPU will already have all the data it requires and will be able to quickly return the result. If a given function is not ported or if the user has not enabled GPU computations the function will run the existing code on the CPU. The overhead of this approach is the time during initialization to initialize the GPU class as well, and when updates occur. We believe this overhead will be outweighed by the advantages of the parallel GPU computing. The initialization is only called once, and updates to the data generally target small subsets of the vector.\\
+
+This same approach of taking a class and initializing a copy on the GPU with a subset of the functions ported to the GPU will be applied to other classes in the future.
+
 \subsection{G4NeutronHPVector}\label{subsec_G4NeutronHPVector} % rob
 
 \section{Likely and Unlikely Changes}
@@ -172,6 +179,7 @@ The following section outlines each requirement and what section of the design d
 
 \toprule
 \bf Req. & \bf Brief Description & \bf Design Component\\\midrule
+\arrayrulecolor{lightgray}
 1  & computations run on GPU & entire document\\\hline
 2  & existing projects not affected & \\\hline
 3  & by default simulation will run on CPU & \\\hline
@@ -186,6 +194,7 @@ The following section outlines each requirement and what section of the design d
 12 & available on public repo with installation instructions & \\\hline
 13 & new versions of product will be available on repo, won't break previous features & \\\hline
 14 & all users have access to entire product & \\
+\arrayrulecolor{black}
 \bottomrule
 \end{tabularx}
 \end{table}
