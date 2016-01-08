@@ -106,16 +106,17 @@ NVIDIA & computer hardware and software company specializing in GPU's\\
 \begin{tabular}{cl}
 \toprule
 \bf Figure \# & \bf Title\\\midrule
+\ref{imgUsesHierarchy} & Uses Hierarchy for G4NeutronHPVector\\
 \bottomrule
 \end{tabular}
 \end{center}
 
 \section{Overview}
 \subsection{Purpose of Project}
-The purpose of GEANT4-GPU is to reduce the computation times of particle simulations using the GEANT4 simulation library.
+The purpose of GEANT4-GPU is to reduce the computation times of particle simulations in Geant4 by parallelizing and running certain procedures on the GPU.
 
 \subsection{Description}
-The project aims to improve the computation times of Geant4 particle simulations by running certain parallel operations on a GPU. GEANT4-GPU will be a fork of the existing Geant4 system with the additional option for users with compatible hardware to run operations on the GPU for improved performane. This functionality will be available on Mac, Linux and Windows operating systems running on computers with NVIDIA graphics cards (G8X series or later).\\
+The project aims to improve the computation times of Geant4 particle simulations by running certain parallel operations on a GPU. GEANT4-GPU will be a fork of the existing Geant4 system with the additional option for users with compatible hardware to run operations on the GPU for improved performane. This functionality will be available on Mac, Linux and Windows operating systems running on computers with NVIDIA graphics cards that support CUDA.\\
 
 The design strategy for the project will be based on taking a specific, computationally heavy class from Geant4 and creating a class that fulfills the same interface but that runs on the GPU. This will be repeated for many classes until the project's deadline has been reached. The user will have the option of using the existing classes (running on the CPU) or the new ones (running on the GPU).
 
@@ -127,10 +128,10 @@ This system architecture document details the system architecture, including an 
 A separate detailed design document covers the specifics of several key modules in the project. This includes the interface specification and implementation decisions.
 
 \section{Important Design Decisions \& Reasoning}
-\subsection{GPU Computing for Geant4}
-\subsection{CUDA}
-\subsection{GPU Integration Approach}
-\subsection{G4NeutronHPVector}\label{subsec_G4NeutronHPVector}
+\subsection{GPU Computing for Geant4} % matt
+\subsection{CUDA} % matt
+\subsection{GPU Integration Approach} % stu
+\subsection{G4NeutronHPVector}\label{subsec_G4NeutronHPVector} % rob
 
 \section{Likely and Unlikely Changes}
 
@@ -150,12 +151,16 @@ A separate detailed design document covers the specifics of several key modules 
 \subsection{Decomposition of Components}
 The project is based off of Geant4, an existing software system, and modifying specific modules of that system. As such, components do not need to be decomposed, instead the decomposition of the existing system will guide the modules in the project development.\\
 
-Each module in Geant4 is represented by a C++ class, and the project will port certain of said classes to the GPU. The decision of which classes to port to the GPU is derived from performance analysis of the program, with the most computationally time-consuming classes being the targets for GPU porting, such as G4NeutronHPVector as documented in section \ref{subsec_G4NeutronHPVector}.
+Each module in Geant4 is represented by a C++ class, and the project will port a subset of said classes to the GPU. The decision of which classes to port to the GPU is derived from performance analysis of the program, with the most computationally time-consuming classes being the targets for GPU porting, such as G4NeutronHPVector as documented in section \ref{subsec_G4NeutronHPVector}.
 
 \subsection{Uses Hierarchy}
 Since each modified module of the project will have a direct 1-to-1 relationship with an existing module in Geant4, the uses hierarchy with the new, GPU-enabled classes will be identical to the existing uses hierarchy of Geant4 with their corresponding existing classes.\\
 
-Geant4 is an extremely large system with many modules, so its entire uses hierarchy will not be documented here. Instead, the following hierarchy focuses on the G4NeutronHPVector class, which is currently the focus of the project. Ellipsis indicate other modules from Geant4 that do not need to be considered for the G4NeutronHPVector module.
+Geant4 is an extremely large system with many modules, so its entire uses hierarchy will not be documented here. Instead, the following hierarchy just maps the dependencies of G4NeutronHPVector, which is currently the focus of the project. Note that modules used by system libraries are not included.
+\begin{figure}
+\caption{Uses Hierarchy for G4NeutronHPVector}\label{imgUsesHierarchy}
+\includegraphics[width=\textwidth]{uses_hierarchy.pdf}
+\end{figure}
 
 \section{Traceability of Requirements and Design Components}% ===== Stuart
 The following section outlines each requirement and what section of the design document addresses it.
@@ -166,30 +171,21 @@ The following section outlines each requirement and what section of the design d
 \begin{tabularx}{\textwidth}{cXX}
 
 \toprule
-\bf Req. \# & \bf Req. Description & \bf Design Component\\\midrule
+\bf Req. & \bf Brief Description & \bf Design Component\\\midrule
 1  & computations run on GPU & entire document\\\hline
-2  & existing projects not affected by & \\\hline
-3  &  & \\\hline
-4  &  & \\\hline
-5  &  & \\\hline
-6  &  & \\\hline
-7  &  & \\\hline
-8  &  & \\\hline
-9  &  & \\\hline
-10 &  & \\\hline
-11 &  & \\\hline
-12 &  & \\\hline
-13 &  & \\\hline
-14 &  & \\\hline
-15 &  & \\\hline
-16 &  & \\\hline
-17 &  & \\\hline
-18 &  & \\\hline
-19 &  & \\\hline
-20 &  & \\\hline
-21 &  & \\\hline
-22 &  & \\\hline
-23 &  & \\
+2  & existing projects not affected & \\\hline
+3  & by default simulation will run on CPU & \\\hline
+4  & should detect if computer has compatible GPU & \\\hline
+5  & enabling GPU computation on incompatible hardware not allowed & \\\hline
+6  & enabling GPU functionality on existing projects easy & \\\hline
+7 & runtime of simulation decreased with same output & \\\hline
+8 & accuracy of results same as when run on CPU & \\\hline
+9 & at least as stable as existing system & \\\hline
+10 & errors will throw exceptions & \\\hline
+11 & will work with last four versions of Geant4 & \\\hline
+12 & available on public repo with installation instructions & \\\hline
+13 & new versions of product will be available on repo, won't break previous features & \\\hline
+14 & all users have access to entire product & \\
 \bottomrule
 \end{tabularx}
 \end{table}
