@@ -73,7 +73,7 @@ All major edits to this document will be recorded in the table below.
 \toprule
 \bf Description of Changes & \bf Author & \bf Date\\\midrule
 Set up sections and filled out Introduction section & Matthew & 2015-12-15\\
-Added some more sections, renamed current ones & Stuart & 2016-01-08\\
+Added sections for Errors and Key Algorithms & Stuart & 2016-01-08\\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -93,7 +93,7 @@ This detailed design document covers the specifics of several key modules in the
 \ref{Table_Revision} & Revision History\\
 \ref{Table_NeutronHPDataPointInterface} & NeutronHPDataPoint -- interface syntax\\
 \ref{Table_NeutronHPVectorInterface} & NeutronHPVector -- interface syntax\\
-\ref{Table_CMakeInterface} & CMake Files -- interface syntax\\
+%\ref{Table_CMakeInterface} & CMake Files -- interface syntax\\
 \bottomrule
 \end{tabular}
 \end{center}
@@ -104,18 +104,19 @@ Geant4 uses its own basic types for standard C++ types (G4int, G4bool, G4double,
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ----- NeutronHPDataPoint
 \section{NeutronHPDataPoint}
+\subsection{Description}
 
 \subsection{MIS (Module Interface Specification)}
-\subsubsection{Interface Syntax}% ================ Victor
+\subsubsection{Access Program Syntax}% ================ Victor
 \begin{table}[H]
-\caption{NeutronHPDataPoint -- interface syntax}\label{Table_NeutronHPDataPointInterface}
+\caption{NeutronHPDataPoint -- access program syntax}\label{Table_NeutronHPDataPointInterface}
 \begin{tabular}{p{0.3\textwidth} p{0.3\textwidth} p{0.2\textwidth} p{0.2\textwidth}}
 \toprule
 \bf Routine Name & \bf Input & \bf Output & \bf Exceptions \\ \midrule
 \arrayrulecolor{lightgray}
 G4NeutronHPDataPoint &  &  &  \\\hline
 G4NeutronHPDataPoint & G4double, G4double &  & \\\hline
-operator(REVISE THIS) & G4NeutronHPDataPoint &  & \\\hline
++ & G4NeutronHPDataPoint &  & \\\hline
 GetEnergy & & G4double &  \\\hline
 GetXsection & & G4double &  \\\hline
 SetEnergy & G4double & & \\\hline
@@ -130,9 +131,29 @@ SetData & G4double, G4double & &\\
 \end{tabular}
 \end{table}
 
-\subsubsection{Exported Access Programs}% ============ Rob
-
-\subsubsection{Interface Semantics}
+\subsubsection{Access Program Semantics}% =========== Victor
+\begin{table}[H]
+\caption{NeutronHPDataPoint -- access program semantics}\label{Table_NeutronHPDataPointSemantics}
+\begin{tabular}{p{0.3\textwidth} p{0.7\textwidth}}
+\toprule
+\bf Routine Name & \bf Semantics \\ \midrule
+\arrayrulecolor{lightgray}
+G4NeutronHPDataPoint  & \\\hline
+G4NeutronHPDataPoint  & \\\hline
++                     & \\\hline
+GetEnergy             & \\\hline
+GetXsection           & \\\hline
+SetEnergy             & \\\hline
+SetXsection           & \\\hline
+GetX                  & \\\hline
+GetY 				  & \\\hline
+SetX				  & \\\hline
+SetY				  & \\\hline
+SetData				  & \\
+\arrayrulecolor{black}
+\bottomrule
+\end{tabular}
+\end{table}
 
 \subsubsection{State Variables}% ================== Matt
 \begin{itemize}
@@ -143,10 +164,11 @@ SetData & G4double, G4double & &\\
 \subsubsection{Environment Variables}% ============== Matt
 There are no environment variables for this Module.
 
-\subsubsection{Assumption}% ==================== Stuart	
-
-
-\subsubsection{Access Program Semantics}% =========== Victor
+\subsubsection{Assumptions}% ==================== Stuart	
+The following can be assumed for this module:
+\begin{itemize}
+\item
+\end{itemize}
 
 \subsection{Error Handling}
 
@@ -157,11 +179,12 @@ There are no environment variables for this Module.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ----- NeutronHPVector
 \section{G4NeutronHPVector}
 
+\subsection{Description}
+
 \subsection{MIS (Module Interface Specification)}
-\subsubsection{Interface Syntax}% ================ Victor
-%\begin{table}[h]
+\subsubsection{Access Program Syntax}% ================ Victor
 \begin{longtable}{p{0.28\textwidth}p{0.28\textwidth}p{0.28\textwidth}p{0.16\textwidth}}
-\caption{G4NeutronHPVector -- interface syntax}\label{Table_NeutronHPVectorInterface}\\
+\caption{G4NeutronHPVector -- access program syntax}\label{Table_NeutronHPVectorInterface}\\
 \toprule
 \bf Routine Name & \bf Input & \bf Output & \bf Exceptions \\\midrule
 \arrayrulecolor{lightgray}
@@ -196,10 +219,7 @@ CleanUp & & & \\\hline
 Sample & & G4double & \\\hline
 Debug & & G4double * & \\\hline
 Merge & G4NeutronHPVector *,  G4NeutronHPVector *& & \\\hline
-Merge & G4InterpolationScheme, \\\hline
-&  G4double, \\\hline
-& G4NeutronHPVector *, \\\hline
-& G4NeutronHPVector * & & \\\hline
+Merge & G4InterpolationScheme, G4double, G4NeutronHPVector *, G4NeutronHPVector * & &\\\hline
 SampleLin & & G4double & \\\hline
 IntegrateAndNormalise & & & \\\hline
 Integrate & & & \\\hline
@@ -219,11 +239,64 @@ IsBlocked & G4double & G4bool\\
 \arrayrulecolor{black}
 \bottomrule
 \end{longtable}
-%\end{table}
 
-\subsubsection{Exported Access Programs}% ============ Rob
-
-\subsubsection{Interface Semantics}
+\subsubsection{Access Program Semantics}% ============ Rob
+\begin{longtable}{p{0.25\textwidth}p{0.75\textwidth}}
+\caption{G4NeutronHPVector -- access program semantics}\label{Table_NeutronHPVectorSemantics}\\
+\toprule
+\bf Routine Name & \bf Description \\\midrule
+\arrayrulecolor{lightgray}
+G4NeutronHPVector & \\\hline
+G4NeutronHPVector & \\\hline
+SetVerbose & \\\hline
+Times & \\\hline
+SetPoint & \\\hline
+SetData & \\\hline
+SetX & \\\hline
+SetEnergy & \\\hline
+SetY & \\\hline
+SetXsec & \\\hline
+GetEnergy & \\\hline
+GetXsec & \\\hline
+GetXsec & \\\hline
+GetXsec & \\\hline
+GetX & \\\hline
+GetY & \\\hline
+GetY & \\\hline
+GetVectorLength & \\\hline
+GetPoint & \\\hline
+Hash & \\\hline
+ReHash & \\\hline
+InitInterpolation & \\\hline
+Init & \\\hline
+Init & \\\hline
+ThinOut & \\\hline
+SetLabel & \\\hline
+GetLabel & \\\hline
+CleanUp & \\\hline
+Sample & \\\hline
+Debug & \\\hline
+Merge & \\\hline
+Merge & \\\hline
+SampleLin & \\\hline
+IntegrateAndNormalise & \\\hline
+Integrate & \\\hline
+GetIntegral & \\\hline
+SetInterpolationManager & \\\hline
+SetInterpolationManager & \\\hline
+G4InterpolationManager & \\\hline
+SetScheme & \\\hline
+GetScheme & \\\hline
+GetMeanX & \\\hline
+GetBlocked & \\\hline
+GetBuffered & \\\hline
+Get15percentBorder & \\\hline
+Get50percentBorder & \\\hline
+Check & \\\hline
+IsBlocked & \\
+\arrayrulecolor{black}
+\bottomrule
+\end{longtable}
 
 \subsubsection{State Variables}% ================== Matt
 \begin{itemize}
@@ -249,9 +322,7 @@ IsBlocked & G4double & G4bool\\
 \subsubsection{Environment Variables}% ============== Matt
 There are no environment variables for this Module.
 
-\subsubsection{Assumption}% ==================== Stuart	
-
-\subsubsection{Access Program Semantics}% =========== Victor
+\subsubsection{Assumptions}% ==================== Stuart	
 
 \subsection{Error Handling}
 
@@ -260,21 +331,21 @@ There are no environment variables for this Module.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ----- Cmake Files
 \section{CMake Files}
-
+\subsection{Description}
 \subsection{MIS (Module Interface Specification)}
-\subsubsection{Interface Syntax}% ================ Victor
-\begin{table}[h]
-\caption{CMake Files -- interface syntax}\label{Table_CMakeInterface}
-\begin{tabular}{| p{0.25\textwidth} | p{0.25\textwidth} | p{0.25\textwidth} |  p{0.25\textwidth} |}
-\hline
-\bf Routine Name & \bf Input & \bf Output & \bf Exceptions \\ \hline
+\subsubsection{Access Program Syntax}% ================ Victor
+NA
+%\begin{table}[h]
+%\caption{CMake Files -- interface syntax}\label{Table_CMakeInterface}
+%\begin{tabular}{| p{0.25\textwidth} | p{0.25\textwidth} | p{0.25\textwidth} |  p{0.25\textwidth} |}
+%\hline
+%\bf Routine Name & \bf Input & \bf Output & \bf Exceptions \\ \hline
 %cmake_minimum_required & \big[VERSION\big], \big[FATAL_ERROR\big]& & \\ \hline
-\end{tabular}
-\end{table}
+%\end{tabular}
+%\end{table}
 
-\subsubsection{Exported Access Programs}% ============ Rob
-
-\subsubsection{Interface Semantics}
+\subsubsection{Access Program Semantics}% ============ Rob
+NA
 
 \subsubsection{State Variables}% ================== Matt
 \begin{itemize}
@@ -287,9 +358,7 @@ There are no environment variables for this Module.
 \end{itemize}
 
 
-\subsubsection{Assumption}% ==================== Stuart	
-
-\subsubsection{Access Program Semantics}% =========== Victor
+\subsubsection{Assumptions}% ==================== Stuart	
 
 \subsection{Error Handling}
 
