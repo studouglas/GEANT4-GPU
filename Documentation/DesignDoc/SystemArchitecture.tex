@@ -208,11 +208,11 @@ Option 5 was chosen due to its ability to divide work easily, its compatibility 
 \subsection{G4NeutronHPVector}\label{subsec_G4NeutronHPVector} % rob
 As was explained in the preceding subsection, the problem has been decomposed to that of only integrating specific functions from given modules with the CUDA technology. With that said, a decision needed to be made as for which class and which functions within that class to integrate.\\
 
-This subsection is devoted to explaining why G4HPNeutronVector was the class chosen to integrate. There are two answers to this question: The first is that this decision was made to satisfy system and technical requirements, and the second is a matter of satisfying client requirements.\\
+G4HPNeutronVector was chosen to port to the GPU for two main reasons. The first is that this decision was made to satisfy system and technical requirements, and the second is a matter of satisfying client requirements.\\
 
-Geant4 organizes the processes for particles that it must manipulate into seperate classes. These classes house functions appropriate to the mechanics surrounding those particles. These classes are the target for parallelization because they are where large arrays of particles and data are stored and manipulated (Note: these are note the classes that represent the particles themselves, but the classes that store the functions germane to the given class of particles). These classes are referred to as models in the Geant4 code base. There are over 100 of these 'models' under the Hadronic category alone (Hadronic particles are those composed of quarks). The problem now is reduced to deciding which model(s) to integrate with the CUDA technology.\\
+Geant4 organizes the processes for particles that it must manipulate into separate classes. These classes house functions appropriate to the mechanics surrounding those particles. These classes are the target for parallelization because they are where large arrays of particles and data are stored and manipulated (note: these are not the classes that represent the particles themselves, but the classes that store the functions germane to the given class of particles). These classes are referred to as models in the Geant4 code base. There are over 100 of these `models' under the hadronic category alone (hadronic particles are those composed of quarks). The problem now is reduced to deciding which model(s) to integrate with the CUDA technology.\\
 	 
-The decision as to which model to integrate was made to satisfy client requirements. The problem at hand was proposed by Dr. Buijs and his Graduate Students from the Nuclear Engineering department at McMaster. Dr. Buijs' team uses Geant4 to model the Universities local nuclear reactor. Their simulations very heavily depend on manipulating Neutrons through the G4NeutronHPVector class. Therefore, this model was chosen for CUDA integration in an attempt to offer the most significant performance increases to Dr. Buijs and his Students specifically.\\
+The decision as to which model to integrate was made to satisfy client requirements. The problem at hand was proposed by Dr. Buijs and his graduate students from the Engineering Physics department at McMaster. Dr. Buijs' team uses Geant4 to model the university's local nuclear reactor. Their simulations very heavily depend on manipulating neutrons through the G4NeutronHPVector class. Therefore, this model was chosen for CUDA integration in an attempt to offer the most significant performance increases to Dr. Buijs and his students specifically.\\
 
 \section{Likely and Unlikely Changes}
 Different aspects of the system are presented below in two lists, those that are likely to change in the future and those that are unlikely to change. Relative likelihood of changes in the same category may vary.\\
@@ -256,7 +256,7 @@ Geant4 is an extremely large system with many modules, so its entire uses hierar
 \caption{Uses Hierarchy for G4NeutronHPVector}\label{imgUsesHierarchy}
 \includegraphics[width=\textwidth]{uses_hierarchy.pdf}
 \end{figure}
-
+\clearpage
 \section{Traceability of Requirements and Design Components}% ===== Stuart
 The following table outlines each requirement and its relationship to the design.
 
