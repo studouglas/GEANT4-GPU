@@ -139,7 +139,7 @@ This system architecture document details the system architecture, including an 
 A separate detailed design document covers the specifics of several key modules in the project. This includes the interface specification and implementation decisions.
 
 \section{Important Design Decisions \& Reasoning}
-\subsection{GPU Computing for Geant4}
+\subsection{GPU Computing for Geant4}\label{Sec_WhyGPU}
 Geant4 simulations typically involve simulating the movement of many particles (up to millions). Each particle has its new state (postition, energy etc.) calculated at each timestep independently of the other particles. Each state update requires serially traversing an array of particles and performing calculations on each.\\
 
 This problem is well-suited to parallelization, as each particle has the same, relatively simple functions applied to it independently. Although not faster in many cases, when massive parallelization is possible, running on the GPU can lead to significant performance improvements. This led the stakeholders to propose using the GPU to do some calculations in Geant4 with the goal of reducing the runtime of the simulations.
@@ -149,7 +149,7 @@ The two most popular software libraries for performing general computing tasks o
 
 There are two main disadvantages of CUDA however that are worth discussing. First and foremost, CUDA programs can only run on NVIDIA GPUs. If the user has a GPU made by a different manufacturer, they will not be able to receive any of the performance benefits of the new product. This was determined to be acceptable as the stakeholders explicitly stated plans to purchase a NVIDIA GPU, and McMaster's GPU servers all use NVIDIA graphics cards. Secondly, while OpenCL is open-source, CUDA is proprietary and owned by NVIDIA (although distributed as freeware). This is not optimal, however it was decided that the advantages of the larger community and consistent interface outweighed the disadvantages of a non-open-source library.
 
-\subsection{GPU Integration Approach} % stu
+\subsection{GPU Integration Approach}\label{Sec_IntegrationApproach}
 When considering how to integrate the GPU computations with the non-ported procedures that run on the CPU there were five main options (option 5 was chosen):
 \begin{enumerate}
 \item Port entire Geant4 toolkit to fully run on the GPU.
@@ -256,28 +256,48 @@ The following section outlines each requirement and its relationship to the desi
 \begin{table}[h]
 \centering
 \caption{Requirements and Design Relationship}\label{Table_RequirementsAndDesign}
-\begin{tabularx}{\textwidth}{cXX}
 
+\begin{tabularx}{\textwidth}{c>{\hsize=.6\hsize}X>{\hsize=1.4\hsize}X}
 \toprule
-\bf Req. & \bf Brief Description & \bf Design Component\\\midrule
+\bf Req. & \bf Description & \bf Design Component\\\midrule
 \arrayrulecolor{lightgray}
-1  & computations run on GPU & entire document\\\hline
-2  & existing projects not affected & \\\hline
-3  & by default simulation will run on CPU & \\\hline
-4  & should detect if computer has compatible GPU & \\\hline
-5  & enabling GPU computation on incompatible hardware not allowed & \\\hline
-6  & enabling GPU functionality on existing projects easy & \\\hline
-7 & runtime of simulation decreased with same output & \\\hline
-8 & accuracy of results same as when run on CPU & \\\hline
-9 & at least as stable as existing system & \\\hline
-10 & errors will throw exceptions & \\\hline
-11 & will support Geant4 10.00.p02 and later & \\\hline
-12 & available on public repo with installation instructions & \\\hline
-13 & new versions of product will be available on repo, won't break previous features & \\\hline
-14 & all users have access to entire product & \\
-\arrayrulecolor{black}
-\bottomrule
+1  & computations run on GPU & reasoning behind using GPU explained in section \ref{Sec_WhyGPU}. Refer to detailed design document for implementation details.\\\hline
+
+2  & existing projects not affected & by retaining existing code and only calling GPU functions if enabled requirement is met. See section \ref{Sec_IntegrationApproach}.\\\hline
+
+3  & by default simulation will run on CPU & CMake module description in detailed design document explains how this is implemented.\\\hline
+
+4  & should detect if computer has compatible GPU & Detection will be done by CMake, see CMake module in detailed design document.\\\hline
+
+5  & enabling GPU computation on incompatible hardware not allowed & After detection by CMake, an error will be thrown if hardware is incompatible, see CMake module in detailed design document.\\\hline
+
+6  & enabling GPU functionality on existing projects easy & A single boolean flag will be set during CMake phase to enable GPU functionality, see CMake module in detailed design document.\\\hline
+
+7 & runtime of simulation decreased with same output & This is the purpose of the project, and is addressed by porting some computationally-heavy classes to the GPU. Although discussed throughout the design document, particularily relevant sections are sections \ref{Sec_WhyGPU}, \ref{Sec_IntegrationApproach}, and the G4NeutronHPVector module in the detailed design document.\\\hline
+
+8 & accuracy of results same as when run on CPU & Getting the same result whether computation is run on the CPU or GPU is extremely important, and is covered by the internal module design of G4NeutronHPVector in the detailed design document.\\\hline
+
+9 & at least as stable as existing system & Stability again relies on the implementation of the ported modules, specifically the G4NeutronHPVector module from the detailed design document\\\hline
+
+10 & errors will throw exceptions & For each module in the detailed design document a section details how errors will be handled, including the throwing of exceptions\\\hline
+
+11 & will support Geant4 10.00.p02 and later & Currently development is based off of Geant4 10.00.p02. Before the project is made public testing will be done with all major newer versions of the software to ensure compatibility.\\\hline
 \end{tabularx}
 \end{table}
+
+\clearpage
+\begin{tabularx}{\textwidth}{c>{\hsize=.6\hsize}X>{\hsize=1.4\hsize}X}
+\arrayrulecolor{lightgray}
+\hline
+12 & available on public repo with installation instructions & The project is currently available on a private repo, the installation instructions will be added before the repo is set to public.\\\hline
+
+13 & new versions of product will be available on repo, won't break previous features & All current development is being done with respect to the repository, and changes are all being pushed there. Retaining existing features will be a priority once initial development is complete.\\\hline
+
+14 & all users have access to entire product & This is addressed by the public repository and an upcoming open source license that will be added to the project's documentation.\\
+\arrayrulecolor{black}
+\bottomrule
+\end{tabularx}\\
+
+asdf
 
 \end{document}
