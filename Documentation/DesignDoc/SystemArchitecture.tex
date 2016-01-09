@@ -102,20 +102,25 @@ Device & the GPU and its memory, managed from the host, performs computations re
 \bf Table \# & \bf Title\\\midrule
 \ref{Table_Revision} & Revision History\\
 \ref{Table_Glossary} & Glossary\\
+\ref{Table_Figures}  & List of Figures\\
+\ref{Table_GPUIntegration} & Comparison of GPU Integration Approaches\\
 \ref{Table_RequirementsAndDesign} & Traceability of Requirements and Design\\
 \bottomrule
 \end{tabular}
 \end{center}
 
 \subsection{List of Figures}
-\begin{center}
+
+\begin{table}[h]
+\centering
+\caption{List of Figures}\label{Table_Figures}
 \begin{tabular}{cl}
 \toprule
 \bf Figure \# & \bf Title\\\midrule
 \ref{imgUsesHierarchy} & Uses Hierarchy for G4NeutronHPVector\\
 \bottomrule
 \end{tabular}
-\end{center}
+\end{table}
 
 \section{Overview}
 \subsection{Purpose of Project}
@@ -135,11 +140,14 @@ A separate detailed design document covers the specifics of several key modules 
 
 \section{Important Design Decisions \& Reasoning}
 \subsection{GPU Computing for Geant4}
-Geant4 simulations typically involve simulating the movement of many particles (up to millions). Each particle moves independently of the other particles. Currently, the particles are all stored in an array that the CPU has to go through moving each particle one by one. Considering how many particles this array holds this is a rather time consuming operation, especially since this movement of the particles is done often. 
-Due to the nature of the particles being able to move independently of each other this is a problem that can be easily parallelized. Since the act of moving a particle is so simple GPU cores are able to execute these types of functions. So instead of parallelizing Geant4 on multiple CPU's we can instead parallelize the code to run on all the GPU cores since the GPU has many more cores than the CPU it is able to run the parallelized code much faster.
+Geant4 simulations typically involve simulating the movement of many particles (up to millions). Each particle has its new state (postition, energy etc.) calculated at each timestep independently of the other particles. Each state update requires serially traversing an array of particles and performing calculations on each.\\
+
+This problem is well-suited to parallelization, as each particle has the same, relatively simple functions applied to it independently. Although not faster in many cases, when massive parallelization is possible, running on the GPU can lead to significant performance improvements. This led the stakeholders to propose using the GPU to do some calculations in Geant4 with the goal of reducing the runtime of the simulations.
 
 \subsection{CUDA}
-NVIDA recently created a toolkit to make creating parallel code on the GPU much easier. Due to how accessible and easy to use CUDA is to parallelize existing code CUDA was chosen to be as the architecture to be used for this project as it would require the least amount of understanding of the existing Geant4 functions to produce speedups. 
+The two most popular software libraries for performing general computing tasks on the CPU are CUDA and OpenCL. The decision was made to use CUDA for a variety of reasons. Developed by NVIDIA, CUDA has more extensive documentation than OpenCL, a larger online community, a more consistent interface, integration with CMake (the Geant4 build system), and several researchers have successfully integrated small parts of Geant4 with CUDA.\\
+
+There are two main disadvantages of CUDA however that are worth discussing. First and foremost, CUDA programs can only run on NVIDIA GPUs. If the user has a GPU made by a different manufacturer, they will not be able to receive any of the performance benefits of the new product. This was determined to be acceptable as the stakeholders explicitly stated plans to purchase a NVIDIA GPU, and McMaster's GPU servers all use NVIDIA graphics cards. Secondly, while OpenCL is open-source, CUDA is proprietary and owned by NVIDIA (although distributed as freeware). This is not optimal, however it was decided that the advantages of the larger community and consistent interface outweighed the disadvantages of a non-open-source library.
 
 \subsection{GPU Integration Approach} % stu
 When considering how to integrate the GPU computations with the non-ported procedures that run on the CPU there were five main options (option 5 was chosen):
@@ -151,7 +159,9 @@ When considering how to integrate the GPU computations with the non-ported proce
 \item Port some functions of some classes to run on the GPU, those classes will have some data stored in main memory and some (different) data stored in GPU memory. If data is required by a function running on the CPU that is stored on the GPU (or vice versa), a copy of the data will be received through a getter function.
 \end{enumerate}
 
-\begin{center}
+\begin{table}
+\centering
+\caption{Comparison of GPU Integration Approaches}\label{Table_GPUIntegration}
 \begin{tabularx}{\textwidth}{cXX}
 \toprule
 \bf Option & \bf Pros & \bf Cons\\\midrule
@@ -189,8 +199,8 @@ When considering how to integrate the GPU computations with the non-ported proce
 \arrayrulecolor{black}
 \bottomrule
 \end{tabularx}
-\end{center}
-
+\end{table}
+\clearpage
 In all options except 1 and 2, a function call to one of the functions of a ported class will be received by the existing C++ class, which will then either execute the existing code if that function has not been ported or if GPU computation is disabled, or will call the corresponding function from the CUDA file.\\
 
 Option 5 was chosen due to its ability to divide work easily, its compatibility with the current codebase, and the memory advantages over option 4.
@@ -198,19 +208,20 @@ Option 5 was chosen due to its ability to divide work easily, its compatibility 
 \subsection{G4NeutronHPVector}\label{subsec_G4NeutronHPVector} % rob
 
 \section{Likely and Unlikely Changes}
-The following two subsections outline proposed changes or additions to the design and structure of the system. They are seperated into two categories; those likely to be implemented and those unlikely. These are changes that would be implemented following the initial version release. Relative likely-hood of implementations in the same category may vary. \\
-The subection following the two previously mentioned contains a traceability matrix tracking the changes to their corresponding design components.
+Different aspects of the system are presented below in two lists, those that are likely to change in the future and those that are unlikely to change. Relative likelihood of changes in the same category may vary.\\
+
+Following the lists of likely and unlikely changes, the relationship between likely changes and design components is presented.
 
 \subsection{Likely Changes} %========== Rob
 \begin{enumerate}
 \item Implementing OpenACC to compare performance increase
 \item Parallelizing several other process modules
-\item Inclusion of a script to detect if user has a Cuda capable GPU during Geant4 building
-\item Cuda installation guide addition to README
-\item README revamp to distinguish between Geant4 and Stork instructions
+\item Inclusion of a script to detect if user has a CUDA-capable GPU during Geant4 building
+\item CUDA installation guide added to README
+\item README revamp to distinguish between Geant4 and G4-STORK instructions
 \item Parallelizing of additional subroutines which indicate performance bottlenecks
 \item Compilation and installation process
-\item Geant4/Cuda guide to help practitioners implement GPGPU techniques on processes and modules for their own use
+\item Geant4/CUDA guide to help practitioners implement GP-GPU techniques on processes and modules for their own use
 \item Benchmarking guide for users of the product
 \end{enumerate}
 
@@ -218,7 +229,7 @@ The subection following the two previously mentioned contains a traceability mat
 \begin{enumerate}
 \item Changes to any data structures or algorithms native to the Geant4 codebase
 \item Full switch to OpenACC
-\item GPGPU computations on a broad scope within Geant4
+\item GP-GPU computations on a broad scope within Geant4
 \item Addition of any new process or model modules to Geant4
 \end{enumerate}
 
