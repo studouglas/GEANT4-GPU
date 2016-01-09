@@ -69,6 +69,8 @@ All major edits to this document will be recorded in the table below.
 \toprule
 \bf Description of Changes & \bf Author & \bf Date\\\midrule
 Set up sections and filled out Introduction section & Matthew & 2015-12-15\\
+Document structure adjustments & Stuart & 2016-1-8\\
+Filled out Likely/Unlikely Changes section & Rob & 2016-1-9\\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -196,15 +198,28 @@ Option 5 was chosen due to its ability to divide work easily, its compatibility 
 \subsection{G4NeutronHPVector}\label{subsec_G4NeutronHPVector} % rob
 
 \section{Likely and Unlikely Changes}
+The following two subsections outline proposed changes or additions to the design and structure of the system. They are seperated into two categories; those likely to be implemented and those unlikely. These are changes that would be implemented following the initial version release. Relative likely-hood of implementations in the same category may vary. \\
+The subection following the two previously mentioned contains a traceability matrix tracking the changes to their corresponding design components.
 
 \subsection{Likely Changes} %========== Rob
 \begin{enumerate}
-\item
+\item Implementing OpenACC to compare performance increase
+\item Parallelizing several other process modules
+\item Inclusion of a script to detect if user has a Cuda capable GPU during Geant4 building
+\item Cuda installation guide addition to README
+\item README revamp to distinguish between Geant4 and Stork instructions
+\item Parallelizing of additional subroutines which indicate performance bottlenecks
+\item Compilation and installation process
+\item Geant4/Cuda guide to help practitioners implement GPGPU techniques on processes and modules for their own use
+\item Benchmarking guide for users of the product
 \end{enumerate}
 
 \subsection{Unlikely Changes} %========= Rob
 \begin{enumerate}
-\item
+\item Changes to any data structures or algorithms native to the Geant4 codebase
+\item Full switch to OpenACC
+\item GPGPU computations on a broad scope within Geant4
+\item Addition of any new process or model modules to Geant4
 \end{enumerate}
 
 \subsection{Traceability of Likely Changes to Design Components}
