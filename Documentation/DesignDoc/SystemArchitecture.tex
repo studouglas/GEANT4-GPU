@@ -85,7 +85,10 @@ G4-STORK & fork of Geant4 developed by McMaster's Engineering Physics department
 GPU & graphics processing unit, well-suited to parallel computing tasks\\\vspace{1mm}
 CPU & computer processing unit, well-suited to serial tasks\\\vspace{1mm}
 CUDA & parallel computing architecture for GPU programming, developed by NVIDIA\\\vspace{1mm}
-NVIDIA & computer hardware and software company specializing in GPU's\\
+CUDA file & text file with .cu extension that includes host code (which runs on the CPU) and device code (which runs on the GPU)\\\vspace{1mm}
+NVIDIA & computer hardware and software company specializing in GPU's\\\vspace{1mm}
+Host & the CPU and its memory, managed from within a CUDA file, sends and receives data to the GPU\\\vspace{1mm}
+Device & the GPU and its memory, managed from the host, performs computations requested by the host\\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -114,7 +117,7 @@ NVIDIA & computer hardware and software company specializing in GPU's\\
 
 \section{Overview}
 \subsection{Purpose of Project}
-The purpose of GEANT4-GPU is to reduce the computation times of particle simulations in Geant4 by parallelizing and running certain procedures on the GPU.
+The purpose of the project is to reduce the computation times of particle simulations in Geant4 by parallelizing and running certain procedures on the GPU.
 
 \subsection{Description}
 The project aims to improve the computation times of Geant4 particle simulations by running certain parallel operations on a GPU. GEANT4-GPU will be a fork of the existing Geant4 system with the additional option for users with compatible hardware to run operations on the GPU for improved performane. This functionality will be available on Mac, Linux and Windows operating systems running on computers with NVIDIA graphics cards that support CUDA.\\
@@ -130,18 +133,65 @@ A separate detailed design document covers the specifics of several key modules 
 
 \section{Important Design Decisions \& Reasoning}
 \subsection{GPU Computing for Geant4}
-GEANT4 simulations typically involve simulating the movement of billions of particles. These particles move independently of the other particles. Currently the particles are all stored in an array that the CPU has to go through moving each particle one by one. Considering how many particles this array holds this is a rather time consuming operation, especially since this movement of the particles is done often. 
-Due to the nature of the particles being able to move independently of each other this is a problem that can be easily parallelized. Since the act of moving a particle is so simple GPU cores are able to execute these types of functions. So instead of parallelizing GEANT4 on multiple CPU's we can instead parallelize the code to run on all the GPU cores since the GPU has many more cores than the CPU it is able to run the parallelized code much faster.
+Geant4 simulations typically involve simulating the movement of many particles (up to millions). Each particle moves independently of the other particles. Currently, the particles are all stored in an array that the CPU has to go through moving each particle one by one. Considering how many particles this array holds this is a rather time consuming operation, especially since this movement of the particles is done often. 
+Due to the nature of the particles being able to move independently of each other this is a problem that can be easily parallelized. Since the act of moving a particle is so simple GPU cores are able to execute these types of functions. So instead of parallelizing Geant4 on multiple CPU's we can instead parallelize the code to run on all the GPU cores since the GPU has many more cores than the CPU it is able to run the parallelized code much faster.
 
 \subsection{CUDA}
-NVIDA recently created a toolkit to make creating parallel code on the GPU much easier. Due to how accessible and easy to use CUDA is to parallelize existing code CUDA was chosen to be as the architecture to be used for this project as it would require the least amount of understanding of the existing GEANT4 functions to produce speedups. 
+NVIDA recently created a toolkit to make creating parallel code on the GPU much easier. Due to how accessible and easy to use CUDA is to parallelize existing code CUDA was chosen to be as the architecture to be used for this project as it would require the least amount of understanding of the existing Geant4 functions to produce speedups. 
 
 \subsection{GPU Integration Approach} % stu
-When considering how to integrate the GPU computations with the non-ported procedures that run on the CPU there were several options. The first option would be to port the entire Geant4 toolkit to run 100\% on the GPU. This would see the biggest speedup, but is far beyond the scope of this project and the resources available. A more realistic alternative is to take several key classes and implement their functions on the GPU. The existing functions on the CPU would make the necessary calls to the GPU to execute the corresponding function and receive the result when the GPU finishes and return it to the caller. The advantage of this approach is that the work is easier to break down and distribute, and will focus efforts on the modules and functions within those modules that require speed improvements the most.\\
+When considering how to integrate the GPU computations with the non-ported procedures that run on the CPU there were five main options (option 5 was chosen):
+\begin{enumerate}
+\item Port entire Geant4 toolkit to fully run on the GPU.
+\item Port all functions of some classes to run on the GPU, those classes will only be instantiated in GPU memory.
+\item Port some functions of some classes to run on the GPU, those classes will be stored only in main memory. Data required by the GPU functions will be passed from the host.
+\item Port some functions of some classes to run on the GPU, those classes will be stored in main memory and a copy will be stored in GPU memory. Updates to the state will be applied to both copies.
+\item Port some functions of some classes to run on the GPU, those classes will have some data stored in main memory and some (different) data stored in GPU memory. If data is required by a function running on the CPU that is stored on the GPU (or vice versa), a copy of the data will be received through a getter function.
+\end{enumerate}
 
-When a ported module is first initialized, it will also initialize a copy on the GPU, and every time data is updated those updates will be applied to the GPU class as well. Then, when a function is called, the GPU will already have all the data it requires and will be able to quickly return the result. If a given function is not ported or if the user has not enabled GPU computations the function will run the existing code on the CPU. The overhead of this approach is the time during initialization to initialize the GPU class as well, and when updates occur. We believe this overhead will be outweighed by the advantages of the parallel GPU computing. The initialization is only called once, and updates to the data generally target small subsets of the vector.\\
+\begin{center}
+\begin{tabularx}{\textwidth}{cXX}
+\toprule
+\bf Option & \bf Pros & \bf Cons\\\midrule
+\arrayrulecolor{lightgray}
 
-This same approach of taking a class and initializing a copy on the GPU with a subset of the functions ported to the GPU will be applied to other classes in the future.
+1 & \textbullet $\,$ largest speedup as all aspects of system would be parallelized
+  & \textbullet $\,$ far beyond scope of project and resources available\\\hline
+
+2 & \textbullet $\,$ no memory usage penalty as class only instantiated once\newline
+    \textbullet $\,$ no performance penalty for passing data from main memory to GPU memory
+  & \textbullet $\,$ difficult to use existing code if GPU computation disabled\newline
+    \textbullet $\,$ requires porting all functions of class to GPU even if functions won't give large performance benefits\newline
+    \textbullet $\,$ smaller memory available for GPU may mean that less particles can be simulated at once\\\hline
+
+3 & \textbullet $\,$ no memory usage penalty as class only instantiated once\newline
+    \textbullet $\,$ easily interfaces with existing codebase\newline
+    \textbullet $\,$ easy to use existing code if GPU computation disabled\newline
+    \textbullet $\,$ doesn't require porting functions to GPU that will not have large performance benefits
+  & \textbullet $\,$ all data must be passed from main memory to GPU memory every function call\\\hline
+
+4 & \textbullet $\,$ no performance penalty for passing data between main memory and GPU memory\newline
+    \textbullet $\,$ easily interfaces with existing codebase\newline
+    \textbullet $\,$ easy to use existing code if GPU computation disabled\newline
+    \textbullet $\,$ doesn't require porting functions to GPU that will not have large performance benefits
+  & \textbullet $\,$ double the memory usage\newline
+    \textbullet $\,$ smaller memory available for GPU may mean that less particles can be simulated at once\newline
+    \textbullet $\,$ everytime state updated it must be updated twice\\\hline
+
+5 & \textbullet $\,$ reduced performance penalty for passing data between main memory and GPU memory\newline
+    \textbullet $\,$ easy to use existing code if GPU computation disabled\newline
+    \textbullet $\,$ easily interfaces with existing codebase\newline
+    \textbullet $\,$ doesn't require porting functions to GPU that will not have large performance benefits
+  & \textbullet $\,$ performance penalty if data required by CPU from GPU memory (or vice versa)\\
+
+\arrayrulecolor{black}
+\bottomrule
+\end{tabularx}
+\end{center}
+
+In all options except 1 and 2, a function call to one of the functions of a ported class will be received by the existing C++ class, which will then either execute the existing code if that function has not been ported or if GPU computation is disabled, or will call the corresponding function from the CUDA file.\\
+
+Option 5 was chosen due to its ability to divide work easily, its compatibility with the current codebase, and the memory advantages over option 4.
 
 \subsection{G4NeutronHPVector}\label{subsec_G4NeutronHPVector} % rob
 
@@ -161,21 +211,21 @@ This same approach of taking a class and initializing a copy on the GPU with a s
 
 \section{Module Hierarchy}%============= Stuart
 \subsection{Decomposition of Components}
-The project is based off of Geant4, an existing software system, and modifying specific modules of that system. As such, components do not need to be decomposed, instead the decomposition of the existing system will guide the modules in the project development.\\
+The project is based off of Geant4, an existing software system, and modifying specific modules of that system. As such, the decomposition used by the existing system will match the modules of the new system in the project development.\\
 
-Each module in Geant4 is represented by a C++ class, and the project will port a subset of said classes to the GPU. The decision of which classes to port to the GPU is derived from performance analysis of the program, with the most computationally time-consuming classes being the targets for GPU porting, such as G4NeutronHPVector as documented in section \ref{subsec_G4NeutronHPVector}.
+Each module in Geant4 is represented by a C++ class, and the project will port a subset of said classes to the GPU. The decision of which classes to port is derived from performance analysis of the program, with the most computationally time-consuming classes being the targets, such as G4NeutronHPVector (see section \ref{subsec_G4NeutronHPVector}). Furthermore, it is possible that not all functions of the class will be ported. The focus will be on porting ``clean'' (having a limited number of side effects), computationally heavy functions. This allows the work to be broken down on a class-by-class and function-by-function basis, and completing the port of one class does not depend on any other classes being ported. If a function running on the GPU requires an external module, the C++ host code for the CUDA that interfaces with the GPU will extract and pass any required information to the GPU and perform any state updates.
 
 \subsection{Uses Hierarchy}
 Since each modified module of the project will have a direct 1-to-1 relationship with an existing module in Geant4, the uses hierarchy with the new, GPU-enabled classes will be identical to the existing uses hierarchy of Geant4 with their corresponding existing classes.\\
 
-Geant4 is an extremely large system with many modules, so its entire uses hierarchy will not be documented here. Instead, the following hierarchy just maps the dependencies of G4NeutronHPVector, which is currently the focus of the project. Note that modules used by system libraries are not included.
-\begin{figure}
+Geant4 is an extremely large system with many modules, so its entire uses hierarchy will not be documented here. Instead, the following hierarchy shows the dependencies of the G4NeutronHPVector module, which is currently the focus of the project. Note that modules used by system libraries are not included, but the system libraries themselves are included.
+\begin{figure}[h]
 \caption{Uses Hierarchy for G4NeutronHPVector}\label{imgUsesHierarchy}
 \includegraphics[width=\textwidth]{uses_hierarchy.pdf}
 \end{figure}
 
 \section{Traceability of Requirements and Design Components}% ===== Stuart
-The following section outlines each requirement and what section of the design document addresses it.
+The following section outlines each requirement and its relationship to the design.
 
 \begin{table}[h]
 \centering
@@ -195,7 +245,7 @@ The following section outlines each requirement and what section of the design d
 8 & accuracy of results same as when run on CPU & \\\hline
 9 & at least as stable as existing system & \\\hline
 10 & errors will throw exceptions & \\\hline
-11 & will work with last four versions of Geant4 & \\\hline
+11 & will support Geant4 10.00.p02 and later & \\\hline
 12 & available on public repo with installation instructions & \\\hline
 13 & new versions of product will be available on repo, won't break previous features & \\\hline
 14 & all users have access to entire product & \\
