@@ -16,7 +16,8 @@
 \usepackage{makecell}
 \usepackage{caption}
 \usepackage{array}
-\captionsetup[table]{skip=2pt}
+\usepackage[parfill]{parskip}
+
 % Comments --------------------------------------------------------------------
 \usepackage{xcolor}
 \newif\ifcomments\commentstrue
@@ -26,7 +27,10 @@
 \newcommand{\wss}[1]{\authornote{magenta}{SS}{#1}}
 \newcommand{\ds}[1]{\authornote{blue}{DS}{#1}}
 % End Comments ---------------------------------------------------------------
+
+% Formatting
 \setlength{\parindent}{0pt}
+\captionsetup[table]{skip=2pt}
 
 % Title Page -----------------------------------------------------------------
 \title{
@@ -72,16 +76,18 @@ All major edits to this document will be recorded in the table below.
 
 \toprule
 \bf Description of Changes & \bf Author & \bf Date\\\midrule
-Set up sections and filled out Introduction section & Matthew & 2015-12-15\\
+\arrayrulecolor{lightgray}
+Set up sections and filled out Introduction section & Matthew & 2015-12-15\\\hline
 Added sections for Errors and Key Algorithms & Stuart & 2016-01-08\\
+\arrayrulecolor{black}
 \bottomrule
 \end{tabular}
 \end{table}
 
 \subsection{Document Structure \& Template}
-The design documentation for the project is based off of templates from WHAT TEMPLATES??????, and is broken into two main documents.\\
+The design documentation for the project is based off of templates from WHAT TEMPLATES??????, and is broken into two main documents.
 
-The system architecture document details the system architecture, including an overview of the modules that make up the system, analysis of aspects that are likely and unlikely to change, reasoning behind the high-level decisions, and a table showing how each requirement is addressed in the proposed design.\\
+The system architecture document details the system architecture, including an overview of the modules that make up the system, analysis of aspects that are likely and unlikely to change, reasoning behind the high-level decisions, and a table showing how each requirement is addressed in the proposed design.
 
 This detailed design document covers the specifics of several key modules in the project. For each module, an MIS is given fully detailing the interface of the module. Then, the methods for handling errors within the module are discussed, and finally the main algorithms and data structures used by the module are presented.
 
@@ -90,12 +96,16 @@ This detailed design document covers the specifics of several key modules in the
 \begin{tabular}{cl}
 \toprule
 \bf Table \# & \bf Title\\\midrule
-\ref{Table_Revision} & Revision History\\
-\ref{Table_NeutronHPDataPointInterface} & G4NeutronHPDataPoint -- access program syntax\\
-\ref{Table_NeutronHPDataPointSemantics} & G4NeutronHPDataPoint -- access program semantics\\
-\ref{Table_NeutronHPVectorInterface} & G4NeutronHPVector -- access program syntax\\
-\ref{Table_NeutronHPVectorSemantics} & G4NeutronHPVector -- access program semantics\\
-%\ref{Table_CMakeInterface} & CMake Files -- interface syntax\\
+\arrayrulecolor{lightgray}
+\ref{Table_Revision} & Revision History\\\hline
+\ref{Table_NeutronHPDataPointInterface} & G4NeutronHPDataPoint -- access program syntax\\\hline
+\ref{Table_NeutronHPDataPointSemantics} & G4NeutronHPDataPoint -- access program semantics\\\hline
+\ref{Table_NeutronHPDataPointStateVariables} & G4NeutronHPDataPoint -- state variables\\\hline
+\ref{Table_NeutronHPVectorInterface} & G4NeutronHPVector -- access program syntax\\\hline
+\ref{Table_NeutronHPVectorSemantics} & G4NeutronHPVector -- access program semantics\\\hline
+\ref{Table_NeutronHPDataPointStateVariables} & G4NeutronHPVector -- state variables\\\hline
+\ref{Table_CMakeStateVariables} & CMake Files -- state variables\\
+\arrayrulecolor{black}
 \bottomrule
 \end{tabular}
 \end{center}
@@ -134,6 +144,8 @@ SetData & G4double, G4double & &\\
 \end{table}
 
 \subsubsection{Access Program Semantics}% =========== Victor
+Note that hyphens in routine names and inputs are just for linebreaks due to the table size. The actual routine names and inputs do not have hyphens.
+
 \begin{table}[H]
 \caption{NeutronHPDataPoint -- access program semantics}\label{Table_NeutronHPDataPointSemantics}
 \begin{tabular}{l p{0.17\textwidth} p{0.5\textwidth}}
@@ -158,7 +170,20 @@ SetData				  & G4double, G4double   & sets instance's \texttt{energy} and \textt
 \end{table}
 
 \subsubsection{State Variables}% ================== Matt
-All variables in the module are hidden.
+The following variables maintain state for the class, and are all private to the module.
+
+\begin{table}[h]
+\caption{G4NeutronHPDataPoint -- state variables}\label{Table_NeutronHPDataPointStateVariables}
+\begin{tabularx}{\textwidth}{llX}
+\toprule
+\bf Variable & \bf Type & \bf Description\\\midrule
+\arrayrulecolor{lightgray}
+\texttt{energy} & G4double & \\\hline
+\texttt{xSec}   & G4double & \\
+\arrayrulecolor{black}
+\bottomrule
+\end{tabularx}
+\end{table}
 
 \subsubsection{Environment Variables}% ============== Matt
 There are no environment variables for this module.
@@ -178,6 +203,8 @@ It can be assumed that the class will be initialized. As such, all getter method
 \subsection{Description}
 
 \subsection{MIS (Module Interface Specification)}
+Note that hyphens in routine names, inputs, outputs, and exceptions are just for linebreaks due to the table size. The actual routine names, inputs, outputs, and exceptions do not have hyphens.
+
 \subsubsection{Access Program Syntax}% ================ Victor
 \begin{longtable}{p{0.28\textwidth}p{0.28\textwidth}p{0.28\textwidth}p{0.16\textwidth}}
 \caption{G4NeutronHPVector -- access program syntax}\label{Table_NeutronHPVectorInterface}\\
@@ -237,7 +264,8 @@ IsBlocked & G4double & G4bool & \\
 \end{longtable}
 
 \subsubsection{Access Program Semantics}% ============ Rob
-Note that hyphens in routine name and inputs are just for linebreaks due to the table size. The actual routine names and inputs do not have hyphens.
+Note that hyphens in routine names and inputs are just for linebreaks due to the table size. The actual routine names and inputs do not have hyphens.
+
 \begin{longtable}{p{0.25\textwidth}p{0.25\textwidth}p{0.5\textwidth}}
 \caption{G4NeutronHPVector -- access program semantics}\label{Table_NeutronHPVectorSemantics}\\
 \toprule
@@ -296,26 +324,36 @@ IsBlocked & G4double & \\
 \end{longtable}
 
 \subsubsection{State Variables}% ================== Matt
-All variables in this module are hidden.
-%\begin{itemize}
-%\item G4NeutronHPInterPolator : theLine
-%\item totalIntegral : G4double
-%\item G4NeutronHPDataPoint * : theData
-%\item G4InterpolationManager : theManager
-%\item G4double * : theIntegral
-%\item G4int : nEntries
-%\item G4int : nPoints
-%\item G4double : label
-%\item G4NeutronInterpolator : theInt
-%\item G4int : Verbose
-%\item G4int : isFreed
-%\item G4NeutronHPHash : theHash
-%\item G4double : maxValue
-%\item vector\textless G4double\textgreater : theBlocked
-%\item vector\textless G4double\textgreater : theBuffered
-%\item G4double : the15percentBorderCash
-%\item G4double : the50percentBorderCash
-%\end{itemize}
+The following variables maintain state for the class, and are all private to the class.
+
+Note that hyphens in variable names and types are just for linebreaks due to the table size. The actual variable names and types do not have hyphens.
+
+\begin{table}[h]
+\caption{G4NeutronHPVector -- state variables}\label{Table_NeutronHPDataPointStateVariables}
+\begin{tabularx}{\textwidth}{p{0.2\textwidth}p{0.2\textwidth}p{0.5\textwidth}}
+\toprule
+\bf Variable & \bf Type & \bf Description\\\midrule
+\arrayrulecolor{lightgray}
+\texttt{theLine} & G4NeutronHP-Interpolator & \\\hline
+\texttt{totalIntegral} & G4double & \\\hline
+\texttt{theData} & G4NeutronHP-DataPoint* & \\\hline
+\texttt{theManager} & G4Interpolation-Manager & \\\hline
+\texttt{theIntegral} & G4double* & \\\hline
+\texttt{nEntries} & G4int & \\\hline
+\texttt{nPoints} & G4int & \\\hline
+\texttt{label} & G4double & \\\hline
+\texttt{theInt} & G4Neutron-Interpolator & \\\hline
+\texttt{Verbose} & G4int & \\\hline
+\texttt{isFreed} & G4int & \\\hline
+\texttt{theHash} & G4NeutronHP-Hash & \\\hline
+\texttt{maxValue} & G4double & \\\hline
+\texttt{theBlocked} & vector \textless G4double\textgreater & \\\hline
+\texttt{theBuffered} & vector \textless G4double\textgreater & \\\hline
+\texttt{the15percent- BorderCash} & G4double & \\\hline
+\texttt{the50percent- BorderCash} & G4double & \\\hline
+\arrayrulecolor{black}
+\end{tabularx}
+\end{table}
 
 \subsubsection{Environment Variables}% ============== Matt
 There are no environment variables for this Module.
@@ -339,9 +377,15 @@ NA
 NA
 
 \subsubsection{State Variables}% ================== Matt
-\begin{itemize}
-\item useCuda : Bool
-\end{itemize}
+\begin{table}[h]
+\caption{CMake Files -- state variables}\label{Table_CMakeStateVariables}
+\begin{tabularx}{\textwidth}{p{0.1\textwidth}p{0.1\textwidth}p{0.7\textwidth}}
+\toprule
+\bf Variable & \bf Type & \bf Description\\\midrule
+\texttt{useCuda} & Boolean & if set to true, the makefiles generated by CMake will include directives to compile and link the CUDA code and will execute ported procedures on the GPU. Default is false.\\
+\bottomrule
+\end{tabularx}
+\end{table}
 
 \subsubsection{Environment Variables}% ============== Matt
 \begin{itemize}
