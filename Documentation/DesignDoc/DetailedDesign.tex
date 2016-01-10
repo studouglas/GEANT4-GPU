@@ -3,12 +3,15 @@
 % Packages
 \usepackage[margin=1.2in]{geometry}
 \usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{float}
 \usepackage{enumerate}
 \usepackage{listings}
 \usepackage{titling}
 \usepackage{tabularx}
 \usepackage{longtable}
 \usepackage{booktabs}
+\usepackage{colortbl}
 \usepackage{hyperref}
 \usepackage{makecell}
 \usepackage{caption}
@@ -23,7 +26,7 @@
 \newcommand{\wss}[1]{\authornote{magenta}{SS}{#1}}
 \newcommand{\ds}[1]{\authornote{blue}{DS}{#1}}
 % End Comments ---------------------------------------------------------------
-
+\setlength{\parindent}{0pt}
 
 % Title Page -----------------------------------------------------------------
 \title{
@@ -33,14 +36,14 @@
 \vspace{40mm}
 }
 \author{
-Team 8
+\textbf{Team 8}
 \\Stuart Douglas -- dougls2
 \\Matthew Pagnan -- pagnanmm
 \\Rob Gorrie -- gorrierw
 \\Victor Reginato -- reginavp
 \vspace{10mm}
 }
-\date{\vfill \textbf{Design Document Version 0}\\ \today}
+\date{\vfill \textbf{Detailed Design: Version 0}\\ \today}
 % End Title Page -------------------------------------------------------------
 
 
@@ -53,10 +56,305 @@ Team 8
 \newpage
 
 % ================================= TOC ================================= %
-\newgeometry{bottom=1.1in, top=1.1in}
+\renewcommand{\contentsname}{Table of Contents}
 \tableofcontents
 \newpage
 \pagenumbering{arabic}
-\restoregeometry
+
+\section{Introduction}
+\subsection{Revision History}
+All major edits to this document will be recorded in the table below.
+
+\begin{table}[h]
+\centering
+\caption{Revision History}\label{Table_Revision}
+\begin{tabular}{lll}
+
+\toprule
+\bf Description of Changes & \bf Author & \bf Date\\\midrule
+Set up sections and filled out Introduction section & Matthew & 2015-12-15\\
+Added sections for Errors and Key Algorithms & Stuart & 2016-01-08\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Document Structure \& Template}
+The design documentation for the project is based off of templates from WHAT TEMPLATES??????, and is broken into two main documents.\\
+
+The system architecture document details the system architecture, including an overview of the modules that make up the system, analysis of aspects that are likely and unlikely to change, reasoning behind the high-level decisions, and a table showing how each requirement is addressed in the proposed design.\\
+
+This detailed design document covers the specifics of several key modules in the project. For each module, an MIS is given fully detailing the interface of the module. Then, the methods for handling errors within the module are discussed, and finally the main algorithms and data structures used by the module are presented.
+
+\subsection{List of Tables}
+\begin{center}
+\begin{tabular}{cl}
+\toprule
+\bf Table \# & \bf Title\\\midrule
+\ref{Table_Revision} & Revision History\\
+\ref{Table_NeutronHPDataPointInterface} & G4NeutronHPDataPoint -- access program syntax\\
+\ref{Table_NeutronHPDataPointSemantics} & G4NeutronHPDataPoint -- access program semantics\\
+\ref{Table_NeutronHPVectorInterface} & G4NeutronHPVector -- access program syntax\\
+\ref{Table_NeutronHPVectorSemantics} & G4NeutronHPVector -- access program semantics\\
+%\ref{Table_CMakeInterface} & CMake Files -- interface syntax\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{Note About G4 variables}
+Geant4 uses its own basic types for standard C++ types (G4int, G4bool, G4double, etc). These types are currently just \texttt{typedefs} to the respective type as defined in the system libraries.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ----- NeutronHPDataPoint
+\section{G4NeutronHPDataPoint}
+\subsection{Description}
+
+\subsection{MIS (Module Interface Specification)}
+\subsubsection{Access Program Syntax}% ================ Victor
+\begin{table}[H]
+\caption{G4NeutronHPDataPoint -- access program syntax}\label{Table_NeutronHPDataPointInterface}
+\begin{tabular}{llll}
+\toprule
+\bf Routine Name & \bf Input & \bf Output & \bf Exceptions \\ \midrule
+\arrayrulecolor{lightgray}
+G4NeutronHPDataPoint &  &  &  \\\hline
+G4NeutronHPDataPoint & G4double, G4double &  & \\\hline
+= & G4NeutronHPDataPoint &  & \\\hline
+GetEnergy & & G4double &  \\\hline
+GetXsection & & G4double &  \\\hline
+SetEnergy & G4double & & \\\hline
+SetXsection & G4double & & \\\hline
+GetX & & G4double &  \\\hline
+GetY & & G4double &  \\\hline
+SetX & G4double & & \\\hline
+SetY & G4double & & \\\hline
+SetData & G4double, G4double & &\\
+\arrayrulecolor{black}
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsubsection{Access Program Semantics}% =========== Victor
+\begin{table}[H]
+\caption{NeutronHPDataPoint -- access program semantics}\label{Table_NeutronHPDataPointSemantics}
+\begin{tabular}{l p{0.17\textwidth} p{0.5\textwidth}}
+\toprule
+\bf Routine Name & \bf Input & \bf Semantics \\ \midrule
+\arrayrulecolor{lightgray}
+G4NeutronHPDataPoint  &                      & instantiates the class, setting \texttt{energy} and \texttt{xSec} to 0\\\hline
+G4NeutronHPDataPoint  & G4double, G4double   & instantiates the class with the inputted \texttt{energy} and \texttt{xSec}\\\hline
+=                     & G4NeutronHP-DataPoint& sets the \texttt{energy} and \texttt{xSec} of the instance to those of the input \\\hline
+GetEnergy             &                      & returns \texttt{energy} of the instance \\\hline
+GetXsection           &                      & returns the \texttt{xSec} of the instance\\\hline
+SetEnergy             & G4double             & sets \texttt{energy} of instance to the argument\\\hline
+SetXsection           & G4double             & sets \texttt{xSec} of instance to the argument\\\hline
+GetX                  &                      & returns the \texttt{energy} of the instance\\\hline
+GetY 				  &                      & returns the \texttt{xSec} of the instance\\\hline
+SetX				  & G4double             & sets \texttt{energy} of instance to the argument\\\hline
+SetY				  & G4double             & sets \texttt{xSec} of instance to the argument \\\hline
+SetData				  & G4double, G4double   & sets instance's \texttt{energy} and \texttt{xSec} to the passed arguments\\
+\arrayrulecolor{black}
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsubsection{State Variables}% ================== Matt
+All variables in the module are hidden.
+
+\subsubsection{Environment Variables}% ============== Matt
+There are no environment variables for this module.
+
+\subsubsection{Assumptions}% ==================== Stuart	
+It can be assumed that the class will be initialized. As such, all getter methods will return a non-null value.
+
+\subsection{Error Handling}
+
+\subsection{Key Algorithms}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ---- NeutronHPDataPoint
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ----- NeutronHPVector
+\section{G4NeutronHPVector}
+
+\subsection{Description}
+
+\subsection{MIS (Module Interface Specification)}
+\subsubsection{Access Program Syntax}% ================ Victor
+\begin{longtable}{p{0.28\textwidth}p{0.28\textwidth}p{0.28\textwidth}p{0.16\textwidth}}
+\caption{G4NeutronHPVector -- access program syntax}\label{Table_NeutronHPVectorInterface}\\
+\toprule
+\bf Routine Name & \bf Input & \bf Output & \bf Exceptions \\\midrule
+\arrayrulecolor{lightgray}
+G4NeutronHPVector & & & \\\hline
+G4NeutronHPVector & G4int & & \\\hline
+SetVerbose & G4int & & \\\hline
+Times &G4double & & \\\hline
+SetPoint  &G4int, G4NeutronHPDataPoint & & \\\hline
+SetData & G4int, G4double,G4double& & \\\hline
+SetX & G4int, G4double & & \\\hline
+SetEnergy & G4int, G4double & & \\\hline
+SetY & G4int, G4double & & \\\hline
+SetXsec & G4int, G4double & & \\\hline
+GetEnergy & G4int & G4double & \\\hline
+GetXsec & G4int & G4double & \\\hline
+GetXsec & G4double & G4double & \\\hline
+GetXsec & G4double,G4int & G4double & \\\hline
+GetX & G4int & G4double & \\\hline
+GetY & G4double & G4double & \\\hline
+GetY & G4int & G4double & \\\hline
+GetVectorLength & & G4int & \\\hline
+GetPoint & G4int & const G4NeutronHPDataPoint\& & \\\hline
+Hash & & & \\\hline
+ReHash & & & \\\hline
+InitInterpolation & istream & & \\\hline
+Init & istream,G4int, G4double, G4double& & \\\hline
+Init & istream, G4double,G4double & & \\\hline
+ThinOut & G4double & & \\\hline
+SetLabel & G4double & & \\\hline
+GetLabel & & G4double & \\\hline
+CleanUp & & & \\\hline
+Sample & & G4double & \\\hline
+Debug & & G4double * & \\\hline
+Merge & G4NeutronHPVector *,  G4NeutronHPVector *& & \\\hline
+Merge & G4InterpolationScheme, G4double, G4NeutronHPVector *, G4NeutronHPVector * & &\\\hline
+SampleLin & & G4double & \\\hline
+IntegrateAndNormalise & & & \\\hline
+Integrate & & & \\\hline
+GetIntegral & & G4double & \\\hline
+SetInterpolationManager & const G4InterpolationManager \& & & \\\hline
+SetInterpolationManager & G4InterpolationManager \& & & \\\hline
+G4InterpolationManager & & const G4InterpolationManager  \& & \\\hline
+SetScheme & G4int,const G4InterpolationScheme \& & & \\\hline
+GetScheme & G4int & G4InterpolationScheme & \\\hline
+GetMeanX & & G4double & \\\hline
+GetBlocked & & vector\textless G4double\textgreater & \\\hline
+GetBuffered & & vector\textless G4double\textgreater & \\\hline
+Get15percentBorder & & G4double & \\\hline
+Get50percentBorder & & G4double & \\\hline
+Check & G4int & & G4Hadronic-Exception \\\hline
+IsBlocked & G4double & G4bool & \\
+\arrayrulecolor{black}
+\bottomrule
+\end{longtable}
+
+\subsubsection{Access Program Semantics}% ============ Rob
+Note that hyphens in routine name and inputs are just for linebreaks due to the table size. The actual routine names and inputs do not have hyphens.
+\begin{longtable}{p{0.25\textwidth}p{0.25\textwidth}p{0.5\textwidth}}
+\caption{G4NeutronHPVector -- access program semantics}\label{Table_NeutronHPVectorSemantics}\\
+\toprule
+\bf Routine Name & \bf Input & \bf Description \\\midrule
+\arrayrulecolor{lightgray}
+G4NeutronHPVector & & \\\hline
+G4NeutronHPVector & G4int & \\\hline
+SetVerbose & G4int & \\\hline
+Times & G4double & \\\hline
+SetPoint & G4int, G4NeutronHP-DataPoint & \\\hline
+SetData & G4int, G4double,G4double & \\\hline
+SetX & G4int, G4double & \\\hline
+SetEnergy & G4int, G4double & \\\hline
+SetY & G4int, G4double & \\\hline
+SetXsec & G4int, G4double & \\\hline
+GetEnergy & G4int & \\\hline
+GetXsec & G4int & \\\hline
+GetXsec & G4double & \\\hline
+GetXsec & G4double,G4int & \\\hline
+GetX & G4int & \\\hline
+GetY & G4double & \\\hline
+GetY & G4int & \\\hline
+GetVectorLength & & \\\hline
+GetPoint & G4int & \\\hline
+Hash & & \\\hline
+ReHash & & \\\hline
+InitInterpolation & istream & \\\hline
+Init & istream,G4int, G4double, G4double & \\\hline
+Init & istream, G4double,G4double & \\\hline
+ThinOut & G4double & \\\hline
+SetLabel & G4double & \\\hline
+GetLabel & & \\\hline
+CleanUp & & \\\hline
+Sample & & \\\hline
+Debug & & \\\hline
+Merge & G4NeutronHPVector*,  G4NeutronHPVector* & \\\hline
+Merge & G4InterpolationScheme, G4double, G4NeutronHPVector*, G4NeutronHPVector* &\\\hline
+SampleLin & & \\\hline
+IntegrateAndNormalise & & \\\hline
+Integrate & & \\\hline
+GetIntegral & & \\\hline
+SetInterpolation-Manager & const G4Interpolation-Manager\& &\\\hline
+SetInterpolation-Manager & G4Interpolation-Manager\& & \\\hline
+G4Interpolation-Manager & & \\\hline
+SetScheme & G4int, G4Interpolation-Scheme\& & \\\hline
+GetScheme & G4int & \\\hline
+GetMeanX & & \\\hline
+GetBlocked & & \\\hline
+GetBuffered & & \\\hline
+Get15percentBorder & &  \\\hline
+Get50percentBorder & &  \\\hline
+Check & G4int & \\\hline
+IsBlocked & G4double & \\
+\arrayrulecolor{black}
+\bottomrule
+\end{longtable}
+
+\subsubsection{State Variables}% ================== Matt
+All variables in this module are hidden.
+%\begin{itemize}
+%\item G4NeutronHPInterPolator : theLine
+%\item totalIntegral : G4double
+%\item G4NeutronHPDataPoint * : theData
+%\item G4InterpolationManager : theManager
+%\item G4double * : theIntegral
+%\item G4int : nEntries
+%\item G4int : nPoints
+%\item G4double : label
+%\item G4NeutronInterpolator : theInt
+%\item G4int : Verbose
+%\item G4int : isFreed
+%\item G4NeutronHPHash : theHash
+%\item G4double : maxValue
+%\item vector\textless G4double\textgreater : theBlocked
+%\item vector\textless G4double\textgreater : theBuffered
+%\item G4double : the15percentBorderCash
+%\item G4double : the50percentBorderCash
+%\end{itemize}
+
+\subsubsection{Environment Variables}% ============== Matt
+There are no environment variables for this Module.
+
+\subsubsection{Assumptions}% ==================== Stuart	
+It can be assumed that the module will be initialized before other functions are called.
+
+\subsection{Error Handling}
+
+\subsection{Key Algorithms}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ---- NeutronHPVector
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ----- Cmake Files
+\section{CMake Files}
+\subsection{Description}
+\subsection{MIS (Module Interface Specification)}
+\subsubsection{Access Program Syntax}% ================ Victor
+NA
+
+\subsubsection{Access Program Semantics}% ============ Rob
+NA
+
+\subsubsection{State Variables}% ================== Matt
+\begin{itemize}
+\item useCuda : Bool
+\end{itemize}
+
+\subsubsection{Environment Variables}% ============== Matt
+\begin{itemize}
+\item NeutronHPVectorGPU.cu : CUDA file with GPU code
+\end{itemize}
+
+
+\subsubsection{Assumptions}% ==================== Stuart	 
+No assumptions need to be made for CMake.
+
+\subsection{Error Handling}
+
+\subsection{Key Algorithms}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ---- Cmake Files
 
 \end{document}
