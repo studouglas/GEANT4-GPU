@@ -126,7 +126,7 @@ There are no environment variables for this Module.
 \subsubsection{Assumption}% ==================== Stuart	
 
 \subsubsection{Access Program Semantics}% =========== Victor
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ---- NeutronHPDataPoint
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ---- NeutronHPDataPoint
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ----- NeutronHPVector
@@ -224,17 +224,41 @@ There are no environment variables for this Module.
 \subsubsection{Assumption}% ==================== Stuart	
 
 \subsubsection{Access Program Semantics}% =========== Victor
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ---- NeutronHPVector
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ---- NeutronHPVector
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ----- Cmake Files
 \section{MIS of CMake Files}
 
 \subsection{Interface Syntax}% ================ Victor
-\begin{tabular}{| p{4cm} | p{4cm} | p{4cm} |  p{4cm} |}
+\begin{tabular}{| p{4cm} | p{6cm} | p{1.2cm} |  p{4cm} |}
 \hline
 Routine Name & Input & Output & Exceptions \\ \hline
-%cmake_minimum_required & \big[VERSION\big], \big[FATAL_ERROR\big]& & \\ \hline
+cmake\_minimum\_req- uired &[VERSION],[FATAL\_ ERROR] & & [FATAL\_ ERROR] \\ \hline
+option & \textless option\_variable\textgreater, string, [initial value] & & \\ \hline
+find\_package & \textless package\textgreater,[version],[EXACT], [QUIET],[MODULE],[REQUIRED], [[COMPONENTS[components...]], [OPTIONAL\_COMPONENTS components...],   [NO\_POLICY\_SCOPE] & & [FATAL\_ERROR]\\ \hline
+add\_subdirectory & source\_dir,[binary\_dir], [EXCLUDE\_FROM\_ALL]& & \\ \hline
+include\_directories & [AFTER \textbar BEFORE],[SYSTEM], dir1, [dir2 ...] & & \\ \hline
+%cuda\_add\_library &  & & \\ \hline
+LIST & APPEND,\textless list\textgreater, [\textless element \textgreater ...] & & \\ \hline
+project &\textless PROJECT-NAME \textgreater&& \\ \hline
+include &\textless file\textbar module\textgreater [OPTIONAL], [RESULT\_VARIABLE \textless VAR\textgreater,[NO\_POLICY\_SCOPE]& & [NOTFOUND] \\ \hline
+file & file(GLOB,\textless variable \textgreater [LIST\_DIRECTORIES true\textbar false],[RELATIVE\textless path\textgreater] [\textless globbing-expressions\textgreater...]) && \\ \hline
+add\_executable  & \textless name\textgreater,source1, [source2 ...]&& \\ \hline
+
 \end{tabular}
+
+\begin{tabular}{| p{4cm} | p{4cm} | p{1.2cm} |  p{6cm} |}
+\hline
+Routine Name & Input & Output & Exceptions \\ \hline
+target\_link\_libraries &  \textless target\textgreater ... \textless item\textgreater... ...&& [ FATAL\_ERROR]\\ \hline
+add\_definitions  &-DFOO -DBAR ...&& \\ \hline
+message  & STATUS string && [SEND\_ERROR],[FATAL\_ERRO- R],[DEPRECATION]\\ \hline
+set  & \textless variable\textgreater \textless value\textgreater... [PARENT\_SCOPE] && \\ \hline
+configure\_file  &\textless input\textgreater \textless output\textgreater, [COPYONLY]&& \\ \hline
+foreach  &loop\_var arg1 arg2 ... COMMAND1 (ARGS ...)&& \\ \hline
+install  &TARGETS targets..., [DESTINATION \textless dir\textgreater]&& \\ \hline
+\end{tabular}
+
 \subsection{Exported Access Programs}% ============ Rob
 
 \subsection{Interface Semantics}
