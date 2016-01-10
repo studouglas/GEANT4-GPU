@@ -61,17 +61,17 @@
 #include "G4Types.hh"
 
 // Get definition of G4String
-//#include "G4String.hh"
+#include "G4String.hh"
 
 // Includes some additional definitions: sqr, G4SwapPtr, G4SwapObj.
 //#include "templates.hh"
 
 // Includes Physical Constants and System of Units
 // #include "G4PhysicalConstants.hh"
-// #include "G4SystemOfUnits.hh"
+ #include "G4SystemOfUnits.hh"
 
 // Global error function
-//#include "G4ExceptionSeverity.hh"
+#include "G4ExceptionSeverity.hh"
 
 typedef std::ostringstream G4ExceptionDescription;
 

@@ -31,8 +31,8 @@
 #ifndef G4NeutronHPVector_h
 #define G4NeutronHPVector_h 1
 
-#include "G4NeutronHPDataPoint.hh"
-#include "G4PhysicsVector.hh"
+#include "G4NeutronHPDataPoint.cu"
+//#include "G4PhysicsVector.hh"
 #include "G4NeutronHPInterpolator.hh"
 #include "Randomize.hh"
 #include "G4ios.hh"
