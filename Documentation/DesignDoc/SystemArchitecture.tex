@@ -234,23 +234,19 @@ Following the lists of likely and unlikely changes, the relationship between lik
 
 \subsection{Likely Changes}\label{Sec_LikelyChanges} %========== Rob
 \begin{enumerate}
-\item Implementing OpenACC to compare performance increase
 \item Parallelizing several other process modules
 \item Inclusion of a script to detect if user has a CUDA-capable GPU during Geant4 building
-\item CUDA installation guide added to README
-\item README revamp to distinguish between Geant4 and G4-STORK instructions
 \item Parallelizing of additional subroutines which indicate performance bottlenecks
 \item Compilation and installation process
-\item Geant4/CUDA guide to help practitioners implement GP-GPU techniques on processes and modules for their own use
 \item Benchmarking guide for users of the product
 \end{enumerate}
 
 \subsection{Unlikely Changes} %========= Rob
 \begin{enumerate}
 \item Changes to any data structures or algorithms native to the Geant4 codebase
-\item Full switch to OpenACC
 \item GP-GPU computations on a broad scope within Geant4
 \item Addition of any new process or model modules to Geant4
+\item CMake enable CUDA flag
 \end{enumerate}
 
 \subsection{Traceability of Likely Changes to Design Components}
