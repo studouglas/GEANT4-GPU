@@ -178,8 +178,8 @@ The following variables maintain state for the class, and are all private to the
 \toprule
 \bf Variable & \bf Type & \bf Description\\\midrule
 \arrayrulecolor{lightgray}
-\texttt{energy} & G4double & \\\hline
-\texttt{xSec}   & G4double & \\
+\texttt{energy} & G4double & the energy of the particle \\\hline
+\texttt{xSec}   & G4double & the cross-section of the particle \\
 \arrayrulecolor{black}
 \bottomrule
 \end{tabularx}
@@ -206,13 +206,15 @@ It can be assumed that the class will be initialized. As such, all getter method
 Note that hyphens in routine names, inputs, outputs, and exceptions are just for linebreaks due to the table size. The actual routine names, inputs, outputs, and exceptions do not have hyphens.
 
 \subsubsection{Access Program Syntax}% ================ Victor
-\begin{longtable}{p{0.28\textwidth}p{0.28\textwidth}p{0.28\textwidth}p{0.16\textwidth}}
+\begin{longtable}{p{0.28\textwidth}p{0.28\textwidth}p{0.28\textwidth}p{0.14\textwidth}}
 \caption{G4NeutronHPVector -- access program syntax}\label{Table_NeutronHPVectorInterface}\\
 \toprule
 \bf Routine Name & \bf Input & \bf Output & \bf Exceptions \\\midrule
 \arrayrulecolor{lightgray}
 G4NeutronHPVector & & & \\\hline
 G4NeutronHPVector & G4int & & \\\hline
+= & G4NeutronHPVector\& & G4NeutronHPVector\& &\\\hline
++ & G4NeutronHPVector\&, G4NeutronHPVector\& & &\\\hline
 SetVerbose & G4int & & \\\hline
 Times &G4double & & \\\hline
 SetPoint  &G4int, G4NeutronHPDataPoint & & \\\hline
@@ -249,16 +251,13 @@ Integrate & & & \\\hline
 GetIntegral & & G4double & \\\hline
 SetInterpolationManager & const G4InterpolationManager \& & & \\\hline
 SetInterpolationManager & G4InterpolationManager \& & & \\\hline
-G4InterpolationManager & & const G4InterpolationManager  \& & \\\hline
 SetScheme & G4int,const G4InterpolationScheme \& & & \\\hline
 GetScheme & G4int & G4InterpolationScheme & \\\hline
 GetMeanX & & G4double & \\\hline
 GetBlocked & & vector\textless G4double\textgreater & \\\hline
 GetBuffered & & vector\textless G4double\textgreater & \\\hline
 Get15percentBorder & & G4double & \\\hline
-Get50percentBorder & & G4double & \\\hline
-Check & G4int & & G4Hadronic-Exception \\\hline
-IsBlocked & G4double & G4bool & \\
+Get50percentBorder & & G4double & \\
 \arrayrulecolor{black}
 \bottomrule
 \end{longtable}
@@ -273,6 +272,8 @@ Note that hyphens in routine names and inputs are just for linebreaks due to the
 \arrayrulecolor{lightgray}
 G4NeutronHPVector & & \\\hline
 G4NeutronHPVector & G4int & \\\hline
+= & G4NeutronHPVector\& &  \\\hline
++ & G4NeutronHPVector\&, G4NeutronHPVector\&  & \\\hline
 SetVerbose & G4int & \\\hline
 Times & G4double & \\\hline
 SetPoint & G4int, G4NeutronHP-DataPoint & \\\hline
@@ -309,16 +310,13 @@ Integrate & & \\\hline
 GetIntegral & & \\\hline
 SetInterpolation-Manager & const G4Interpolation-Manager\& &\\\hline
 SetInterpolation-Manager & G4Interpolation-Manager\& & \\\hline
-G4Interpolation-Manager & & \\\hline
 SetScheme & G4int, G4Interpolation-Scheme\& & \\\hline
 GetScheme & G4int & \\\hline
 GetMeanX & & \\\hline
 GetBlocked & & \\\hline
 GetBuffered & & \\\hline
 Get15percentBorder & &  \\\hline
-Get50percentBorder & &  \\\hline
-Check & G4int & \\\hline
-IsBlocked & G4double & \\
+Get50percentBorder & &  \\
 \arrayrulecolor{black}
 \bottomrule
 \end{longtable}
@@ -334,27 +332,28 @@ Note that hyphens in variable names and types are just for linebreaks due to the
 \toprule
 \bf Variable & \bf Type & \bf Description\\\midrule
 \arrayrulecolor{lightgray}
-\texttt{theLine} & G4NeutronHP-Interpolator & \\\hline
-\texttt{totalIntegral} & G4double & \\\hline
-\texttt{theData} & G4NeutronHP-DataPoint* & \\\hline
-\texttt{theManager} & G4Interpolation-Manager & \\\hline
-\texttt{theIntegral} & G4double* & \\\hline
-\texttt{nEntries} & G4int & \\\hline
-\texttt{nPoints} & G4int & \\\hline
-\texttt{label} & G4double & \\\hline
-\texttt{theInt} & G4Neutron-Interpolator & \\\hline
-\texttt{Verbose} & G4int & \\\hline
-\texttt{isFreed} & G4int & \\\hline
-\texttt{theHash} & G4NeutronHP-Hash & \\\hline
-\texttt{maxValue} & G4double & \\\hline
-\texttt{theBlocked} & vector \textless G4double\textgreater & \\\hline
-\texttt{theBuffered} & vector \textless G4double\textgreater & \\\hline
-\texttt{the15percent- BorderCash} & G4double & \\\hline
-\texttt{the50percent- BorderCash} & G4double & \\\hline
+\texttt{theLin} & G4NeutronHP-Interpolator & the linear interpolator for sampling data\\\hline
+\texttt{totalIntegral} & G4double & integral over all data points from \texttt{theData}\\\hline
+\texttt{theData} & G4NeutronHP-DataPoint* & array of G4NeutronHPDataPoint, stores all data points in vector\\\hline
+\texttt{theManager} & G4Interpolation-Manager & manages the interpolation schemes, knows how to interpolate data\\\hline
+\texttt{theIntegral} & G4double* & array of integrals where \texttt{theIntegral[i]} is the integral of all data points from \texttt{theData} up until \emph{i}\\\hline
+\texttt{nEntries} & G4int & the number of data points to consider when performing calculations over \texttt{theData}\\\hline
+\texttt{nPoints} & G4int & the number of data points in \texttt{theData} \\\hline
+\texttt{label} & G4double & number \\\hline
+\texttt{theInt} & G4Neutron-Interpolator & the interpolator for sampling data (may not be linear)\\\hline
+\texttt{Verbose} & G4int & verbosity level, some statements will only print to console with higher values \\\hline
+\texttt{isFreed} & G4int & only used for debugging, 1 if class has been destructed 0 otherwise\\\hline
+\texttt{theHash} & G4NeutronHP-Hash & stores the \emph{x} and \emph{y} value of every tenth data point from \texttt{theData} to speed up getting the minimum index in \texttt{theData} of a data point with X larger than a given value \\\hline
+\texttt{maxValue} & G4double & maximum value of \texttt{Xsec} or \texttt{Y} passed in SetData, SetY, or SetXSec so far. Initialized to \texttt{-DBL\_MAX} (min representable double).\\\hline
+\texttt{theBlocked} & vector \textless G4double\textgreater & deprecated: vector still exists in class but data never added to it\\\hline
+\texttt{theBuffered} & vector \textless G4double\textgreater & stores buffer of samples to speed up sampling the vector \\\hline
+\texttt{the15percent- BorderCash} & G4double & the X value of the first data point with an integral no more than 15\% smaller than the integral of the last data point \\\hline
+\texttt{the50percent- BorderCash} & G4double & the X value of the first data point with an integral no more than 50\% smaller than the integral of the last data point\\
 \arrayrulecolor{black}
+\bottomrule
 \end{tabularx}
 \end{table}
-
+\clearpage
 \subsubsection{Environment Variables}% ============== Matt
 There are no environment variables for this Module.
 

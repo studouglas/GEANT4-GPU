@@ -44,27 +44,27 @@
   {
     G4cout << "G4NeutronHPVector plus operator" << G4endl;
     G4NeutronHPVector * result = new G4NeutronHPVector;
-    G4int j=0;
+    G4int j = 0;
     G4double x;
     G4double y;
     G4int running = 0;
-    for(G4int i=0; i<left.GetVectorLength(); i++)
+    for (G4int i = 0; i < left.GetVectorLength(); i++)
     {
-      while(j<right.GetVectorLength())
+      while (j<right.GetVectorLength())
       {
-        if(right.GetX(j)<left.GetX(i)*1.001)
+        if (right.GetX(j)<left.GetX(i)*1.001)
         {
           x = right.GetX(j);
-          y = right.GetY(j)+left.GetY(x);
+          y = right.GetY(j) + left.GetY(x);
           result->SetData(running++, x, y);
           j++;
         }
         //else if(std::abs((right.GetX(j)-left.GetX(i))/(left.GetX(i)+right.GetX(j)))>0.001)
-        else if( left.GetX(i)+right.GetX(j) == 0 
-              || std::abs((right.GetX(j)-left.GetX(i))/(left.GetX(i)+right.GetX(j))) > 0.001 )
+        else if (left.GetX(i) + right.GetX(j) == 0 
+              || std::abs((right.GetX(j) - left.GetX(i)) / (left.GetX(i) + right.GetX(j))) > 0.001)
         {
           x = left.GetX(i);
-          y = left.GetY(i)+right.GetY(x);
+          y = left.GetY(i) + right.GetY(x);
           result->SetData(running++, x, y);
           break;
         }
@@ -73,10 +73,10 @@
           break;
         }
       }
-      if(j==right.GetVectorLength())
+      if (j == right.GetVectorLength())
       {
         x = left.GetX(i);
-        y = left.GetY(i)+right.GetY(x);
+        y = left.GetY(i) + right.GetY(x);
         result->SetData(running++, x, y);     
       }
     }
@@ -87,8 +87,6 @@
   G4NeutronHPVector::G4NeutronHPVector()
   {
   	G4cout << "G4NeutronHPVector Constructed (no params)" << G4endl;
-    
-
     #define arraySize 15
     int *arr1 = new int[arraySize];
     int *arr2 = new int[arraySize];
@@ -131,32 +129,28 @@
       G4cout << "CUDA is disabled -- G4NeutronHPVector::G4NeutronHPVector()" << G4endl;
     #endif
 
-
-
-
     theData = new G4NeutronHPDataPoint[20]; 
-    nPoints=20;
-    nEntries=0;
-    Verbose=0;
-    theIntegral=0;
-    totalIntegral=-1;
+    nPoints = 20;
+    nEntries = 0;
+    Verbose = 0;
+    theIntegral = 0;
+    totalIntegral = -1;
     isFreed = 0;
     maxValue = -DBL_MAX;
     the15percentBorderCash = -DBL_MAX;
     the50percentBorderCash = -DBL_MAX;
     label = -DBL_MAX;
-
   }
   
   G4NeutronHPVector::G4NeutronHPVector(G4int n)
   {
   	G4cout << "G4NeutronHPVector Constructed (n: " << n << ")" << G4endl;
-    nPoints=std::max(n, 20);
+    nPoints = std::max(n, 20);
     theData = new G4NeutronHPDataPoint[nPoints]; 
-    nEntries=0;
-    Verbose=0;
-    theIntegral=0;
-    totalIntegral=-1;
+    nEntries = 0;
+    Verbose = 0;
+    theIntegral = 0;
+    totalIntegral = -1;
     isFreed = 0;
     maxValue = -DBL_MAX;
     the15percentBorderCash = -DBL_MAX;
@@ -167,9 +161,9 @@
   {
     G4cout << "G4NeutronHPVector destroyed" << G4endl;
 //    if(Verbose==1)G4cout <<"G4NeutronHPVector::~G4NeutronHPVector"<<G4endl;
-      delete [] theData;
+    delete [] theData;
 //    if(Verbose==1)G4cout <<"Vector: delete theData"<<G4endl;
-      delete [] theIntegral;
+    delete [] theIntegral;
 //    if(Verbose==1)G4cout <<"Vector: delete theIntegral"<<G4endl;
     theHash.Clear();
     isFreed = 1;
@@ -179,16 +173,22 @@
   operator = (const G4NeutronHPVector & right)
   {
     G4cout << "G4NeutronHPVector == operator" << G4endl;
-    if(&right == this) return *this;
+    if (&right == this) {
+      return *this;
+    }
     
     G4int i;
     
     totalIntegral = right.totalIntegral;
-    if(right.theIntegral!=0) theIntegral = new G4double[right.nEntries];
-    for(i=0; i<right.nEntries; i++)
+    if (right.theIntegral != 0) {
+      theIntegral = new G4double[right.nEntries];
+    }
+    for(i = 0; i < right.nEntries; i++)
     {
       SetPoint(i, right.GetPoint(i)); // copy theData
-      if(right.theIntegral!=0) theIntegral[i] = right.theIntegral[i];
+      if (right.theIntegral != 0) {
+        theIntegral[i] = right.theIntegral[i];
+      }
     }
     theManager = right.theManager; 
     label = right.label;
@@ -197,44 +197,47 @@
     the15percentBorderCash = right.the15percentBorderCash;
     the50percentBorderCash = right.the50percentBorderCash;
     theHash = right.theHash;
-   return *this;
+    return *this;
   }
-
   
   G4double G4NeutronHPVector::GetXsec(G4double e) 
   {
-    //G4cout << "G4NeutronHPVector getxsec" << G4endl;
-    
-    if(nEntries == 0) return 0;
-    if(!theHash.Prepared()) Hash();
+    if (nEntries == 0) {
+      return 0;
+    }
+    if (!theHash.Prepared()) {
+      Hash();
+    }
     G4int min = theHash.GetMinIndex(e);
     G4int i;
-    for(i=min ; i<nEntries; i++)
+    for (i = min; i < nEntries; i++)
     {
       //if(theData[i].GetX()>e) break;
-      if(theData[i].GetX() >= e) break;
+      if (theData[i].GetX() >= e) {
+        break;
+      }
     }
     G4int low = i-1;
     G4int high = i;
-    if(i==0)
+    if (i == 0)
     {
       low = 0;
       high = 1;
     }
-    else if(i==nEntries)
+    else if (i == nEntries)
     {
-      low = nEntries-2;
-      high = nEntries-1;
+      low = nEntries - 2;
+      high = nEntries - 1;
     }
     G4double y;
-    if(e<theData[nEntries-1].GetX()) 
+    if (e < theData[nEntries-1].GetX()) 
     {
       // Protect against doubled-up x values
       //if( (theData[high].GetX()-theData[low].GetX())/theData[high].GetX() < 0.000001)
-      if ( theData[high].GetX() !=0 
+      if (theData[high].GetX() != 0 
        //080808 TKDB
        //&&( theData[high].GetX()-theData[low].GetX())/theData[high].GetX() < 0.000001)
-       &&( std::abs( (theData[high].GetX()-theData[low].GetX())/theData[high].GetX() ) < 0.000001 ) )
+       && (std::abs((theData[high].GetX() - theData[low].GetX()) / theData[high].GetX()) < 0.000001))
       {
         y = theData[low].GetY();
       }
@@ -242,12 +245,12 @@
       {
         y = theInt.Interpolate(theManager.GetScheme(high), e, 
                                theData[low].GetX(), theData[high].GetX(),
-		  	       theData[low].GetY(), theData[high].GetY());
+		  	                       theData[low].GetY(), theData[high].GetY());
       }
     }
     else
     {
-      y=theData[nEntries-1].GetY();
+      y = theData[nEntries-1].GetY();
     }
     return y;
   }
@@ -255,11 +258,11 @@
   void G4NeutronHPVector::Dump()
   {
     G4cout << "G4NeutronHPVector Dump" << G4endl;
-    G4cout << nEntries<<G4endl;
-    for(G4int i=0; i<nEntries; i++)
+    G4cout << nEntries << G4endl;
+    for (G4int i = 0; i < nEntries; i++)
     {
-      G4cout << theData[i].GetX()<<" ";
-      G4cout << theData[i].GetY()<<" ";
+      G4cout << theData[i].GetX() << " ";
+      G4cout << theData[i].GetY() << " ";
 //      if (i!=1&&i==5*(i/5)) G4cout << G4endl;
       G4cout << G4endl;
     }
@@ -269,16 +272,22 @@
   void G4NeutronHPVector::Check(G4int i)
   {
     //G4cout << "G4NeutronHPVector Check" << G4endl;
-    if(i>nEntries) throw G4HadronicException(__FILE__, __LINE__, "Skipped some index numbers in G4NeutronHPVector");
-    if(i==nPoints)
+    if (i > nEntries) {
+      throw G4HadronicException(__FILE__, __LINE__, "Skipped some index numbers in G4NeutronHPVector");
+    }
+    if (i == nPoints)
     {
       nPoints = static_cast<G4int>(1.2*nPoints);
       G4NeutronHPDataPoint * buff = new G4NeutronHPDataPoint[nPoints];
-      for (G4int j=0; j<nEntries; j++) buff[j] = theData[j];
+      for (G4int j = 0; j < nEntries; j++) {
+        buff[j] = theData[j];
+      }
       delete [] theData;
       theData = buff;
     }
-    if(i==nEntries) nEntries=i+1;
+    if (i == nEntries) {
+      nEntries = i+1;
+    }
   }
 
   void G4NeutronHPVector::
@@ -293,9 +302,9 @@
     G4int s_tmp = 0, n=0, m_tmp=0;
     G4NeutronHPVector * tmp;
     G4int a = s_tmp, p = n, t;
-    while ( a<active->GetVectorLength() )
+    while (a < active->GetVectorLength())
     {
-      if(active->GetEnergy(a) <= passive->GetEnergy(p))
+      if (active->GetEnergy(a) <= passive->GetEnergy(p))
       {
         G4double xa  = active->GetEnergy(a);
         G4double yy = theInt.Interpolate(aScheme, aValue, active->GetLabel(), passive->GetLabel(),
@@ -306,9 +315,9 @@
         a++;
         G4double xp = passive->GetEnergy(p);
         //if( std::abs(std::abs(xp-xa)/xa)<0.0000001&&a<active->GetVectorLength() ) 
-        if ( xa != 0 
+        if (xa != 0 
           && std::abs(std::abs(xp-xa)/xa) < 0.0000001 
-          && a < active->GetVectorLength() )
+          && a < active->GetVectorLength())
         {
           p++;
           tmp = active; t=a;
@@ -323,15 +332,15 @@
     }
     
     G4double deltaX = passive->GetXsec(GetEnergy(m_tmp-1)) - GetXsec(m_tmp-1);
-    while (p!=passive->GetVectorLength()&&passive->GetEnergy(p)<=aValue)
+    while (p != passive->GetVectorLength() && passive->GetEnergy(p) <= aValue)
     {
       G4double anX;
-      anX = passive->GetXsec(p)-deltaX;
-      if(anX>0)
+      anX = passive->GetXsec(p) - deltaX;
+      if (anX > 0)
       {
         //if(std::abs(GetEnergy(m-1)-passive->GetEnergy(p))/passive->GetEnergy(p)>0.0000001)
-        if ( passive->GetEnergy(p) == 0 
-          || std::abs(GetEnergy(m_tmp-1)-passive->GetEnergy(p))/passive->GetEnergy(p) > 0.0000001 )
+        if (passive->GetEnergy(p) == 0 
+          || std::abs(GetEnergy(m_tmp-1) - passive->GetEnergy(p)) / passive->GetEnergy(p) > 0.0000001)
         {
           SetData(m_tmp, passive->GetEnergy(p), anX);
           theManager.AppendScheme(m_tmp++, passive->GetScheme(p));
@@ -340,7 +349,7 @@
       p++;
     }
     // Rebuild the Hash;
-    if(theHash.Prepared()) 
+    if (theHash.Prepared()) 
     {
       ReHash();
     }
@@ -348,14 +357,12 @@
     
   void G4NeutronHPVector::ThinOut(G4double precision)
   {
-G4cout << "G4NeutronHPVector THINOUT" << G4endl;
-//#if CUDA_ENABLED
-//      float result = squareArray(100);
-//      G4cout <<"G4NeutronHPVector::ThinOut test on GPU result: "<< result << G4endl;
-//#endif
+    G4cout << "G4NeutronHPVector THINOUT" << G4endl;
 
     // anything in there?
-    if(GetVectorLength()==0) return;
+    if (GetVectorLength() == 0) {
+      return;
+    }
     // make the new vector
     G4NeutronHPDataPoint * aBuff = new G4NeutronHPDataPoint[nPoints];
     G4double x, x1, x2, y, y1, y2;
@@ -365,23 +372,27 @@ G4cout << "G4NeutronHPVector THINOUT" << G4endl;
     aBuff[0] = theData[0];
     
     // Find the rest
-    while(current < GetVectorLength())
+    while (current < GetVectorLength())
     {
-      x1=aBuff[count].GetX();
-      y1=aBuff[count].GetY();
-      x2=theData[current].GetX();
-      y2=theData[current].GetY();
-      for(G4int j=start; j<current; j++)
+      x1 = aBuff[count].GetX();
+      y1 = aBuff[count].GetY();
+      x2 = theData[current].GetX();
+      y2 = theData[current].GetY();
+      for (G4int j = start; j < current; j++)
       {
-	x = theData[j].GetX();
-	if(x1-x2 == 0) y = (y2+y1)/2.;
-	else y = theInt.Lin(x, x1, x2, y1, y2);
-	if (std::abs(y-theData[j].GetY())>precision*y)
-	{
-	  aBuff[++count] = theData[current-1]; // for this one, everything was fine
+	      x = theData[j].GetX();
+	      if (x1 - x2 == 0) {
+          y = (y2+y1)/2.;
+        }
+      	else {
+          y = theInt.Lin(x, x1, x2, y1, y2);
+        }
+      	if (std::abs(y-theData[j].GetY())>precision*y)
+      	{
+      	  aBuff[++count] = theData[current-1]; // for this one, everything was fine
           start = current; // the next candidate
-	  break;
-	}
+      	  break;
+      	}
       }
       current++ ;
     }
@@ -392,7 +403,7 @@ G4cout << "G4NeutronHPVector THINOUT" << G4endl;
     nEntries = count+1;
     
     // Rebuild the Hash;
-    if(theHash.Prepared()) 
+    if (theHash.Prepared()) 
     {
       ReHash();
     }
@@ -400,19 +411,19 @@ G4cout << "G4NeutronHPVector THINOUT" << G4endl;
 
   G4bool G4NeutronHPVector::IsBlocked(G4double aX)
   {
-    G4cout << "G4NeutronHPVector isBlocked" << G4endl;
     G4bool result = false;
     std::vector<G4double>::iterator i;
-    for(i=theBlocked.begin(); i!=theBlocked.end(); i++)
+    for (i = theBlocked.begin(); i != theBlocked.end(); i++)
     {
       G4double aBlock = *i;
       if(std::abs(aX-aBlock) < 0.1*MeV)
       {
         result = true;
-	theBlocked.erase(i);
-	break;
+      	theBlocked.erase(i);
+      	break;
       }
     }
+    G4cout << "G4NeutronHPVector isBlocked called, result=" << result << G4endl;
     return result;
   }
 
@@ -421,28 +432,34 @@ G4cout << "G4NeutronHPVector THINOUT" << G4endl;
     G4cout << "G4NeutronHPVector Sample" << G4endl;
     G4double result;
     G4int j;
-    for(j=0; j<GetVectorLength(); j++)
+    for (j = 0; j < GetVectorLength(); j++)
     {
-      if(GetY(j)<0) SetY(j, 0);
+      if (GetY(j) < 0) {
+        SetY(j, 0);
+      }
     }
     
-    if(theBuffered.size() !=0 && G4UniformRand()<0.5) 
+    if (theBuffered.size() != 0 && G4UniformRand() < 0.5) 
     {
       result = theBuffered[0];
       theBuffered.erase(theBuffered.begin());
-      if(result < GetX(GetVectorLength()-1) ) return result;
+      if (result < GetX(GetVectorLength()-1)) {
+        return result;
+      }
     }
-    if(GetVectorLength()==1)
+    if (GetVectorLength() == 1)
     {
       result = theData[0].GetX();
     }
     else
     {
-      if(theIntegral==0) { IntegrateAndNormalise(); }
+      if (theIntegral == 0) { 
+        IntegrateAndNormalise(); 
+      }
       do
       {
-//080808
-/*
+        //080808
+        /*
         G4double rand;
         G4double value, test, baseline;
         baseline = theData[GetVectorLength()-1].GetX()-theData[0].GetX();
@@ -456,56 +473,58 @@ G4cout << "G4NeutronHPVector THINOUT" << G4endl;
         //while(test<rand);
         while( test < rand && test > 0 );
         result = value;
-*/
+        */
         G4double rand;
         G4double value, test;
         do 
         {
-           rand = G4UniformRand();
-           G4int ibin = -1;
-           for ( G4int i = 0 ; i < GetVectorLength() ; i++ )
-           {
-              if ( rand < theIntegral[i] ) 
-              {
-                 ibin = i; 
-                 break;
-              }
-           }
-           if ( ibin < 0 ) G4cout << "TKDB 080807 " << rand << G4endl; 
-           // result 
-           rand = G4UniformRand();
-           G4double x1, x2; 
-           if ( ibin == 0 ) 
-           {
-              x1 = theData[ ibin ].GetX(); 
-              value = x1; 
+          rand = G4UniformRand();
+          G4int ibin = -1;
+          for (G4int i = 0; i < GetVectorLength(); i++)
+          {
+            if (rand < theIntegral[i])
+            {
+              ibin = i; 
               break;
-           }
-           else 
-           {
-              x1 = theData[ ibin-1 ].GetX();
-           }
-           
-           x2 = theData[ ibin ].GetX();
-           value = rand * ( x2 - x1 ) + x1;
-	   //***********************************************************************
-	   /*
-           test = GetY ( value ) / std::max ( GetY( ibin-1 ) , GetY ( ibin ) ); 
-	   */
-	   //***********************************************************************
-	   //EMendoza - Always linear interpolation:
-	   G4double y1=theData[ ibin-1 ].GetY();
-           G4double y2=theData[ ibin ].GetY();
-	   G4double mval=(y2-y1)/(x2-x1);
-	   G4double bval=y1-mval*x1;
-	   test =(mval*value+bval)/std::max ( GetY( ibin-1 ) , GetY ( ibin ) ); 
-	   //***********************************************************************
+            }
+          }
+          if (ibin < 0) {
+            G4cout << "TKDB 080807 " << rand << G4endl; 
+          }
+          // result 
+          rand = G4UniformRand();
+          G4double x1, x2; 
+          if (ibin == 0) 
+          {
+            x1 = theData[ ibin ].GetX(); 
+            value = x1; 
+            break;
+          }
+          else 
+          {
+            x1 = theData[ ibin-1 ].GetX();
+          }
+
+          x2 = theData[ ibin ].GetX();
+          value = rand * ( x2 - x1 ) + x1;
+          //***********************************************************************
+          /*
+               test = GetY ( value ) / std::max ( GetY( ibin-1 ) , GetY ( ibin ) ); 
+          */
+          //***********************************************************************
+          //EMendoza - Always linear interpolation:
+          G4double y1 = theData[ibin-1].GetY();
+          G4double y2 = theData[ibin].GetY();
+          G4double mval = (y2-y1) / (x2-x1);
+          G4double bval = y1 - (mval * x1);
+          test = ((mval * value) + bval) / std::max(GetY(ibin - 1), GetY(ibin)); 
+    	    //***********************************************************************
         }
-        while ( G4UniformRand() > test );
+        while (G4UniformRand() > test);
         result = value;
-//080807
+        //080807
       }
-      while(IsBlocked(result));
+      while (IsBlocked(result));
     }
     return result;
   }
@@ -513,26 +532,30 @@ G4cout << "G4NeutronHPVector THINOUT" << G4endl;
   G4double G4NeutronHPVector::Get15percentBorder()
   {    
     G4cout << "G4NeutronHPVector Get15percentBorder" << G4endl;
-    if(the15percentBorderCash>-DBL_MAX/2.) return the15percentBorderCash;
+    if (the15percentBorderCash > -DBL_MAX/2.) {
+      return the15percentBorderCash;
+    }
     G4double result;
-    if(GetVectorLength()==1)
+    if (GetVectorLength() == 1)
     {
       result = theData[0].GetX();
       the15percentBorderCash = result;
     }
     else
     {
-      if(theIntegral==0) { IntegrateAndNormalise(); }
+      if (theIntegral == 0) { 
+        IntegrateAndNormalise(); 
+      }
       G4int i;
       result = theData[GetVectorLength()-1].GetX();
-      for(i=0;i<GetVectorLength();i++)
+      for (i = 0;i < GetVectorLength(); i++)
       {
-	if(theIntegral[i]/theIntegral[GetVectorLength()-1]>0.15) 
-	{
-	  result = theData[std::min(i+1, GetVectorLength()-1)].GetX();
+      	if (theIntegral[i] / theIntegral[GetVectorLength()-1] > 0.15) 
+      	{
+      	  result = theData[std::min(i + 1, GetVectorLength()-1)].GetX();
           the15percentBorderCash = result;
-	  break;
-	}
+      	  break;
+      	}
       }
       the15percentBorderCash = result;
     }
@@ -542,41 +565,45 @@ G4cout << "G4NeutronHPVector THINOUT" << G4endl;
   G4double G4NeutronHPVector::Get50percentBorder()
   {    
     G4cout << "G4NeutronHPVector Get50percentBorder" << G4endl;
-    if(the50percentBorderCash>-DBL_MAX/2.) return the50percentBorderCash;
+    if (the50percentBorderCash > -DBL_MAX/2.) {
+      return the50percentBorderCash;
+    }
     G4double result;
-    if(GetVectorLength()==1)
+    if (GetVectorLength() == 1)
     {
       result = theData[0].GetX();
       the50percentBorderCash = result;
     }
     else
     {
-      if(theIntegral==0) { IntegrateAndNormalise(); }
+      if (theIntegral == 0) { 
+        IntegrateAndNormalise(); 
+      }
       G4int i;
       G4double x = 0.5;
-      result = theData[GetVectorLength()-1].GetX();
-      for(i=0;i<GetVectorLength();i++)
+      result = theData[GetVectorLength() - 1].GetX();
+      for (i = 0; i < GetVectorLength(); i++)
       {
-	if(theIntegral[i]/theIntegral[GetVectorLength()-1]>x) 
-	{
-	  G4int it;
-	  it = i;
-	  if(it == GetVectorLength()-1)
-	  {
-	    result = theData[GetVectorLength()-1].GetX();
-	  }
-	  else
-	  {
-	    G4double x1, x2, y1, y2;
-	    x1 = theIntegral[i-1]/theIntegral[GetVectorLength()-1];
-	    x2 = theIntegral[i]/theIntegral[GetVectorLength()-1];
-	    y1 = theData[i-1].GetX();
-	    y2 = theData[i].GetX();
-	    result = theLin.Lin(x, x1, x2, y1, y2);
-	  }
+      	if (theIntegral[i] / theIntegral[GetVectorLength()-1] > x) 
+      	{
+      	  G4int it;
+      	  it = i;
+      	  if (it == GetVectorLength()-1)
+      	  {
+      	    result = theData[GetVectorLength()-1].GetX();
+      	  }
+      	  else
+      	  {
+      	    G4double x1, x2, y1, y2;
+      	    x1 = theIntegral[i-1] / theIntegral[GetVectorLength()-1];
+      	    x2 = theIntegral[i] / theIntegral[GetVectorLength()-1];
+      	    y1 = theData[i-1].GetX();
+      	    y2 = theData[i].GetX();
+      	    result = theLin.Lin(x, x1, x2, y1, y2);
+      	  }
           the50percentBorderCash = result;
-	  break;
-	}
+      	  break;
+      	}
       }
       the50percentBorderCash = result;
     }

@@ -89,7 +89,9 @@ class G4NeutronHPVector
     
   inline void SetData(G4int i, G4double x, G4double y) 
   { 
-//    G4cout <<"G4NeutronHPVector::SetData called"<<nPoints<<" "<<nEntries<<G4endl;
+//    G4cout <<"G4NeutronHPVector::SetData called"<<nPoints<<" "<<
+
+    <<G4endl;
     Check(i);
     if(y>maxValue) maxValue=y;
     theData[i].SetData(x, y);
@@ -121,10 +123,14 @@ class G4NeutronHPVector
   inline G4double GetX(G4int i) const 
   { 
     if (i<0) i=0;
-    if(i>=GetVectorLength()) i=GetVectorLength()-1;
+    if(i>=GetVectorLength()) {
+      i=GetVectorLength()-1;
+    }
     return theData[i].GetX();
   }
-  inline const G4NeutronHPDataPoint & GetPoint(G4int i) const { return theData[i]; }
+  inline const G4NeutronHPDataPoint & GetPoint(G4int i) const { 
+    return theData[i]; 
+  }
   
   void Hash() 
   {
@@ -135,8 +141,8 @@ class G4NeutronHPVector
       if(0 == (i+1)%10)
       {
         x = GetX(i);
-	y = GetY(i);
-	theHash.SetData(i, x, y);
+      	y = GetY(i);
+      	theHash.SetData(i, x, y);
       }
     }
   }
