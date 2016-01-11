@@ -117,6 +117,7 @@ Geant4 uses its own basic types for standard C++ types (G4int, G4bool, G4double,
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ----- NeutronHPDataPoint
 \section{G4NeutronHPDataPoint}
 \subsection{Description}
+This class encapsulates all of the data as well as the accessor and mutator methods that each point requires. The points contain two private variables used to store the xSec and the energy as doubles. This class also contains the constructors needed to instantiate this data type.
 
 \subsection{MIS (Module Interface Specification)}
 \subsubsection{Access Program Syntax}% ================ Victor
@@ -150,7 +151,7 @@ Note that hyphens in routine names and inputs are just for linebreaks due to the
 \caption{NeutronHPDataPoint -- access program semantics}\label{Table_NeutronHPDataPointSemantics}
 \begin{tabular}{l p{0.17\textwidth} p{0.5\textwidth}}
 \toprule
-\bf Routine Name & \bf Input & \bf Semantics \\ \midrule
+\bf Routine Name & \bf Input & \bf Semantics \\\midrule
 \arrayrulecolor{lightgray}
 G4NeutronHPDataPoint  &                      & instantiates the class, setting \texttt{energy} and \texttt{xSec} to 0\\\hline
 G4NeutronHPDataPoint  & G4double, G4double   & instantiates the class with the inputted \texttt{energy} and \texttt{xSec}\\\hline
@@ -192,8 +193,10 @@ There are no environment variables for this module.
 It can be assumed that the class will be initialized. As such, all getter methods will return a non-null value.
 
 \subsection{Error Handling}
+NA
 
 \subsection{Key Algorithms}
+NA
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ---- NeutronHPDataPoint
 
 
@@ -201,6 +204,7 @@ It can be assumed that the class will be initialized. As such, all getter method
 \section{G4NeutronHPVector}
 
 \subsection{Description}
+G4NeutronHPVector
 
 \subsection{MIS (Module Interface Specification)}
 Note that hyphens in routine names, inputs, outputs, and exceptions are just for linebreaks due to the table size. The actual routine names, inputs, outputs, and exceptions do not have hyphens.
@@ -214,7 +218,7 @@ Note that hyphens in routine names, inputs, outputs, and exceptions are just for
 G4NeutronHPVector & & & \\\hline
 G4NeutronHPVector & G4int & & \\\hline
 = & G4NeutronHPVector\& & G4NeutronHPVector\& &\\\hline
-+ & G4NeutronHPVector\&, G4NeutronHPVector\& & &\\\hline
++ & G4NeutronHPVector\&, G4NeutronHPVector\& & G4NeutronHPVector\& &\\\hline
 SetVerbose & G4int & & \\\hline
 Times &G4double & & \\\hline
 SetPoint  &G4int, G4NeutronHPDataPoint & & \\\hline
@@ -270,53 +274,58 @@ Note that hyphens in routine names and inputs are just for linebreaks due to the
 \toprule
 \bf Routine Name & \bf Input & \bf Description \\\midrule
 \arrayrulecolor{lightgray}
-G4NeutronHPVector & & \\\hline
-G4NeutronHPVector & G4int & \\\hline
-= & G4NeutronHPVector\& &  \\\hline
-+ & G4NeutronHPVector\&, G4NeutronHPVector\&  & \\\hline
-SetVerbose & G4int & \\\hline
-Times & G4double & \\\hline
-SetPoint & G4int, G4NeutronHP-DataPoint & \\\hline
-SetData & G4int, G4double,G4double & \\\hline
-SetX & G4int, G4double & \\\hline
-SetEnergy & G4int, G4double & \\\hline
-SetY & G4int, G4double & \\\hline
-SetXsec & G4int, G4double & \\\hline
-GetEnergy & G4int & \\\hline
-GetXsec & G4int & \\\hline
-GetXsec & G4double & \\\hline
-GetXsec & G4double,G4int & \\\hline
-GetX & G4int & \\\hline
-GetY & G4double & \\\hline
-GetY & G4int & \\\hline
-GetVectorLength & & \\\hline
-GetPoint & G4int & \\\hline
-Hash & & \\\hline
-ReHash & & \\\hline
-InitInterpolation & istream & \\\hline
-Init & istream,G4int, G4double, G4double & \\\hline
-Init & istream, G4double,G4double & \\\hline
-ThinOut & G4double & \\\hline
-SetLabel & G4double & \\\hline
-GetLabel & & \\\hline
-CleanUp & & \\\hline
-Sample & & \\\hline
-Debug & & \\\hline
-Merge & G4NeutronHPVector*,  G4NeutronHPVector* & \\\hline
-Merge & G4InterpolationScheme, G4double, G4NeutronHPVector*, G4NeutronHPVector* &\\\hline
-SampleLin & & \\\hline
-IntegrateAndNormalise & & \\\hline
-Integrate & & \\\hline
-GetIntegral & & \\\hline
-SetInterpolation-Manager & const G4Interpolation-Manager\& &\\\hline
-SetInterpolation-Manager & G4Interpolation-Manager\& & \\\hline
-SetScheme & G4int, G4Interpolation-Scheme\& & \\\hline
-GetScheme & G4int & \\\hline
-GetMeanX & & \\\hline
-GetBlocked & & \\\hline
-GetBuffered & & \\\hline
-Get15percentBorder & &  \\\hline
-Get50percentBorder & &  \\
+G4NeutronHPVector & & A constructor for the G4NeutronHPVector class. Instantiates the class with no parameters\\ \hline
+G4NeutronHPVector & G4int &  A constructor for the G4NeutronHPVector class. Instantiates the class with one parameter, 
+determines the value of the  \texttt nPoints variable based on input\\\hline
+= & G4NeutronHPVector\& & Sets the current instance to the passed instance\\\hline
++ & G4NeutronHPVector\&, G4NeutronHPVector\& & Returns the vector addition of the two passed vectors.\\\hline
+SetVerbose & G4int & sets the \texttt Verbose to the input\\\hline
+Times & G4double & Multiplies \texttt theData array's y-values by the input, does the same with the corresponding 
+integral\\\hline
+SetPoint & G4int, G4NeutronHP-DataPoint & sets \texttt theData[G4int] to the passed in DataPoint\\\hline
+SetData & G4int, G4double,G4double & sets \texttt theData[G4int] to the passed in \texttt G4double values\\\hline
+SetX & G4int, G4double &  sets \texttt theData[G4int]'x value to the passed in \texttt G4double value \\\hline
+SetEnergy & G4int, G4double &  sets \texttt theData[G4int]'s x value to the passed in \texttt G4double value\\\hline
+SetY & G4int, G4double &  sets \texttt theData[G4int]'s y value to the passed in \texttt G4double value \\\hline
+SetXsec & G4int, G4double & sets \texttt theData[G4int]'s y value to the passed in \texttt G4double value \\\hline
+GetEnergy & G4int & Returns \texttt theData[G4int]'s current x value\\\hline
+GetXsec & G4int &  Returns \texttt theData[G4int]'s current x value\\\hline
+GetXsec & G4double &  Returns \texttt theData's y value corresponding to the x section starting at G4int\\\hline
+GetX & G4int &  Returns \texttt theData[G4int]'s current x value\\\hline
+GetY & G4int &  Returns \texttt theData[G4int]'s current y value\\\hline
+GetVectorLength & & Returns the length of the vector, which is stored in nEntries \\\hline
+GetPoint & G4int &  Returns \texttt theData[G4int]'s current value\\\hline
+Hash & & sets \texttt theHash's value based on theData\\\hline
+ReHash & & clears \texttt theHash and re-evaluates it based on \texttt theData \\\hline
+InitInterpolation & istream & calls Init on the istream input \\\hline
+Init & istream,G4int, G4double, G4double & Initializes the data in \texttt theHash of length G4int\\\hline
+Init & istream, G4double,G4double & Initializes the data in \texttt theHash of length that is read in from a file\\
+\hline
+ThinOut & G4double & Thins out \texttt theData() by removing unnecessary elements and calls ReHash\\\hline
+SetLabel & G4double & Sets the Label value to G4Double\\\hline
+GetLabel & & Returns the current Label value \\\hline
+CleanUp & & Sets the length of \texttt theData to 0, clears the integral and clears \texttt theHash\\\hline
+Sample & & Samples X according to distribution Y \\\hline
+Debug & & Returns \texttt theIntegral \\\hline
+Merge & G4NeutronHPVector*,  G4NeutronHPVector* &  interpolate between labels, continue in unknown areas by subtraction     
+of the last difference.\\\hline
+Merge & G4Interpolation-Scheme, G4double, G4NeutronHPVector*, G4NeutronHPVector* &  interpolate between labels according     
+to G4InterpolationScheme, cut at G4double, continue in unknown areas by subtraction of the last difference.\\\hline
+SampleLin & & Samples X according to distribution Y, linear int\\\hline
+IntegrateAndNormalise & & Calculates the integral for every entry in \texttt theIntegral and normalizes each 
+calculation\\\hline
+Integrate & & Calculates the integral for every entry in \texttt theIntegral \\\hline
+GetIntegral & & Linear interpolation over \texttt theIntegral \\\hline+SetInterpolation-Manager & const G4Interpolation-Manager\& & sets \texttt theManager to the input\\\hline
+SetInterpolation-Manager & G4Interpolation-Manager\& & sets \texttt theManager to the input \\\hline
+SetScheme & G4int, G4Interpolation-Scheme\& & Appends the G4Interpolation-Scheme to \texttt theManager \\\hline
+GetScheme & G4int & Returns the current  G4Interpolation-Scheme associated with \texttt theManager \\\hline
+GetMeanX & & Returns the average x value of all data points in \texttt theData \\\hline
+GetBlocked & & Returns the current value of \texttt theBlocked \\\hline
+GetBuffered & &  Returns the current value of \texttt theBuffered \\\hline
+Get15percentBorder & & gets the integral from each data point to the last data point and returns the first one within 
+15\% of the last data point \\\hline
+Get50percentBorder & & gets the integral from each data point to the last data point and returns the first one within 
+50\% of the last data point\\
 \arrayrulecolor{black}
 \bottomrule
 \end{longtable}
@@ -354,6 +363,7 @@ Note that hyphens in variable names and types are just for linebreaks due to the
 \end{tabularx}
 \end{table}
 \clearpage
+
 \subsubsection{Environment Variables}% ============== Matt
 There are no environment variables for this Module.
 
@@ -361,8 +371,10 @@ There are no environment variables for this Module.
 It can be assumed that the module will be initialized before other functions are called.
 
 \subsection{Error Handling}
+G4HadronicException
 
 \subsection{Key Algorithms}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ---- NeutronHPVector
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ----- Cmake Files
