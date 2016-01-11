@@ -139,12 +139,12 @@ Device & the GPU and its memory, managed from the host, performs computations re
 The purpose of the project is to reduce the computation times of particle simulations in Geant4 by parallelizing and running certain procedures on the GPU. The main stakeholders are members of McMaster's department of Engineering Physics that use Geant4 to simulate particle interactions in McMaster's nuclear reactor.
 
 \subsection{Description}
-The project aims to improve the computation times of Geant4 particle simulations by running certain parallel operations on a GPU. GEANT4-GPU will be a fork of the existing Geant4 system with the additional option for users with compatible hardware to run operations on the GPU for improved performane. This functionality will be available on Mac, Linux and Windows operating systems running on computers with NVIDIA graphics cards that support CUDA.
+The project aims to improve the computation times of Geant4 particle simulations by running certain parallel operations on a GPU. GEANT4-GPU will be a fork of the existing Geant4 system with the additional option for users with compatible hardware to run operations on the GPU for improved performance. This functionality will be available on Mac, Linux and Windows operating systems running on computers with NVIDIA graphics cards that support CUDA.
 
 The design strategy for the project will be based on taking a specific, computationally heavy class from Geant4 and creating a class that fulfills the same interface but that runs on the GPU. This will be repeated for many classes until the project's deadline has been reached. The user will have the option of using the existing classes (running on the CPU) or the new ones (running on the GPU).
 
 \subsection{Document Structure \& Template}
-The design documentation for the project is based off of WHAT TEMPLATES?????? and is broken into two main documents.
+The design documentation for the project is broken into two main documents.
 
 This system architecture document details the system architecture, including an overview of the modules that make up the system, analysis of aspects that are likely and unlikely to change, reasoning behind the high-level decisions, and a table showing how each requirement is addressed in the proposed design.
 
@@ -152,7 +152,7 @@ A separate detailed design document covers the specifics of several key modules 
 
 \section{Important Design Decisions \& Reasoning}
 \subsection{GPU Computing for Geant4}\label{Sec_WhyGPU}
-Geant4 simulations typically involve simulating the movement of many particles (up to millions). Each particle has its new state (postition, energy etc.) calculated at each timestep independently of the other particles. Each state update requires serially traversing an array of particles and performing calculations on each.
+Geant4 simulations typically involve simulating the movement of many particles (up to millions). Each particle has its new state (position, energy, etc.) calculated at each time-step independently of the other particles. Each state update requires serially traversing an array of particles and performing calculations on each.
 
 This problem is well-suited to parallelization, as each particle has the same, relatively simple functions applied to it independently. Although not faster in many cases, when massive parallelization is possible, running on the GPU can lead to significant performance improvements. This led the stakeholders to propose using the GPU to do some calculations in Geant4 with the goal of reducing the runtime of the simulations.
 
@@ -200,7 +200,7 @@ When considering how to integrate the GPU computations with the non-ported proce
     \textbullet $\,$ doesn't require porting functions to GPU that will not have large performance benefits
   & \textbullet $\,$ double the memory usage\newline
     \textbullet $\,$ smaller memory available for GPU may mean that less particles can be simulated at once\newline
-    \textbullet $\,$ everytime state updated it must be updated twice\\\hline
+    \textbullet $\,$ every time state updated it must be updated twice\\\hline
 
 5 & \textbullet $\,$ reduced performance penalty for passing data between main memory and GPU memory\newline
     \textbullet $\,$ easy to use existing code if GPU computation disabled\newline
@@ -221,11 +221,11 @@ Option 5 was chosen due to its ability to divide work easily, its compatibility 
 \subsection{G4NeutronHPVector}\label{subsec_G4NeutronHPVector} % rob
 As was explained in the preceding subsection, the problem has been decomposed to that of only integrating specific functions from given modules with the CUDA technology. With that said, a decision needed to be made as for which class and which functions within that class to integrate.
 
-G4HPNeutronVector was chosen to port to the GPU for two main reasons. The first is that this decision was made to satisfy system and technical requirements, and the second is a matter of satisfying client requirements.
+G4HPNeutronVector was chosen to port to the GPU for two main reasons. The first is that this decision was made to satisfy system and technical requirements, and the second is a matter of satisfying stakeholder requirements.
 
-Geant4 organizes the processes for particles that it must manipulate into separate classes. These classes house functions appropriate to the mechanics surrounding those particles. These classes are the target for parallelization because they are where large arrays of particles and data are stored and manipulated (note: these are not the classes that represent the particles themselves, but the classes that store the functions germane to the given class of particles). These classes are referred to as models in the Geant4 code base. There are over 100 of these `models' under the hadronic category alone (hadronic particles are those composed of quarks). The problem now is reduced to deciding which model(s) to integrate with the CUDA technology.
+Geant4 organizes the processes for particles that it must manipulate into separate classes. These classes house functions appropriate to the mechanics surrounding those particles. These classes are the target for parallelization because they are where large arrays of particles and data are stored and manipulated (note: these are not the classes that represent the particles themselves, but the classes that store the functions germane to the given class of particles). These classes are referred to as models in the Geant4 codebase. There are over 100 of these `models' under the hadronic category alone (hadronic particles are those composed of quarks). The problem now is reduced to deciding which model(s) to integrate with the CUDA technology.
 	 
-The decision as to which model to integrate was made to satisfy client requirements. The problem at hand was proposed by Dr. Buijs and his graduate students from the Engineering Physics department at McMaster. Dr. Buijs' team uses Geant4 to model the university's local nuclear reactor. Their simulations very heavily depend on manipulating neutrons through the G4NeutronHPVector class. Therefore, this model was chosen for CUDA integration in an attempt to offer the most significant performance increases to Dr. Buijs and his students specifically.
+The decision as to which model to integrate was made to satisfy stakeholder requirements. The problem at hand was proposed by Dr. Buijs and his graduate students from the Engineering Physics department at McMaster. Dr. Buijs' team uses Geant4 to model the university's local nuclear reactor. Their simulations very heavily depend on manipulating neutrons through the G4NeutronHPVector class. Therefore, this model was chosen for CUDA integration in an attempt to offer the most significant performance increases to the project stakeholders specifically.
 
 \section{Likely and Unlikely Changes}
 Different aspects of the system are presented below in two lists, those that are likely to change in the future and those that are unlikely to change. Relative likelihood of changes in the same category may vary.
@@ -261,8 +261,8 @@ The following table addresses all likely changes discussed above and their relat
 \arrayrulecolor{lightgray}
 
 1 & Deciding which process model to parallelize (see \ref{subsec_G4NeutronHPVector}, paragraph 3)\\\hline
-2 & CMake module\\\hline
-3 & Deciding which functions in model classes to parallelize\\\hline
+2 & Specific algorithms used will be parallelized versions of the CPU-bound existing ones. See \emph{Algorithms} section of detailed design: G4NeutronHPVector.\\\hline
+3 & How to link and compile the CUDA code is described in more detail in the detailed design document ``CMake'' section.\\
 \arrayrulecolor{black}
 \bottomrule
 \end{longtable}
@@ -311,7 +311,7 @@ For requirements that do not directly map to sections in the design document (su
 
 6  & enabling GPU functionality on existing projects easy & A single boolean flag will be set during CMake phase to enable GPU functionality, see CMake module in detailed design document.\\\hline
 
-7 & runtime of simulation decreased with same output & This is the purpose of the project, and is addressed by porting some computationally-heavy classes to the GPU. Although discussed throughout the design document, particularily relevant sections are sections \ref{Sec_WhyGPU}, \ref{Sec_IntegrationApproach}, and the G4NeutronHPVector module in the detailed design document.\\\hline
+7 & runtime of simulation decreased with same output & This is the purpose of the project, and is addressed by porting some computationally-heavy classes to the GPU. Although discussed throughout the design document, particularly relevant sections are sections \ref{Sec_WhyGPU}, \ref{Sec_IntegrationApproach}, and the G4NeutronHPVector module in the detailed design document.\\\hline
 
 8 & accuracy of results same as when run on CPU & Getting the same result whether computation is run on the CPU or GPU is extremely important, and is covered by the internal module design of G4NeutronHPVector in the detailed design document.\\\hline
 
