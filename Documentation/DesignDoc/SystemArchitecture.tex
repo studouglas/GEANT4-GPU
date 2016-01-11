@@ -234,19 +234,19 @@ Following the lists of likely and unlikely changes, the relationship between lik
 
 \subsection{Likely Changes}\label{Sec_LikelyChanges} %========== Rob
 \begin{enumerate}
-\item Parallelizing several other process modules
-\item Inclusion of a script to detect if user has a CUDA-capable GPU during Geant4 building
-\item Parallelizing of additional subroutines which indicate performance bottlenecks
-\item How CUDA library is linked to Geant4 project
+\item Parallelizing other modules in addition to G4NeutronHPVector
+\item The serial, CPU-bound algorithms used by Geant4 will likely not be suited to running on the GPU
+\item Specifics of CMake implementation to compile and link CUDA code
 \end{enumerate}
 
 \subsection{Unlikely Changes} %========= Rob
 \begin{enumerate}
-\item Changes to any data structures or algorithms native to the Geant4 codebase
-\item GP-GPU computations on a broad scope within Geant4
-\item How the command-line Geant4 interface works
-\item Addition of any new process or model modules to Geant4
-\item CMake enable CUDA flag
+\item Using CUDA as GPU programming library
+\item Using the GPU to run certain computations in parallel
+\item The command-line interface of Geant4
+\item The use of CMake as the build system
+\item Additions of any new process or model modules to Geant4
+\item Enabling/disabling CUDA using CMake flag
 \end{enumerate}
 
 \subsection{Traceability of Likely Changes to Design Components}
@@ -263,8 +263,6 @@ The following table addresses all likely changes discussed above and their relat
 1 & Deciding which process model to parallelize (see \ref{subsec_G4NeutronHPVector}, paragraph 3)\\\hline
 2 & CMake module\\\hline
 3 & Deciding which functions in model classes to parallelize\\\hline
-4 & CMake module\\\hline
-
 \arrayrulecolor{black}
 \bottomrule
 \end{longtable}
