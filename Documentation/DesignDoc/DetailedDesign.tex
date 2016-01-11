@@ -113,8 +113,10 @@ This detailed design document covers the specifics of several key modules in the
 \subsection{Technologies and Languages}
 Geant4 is developed entirely in C++. The project will use C++ as the interface between the GPU code and the existing Geant4 codebase. All GPU code will use CUDA, as discussed in the system architecture document. Other technologies used are CMake for the build system (see section \ref{Sec_CMakeDesc}).
 
-\subsection{Note About G4 variables}
-Geant4 uses its own basic types for standard C++ types (G4int, G4bool, G4double, etc). These types are currently just \texttt{typedefs} to the respective type as defined in the system libraries.
+\subsection{Notes}
+Geant4 uses its own basic types for standard C++ types (G4int, G4bool, G4double, etc). These types are currently just \texttt{typedefs} to the respective type as defined in the system libraries.\\
+
+The modules G4NeutronHPDataPoint and G4NeutronHPVector described below are existing modules of Geant4. All methods and state variables are pre-existing, and will be replicated on the GPU. The interface of the modules will not change.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ----- NeutronHPDataPoint
 \section{G4NeutronHPDataPoint}
@@ -147,7 +149,7 @@ SetData & G4double, G4double & &\\
 \end{table}
 
 \subsubsection{Access Program Semantics}% =========== Victor
-Note that hyphens in routine names and inputs are just for linebreaks due to the table size. The actual routine names and inputs do not have hyphens.
+Note that hyphens in routine names and inputs are just for line breaks due to the table size. The actual routine names and inputs do not have hyphens.
 
 \begin{table}[H]
 \caption{NeutronHPDataPoint -- access program semantics}\label{Table_NeutronHPDataPointSemantics}
@@ -195,7 +197,7 @@ There are no environment variables for this module.
 It can be assumed that the class will be initialized. As such, all getter methods will return a non-null value.
 
 \subsection{Error Handling}
-This module does not handle errors excplicitly.
+This module does not handle errors explicitly.
 
 \subsection{Key Algorithms}
 This module represents data, and as such does not contain any algorithms.
@@ -282,7 +284,7 @@ G4NeutronHPVector & & Instantiates the class with no parameters\\ \hline
 G4NeutronHPVector & G4int & Instantiates the class with the number of points to consider as the parameter\\\hline
 = & G4NeutronHPVector\& & Sets the current instance to the passed instance\\\hline
 + & G4NeutronHPVector\&, G4NeutronHPVector\& & Returns the vector addition of the two passed vectors\\\hline
-SetVerbose & G4int & sets the verboity to the input\\\hline
+SetVerbose & G4int & sets the verbosity to the input\\\hline
 Times & G4double & Multiplies all points y-values and integrals from \texttt{theData} by the input\\\hline
 SetPoint & G4int, G4NeutronHP-DataPoint & sets point at passed index to the passed point\\\hline
 SetData & G4int, G4double, G4double & sets point at passed index with given values\\\hline
@@ -334,7 +336,7 @@ Check & G4int & checks that passed index is greater than the number of points, t
 \subsubsection{State Variables}% ================== Matt
 The following variables maintain state for the class, and are all private to the class.
 
-Note that hyphens in variable names and types are just for linebreaks due to the table size. The actual variable names and types do not have hyphens.
+Note that hyphens in variable names and types are just for line breaks due to the table size. The actual variable names and types do not have hyphens.
 
 \begin{table}[h]
 \caption{G4NeutronHPVector -- state variables}\label{Table_NeutronHPDataPointStateVariables}
