@@ -144,7 +144,7 @@ The project aims to improve the computation times of Geant4 particle simulations
 The design strategy for the project will be based on taking a specific, computationally heavy class from Geant4 and creating a class that fulfills the same interface but that runs on the GPU. This will be repeated for many classes until the project's deadline has been reached. The user will have the option of using the existing classes (running on the CPU) or the new ones (running on the GPU).
 
 \subsection{Document Structure \& Template}
-The design documentation for the project is based off of WHAT TEMPLATES?????? and is broken into two main documents.
+The design documentation for the project is broken into two main documents.
 
 This system architecture document details the system architecture, including an overview of the modules that make up the system, analysis of aspects that are likely and unlikely to change, reasoning behind the high-level decisions, and a table showing how each requirement is addressed in the proposed design.
 
@@ -261,8 +261,8 @@ The following table addresses all likely changes discussed above and their relat
 \arrayrulecolor{lightgray}
 
 1 & Deciding which process model to parallelize (see \ref{subsec_G4NeutronHPVector}, paragraph 3)\\\hline
-2 & CMake module\\\hline
-3 & Deciding which functions in model classes to parallelize\\\hline
+2 & Specific algorithms used will be parallelized versions of the CPU-bound existing ones. See \emph{Algorithms} section of detailed design: G4NeutronHPVector.\\\hline
+3 & How to link and compile the CUDA code is described in more detail in the detailed design document ``CMake'' section.\\
 \arrayrulecolor{black}
 \bottomrule
 \end{longtable}

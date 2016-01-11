@@ -110,6 +110,9 @@ This detailed design document covers the specifics of several key modules in the
 \end{tabular}
 \end{center}
 
+\subsection{Technologies and Languages}
+Geant4 is developed entirely in C++. The project will use C++ as the interface between the GPU code and the existing Geant4 codebase. All GPU code will use CUDA, as discussed in the system architecture document. Other technologies used are CMake for the build system (see section \ref{Sec_CMakeDesc}).
+
 \subsection{Note About G4 variables}
 Geant4 uses its own basic types for standard C++ types (G4int, G4bool, G4double, etc). These types are currently just \texttt{typedefs} to the respective type as defined in the system libraries.
 
@@ -275,53 +278,50 @@ Note that hyphens in routine names and inputs are just for linebreaks due to the
 \toprule
 \bf Routine Name & \bf Input & \bf Description \\\midrule
 \arrayrulecolor{lightgray}
-G4NeutronHPVector & & A constructor for the G4NeutronHPVector class. Instantiates the class with no parameters\\ \hline
-G4NeutronHPVector & G4int &  A constructor for the G4NeutronHPVector class. Instantiates the class with one parameter, 
-determines the value of the  \texttt nPoints variable based on input\\\hline
+G4NeutronHPVector & & Instantiates the class with no parameters\\ \hline
+G4NeutronHPVector & G4int & Instantiates the class with the number of points to consider as the parameter\\\hline
 = & G4NeutronHPVector\& & Sets the current instance to the passed instance\\\hline
-+ & G4NeutronHPVector\&, G4NeutronHPVector\& & Returns the vector addition of the two passed vectors.\\\hline
-SetVerbose & G4int & sets the \texttt Verbose to the input\\\hline
-Times & G4double & Multiplies \texttt theData array's y-values by the input, does the same with the corresponding 
-integral\\\hline
-SetPoint & G4int, G4NeutronHP-DataPoint & sets \texttt theData[G4int] to the passed in DataPoint\\\hline
-SetData & G4int, G4double,G4double & sets \texttt theData[G4int] to the passed in \texttt G4double values\\\hline
-SetX & G4int, G4double &  sets \texttt theData[G4int]'x value to the passed in \texttt G4double value \\\hline
-SetEnergy & G4int, G4double &  sets \texttt theData[G4int]'s x value to the passed in \texttt G4double value\\\hline
-SetY & G4int, G4double &  sets \texttt theData[G4int]'s y value to the passed in \texttt G4double value \\\hline
-SetXsec & G4int, G4double & sets \texttt theData[G4int]'s y value to the passed in \texttt G4double value \\\hline
-GetEnergy & G4int & Returns \texttt theData[G4int]'s current x value\\\hline
-GetXsec & G4int &  Returns \texttt theData[G4int]'s current x value\\\hline
-GetXsec & G4double &  Returns \texttt theData's y value corresponding to the x section starting at G4int\\\hline
-GetX & G4int &  Returns \texttt theData[G4int]'s current x value\\\hline
-GetY & G4int &  Returns \texttt theData[G4int]'s current y value\\\hline
-GetVectorLength & & Returns the length of the vector, which is stored in nEntries \\\hline
-GetPoint & G4int &  Returns \texttt theData[G4int]'s current value\\\hline
-Hash & & sets \texttt theHash's value based on theData\\\hline
-ReHash & & clears \texttt theHash and re-evaluates it based on \texttt theData \\\hline
-InitInterpolation & istream & calls Init on the istream input \\\hline
-Init & istream,G4int, G4double, G4double & Initializes the data in \texttt theHash of length G4int\\\hline
-Init & istream, G4double,G4double & Initializes the data in \texttt theHash of length that is read in from a file\\\hline
-ThinOut & G4double & Thins out \texttt theData() by removing unnecessary elements and calls ReHash\\\hline
-SetLabel & G4double & Sets the Label value to G4Double\\\hline
-GetLabel & & Returns the current Label value \\\hline
-CleanUp & & Sets the length of \texttt theData to 0, clears the integral and clears \texttt theHash\\\hline
-Sample & & Samples X according to distribution Y \\\hline
-Debug & & Returns \texttt theIntegral \\\hline
-Merge & G4NeutronHPVector*,  G4NeutronHPVector* &  interpolate between labels, continue in unknown areas by subtraction     
-of the last difference.\\\hline
-Merge & G4Interpolation-Scheme, G4double, G4NeutronHPVector*, G4NeutronHPVector* &  interpolate between labels according     
-to G4InterpolationScheme, cut at G4double, continue in unknown areas by subtraction of the last difference.\\\hline
-SampleLin & & Samples X according to distribution Y, linear int\\\hline
-IntegrateAndNormalise & & Calculates the integral for every entry in \texttt theIntegral and normalizes each 
-calculation\\\hline
-Integrate & & Calculates the integral for every entry in \texttt theIntegral \\\hline
-GetIntegral & & Linear interpolation over \texttt theIntegral \\\hline+SetInterpolation-Manager & const G4Interpolation-Manager\& & sets \texttt theManager to the input\\\hline
-SetInterpolation-Manager & G4Interpolation-Manager\& & sets \texttt theManager to the input \\\hline
-SetScheme & G4int, G4Interpolation-Scheme\& & Appends the G4Interpolation-Scheme to \texttt theManager \\\hline
-GetScheme & G4int & Returns the current  G4Interpolation-Scheme associated with \texttt theManager \\\hline
-GetMeanX & & Returns the average x value of all data points in \texttt theData \\\hline
-GetBlocked & & Returns the current value of \texttt theBlocked \\\hline
-GetBuffered & &  Returns the current value of \texttt theBuffered \\\hline
++ & G4NeutronHPVector\&, G4NeutronHPVector\& & Returns the vector addition of the two passed vectors\\\hline
+SetVerbose & G4int & sets the verboity to the input\\\hline
+Times & G4double & Multiplies all points y-values and integrals from \texttt{theData} by the input\\\hline
+SetPoint & G4int, G4NeutronHP-DataPoint & sets point at passed index to the passed point\\\hline
+SetData & G4int, G4double, G4double & sets point at passed index with given values\\\hline
+SetX & G4int, G4double &  sets \texttt{x} value of point at passed index to passed value\\\hline
+SetEnergy & G4int, G4double & sets \texttt{x} value of point at passed index to passed value\\\hline
+SetY & G4int, G4double &  sets \texttt{y} value of point at passed index to passed value\\\hline
+SetXsec & G4int, G4double & sets \texttt{y} value of point at passed index to passed value\\\hline
+GetEnergy & G4int & returns \texttt{x} value of point at passed index\\\hline
+GetXsec & G4int & returns \texttt{y} value of point at passed index\\\hline
+GetXsec & G4double & returns \texttt{y} value of point with lowest xSection above passed double\\\hline
+GetX & G4int & returns \texttt{x} value of point at passed index\\\hline
+GetY & G4int & returns \texttt{y} value of point at passed index\\\hline
+GetVectorLength & & returns number of points\\\hline
+GetPoint & G4int & returns point at passed index\\\hline
+Hash & & sets \texttt{theHash}'s up based on \texttt{theData}\\\hline
+ReHash & & clears \texttt{theHash} and re-evaluates it based on \texttt{theData} \\\hline
+InitInterpolation & istream & sends the passed data file to the interpolation manager\\\hline
+Init & istream, G4int, G4double, G4double & initializes class and \texttt{theHash}\\\hline
+Init & istream, G4double,G4double & initializes class and \texttt{theHash}\\\hline
+ThinOut & G4double & removes unnecessary points and rehashes\\\hline
+SetLabel & G4double & sets the label value to passed number\\\hline
+GetLabel & & returns the label of the current instance\\\hline
+CleanUp & & clears all data\\\hline
+Sample & & performs samples of \texttt{X} according to interpolation scheme\\\hline
+Debug & & returns \texttt{theIntegral} \\\hline
+Merge & G4NeutronHPVector*,  G4NeutronHPVector* & interpolate between labels, continue in unknown areas by subtraction     
+of the last difference\\\hline
+Merge & G4Interpolation-Scheme, G4double, G4NeutronHPVector*, G4NeutronHPVector* & interpolate between labels according     
+to passed G4InterpolationScheme, cut at passed G4double, continue in unknown areas by subtraction of the last difference.\\\hline
+SampleLin & & samples \texttt{X} according to distribution \texttt{Y}, linear\\\hline
+IntegrateAndNormalise & & calculates the integral for every data point and normalizes each\\\hline
+Integrate & & calculates the integral for every data point\\\hline
+GetIntegral & & linearly interpolates over \texttt{theIntegral} \\\hline
+SetInterpolation-Manager & G4Interpolation-Manager\& & sets \texttt{theManager} to the input \\\hline
+SetScheme & G4int, G4Interpolation-Scheme\& & appends the passed G4Interpolation-Scheme to \texttt{theManager}\\\hline
+GetScheme & G4int & returns the current G4Interpolation-Scheme associated with \texttt{theManager}\\\hline
+GetMeanX & & returns the average \texttt{x} value of all data points\\\hline
+GetBlocked & & returns the current value of \texttt{theBlocked}\\\hline
+GetBuffered & &  returns the current value of \texttt{theBuffered}\\\hline
 Get15percentBorder & & gets the integral from each data point to the last data point and returns the first one within 
 15\% of the last data point \\\hline
 Get50percentBorder & & gets the integral from each data point to the last data point and returns the first one within 
@@ -349,7 +349,7 @@ Note that hyphens in variable names and types are just for linebreaks due to the
 \texttt{theIntegral} & G4double* & array of integrals where \texttt{theIntegral[i]} is the integral of all data points from \texttt{theData} up until \emph{i}\\\hline
 \texttt{nEntries} & G4int & the number of data points to consider when performing calculations over \texttt{theData}\\\hline
 \texttt{nPoints} & G4int & the number of data points in \texttt{theData} \\\hline
-\texttt{label} & G4double & number \\\hline
+\texttt{label} & G4double & number tagging class instance\\\hline
 \texttt{theInt} & G4Neutron-Interpolator & the interpolator for sampling data (may not be linear)\\\hline
 \texttt{Verbose} & G4int & verbosity level, some statements will only print to console with higher values \\\hline
 \texttt{isFreed} & G4int & only used for debugging, 1 if class has been destructed 0 otherwise\\\hline
@@ -381,7 +381,7 @@ There are a variety of algorithms used in the module. When porting to the GPU, t
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ----- Cmake Files
 \section{CMake Files}
-\subsection{Description}
+\subsection{Description}\label{Sec_CMakeDesc}
 The current build system used by Geant4 is CMake, consisting of \emph{CMakeLists} text files in each source code directory detailing the files to compile and link, and further compiler directives. The user calls the \texttt{cmake} program with arguments (such as \emph{useCuda}) for the build to generate the necessary makefiles. Support for CUDA and the \emph{nvcc} CUDA compiler are built in to CMake. Although not a module in the traditional sense, CMake will still be the basis for enabling and disabling GPU functionality, and was included for that reason.
 
 \subsection{MIS (Module Interface Specification)}
