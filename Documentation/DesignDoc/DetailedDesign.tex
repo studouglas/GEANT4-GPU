@@ -16,7 +16,7 @@
 \usepackage{makecell}
 \usepackage{caption}
 \usepackage{array}
-\usepackage[parfill]{parskip}
+%\usepackage[parfill]{parskip}
 
 % Comments --------------------------------------------------------------------
 \usepackage{xcolor}
@@ -85,9 +85,9 @@ Added sections for Errors and Key Algorithms & Stuart & 2016-01-08\\
 \end{table}
 
 \subsection{Document Structure \& Template}
-The design documentation for the project is based off of templates from WHAT TEMPLATES??????, and is broken into two main documents.
+The design documentation for the project is based off of templates from WHAT TEMPLATES??????, and is broken into two main documents.\\
 
-The system architecture document details the system architecture, including an overview of the modules that make up the system, analysis of aspects that are likely and unlikely to change, reasoning behind the high-level decisions, and a table showing how each requirement is addressed in the proposed design.
+The system architecture document details the system architecture, including an overview of the modules that make up the system, analysis of aspects that are likely and unlikely to change, reasoning behind the high-level decisions, and a table showing how each requirement is addressed in the proposed design.\\
 
 This detailed design document covers the specifics of several key modules in the project. For each module, an MIS is given fully detailing the interface of the module. Then, the methods for handling errors within the module are discussed, and finally the main algorithms and data structures used by the module are presented.
 
@@ -113,11 +113,10 @@ This detailed design document covers the specifics of several key modules in the
 \subsection{Note About G4 variables}
 Geant4 uses its own basic types for standard C++ types (G4int, G4bool, G4double, etc). These types are currently just \texttt{typedefs} to the respective type as defined in the system libraries.
 
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ----- NeutronHPDataPoint
 \section{G4NeutronHPDataPoint}
 \subsection{Description}
-This class encapsulates all of the data as well as the accessor and mutator methods that each point requires. The points contain two private variables used to store the xSec and the energy as doubles. This class also contains the constructors needed to instantiate this data type.
+This class encapsulates all of the data as well as the setter and getter methods that each data point in G4NeutronHPVector's list of data requires. Two private variables are used to store the xSection and the energy of the data point.
 
 \subsection{MIS (Module Interface Specification)}
 \subsubsection{Access Program Syntax}% ================ Victor
@@ -193,10 +192,11 @@ There are no environment variables for this module.
 It can be assumed that the class will be initialized. As such, all getter methods will return a non-null value.
 
 \subsection{Error Handling}
-NA
+This module does not handle errors excplicitly.
 
 \subsection{Key Algorithms}
-NA
+This module represents data, and as such does not contain any algorithms.
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ---- NeutronHPDataPoint
 
 
@@ -261,7 +261,8 @@ GetMeanX & & G4double & \\\hline
 GetBlocked & & vector\textless G4double\textgreater & \\\hline
 GetBuffered & & vector\textless G4double\textgreater & \\\hline
 Get15percentBorder & & G4double & \\\hline
-Get50percentBorder & & G4double & \\
+Get50percentBorder & & G4double & \\\hline
+Check & G4int & & G4HadronicException\\
 \arrayrulecolor{black}
 \bottomrule
 \end{longtable}
@@ -299,8 +300,7 @@ Hash & & sets \texttt theHash's value based on theData\\\hline
 ReHash & & clears \texttt theHash and re-evaluates it based on \texttt theData \\\hline
 InitInterpolation & istream & calls Init on the istream input \\\hline
 Init & istream,G4int, G4double, G4double & Initializes the data in \texttt theHash of length G4int\\\hline
-Init & istream, G4double,G4double & Initializes the data in \texttt theHash of length that is read in from a file\\
-\hline
+Init & istream, G4double,G4double & Initializes the data in \texttt theHash of length that is read in from a file\\\hline
 ThinOut & G4double & Thins out \texttt theData() by removing unnecessary elements and calls ReHash\\\hline
 SetLabel & G4double & Sets the Label value to G4Double\\\hline
 GetLabel & & Returns the current Label value \\\hline
@@ -325,7 +325,8 @@ GetBuffered & &  Returns the current value of \texttt theBuffered \\\hline
 Get15percentBorder & & gets the integral from each data point to the last data point and returns the first one within 
 15\% of the last data point \\\hline
 Get50percentBorder & & gets the integral from each data point to the last data point and returns the first one within 
-50\% of the last data point\\
+50\% of the last data point\\\hline
+Check & G4int & checks that passed index is greater than the number of points, throwing an exception if not\\
 \arrayrulecolor{black}
 \bottomrule
 \end{longtable}
@@ -365,27 +366,30 @@ Note that hyphens in variable names and types are just for linebreaks due to the
 \clearpage
 
 \subsubsection{Environment Variables}% ============== Matt
-There are no environment variables for this Module.
+There are no environment variables for this module.
 
 \subsubsection{Assumptions}% ==================== Stuart	
 It can be assumed that the module will be initialized before other functions are called.
 
 \subsection{Error Handling}
-G4HadronicException
+The \texttt{Check} method throws a G4HadronicException on error, however it is the only function to do so in the module. In the other functions, erroneous input is not handled explicitly beyond control statement checks that will assume default values for any invalid parameters.
 
 \subsection{Key Algorithms}
+There are a variety of algorithms used in the module. When porting to the GPU, the same algorithms will be modified to run in parallel. In general, this consists of taking array traversals and running the procedures executed sequentially at the same time on different cores of the GPU. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ---- NeutronHPVector
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ----- Cmake Files
 \section{CMake Files}
 \subsection{Description}
+The current build system used by Geant4 is CMake, consisting of \emph{CMakeLists} text files in each source code directory detailing the files to compile and link, and further compiler directives. The user calls the \texttt{cmake} program with arguments (such as \emph{useCuda}) for the build to generate the necessary makefiles. Support for CUDA and the \emph{nvcc} CUDA compiler are built in to CMake. Although not a module in the traditional sense, CMake will still be the basis for enabling and disabling GPU functionality, and was included for that reason.
+
 \subsection{MIS (Module Interface Specification)}
 \subsubsection{Access Program Syntax}% ================ Victor
-NA
+CUDA support is built in to CMake, as such no new access programs or public macros will be created.
 
 \subsubsection{Access Program Semantics}% ============ Rob
-NA
+CUDA support is built in to CMake, as such no new access programs or public macros will be created.
 
 \subsubsection{State Variables}% ================== Matt
 \begin{table}[h]
@@ -400,16 +404,19 @@ NA
 
 \subsubsection{Environment Variables}% ============== Matt
 \begin{itemize}
-\item NeutronHPVectorGPU.cu : CUDA file with GPU code
+\item CUDA source files (.cu) containing the GPU code. CMake files will contain directives to compile and link the CUDA files.
+\item Source code from Geant4 project, such as the G4NeutronHPVector.cpp file. The relevant source code files will be compiled and linked as per CMake directives to the CUDA files listed above.
 \end{itemize}
 
-
 \subsubsection{Assumptions}% ==================== Stuart	 
-No assumptions need to be made for CMake.
+It is assumed the user has CMake installed, as it is required for Geant4.
 
 \subsection{Error Handling}
+If the tries to enable CUDA without compatible hardware, CMake will detect this and output a fatal error message. The user will not be able to enable CUDA unless they have compatible hardware. If the user is using an older version of CMake (before 2.8) that does not support CUDA compilation, a fatal error message will be outputted.
 
 \subsection{Key Algorithms}
+CMake is the existing build system for generating make files for the project. As such, there are no key algorithms to document.
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ---- Cmake Files
 
 \end{document}
