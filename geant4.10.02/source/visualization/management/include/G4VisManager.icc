@@ -1,0 +1,172 @@
+//
+// ********************************************************************
+// * License and Disclaimer                                           *
+// *                                                                  *
+// * The  Geant4 software  is  copyright of the Copyright Holders  of *
+// * the Geant4 Collaboration.  It is provided  under  the terms  and *
+// * conditions of the Geant4 Software License,  included in the file *
+// * LICENSE and available at  http://cern.ch/geant4/license .  These *
+// * include a list of copyright holders.                             *
+// *                                                                  *
+// * Neither the authors of this software system, nor their employing *
+// * institutes,nor the agencies providing financial support for this *
+// * work  make  any representation or  warranty, express or implied, *
+// * regarding  this  software system or assume any liability for its *
+// * use.  Please see the license in the file  LICENSE  and URL above *
+// * for the full disclaimer and the limitation of liability.         *
+// *                                                                  *
+// * This  code  implementation is the result of  the  scientific and *
+// * technical work of the GEANT4 collaboration.                      *
+// * By using,  copying,  modifying or  distributing the software (or *
+// * any work based  on the software)  you  agree  to acknowledge its *
+// * use  in  resulting  scientific  publications,  and indicate your *
+// * acceptance of all terms of the Geant4 Software license.          *
+// ********************************************************************
+//
+//
+// $Id: G4VisManager.icc 93026 2015-09-30 16:07:07Z gcosmo $
+//
+// 
+// GEANT4 Visualization Manager - John Allison 02/Jan/1996.
+
+inline void G4VisManager::Initialize () {
+  Initialise ();
+}
+
+inline const std::vector<G4VisManager::UserVisAction>&
+G4VisManager::GetRunDurationUserVisActions () const {
+  return fRunDurationUserVisActions;
+}
+
+inline const std::vector<G4VisManager::UserVisAction>&
+G4VisManager::GetEndOfEventUserVisActions () const {
+  return fEndOfEventUserVisActions;
+}
+
+inline const std::vector<G4VisManager::UserVisAction>&
+G4VisManager::GetEndOfRunUserVisActions () const {
+  return fEndOfRunUserVisActions;
+}
+
+inline const std::map<G4VUserVisAction*,G4VisExtent>&
+G4VisManager::GetUserVisActionExtents () const {
+  return fUserVisActionExtents;
+}
+
+inline G4VSceneHandler* G4VisManager::GetCurrentSceneHandler () const {
+  return fpSceneHandler;
+}
+
+inline G4VViewer* G4VisManager::GetCurrentViewer () const {
+  return fpViewer;
+}
+
+inline G4Scene* G4VisManager::GetCurrentScene () const {
+  return fpScene;
+}
+
+inline const G4SceneHandlerList&
+G4VisManager::GetAvailableSceneHandlers () const {
+  return fAvailableSceneHandlers;
+}
+
+inline const G4SceneList& G4VisManager::GetSceneList () const {
+  return fSceneList;
+}
+
+inline G4VGraphicsSystem*
+G4VisManager::GetCurrentGraphicsSystem () const {
+  return fpGraphicsSystem;
+}
+
+inline G4bool G4VisManager::GetTransientsDrawnThisEvent() const {
+  return fTransientsDrawnThisEvent;
+}
+
+inline G4bool G4VisManager::GetTransientsDrawnThisRun() const {
+  return fTransientsDrawnThisRun;
+}
+
+inline const G4Event* G4VisManager::GetRequestedEvent() const {
+  return fpRequestedEvent;
+}
+
+inline G4bool G4VisManager::GetAbortReviewKeptEvents() const {
+  return fAbortReviewKeptEvents;
+}
+
+inline const G4ViewParameters& G4VisManager::GetDefaultViewParameters() const {
+  return fDefaultViewParameters;
+}
+
+#ifdef G4MULTITHREADED
+
+inline G4int G4VisManager::GetMaxEventQueueSize() const {
+  return fMaxEventQueueSize;
+}
+
+inline G4bool G4VisManager::GetWaitOnEventQueueFull () const {
+  return fWaitOnEventQueueFull;
+}
+
+#endif
+
+inline void G4VisManager::SetUserAction
+(G4VUserVisAction* pVisAction,
+ const G4VisExtent& extent) {
+  RegisterRunDurationUserVisAction("SetUserAction",pVisAction,extent);
+}
+
+inline G4SceneList& G4VisManager::SetSceneList () {
+  return fSceneList;
+}
+
+inline G4SceneHandlerList& G4VisManager::SetAvailableSceneHandlers () {
+  return fAvailableSceneHandlers;
+}
+
+inline void G4VisManager::SetVerboseLevel (G4VisManager::Verbosity verbosity) {
+  fVerbosity = verbosity;
+}
+
+inline void G4VisManager::SetEventRefreshing (G4bool eventRefreshing) {
+  fEventRefreshing = eventRefreshing;
+}
+
+inline void G4VisManager::RegisterMessenger(G4UImessenger* msgr)
+{
+  fMessengerList.push_back(msgr);
+}
+
+inline void G4VisManager::SetTransientsDrawnThisRun (G4bool b) {
+  fTransientsDrawnThisRun = b;
+}
+
+inline void G4VisManager::SetTransientsDrawnThisEvent (G4bool b) {
+  fTransientsDrawnThisEvent = b;
+}
+
+inline void G4VisManager::SetRequestedEvent (const G4Event* event) {
+  fpRequestedEvent = event;
+}
+
+inline void G4VisManager::SetAbortReviewKeptEvents (G4bool abort) {
+  fAbortReviewKeptEvents = abort;
+}
+
+inline void G4VisManager::SetDefaultViewParameters
+(const G4ViewParameters& vp) {
+  fDefaultViewParameters = vp;
+}
+
+#ifdef G4MULTITHREADED
+
+inline void G4VisManager::SetMaxEventQueueSize (G4int size) {
+  fMaxEventQueueSize = size;
+}
+
+inline void G4VisManager::SetWaitOnEventQueueFull (G4bool wait) {
+  fWaitOnEventQueueFull = wait;
+}
+
+#endif

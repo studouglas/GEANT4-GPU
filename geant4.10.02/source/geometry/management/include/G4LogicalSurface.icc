@@ -1,0 +1,102 @@
+//
+// ********************************************************************
+// * License and Disclaimer                                           *
+// *                                                                  *
+// * The  Geant4 software  is  copyright of the Copyright Holders  of *
+// * the Geant4 Collaboration.  It is provided  under  the terms  and *
+// * conditions of the Geant4 Software License,  included in the file *
+// * LICENSE and available at  http://cern.ch/geant4/license .  These *
+// * include a list of copyright holders.                             *
+// *                                                                  *
+// * Neither the authors of this software system, nor their employing *
+// * institutes,nor the agencies providing financial support for this *
+// * work  make  any representation or  warranty, express or implied, *
+// * regarding  this  software system or assume any liability for its *
+// * use.  Please see the license in the file  LICENSE  and URL above *
+// * for the full disclaimer and the limitation of liability.         *
+// *                                                                  *
+// * This  code  implementation is the result of  the  scientific and *
+// * technical work of the GEANT4 collaboration.                      *
+// * By using,  copying,  modifying or  distributing the software (or *
+// * any work based  on the software)  you  agree  to acknowledge its *
+// * use  in  resulting  scientific  publications,  and indicate your *
+// * acceptance of all terms of the Geant4 Software license.          *
+// ********************************************************************
+//
+//
+// $Id: G4LogicalSurface.icc 80066 2014-03-31 13:47:20Z gcosmo $
+//
+////////////////////////////////////////////////////////////////////////
+// Surface Class Inline Methods
+////////////////////////////////////////////////////////////////////////
+//
+// File:        G4LogicalSurface.icc
+// Description: A Surface class 
+// Created:     1997-06-26
+// Author:      John Apostolakis
+//
+// ------------------------------------------------------------------------
+
+inline G4SurfaceProperty*
+G4LogicalSurface::GetSurfaceProperty() const
+{
+  return theSurfaceProperty;
+} 
+
+inline void
+G4LogicalSurface::SetSurfaceProperty(G4SurfaceProperty* ptrSurfaceProperty) 
+{
+  theSurfaceProperty = ptrSurfaceProperty;
+} 
+
+inline const G4String&
+G4LogicalSurface::GetName() const
+{
+  return theName;
+}
+
+inline void
+G4LogicalSurface::SetName(const G4String& name)
+{
+  theName = name;
+}
+
+inline G4TransitionRadiationSurface*
+G4LogicalSurface::GetTransitionRadiationSurface() const
+{
+  return theTransRadSurface;
+} 
+
+inline void
+G4LogicalSurface::SetTransitionRadiationSurface(G4TransitionRadiationSurface*
+                                                transRadSurf )
+{
+  theTransRadSurface= transRadSurf;
+} 
+
+  //////////////
+  // Operators
+  //////////////
+
+inline G4LogicalSurface &
+G4LogicalSurface::operator=(const G4LogicalSurface &right)
+{
+  if (&right == this)  { return *this; }
+  theName = right.theName;
+  theSurfaceProperty = right.theSurfaceProperty;
+  theTransRadSurface = right.theTransRadSurface;
+        
+  return *this;
+}
+
+inline G4int
+G4LogicalSurface::operator==(const G4LogicalSurface &right) const
+{
+  return (this == (G4LogicalSurface *) &right);
+}
+
+inline G4int
+G4LogicalSurface::operator!=(const G4LogicalSurface &right) const
+{
+  return (this != (G4LogicalSurface *) &right);
+}

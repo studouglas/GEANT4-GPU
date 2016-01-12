@@ -1,0 +1,256 @@
+//
+// ********************************************************************
+// * License and Disclaimer                                           *
+// *                                                                  *
+// * The  Geant4 software  is  copyright of the Copyright Holders  of *
+// * the Geant4 Collaboration.  It is provided  under  the terms  and *
+// * conditions of the Geant4 Software License,  included in the file *
+// * LICENSE and available at  http://cern.ch/geant4/license .  These *
+// * include a list of copyright holders.                             *
+// *                                                                  *
+// * Neither the authors of this software system, nor their employing *
+// * institutes,nor the agencies providing financial support for this *
+// * work  make  any representation or  warranty, express or implied, *
+// * regarding  this  software system or assume any liability for its *
+// * use.  Please see the license in the file  LICENSE  and URL above *
+// * for the full disclaimer and the limitation of liability.         *
+// *                                                                  *
+// * This  code  implementation is the result of  the  scientific and *
+// * technical work of the GEANT4 collaboration.                      *
+// * By using,  copying,  modifying or  distributing the software (or *
+// * any work based  on the software)  you  agree  to acknowledge its *
+// * use  in  resulting  scientific  publications,  and indicate your *
+// * acceptance of all terms of the Geant4 Software license.          *
+// ********************************************************************
+//
+//
+// $Id: G4VisExecutive.icc 91686 2015-07-31 09:40:08Z gcosmo $
+//
+// 
+// John Allison 24th January 1998.
+
+#ifndef G4VISEXECUTIVE_ICC
+#define G4VISEXECUTIVE_ICC
+
+// Supported drivers...
+
+// Not needing external packages or libraries...
+#include "G4ASCIITree.hh"
+#include "G4DAWNFILE.hh"
+#include "G4HepRep.hh"
+#include "G4HepRepFile.hh"
+#include "G4RayTracer.hh"
+#include "G4HitFilterFactories.hh"
+#include "G4DigiFilterFactories.hh"
+#include "G4TrajectoryFilterFactories.hh"
+#include "G4TrajectoryModelFactories.hh"
+#include "G4VRML1File.hh"
+#include "G4VRML2File.hh"
+#include "G4GMocrenFile.hh"
+
+// FIXME : avoid mix with QT/WT driver (should be done by cmake??)
+#if defined(G4VIS_USE_OPENGLWT)
+  // do not want GL2P2 in WT case
+  #undef G4VIS_BUILD_OPENGL_GL2PS
+#endif
+
+// Needing external packages or libraries...
+
+#ifdef G4VIS_USE_DAWN
+#include "G4FukuiRenderer.hh"
+#endif
+
+#ifdef G4VIS_USE_OPENGLX
+#include "G4OpenGLImmediateX.hh"
+#include "G4OpenGLStoredX.hh"
+#endif
+
+#ifdef G4VIS_USE_OPENGLWIN32
+#include "G4OpenGLImmediateWin32.hh"
+#include "G4OpenGLStoredWin32.hh"
+#endif
+
+#ifdef G4VIS_USE_OPENGLXM
+#include "G4OpenGLImmediateXm.hh"
+#include "G4OpenGLStoredXm.hh"
+#endif
+
+#ifdef G4VIS_USE_OPENGLQT
+#include "G4OpenGLImmediateQt.hh"
+#include "G4OpenGLStoredQt.hh"
+#endif
+
+#ifdef G4VIS_USE_OPENGLWT
+#include "G4OpenGLImmediateWt.hh"
+#endif
+
+#ifdef G4VIS_USE_OIX
+#include "G4OpenInventorX.hh"
+#include "G4OpenInventorXtExtended.hh"
+#endif
+
+#ifdef G4VIS_USE_OIWIN32
+#include "G4OpenInventorWin32.hh"
+#endif
+
+#ifdef G4VIS_USE_RAYTRACERX
+#include "G4RayTracerX.hh"
+#endif
+
+#ifdef G4VIS_USE_VRML
+#include "G4VRML1.hh"
+#include "G4VRML2.hh"
+#endif
+
+// The inline keyword prevents the compiler making an external
+// reference even though they cannot actually be inlined since they
+// are virtual functions.  This prevents a "multiple definition" error
+// if it is included in more than one file.  However, as explained in
+// the class description in G4VisExecutive.hh, it should never be
+// necessary to #include "G4VisExecutive.hh" in more than one file
+// since after instantiation the object can be treated as a
+// G4VisManager.
+
+inline
+G4VisExecutive::G4VisExecutive (const G4String& verbosityString):
+G4VisManager(verbosityString)
+{}
+
+inline void
+G4VisExecutive::RegisterGraphicsSystems () {
+
+ // Graphics Systems not needing external packages or libraries...
+  RegisterGraphicsSystem (new G4ASCIITree);
+  RegisterGraphicsSystem (new G4DAWNFILE);
+  RegisterGraphicsSystem (new G4HepRep);
+  RegisterGraphicsSystem (new G4HepRepFile);
+  RegisterGraphicsSystem (new G4RayTracer);
+  RegisterGraphicsSystem (new G4VRML1File);
+  RegisterGraphicsSystem (new G4VRML2File);
+  RegisterGraphicsSystem (new G4GMocrenFile);
+
+// Graphics systems needing external packages or libraries...
+
+#ifdef G4VIS_USE_DAWN
+  RegisterGraphicsSystem (new G4FukuiRenderer);
+#endif
+
+#ifdef G4VIS_USE_VRML
+  RegisterGraphicsSystem (new G4VRML1);
+  RegisterGraphicsSystem (new G4VRML2);
+#endif
+
+// Register OGL family of drivers with their normal names,
+// super-abbreviated names and fallback names where approproiate.
+
+#ifdef G4VIS_USE_OPENGLQT
+  G4VGraphicsSystem* ogliqt = new G4OpenGLImmediateQt;
+  G4VGraphicsSystem* oglsqt = new G4OpenGLStoredQt;
+  RegisterGraphicsSystem (ogliqt);
+  RegisterGraphicsSystem (oglsqt);
+  ogliqt->AddNickname("OGLI");
+  oglsqt->AddNickname("OGL");
+  oglsqt->AddNickname("OGLS");
+#endif
+
+#ifdef G4VIS_USE_OPENGLXM
+  G4VGraphicsSystem* oglixm = new G4OpenGLImmediateXm;
+  G4VGraphicsSystem* oglsxm = new G4OpenGLStoredXm;
+  RegisterGraphicsSystem (oglixm);
+  RegisterGraphicsSystem (oglsxm);
+#ifdef G4VIS_USE_OPENGLQT
+  oglixm->AddNickname("OGLIQt_FALLBACK");
+  oglsxm->AddNickname("OGLSQt_FALLBACK");
+#else
+  oglixm->AddNickname("OGLI");
+  oglsxm->AddNickname("OGL");
+  oglsxm->AddNickname("OGLS");
+#endif
+#endif
+
+#ifdef G4VIS_USE_OPENGLX
+  G4VGraphicsSystem* oglix = new G4OpenGLImmediateX;
+  G4VGraphicsSystem* oglsx = new G4OpenGLStoredX;
+  RegisterGraphicsSystem (oglix);
+  RegisterGraphicsSystem (oglsx);
+#ifdef G4VIS_USE_OPENGLQT
+  oglix->AddNickname("OGLIQt_FALLBACK");
+  oglsx->AddNickname("OGLSQt_FALLBACK");
+#endif
+#ifdef G4VIS_USE_OPENGLXM
+  oglix->AddNickname("OGLIXm_FALLBACK");
+  oglsx->AddNickname("OGLSXm_FALLBACK");
+#endif
+#if defined (G4VIS_USE_OPENGLQT) || (G4VIS_USE_OPENGLXM)
+#else
+  oglix->AddNickname("OGLI");
+  oglsx->AddNickname("OGL");
+  oglsx->AddNickname("OGLS");
+#endif
+#endif
+
+#ifdef G4VIS_USE_OPENGLWIN32
+  G4VGraphicsSystem* ogliwin32 = new G4OpenGLImmediateWin32;
+  G4VGraphicsSystem* oglswin32 = new G4OpenGLStoredWin32;
+  RegisterGraphicsSystem (ogliwin32);
+  RegisterGraphicsSystem (oglswin32);
+#ifdef G4VIS_USE_OPENGLQT
+  ogliwin32->AddNickname("OGLIQt_FALLBACK");
+  oglswin32->AddNickname("OGLSQt_FALLBACK");
+#endif
+#endif
+
+#ifdef G4VIS_USE_OPENGLWT
+  RegisterGraphicsSystem (new G4OpenGLImmediateWt);
+#endif
+
+// Register OI graphics system with super-abbreviated nickname
+#ifdef G4VIS_USE_OI
+  G4VGraphicsSystem* oi  = 0;
+#ifdef G4VIS_USE_OIX
+  oi = new G4OpenInventorX;
+#elif G4VIS_USE_OIWIN32
+  oi = new G4OpenInventorWin32;
+#endif
+  if (oi) {
+    RegisterGraphicsSystem (oi);
+    oi->AddNickname("OI");
+  }
+#endif
+
+// The new, extended OI is registered separately for now.
+#ifdef G4VIS_USE_OIX
+  RegisterGraphicsSystem (new G4OpenInventorXtExtended);
+#endif
+
+#ifdef G4VIS_USE_RAYTRACERX
+  RegisterGraphicsSystem (new G4RayTracerX);
+#endif
+
+}
+
+// See comments about inlining above.
+inline void 
+G4VisExecutive::RegisterModelFactories()
+{
+   // Trajectory draw models
+   RegisterModelFactory(new G4TrajectoryGenericDrawerFactory());       
+   RegisterModelFactory(new G4TrajectoryDrawByChargeFactory());
+   RegisterModelFactory(new G4TrajectoryDrawByParticleIDFactory());
+   RegisterModelFactory(new G4TrajectoryDrawByOriginVolumeFactory());  
+   RegisterModelFactory(new G4TrajectoryDrawByAttributeFactory());  
+
+   // Trajectory filter models
+   RegisterModelFactory(new G4TrajectoryChargeFilterFactory());
+   RegisterModelFactory(new G4TrajectoryParticleFilterFactory());
+   RegisterModelFactory(new G4TrajectoryOriginVolumeFilterFactory());
+   RegisterModelFactory(new G4TrajectoryAttributeFilterFactory());
+
+   // Hit filter models
+   RegisterModelFactory(new G4HitAttributeFilterFactory());
+
+   // Digi filter models
+   RegisterModelFactory(new G4DigiAttributeFilterFactory());
+}
+
+#endif

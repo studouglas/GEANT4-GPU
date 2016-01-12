@@ -1,0 +1,314 @@
+//
+// ********************************************************************
+// * License and Disclaimer                                           *
+// *                                                                  *
+// * The  Geant4 software  is  copyright of the Copyright Holders  of *
+// * the Geant4 Collaboration.  It is provided  under  the terms  and *
+// * conditions of the Geant4 Software License,  included in the file *
+// * LICENSE and available at  http://cern.ch/geant4/license .  These *
+// * include a list of copyright holders.                             *
+// *                                                                  *
+// * Neither the authors of this software system, nor their employing *
+// * institutes,nor the agencies providing financial support for this *
+// * work  make  any representation or  warranty, express or implied, *
+// * regarding  this  software system or assume any liability for its *
+// * use.  Please see the license in the file  LICENSE  and URL above *
+// * for the full disclaimer and the limitation of liability.         *
+// *                                                                  *
+// * This  code  implementation is the result of  the  scientific and *
+// * technical work of the GEANT4 collaboration.                      *
+// * By using,  copying,  modifying or  distributing the software (or *
+// * any work based  on the software)  you  agree  to acknowledge its *
+// * use  in  resulting  scientific  publications,  and indicate your *
+// * acceptance of all terms of the Geant4 Software license.          *
+// ********************************************************************
+//
+//
+// $Id: G4Sphere.icc 83572 2014-09-01 15:23:27Z gcosmo $
+//
+// --------------------------------------------------------------------
+// GEANT 4 inline definitions file
+//
+// G4Sphere.icc
+//
+// Implementation of inline methods of G4Sphere
+// --------------------------------------------------------------------
+
+inline
+G4double G4Sphere::GetInsideRadius() const
+{
+  return fRmin;
+}
+
+inline
+G4double G4Sphere::GetInnerRadius() const
+{
+  return fRmin;
+}
+
+inline
+G4double G4Sphere::GetOuterRadius() const
+{
+  return fRmax;
+}
+
+inline
+G4double G4Sphere::GetStartPhiAngle() const
+{
+  return fSPhi;
+}
+
+inline
+G4double G4Sphere::GetDeltaPhiAngle() const
+{
+  return fDPhi;
+}
+
+inline
+G4double G4Sphere::GetStartThetaAngle() const
+{
+  return fSTheta;
+}
+
+G4double G4Sphere::GetDeltaThetaAngle() const
+{
+  return fDTheta;
+}
+
+inline 
+void G4Sphere::Initialize()
+{
+  fCubicVolume = 0.;
+  fSurfaceArea = 0.;
+  fRebuildPolyhedron = true;
+}
+
+inline
+void G4Sphere::InitializePhiTrigonometry()
+{
+  hDPhi = 0.5*fDPhi;                       // half delta phi
+  cPhi  = fSPhi + hDPhi; 
+  ePhi  = fSPhi + fDPhi;
+
+  sinCPhi    = std::sin(cPhi);
+  cosCPhi    = std::cos(cPhi);
+  cosHDPhiIT = std::cos(hDPhi - 0.5*kAngTolerance); // inner/outer tol half dphi
+  cosHDPhiOT = std::cos(hDPhi + 0.5*kAngTolerance);
+  sinSPhi = std::sin(fSPhi);
+  cosSPhi = std::cos(fSPhi);
+  sinEPhi = std::sin(ePhi);
+  cosEPhi = std::cos(ePhi);
+}
+
+inline
+void G4Sphere::InitializeThetaTrigonometry()
+{
+  eTheta  = fSTheta + fDTheta;
+
+  sinSTheta = std::sin(fSTheta);
+  cosSTheta = std::cos(fSTheta);
+  sinETheta = std::sin(eTheta);
+  cosETheta = std::cos(eTheta);
+
+  tanSTheta  = std::tan(fSTheta);
+  tanSTheta2 = tanSTheta*tanSTheta;
+  tanETheta  = std::tan(eTheta);
+  tanETheta2 = tanETheta*tanETheta;
+}
+
+inline
+void G4Sphere::CheckThetaAngles(G4double sTheta, G4double dTheta)
+{
+  if ( (sTheta<0) || (sTheta>CLHEP::pi) )
+  {
+    std::ostringstream message;
+    message << "sTheta outside 0-PI range." << G4endl
+            << "Invalid starting Theta angle for solid: " << GetName();
+    G4Exception("G4Sphere::CheckThetaAngles()", "GeomSolids0002",
+                FatalException, message);
+  }
+  else
+  {
+    fSTheta=sTheta;
+  }
+  if ( dTheta+sTheta >= CLHEP::pi )
+  {
+    fDTheta=CLHEP::pi-sTheta;
+  }
+  else if ( dTheta > 0 )
+  {
+    fDTheta=dTheta;
+  }
+  else
+  {
+    std::ostringstream message;
+    message << "Invalid dTheta." << G4endl
+            << "Negative delta-Theta (" << dTheta << "), for solid: "
+            << GetName();
+    G4Exception("G4Sphere::CheckThetaAngles()", "GeomSolids0002",
+                FatalException, message);
+  }
+  if ( fDTheta-fSTheta < CLHEP::pi ) { fFullThetaSphere = false; }
+  else                               { fFullThetaSphere = true ; }
+  fFullSphere = fFullPhiSphere && fFullThetaSphere;
+
+  InitializeThetaTrigonometry();
+}
+
+inline
+void G4Sphere::CheckSPhiAngle(G4double sPhi)
+{
+  // Ensure fSphi in 0-2PI or -2PI-0 range if shape crosses 0
+
+  if ( sPhi < 0 )
+  {
+    fSPhi = CLHEP::twopi - std::fmod(std::fabs(sPhi),CLHEP::twopi);
+  }
+  else
+  {
+    fSPhi = std::fmod(sPhi,CLHEP::twopi) ;
+  }
+  if ( fSPhi+fDPhi > CLHEP::twopi )
+  {
+    fSPhi -= CLHEP::twopi ;
+  }
+}
+
+inline
+void G4Sphere::CheckDPhiAngle(G4double dPhi)
+{
+  fFullPhiSphere = true;
+  if ( dPhi >= CLHEP::twopi-kAngTolerance*0.5 )
+  {
+    fDPhi=CLHEP::twopi;
+  }
+  else
+  {
+    fFullPhiSphere = false;
+    if ( dPhi > 0 )
+    {
+      fDPhi = dPhi;
+    }
+    else
+    {
+      std::ostringstream message;
+      message << "Invalid dphi." << G4endl
+              << "Negative delta-Phi (" << dPhi << "), for solid: "
+              << GetName();
+      G4Exception("G4Sphere::CheckDPhiAngle()", "GeomSolids0002",
+                  FatalException, message);
+    }
+  }
+}
+
+inline
+void G4Sphere::CheckPhiAngles(G4double sPhi, G4double dPhi)
+{
+  CheckDPhiAngle(dPhi);
+  if (!fFullPhiSphere && sPhi) { CheckSPhiAngle(sPhi); }
+  fFullSphere = fFullPhiSphere && fFullThetaSphere;
+
+  InitializePhiTrigonometry();
+}
+
+inline
+void G4Sphere::SetInsideRadius(G4double newRmin)
+{
+  fRmin= newRmin;
+  fRminTolerance = (fRmin) ? std::max( kRadTolerance, fEpsilon*fRmin ) : 0;
+  Initialize();
+}
+
+inline
+void G4Sphere::SetInnerRadius(G4double newRmin)
+{
+  SetInsideRadius(newRmin);
+}
+
+inline
+void G4Sphere::SetOuterRadius(G4double newRmax)
+{
+  fRmax= newRmax;
+  fRmaxTolerance = std::max( kRadTolerance, fEpsilon*fRmax );
+  Initialize();
+}
+
+inline
+void G4Sphere::SetStartPhiAngle(G4double newSPhi, G4bool compute)
+{
+  // Flag 'compute' can be used to explicitely avoid recomputation of
+  // trigonometry in case SetDeltaPhiAngle() is invoked afterwards
+
+  CheckSPhiAngle(newSPhi);
+  fFullPhiSphere = false;
+  if (compute)  { InitializePhiTrigonometry(); }
+  Initialize();
+}
+
+inline
+void G4Sphere::SetDeltaPhiAngle(G4double newDPhi)
+{
+  CheckPhiAngles(fSPhi, newDPhi);
+  Initialize();
+}
+
+inline
+void G4Sphere::SetStartThetaAngle(G4double newSTheta)
+{
+  CheckThetaAngles(newSTheta, fDTheta);
+  Initialize();
+}
+
+inline
+void G4Sphere::SetDeltaThetaAngle(G4double newDTheta)
+{
+  CheckThetaAngles(fSTheta, newDTheta);
+  Initialize();
+}
+
+// Old access functions
+
+inline
+G4double G4Sphere::GetRmin() const 
+{
+  return GetInsideRadius();
+}
+
+inline
+G4double G4Sphere::GetRmax() const
+{
+  return GetOuterRadius();
+}
+
+inline
+G4double G4Sphere::GetSPhi() const
+{
+  return GetStartPhiAngle();
+}
+
+inline
+G4double G4Sphere::GetDPhi() const
+{
+  return GetDeltaPhiAngle();
+}
+
+inline
+G4double G4Sphere::GetSTheta() const
+{
+  return GetStartThetaAngle();
+}
+
+inline
+G4double G4Sphere::GetDTheta() const
+{
+  return GetDeltaThetaAngle();
+}
+
+inline
+G4double G4Sphere::GetCubicVolume()
+{
+  if(fCubicVolume != 0.) {;}
+  else { fCubicVolume = fDPhi*(std::cos(fSTheta)-std::cos(fSTheta+fDTheta))*
+                              (fRmax*fRmax*fRmax-fRmin*fRmin*fRmin)/3.; }
+  return fCubicVolume;
+}

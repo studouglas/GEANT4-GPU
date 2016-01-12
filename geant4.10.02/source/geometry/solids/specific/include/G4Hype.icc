@@ -1,0 +1,137 @@
+//
+// ********************************************************************
+// * License and Disclaimer                                           *
+// *                                                                  *
+// * The  Geant4 software  is  copyright of the Copyright Holders  of *
+// * the Geant4 Collaboration.  It is provided  under  the terms  and *
+// * conditions of the Geant4 Software License,  included in the file *
+// * LICENSE and available at  http://cern.ch/geant4/license .  These *
+// * include a list of copyright holders.                             *
+// *                                                                  *
+// * Neither the authors of this software system, nor their employing *
+// * institutes,nor the agencies providing financial support for this *
+// * work  make  any representation or  warranty, express or implied, *
+// * regarding  this  software system or assume any liability for its *
+// * use.  Please see the license in the file  LICENSE  and URL above *
+// * for the full disclaimer and the limitation of liability.         *
+// *                                                                  *
+// * This  code  implementation is the result of  the  scientific and *
+// * technical work of the GEANT4 collaboration.                      *
+// * By using,  copying,  modifying or  distributing the software (or *
+// * any work based  on the software)  you  agree  to acknowledge its *
+// * use  in  resulting  scientific  publications,  and indicate your *
+// * acceptance of all terms of the Geant4 Software license.          *
+// ********************************************************************
+//
+//
+// $Id: G4Hype.icc 83572 2014-09-01 15:23:27Z gcosmo $
+//
+// --------------------------------------------------------------------
+// GEANT 4 inline definitions file
+//
+// G4Hype.icc
+//
+// Implementation of inline methods of G4Hype
+// --------------------------------------------------------------------
+
+inline
+G4double G4Hype::GetInnerRadius () const
+  {
+    return innerRadius;
+  }
+
+inline
+G4double G4Hype::GetOuterRadius () const
+  {
+    return outerRadius;
+  }
+
+inline
+G4double G4Hype::GetZHalfLength () const
+  {
+    return halfLenZ;
+  }
+
+inline
+G4double G4Hype::GetInnerStereo () const
+  {
+    return innerStereo;
+  }
+
+inline
+G4double G4Hype::GetOuterStereo () const
+  {
+    return outerStereo;
+  }
+
+inline
+void G4Hype::SetInnerRadius (G4double newIRad) 
+  { 
+    innerRadius= newIRad;
+    innerRadius2= newIRad*newIRad;
+    endInnerRadius2=HypeInnerRadius2(halfLenZ);
+    endInnerRadius=std::sqrt(endInnerRadius2);
+    fCubicVolume = 0.;
+    fRebuildPolyhedron = true;
+  }
+
+inline
+void G4Hype::SetOuterRadius (G4double newORad) 
+  { 
+    outerRadius= newORad;
+    outerRadius2=newORad*newORad;
+    endOuterRadius2=HypeOuterRadius2(halfLenZ);
+    endOuterRadius=std::sqrt(endOuterRadius2);
+    fCubicVolume = 0.;
+    fRebuildPolyhedron = true;
+  } 
+
+inline
+void G4Hype::SetZHalfLength (G4double newHLZ)
+  {
+    halfLenZ   = newHLZ ;
+    fCubicVolume = 0.;
+    fRebuildPolyhedron = true;
+  }
+
+inline
+void G4Hype::SetInnerStereo (G4double newISte) 
+  { 
+    innerStereo= std::fabs(newISte);
+    tanInnerStereo=std::tan(innerStereo);
+    tanInnerStereo2=tanInnerStereo*tanInnerStereo;
+    endInnerRadius2=HypeInnerRadius2(halfLenZ);
+    endInnerRadius=std::sqrt(endInnerRadius2);
+    fCubicVolume = 0.;
+    fRebuildPolyhedron = true;
+  }
+
+inline
+void G4Hype::SetOuterStereo (G4double newOSte)
+  { 
+    outerStereo= std::fabs(newOSte);
+    tanOuterStereo=std::tan(outerStereo);
+    tanOuterStereo2=tanOuterStereo*tanOuterStereo;
+    endOuterRadius2=HypeOuterRadius2(halfLenZ);
+    endOuterRadius=std::sqrt(endOuterRadius2);
+    fCubicVolume = 0.;
+    fRebuildPolyhedron = true;
+  }
+
+inline
+G4bool G4Hype::InnerSurfaceExists() const
+  {
+    return (innerRadius > DBL_MIN) || (innerStereo != 0);
+  }
+
+inline
+G4double G4Hype::HypeInnerRadius2(G4double zVal) const
+  {
+    return (tanInnerStereo2*zVal*zVal+innerRadius2);
+  }
+
+inline
+G4double G4Hype::HypeOuterRadius2(G4double zVal) const
+  {
+    return (tanOuterStereo2*zVal*zVal+outerRadius2);
+  }

@@ -1,0 +1,172 @@
+//
+// ********************************************************************
+// * License and Disclaimer                                           *
+// *                                                                  *
+// * The  Geant4 software  is  copyright of the Copyright Holders  of *
+// * the Geant4 Collaboration.  It is provided  under  the terms  and *
+// * conditions of the Geant4 Software License,  included in the file *
+// * LICENSE and available at  http://cern.ch/geant4/license .  These *
+// * include a list of copyright holders.                             *
+// *                                                                  *
+// * Neither the authors of this software system, nor their employing *
+// * institutes,nor the agencies providing financial support for this *
+// * work  make  any representation or  warranty, express or implied, *
+// * regarding  this  software system or assume any liability for its *
+// * use.  Please see the license in the file  LICENSE  and URL above *
+// * for the full disclaimer and the limitation of liability.         *
+// *                                                                  *
+// * This  code  implementation is the result of  the  scientific and *
+// * technical work of the GEANT4 collaboration.                      *
+// * By using,  copying,  modifying or  distributing the software (or *
+// * any work based  on the software)  you  agree  to acknowledge its *
+// * use  in  resulting  scientific  publications,  and indicate your *
+// * acceptance of all terms of the Geant4 Software license.          *
+// ********************************************************************
+//
+// $Id: G4RootNtupleManager.hh 70604 2013-06-03 11:27:06Z ihrivnac $
+
+// Manager class for Root ntuples.
+// It implements functions specific to Root ntuples.
+//
+// Author: Ivana Hrivnacova, 18/06/2013  (ivana@ipno.in2p3.fr)
+
+#ifndef G4RootNtupleManager_h
+#define G4RootNtupleManager_h 1
+
+#include "G4TNtupleManager.hh"
+#include "globals.hh"
+
+#include "tools/wroot/ntuple"
+
+
+namespace tools {
+namespace wroot {
+class directory;
+}
+}
+
+// template specializations used by this class defined below
+
+template <>
+template <>
+void G4TNtupleManager<tools::wroot::ntuple>::CreateTColumnInNtuple(
+  G4TNtupleDescription<tools::wroot::ntuple>* ntupleDescription,
+  const G4String& name, std::vector<std::string>* vector);
+
+template <>
+template <>
+G4bool G4TNtupleManager<tools::wroot::ntuple>::FillNtupleTColumn(
+  G4int ntupleId, G4int columnId, const std::string& value);
+
+
+class G4RootNtupleManager : public G4TNtupleManager<tools::wroot::ntuple> 
+{
+  friend class G4RootAnalysisManager;
+
+  public:
+    explicit G4RootNtupleManager(const G4AnalysisManagerState& state);
+    virtual ~G4RootNtupleManager();
+
+   private:
+    // Types alias
+    using NtupleType = tools::wroot::ntuple;
+    using NtupleDescriptionType = G4TNtupleDescription<NtupleType>;
+
+    // Functions specific to the output type
+
+    void SetNtupleDirectory(tools::wroot::directory* directory);
+    
+    // Methods from the templated base class
+    //
+    virtual void CreateTNtuple(
+                    NtupleDescriptionType*  ntupleDescription,
+                    const G4String& name, const G4String& title) final;
+    virtual void CreateTNtupleFromBooking(
+                    NtupleDescriptionType*  ntupleDescription) final;
+
+    virtual void FinishTNtuple(
+                    NtupleDescriptionType*  ntupleDescription) final;
+
+    // data members
+    //
+    tools::wroot::directory*  fNtupleDirectory;
+};    
+
+// inline functions
+
+inline void 
+G4RootNtupleManager::SetNtupleDirectory(tools::wroot::directory* directory) 
+{ fNtupleDirectory = directory; }
+
+//_____________________________________________________________________________
+template <>
+template <>
+inline void G4TNtupleManager<tools::wroot::ntuple>::CreateTColumnInNtuple(
+  G4TNtupleDescription<tools::wroot::ntuple>* ntupleDescription,
+  const G4String& name, std::vector<std::string>* vector)
+{
+  if ( ntupleDescription->fNtuple ) {
+    if ( vector  == nullptr ) {
+      ntupleDescription->fNtuple->create_column_string(name);
+    }  
+    else {
+      G4ExceptionDescription description;
+      description << "Column of vector<std::string> type is not supported";
+      G4Exception("G4RootNtupleManager::CreateTColumnInNtuple()",
+                  "Analysis_W001", JustWarning, description);
+    } 
+  }  
+}
+
+//_____________________________________________________________________________
+template <>
+template <>
+inline G4bool G4TNtupleManager<tools::wroot::ntuple>::FillNtupleTColumn(
+  G4int ntupleId, G4int columnId, const std::string& value)
+{
+  if ( fState.GetIsActivation() && ( ! GetActivation(ntupleId) ) ) {
+    //G4cout << "Skipping FillNtupleIColumn for " << ntupleId << G4endl; 
+    return false; 
+  }  
+
+  auto ntuple = GetNtupleInFunction(ntupleId, "FillNtupleTColumn");
+  if ( ! ntuple ) return false;
+
+  auto index = columnId - fFirstNtupleColumnId;
+  if ( index < 0 || index >= G4int(ntuple->columns().size()) ) {
+    G4ExceptionDescription description;
+    description << "      "  << "ntupleId " << ntupleId
+                << " columnId " << columnId << " does not exist.";
+    G4Exception("G4RootNtupleManager::FillNtupleTColumn()",
+                "Analysis_W011", JustWarning, description);
+    return false;
+  }
+
+  auto icolumn =  ntuple->columns()[index];
+  auto column = dynamic_cast<tools::wroot::ntuple::column_string* >(icolumn);
+  if ( ! column ) {
+    G4ExceptionDescription description;
+    description << " Column type does not match: "
+                << " ntupleId " << ntupleId  
+                << " columnId " << columnId << " value " << value;
+    G4Exception("G4RootNtupleManager:FillNtupleColumn",
+                "Analysis_W011", JustWarning, description);
+    return false;
+  } 
+
+  column->fill(value);
+
+#ifdef G4VERBOSE
+  if ( fState.GetVerboseL4() ) {
+    G4ExceptionDescription description;
+    description << " ntupleId " << ntupleId  
+                << " columnId " << columnId << " value " << value;
+    fState.GetVerboseL4()->Message("fill", "ntuple T column", description);
+  }  
+#endif
+  return true;  
+}
+
+#endif
+
+

@@ -1,0 +1,226 @@
+-------------------------------------------------------------------
+
+       ==========================================================
+       Geant4 - an Object-Oriented Toolkit for Physics Simulation
+       ==========================================================
+
+        History file for hadronic/models/parton_string directory
+        --------------------------------------------------------
+
+This file should be used to summarize modifications introduced in the 
+code and to keep track of all tags.
+
+     ---------------------------------------------------------------
+     * Please list in reverse chronological order (last date on top)
+     ---------------------------------------------------------------
+
+--------------------------------------------------
+26 March 2014,  G.Folger (hadr-prtn-V10-00-02)
+   convert to const G4Particledefinition*
+
+--------------------------------------------------
+25 February 2014,  A. Ribon (hadr-prtn-V10-00-01)
+   Reverting back the CMakeLists.txt as before the previous tag.
+
+--------------------------------------------------
+14 February 2014,  M. Karamitros (hadr-prtn-V10-00-00)
+   Reordering of add_subdirectory in CMakeLists.txt.
+
+--------------------------------------------------
+27 September 2012,  G. Cosmo (hadr-prtn-V09-05-00)
+   Explicitly use inclusion of headers for system of units and physical
+   constants, in plan to remove implicit inclusion from globals.hh.
+
+--------------------------------------------------
+1 March 2011, V. Uzhinsky (hadr-prtn-V09-04-08)
+   Bugs fixed Annihilation (px, py of strings were not set).
+
+--------------------------------------------------
+1 March 2011, V. Uzhinsky (hadr-prtn-V09-04-07)
+   Bug in dtor fixed; possible double deletion.
+
+--------------------------------------------------
+1 March 2011, V. Uzhinsky (hadr-prtn-V09-04-06)
+   Bug was found and fixed in FTF. The pionter on a projectile
+   nucleus was not set to 0 at the end of FTF run.
+
+--------------------------------------------------
+28 February 2011, V. Uzhinsky (hadr-prtn-V09-04-05)
+   Bug was found and fixed in annihilation.
+ 
+--------------------------------------------------
+28 February 2011, V. Uzhinsky (hadr-prtn-V09-04-04)
+   Bug was found and fixed in G4FTFParameters.cc. Small improvements 
+   were introduced in FTF annihilation.
+
+-------------------------------------------------------
+25 February 2011, V. Uzhinsky (hadr-prtn-V09-04-03)
+   Bug was found and fixed in G4FragmentingString.cc thank to Gunter.
+   A small improvement was introduced in G4FTFParameters.cc in order
+   to treat LabmdaBar, SigmaBar and so on.
+
+-------------------------------------------------------
+24 February 2011, V. Uzhinsky  (hadr-prtn-V09-04-02)
+   First variant of FTF code for a sumulation of anti-nucleus-nucleus
+   and nucleus-nucleus interactions is implemented. The anti-nucleus
+   nucleus part is working starting from 150*A MeV/c. The nucleus-
+   nucleus part is applicable at Plab > 2 * A GeV/c.
+
+---------------------------------------------------------
+14 February 2011, V. Uzhinsky  (hadr-prtn-V09-04-01)
+   Simulation of Anti-baryon - nucleus interactions from the rest 
+   to 1000 GeV is implemented.
+   The reggeon cascading is switched off. 
+   Good results are obtained in combination with the binary model.
+   
+----------------------------------------------------------
+7 Dec. 2010, V. Uzhinsky        (hadr-prtn-V09-04-00)
+  First implementation of baryon - anti-baryon annihilation.
+  New G4FTFAnnihilation class is added in FTF model, and
+  corresponding changes have dane in FTF connected classes.
+
+  Changes have done in G4VSplitableHadron (management),
+  2 new methods have been addded:
+              virtual void SetFirstParton(G4int PDGcode)
+              virtual void SetSecondParton(G4int PDGcode)
+  to set quark (anti-quark) determination at the annihilation.
+
+  Corresponding classes in FTF and QGSM have changed:
+              G4DiffractiveSplitableHadron (FTF)
+              G4QGSMSplitableHadron        (QGSM)
+
+-----------------------------------------------------------
+9  Dec. 2009, V. Uzhinsky         (hadr-prtn-V09-03-00)
+   Crush found by Alberto with AveragePt2=0 is erased in FTF.
+--------------------------------------------------------
+6  December 2009, V. Uzhinsky     (hadr-prtn-V09-02-10)
+   Some correstions are made in diffr., hadronization and managment
+   to treat kinky string fragmentation.
+
+19 November 2009, Gunter Folger   (hadr-prtn-V09-02-09)
+-  G4VParticipants.hh: use modified name of method to sort nucleons in G4V3DNucleus
+
+29 October 2009, V. Uzhinsky (hadr-prtn-V09-02-08)
+   Warning meassage is erased in FTFmodel
+-----------------------------------------------------
+25 October 2009, V Uzhinsky (hadr-prtn-V09-02-07)
+   Excitation energy calculation was added in FTF.
+-----------------------------------------------------
+
+6 October 2009, V Uzhinsky (hadr-prtn-V09-02-06)
+  Compilation warning are erased in FTF.
+
+-----------------------------------------------------
+5 October 2009, V. Uzhinsky (hadr-prtn-V09-02-05)
+  FTFP with tuned parameters of nuclear de-excitation.
+------------------------------------------------------
+6 August 2009, V. Uzhinsky (hadr-prtn-V09-02-04)
+   A warning message at FTFmodel compilation connected with Xminus
+   initialisation was erased.
+------------------------------------------------------
+ 5 August 2009, V. Uzhinsky (hadr-prtn-V09-02-03)
+Some warning were erased at FTFModel compilation.
+----------------------------------------------------
+ 3 August 2009, V. Uzhinsky (hadr-prtn-V09-02-02)
+   FTF model was complited by the reggeon cascade model.
+-----------------------------------------------------------
+17 July 2009 V. Uzhinsky (hadr-prtn-V09-02-01)
+   Improvement of FTF model:
+   A Status of nuclear nucleon involved in an interaction is introdused.
+   Status: 0 - spectator, 1 - involved nucleon, 2 - absorbed nucleon
+   (G4VSplitableHadron)
+
+   A connection between a participant nucleon and a nuclear nucleon was
+   introsuced in G4InteractionContent.
+
+   All of these allow to improve FTF model for pion obsorption on nuclei.
+   These required a lot of changes in FTF.
+-------------------------------------------------
+10 July 2009 V. Uzhinsky (hadr-prtn-V09-02-00)
+   Introduction the right tag number.
+-------------------------------------------------
+9 July 2009 V. Uzhinsky (hadr-prtn-V09-01-03)
+  Charge-exchange was implemented for pn->np in elastic and inelastic 
+  interactions simulated by FTF. Pion absorption by a nucleon was 
+  implemented also. tag - hadr-string-diff-V09-02-02 
+
+  Bug was fixed in G4VLongitudinalStringDecay.cc at calculation of
+  formation/creation time, c_light was inserted. Due to this string 
+  tension parameter was set to the usual value (1 GeV/fm) in
+  G4LundStringFragmentation.cc. tag - had-hadronization-V09-02-02
+
+  New field was added in G4VSplitableHadron class (G4 bool Activation)
+  and corresponding methods to operatite with it. It was needed for an 
+  absorption of meson in nuclear collision generated by FTF.
+  tag - had-partonstring-mgt-V08-02-02
+-----------------------------------------------
+
+23 June 2008 V. Uzhinsky (hadr-prtn-V09-01-02)
+   G4QGSMFragmentation.cc and G4LundStringFragmentation.cc were
+   decoupled at calculation of formation time due to adding methods
+   and member in G4VLongitudinalStringDecay class for manipulation
+   with string tension.
+
+   Memory leak was erased in G4QGSMFragmentation.cc and 
+   G4VLongitudinalStringDecay.cc thank to Gunter.
+
+18 June 2008 V. Uzhinsky (hadr-prtn-V09-01-01)
+   Changes in G4ExcitedString class were tagged. They are needed for
+   operation of FTF.
+
+13 June 2008 V. Uzhinsky    (hadr-prtn-V09-01-00)
+----------------------------------------------- 
+1. String fragmentation was revised, and parameters were tuned.
+2. FTF parameters were tuned for proton-proton interaction
+3. FTF parameters for pion-nucleon interactions were determined very rouhgly
+4. Quiasi-elastic hadron-nucleus scattering was implemented in FTF
+5. Formation time was implemented in FTF, and string tension was tuned
+
+
+25 May 2007 G.Folger       (hadr-prtn-V08-02-02)
+-----------------------------------------------
+- Seperate G4DiffractiveExcitation for FTF from QGS (see next entry by V.Uzhinsky) 
+  - Add original G4DiffractiveExcitation to qgsm as G4QGSDiffractiveExcitation
+  - Move G4SingleDiffractiveExcitation from management to qgsm ( not used
+    elsewhere) 
+
+25 May 2007   V.Uzhinsky 
+-----------------------------------------------
+- FTF model tuned for Pi+P interaction implemented
+  Moved modified G4DiffractiveExcitation from management to diffraction
+
+24 April 2007 G.Folger    (hadr-prtn-V08-02-01)
+-----------------------------------------------
+- Merge changes from V.Uzhinsky  from ftf-dev branch back to HEAD.
+- Seperate modifications done in G4VLongitudinalStringFragmentation for FTF
+   from original code for QGS.
+-  This tag includes the subdirectory tags: 
+     - had-partonstring-mgt-V08-02-00
+     - hadr-qgsm-V08-02-02
+     - hadr-string-diff-V08-02-00
+     - had-hadronization-V08-02-02
+
+
+1 March 2007 G.Folger     (hadr-prtn-V08-02-00)
+-----------------------------------------------
+
+- Add modifications of V.Uzhinsky on ftf-dev branch.
+  Files in diffraction, management, hadronization and qgsm are affected. 
+
+
+23 Nov 2005 Dennis Wright (hadr-prtn-V07-01-00)
+-----------------------------------------------
+
+- G. Folger fixed bug in hadronization/G4ExcitedStringDecay.cc
+   (tag had-hadronization-V07-01-00)
+
+- D. Wright created History file for parton_string directory
+
+31 March 2008 V. Uzhinsky (hadr-string-diff-V09-01-00)
+--------------------------------------------------------
+
+- Elastic hadron intra-nuclear nucleon scattering was inserted in
+  FTF model. This allows to simulate quasi-elastic and multi-particles
+  production together.
+- Small re-orangement of FTF model was done. G4FTFCrossSection modules
+  were re-named into G4FTFParameters and moved to /diffraction

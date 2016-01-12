@@ -1,0 +1,87 @@
+$Id: History 89185 2015-03-23 16:11:02Z gcosmo $
+-------------------------------------------------------------------
+
+     =========================================================
+     Geant4 - an Object-Oriented Toolkit for Simulation in HEP
+     =========================================================
+
+                      Category History file
+                      ---------------------
+This file should be used by G4 developers and category coordinators
+to briefly summarize all major modifications introduced in the code
+and keep track of all category-tags.
+It DOES NOT substitute the  CVS log-message one should put at every
+committal in the CVS repository !
+
+     ----------------------------------------------------------
+     * Reverse chronological order (last date on top), please *
+     ----------------------------------------------------------
+
+March 20, 2015  A.Kimura (detutils-V10-01-02)
+- fixed type convertion warnigs at l.132 and l.157 of G4VScoreColorMap.cc
+
+March 11, 2015  A.Kimura (detutils-V10-01-01)
+- fine adjustment of the position drawing surfaces in G4ScoringBox::Draw(...)
+
+March 11, 2015  A.Kimura (detutils-V10-01-00)
+March 11, 2015  A.Kimura (detutils-V10-01-00)
+- Revised G4ScoringBox::Draw(...), ::DrawColumn(...), 
+  G4ScoringCylinder::Draw(...) and ::DrawColumn(...) to spped up 
+  drawing primitive scorers attached to the scoring meshes.
+
+October 03, 2014  A.Kimura (detutils-V10-00-00)
+- Added several sets of G4VisManager::BeginDraw2D() call and 
+  G4VisManager::EndDraw() call in G4VScoreColorMap.cc for the speedup 
+  of drawing the texts and the color chart.
+
+October 05, 2013  A.Kimura (detutils-V09-06-00)
+- Fixed a bug in G4ScoringBox::DrawColumn(...), which was a wrong size check of the column.
+
+June 14, 2010  G.Cosmo (detutils-V09-03-00)
+- Added missing virtual destructor to G4VScoringMesh and removed unnecessary
+  virtual qualifiers to G4ScoringBox.
+
+November 06, 2007  M.Asai (detutils-V09-00-06)
+- Introducing DrawColumn() method and related UI commands.
+
+November 04, 2007  M.Asai (detutils-V09-00-05)
+- Introducing G4VScoreColorMap and its concrete class G4DefaultLinearColorMap.
+
+November 03, 2007  M.Asai (detutils-V09-00-04)
+- Split messenger class.
+- Command name changed.
+- Commands for cylindrical and spharic mesh disabled.
+
+November 01, 2007  M.Asai (detutils-V09-00-03)
+- Temporary tag after removing G4ScoringTubs.
+
+November 01, 2007  M.Asai (detutils-V09-00-02)
+- Temporary tag before removing G4ScoringTubs.
+
+July 13, 2007  M.Asai (detutils-V09-00-01)
+- First implementation of basic classes
+- test/test1
+
+July 11, 2007  M.Asai (detutils-V09-00-00)
+- Move all scorers and filters to digits_hits/scorer.
+
+June 06, 2007  A.Howard (detutils-V08-03-02)
+- Added modified G4PSPopulation removing event (circular) dependency 
+  (file form T.Aso).
+
+June 05, 2007  M.Asai (detutils-V08-03-01)
+- Drop G4PSPopulation from the release.
+
+May 17, 2007  M.Asai (detutils-V08-03-00)
+- New scorers for event biasing.
+- kCarTolerance now becomes a local data member obtained from G4GeometryTolerance class.
+
+November 17, 2006  M.Asai (detutils-V08-01-00)
+- G4PSCellCharge is introduced.
+
+November 18, 2005  M.Asai (detutils-V07-01-01)
+- Introducing concrete primitive scorer and filter classes.
+
+November 16, 2005  M.Asai (detutils-V07-01-00)
+- Created.
+

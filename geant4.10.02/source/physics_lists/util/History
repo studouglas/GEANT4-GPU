@@ -1,0 +1,29 @@
+$Id: History 94094 2015-11-05 15:17:11Z gcosmo $
+-------------------------------------------------------------------
+
+     =========================================================
+     Geant4 - an Object-Oriented Toolkit for Simulation in HEP
+     =========================================================
+
+                  Hadronic physics-list/util History
+                  -----------------------------
+This file should be used  to briefly summarize all major modifications 
+introduced in the code and keeptrack of all tags.
+
+     ----------------------------------------------------------
+     * Reverse chronological order (last date on top), please *
+     ----------------------------------------------------------
+
+05-Nov-2015, Alberto Ribon              (phys-util-V10-01-00)
+- Removed neutron_hp/
+
+29-Jan-2014, Gunter Folger              (phys-util-V10-00-00)
+- Removed electromagnetic/dna, cascade/{evaporation,utils}
+  from sources.cmake
+
+07-Nov-2013, Alberto Ribon              (phys-util-V09-06-01)
+- Removed low_energy and high_energy from sources.cmake
+
+10-Jan-2013, Gunter Folger              (phys-util-V09-06-00)
+- new directory structure introduced. 
+   util directory keeps utility classes

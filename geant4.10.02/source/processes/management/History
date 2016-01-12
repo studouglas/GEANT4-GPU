@@ -1,0 +1,299 @@
+$Id: History 92125 2015-08-18 14:35:23Z gcosmo $
+-------------------------------------------------------------------
+
+     =========================================================
+     Geant4 - an Object-Oriented Toolkit for Simulation in HEP
+     =========================================================
+
+                      Category History file
+                      ---------------------
+This file should be used by G4 developers and category coordinators
+to briefly summarize all major modifications introduced in the code
+and keep track of all category-tags.
+It DOES NOT substitute the  CVS log-message one should put at every
+committal in the CVS repository !
+
+     ----------------------------------------------------------
+     * Reverse chronological order (last date on top), please *
+     ----------------------------------------------------------
+- Aug. 18, 2015  H.Kurashige (procman-V10-01-03)
+- Clean up source codes for messsengers
+
+- Aug. 11, 2015  H.Kurashige (procman-V10-01-02)
+- Fix Coverity defects in G4ProcessTable
+
+- Aug. 9, 2015  H.Kurashige (procman-V10-01-01)
+- While loop in G4ProcessTableMessenger::GetCurrentValue was checked
+
+- Jan. 20, 2015  H.Kurashige (procman-V10-01-00)
+- Modify SetProcessOrderingToSecond() in G4ProcessManager
+
+- June 6th, 2014    P.Gumplinger (procman-V10-00-02)
+- Add new process type fUCN in G4ProcessType.hh
+
+- May 12th, 2014    A.Dotti     (procman-V10-00-01)
+- Fixing bug #1625: G4WrapperProcess not correctly 
+  forwards call to SetMasterProcess to wrapped process. 
+  Needed for MT.
+
+- Jan. 23rd, 2014   H.Kurashige (procman-V10-00-00)
+- Fix compiler warning in G4ProcessTable.cc
+
+- Oct. 30th, 2013   M.Kelsey (procman-V09-06-07)
+- Add fPhonon to G4VProcess::GetProcessTypeName() [should have done it below]
+
+- Oct. 28th, 2013   M.Kelsey (procman-V09-06-06)
+- Add fPhonon to G4ProcessType.hh for new phonon processes.
+
+- Sep. 14th, 2013   M.Asai (procman-V09-06-05)
+- Now G4VProcess::SubtractNumberOfInteractionLengthLeft() is inlined.
+
+- Sep. 14th, 2013   M.Asai (procman-V09-06-04)
+- Remove unused and obsolete intermediate layer classes
+  G4IVContinuousDiscreteProcess and G4IVRestDiscreteProcess.
+
+- Sep. 6th, 2013   M.Asai (procman-V09-06-03)
+- Change G4VProcess::SetMasterProcess() to be a virtual method so that
+  a process that owns another process (e.g. a wrapper process) could
+  properly invoke this method of the owned (wrapped) process.
+
+- Jul. 16th, 2013   A. Dotti (procman-V09-06-02)
+- Adding worker initialization virtual method for MT:
+  G4VProcess::{Build,Prepare}WorkerPhysicsTable(const G4ParticleDefinition&)
+  called by kernel to initialize worker threads. By default methods
+  forward call to {Build,Prepare}PhysicsTable methods
+
+- Jul. 15th, 2013    A.Dotti (procman-V09-06-01)
+- Adding shadow master-thread pointer to G4VProcess and
+  setter and getter methods. Needed for a general design 
+  of sharing  of tables (EM & HAD) for MT
+
+- Jun. 12th, 2013    G.Cosmo (procman-V09-06-00)
+- Corrected name for G4Upsilon meson.
+
+- Jul. 10th, 2012    G.Cosmo (procman-V09-05-02)
+- Explicitly use inclusion of headers for system of units and physical
+  constants, in plan to remove implicit inclusion from globals.hh.
+
+- Jun. 7th, 2012     G.Cosmo (procman-V09-05-01)
+- Fixed trivial case of variable shadowing in G4ProcessVector.
+
+- May 16th, 2012     H.Kurashige (procman-V09-05-00)
+- Add GetTotalNumberOfInteractionLengthTraversed to G4VProcess
+- Move 'virtual inlined' methods to cc files
+
+- Nov. 9th, 2011     H.Kurashige (procman-V09-04-07)
+- Fix Coverity defects
+- Fix bugs in copy constructor and assignment operator of G4ProcessVector
+
+- Oct. 17th, 2011   H.Kurashige  (procman-V09-04-06)
+- Fix obsolete G4Exception
+- Add b-flavor baryons in G4ParticleTypes.hh
+
+- Aug. 3, 2011   H.Kurashige (procman-V09-04-05)
+- Fix errors in CTOR of G4ProcessManager (reported by Coverity)
+
+- May 31, 2011   H.Kurashige (procman-V09-04-04)
+- Fix a bug in copy constructor of G4ProcessAttribute
+- Suppress warning message of G4ProcessTable::Insert in case of
+  copying process manager with inactivate processes
+
+- May 05, 2011   H.Kurashige (procman-V09-04-03)
+- Add fParallel process type
+- Fix compiler warning in G4ProcessTableMessenger.cc
+- Change ordLast to 9999 (was 99999 )
+- Add check for calling SetOrderingToFirst(Last)
+
+- Apr. 29, 2011   H.Kurashige (procman-V09-04-02)
+- Fix errors reported by Coverity 
+
+- Mar. 29, 2011   G.Cosmo (procman-V09-04-01)
+- Cleared compilation warnings from G4VProcess.hh for parameter set
+  but not used. Removed extra semi-colons...
+
+- Dec. 22, 2010   H.Kurashige (procman-V09-04-00)
+- Clean up  code (define error code for G4Exception)
+
+- Oct. 30, 2010   H.Kurashige (procman-V09-03-01)
+- Fix bugs of uninitialized variables (reported by Coverity)
+
+- Oct. 07, 2010   H.Kurashige (procman-V09-03-00)
+- Fix bugs (G4VProces, G4ProcessTable, G4ProcessAttribute) 
+
+- Jun. 23, 2008   G.Cosmo (procman-V09-01-03)
+- Fixed un-necessary double deletion/creation of vector in
+  G4ProcessVector::operator=()
+
+- Mar. 20, 2008   H.Kurashige (procman-V09-01-02)
+- revert changes in G4processmanager::StartTracking
+
+- Mar. 14, 2008   H.Kurashige (procman-V09-01-01)
+- fix warning message of g++
+- Change order of invocation of processes in G4processmanager::StartTracking 
+
+- Dec. 15, 2007   H.Kurashige (procman-V09-01-00)
+- fixed a bug of invoking ResetNumberOfInteractionLengthLeft 
+  at the zero length step  
+- allow zero mean free path for PostStepDoIt
+- add ProcessSubType to G4VProcess
+
+- Dec. 12, 2007   G.Cosmo (procman-V09-00-05a)
+- Moved inline definitions of virtual methods in G4WrapperProcess to
+  .cc file. Included in tag "procman-V09-00-".
+
+- Nov. 28, 2007   H.Kurashige (procman-V09-00-05)
+- Fix a bug SetProcessOrderingToSecond method of G4ProcessManager.
+
+- Oct. 6, 2007   H.Kurashige (procman-V09-00-03)
+- clean up messages in G4ProcessManager and G4ProcessTable
+
+- Oct. 3, 2007   H.Kurashige (procman-V09-00-02)
+- change ExceptionSeverity of CheckOrderingParameters to FatalException
+ 
+- Oct. 2, 2007   H.Kurashige (procman-V09-00-01)
+- add G4ProcessManager::CheckOrderingParameters 
+- add isXXXXDoItIsEnabled methods in G4VProcess and derived classes.
+ 
+- July 30,  2007 Jane Tinslay
+- Remove double definition of PreparePhysicsTable in G4WrapperProcess
+
+- July 13,2007   H.Kurashige (procman-V09-00-00)
+-  add  SetProcessOrderingToSecond method for G4ProcessManager.
+     
+- June 02, 2006  M.Maire ((procman-V08-00-01)
+-  add physicsModified in activate/inactivate UI commands
+
+- Feb. 23, 2006  M.Asai (procman-V08-00-00)
+-  Fix G4WrapperProcess::StartTracking() implementation
+
+- Nov. 21, 2005  M.Asai (procman-V07-01-01)
+- Migration to <sstream>.
+- G4VProcess::StartTracking now takes G4Track* as an argument.
+- G4ProcessManager::StartTracking now invokes this new method.
+
+- July 11, 2005  H.Kurashige (procman-V07-01-00)
+- Add forward declaration of G4UImessenger in G4ProcessTable.hh
+
+-Feb. 15, 2005  H.Kurashige (procman-V07-00-00)
+-  Modify G4ProcessVectorOrdering to fix FindInsedrtPosition
+
+-Dec. 02, 2004 H.Kurashige (procman-V06-02-03)
+- migration to cmath
+
+- Dev. 02, 2004 H.Kurasige (procman-V06-02-03)
+- Implemented migration to <cmath> for G4VProcess.hh.
+
+- Nov. 10, 2004 V.Ivanchenko (procman-V06-02-02)
+- Add const cast for argument of one method used in Store/Retrieve PhysicsTable
+
+- Nov. 7, 2004 H.Kurashige (procman-V06-02-01)
+- Add const cast for arguments in Store/Retrieve PhysicsTable
+
+-Oct 25, 2004 H.Kurashige (procman-V06-02-00)
+- Add PreparePhysicsTable in G4VProcess
+
+- May 10 2004  H.Kurashige (procman-V06-01-00)
+- Fixed a bug in G4ProcessManager::RemoveProcess for the case 
+   the removed process is inactive
+
+- Nov.03, 2003   H.Kurashige (procman-V05-02-00)
+- Use G4ExceptionSeverity for all G4Exception
+
+- Apr.01, 2003   G.Cosmo (procman-V05-00-01)
+- Cleared few trivial strict pedantic warnings
+
+- Mar.25, 2003   H.Kurashige (procman-V05-00-00)
+- Fix PostStepGetPhysicalInteractionLength to avoid unrealistic step of length 0
+ 
+- Nov.28, 2002   H.Kurashige (procman-V04-01-01)
+- Fixed memory leak in G4ProcessTable
+
+- Sep.17, 2002   H.Kurashige (procman-V04-01-00)
+- Add new commands of "/process/setVerbose " for G4ProcessTableMessenger
+
+- Apr.15, 2002   H.Kurashige (procman-V04-00-00)
+- Add G4VProcess::GetCurrentInteractionLength()
+- Fixed bugs in PostStepDoIt when MeanFreePath is equal to DBL_MAX
+ 
+- Oct. 11, 2001  G.Cosmo (procman-V03-02-04)
+- Replaced inclusion of ctoken.h with G4Tokenizer.hh in
+  G4ProcessTableMessenger.cc.
+- Co-works with tag "globals-V03-02-03" where the STLInterface
+  module has been removed.
+
+- Sep. 20, 2001  H.Kurashige (procman-V03-02-03)
+- Modify for STL migration for materials
+
+- Sep. 19, 2001  H.Kurashige (procman-V03-02-02)
+- Add Set/GetProcessManager to G4VProcess and modify 
+  G4ProcessManager::AddProcess to invoke SetProcessManager 
+
+- Aug 16,  H.Kurashige (procman-V03-02-01)
+- Fixed bugs in the copy constructor of G4ProcessManager. 
+
+- July, 31 H.Kurashige (procman-V03-02-00)
+- Modify arguments for Retreive/StorePhysicsTable
+
+- May 22, 01  G.Cosmo (procman-V03-01-00)
+- Cleared pedantic warnings from Linux-g++ ISO/ANSI setup.
+
+- Mar 12, 01  H.Kurashige (procman-V03-00-00)
+- Modify Store/RetrievePhysicsTable methods 
+  (add a bool argument to specify ascii/binary mode)  
+
+- Nov 08, 00    H.Kurashige (procman-V02-00-01)
+- Added  Store/RetrievePhysicsTable (virtual) methods
+
+- Nov 03 ,00 H.Kurashige (procman-V02-00-00)
+- Fixed bugs in G4ProcTblElement::operator=
+- Remove destruction of processes in G4ProcessTable::~G4ProcessTable()
+- STL migration in G4ProcessVector 
+- Add thePILfactor and GPIL methods in G4VProcess
+
+- May 12 ,00 H.Kurashige (procman-V01-01-00)
+-  small bug fix in G4ProcessManager.cc
+
+- Mar. 02, 00 H.Kurashige (procman-V01-00-01)
+-  Use STL vector instead of  RW vectors (except for G4PhysicsVector) 
+-  Add registration of process into ProcessTable in copy constructor  
+
+- Feb. 25, 00 H.Kurashige (procman-V01-00-00)
+-  Remove G4RhoZero from G4ParticleTypes.hh
+
+
+- Nov. 7, 99 H.Kurashige (procman-V00-01-01)
+-  Added comments in header files for "Software Reference Manual"
+
+- Oct 5, 99 H.Kurashige (procman-V00-01-00)
+- No process will be added if not IsApplicable
+
+- June 17, 99 H.Kurashige (procman-01-00-04)
+- Disable Activate/InactivateProcess methods in G4ProcessManager 
+  (and related UI commands) in "Init" state 
+
+- May 3,  99 H.Kurashige (procman-01-00-03a)
+- Add G4ProcessManager::GetProcessActivation 
+
+- Apr 30, 99 H.Kurashige (procman-01-00-03)
+- Remove G4EnergyLossTable from G4IVRestDiscreteProcess and 
+  G4IVContinousDiscreteProcess (Laszlo)
+
+- Apr 17, 99 H.Kurashige (procman-01-00-02a)
+- correct G4IVContinousDiscreteProcess.cc
+
+- Apr 13, 99 H.Kurashige (procman-01-00-02)
+- clean up codes (Hisaya)
+
+- Feb 6, 99   H.Kurashige (procman-01-00-01)
+-  Add G4ParticleTypes.hh (migrated from particles/management) (Hisaya)
+-  Allow registration of processes to shortlived particles (Hisaya)
+
+
+Feb 6, 99   H.Kurashige -
+- Created.
+
+
+
+
+
+

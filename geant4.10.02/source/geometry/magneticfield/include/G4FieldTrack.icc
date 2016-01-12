@@ -1,0 +1,292 @@
+//
+// ********************************************************************
+// * License and Disclaimer                                           *
+// *                                                                  *
+// * The  Geant4 software  is  copyright of the Copyright Holders  of *
+// * the Geant4 Collaboration.  It is provided  under  the terms  and *
+// * conditions of the Geant4 Software License,  included in the file *
+// * LICENSE and available at  http://cern.ch/geant4/license .  These *
+// * include a list of copyright holders.                             *
+// *                                                                  *
+// * Neither the authors of this software system, nor their employing *
+// * institutes,nor the agencies providing financial support for this *
+// * work  make  any representation or  warranty, express or implied, *
+// * regarding  this  software system or assume any liability for its *
+// * use.  Please see the license in the file  LICENSE  and URL above *
+// * for the full disclaimer and the limitation of liability.         *
+// *                                                                  *
+// * This  code  implementation is the result of  the  scientific and *
+// * technical work of the GEANT4 collaboration.                      *
+// * By using,  copying,  modifying or  distributing the software (or *
+// * any work based  on the software)  you  agree  to acknowledge its *
+// * use  in  resulting  scientific  publications,  and indicate your *
+// * acceptance of all terms of the Geant4 Software license.          *
+// ********************************************************************
+//
+//
+// $Id: G4FieldTrack.icc 90643 2015-06-05 13:18:26Z gcosmo $
+//
+// -------------------------------------------------------------------
+
+inline
+G4FieldTrack::G4FieldTrack( const G4FieldTrack&  rStVec  )
+ : fDistanceAlongCurve( rStVec.fDistanceAlongCurve),
+   fKineticEnergy( rStVec.fKineticEnergy ),
+   fRestMass_c2( rStVec.fRestMass_c2),
+   fLabTimeOfFlight( rStVec.fLabTimeOfFlight ), 
+   fProperTimeOfFlight( rStVec.fProperTimeOfFlight ), 
+   // fMomentumModulus( rStVec.fMomentumModulus ),
+   fPolarization( rStVec.fPolarization ), 
+   fMomentumDir( rStVec.fMomentumDir ),
+   fChargeState( rStVec.fChargeState )
+{
+  SixVector[0]= rStVec.SixVector[0];
+  SixVector[1]= rStVec.SixVector[1];
+  SixVector[2]= rStVec.SixVector[2];
+  SixVector[3]= rStVec.SixVector[3];
+  SixVector[4]= rStVec.SixVector[4];
+  SixVector[5]= rStVec.SixVector[5];
+
+  // fpChargeState= new G4ChargeState( *rStVec.fpChargeState );
+  // Can share charge state only when using handles etc
+  //   fpChargeState = rStVec.fpChargeState;  
+}
+
+inline
+G4FieldTrack::~G4FieldTrack()
+{
+  // delete fpChargeState; 
+}
+
+inline G4FieldTrack& 
+G4FieldTrack::SetCurvePnt(const G4ThreeVector& pPosition, 
+                          const G4ThreeVector& pMomentum,  
+                                G4double       s_curve )
+{
+  SixVector[0] = pPosition.x(); 
+  SixVector[1] = pPosition.y(); 
+  SixVector[2] = pPosition.z(); 
+
+  SixVector[3] = pMomentum.x(); 
+  SixVector[4] = pMomentum.y(); 
+  SixVector[5] = pMomentum.z(); 
+
+  fMomentumDir = (pMomentum.mag2() > 0.0)  ?
+     pMomentum.unit() : G4ThreeVector( 0.0, 0.0, 0.0 ); 
+
+  fDistanceAlongCurve= s_curve;
+
+  return *this;
+} 
+
+inline
+G4ThreeVector G4FieldTrack::GetPosition() const
+{
+   G4ThreeVector myPosition( SixVector[0], SixVector[1], SixVector[2] );
+   return myPosition;
+} 
+
+inline
+void G4FieldTrack::SetPosition( G4ThreeVector pPosition) 
+{
+   SixVector[0] = pPosition.x(); 
+   SixVector[1] = pPosition.y(); 
+   SixVector[2] = pPosition.z(); 
+} 
+
+inline
+const G4ThreeVector& G4FieldTrack::GetMomentumDir() const 
+{
+   // G4ThreeVector myMomentum( SixVector[3], SixVector[4], SixVector[5] );
+   // return myVelocity;
+   return fMomentumDir;
+} 
+
+inline
+G4ThreeVector G4FieldTrack::GetMomentumDirection() const 
+{
+   return fMomentumDir;
+} 
+
+inline
+G4double  G4FieldTrack::GetCurveLength() const 
+{
+     return  fDistanceAlongCurve;  
+}
+
+inline
+void G4FieldTrack::SetCurveLength(G4double nCurve_s)
+{
+     fDistanceAlongCurve= nCurve_s;  
+}
+
+inline
+G4double  G4FieldTrack::GetKineticEnergy() const
+{
+   return fKineticEnergy;
+}
+
+inline
+void G4FieldTrack::SetKineticEnergy(G4double newKinEnergy)
+{
+   fKineticEnergy=newKinEnergy;
+}
+
+inline
+G4ThreeVector G4FieldTrack::GetPolarization() const
+{
+   return fPolarization;
+}
+
+inline
+void G4FieldTrack::SetPolarization(const G4ThreeVector& vecPlz)
+{
+   fPolarization= vecPlz;
+}
+
+inline
+G4double G4FieldTrack::GetLabTimeOfFlight() const
+{
+   return fLabTimeOfFlight;
+}
+
+inline
+void G4FieldTrack::SetLabTimeOfFlight(G4double nTOF)
+{
+   fLabTimeOfFlight=nTOF;
+}
+
+inline
+G4double  G4FieldTrack::GetProperTimeOfFlight() const
+{
+   return fProperTimeOfFlight;
+}
+
+inline
+void G4FieldTrack::SetProperTimeOfFlight(G4double nTOF)
+{
+   fProperTimeOfFlight=nTOF;
+}
+
+inline
+void G4FieldTrack::SetMomentumDir(G4ThreeVector newMomDir)
+{
+   fMomentumDir= newMomDir;
+}
+
+inline
+G4ThreeVector G4FieldTrack::GetMomentum() const 
+{
+   return G4ThreeVector( SixVector[3], SixVector[4], SixVector[5] );
+} 
+
+inline
+void G4FieldTrack::SetMomentum(G4ThreeVector pMomentum)
+{
+  SixVector[3] = pMomentum.x(); 
+  SixVector[4] = pMomentum.y(); 
+  SixVector[5] = pMomentum.z(); 
+
+  if( pMomentum.mag2() > 0.0 ) 
+     fMomentumDir = pMomentum.unit();
+  else
+     fMomentumDir = G4ThreeVector( 0.0, 0.0, 0.0 ); 
+}
+
+inline
+G4double G4FieldTrack::GetCharge() const
+{
+  return fChargeState.GetCharge();
+}
+
+// Dump values to array
+//  
+//   note that momentum direction is not saved 
+
+inline
+void G4FieldTrack::DumpToArray(G4double valArr[ncompSVEC] ) const
+{
+  valArr[0]=SixVector[0];
+  valArr[1]=SixVector[1];
+  valArr[2]=SixVector[2];
+  valArr[3]=SixVector[3];
+  valArr[4]=SixVector[4];
+  valArr[5]=SixVector[5];
+
+  G4ThreeVector Momentum(valArr[3],valArr[4],valArr[5]);
+
+  // G4double mass_in_Kg;
+  // mass_in_Kg = fEnergy / velocity_mag_sq * (1-velocity_mag_sq/c_squared);
+  // valArr[6]= mass_in_Kg;
+
+  // The following components may or may not be integrated.
+  valArr[6]= fKineticEnergy; 
+
+  // valArr[6]=fEnergy;  // When it is integrated over, do this ...
+  valArr[7]=fLabTimeOfFlight;
+  valArr[8]=fProperTimeOfFlight;
+  valArr[9]=fPolarization.x();
+  valArr[10]=fPolarization.y();
+  valArr[11]=fPolarization.z();
+  // valArr[13]=fMomentumDir.x(); 
+  // valArr[14]=fMomentumDir.y();
+  // valArr[15]=fMomentumDir.z();
+  // valArr[]=fDistanceAlongCurve; 
+}
+
+inline
+G4FieldTrack & G4FieldTrack::operator = ( const G4FieldTrack& rStVec )
+{
+  if (&rStVec == this) return *this;
+
+  SixVector[0]= rStVec.SixVector[0];
+  SixVector[1]= rStVec.SixVector[1];
+  SixVector[2]= rStVec.SixVector[2];
+  SixVector[3]= rStVec.SixVector[3];
+  SixVector[4]= rStVec.SixVector[4];
+  SixVector[5]= rStVec.SixVector[5];
+  SetCurveLength( rStVec.GetCurveLength() );
+
+  fKineticEnergy= rStVec.fKineticEnergy;
+  fRestMass_c2= rStVec.fRestMass_c2;
+  SetLabTimeOfFlight( rStVec.GetLabTimeOfFlight()  ); 
+  SetProperTimeOfFlight( rStVec.GetProperTimeOfFlight()  ); 
+  SetPolarization( rStVec.GetPolarization() );
+  fMomentumDir= rStVec.fMomentumDir;
+
+  fChargeState= rStVec.fChargeState;
+  // (*fpChargeState)= *(rStVec.fpChargeState);
+  // fpChargeState= rStVec.fpChargeState; // Handles!!
+  return *this;
+}
+
+inline void 
+G4FieldTrack::UpdateFourMomentum( G4double             kineticEnergy, 
+				  const G4ThreeVector& momentumDirection )
+{
+  G4double momentum_mag  = std::sqrt(kineticEnergy*kineticEnergy
+                            +2.0*fRestMass_c2*kineticEnergy);
+  G4ThreeVector momentumVector= momentum_mag * momentumDirection; 
+
+  // SetMomentum( momentumVector );  // Set direction (from unit): used sqrt, div
+  SixVector[3] = momentumVector.x(); 
+  SixVector[4] = momentumVector.y(); 
+  SixVector[5] = momentumVector.z(); 
+
+  fMomentumDir=   momentumDirection; // Set directly to avoid inaccuracy.
+  fKineticEnergy= kineticEnergy;
+}
+
+inline void G4FieldTrack::UpdateState( const G4ThreeVector& position, 
+				G4double             laboratoryTimeOfFlight,
+				const G4ThreeVector& momentumDirection,
+				G4double             kineticEnergy
+			      )
+{ 
+  // SetCurvePnt( position, momentumVector, s_curve=0.0);     
+  SetPosition( position); 
+  fLabTimeOfFlight= laboratoryTimeOfFlight;
+  fDistanceAlongCurve= 0.0;
+
+  UpdateFourMomentum( kineticEnergy, momentumDirection); 
+}

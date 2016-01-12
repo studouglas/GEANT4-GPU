@@ -1,0 +1,68 @@
+
+       ==========================================================
+       Geant4 - an Object-Oriented Toolkit for Physics Simulation
+       ==========================================================
+
+        History file for hadronic/models/abrasion directory
+        --------------------------------------------------------
+
+This file should be used to summarize modifications introduced in the 
+code and to keep track of all tags.
+
+     ---------------------------------------------------------------
+     * Please list in reverse chronological order (last date on top)
+     ---------------------------------------------------------------
+
+07-Aug-2015  Alberto Ribon  (had-abrasion-V10-01-01)
+----------------------------------------------------
+- G4WilsonAbrasionModel : checking of 'while' loops.
+
+04-Aug-2015  Alberto Ribon  (had-abrasion-V10-01-00)
+----------------------------------------------------
+- G4NuclearAbrasionGeometry and G4WilsonAbrasionModel : replaced
+  std::exp and std::pow with the faster G4Exp and G4Pow.
+
+30-Oct-2014  Vladimir Ivanchenko (had-abrasion-V10-00-00)
+----------------------------------------------------
+- G4WilsonAbrasionModel - use GetZ_asInt() and GetA_asInt()
+
+20-Sep-2012  Gabriele Cosmo (had-abrasion-V09-05-03)
+----------------------------------------------------
+- Explicitly use inclusion of headers for system of units and physical
+  constants, in plan to remove implicit inclusion from globals.hh.
+
+14-Aug-2012  Alberto Ribon  (had-abrasion-V09-05-02)
+----------------------------------------------------
+- Fixed Coverity complain in G4WilsonAbrasionModel.cc
+
+26-Jul-2012  Alberto Ribon  (had-abrasion-V09-05-01)
+----------------------------------------------------
+- Fixed Coverity complain in G4WilsonAbrasionModel.cc
+
+12-Jun-2012  Alberto Ribon  (had-abrasion-V09-05-00)
+----------------------------------------------------
+- Fixed warnings of shadowed variables.  File affected: 
+    G4NuclearAbrasionGeometry.cc , G4WilsonAbrasionModel.cc
+
+08-Nov-2011  Dennis Wright  (had-abrasion-V09-04-01)
+----------------------------------------------------
+- add method ModelDescription()
+
+27-Sep-2011  Dennis Wright  (had-abrasion-V09-04-00)
+----------------------------------------------------
+- Migrate to integer Z and A in G4WilsonAbrasionModel.cc
+
+12-Nov-2010  Dennis Wright  (had-abrasion-V09-03-01)
+----------------------------------------------------
+- G4WilsonAbrasionModel.cc : initialize r0sq in ctor (CoVerity)
+- G4NuclearAbrasionGeometry::GetExcitationEnergyOfTarget :
+   fix memory leak by deleting revAbrasionGeometry  (CoVerity)
+
+08-Sep-2010  Gunter Folger  (had-abrasion-V09-03-00)
+----------------------------------------------------
+- G4WilsonAbrasionModel.cc: remove several unused #includes
+
+09-Dec-2009  Pete Truscott  (had-abrasion-V09-02-00)
+----------------------------------------------------
+- abrasion problems with sqrt(-ve) should be fixed and the code is
+  more robust to potential while-loop problems.

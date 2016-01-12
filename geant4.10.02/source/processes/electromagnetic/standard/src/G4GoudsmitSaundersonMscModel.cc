@@ -1,0 +1,1035 @@
+//
+// ********************************************************************
+// * License and Disclaimer                                           *
+// *                                                                  *
+// * The  Geant4 software  is  copyright of the Copyright Holders  of *
+// * the Geant4 Collaboration.  It is provided  under  the terms  and *
+// * conditions of the Geant4 Software License,  included in the file *
+// * LICENSE and available at  http://cern.ch/geant4/license .  These *
+// * include a list of copyright holders.                             *
+// *                                                                  *
+// * Neither the authors of this software system, nor their employing *
+// * institutes,nor the agencies providing financial support for this *
+// * work  make  any representation or  warranty, express or implied, *
+// * regarding  this  software system or assume any liability for its *
+// * use.  Please see the license in the file  LICENSE  and URL above *
+// * for the full disclaimer and the limitation of liability.         *
+// *                                                                  *
+// * This  code  implementation is the result of  the  scientific and *
+// * technical work of the GEANT4 collaboration.                      *
+// * By using,  copying,  modifying or  distributing the software (or *
+// * any work based  on the software)  you  agree  to acknowledge its *
+// * use  in  resulting  scientific  publications,  and indicate your *
+// * acceptance of all terms of the Geant4 Software license.          *
+// ********************************************************************
+//
+// $Id: G4GoudsmitSaundersonMscModel.cc 93663 2015-10-28 09:50:49Z gcosmo $
+//
+// ----------------------------------------------------------------------------
+//
+// GEANT4 Class implementation file
+//
+// File name:     G4GoudsmitSaundersonMscModel
+//
+// Author:        Mihaly Novak / (Omrane Kadri)
+//
+// Creation date: 20.02.2009
+//
+// Modifications:
+// 04.03.2009 V.Ivanchenko cleanup and format according to Geant4 EM style
+// 12.05.2010 O.Kadri: adding Qn1 and Qn12 as private doubles
+// 18.05.2015 M. Novak provide PRELIMINARY verison of the revised class
+//            This class has been revised and updated, new methods added.
+//            A new version of Kawrakow-Bielajew Goudsmit-Saunderson MSC model
+//            based on the screened Rutherford DCS for elastic scattering of
+//            electrons/positrons has been introduced[1,2]. The corresponding MSC
+//            angular distributions over a 2D parameter grid have been recomputed
+//            and the CDFs are now stored in a variable transformed (smooth) form[2,3]
+//            together with the corresponding rational interpolation parameters.
+//            These angular distributions are handled by the new
+//            G4GoudsmitSaundersonTable class that is responsible to sample if
+//            it was no, single, few or multiple scattering case and delivers the
+//            angular deflection (i.e. cos(theta) and sin(theta)).
+//            Two screening options are provided:
+//             - if fIsUsePWATotalXsecData=TRUE i.e. SetOptionPWAScreening(TRUE)
+//               was called before initialisation: screening parameter value A is
+//               determined such that the first transport coefficient G1(A)
+//               computed according to the screened Rutherford DCS for elastic
+//               scattering will reproduce the one computed from the PWA elastic
+//               and first transport mean free paths[4].
+//             - if fIsUsePWATotalXsecData=FALSE i.e. default value or
+//               SetOptionPWAScreening(FALSE) was called before initialisation:
+//               screening parameter value A is computed according to Moliere's
+//               formula (by using material dependent parameters \chi_cc2 and b_c
+//               precomputed for each material used at initialization in
+//               G4GoudsmitSaundersonTable) [3]
+//            Elastic and first trasport mean free paths are used consistently.
+//            The new version is self-consistent, several times faster, more
+//            robust and accurate compared to the earlier version.
+//            Spin effects as well as a more accurate energy loss correction and
+//            computations of Lewis moments will be implemented later on.
+// 02.09.2015 M. Novak: first version of new step limit is provided.
+//            fUseSafetyPlus corresponds to Urban fUseSafety (default)
+//            fUseDistanceToBoundary corresponds to Urban fUseDistanceToBoundary
+//            fUseSafety  corresponds to EGSnrc error-free stepping algorithm
+//            Range factor can be significantly higher at each case than in Urban.
+//
+// Class description:
+//   Kawrakow-Bielajew Goudsmit-Saunderson MSC model based on the screened
+//   Rutherford DCS for elastic scattering of electrons/positrons. Step limitation
+//   algorithm as well as true to geomerty and geometry to true step length
+//   computations are adopted from Urban model[5].
+//
+// References:
+//   [1] A.F.Bielajew, NIMB 111 (1996) 195-208
+//   [2] I.Kawrakow, A.F.Bielajew, NIMB 134(1998) 325-336
+//   [3] I.Kawrakow, E.Mainegra-Hing, D.W.O.Rogers, F.Tessier,B.R.B.Walters, NRCC
+//       Report PIRS-701 (2013)
+//   [4] F.Salvat, A.Jablonski, C.J. Powell, CPC 165(2005) 157-190
+//   [5] L.Urban, Preprint CERN-OPEN-2006-077 (2006)
+//
+// -----------------------------------------------------------------------------
+
+
+#include "G4GoudsmitSaundersonMscModel.hh"
+
+#include "G4GoudsmitSaundersonTable.hh"
+#include "G4PWATotalXsecTable.hh"
+
+#include "G4PhysicalConstants.hh"
+#include "G4SystemOfUnits.hh"
+
+#include "G4ParticleChangeForMSC.hh"
+#include "G4DynamicParticle.hh"
+#include "G4Electron.hh"
+#include "G4Positron.hh"
+
+#include "G4LossTableManager.hh"
+#include "G4Track.hh"
+#include "G4PhysicsTable.hh"
+#include "Randomize.hh"
+#include "G4Log.hh"
+#include "G4Exp.hh"
+#include "G4Pow.hh"
+#include <fstream>
+
+G4GoudsmitSaundersonTable* G4GoudsmitSaundersonMscModel::fgGSTable      = 0;
+G4PWATotalXsecTable*       G4GoudsmitSaundersonMscModel::fgPWAXsecTable = 0;
+
+// set accurate energy loss and dispalcement sampling to be always on now
+G4bool G4GoudsmitSaundersonMscModel::fgIsUseAccurate = true;
+// set the usual optimization to be always active now
+G4bool G4GoudsmitSaundersonMscModel::fgIsOptimizationOn = true;
+
+////////////////////////////////////////////////////////////////////////////////
+G4GoudsmitSaundersonMscModel::G4GoudsmitSaundersonMscModel(const G4String& nam)
+  : G4VMscModel(nam),lowKEnergy(0.1*keV),highKEnergy(1.*GeV) {
+  charge               = 0;
+  currentMaterialIndex = -1;
+
+  lambdalimit   = 1.*mm ;
+  fr            = 0.02     ;
+  rangeinit     = 0.;
+  geombig       = 1.e50*mm;
+  geomlimit     = geombig;
+  tlimit        = 1.e+10*mm;
+  presafety     = 0.*mm;
+
+  particle      = 0;
+  theManager    = G4LossTableManager::Instance();
+  firstStep     = true;
+
+  tlimitminfix2 = 1.*nm;
+  par1=par2=par3= 0.0;
+  tausmall      = 1.e-16;
+  mass          = electron_mass_c2;
+  taulim        = 1.e-6;
+
+  currentCouple = 0;
+  fParticleChange = 0;
+
+  // by default Moliere screeing parameter will be used but it can be set to the
+  // PWA screening before calling the Initialise method
+  fIsUsePWATotalXsecData = false;
+
+  //*****************
+  fLambda0 = 0.0; // elastic mean free path
+  fLambda1 = 0.0; // first transport mean free path
+  fScrA    = 0.0; // screening parameter
+  fG1      = 0.0; // first transport coef.
+  //******************
+  fTheTrueStepLenght    = 0.;
+  fTheTransportDistance = 0.;
+  fTheZPathLenght       = 0.;
+  fTheDisplacementVector.set(0.,0.,0.);
+  fTheNewDirection.set(0.,0.,1.);
+
+  fIsEverythingWasDone  = false;
+  fIsMultipleSacettring = false;
+  fIsSingleScattering   = false;
+  fIsEndedUpOnBoundary  = false;
+  fIsNoScatteringInMSC  = false;
+  fIsNoDisplace         = false;
+
+  fZeff = 1.;
+//+++++++++++++
+
+  rndmEngineMod = G4Random::getTheEngine();
+}
+
+////////////////////////////////////////////////////////////////////////////////
+G4GoudsmitSaundersonMscModel::~G4GoudsmitSaundersonMscModel(){
+  if(IsMaster()){
+    if(fgGSTable){
+      delete fgGSTable;
+      fgGSTable = 0;
+    }
+    if(fgPWAXsecTable){
+      delete fgPWAXsecTable;
+      fgPWAXsecTable = 0;
+    }
+  }
+}
+
+
+////////////////////////////////////////////////////////////////////////////////
+void G4GoudsmitSaundersonMscModel::Initialise(const G4ParticleDefinition* p,
+					      const G4DataVector&){
+  //skindepth=skin*stepmin;
+  SetParticle(p);
+  fParticleChange = GetParticleChangeForMSC(p);
+
+  //
+  // -create static GoudsmitSaundersonTable and PWATotalXsecTable is necessary
+  //
+  if(IsMaster()) {
+
+   // Could delete as well if they are exist but then the same data are reloaded
+   // in case of e+ for example.
+/*    if(fgGSTable) {
+      delete fgGSTable;
+      fgGSTable = 0;
+    }
+    if(fgPWAXsecTable) {
+      delete fgPWAXsecTable;
+      fgPWAXsecTable = 0;
+    }
+*/
+    if(!fgGSTable)
+      fgGSTable      = new G4GoudsmitSaundersonTable();
+
+    // G4GSTable will be initialised (data are loaded) only if they are not there yet.
+    fgGSTable->Initialise();
+
+    if(fIsUsePWATotalXsecData) {
+      if(!fgPWAXsecTable)
+         fgPWAXsecTable = new G4PWATotalXsecTable();
+
+      // Makes sure that all (and only those) atomic PWA data are in memory that
+      // are in the current MaterilaTable.
+      fgPWAXsecTable->Initialise();
+    }
+  }
+}
+
+
+///////////////////////////////////////////////////////////////////////////////
+// gives back the first transport mean free path in internal G4 units
+G4double
+G4GoudsmitSaundersonMscModel::GetTransportMeanFreePath(const G4ParticleDefinition* /*partdef*/,
+                                                       G4double kineticEnergy) {
+  // kinetic energy is assumed to be in Geant4 internal energy unit which is MeV
+  G4double efEnergy = kineticEnergy;
+  if(efEnergy<lowKEnergy) efEnergy=lowKEnergy;
+  if(efEnergy>highKEnergy)efEnergy=highKEnergy;
+
+  ///////////////////////////////////////////
+  const G4Material*  mat = currentCouple->GetMaterial();
+
+  fLambda0 = 0.0; // elastic mean free path
+  fLambda1 = 0.0; // first transport mean free path
+  fScrA    = 0.0; // screening parameter
+  fG1      = 0.0; // first transport coef.
+
+  if(fIsUsePWATotalXsecData) {
+    // use PWA total xsec data to determine screening and lambda0 lambda1
+    const G4ElementVector* theElementVector = mat->GetElementVector();
+    const G4double* theAtomNumDensityVector = mat->GetVecNbOfAtomsPerVolume();
+    G4int nelm = mat->GetNumberOfElements();
+
+    int elowindx = fgPWAXsecTable->GetPWATotalXsecForZet( G4lrint((*theElementVector)[0]->GetZ()) )
+                   ->GetPWATotalXsecEnergyBinIndex(efEnergy);
+    for(G4int i=0;i<nelm;i++){
+      int zet    = G4lrint((*theElementVector)[i]->GetZ());
+      // total elastic scattering cross section in Geant4 internal length2 units
+      int indx   = (G4int)(1.5 + charge*1.5); // specify that want to get the total elastic scattering xsection
+      double elxsec = (fgPWAXsecTable->GetPWATotalXsecForZet(zet))->GetInterpXsec(efEnergy,elowindx,indx);
+      // first transport cross section in Geant4 internal length2 units
+      indx   = (G4int)(2.5 + charge*1.5); // specify that want to get the first tarnsport xsection
+      double t1xsec = (fgPWAXsecTable->GetPWATotalXsecForZet(zet))->GetInterpXsec(efEnergy,elowindx,indx);
+      fLambda0 += (theAtomNumDensityVector[i]*elxsec);
+      fLambda1 += (theAtomNumDensityVector[i]*t1xsec);
+    }
+    if(fLambda0>0.0) { fLambda0 =1./fLambda0; }
+    if(fLambda1>0.0) { fLambda1 =1./fLambda1; }
+
+    // determine screening parameter such that it gives back PWA G1
+    fG1=0.0;
+    if(fLambda1>0.0) { fG1 = fLambda0/fLambda1; }
+
+    fScrA = fgGSTable->GetScreeningParam(fG1);
+  } else {
+    // Get SCREENING FROM MOLIER
+    // total mometum square in Geant4 internal energy2 units which is MeV2
+
+    // below 1 keV it can give bananas so prevet (1 keV)
+    if(efEnergy<0.001) efEnergy = 0.001;
+
+    G4double pt2   = efEnergy*(efEnergy+2.0*electron_mass_c2);
+    G4double beta2 = pt2/(pt2+electron_mass_c2*electron_mass_c2);
+    G4int    matindx = mat->GetIndex();
+    G4double bc = fgGSTable->GetMoliereBc(matindx);
+    fScrA    = fgGSTable->GetMoliereXc2(matindx)/(4.0*pt2*bc);
+    // total elastic mean free path in Geant4 internal lenght units
+    fLambda0 = beta2/bc/(1.+fScrA);
+    fG1      = 2.0*fScrA*((1.0+fScrA)*G4Log(1.0/fScrA+1.0)-1.0);
+    fLambda1 = fLambda0/fG1;
+  }
+
+  return fLambda1;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+G4double
+G4GoudsmitSaundersonMscModel::GetTransportMeanFreePathOnly(const G4ParticleDefinition* /*partdef*/,
+                                                       G4double kineticEnergy) {
+  // kinetic energy is assumed to be in Geant4 internal energy unit which is MeV
+  G4double efEnergy = kineticEnergy;
+  if(efEnergy<lowKEnergy) efEnergy=lowKEnergy;
+  if(efEnergy>highKEnergy)efEnergy=highKEnergy;
+
+  ///////////////////////////////////////////
+  const G4Material*  mat = currentCouple->GetMaterial();
+
+  G4double lambda0 = 0.0; // elastc mean free path
+  G4double lambda1 = 0.0; // first transport mean free path
+  G4double scrA    = 0.0; // screening parametr
+  G4double g1      = 0.0; // first transport mean free path
+
+  if(fIsUsePWATotalXsecData) {
+    // use PWA total xsec data to determine screening and lambda0 lambda1
+    const G4ElementVector* theElementVector = mat->GetElementVector();
+    const G4double* theAtomNumDensityVector = mat->GetVecNbOfAtomsPerVolume();
+    G4int nelm = mat->GetNumberOfElements();
+
+    int elowindx = fgPWAXsecTable->GetPWATotalXsecForZet( G4lrint((*theElementVector)[0]->GetZ()) )
+                   ->GetPWATotalXsecEnergyBinIndex(efEnergy);
+    for(G4int i=0;i<nelm;i++){
+      int zet    = G4lrint((*theElementVector)[i]->GetZ());
+      // total elastic scattering cross section in Geant4 internal length2 units
+//      int indx   = (G4int)(1.5 + charge*1.5); // specify that want to get the total elastic scattering xsection
+//      double elxsec = (fgPWAXsecTable->GetPWATotalXsecForZet(zet))->GetInterpXsec(efEnergy,elowindx,indx);
+      // first transport cross section in Geant4 internal length2 units
+      int indx   = (G4int)(2.5 + charge*1.5); // specify that want to get the first tarnsport xsection
+      double t1xsec = (fgPWAXsecTable->GetPWATotalXsecForZet(zet))->GetInterpXsec(efEnergy,elowindx,indx);
+//      fLambda0 += (theAtomNumDensityVector[i]*elxsec);
+      lambda1 += (theAtomNumDensityVector[i]*t1xsec);
+    }
+//    if(fLambda0>0.0) { fLambda0 =1./fLambda0; }
+    if(lambda1>0.0) { lambda1 =1./lambda1; }
+
+  } else {
+    // Get SCREENING FROM MOLIER
+    // total mometum square in Geant4 internal energy2 units which is MeV2
+
+    // below 1 keV it can give bananas so prevet (1 keV)
+    if(efEnergy<0.001) efEnergy = 0.001;
+
+    G4double pt2   = efEnergy*(efEnergy+2.0*electron_mass_c2);
+    G4double beta2 = pt2/(pt2+electron_mass_c2*electron_mass_c2);
+    G4int    matindx = mat->GetIndex();
+    G4double bc = fgGSTable->GetMoliereBc(matindx);
+    scrA    = fgGSTable->GetMoliereXc2(matindx)/(4.0*pt2*bc);
+    // total elastic mean free path in Geant4 internal lenght units
+    lambda0 = beta2/bc/(1.+scrA);
+    g1      = 2.0*scrA*((1.0+scrA)*G4Log(1.0/scrA+1.0)-1.0);
+    lambda1 = lambda0/g1;
+  }
+
+  return lambda1;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+void G4GoudsmitSaundersonMscModel::StartTracking(G4Track* track)
+{
+  SetParticle(track->GetDynamicParticle()->GetDefinition());
+  firstStep = true;
+}
+
+
+////////////////////////////////////////////////////////////////////////////////
+G4double G4GoudsmitSaundersonMscModel::ComputeTruePathLengthLimit(
+                                                  const G4Track& track,
+			                                            G4double& currentMinimalStep){
+  // some constant
+  const G4double almostZero     = 1.e-8;
+  const G4double almostOne      = 1.-almostZero;
+  const G4double mlogAlmostZero = -1.*G4Log(almostZero);
+  const G4double onemExpmOne    = 1.-G4Exp(-1.0);
+
+  G4double skindepth = 0.;
+
+  const G4DynamicParticle* dp = track.GetDynamicParticle();
+
+  G4StepPoint* sp = track.GetStep()->GetPreStepPoint();
+  G4StepStatus stepStatus = sp->GetStepStatus();
+  currentCouple = track.GetMaterialCutsCouple();
+  SetCurrentCouple(currentCouple);
+  currentMaterialIndex = currentCouple->GetIndex();
+  currentKinEnergy = dp->GetKineticEnergy();
+  currentRange = GetRange(particle,currentKinEnergy,currentCouple);
+
+
+
+  // *** Elastic and first transport mfp, fScrA and fG1 are also set in this !!!
+  fLambda1 = GetTransportMeanFreePath(particle,currentKinEnergy);
+
+  //
+  // Set initial values:
+  //  : lengths are initialised to currentMinimalStep  which is the true, minimum
+  //    step length from all other physics
+  fTheTrueStepLenght    = currentMinimalStep;
+  fTheTransportDistance = currentMinimalStep;
+  fTheZPathLenght       = currentMinimalStep;  // will need to be converted
+  fTheDisplacementVector.set(0.,0.,0.);
+  fTheNewDirection.set(0.,0.,1.);
+
+  // Can everything be done in the step limit phase ?
+  fIsEverythingWasDone  = false;
+  // Multiple scattering needs to be sample ?
+  fIsMultipleSacettring = false;
+  // Single scattering needs to be sample ?
+  fIsSingleScattering   = false;
+  // Was zero deflection in multiple scattering sampling ?
+  fIsNoScatteringInMSC  = false;
+  // Do not care about displacement in MSC sampling
+  // ( used only in the case of fgIsOptimizationOn = true)
+  fIsNoDisplace = false;
+
+  // get pre-step point safety
+  presafety = sp->GetSafety();
+
+  fZeff = currentCouple->GetMaterial()->GetTotNbOfElectPerVolume()/
+                  currentCouple->GetMaterial()->GetTotNbOfAtomsPerVolume();
+  G4double distance = currentRange;
+  distance *= (1.20-fZeff*(1.62e-2-9.22e-5*fZeff));
+
+  // In G4VMscModel there is a member G4MscStepLimitType steppingAlgoritm;
+  if( steppingAlgorithm == fUseDistanceToBoundary || steppingAlgorithm == fUseSafety ) {
+     // Possible optimization : if the range is samller than the safety -> the
+     // particle will never leave this volume -> dispalcement and angular
+     // deflection as the effects of multiple elastic scattering can be skipped
+     // Only true->geometrical->true pathlength conversion is done based on mean
+     // values. In order to be able to do this, only the maximum geometrical step
+     // length will be checked.
+     // Important : this optimization can cause problems if one does scoring
+     // in a bigger volume since MSC won't be done deep inside the volume when
+     // range < safety so don't use optimized-mode in such case.
+     if( fgIsOptimizationOn && (distance < presafety) ) {
+        // Do path length conversion using the means and do NOT sample dispalcement.
+        // :: according to optimized-mode:
+        // restrict the true step length such that the corresponding
+        // transport length is not longer than the first transport mean free path:
+        // -this is important for the g->t conversion (i.e. fTheZPathLenght ->
+        // fTheTrueStepLenght) that will be invoked later based on the mean
+        // values. However, it leads to fTheTrueStepLenght >> lambda1 and
+        // the MSC model as condensed simulation model is valid about
+        // fTheTrueStepLenght ~ lambda1 that corresponds to <cos(theta)> ~ 1 rad
+        // in one sub-step if we divide the true step length into two parts when
+        // sampling the angular distribution.
+        fTheTrueStepLenght = std::min(fTheTrueStepLenght, fLambda1*mlogAlmostZero);
+        fTheZPathLenght    = fLambda1*(1.-G4Exp(-fTheTrueStepLenght/fLambda1));
+        // Indicate that we need to do MSC after transportation and no dispalcement.
+        fIsMultipleSacettring = true;
+        fIsNoDisplace = true;
+     } else {
+
+
+        if(steppingAlgorithm == fUseDistanceToBoundary) {
+           geomlimit = ComputeGeomLimit(track, presafety, currentRange);
+        } else {
+           presafety =  ComputeSafety(sp->GetPosition(),fTheTrueStepLenght);
+           geomlimit = presafety;
+        }
+
+        // Set limit from range factor even in non-optimized mode.
+        // Important: At lower energies the energy loss process continuous limit
+        //     will converge to range.
+        //     In this case, we will limit the step to 'facrange x range' as long
+        //     as the range is higher than safety i.e. the particle can leave the
+        //     current volume. One can completely eliminate this limit by setting
+        //     'facrange = 1.' .
+        if(currentRange > presafety)
+           fTheTrueStepLenght = std::min(facrange*currentRange, fTheTrueStepLenght);
+
+        // Compute skin-depth; fLambda0(elastic-mfp) was already set in
+        // GetTransportMeanFreePath(...)
+        skindepth = skin*fLambda0;
+
+        // Limit the true step -length to the first transport mean free path that
+        // is the limit of the MSC model. Note: if the true step lenght is about
+        // half transport mean free path i.e. t = 0.5 x lambda_1 the corresponding
+        // mean angular deflection <cos(\theta)> = exp(-t/lambda_1) -> \theta ~
+        // 0.919 radian (52.6 degree) that is the aplicability limit of any
+        // condensed history techniques. The result will be more and more
+        // questionable when condensed history techniques are applied for even
+        // longer true step lengts.
+//        if( (currentKinEnergy > 0.3) || !fgIsOptimizationOn)
+            fTheTrueStepLenght = std::min(fTheTrueStepLenght, fLambda1*almostOne);
+
+        // Check if we are within skin depth to/from boundary or making a step
+        // that is shorter than skindepth distance => try single scattering::
+        // - if stepStatus is fGeomBoundary -> pre-step point is on boundary
+        // - in case of initStep pre-step point status is fUndefined:
+        //    at the moment I always call the navigator CheckNextStep even from
+        //    the WORLD that will set presafety; if presafety = 0 then we are on
+        //    the boundary at initStep
+        // - if the currentMinimalStep is already shorter than skindepth we do
+        //   single scattering. NOTICE: it has only efficieny reasons because
+        //   the angular sampling is fine for any short steps but much faster to
+        //   try single scattering in case of short steps.
+        if( (stepStatus == fGeomBoundary) || (presafety < skindepth) || (fTheTrueStepLenght < skindepth)){
+           //Try single scattering:
+           // - sample distance to next single scattering interaction
+           // - compare to current minimum length
+           //      * if ss-length is the shorter:
+           //          - set the step length to the ss-length
+           //          - indicate that single scattering needs to be done
+           //      * else : nothing to do
+           G4double sslimit = -1.*fLambda0*G4Log(G4UniformRand());
+           // compare to current minimum step length
+           if(sslimit < fTheTrueStepLenght) {
+             fTheTrueStepLenght  = sslimit;
+             fIsSingleScattering = true;
+             // zPathLength = tPathLength
+             // single scattering needs to be done
+           } //else {
+             //- tPathLength = tPathLength
+             //- zPathLength = tPathLength
+             //-> nothing to do
+         //}
+
+           // short step -> true step length equal to geometrical path length
+           fTheZPathLenght     = fTheTrueStepLenght;
+           //set taht everything is done in step-limit phase
+           fIsEverythingWasDone = true;
+        } else {
+           // Compare the true step length to presafty to see if we can do safe MSC step
+           // - if yes, then performe MSC here
+           // - if no, postpone MSC sampling after transportation
+           if(fTheTrueStepLenght < presafety) {
+               // => we can do safe MSC step because for sure we don't reach boundary
+               // do multiple scattering: MSC will give the corresponding transport
+               // length i.e. fTheZPathLenght (and new direction, displacement)
+               fIsMultipleSacettring = true;
+               //set taht everything was done in step-limit phase
+               fIsEverythingWasDone = true;
+           } else {
+               // => we cannot be sure at this point what will be the true step length
+               //    because transportation can hit boundary. The two step limit version
+               //    will be different but both case MSC will need to be done:
+               //    before(fUseSafety) OR after(fUseDistanceToBoundary) transportation.
+               fIsMultipleSacettring = true;
+               // Important that fIsEverythingWasDone remains false here;
+
+               // two versions will be different here
+               if(geomlimit > presafety) {
+                  // => It can happen only if fUseDistanceToBoundary stepping is used
+                  //  - limit geomlimit to a geometrical value, that corresponds
+                  //    to the maximum true step length i.e. to lambda1
+                  //  - convert the limited geomlimit to true length
+                  //  - take minimum of this and the current minimal true step length
+
+                  // if geom limit is not huge(real distance to boundary) then shorten it by almost skindepth
+                  // => we try to end up within the skindepth to the boundary and not on the boundary.
+                  if( geomlimit < geombig )
+                     geomlimit -= 0.999*skindepth;
+
+                  // Set a maximum geometrical limit: a straight line distance that
+                  // corresponds to the maximal true step length i.e. lambda1  of
+                  // the MSC model (it is set based on the mean value).
+                  geomlimit = std::min(geomlimit, fLambda1*onemExpmOne);
+                  // convert to true-one
+                  geomlimit = -fLambda1*G4Log(1.-geomlimit/fLambda1);
+                  fTheTrueStepLenght = std::min(fTheTrueStepLenght,geomlimit);
+               } else {
+                  // => It can happen only if geomlimit is the safety i.e. fUseSafety
+                  //    steppingAlgorithm.
+                  // - if we are here, then presafety is for sure shorther than lambda1 so
+                  //   we don't need to restrict
+                  // -limit the true step-length to presafety: for sure we can
+                  //  perform MSC before transportation.
+                  fTheTrueStepLenght = presafety; // geomlimit = presafty
+                  fIsEverythingWasDone = true;
+               }
+           }
+        }
+      }
+  } else {
+
+    // This is the default stepping algorithm: the fastest but the least
+    // accurate that corresponds to fUseSafety in Urban model. Note, that GS
+    // model can handle any short steps so we do not need the minimum limits
+      if( stepStatus != fGeomBoundary ) {
+        presafety = ComputeSafety(sp->GetPosition(),fTheTrueStepLenght);
+      }
+
+      // Far from boundary-> in optimized mode do not sample dispalcement.
+      if( (currentRange < presafety) && (fgIsOptimizationOn)) {
+//        fTheTrueStepLenght = std::min(fTheTrueStepLenght, fLambda1*mlogAlmostZero);
+//        fTheZPathLenght    = fLambda1*(1.-G4Exp(-fTheTrueStepLenght/fLambda1));
+        fIsNoDisplace = true;
+      } else {
+        // Urban like
+        if(firstStep || (stepStatus == fGeomBoundary)) {
+          rangeinit = currentRange;
+          fr = facrange;
+              rangeinit = std::max(rangeinit, fLambda1);
+              if(fLambda1 > lambdalimit) {
+                fr *= (0.75+0.25*fLambda1/lambdalimit);
+              }
+        }
+
+        //step limit
+        tlimit = std::max(fr*rangeinit, facsafety*presafety);
+
+        // first step randomization
+        if(firstStep || stepStatus == fGeomBoundary) {
+          fTheTrueStepLenght = std::min(fTheTrueStepLenght, Randomizetlimit());
+        } else {
+          fTheTrueStepLenght = std::min(fTheTrueStepLenght, tlimit);
+        }
+
+        // Do not let the true step length to be longer than the one that has a
+        // corresponding geometrical length almost one first transport mean free
+        // path. It is important for the g->t conversion.
+        fTheTrueStepLenght = std::min(fTheTrueStepLenght, fLambda1*mlogAlmostZero);
+      }
+
+      // indicate that MSC needs to be done (always after transportation)
+      fIsMultipleSacettring = true;
+  }
+
+  // unset first-step
+  firstStep =false;
+
+  // performe single scattering, multiple scattering if this later can be done safely here
+  if(fIsEverythingWasDone){
+    if(fIsSingleScattering){
+      // sample single scattering
+      G4double cost,sint,cosPhi,sinPhi;
+      SingleScattering(cost, sint);
+      G4double phi = CLHEP::twopi*G4UniformRand();
+      sinPhi = std::sin(phi);
+      cosPhi = std::cos(phi);
+      fTheNewDirection.set(sint*cosPhi,sint*sinPhi,cost);
+    } else if(fIsMultipleSacettring){
+      // sample multiple scattering
+      SampleMSC(); // fTheZPathLenght, fTheDisplacementVector and fTheNewDirection will be set
+    } // and if single scattering but it was longer => nothing to do
+  } //else { do nothing here but after transportation
+
+  return ConvertTrueToGeom(fTheTrueStepLenght,currentMinimalStep);
+}
+
+
+////////////////////////////////////////////////////////////////////////////////
+G4double G4GoudsmitSaundersonMscModel::ComputeGeomPathLength(G4double)
+{
+  //
+  // convert true ->geom
+  // It is called from the step limitation ComputeTruePathLengthLimit if
+  // !fIsEverythingWasDone but protect:
+  //
+  par1 = -1. ;
+  par2 = par3 = 0. ;
+
+  // if fIsEverythingWasDone = TRUE  => fTheZPathLenght is already set
+  // so return with the already known value
+  // Otherwise:
+  if(!fIsEverythingWasDone) {
+     // this correction needed to run MSC with eIoni and eBrem inactivated
+     // and makes no harm for a normal run
+     fTheTrueStepLenght = std::min(fTheTrueStepLenght,currentRange);
+
+     //  do the true -> geom transformation
+     fTheZPathLenght = fTheTrueStepLenght;
+
+     // z = t for very small true-path-length
+     if(fTheTrueStepLenght < tlimitminfix2) return fTheZPathLenght;
+
+     G4double tau = fTheTrueStepLenght/fLambda1;
+
+     if (tau <= tausmall) {
+       fTheZPathLenght = std::min(fTheTrueStepLenght, fLambda1);
+     } else  if (fTheTrueStepLenght < currentRange*dtrl) {
+       if(tau < taulim) fTheZPathLenght = fTheTrueStepLenght*(1.-0.5*tau) ;
+       else             fTheZPathLenght = fLambda1*(1.-G4Exp(-tau));
+     } else if(currentKinEnergy < mass || fTheTrueStepLenght == currentRange)  {
+       par1 = 1./currentRange ;     // alpha =1/range_init for Ekin<mass
+       par2 = 1./(par1*fLambda1) ;  // 1/(alphaxlambda01)
+       par3 = 1.+par2 ;             // 1+1/
+       if(fTheTrueStepLenght < currentRange) {
+           fTheZPathLenght = 1./(par1*par3) * (1.-std::pow(1.-par1*fTheTrueStepLenght,par3));
+       } else {
+         fTheZPathLenght = 1./(par1*par3);
+       }
+
+    } else {
+      G4double rfin = std::max(currentRange-fTheTrueStepLenght, 0.01*currentRange);
+      G4double T1 = GetEnergy(particle,rfin,currentCouple);
+      G4double lambda1 = GetTransportMeanFreePathOnly(particle,T1);
+
+      par1 = (fLambda1-lambda1)/(fLambda1*fTheTrueStepLenght);  // alpha
+      par2 = 1./(par1*fLambda1);
+      par3 = 1.+par2 ;
+      G4Pow *g4pow = G4Pow::GetInstance();
+      fTheZPathLenght = 1./(par1*par3) * (1.-g4pow->powA(1.-par1*fTheTrueStepLenght,par3));
+    }
+
+    fTheZPathLenght = std::min(fTheZPathLenght, fLambda1);
+  }
+
+ return fTheZPathLenght;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+G4double G4GoudsmitSaundersonMscModel::ComputeTrueStepLength(G4double geomStepLength)
+{
+  // init
+  fIsEndedUpOnBoundary = false;
+
+  // step defined other than transportation
+  if(geomStepLength == fTheZPathLenght) {
+    return fTheTrueStepLenght;
+  }
+
+  // else ::
+  // - set the flag that transportation was the winer so DoNothin in DOIT !!
+  // - convert geom -> true by using the mean value
+  fIsEndedUpOnBoundary = true; // OR LAST STEP
+
+  fTheZPathLenght = geomStepLength;
+
+  // t = z for very small step
+  if(geomStepLength < tlimitminfix2) {
+    fTheTrueStepLenght = geomStepLength;
+  // recalculation
+  } else {
+    G4double tlength = geomStepLength;
+    if(geomStepLength > fLambda1*tausmall ) {
+      if(par1 <  0.) {
+        tlength = -fLambda1*G4Log(1.-geomStepLength/fLambda1) ;
+      } else {
+       if(par1*par3*geomStepLength < 1.) {
+           G4Pow *g4pow = G4Pow::GetInstance();
+           tlength = (1.-g4pow->powA( 1.-par1*par3*geomStepLength,1./par3))/par1;
+        } else {
+          tlength = currentRange;
+        }
+      }
+     if(tlength < geomStepLength)   { tlength = geomStepLength; }
+     else if(tlength > fTheTrueStepLenght) { tlength = geomStepLength; }
+    }
+    fTheTrueStepLenght = tlength;
+  }
+  return fTheTrueStepLenght;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+G4ThreeVector&
+G4GoudsmitSaundersonMscModel::SampleScattering(const G4ThreeVector& oldDirection,
+					       G4double)
+{
+
+
+ if(fIsEndedUpOnBoundary && ( (steppingAlgorithm == fUseSafety) || (steppingAlgorithm == fUseDistanceToBoundary) )){
+   // transportation was the winer => do nothing
+   fTheDisplacementVector.set(0.,0.,0.);
+   return fTheDisplacementVector;
+ } else if(fIsEverythingWasDone) {
+   // everything was done in the step limit => rotate and return
+   // but do it only something happend in the MSC
+   if(!fIsNoScatteringInMSC) {
+      fTheNewDirection.rotateUz(oldDirection);
+      fTheDisplacementVector.rotateUz(oldDirection);
+      fParticleChange->ProposeMomentumDirection(fTheNewDirection);
+   }
+   return fTheDisplacementVector;
+ }
+
+ //else {
+   // MSC needs to be done here: cause we went further than safety but did not hit boundary
+   SampleMSC();
+   if(!fIsNoScatteringInMSC) {
+      fTheNewDirection.rotateUz(oldDirection);
+      fTheDisplacementVector.rotateUz(oldDirection);
+      fParticleChange->ProposeMomentumDirection(fTheNewDirection);
+   }
+   return fTheDisplacementVector;
+}
+
+
+void G4GoudsmitSaundersonMscModel::SingleScattering(G4double &cost, G4double &sint){
+    G4double rand1 = G4UniformRand();
+    // sampling 1-cos(theta)
+    G4double dum0  = 2.0*fScrA*rand1/(1.0 - rand1 + fScrA);
+    // add protections
+    if(dum0 < 0.0)       dum0 = 0.0;
+    else if(dum0 > 2.0 ) dum0 = 2.0;
+    // compute cos(theta) and sin(theta)
+    cost = 1.0 - dum0;
+    sint = std::sqrt(dum0*(2.0 - dum0));
+}
+
+
+
+////////////////////////////////////////////////////////////////////////////////
+void G4GoudsmitSaundersonMscModel::SampleMSC(){
+  fIsNoScatteringInMSC = false;
+  // kinetic energy is assumed to be in Geant4 internal energy unit which is MeV
+  G4double kineticEnergy = currentKinEnergy;
+
+  ///////////////////////////////////////////
+  // Energy loss correction: 2 version
+  G4double eloss  = 0.0;
+  if (fTheTrueStepLenght > currentRange*dtrl) {
+    eloss = kineticEnergy -
+      GetEnergy(particle,currentRange-fTheTrueStepLenght,currentCouple);
+  } else {
+    eloss = fTheTrueStepLenght*GetDEDX(particle,kineticEnergy,currentCouple);
+  }
+
+
+  G4double tau  = 0.;//    = kineticEnergy/electron_mass_c2; // where kinEnergy is the mean kinetic energy
+  G4double tau2 = 0.;//   = tau*tau;
+  G4double eps0 = 0.;//   = eloss/kineticEnergy0; // energy loss fraction to the begin step energy
+  G4double epsm = 0.;//   = eloss/kineticEnergy;  // energy loss fraction to the mean step energy
+
+
+  // - init.
+  G4double efEnergy = kineticEnergy;
+  G4double efStep   = fTheTrueStepLenght;
+
+  if(fgIsUseAccurate) {    // - use accurate energy loss correction
+     G4double kineticEnergy0 = kineticEnergy;
+     kineticEnergy -= 0.5*eloss;  // mean energy along the full step
+
+     // other parameters for energy loss corrections
+     tau    = kineticEnergy/electron_mass_c2; // where kinEnergy is the mean kinetic energy
+     tau2   = tau*tau;
+     eps0   = eloss/kineticEnergy0; // energy loss fraction to the begin step energy
+     epsm   = eloss/kineticEnergy;  // energy loss fraction to the mean step energy
+//     efEnergy  = kineticEnergy0 * (1.0 - epsm*(6.0+10.0*tau+5.0*tau2)/(24.0*tau2+72.0*tau+48.0));
+     efEnergy = kineticEnergy0 * ( 1.0 - 0.5*eps0 - eps0*eps0/(12.0*(2.0-eps0))* ( (5.*tau2 +10.*tau +6.)/( (tau+1.)*(tau+2.) )  )  );
+
+     // the real efStep will be s*(1-efStep)
+  //  G4double efStep    = 0.166666*epsilon*epsilonp*(tau2*tau2+4.0*tau2*tau+7.0*tau2+6.0*tau+4.0)/((tau2+3.0*tau+2)2);
+
+//     efStep    = 0.166666*eps0*epsm*(4.0+tau*(6.0+tau*(7.0+tau*(4.0+tau))));
+//     efStep            /= ((tau2+3.0*tau+2)*(tau2+3.0*tau+2));
+//     efStep             = fTheTrueStepLenght*(1.0-efStep);
+      efStep = (1.-eps0*eps0/(3.*(2.-eps0))*  (tau2*tau2 + 4.*tau2*tau + 7.*tau2 +6.*tau +4.)/( ((tau+1.)*(tau+2.))*((tau+1.)*(tau+2.)) ) );
+      efStep *=fTheTrueStepLenght;
+  } else {                              // - take only mean energy
+     kineticEnergy -= 0.5*eloss;  // mean energy along the full step
+     efEnergy       = kineticEnergy;
+     efStep         = fTheTrueStepLenght;
+  }
+  /////////////////////////////////////////////////////////////////////////
+
+
+  ///////////////////////////////////////////
+  // Compute elastic mfp, first transport mfp, screening parameter, and G1
+  fLambda1 = GetTransportMeanFreePath(particle,efEnergy);
+
+  G4double lambdan=0.;
+
+  if(fLambda0>0.0) { lambdan=efStep/fLambda0; }
+  if(lambdan<=1.0e-12) {
+      if(fIsEverythingWasDone)
+        fTheZPathLenght = fTheTrueStepLenght;
+    fIsNoScatteringInMSC = true;
+    return;
+  }
+
+  G4double Qn1 = lambdan *fG1;//2.* lambdan *scrA*((1.+scrA)*log(1.+1./scrA)-1.);
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Sample scattering angles
+  // new direction, relative to the orriginal one is in {us,vs,ws}
+  G4double cosTheta1 =1.0,sinTheta1 =0.0, cosTheta2 =1.0, sinTheta2 =0.0;
+  G4double cosPhi1=1.0,sinPhi1=0.0, cosPhi2 =1.0, sinPhi2 =0.0;
+  G4double us=0.0,vs=0.0,ws=1.0,x_coord=0.0,y_coord=0.0,z_coord=1.0;
+  G4double u2=0.0,v2=0.0;
+
+  // if we are above the upper grid limit with lambdaxG1=true-length/first-trans-mfp
+  // => izotropic distribution: lambG1_max =7.992
+  if(0.5*Qn1 > 7.99){
+     cosTheta1 = 1.-2.*G4UniformRand();
+     sinTheta1 = std::sqrt((1.-cosTheta1)*(1.+cosTheta1));
+     G4double phi1 = CLHEP::twopi*G4UniformRand();
+     sinPhi1 = std::sin(phi1);
+     cosPhi1 = std::cos(phi1);
+     us = sinTheta1*cosPhi1;
+     vs = sinTheta1*sinPhi1;
+     ws = cosTheta1;
+  } else {
+     // sample 2 scattering cost1, sint1, cost2 and sint2 for half path
+     fgGSTable->Sampling(0.5*lambdan, 0.5*Qn1, fScrA, cosTheta1, sinTheta1);
+     fgGSTable->Sampling(0.5*lambdan, 0.5*Qn1, fScrA, cosTheta2, sinTheta2);
+     if(cosTheta1 + cosTheta2 == 2.) { // no scattering happened
+        if(fIsEverythingWasDone)
+           fTheZPathLenght = fTheTrueStepLenght;
+        fIsNoScatteringInMSC = true;
+        return;
+     }
+
+     // sample 2 azimuthal angles
+     G4double phi1 = CLHEP::twopi*G4UniformRand();
+     sinPhi1 = std::sin(phi1);
+     cosPhi1 = std::cos(phi1);
+     G4double phi2 = CLHEP::twopi*G4UniformRand();
+     sinPhi2 = std::sin(phi2);
+     cosPhi2 = std::cos(phi2);
+
+     // compute final direction realtive to z-dir
+     u2  = sinTheta2*cosPhi2;
+     v2  = sinTheta2*sinPhi2;
+     G4double u2p = cosTheta1*u2 + sinTheta1*cosTheta2;
+     us  = u2p*cosPhi1 - v2*sinPhi1;
+     vs  = u2p*sinPhi1 + v2*cosPhi1;
+     ws  = cosTheta1*cosTheta2 - sinTheta1*u2;
+  }
+
+  ////////////////////////////////////////////////////////////////////
+  fTheNewDirection.set(us,vs,ws);
+
+  // set the fTheZPathLenght if we don't sample displacement and
+  // we should do everything at the step-limit-phase before we return
+  if(fIsNoDisplace && fIsEverythingWasDone)
+    fTheZPathLenght = fTheTrueStepLenght;
+
+  // in optimized-mode if the current-safety > current-range we do not use dispalcement
+  if(fIsNoDisplace)
+    return;
+
+  //////////////////////////////////////////////////////////////////////
+  // Compute final position
+  if(fgIsUseAccurate) {
+    // correction parameters
+
+    G4double par =1.;
+    if(Qn1<1.0) par = 1.;
+    else if (Qn1<7.8) par = -0.031376*Qn1+1.01356;
+    else par = 0.76;
+
+    //
+    // Compute elastic mfp, first transport mfp, screening parameter, and G1
+    // for the initial energy
+    fLambda1 = GetTransportMeanFreePath(particle,currentKinEnergy);
+
+     // Moments with energy loss correction
+     // --first the uncorrected (for energy loss) values of gamma, eta, a1=a2=0.5*(1-eta), delta
+     // gamma = G_2/G_1 based on G2 computed from A by using the Wentzel DCS form of G2
+     G4double loga   = G4Log(1.0+1.0/fScrA);
+     G4double gamma  = 6.0*fScrA*(1.0 + fScrA)*(loga*(1.0 + 2.0*fScrA) - 2.0)/fG1;
+     // sample eta from p(eta)=2*eta i.e. P(eta) = eta_square ;-> P(eta) = rand --> eta = sqrt(rand)
+     G4double rand1  = G4UniformRand();
+     G4double eta    = std::sqrt(rand1);
+     G4double eta1   = 0.5*(1 - eta);  // used  more than once
+     // 0.5 +sqrt(6)/6 = 0.9082483;
+     // 1/(4*sqrt(6))  = 0.1020621;
+     // (4-sqrt(6)/(24*sqrt(6))) = 0.026374715
+     // delta = 0.9082483-(0.1020621-0.0263747*gamma)*Qn1 without energy loss cor.
+     Qn1=fTheTrueStepLenght/fLambda0*fG1; // without energy loss
+     G4double delta  = 0.9082483-(0.1020621-0.0263747*gamma)*Qn1;
+
+     // compute alpha1 and alpha2 for energy loss correction
+     G4double temp1 = 2.0 + tau;
+     G4double temp  = (2.0+tau*temp1)/((tau+1.0)*temp1);
+     //Take logarithmic dependence
+     temp = temp - (tau+1.0)/((tau+2.0)*(loga*(1.0+fScrA)-1.0));
+     temp = temp * epsm;
+     temp1 = 1.0 - temp;
+     delta = delta + 0.40824829*(eps0*(tau+1.0)/((tau+2.0)*
+             (loga*(1.0+fScrA)-1.0)*(loga*(1.0+2.0*fScrA)-2.0)) - 0.25*temp*temp);
+     G4double b      = eta*delta;
+     G4double c      = eta*(1.0-delta);
+
+     //Calculate transport direction cosines:
+     // ut,vt,wt is the final position divided by the true step length
+     G4double w1v2 = cosTheta1*v2;
+     G4double ut   = b*sinTheta1*cosPhi1 + c*(cosPhi1*u2 - sinPhi1*w1v2) + eta1*us*temp1;
+     G4double vt   = b*sinTheta1*sinPhi1 + c*(sinPhi1*u2 + cosPhi1*w1v2) + eta1*vs*temp1;
+     G4double wt   = eta1*(1+temp) +       b*cosTheta1 +  c*cosTheta2    + eta1*ws*temp1;
+
+     // long step correction
+     ut *=par;
+     vt *=par;
+     wt *=par;
+
+     // final position relative to the pre-step point in the scattering frame
+     // ut = x_f/s so needs to multiply by s
+     x_coord = ut*fTheTrueStepLenght;
+     y_coord = vt*fTheTrueStepLenght;
+     z_coord = wt*fTheTrueStepLenght;
+
+     if(fIsEverythingWasDone){
+       // We sample in the step limit so set fTheZPathLenght = transportDistance
+       // and lateral displacement (x_coord,y_coord,z_coord-transportDistance)
+       //Calculate transport distance
+       G4double transportDistance  = std::sqrt(x_coord*x_coord+y_coord*y_coord+z_coord*z_coord);
+       // protection
+       if(transportDistance>fTheTrueStepLenght)
+          transportDistance = fTheTrueStepLenght;
+       fTheZPathLenght = transportDistance;
+     }
+     // else:: we sample in the DoIt so
+     //       the fTheZPathLenght was already set and was taken as transport along zet
+     fTheDisplacementVector.set(x_coord,y_coord,z_coord-fTheZPathLenght);
+  } else {
+     // compute zz = <z>/tPathLength
+     // s -> true-path-length
+     // z -> geom-path-length:: when PRESTA is used z =(def.) <z>
+     // r -> lateral displacement = s/2 sin(theta)  => x_f = r cos(phi); y_f = r sin(phi)
+     G4double zz = 0.0;
+     if(fIsEverythingWasDone){
+        // We sample in the step limit so set fTheZPathLenght = transportDistance
+        // and lateral displacement (x_coord,y_coord,z_coord-transportDistance)
+        if(Qn1<0.1) { // use 3-order Taylor approximation of (1-exp(-x))/x around x=0
+          zz = 1.0 - Qn1*(0.5 - Qn1*(0.166666667 - 0.041666667*Qn1)); // 1/6 =0.166..7 ; 1/24=0.041..
+        } else {
+          zz = (1.-G4Exp(-Qn1))/Qn1;
+        }
+     } else {
+        // we sample in the DoIt so
+        // the fTheZPathLenght was already set and was taken as transport along zet
+        zz = fTheZPathLenght/fTheTrueStepLenght;
+     }
+
+     G4double rr = (1.-zz*zz)/(1.-ws*ws); // s^2 >= <z>^2+r^2  :: where r^2 = s^2/4 sin^2(theta)
+     if(rr >= 0.25) rr = 0.25;            // (1-<z>^2/s^2)/sin^2(theta) >= r^2/(s^2 sin^2(theta)) = 1/4 must hold
+     G4double rperp = fTheTrueStepLenght*std::sqrt(rr);  // this is r/sint
+     x_coord  = rperp*us;
+     y_coord  = rperp*vs;
+     z_coord  = zz*fTheTrueStepLenght;
+
+     if(fIsEverythingWasDone){
+       G4double transportDistance = std::sqrt(x_coord*x_coord + y_coord*y_coord + z_coord*z_coord);
+       fTheZPathLenght = transportDistance;
+     }
+
+     fTheDisplacementVector.set(x_coord,y_coord,z_coord- fTheZPathLenght);
+   }
+}
