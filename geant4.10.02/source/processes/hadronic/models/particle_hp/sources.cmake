@@ -19,6 +19,10 @@
 include_directories(${CLHEP_INCLUDE_DIRS})
 include_directories(${ZLIB_INCLUDE_DIRS})
 
+# Need to create this variable, probably in Geant4BuildProjectConfig.cmake
+# or Geant4OptionalComponents.cmake
+#include_directories(${G4CUDA_INCLUDE_DIRS})
+
 # List internal includes needed.
 include_directories(${CMAKE_SOURCE_DIR}/source/geometry/management/include)
 include_directories(${CMAKE_SOURCE_DIR}/source/geometry/volumes/include)
