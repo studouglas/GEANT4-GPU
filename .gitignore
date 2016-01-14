@@ -25,15 +25,9 @@ G4STORK/OutputFiles
 G4STORK/SourceFiles
 
 geant4.10.02/tmp
-geant4.10.02-build/*
-geant4.10.02-build2
-geant4.10.02-install/*
+geant4.10.02-build
+geant4.10.02-install
 geant4.10.02/examples/*
-!geant4.10.02/examples/basic/B1
-!geant4.10.02/examples/basic/B2
-!geant4.10.02/examples/basic/B3
-!geant4.10.02/examples/basic/B4
-!geant4.10.02/examples/basic/B5
 
 marshalgen-1.0/Examples
 marshalgen-1.0/Phase2/*.yy.*
