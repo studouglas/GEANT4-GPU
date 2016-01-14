@@ -19,9 +19,12 @@
 include_directories(${CLHEP_INCLUDE_DIRS})
 include_directories(${ZLIB_INCLUDE_DIRS})
 
-# Need to create this variable, probably in Geant4BuildProjectConfig.cmake
-# or Geant4OptionalComponents.cmake
-#include_directories(${G4CUDA_INCLUDE_DIRS})
+# NOTE ABOUT CUDA LIBRARY ---------------------------------
+# the variabla ${G4CUDA_INCLUDE_DIRS} is correctly set in 
+# cmake/modules/Geant4OptionalComponents.cmake, but including it 
+# here it can't be found, so for now we're explicitly including it
+# via its full path in the G4ParticleVector.hh file
+# TODO: set a macro w/ its location in the .hh file  so it's a bit better
 
 # List internal includes needed.
 include_directories(${CMAKE_SOURCE_DIR}/source/geometry/management/include)
@@ -459,6 +462,7 @@ GEANT4_DEFINE_MODULE(NAME G4had_par_hp
     G4track
   LINK_LIBRARIES
     ${ZLIB_LIBRARIES}
+    ${G4CUDA_LIBRARIES}
   )
 
 # List any source specific properties here

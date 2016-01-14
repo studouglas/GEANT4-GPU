@@ -1,4 +1,3 @@
-//
 // ********************************************************************
 // * License and Disclaimer                                           *
 // *                                                                  *
@@ -255,7 +254,6 @@
     {
       G4cout << theData[i].GetX()<<" ";
       G4cout << theData[i].GetY()<<" ";
-//      if (i!=1&&i==5*(i/5)) G4cout << G4endl;
       G4cout << G4endl;
     }
     G4cout << G4endl;

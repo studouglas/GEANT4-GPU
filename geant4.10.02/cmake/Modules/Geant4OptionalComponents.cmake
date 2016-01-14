@@ -196,3 +196,7 @@ endif()
 
 GEANT4_ADD_FEATURE(GEANT4_USE_FREETYPE "Building Geant4 analysis library with Freetype support")
 
+# ============= CUDA (added by Stuart) =============== #
+set(G4CUDA_INCLUDE_DIRS "${PROJECT_SOURCE_DIR}/source/externals/cuda/include")
+set(G4CUDA_LIBRARIES G4cuda)
+
