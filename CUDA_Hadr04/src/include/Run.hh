@@ -23,95 +23,69 @@
 // * acceptance of all terms of the Geant4 Software license.          *
 // ********************************************************************
 //
-/// \file hadronic/Hadr03/Hadr03.cc
-/// \brief Main program of the hadronic/Hadr03 example
+/// \file electromagnetic/TestEm11/include/Run.hh
+/// \brief Definition of the Run class
 //
+// $Id: Run.hh 71375 2013-06-14 07:39:33Z maire $
 //
-// $Id: TestEm1.cc,v 1.16 2010-04-06 11:11:24 maire Exp $
-// 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-#ifdef G4MULTITHREADED
-#include "G4MTRunManager.hh"
-#else
-#include "G4RunManager.hh"
-#endif
+#ifndef Run_h
+#define Run_h 1
 
-#include "G4UImanager.hh"
-#include "Randomize.hh"
+#include "G4Run.hh"
+#include "G4VProcess.hh"
+#include "globals.hh"
+#include <map>
 
-#include "DetectorConstruction.hh"
-#include "PhysicsList.hh"
-#include "ActionInitialization.hh"
-#include "SteppingVerbose.hh"
-
-#ifdef G4VIS_USE
- #include "G4VisExecutive.hh"
-#endif
-
-#ifdef G4UI_USE
-#include "G4UIExecutive.hh"
-#endif
+class DetectorConstruction;
+class G4ParticleDefinition;
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
- 
-int main(int argc,char** argv) {
- 
-  //choose the Random engine
-  G4Random::setTheEngine(new CLHEP::RanecuEngine);
- 
-  // Construct the default run manager
-#ifdef G4MULTITHREADED
-  G4MTRunManager* runManager = new G4MTRunManager;
-#else
-  //my Verbose output class
-  G4VSteppingVerbose::SetInstance(new SteppingVerbose);
-  G4RunManager* runManager = new G4RunManager;
-#endif
 
-  // set mandatory initialization classes
-  DetectorConstruction* det= new DetectorConstruction;
-  runManager->SetUserInitialization(det);
-  
-  PhysicsList* phys = new PhysicsList;
-  runManager->SetUserInitialization(phys);
-  
-  runManager->SetUserInitialization(new ActionInitialization(det));    
-     
-  // get the pointer to the User Interface manager 
-    G4UImanager* UI = G4UImanager::GetUIpointer();  
+class Run : public G4Run
+{
+  public:
+    Run(DetectorConstruction*);
+   ~Run();
 
-  if (argc!=1)   // batch mode  
-    {
-     G4String command = "/control/execute ";
-     G4String fileName = argv[1];
-     UI->ApplyCommand(command+fileName);
-    }
+  public:
+    void CountProcesses(const G4VProcess* process);                  
+    void ParticleCount(G4String, G4double);
+    void SumTrackLength (G4int,G4int,G4double,G4double,G4double,G4double);
     
-  else           //define visualization and UI terminal for interactive mode
-    { 
-#ifdef G4VIS_USE
-      G4VisManager* visManager = new G4VisExecutive;
-      visManager->Initialize();
-#endif    
+    void SetPrimary(G4ParticleDefinition* particle, G4double energy);    
+    void EndOfRun(); 
+            
+    virtual void Merge(const G4Run*);
+   
+  private:
+    struct ParticleData {
+     ParticleData()
+       : fCount(0), fEmean(0.), fEmin(0.), fEmax(0.) {}
+     ParticleData(G4int count, G4double ekin, G4double emin, G4double emax)
+       : fCount(count), fEmean(ekin), fEmin(emin), fEmax(emax) {}
+     G4int     fCount;
+     G4double  fEmean;
+     G4double  fEmin;
+     G4double  fEmax;
+    };
      
-#ifdef G4UI_USE
-      G4UIExecutive * ui = new G4UIExecutive(argc,argv);      
-      ui->SessionStart();
-      delete ui;
-#endif
-          
-#ifdef G4VIS_USE
-     delete visManager;
-#endif     
-    }
-
-  // job termination 
-  //
-  delete runManager;
-
-  return 0;
-}
+  private:
+    DetectorConstruction* fDetector;
+    G4ParticleDefinition* fParticle;
+    G4double              fEkin;
+        
+    std::map<G4String,G4int>        fProcCounter;            
+    std::map<G4String,ParticleData> fParticleDataMap;
+        
+    G4int    fNbStep1, fNbStep2;
+    G4double fTrackLen1, fTrackLen2;
+    G4double fTime1, fTime2;    
+};
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
+#endif
+
