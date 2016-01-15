@@ -1,0 +1,20 @@
+==========================
+	G4NeutHP Example
+==========================
+
+The following Geant4 example was created to stress high precision neutron processes, 
+specifically G4ParticleHPVector and the G4HPNeutronData data class.
+
+The example was created as part of the Geant4GPU project, with the intended purpose 
+of highlighting the performance increase given by enabling the aforementioned processes 
+with GPU compatability. 
+
+This readme was based on what was written for the Geant4 example "Hadr04".
+
+1. Materials & Geometry
+
+2. Physics Lists
+
+3. The Primary Generator
+
+4. Physics
