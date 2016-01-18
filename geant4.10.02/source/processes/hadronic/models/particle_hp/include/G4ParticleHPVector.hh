@@ -51,7 +51,7 @@
 
 #define GEANT4_ENABLE_CUDA 1
 #if GEANT4_ENABLE_CUDA
-  #include "/Users/stuart/Documents/4th_Year/CS_4ZP6/GEANT4-GPU/geant4.10.02/source/externals/cuda/include/CUDA_G4NeutronHPVector.h"
+  #include "/Users/stuart/Documents/4th_Year/CS_4ZP6/GEANT4-GPU/geant4.10.02/source/externals/cuda/include/G4ParticleHPVector_CUDA.h"
 #endif
 
 #if defined WIN32-VC
@@ -80,6 +80,12 @@ class G4ParticleHPVector
   
   inline void Times(G4double factor)
   {
+    //=========================================
+    #if GEANT4_ENABLE_CUDA
+      cudaVector.Times(factor);
+    #endif
+    //=========================================
+    
     G4int i;
     for(i=0; i<nEntries; i++)
     {
@@ -100,7 +106,6 @@ class G4ParticleHPVector
     
   inline void SetData(G4int i, G4double x, G4double y) 
   { 
-//    G4cout <<"G4ParticleHPVector::SetData called"<<nPoints<<" "<<nEntries<<G4endl;
     Check(i);
     if(y>maxValue) maxValue=y;
     theData[i].SetData(x, y);
@@ -146,8 +151,8 @@ class G4ParticleHPVector
       if(0 == (i+1)%10)
       {
         x = GetX(i);
-	y = GetY(i);
-	theHash.SetData(i, x, y);
+      	y = GetY(i);
+      	theHash.SetData(i, x, y);
       }
     }
   }
@@ -269,7 +274,7 @@ class G4ParticleHPVector
     theManager.CleanUp();
     maxValue = -DBL_MAX;
     theHash.Clear();
-//080811 TK DB 
+    //080811 TK DB 
     delete[] theIntegral;
     theIntegral = NULL;
   }
@@ -293,7 +298,7 @@ class G4ParticleHPVector
         a++;
         G4double xp = passive->GetEnergy(p);
 
-//080409 TKDB 
+        //080409 TKDB 
         //if( std::abs(std::abs(xp-xa)/xa)<0.001 ) p++;
         if ( !( xa == 0 ) && std::abs(std::abs(xp-xa)/xa)<0.001 ) p++;
       } else {
@@ -340,18 +345,18 @@ class G4ParticleHPVector
       G4double rand = G4UniformRand();
       
       // this was replaced 
-//      for(i=1;i<GetVectorLength();i++)
-//      {
-//	if(rand<theIntegral[i]/theIntegral[GetVectorLength()-1]) break;
-//      }
+      // for(i=1;i<GetVectorLength();i++)
+      //      {
+      //	if(rand<theIntegral[i]/theIntegral[GetVectorLength()-1]) break;
+      //      }
 
-// by this (begin)
+      // by this (begin)
       for(i=GetVectorLength()-1; i>=0 ;i--)
       {
-	if(rand>theIntegral[i]/theIntegral[GetVectorLength()-1]) break;
+      	if(rand>theIntegral[i]/theIntegral[GetVectorLength()-1]) break;
       }
       if(i!=GetVectorLength()-1) i++;
-// until this (end)
+      // until this (end)
       
       G4double x1, x2, y1, y2;
       y1 = theData[i-1].GetX();
@@ -360,8 +365,8 @@ class G4ParticleHPVector
       x2 = theIntegral[i];
       if(std::abs((y2-y1)/y2)<0.0000001) // not really necessary, since the case is excluded by construction
       {
-	y1 = theData[i-2].GetX();
-	x1 = theIntegral[i-2];
+      	y1 = theData[i-2].GetX();
+      	x1 = theIntegral[i-2];
       }
       result = theLin.Lin(rand, x1, x2, y1, y2);
     }
@@ -395,26 +400,26 @@ class G4ParticleHPVector
       x0 = theData[i-1].GetX();
       if (std::abs(x1-x0) > std::abs(x1*0.0000001) )
       {
-	//********************************************************************
-	//EMendoza -> the interpolation scheme is not always lin-lin
-	/*
-        sum+= 0.5*(theData[i].GetY()+theData[i-1].GetY())*
-                  (x1-x0);
-	*/
-	//********************************************************************
+      	//********************************************************************
+      	//EMendoza -> the interpolation scheme is not always lin-lin
+      	/*
+              sum+= 0.5*(theData[i].GetY()+theData[i-1].GetY())*
+                        (x1-x0);
+      	*/
+      	//********************************************************************
         G4InterpolationScheme aScheme = theManager.GetScheme(i);
         G4double y0 = theData[i-1].GetY();
         G4double y1 = theData[i].GetY();
-	G4double integ=theInt.GetBinIntegral(aScheme,x0,x1,y0,y1);
-#if defined WIN32-VC
-	if(!_finite(integ)){integ=0;}
-#elif defined __IBMCPP__
-	if(isinf(integ)||isnan(integ)){integ=0;}
-#else
-	if(std::isinf(integ)||std::isnan(integ)){integ=0;}
-#endif
-	sum+=integ;
-	//********************************************************************
+      	G4double integ=theInt.GetBinIntegral(aScheme,x0,x1,y0,y1);
+        #if defined WIN32-VC
+        	if(!_finite(integ)){integ=0;}
+        #elif defined __IBMCPP__
+        	if(isinf(integ)||isnan(integ)){integ=0;}
+        #else
+        	if(std::isinf(integ)||std::isnan(integ)){integ=0;}
+        #endif
+        	sum+=integ;
+        	//********************************************************************
       }
       theIntegral[i] = sum;
     }
@@ -560,7 +565,10 @@ class G4ParticleHPVector
   G4ParticleHPInterpolator theLin;
   
   private:
-  
+  #if GEANT4_ENABLE_CUDA
+    G4ParticleHPVector_CUDA cudaVector;
+  #endif
+
   G4double totalIntegral;
   
   G4ParticleHPDataPoint * theData; // the data
@@ -577,7 +585,6 @@ class G4ParticleHPVector
   
   G4ParticleHPHash theHash;
   G4double maxValue;
-  
   std::vector<G4double> theBlocked;
   std::vector<G4double> theBuffered;
   G4double the15percentBorderCash;

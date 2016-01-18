@@ -23,36 +23,70 @@
 // * acceptance of all terms of the Geant4 Software license.          *
 // ********************************************************************
 //
-/// \file hadronic/Hadr03/include/SteppingAction.hh
-/// \brief Definition of the SteppingAction class
 //
-// $Id: SteppingAction.hh 66241 2012-12-13 18:34:42Z gunter $
 //
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+#ifndef G4ParticleHPDataPoint_CUDA_h
+#define G4ParticleHPDataPoint_CUDA_h 1
 
-#ifndef SteppingAction_h
-#define SteppingAction_h 1
+#include <cuda.h>
+#include <cuda_runtime.h>
 
-#include "G4UserSteppingAction.hh"
-#include "globals.hh"
-
-class TrackingAction;
-
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
-class SteppingAction : public G4UserSteppingAction
+class G4ParticleHPDataPoint_CUDA
 {
-  public:
-    SteppingAction(TrackingAction*);
-   ~SteppingAction();
+  public:  
+  G4ParticleHPDataPoint_CUDA() {
+    energy = 0; 
+    xSec = 0;
+  }
+  G4ParticleHPDataPoint_CUDA(double e, double x){ 
+    energy = e; 
+    xSec = x;
+  }
+  
+  __host__ __device__ void operator= (const G4ParticleHPDataPoint_CUDA & aSet) {
+    if(&aSet!=this) {
+      energy = aSet.GetEnergy();
+      xSec   = aSet.GetXsection();
+    }
+  }
 
-    virtual void UserSteppingAction(const G4Step*);
-    
+  __host__ __device__ ~G4ParticleHPDataPoint_CUDA() { }
+  
+  __host__ __device__ double GetEnergy() const {
+    return energy;
+  }
+  __host__ __device__ double GetXsection() const { 
+    return xSec;
+  }
+  
+  __host__ __device__ void SetEnergy(double e) { 
+    energy = e;
+  }
+  __host__ __device__ void SetXsection(double x) {
+    xSec = x;
+  }
+  
+  __host__ __device__ double GetX() const { 
+    return energy;
+  }
+  __host__ __device__ double GetY() const {
+    return xSec;
+  }
+  
+  __host__ __device__ void SetX(double e) {
+    energy = e;
+  }
+  __host__ __device__ void SetY(double x) {
+    xSec = x;
+  }
+  
+  __host__ __device__ void SetData(double e, double x) {
+    energy = e; xSec = x;
+  }
+  
   private:
-    TrackingAction* fTrackingAction;    
+  double energy;
+  double xSec;
 };
-
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 #endif

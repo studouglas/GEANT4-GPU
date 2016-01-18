@@ -23,44 +23,70 @@
 // * acceptance of all terms of the Geant4 Software license.          *
 // ********************************************************************
 //
-/// \file electromagnetic/TestEm4/include/PrimaryGeneratorAction.hh
-/// \brief Definition of the PrimaryGeneratorAction class
 //
 //
-// $Id: PrimaryGeneratorAction.hh 66241 2012-12-13 18:34:42Z gunter $
-//
-// 
+#ifndef G4ParticleHPDataPoint_CUDA_h
+#define G4ParticleHPDataPoint_CUDA_h 1
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+#include <cuda.h>
+#include <cuda_runtime.h>
 
-#ifndef PrimaryGeneratorAction_h
-#define PrimaryGeneratorAction_h 1
-
-#include "G4VUserPrimaryGeneratorAction.hh"
-#include "G4ParticleGun.hh"
-#include "globals.hh"
-
-class G4Event;
-
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
-class PrimaryGeneratorAction : public G4VUserPrimaryGeneratorAction
+class G4ParticleHPDataPoint_CUDA
 {
-  public:
-    PrimaryGeneratorAction();    
-   ~PrimaryGeneratorAction();
+  public:  
+  G4ParticleHPDataPoint_CUDA() {
+    energy = 0; 
+    xSec = 0;
+  }
+  G4ParticleHPDataPoint_CUDA(double e, double x){ 
+    energy = e; 
+    xSec = x;
+  }
+  
+  __host__ __device__ void operator= (const G4ParticleHPDataPoint_CUDA & aSet) {
+    if(&aSet!=this) {
+      energy = aSet.GetEnergy();
+      xSec   = aSet.GetXsection();
+    }
+  }
 
-  public:
-    virtual void GeneratePrimaries(G4Event*);
-    G4ParticleGun* GetParticleGun() {return fParticleGun;};
-
+  __host__ __device__ ~G4ParticleHPDataPoint_CUDA() { }
+  
+  __host__ __device__ double GetEnergy() const {
+    return energy;
+  }
+  __host__ __device__ double GetXsection() const { 
+    return xSec;
+  }
+  
+  __host__ __device__ void SetEnergy(double e) { 
+    energy = e;
+  }
+  __host__ __device__ void SetXsection(double x) {
+    xSec = x;
+  }
+  
+  __host__ __device__ double GetX() const { 
+    return energy;
+  }
+  __host__ __device__ double GetY() const {
+    return xSec;
+  }
+  
+  __host__ __device__ void SetX(double e) {
+    energy = e;
+  }
+  __host__ __device__ void SetY(double x) {
+    xSec = x;
+  }
+  
+  __host__ __device__ void SetData(double e, double x) {
+    energy = e; xSec = x;
+  }
+  
   private:
-    G4ParticleGun*  fParticleGun;        //pointer a to G4 service class
+  double energy;
+  double xSec;
 };
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
 #endif
-
-

@@ -4,16 +4,18 @@ find_package (CUDA REQUIRED)
 
 include_directories(/usr/local/cuda/include)
 include_directories(include)
+include_directories(src)
 
 # sets the macro in the source file
 add_definitions(-DGEANT4_ENABLE_CUDA=1)
 
 set(G4cuda_HEADERS
-	include/CUDA_G4NeutronHPVector.h
+	include/G4ParticleHPVector_CUDA.h
 )
 
 set(G4cuda_SOURCES
-	src/CUDA_G4NeutronHPVector.cu
+	src/G4ParticleHPVector_CUDA.cu
+	src/G4ParticleHPDataPoint_CUDA.cu
 )
 
 include(Geant4MacroLibraryTargets)
