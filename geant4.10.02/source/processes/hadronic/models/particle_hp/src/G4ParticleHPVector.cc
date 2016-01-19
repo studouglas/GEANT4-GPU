@@ -82,14 +82,8 @@ G4ParticleHPVector & operator + (G4ParticleHPVector & left, G4ParticleHPVector &
 G4ParticleHPVector::G4ParticleHPVector()
 {
   //=========================================
-  G4cout << "G4ParticleHPVector()" << G4endl;
   #if GEANT4_ENABLE_CUDA
-    G4cout << "CUDA Enabled" << G4endl;
-    cudaVector = G4ParticleHPVector_CUDA();
-    cudaVector.SetNPoints(&nPoints);
-    cudaVector.SetNEntries(&nEntries);
-  #else 
-    G4cout << "CUDA Disabled" << G4endl;
+    InitializeCudaVariables();
   #endif
   //=========================================
 
@@ -104,19 +98,17 @@ G4ParticleHPVector::G4ParticleHPVector()
   the15percentBorderCash = -DBL_MAX;
   the50percentBorderCash = -DBL_MAX;
   label = -DBL_MAX;
+
+  #if GEANT4_ENABLE_CUDA
+      cudaVector->SetTheDataChangedOnCpu();
+  #endif
 }
 
 G4ParticleHPVector::G4ParticleHPVector(G4int n)
 {
   //=========================================
-  G4cout << "G4ParticleHPVector(G4int)" << G4endl;
   #if GEANT4_ENABLE_CUDA
-    G4cout << "CUDA Enabled" << G4endl;
-    cudaVector = G4ParticleHPVector_CUDA(n);
-    cudaVector.SetNPoints(&nPoints);
-    cudaVector.SetNEntries(&nEntries);
-  #else 
-    G4cout << "CUDA Disabled" << G4endl;
+    InitializeCudaVariables();
   #endif
   //=========================================
   
@@ -130,22 +122,31 @@ G4ParticleHPVector::G4ParticleHPVector(G4int n)
   maxValue = -DBL_MAX;
   the15percentBorderCash = -DBL_MAX;
   the50percentBorderCash = -DBL_MAX;
+
+  #if GEANT4_ENABLE_CUDA
+      cudaVector->SetTheDataChangedOnCpu();
+  #endif
 }
+
+#if GEANT4_ENABLE_CUDA
+  void G4ParticleHPVector::InitializeCudaVariables() 
+  {
+    cudaVector = new G4ParticleHPVector_CUDA();
+    cudaVector->SetTheData(&theData);
+    cudaVector->SetTheIntegral(&theIntegral);
+    cudaVector->SetNPoints(&nPoints);
+    cudaVector->SetNEntries(&nEntries);
+  }
+#endif
 
 G4ParticleHPVector::~G4ParticleHPVector()
 {
-  //=========================================
-  G4cout << "G4ParticleHPVector(G4int)" << G4endl;
   #if GEANT4_ENABLE_CUDA
-    //delete cudaVector;
+    delete cudaVector;
   #endif
-  //=========================================
 
-  //if(Verbose==1)G4cout <<"G4ParticleHPVector::~G4ParticleHPVector"<<G4endl;
   delete [] theData;
-  //if(Verbose==1)G4cout <<"Vector: delete theData"<<G4endl;
   delete [] theIntegral;
-  //if(Verbose==1)G4cout <<"Vector: delete theIntegral"<<G4endl;
   theHash.Clear();
   isFreed = 1;
 }
@@ -183,71 +184,80 @@ operator = (const G4ParticleHPVector & right)
 
 G4double G4ParticleHPVector::GetXsec(G4double e) 
 {
+  #if GEANT4_ENABLE_CUDA
+    cudaVector->CopyTheDataToCpuIfChanged();
+  #endif
+
   if(nEntries == 0) {
     return 0;
   }
-  #if GEANT4_ENABLE_CUDA
-    //return cudaVector->GetXsec(e);
-  #else
-    //if(!theHash.Prepared()) Hash();
-    if ( !theHash.Prepared() ) {
-      if ( G4Threading::IsWorkerThread() ) {
-        ;
-      } else {
-        Hash();
-      }
+
+  //=========================================
+  // #if GEANT4_ENABLE_CUDA
+  //   return cudaVector->GetXsec(e);
+  // #endif
+  //=========================================
+  
+  if ( !theHash.Prepared() ) {
+    if ( G4Threading::IsWorkerThread() ) {
+      ;
+    } else {
+      Hash();
     }
-    G4int min = theHash.GetMinIndex(e);
-    G4int i;
-    for(i=min ; i<nEntries; i++)
-    {
-      //if(theData[i].GetX()>e) break;
-      if(theData[i].GetX() >= e) {
-        break;
-      }
+  }
+  G4int min = theHash.GetMinIndex(e);
+  G4int i;
+  for(i=min ; i<nEntries; i++)
+  {
+    //if(theData[i].GetX()>e) break;
+    if(theData[i].GetX() >= e) {
+      break;
     }
-    G4int low = i-1;
-    G4int high = i;
-    if(i==0)
+  }
+  G4int low = i-1;
+  G4int high = i;
+  if(i==0)
+  {
+    low = 0;
+    high = 1;
+  }
+  else if(i==nEntries)
+  {
+    low = nEntries-2;
+    high = nEntries-1;
+  }
+  G4double y;
+  if(e<theData[nEntries-1].GetX()) 
+  {
+    // Protect against doubled-up x values
+    //if( (theData[high].GetX()-theData[low].GetX())/theData[high].GetX() < 0.000001)
+    if ( theData[high].GetX() !=0 
+    //080808 TKDB
+    //&&( theData[high].GetX()-theData[low].GetX())/theData[high].GetX() < 0.000001)
+      &&( std::abs( (theData[high].GetX()-theData[low].GetX())/theData[high].GetX() ) < 0.000001 ) )
     {
-      low = 0;
-      high = 1;
-    }
-    else if(i==nEntries)
-    {
-      low = nEntries-2;
-      high = nEntries-1;
-    }
-    G4double y;
-    if(e<theData[nEntries-1].GetX()) 
-    {
-      // Protect against doubled-up x values
-      //if( (theData[high].GetX()-theData[low].GetX())/theData[high].GetX() < 0.000001)
-      if ( theData[high].GetX() !=0 
-      //080808 TKDB
-      //&&( theData[high].GetX()-theData[low].GetX())/theData[high].GetX() < 0.000001)
-        &&( std::abs( (theData[high].GetX()-theData[low].GetX())/theData[high].GetX() ) < 0.000001 ) )
-      {
-        y = theData[low].GetY();
-      }
-      else
-      {
-        y = theInt.Interpolate(theManager.GetScheme(high), e, 
-        theData[low].GetX(), theData[high].GetX(),
-        theData[low].GetY(), theData[high].GetY());
-      }
+      y = theData[low].GetY();
     }
     else
     {
-      y=theData[nEntries-1].GetY();
+      y = theInt.Interpolate(theManager.GetScheme(high), e, 
+      theData[low].GetX(), theData[high].GetX(),
+      theData[low].GetY(), theData[high].GetY());
     }
-    return y;
-  #endif
+  }
+  else
+  {
+    y=theData[nEntries-1].GetY();
+  }
+  return y;
 }
 
 void G4ParticleHPVector::Dump()
 {
-	G4cout << nEntries<<G4endl;
+	#if GEANT4_ENABLE_CUDA
+    cudaVector->CopyTheDataToCpuIfChanged();
+  #endif
+  G4cout << nEntries<<G4endl;
 	for(G4int i=0; i<nEntries; i++)
 	{
 		G4cout << theData[i].GetX()<<" ";
@@ -259,7 +269,10 @@ void G4ParticleHPVector::Dump()
 
 void G4ParticleHPVector::Check(G4int i)
 {
-	if(i>nEntries) {
+	#if GEANT4_ENABLE_CUDA
+    cudaVector->CopyTheDataToCpuIfChanged();
+  #endif
+  if(i>nEntries) {
 		throw G4HadronicException(__FILE__, __LINE__, "Skipped some index numbers in G4ParticleHPVector");
 	}
 	if(i==nPoints)
@@ -275,6 +288,9 @@ void G4ParticleHPVector::Check(G4int i)
 	if(i==nEntries) {
 		nEntries=i+1;
 	}
+  #if GEANT4_ENABLE_CUDA
+    cudaVector->SetTheDataChangedOnCpu();
+  #endif
 }
 
 void G4ParticleHPVector::
@@ -347,6 +363,11 @@ void G4ParticleHPVector::ThinOut(G4double precision)
   if(GetVectorLength()==0) {
     return;
   }
+
+  #if GEANT4_ENABLE_CUDA
+    cudaVector->CopyTheDataToCpuIfChanged();
+  #endif
+
   // make the new vector
   G4ParticleHPDataPoint * aBuff = new G4ParticleHPDataPoint[nPoints];
   G4double x, x1, x2, y, y1, y2;
@@ -392,6 +413,10 @@ void G4ParticleHPVector::ThinOut(G4double precision)
   {
     ReHash();
   }
+
+  #if GEANT4_ENABLE_CUDA
+    cudaVector->SetTheDataChangedOnCpu();
+  #endif
 }
 
 G4bool G4ParticleHPVector::IsBlocked(G4double aX)
@@ -413,6 +438,10 @@ G4bool G4ParticleHPVector::IsBlocked(G4double aX)
 
 G4double G4ParticleHPVector::Sample() // Samples X according to distribution Y
 {
+  #if GEANT4_ENABLE_CUDA
+    cudaVector->CopyTheDataToCpuIfChanged();
+  #endif
+
   G4double result;
   G4int j;
   for(j=0; j<GetVectorLength(); j++)
@@ -530,6 +559,10 @@ G4double G4ParticleHPVector::Sample() // Samples X according to distribution Y
 
 G4double G4ParticleHPVector::Get15percentBorder()
 {    
+  #if GEANT4_ENABLE_CUDA
+    cudaVector->CopyTheDataToCpuIfChanged();
+  #endif
+
   if(the15percentBorderCash>-DBL_MAX/2.) {
     return the15percentBorderCash;
   }
@@ -562,6 +595,10 @@ G4double G4ParticleHPVector::Get15percentBorder()
 
 G4double G4ParticleHPVector::Get50percentBorder()
 {    
+  #if GEANT4_ENABLE_CUDA
+    cudaVector->CopyTheDataToCpuIfChanged();
+  #endif
+
 	if(the50percentBorderCash>-DBL_MAX/2.) {
 		return the50percentBorderCash;
 	}

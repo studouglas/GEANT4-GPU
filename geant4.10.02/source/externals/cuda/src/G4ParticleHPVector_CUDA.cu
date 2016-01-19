@@ -2,107 +2,111 @@
 #include <cuda_runtime.h>
 #include "G4ParticleHPVector_CUDA.h"
 
-// CUDA kernel
-__global__
-void sumArrays(int* arr1, int* arr2, int* res, int n)
-{
+/***********************************************
+*   CUDA functions
+***********************************************/
+__global__ void cudaTimes(double factor, G4ParticleHPDataPoint* cudaTheData, double* cudaTheIntegral) {
     int tid = blockIdx.x;
-    if (tid < n) {
-        res[tid] = arr1[tid] + arr2[tid];
-    }
+    cudaTheData[tid].xSec = cudaTheData[tid].xSec*factor;
+    cudaTheIntegral[tid] = cudaTheIntegral[tid]*factor;
 }
 
-// void CUDA_sumArrays(int* arr1, int* arr2, int* res, int n) {
-//     int *gpu_arr1, *gpu_arr2, *gpu_res;
+/***********************************************
+*   Constructors, Setters
+***********************************************/
+G4ParticleHPVector_CUDA::G4ParticleHPVector_CUDA()      { }
+G4ParticleHPVector_CUDA::G4ParticleHPVector_CUDA(int n) { }
 
-//     cudaMalloc((void**)&gpu_arr1, n*sizeof(int));
-//     cudaMalloc((void**)&gpu_arr2, n*sizeof(int));
-//     cudaMalloc((void**)&gpu_res, n*sizeof(int));
-    
-//     cudaMemcpy(gpu_arr1, arr1, n*sizeof(int), cudaMemcpyHostToDevice);
-//     cudaMemcpy(gpu_arr2, arr2, n*sizeof(int), cudaMemcpyHostToDevice);
-
-//     sumArrays<<<n,1>>>(gpu_arr1, gpu_arr2, gpu_res, n);
-
-//     cudaMemcpy(res, gpu_res, n*sizeof(int), cudaMemcpyDeviceToHost);
-
-//     cudaFree(gpu_arr1);
-//     cudaFree(gpu_arr2);
-//     cudaFree(gpu_res);
-// }
+G4ParticleHPVector_CUDA::~G4ParticleHPVector_CUDA() {
+    if (cudaTheData) {
+        cudaFree(cudaTheData);
+    }
+    if (cudaTheIntegral) {
+       cudaFree(cudaTheIntegral);
+    }
+}
 
 void G4ParticleHPVector_CUDA::SetNEntries(int * nEntriesPointer) {
     nEntries = nEntriesPointer;
 }
+
 void G4ParticleHPVector_CUDA::SetNPoints(int * nPointsPointer) {
     nPoints = nPointsPointer;
 }
 
-G4ParticleHPVector_CUDA::G4ParticleHPVector_CUDA() {
-    cudaMalloc((void**)&theData, (20) * sizeof(G4ParticleHPDataPoint_CUDA));
+void G4ParticleHPVector_CUDA::SetTheData(G4ParticleHPDataPoint ** theDataPointer) {
+    theData = theDataPointer;
 }
 
-G4ParticleHPVector_CUDA::G4ParticleHPVector_CUDA(int n) {
-    int nPoints = std::max(20, n);
-    cudaMalloc((void**)&theData, (nPoints) * sizeof(G4ParticleHPDataPoint_CUDA));
+void G4ParticleHPVector_CUDA::SetTheIntegral(double ** theIntegralPointer) {
+    theIntegral = theIntegralPointer;
 }
 
+void G4ParticleHPVector_CUDA::SetTheDataChangedOnCpu() {
+    theDataChangedOnCpuBool = true;
+    theDataChangedOnGpuBool = false;
+}
+
+void G4ParticleHPVector_CUDA::SetTheDataChangedOnGpu() {
+    theDataChangedOnCpuBool = false;
+    theDataChangedOnGpuBool = true;
+}
+
+void G4ParticleHPVector_CUDA::CopyTheDataToGpuIfChanged() {
+    if (theDataChangedOnCpuBool && theDataChangedOnGpuBool) {
+        printf("BIG ERROR in CopyTheDataToGpuIfChanged: theDataChangedOnCpu and theDataChangedOnGpu are both true!\n\n");
+        return;
+    }
+
+    if (theDataChangedOnCpuBool) {
+        int theDataSize = *(nEntries) * sizeof(G4ParticleHPDataPoint);  
+        if (cudaTheDataSize != theDataSize) {
+            if (cudaTheDataSize != 0) {
+                cudaFree(cudaTheData);
+            }
+            cudaMalloc(&cudaTheData, theDataSize);
+            cudaTheDataSize = theDataSize;
+        }
+        cudaMemcpy(cudaTheData, *(theData), theDataSize, cudaMemcpyHostToDevice);
+        
+        theDataChangedOnCpuBool = false;
+        theDataChangedOnGpuBool = false;
+    }
+}
+
+void G4ParticleHPVector_CUDA::CopyTheDataToCpuIfChanged() {
+    if (theDataChangedOnCpuBool && theDataChangedOnGpuBool) {
+        printf("BIG ERROR in CopyTheDataToCpuIfChanged: theDataChangedOnCpu and theDataChangedOnGpu are both true!\n\n");
+        return;
+    }
+
+    if (theDataChangedOnGpuBool) {
+        // gpu never changes size of theData, so just copy it over
+        int theDataSize = *(nEntries) * sizeof(G4ParticleHPDataPoint);  
+        cudaMemcpy(*(theData), cudaTheData, theDataSize, cudaMemcpyDeviceToHost);
+        
+        theDataChangedOnCpuBool = false;
+        theDataChangedOnGpuBool = false;
+    }
+}
+
+/***********************************************
+*   Ported Functions
+***********************************************/
 void G4ParticleHPVector_CUDA::Times(double factor) {
+    CopyTheDataToGpuIfChanged();
 
+    int theIntegralSize = *(nEntries) * sizeof(double);
+    cudaMalloc(&cudaTheIntegral, theIntegralSize);    
+    cudaMemcpy(cudaTheIntegral, *(theIntegral), theIntegralSize, cudaMemcpyHostToDevice);
+    
+    cudaTimes<<<*(nEntries),1>>>(factor, cudaTheData, cudaTheIntegral);
+    SetTheDataChangedOnGpu();
+
+    cudaMemcpy(*(theIntegral), cudaTheIntegral, theIntegralSize, cudaMemcpyDeviceToHost);
 }
 
 double G4ParticleHPVector_CUDA::GetXsec(double e) {
-    // if (nEntries == 0) {
-        return 0;
-    // }
-    
-    // TODO: FIGURE OUT THIS FUNCTION
-    //int min = theHash.GetMinIndex(e);
-
-    // int i;
-    // for (i = min; i < nEntries; i++)
-    // {
-    //     if (theData[i].x >= e) {
-    //         break;
-    //     }
-    // }
-    
-    // int low = i - 1;
-    // int high = i;
-    // if (i == 0)
-    // {
-    //     low = 0;
-    //     high = 1;
-    // }
-    // else if (i == nEntries)
-    // {
-    //     low = nEntries-2;
-    //     high = nEntries-1;
-    // }
-    
-    // double y;
-    // if (e < theData[nEntries-1].x) 
-    // {
-    //     if (theData[high].x !=0 
-    //         && (std::abs((theData[high].x - theData[low].x) / theData[high].x) < 0.000001))
-    //     {
-    //         y = theData[low].y;
-    //     }
-    //     else
-    //     {
-    //         // TODO: FIGURE OUT WHAT TO DO HERE
-    //         //y = theInt.Interpolate(theManager.GetScheme(high), e, theData[low].x, theData[high].x, theData[low].y, theData[high].y;
-    //         return -1;
-    //     }
-    // }
-    // else
-    // {
-    //     y = theData[nEntries-1].y;
-    // }
-    // return y;
+    printf("\nGetXsec");
+    return -1;
 }
-
-
-
-
-

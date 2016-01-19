@@ -1,3 +1,4 @@
+//
 // ********************************************************************
 // * License and Disclaimer                                           *
 // *                                                                  *
@@ -21,69 +22,50 @@
 // * use  in  resulting  scientific  publications,  and indicate your *
 // * acceptance of all terms of the Geant4 Software license.          *
 // ********************************************************************
+//
+//
+//
+// P. Arce, June-2014 Conversion neutron_hp to particle_hp
+//
+#ifndef G4ParticleHPDataPoint_h
+#define G4ParticleHPDataPoint_h 1
 
+//#include "globals.hh"
 
-
-#ifndef G4ParticleHPDataPoint_CUDA_h
-#define G4ParticleHPDataPoint_CUDA_h 1
-
-#include <cuda.h>
-#include <cuda_runtime.h>
-
-class G4ParticleHPDataPoint_CUDA
+class G4ParticleHPDataPoint
 {
-  public:  
-  G4ParticleHPDataPoint_CUDA() {
-    energy = 0; 
-    xSec = 0;
-  }
-  G4ParticleHPDataPoint_CUDA(double e, double x){ 
-    energy = e; 
-    xSec = x;
-  }
+  public:
   
-  __host__ __device__ void operator= (const G4ParticleHPDataPoint_CUDA & aSet) {
-    if(&aSet!=this) {
+  G4ParticleHPDataPoint() {energy = 0; xSec = 0;}
+  G4ParticleHPDataPoint(double e, double x){ energy = e; xSec = x;}
+  
+  void operator= (const G4ParticleHPDataPoint & aSet)
+  {
+    if(&aSet!=this)
+    {
       energy = aSet.GetEnergy();
       xSec   = aSet.GetXsection();
     }
   }
 
-  __host__ __device__ ~G4ParticleHPDataPoint_CUDA() { }
+//  ~G4ParticleHPDataPoint(){}
   
-  __host__ __device__ double GetEnergy() const {
-    return energy;
-  }
-  __host__ __device__ double GetXsection() const { 
-    return xSec;
-  }
+  inline double GetEnergy() const   {return energy;}
+  inline double GetXsection() const {return xSec;}
   
-  __host__ __device__ void SetEnergy(double e) { 
-    energy = e;
-  }
-  __host__ __device__ void SetXsection(double x) {
-    xSec = x;
-  }
+  inline void SetEnergy(double e)  {energy = e;}
+  inline void SetXsection(double x){xSec = x;}
   
-  __host__ __device__ double GetX() const { 
-    return energy;
-  }
-  __host__ __device__ double GetY() const {
-    return xSec;
-  }
+  inline double GetX() const {return energy;}
+  inline double GetY() const {return xSec;}
   
-  __host__ __device__ void SetX(double e) {
-    energy = e;
-  }
-  __host__ __device__ void SetY(double x) {
-    xSec = x;
-  }
+  inline void SetX(double e)  {energy = e;}
+  inline void SetY(double x)  {xSec = x;}
   
-  __host__ __device__ void SetData(double e, double x) {
-    energy = e; xSec = x;
-  }
+  inline void SetData(double e, double x) {energy = e; xSec = x;}
   
-  private:
+  public:
+  
   double energy;
   double xSec;
 };

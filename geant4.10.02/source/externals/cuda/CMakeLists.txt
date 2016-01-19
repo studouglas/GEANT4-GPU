@@ -11,11 +11,11 @@ add_definitions(-DGEANT4_ENABLE_CUDA=1)
 
 set(G4cuda_HEADERS
 	include/G4ParticleHPVector_CUDA.h
+	include/G4ParticleHPDataPoint.hh
 )
 
 set(G4cuda_SOURCES
 	src/G4ParticleHPVector_CUDA.cu
-	src/G4ParticleHPDataPoint_CUDA.cu
 )
 
 include(Geant4MacroLibraryTargets)
@@ -28,4 +28,5 @@ set_property(GLOBAL APPEND PROPERTY GEANT4_BUILDTREE_INCLUDE_DIRS
 install(DIRECTORY include/
 	DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/${PROJECT_NAME}
 	COMPONENT Development
-	PATTERN "*.h")
+	PATTERN "*.h"
+	PATTERN "*.hh")

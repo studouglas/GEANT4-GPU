@@ -4,35 +4,52 @@
 #include <stdio.h>
 #include <algorithm> // for std::max
 #include <cfloat>
-#include "G4ParticleHPDataPoint_CUDA.cu"
+#include "G4ParticleHPDataPoint.hh"
 
-class G4ParticleHPVector_CUDA 
-{
+class G4ParticleHPVector_CUDA {
+    
+    /******************************************
+  	 * PUBLIC
+  	 ******************************************/
     public:
     G4ParticleHPVector_CUDA();
     G4ParticleHPVector_CUDA(int);
+    ~G4ParticleHPVector_CUDA();
     void SetNEntries(int*);
     void SetNPoints(int*);
+    void SetTheData(G4ParticleHPDataPoint**);
+	void SetTheIntegral(double**);
+	
+	void SetTheDataChangedOnCpu();
+
+	void CopyTheDataToGpuIfChanged();
+	void CopyTheDataToCpuIfChanged();
+	
 	void Times(double);
     double GetXsec(double);
+    // double Get15PercentBorder();
+    // double Get50PercentBorder();
+    // void IntegrateAndNormalize();
+    // double GetMeanX();
 
-    private:
-	// typedef struct G4ParticleHPDataPoint_CUDA {
-	// 	double x;
-	// 	double y;
-	// } G4ParticleHPDataPoint_CUDA;
 	
-    G4ParticleHPDataPoint_CUDA * theData;
+	/******************************************
+  	 * PRIVATE                                 
+  	 ******************************************/
+    private:
+	void SetTheDataChangedOnGpu();
 
+	G4ParticleHPDataPoint ** theData;
+	double ** theIntegral;
 	int * nEntries;
 	int * nPoints;
-	// int * isFreed;
-	// double * label;
-	// double * theIntegral;
-	// double ** totalIntegral;
-	// double * maxValue;
-	// double * the15PercentBorderCash;
-	// double * the50PercentBorderCash;
+	
+	G4ParticleHPDataPoint* cudaTheData;
+    double* cudaTheIntegral;
+    int cudaTheDataSize;
+    
+    bool theDataChangedOnCpuBool;
+    bool theDataChangedOnGpuBool;
 };
 
 #endif
