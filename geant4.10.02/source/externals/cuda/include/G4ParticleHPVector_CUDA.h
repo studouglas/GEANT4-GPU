@@ -26,7 +26,7 @@ class G4ParticleHPVector_CUDA {
 	void CopyTheDataToCpuIfChanged();
 	
 	void Times(double);
-    double GetXsec(double);
+    int GetXsecIndex(double);
     // double Get15PercentBorder();
     // double Get50PercentBorder();
     // void IntegrateAndNormalize();

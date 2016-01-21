@@ -137,7 +137,9 @@ class G4ParticleHPVector
     G4int i;
     for(i=min ; i<nEntries; i++)
     {
-      if(theData[i].GetX()>e) break;
+      if(theData[i].GetX()>e) {
+        break;
+      }
     }
     G4int low = i-1;
     G4int high = i;
