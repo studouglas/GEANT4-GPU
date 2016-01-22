@@ -31,6 +31,8 @@
 
 #include "globals.hh"
 #include <vector>
+#include <chrono>
+#include <stdio.h>
 
 class G4ParticleHPHash
 {
@@ -108,30 +110,48 @@ public:
     
   G4int GetMinIndex(G4double e) const
   {
-    G4int result=-1;
-    if(theData.size() == 0) return 0;
-    if(theData[0].GetX()>e) return 0;
+    // NOTE: added the if check at the begining if last elements x is <= 
+    // e, should speed things up a bit in that case
+    G4int result = -1;
+    if (theData.size() == 0) {
+      return 0;
+    }
+    if (theData[0].GetX()>e) {
+       return 0;
+    }
+    if (theData[theData.size()-1].GetX() <= e) {
+       // printf("\nreturning early for -1 (e = %f, n = %d)", e, theData.size());
+       return theIndex[theIndex.size()-1];
+    }
     
-    G4int lower=0;
-    if(theUpper != 0)
-    {
+    G4int lower = 0;
+    if (theUpper != 0) {
       lower = theUpper->GetMinIndex(e);
     }
+    
+    // printf("\nthe lower is: %d (e = %f, n = %d)",lower, e, theData.size());
+    // std::chrono::high_resolution_clock::time_point t1 = std::chrono::high_resolution_clock::now();
+    
     unsigned int i;
-    for(i=lower; i<theData.size(); i++)
-    {
-      if(theData[i].GetX()>e)
-      {
+    for(i = lower; i < theData.size(); i++) {
+      if (theData[i].GetX() > e) {
         result = theIndex[i-1];
-	break;
+      	break;
       }
     }
-    if(result == -1) result = theIndex[theIndex.size()-1];
+
+    // std::chrono::high_resolution_clock::time_point t2 = std::chrono::high_resolution_clock::now();
+    // float timeToCompute = std::chrono::duration_cast<std::chrono::nanoseconds>(t2-t1).count();
+    // printf("\nGetMinIndex() time to find index %d (%f) = %.2fus", result, ((float)result / (float)theData.size()), timeToCompute);
+    
+    if (result == -1) {
+      // printf("\nresult is -1, the last element's energy is: %f and e is: %f, n = %d", theData[theData.size()-1].GetX(), e, theData.size());
+      result = theIndex[theIndex.size()-1];
+    }
     return result;
   }
   
 private:
-
   G4bool prepared;
   G4ParticleHPHash * theUpper;
   std::vector<int> theIndex;

@@ -1,0 +1,680 @@
+Level,Function Name,Number of Calls,Elapsed Inclusive Time %,Elapsed Exclusive Time %,Avg Elapsed Inclusive Time,Avg Elapsed Exclusive Time,Module Name
+0,Hadr04.exe,0,100,0,0,0,
+1,mainCRTStartup,1,100,0.04,367613.27,152.3,Hadr04.exe
+2,__tmainCRTStartup,1,99.96,0,367460.96,0.13,Hadr04.exe
+2,__security_init_cookie,1,0,0,0,0,Hadr04.exe
+3,main,1,99.96,99.71,367460.7,366551.48,Hadr04.exe
+3,exit,1,0,0,0.05,0.05,MSVCR120.dll
+3,__CxxSetUnhandledExceptionFilter,1,0,0,0.01,0.01,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'T_HAT4'',1,0,0,0.01,0,Hadr04.exe
+3,pre_cpp_init,1,0,0,0.01,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'meter3'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'T_HAT4'',1,0,0,0,0,Hadr04.exe
+3,pre_c_init,1,0,0,0,0,Hadr04.exe
+3,`dynamic initializer for 'IncidentEnergyBins'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'X_HAT4'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'X_HAT4'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'X_HAT4'',1,0,0,0,0,Hadr04.exe
+3,std::`dynamic initializer for '_Fac_tidy_reg'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'X_HAT4'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'Z_HAT4'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'X_HAT4'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'Y_HAT4'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'T_HAT4'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'X_HAT4'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'Z_HAT4'',1,0,0,0,0,Hadr04.exe
+3,`dynamic initializer for 'std::_Error_objects<int>::_Generic_object'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'T_HAT4'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'X_HAT4'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'Z_HAT4'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'X_HAT4'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'Y_HAT4'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'X_HAT4'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'X_HAT4'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'Z_HAT4'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'Y_HAT4'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'Z_HAT4'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'T_HAT4'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'T_HAT4'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'T_HAT4'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'Y_HAT4'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'T_HAT4'',1,0,0,0,0,Hadr04.exe
+3,G4FFGDefaultValues::`dynamic initializer for 'SourceCenter'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'Y_HAT4'',1,0,0,0,0,Hadr04.exe
+3,`dynamic initializer for 'std::_Error_objects<int>::_Iostream_object'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'Y_HAT4'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'Y_HAT4'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'Z_HAT4'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'Y_HAT4'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'T_HAT4'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'Z_HAT4'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'Y_HAT4'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'Y_HAT4'',1,0,0,0,0,Hadr04.exe
+3,`dynamic initializer for 'std::_Error_objects<int>::_System_object'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'Z_HAT4'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'Z_HAT4'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'Z_HAT4'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'T_HAT4'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'HepRandomGenActive'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'centimeter3'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'centimeter3'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'meter3'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'meter3'',1,0,0,0,0,Hadr04.exe
+3,__atonexitinit,1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'meter3'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'meter3'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'centimeter3'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'meter3'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'meter3'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'meter3'',1,0,0,0,0,Hadr04.exe
+3,__SEH_prolog4,1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'HepRandomGenActive'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'HepRandomGenActive'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'HepRandomGenActive'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'kilogram'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'HepRandomGenActive'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'HepRandomGenActive'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'HepRandomGenActive'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'HepRandomGenActive'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'HepRandomGenActive'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'kilogram'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'kilogram'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'HepRandomGenActive'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'centimeter3'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'epsilon0'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'HepRandomGenActive'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'twopi_mc2_rcl2'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'twopi_mc2_rcl2'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'epsilon0'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'epsilon0'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'epsilon0'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'centimeter3'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'kilogram'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'epsilon0'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'meter3'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'elm_coupling'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'elm_coupling'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'elm_coupling'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'kilogram'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'elm_coupling'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'kilogram'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'kilometer3'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'epsilon0'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'kilogram'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'centimeter3'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'elm_coupling'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'elm_coupling'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'kilogram'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'elm_coupling'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'meter3'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'twopi_mc2_rcl2'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'twopi_mc2_rcl2'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'epsilon0'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'centimeter3'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'kilogram'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'epsilon0'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'kilometer3'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'kilometer3'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'elm_coupling'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'elm_coupling'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'kilometer3'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'elm_coupling'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'kilometer3'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'kilometer3'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'twopi_mc2_rcl2'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'elm_coupling'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'epsilon0'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'kilogram'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'elm_coupling'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'kilogram'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'kilogram'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'centimeter3'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'meter3'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'elm_coupling'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'epsilon0'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'kilogram'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'kilometer3'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'twopi_mc2_rcl2'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'epsilon0'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'twopi_mc2_rcl2'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'twopi_mc2_rcl2'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'epsilon0'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'twopi_mc2_rcl2'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'meter3'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'kilometer3'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'kilometer3'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'centimeter3'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'kilometer3'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'meter3'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'twopi_mc2_rcl2'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'centimeter3'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'kilometer3'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'centimeter3'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'centimeter3'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'kilometer3'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'twopi_mc2_rcl2'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'centimeter3'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'epsilon0'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'twopi_mc2_rcl2'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'kilometer3'',1,0,0,0,0,Hadr04.exe
+3,CLHEP::`dynamic initializer for 'twopi_mc2_rcl2'',1,0,0,0,0,Hadr04.exe
+4,SteppingAction::UserSteppingAction,425181,0.08,0.01,0,0,Hadr04.exe
+4,NeutronHPphysics::ConstructProcess,1,0.08,0.08,278.16,278.15,Hadr04.exe
+4,RunAction::EndOfRunAction,1,0.05,0.04,174.59,141.02,Hadr04.exe
+4,DetectorConstruction::ConstructVolumes,1,0.01,0,52.83,0.06,Hadr04.exe
+4,RunAction::BeginOfRunAction,1,0.01,0.01,45.61,45.61,Hadr04.exe
+4,[G4run.dll],1,0.01,0.01,38.72,37.4,G4run.dll
+4,StackingAction::ClassifyNewTrack,57310,0,0,0,0,Hadr04.exe
+4,TrackingAction::PostUserTrackingAction,2000,0,0,0,0,Hadr04.exe
+4,G4VisExecutive::`scalar deleting destructor',1,0,0,3.15,3.15,Hadr04.exe
+4,PrimaryGeneratorAction::GeneratePrimaries,2000,0,0,0,0,Hadr04.exe
+4,?SetUserInitialization@G4RunManager@@UAEXPAVG4VUserPhysicsList@@@Z,1,0,0,2.64,0.03,G4run.dll
+4,DetectorMessenger::SetNewValue,2,0,0,0.62,0.01,Hadr04.exe
+4,?SetUserInitialization@G4RunManager@@UAEXPAVG4VUserActionInitialization@@@Z,1,0,0,0.94,0,G4run.dll
+4,DetectorConstruction::DetectorConstruction,1,0,0,0.66,0.01,Hadr04.exe
+4,G4VisExecutive::RegisterGraphicsSystems,1,0,0,0.33,0.33,Hadr04.exe
+4,PhysicsList::PhysicsList,1,0,0,0.16,0.14,Hadr04.exe
+4,G4VisExecutive::RegisterModelFactories,1,0,0,0.07,0.07,Hadr04.exe
+4,TrackingAction::PreUserTrackingAction,2000,0,0,0,0,Hadr04.exe
+4,PhysicsList::SetCuts,1,0,0,0.02,0.02,Hadr04.exe
+4,RunAction::GenerateRun,1,0,0,0.01,0.01,Hadr04.exe
+4,SteppingVerbose::SteppingVerbose,1,0,0,0,0,Hadr04.exe
+4,?SetNumberOfEventToBeProcessed@G4Run@@QAEXH@Z,1,0,0,0,0,G4run.dll
+4,NeutronHPMessenger::SetNewValue,1,0,0,0,0,Hadr04.exe
+4,G4String::G4String,2,0,0,0,0,Hadr04.exe
+4,ActionInitialization::ActionInitialization,1,0,0,0,0,Hadr04.exe
+4,std::_Fac_tidy_reg_t::~_Fac_tidy_reg_t,1,0,0,0,0,Hadr04.exe
+4,_RTC_Terminate,1,0,0,0,0,Hadr04.exe
+4,atexit,1,0,0,0.01,0,Hadr04.exe
+4,__getmainargs,1,0,0,0.01,0.01,MSVCR120.dll
+4,atexit,1,0,0,0,0,Hadr04.exe
+4,atexit,1,0,0,0,0,Hadr04.exe
+4,RtlEncodePointer,1,0,0,0,0,ntdll.dll
+4,_setdefaultprecision,1,0,0,0,0,Hadr04.exe
+4,__set_app_type,1,0,0,0,0,MSVCR120.dll
+4,_RTC_Initialize,1,0,0,0,0,Hadr04.exe
+4,atexit,1,0,0,0,0,Hadr04.exe
+4,atexit,1,0,0,0,0,Hadr04.exe
+4,atexit,1,0,0,0,0,Hadr04.exe
+4,atexit,1,0,0,0,0,Hadr04.exe
+4,atexit,1,0,0,0,0,Hadr04.exe
+4,atexit,1,0,0,0,0,Hadr04.exe
+4,atexit,1,0,0,0,0,Hadr04.exe
+4,atexit,1,0,0,0,0,Hadr04.exe
+4,atexit,1,0,0,0,0,Hadr04.exe
+4,atexit,1,0,0,0,0,Hadr04.exe
+4,atexit,1,0,0,0,0,Hadr04.exe
+4,atexit,1,0,0,0,0,Hadr04.exe
+4,atexit,1,0,0,0,0,Hadr04.exe
+4,atexit,1,0,0,0,0,Hadr04.exe
+4,atexit,1,0,0,0,0,Hadr04.exe
+4,atexit,1,0,0,0,0,Hadr04.exe
+4,atexit,1,0,0,0,0,Hadr04.exe
+4,atexit,1,0,0,0,0,Hadr04.exe
+4,atexit,1,0,0,0,0,Hadr04.exe
+4,atexit,1,0,0,0,0,Hadr04.exe
+4,atexit,1,0,0,0,0,Hadr04.exe
+4,atexit,1,0,0,0,0,Hadr04.exe
+4,atexit,1,0,0,0,0,Hadr04.exe
+4,atexit,1,0,0,0,0,Hadr04.exe
+4,atexit,1,0,0,0,0,Hadr04.exe
+4,atexit,1,0,0,0,0,Hadr04.exe
+4,atexit,1,0,0,0,0,Hadr04.exe
+4,atexit,1,0,0,0,0,Hadr04.exe
+4,atexit,1,0,0,0,0,Hadr04.exe
+4,atexit,1,0,0,0,0,Hadr04.exe
+4,atexit,1,0,0,0,0,Hadr04.exe
+4,atexit,1,0,0,0,0,Hadr04.exe
+4,atexit,1,0,0,0,0,Hadr04.exe
+4,atexit,1,0,0,0,0,Hadr04.exe
+4,atexit,1,0,0,0,0,Hadr04.exe
+4,atexit,1,0,0,0,0,Hadr04.exe
+4,atexit,1,0,0,0,0,Hadr04.exe
+4,atexit,1,0,0,0,0,Hadr04.exe
+4,atexit,1,0,0,0,0,Hadr04.exe
+4,atexit,1,0,0,0,0,Hadr04.exe
+4,atexit,1,0,0,0,0,Hadr04.exe
+4,atexit,1,0,0,0,0,Hadr04.exe
+4,atexit,1,0,0,0,0,Hadr04.exe
+5,?FillH1@G4H1ToolsManager@@MAE_NHNN@Z,425181,0.03,0.03,0,0,G4analysis.dll
+5,Run::CountProcesses,425181,0.03,0.01,0,0,Hadr04.exe
+5,TrackingAction::UpdateTrackInfo,425181,0,0,0,0,Hadr04.exe
+5,"std::vector<G4VCrossSectionDataSet *,std::allocator<G4VCrossSectionDataSet *> >::push_back",5,0,0,0,0,Hadr04.exe
+5,"std::basic_string<char,std::char_traits<char>,std::allocator<char> >::assign",8,0,0,0,0,Hadr04.exe
+5,Run::EndOfRun,1,0.01,0,33.57,0.12,Hadr04.exe
+5,DetectorConstruction::PrintParameters,1,0.01,0,52.77,0.06,Hadr04.exe
+5,"std::basic_string<char,std::char_traits<char>,std::allocator<char> >::assign",1,0,0,0,0,Hadr04.exe
+5,Run::SetPrimary,1,0,0,0,0,Hadr04.exe
+5,"std::basic_string<char,std::char_traits<char>,std::allocator<char> >::assign",1,0,0,0,0,Hadr04.exe
+5,PhysicsList::`scalar deleting destructor',1,0,0,1.02,1.01,Hadr04.exe
+5,RunAction::`scalar deleting destructor',1,0,0,0.25,0,Hadr04.exe
+5,PrimaryGeneratorAction::`scalar deleting destructor',1,0,0,0.03,0,Hadr04.exe
+5,DetectorConstruction::`scalar deleting destructor',1,0,0,0.01,0,Hadr04.exe
+5,Run::`scalar deleting destructor',1,0,0,0,0,Hadr04.exe
+5,ActionInitialization::`scalar deleting destructor',1,0,0,0,0,Hadr04.exe
+5,StackingAction::`scalar deleting destructor',1,0,0,0,0,Hadr04.exe
+5,TrackingAction::`scalar deleting destructor',1,0,0,0,0,Hadr04.exe
+5,SteppingAction::`scalar deleting destructor',1,0,0,0,0,Hadr04.exe
+5,Run::ParticleCount,55310,0,0,0,0,Hadr04.exe
+5,"std::basic_string<char,std::char_traits<char>,std::allocator<char> >::assign",110620,0,0,0,0,Hadr04.exe
+5,?FillH1@G4H1ToolsManager@@MAE_NHNN@Z,12000,0,0,0,0,G4analysis.dll
+5,Run::SumTrackLength,2000,0,0,0,0,Hadr04.exe
+5,?GeneratePrimaryVertex@G4ParticleGun@@UAEXPAVG4Event@@@Z,2000,0,0,0,0,G4event.dll
+5,?flat@RanecuEngine@CLHEP@@UAENXZ,4000,0,0,0,0,G4clhep.dll
+5,CLHEP::Hep3Vector::unit,2000,0,0,0,0,Hadr04.exe
+5,PhysicsList::ConstructParticle,1,0,0,2.62,2.62,Hadr04.exe
+5,DetectorConstruction::SetSize,1,0,0,1.23,1.23,Hadr04.exe
+5,DetectorConstruction::SetMaterial,1,0,0,0,0,Hadr04.exe
+5,"std::basic_string<char,std::char_traits<char>,std::allocator<char> >::assign",1,0,0,0,0,Hadr04.exe
+5,ActionInitialization::Build,1,0,0,0.94,0.01,Hadr04.exe
+5,DetectorConstruction::DefineMaterials,1,0,0,0.62,0.62,Hadr04.exe
+5,DetectorMessenger::DetectorMessenger,1,0,0,0.03,0.02,Hadr04.exe
+5,DetectorConstruction::SetMaterial,1,0,0,0,0,Hadr04.exe
+5,"std::basic_string<char,std::char_traits<char>,std::allocator<char> >::assign",1,0,0,0,0,Hadr04.exe
+5,NeutronHPphysics::NeutronHPphysics,1,0,0,0.01,0.01,Hadr04.exe
+5,"std::basic_string<char,std::char_traits<char>,std::allocator<char> >::assign",10,0,0,0,0,Hadr04.exe
+5,"std::basic_string<char,std::char_traits<char>,std::allocator<char> >::assign",1,0,0,0,0,Hadr04.exe
+5,Run::Run,1,0,0,0.01,0.01,Hadr04.exe
+5,"std::basic_string<char,std::char_traits<char>,std::allocator<char> >::assign",2,0,0,0,0,Hadr04.exe
+5,_onexit,1,0,0,0.01,0,Hadr04.exe
+5,_onexit,1,0,0,0,0,Hadr04.exe
+5,_onexit,1,0,0,0,0,Hadr04.exe
+5,_onexit,1,0,0,0,0,Hadr04.exe
+5,_onexit,1,0,0,0,0,Hadr04.exe
+5,_onexit,1,0,0,0,0,Hadr04.exe
+5,_onexit,1,0,0,0,0,Hadr04.exe
+5,_onexit,1,0,0,0,0,Hadr04.exe
+5,_onexit,1,0,0,0,0,Hadr04.exe
+5,_onexit,1,0,0,0,0,Hadr04.exe
+5,_onexit,1,0,0,0,0,Hadr04.exe
+5,_onexit,1,0,0,0,0,Hadr04.exe
+5,_onexit,1,0,0,0,0,Hadr04.exe
+5,_onexit,1,0,0,0,0,Hadr04.exe
+5,_onexit,1,0,0,0,0,Hadr04.exe
+5,_onexit,1,0,0,0,0,Hadr04.exe
+5,_onexit,1,0,0,0,0,Hadr04.exe
+5,_onexit,1,0,0,0,0,Hadr04.exe
+5,_onexit,1,0,0,0,0,Hadr04.exe
+5,_onexit,1,0,0,0,0,Hadr04.exe
+5,_onexit,1,0,0,0,0,Hadr04.exe
+5,_onexit,1,0,0,0,0,Hadr04.exe
+5,_onexit,1,0,0,0,0,Hadr04.exe
+5,_onexit,1,0,0,0,0,Hadr04.exe
+5,_onexit,1,0,0,0,0,Hadr04.exe
+5,_onexit,1,0,0,0,0,Hadr04.exe
+5,_onexit,1,0,0,0,0,Hadr04.exe
+5,_onexit,1,0,0,0,0,Hadr04.exe
+5,_onexit,1,0,0,0,0,Hadr04.exe
+5,_onexit,1,0,0,0,0,Hadr04.exe
+5,_onexit,1,0,0,0,0,Hadr04.exe
+5,_onexit,1,0,0,0,0,Hadr04.exe
+5,_onexit,1,0,0,0,0,Hadr04.exe
+5,_onexit,1,0,0,0,0,Hadr04.exe
+5,_onexit,1,0,0,0,0,Hadr04.exe
+5,_onexit,1,0,0,0,0,Hadr04.exe
+5,_onexit,1,0,0,0,0,Hadr04.exe
+5,_onexit,1,0,0,0,0,Hadr04.exe
+5,_onexit,1,0,0,0,0,Hadr04.exe
+5,_onexit,1,0,0,0,0,Hadr04.exe
+5,_onexit,1,0,0,0,0,Hadr04.exe
+5,_onexit,1,0,0,0,0,Hadr04.exe
+5,_onexit,1,0,0,0,0,Hadr04.exe
+5,_onexit,1,0,0,0,0,Hadr04.exe
+5,_onexit,1,0,0,0,0,Hadr04.exe
+5,_onexit,1,0,0,0,0,Hadr04.exe
+6,"std::map<G4String,int,std::less<G4String>,std::allocator<std::pair<G4String const ,int> > >::operator[]",425181,0.01,0,0,0,Hadr04.exe
+6,"std::basic_string<char,std::char_traits<char>,std::allocator<char> >::assign",425181,0,0,0,0,Hadr04.exe
+6,"std::_Tree<std::_Tmap_traits<G4String,int,std::less<G4String>,std::allocator<std::pair<G4String const ,int> >,0> >::_Lbound",425181,0,0,0,0,Hadr04.exe
+6,std::char_traits<char>::compare,425178,0,0,0,0,Hadr04.exe
+6,"std::vector<G4VCrossSectionDataSet *,std::allocator<G4VCrossSectionDataSet *> >::_Reserve",5,0,0,0,0,Hadr04.exe
+6,"std::basic_string<char,std::char_traits<char>,std::allocator<char> >::_Copy",2,0,0,0,0,Hadr04.exe
+6,??5?$basic_istream@DU?$char_traits@D@std@@@std@@QAEAAV01@P6AAAV01@AAV01@@Z@Z,13,0.01,0,2.56,0,MSVCP120.dll
+6,??6?$basic_ostream@DU?$char_traits@D@std@@@std@@QAEAAV01@H@Z,12,0,0,0.01,0.01,MSVCP120.dll
+6,std::operator<<<std::char_traits<char> >,73,0,0,0,0,Hadr04.exe
+6,??6?$basic_ostream@DU?$char_traits@D@std@@@std@@QAEAAV01@N@Z,3,0,0,0,0,MSVCP120.dll
+6,"std::operator<<<char,std::char_traits<char>,std::allocator<char> >",13,0,0,0,0,Hadr04.exe
+6,"std::basic_string<char,std::char_traits<char>,std::allocator<char> >::assign",12,0,0,0,0,Hadr04.exe
+6,"std::basic_string<char,std::char_traits<char>,std::allocator<char> >::assign",33,0,0,0,0,Hadr04.exe
+6,"std::_Tree<std::_Tmap_traits<G4String,int,std::less<G4String>,std::allocator<std::pair<G4String const ,int> >,0> >::_Erase",1,0,0,0,0,Hadr04.exe
+6,"std::_Tree<std::_Tmap_traits<G4String,Run::ParticleData,std::less<G4String>,std::allocator<std::pair<G4String const ,Run::ParticleData> >,0> >::_Erase",1,0,0,0,0,Hadr04.exe
+6,?setw@std@@YA?AU?$_Smanip@_J@1@_J@Z,24,0,0,0,0,MSVCP120.dll
+6,[MSVCP120.dll],24,0,0,0,0,MSVCP120.dll
+6,std::char_traits<char>::compare,3,0,0,0,0,Hadr04.exe
+6,?precision@ios_base@std@@QAE_J_J@Z,1,0,0,0,0,MSVCP120.dll
+6,??5?$basic_istream@DU?$char_traits@D@std@@@std@@QAEAAV01@P6AAAV01@AAV01@@Z@Z,1,0.01,0,52.71,0,MSVCP120.dll
+6,std::operator<<<std::char_traits<char> >,3,0,0,0,0,Hadr04.exe
+6,"std::operator<<<char,std::char_traits<char>,std::allocator<char> >",1,0,0,0,0,Hadr04.exe
+6,"std::basic_string<char,std::char_traits<char>,std::allocator<char> >::assign",1,0,0,0,0,Hadr04.exe
+6,PhysicsList::~PhysicsList,1,0,0,0.01,0,Hadr04.exe
+6,RunAction::~RunAction,1,0,0,0.25,0,Hadr04.exe
+6,PrimaryGeneratorAction::~PrimaryGeneratorAction,1,0,0,0.03,0,Hadr04.exe
+6,DetectorConstruction::~DetectorConstruction,1,0,0,0.01,0,Hadr04.exe
+6,Run::~Run,1,0,0,0,0,Hadr04.exe
+6,"std::_Tree<std::_Tmap_traits<G4String,Run::ParticleData,std::less<G4String>,std::allocator<std::pair<G4String const ,Run::ParticleData> >,0> >::_Lbound",55310,0,0,0,0,Hadr04.exe
+6,std::char_traits<char>::compare,55309,0,0,0,0,Hadr04.exe
+6,"std::map<G4String,Run::ParticleData,std::less<G4String>,std::allocator<std::pair<G4String const ,Run::ParticleData> > >::operator[]",8,0,0,0,0,Hadr04.exe
+6,RunAction::RunAction,1,0,0,0.79,0,Hadr04.exe
+6,PrimaryGeneratorAction::PrimaryGeneratorAction,1,0,0,0.13,0.13,Hadr04.exe
+6,TrackingAction::TrackingAction,1,0,0,0,0,Hadr04.exe
+6,StackingAction::StackingAction,1,0,0,0,0,Hadr04.exe
+6,SteppingAction::SteppingAction,1,0,0,0,0,Hadr04.exe
+6,"std::basic_string<char,std::char_traits<char>,std::allocator<char> >::assign",9,0,0,0,0,Hadr04.exe
+6,G4UIcommand::SetGuidance,6,0,0,0,0,Hadr04.exe
+6,"std::vector<yystype,std::allocator<yystype> >::resize",5,0,0,0,0,Hadr04.exe
+6,"std::vector<G4UIparameter *,std::allocator<G4UIparameter *> >::push_back",5,0,0,0,0,Hadr04.exe
+6,"std::basic_string<char,std::char_traits<char>,std::allocator<char> >::assign",10,0,0,0,0,Hadr04.exe
+6,NeutronHPMessenger::NeutronHPMessenger,1,0,0,0.01,0.01,Hadr04.exe
+6,"std::basic_string<char,std::char_traits<char>,std::allocator<char> >::_Copy",1,0,0,0,0,Hadr04.exe
+6,"std::_Tree_alloc<0,std::_Tree_base_types<std::pair<G4String const ,int>,std::allocator<std::pair<G4String const ,int> > > >::_Buyheadnode",1,0,0,0,0,Hadr04.exe
+6,"std::_Tree_alloc<0,std::_Tree_base_types<std::pair<G4String const ,Run::ParticleData>,std::allocator<std::pair<G4String const ,Run::ParticleData> > > >::_Buyheadnode",1,0,0,0,0,Hadr04.exe
+6,_onexit,1,0,0,0.01,0.01,MSVCR120.dll
+6,RtlDecodePointer,1,0,0,0,0,ntdll.dll
+6,__SEH_prolog4,1,0,0,0,0,Hadr04.exe
+6,__SEH_epilog4,1,0,0,0,0,Hadr04.exe
+6,_onexit,1,0,0,0,0,MSVCR120.dll
+6,RtlDecodePointer,1,0,0,0,0,ntdll.dll
+6,__SEH_prolog4,1,0,0,0,0,Hadr04.exe
+6,__SEH_epilog4,1,0,0,0,0,Hadr04.exe
+6,_onexit,1,0,0,0,0,MSVCR120.dll
+6,RtlDecodePointer,1,0,0,0,0,ntdll.dll
+6,__SEH_prolog4,1,0,0,0,0,Hadr04.exe
+6,__SEH_epilog4,1,0,0,0,0,Hadr04.exe
+6,_onexit,1,0,0,0,0,MSVCR120.dll
+6,RtlDecodePointer,1,0,0,0,0,ntdll.dll
+6,__SEH_prolog4,1,0,0,0,0,Hadr04.exe
+6,__SEH_epilog4,1,0,0,0,0,Hadr04.exe
+6,_onexit,1,0,0,0,0,MSVCR120.dll
+6,RtlDecodePointer,1,0,0,0,0,ntdll.dll
+6,__SEH_prolog4,1,0,0,0,0,Hadr04.exe
+6,__SEH_epilog4,1,0,0,0,0,Hadr04.exe
+6,_onexit,1,0,0,0,0,MSVCR120.dll
+6,RtlDecodePointer,1,0,0,0,0,ntdll.dll
+6,__SEH_prolog4,1,0,0,0,0,Hadr04.exe
+6,__SEH_epilog4,1,0,0,0,0,Hadr04.exe
+6,_onexit,1,0,0,0,0,MSVCR120.dll
+6,RtlDecodePointer,1,0,0,0,0,ntdll.dll
+6,__SEH_epilog4,1,0,0,0,0,Hadr04.exe
+6,__SEH_prolog4,1,0,0,0,0,Hadr04.exe
+6,_onexit,1,0,0,0,0,MSVCR120.dll
+6,RtlDecodePointer,1,0,0,0,0,ntdll.dll
+6,__SEH_prolog4,1,0,0,0,0,Hadr04.exe
+6,__SEH_epilog4,1,0,0,0,0,Hadr04.exe
+6,_onexit,1,0,0,0,0,MSVCR120.dll
+6,RtlDecodePointer,1,0,0,0,0,ntdll.dll
+6,__SEH_epilog4,1,0,0,0,0,Hadr04.exe
+6,__SEH_prolog4,1,0,0,0,0,Hadr04.exe
+6,_onexit,1,0,0,0,0,MSVCR120.dll
+6,RtlDecodePointer,1,0,0,0,0,ntdll.dll
+6,__SEH_prolog4,1,0,0,0,0,Hadr04.exe
+6,__SEH_epilog4,1,0,0,0,0,Hadr04.exe
+6,_onexit,1,0,0,0,0,MSVCR120.dll
+6,RtlDecodePointer,1,0,0,0,0,ntdll.dll
+6,__SEH_prolog4,1,0,0,0,0,Hadr04.exe
+6,__SEH_epilog4,1,0,0,0,0,Hadr04.exe
+6,_onexit,1,0,0,0,0,MSVCR120.dll
+6,RtlDecodePointer,1,0,0,0,0,ntdll.dll
+6,__SEH_prolog4,1,0,0,0,0,Hadr04.exe
+6,__SEH_epilog4,1,0,0,0,0,Hadr04.exe
+6,_onexit,1,0,0,0,0,MSVCR120.dll
+6,RtlDecodePointer,1,0,0,0,0,ntdll.dll
+6,__SEH_prolog4,1,0,0,0,0,Hadr04.exe
+6,__SEH_epilog4,1,0,0,0,0,Hadr04.exe
+6,_onexit,1,0,0,0,0,MSVCR120.dll
+6,RtlDecodePointer,1,0,0,0,0,ntdll.dll
+6,__SEH_prolog4,1,0,0,0,0,Hadr04.exe
+6,__SEH_epilog4,1,0,0,0,0,Hadr04.exe
+6,_onexit,1,0,0,0,0,MSVCR120.dll
+6,RtlDecodePointer,1,0,0,0,0,ntdll.dll
+6,__SEH_prolog4,1,0,0,0,0,Hadr04.exe
+6,__SEH_epilog4,1,0,0,0,0,Hadr04.exe
+6,_onexit,1,0,0,0,0,MSVCR120.dll
+6,RtlDecodePointer,1,0,0,0,0,ntdll.dll
+6,__SEH_prolog4,1,0,0,0,0,Hadr04.exe
+6,__SEH_epilog4,1,0,0,0,0,Hadr04.exe
+6,_onexit,1,0,0,0,0,MSVCR120.dll
+6,RtlDecodePointer,1,0,0,0,0,ntdll.dll
+6,__SEH_prolog4,1,0,0,0,0,Hadr04.exe
+6,__SEH_epilog4,1,0,0,0,0,Hadr04.exe
+6,_onexit,1,0,0,0,0,MSVCR120.dll
+6,RtlDecodePointer,1,0,0,0,0,ntdll.dll
+6,__SEH_prolog4,1,0,0,0,0,Hadr04.exe
+6,__SEH_epilog4,1,0,0,0,0,Hadr04.exe
+6,_onexit,1,0,0,0,0,MSVCR120.dll
+6,RtlDecodePointer,1,0,0,0,0,ntdll.dll
+6,__SEH_prolog4,1,0,0,0,0,Hadr04.exe
+6,__SEH_epilog4,1,0,0,0,0,Hadr04.exe
+6,_onexit,1,0,0,0,0,MSVCR120.dll
+6,RtlDecodePointer,1,0,0,0,0,ntdll.dll
+6,__SEH_epilog4,1,0,0,0,0,Hadr04.exe
+6,__SEH_prolog4,1,0,0,0,0,Hadr04.exe
+6,_onexit,1,0,0,0,0,MSVCR120.dll
+6,RtlDecodePointer,1,0,0,0,0,ntdll.dll
+6,__SEH_prolog4,1,0,0,0,0,Hadr04.exe
+6,__SEH_epilog4,1,0,0,0,0,Hadr04.exe
+6,_onexit,1,0,0,0,0,MSVCR120.dll
+6,RtlDecodePointer,1,0,0,0,0,ntdll.dll
+6,__SEH_prolog4,1,0,0,0,0,Hadr04.exe
+6,__SEH_epilog4,1,0,0,0,0,Hadr04.exe
+6,_onexit,1,0,0,0,0,MSVCR120.dll
+6,RtlDecodePointer,1,0,0,0,0,ntdll.dll
+6,__SEH_prolog4,1,0,0,0,0,Hadr04.exe
+6,__SEH_epilog4,1,0,0,0,0,Hadr04.exe
+6,_onexit,1,0,0,0,0,MSVCR120.dll
+6,RtlDecodePointer,1,0,0,0,0,ntdll.dll
+6,__SEH_prolog4,1,0,0,0,0,Hadr04.exe
+6,__SEH_epilog4,1,0,0,0,0,Hadr04.exe
+6,_onexit,1,0,0,0,0,MSVCR120.dll
+6,RtlDecodePointer,1,0,0,0,0,ntdll.dll
+6,__SEH_prolog4,1,0,0,0,0,Hadr04.exe
+6,__SEH_epilog4,1,0,0,0,0,Hadr04.exe
+6,_onexit,1,0,0,0,0,MSVCR120.dll
+6,RtlDecodePointer,1,0,0,0,0,ntdll.dll
+6,__SEH_prolog4,1,0,0,0,0,Hadr04.exe
+6,__SEH_epilog4,1,0,0,0,0,Hadr04.exe
+6,_onexit,1,0,0,0,0,MSVCR120.dll
+6,RtlDecodePointer,1,0,0,0,0,ntdll.dll
+6,__SEH_prolog4,1,0,0,0,0,Hadr04.exe
+6,__SEH_epilog4,1,0,0,0,0,Hadr04.exe
+6,_onexit,1,0,0,0,0,MSVCR120.dll
+6,RtlDecodePointer,1,0,0,0,0,ntdll.dll
+6,__SEH_prolog4,1,0,0,0,0,Hadr04.exe
+6,__SEH_epilog4,1,0,0,0,0,Hadr04.exe
+6,_onexit,1,0,0,0,0,MSVCR120.dll
+6,RtlDecodePointer,1,0,0,0,0,ntdll.dll
+6,__SEH_prolog4,1,0,0,0,0,Hadr04.exe
+6,__SEH_epilog4,1,0,0,0,0,Hadr04.exe
+6,_onexit,1,0,0,0,0,MSVCR120.dll
+6,RtlDecodePointer,1,0,0,0,0,ntdll.dll
+6,__SEH_prolog4,1,0,0,0,0,Hadr04.exe
+6,__SEH_epilog4,1,0,0,0,0,Hadr04.exe
+6,_onexit,1,0,0,0,0,MSVCR120.dll
+6,RtlDecodePointer,1,0,0,0,0,ntdll.dll
+6,__SEH_prolog4,1,0,0,0,0,Hadr04.exe
+6,__SEH_epilog4,1,0,0,0,0,Hadr04.exe
+6,_onexit,1,0,0,0,0,MSVCR120.dll
+6,RtlDecodePointer,1,0,0,0,0,ntdll.dll
+6,__SEH_prolog4,1,0,0,0,0,Hadr04.exe
+6,__SEH_epilog4,1,0,0,0,0,Hadr04.exe
+6,_onexit,1,0,0,0,0,MSVCR120.dll
+6,RtlDecodePointer,1,0,0,0,0,ntdll.dll
+6,__SEH_prolog4,1,0,0,0,0,Hadr04.exe
+6,__SEH_epilog4,1,0,0,0,0,Hadr04.exe
+6,_onexit,1,0,0,0,0,MSVCR120.dll
+6,RtlDecodePointer,1,0,0,0,0,ntdll.dll
+6,__SEH_prolog4,1,0,0,0,0,Hadr04.exe
+6,__SEH_epilog4,1,0,0,0,0,Hadr04.exe
+6,_onexit,1,0,0,0,0,MSVCR120.dll
+6,RtlDecodePointer,1,0,0,0,0,ntdll.dll
+6,__SEH_prolog4,1,0,0,0,0,Hadr04.exe
+6,__SEH_epilog4,1,0,0,0,0,Hadr04.exe
+6,_onexit,1,0,0,0,0,MSVCR120.dll
+6,RtlDecodePointer,1,0,0,0,0,ntdll.dll
+6,__SEH_prolog4,1,0,0,0,0,Hadr04.exe
+6,__SEH_epilog4,1,0,0,0,0,Hadr04.exe
+6,_onexit,1,0,0,0,0,MSVCR120.dll
+6,RtlDecodePointer,1,0,0,0,0,ntdll.dll
+6,__SEH_prolog4,1,0,0,0,0,Hadr04.exe
+6,__SEH_epilog4,1,0,0,0,0,Hadr04.exe
+6,_onexit,1,0,0,0,0,MSVCR120.dll
+6,RtlDecodePointer,1,0,0,0,0,ntdll.dll
+6,__SEH_prolog4,1,0,0,0,0,Hadr04.exe
+6,__SEH_epilog4,1,0,0,0,0,Hadr04.exe
+6,_onexit,1,0,0,0,0,MSVCR120.dll
+6,RtlDecodePointer,1,0,0,0,0,ntdll.dll
+6,__SEH_prolog4,1,0,0,0,0,Hadr04.exe
+6,__SEH_epilog4,1,0,0,0,0,Hadr04.exe
+6,_onexit,1,0,0,0,0,MSVCR120.dll
+6,RtlDecodePointer,1,0,0,0,0,ntdll.dll
+6,__SEH_prolog4,1,0,0,0,0,Hadr04.exe
+6,__SEH_epilog4,1,0,0,0,0,Hadr04.exe
+6,_onexit,1,0,0,0,0,MSVCR120.dll
+6,RtlDecodePointer,1,0,0,0,0,ntdll.dll
+6,__SEH_prolog4,1,0,0,0,0,Hadr04.exe
+6,__SEH_epilog4,1,0,0,0,0,Hadr04.exe
+6,_onexit,1,0,0,0,0,MSVCR120.dll
+6,RtlDecodePointer,1,0,0,0,0,ntdll.dll
+6,__SEH_prolog4,1,0,0,0,0,Hadr04.exe
+6,__SEH_epilog4,1,0,0,0,0,Hadr04.exe
+6,_onexit,1,0,0,0,0,MSVCR120.dll
+6,RtlDecodePointer,1,0,0,0,0,ntdll.dll
+6,__SEH_prolog4,1,0,0,0,0,Hadr04.exe
+6,__SEH_epilog4,1,0,0,0,0,Hadr04.exe
+6,_onexit,1,0,0,0,0,MSVCR120.dll
+6,RtlDecodePointer,1,0,0,0,0,ntdll.dll
+6,__SEH_prolog4,1,0,0,0,0,Hadr04.exe
+6,__SEH_epilog4,1,0,0,0,0,Hadr04.exe
+6,_onexit,1,0,0,0,0,MSVCR120.dll
+6,RtlDecodePointer,1,0,0,0,0,ntdll.dll
+6,__SEH_prolog4,1,0,0,0,0,Hadr04.exe
+6,__SEH_epilog4,1,0,0,0,0,Hadr04.exe
+6,_onexit,1,0,0,0,0,MSVCR120.dll
+6,RtlDecodePointer,1,0,0,0,0,ntdll.dll
+6,__SEH_prolog4,1,0,0,0,0,Hadr04.exe
+6,__SEH_epilog4,1,0,0,0,0,Hadr04.exe
+7,"std::basic_string<char,std::char_traits<char>,std::allocator<char> >::compare",425178,0,0,0,0,Hadr04.exe
+7,"std::_Tree<std::_Tmap_traits<G4String,int,std::less<G4String>,std::allocator<std::pair<G4String const ,int> >,0> >::_Lbound",425181,0,0,0,0,Hadr04.exe
+7,"std::_Tree_buy<std::pair<G4String const ,int>,std::allocator<std::pair<G4String const ,int> > >::_Buynode<std::piecewise_construct_t const &,std::tuple<G4String const &>,std::tuple<> >",3,0,0,0,0,Hadr04.exe
+7,"std::_Tree<std::_Tmap_traits<G4String,int,std::less<G4String>,std::allocator<std::pair<G4String const ,int> >,0> >::_Insert_hint<std::pair<G4String const ,int> &,std::_Tree_node<std::pair<G4String const ,int>,void *> *>",3,0,0,0,0,Hadr04.exe
+7,"std::basic_string<char,std::char_traits<char>,std::allocator<char> >::_Copy",2,0,0,0,0,Hadr04.exe
+7,"std::vector<G4VCrossSectionDataSet *,std::allocator<G4VCrossSectionDataSet *> >::_Reallocate",5,0,0,0,0,Hadr04.exe
+7,"std::endl<char,std::char_traits<char> >",13,0.01,0,2.56,0,Hadr04.exe
+7,?sputn@?$basic_streambuf@DU?$char_traits@D@std@@@std@@QAE_JPBD_J@Z,73,0,0,0,0,MSVCP120.dll
+7,?_Osfx@?$basic_ostream@DU?$char_traits@D@std@@@std@@QAEXXZ,73,0,0,0,0,MSVCP120.dll
+7,?uncaught_exception@std@@YA_NXZ,73,0,0,0,0,MSVCP120.dll
+7,[G4global.dll],73,0,0,0,0,G4global.dll
+7,?setstate@?$basic_ios@DU?$char_traits@D@std@@@std@@QAEXH_N@Z,73,0,0,0,0,MSVCP120.dll
+7,[G4global.dll],73,0,0,0,0,G4global.dll
+7,?sputc@?$basic_streambuf@DU?$char_traits@D@std@@@std@@QAEHD@Z,68,0,0,0,0,MSVCP120.dll
+7,?sputn@?$basic_streambuf@DU?$char_traits@D@std@@@std@@QAE_JPBD_J@Z,13,0,0,0,0,MSVCP120.dll
+7,?uncaught_exception@std@@YA_NXZ,13,0,0,0,0,MSVCP120.dll
+7,[G4global.dll],13,0,0,0,0,G4global.dll
+7,?_Osfx@?$basic_ostream@DU?$char_traits@D@std@@@std@@QAEXXZ,13,0,0,0,0,MSVCP120.dll
+7,[G4global.dll],13,0,0,0,0,G4global.dll
+7,?setstate@?$basic_ios@DU?$char_traits@D@std@@@std@@QAEXH_N@Z,13,0,0,0,0,MSVCP120.dll
+7,"std::basic_string<char,std::char_traits<char>,std::allocator<char> >::_Copy",1,0,0,0,0,Hadr04.exe
+7,"std::_Tree<std::_Tmap_traits<G4String,int,std::less<G4String>,std::allocator<std::pair<G4String const ,int> >,0> >::_Erase",2,0,0,0,0,Hadr04.exe
+7,"std::_Tree<std::_Tmap_traits<G4String,Run::ParticleData,std::less<G4String>,std::allocator<std::pair<G4String const ,Run::ParticleData> >,0> >::_Erase",4,0,0,0,0,Hadr04.exe
+7,"std::endl<char,std::char_traits<char> >",1,0.01,0,52.71,0,Hadr04.exe
+7,?sputn@?$basic_streambuf@DU?$char_traits@D@std@@@std@@QAE_JPBD_J@Z,3,0,0,0,0,MSVCP120.dll
+7,?uncaught_exception@std@@YA_NXZ,3,0,0,0,0,MSVCP120.dll
+7,[G4global.dll],3,0,0,0,0,G4global.dll
+7,?_Osfx@?$basic_ostream@DU?$char_traits@D@std@@@std@@QAEXXZ,3,0,0,0,0,MSVCP120.dll
+7,?setstate@?$basic_ios@DU?$char_traits@D@std@@@std@@QAEXH_N@Z,3,0,0,0,0,MSVCP120.dll
+7,[G4global.dll],3,0,0,0,0,G4global.dll
+7,?sputn@?$basic_streambuf@DU?$char_traits@D@std@@@std@@QAE_JPBD_J@Z,1,0,0,0,0,MSVCP120.dll
+7,?uncaught_exception@std@@YA_NXZ,1,0,0,0,0,MSVCP120.dll
+7,?setstate@?$basic_ios@DU?$char_traits@D@std@@@std@@QAEXH_N@Z,1,0,0,0,0,MSVCP120.dll
+7,?_Osfx@?$basic_ostream@DU?$char_traits@D@std@@@std@@QAEXXZ,1,0,0,0,0,MSVCP120.dll
+7,[G4global.dll],1,0,0,0,0,G4global.dll
+7,[G4global.dll],1,0,0,0,0,G4global.dll
+7,??1G4VModularPhysicsList@@UAE@XZ,1,0,0,0.01,0,Hadr04.exe
+7,HistoManager::~HistoManager,1,0,0,0.25,0,Hadr04.exe
+7,[G4event.dll],1,0,0,0.03,0.03,G4event.dll
+7,DetectorMessenger::`scalar deleting destructor',1,0,0,0.01,0,Hadr04.exe
+7,"std::_Tree<std::_Tmap_traits<G4String,Run::ParticleData,std::less<G4String>,std::allocator<std::pair<G4String const ,Run::ParticleData> >,0> >::erase",1,0,0,0,0,Hadr04.exe
+7,"std::_Tree<std::_Tmap_traits<G4String,int,std::less<G4String>,std::allocator<std::pair<G4String const ,int> >,0> >::erase",1,0,0,0,0,Hadr04.exe
+7,"std::_Tree<std::_Tmap_traits<G4String,Run::ParticleData,std::less<G4String>,std::allocator<std::pair<G4String const ,Run::ParticleData> >,0> >::_Insert_hint<std::pair<G4String const ,Run::ParticleData> &,std::_Tree_node<std::pair<G4String const ,Run::ParticleData>,void *> *>",8,0,0,0,0,Hadr04.exe
+7,"std::_Tree_buy<std::pair<G4String const ,Run::ParticleData>,std::allocator<std::pair<G4String const ,Run::ParticleData> > >::_Buynode<std::piecewise_construct_t const &,std::tuple<G4String const &>,std::tuple<> >",8,0,0,0,0,Hadr04.exe
+7,"std::_Tree<std::_Tmap_traits<G4String,Run::ParticleData,std::less<G4String>,std::allocator<std::pair<G4String const ,Run::ParticleData> >,0> >::_Lbound",8,0,0,0,0,Hadr04.exe
+7,"std::basic_string<char,std::char_traits<char>,std::allocator<char> >::compare",7,0,0,0,0,Hadr04.exe
+7,HistoManager::HistoManager,1,0,0,0.79,0,Hadr04.exe
+7,CLHEP::Hep3Vector::unit,1,0,0,0,0,Hadr04.exe
+7,"std::basic_string<char,std::char_traits<char>,std::allocator<char> >::assign",1,0,0,0,0,Hadr04.exe
+7,"std::basic_string<char,std::char_traits<char>,std::allocator<char> >::_Copy",1,0,0,0,0,Hadr04.exe
+7,"std::vector<G4String,std::allocator<G4String> >::push_back",6,0,0,0,0,Hadr04.exe
+7,"std::basic_string<char,std::char_traits<char>,std::allocator<char> >::assign",6,0,0,0,0,Hadr04.exe
+7,"std::vector<yystype,std::allocator<yystype> >::_Reserve",5,0,0,0,0,Hadr04.exe
+7,"std::_Uninit_def_fill_n<yystype *,unsigned int,std::allocator<yystype>,yystype>",5,0,0,0,0,Hadr04.exe
+7,"std::vector<G4UIparameter *,std::allocator<G4UIparameter *> >::_Reserve",5,0,0,0,0,Hadr04.exe
+7,"std::basic_string<char,std::char_traits<char>,std::allocator<char> >::_Copy",2,0,0,0,0,Hadr04.exe
+7,G4UIcommand::SetGuidance,2,0,0,0,0,Hadr04.exe
+8,std::char_traits<char>::compare,425178,0,0,0,0,Hadr04.exe
+8,"std::_Tree_buy<std::pair<G4String const ,int>,std::allocator<std::pair<G4String const ,int> > >::_Buynode0",3,0,0,0,0,Hadr04.exe
+8,"std::basic_string<char,std::char_traits<char>,std::allocator<char> >::assign",3,0,0,0,0,Hadr04.exe
+8,"std::_Tree<std::_Tmap_traits<G4String,int,std::less<G4String>,std::allocator<std::pair<G4String const ,int> >,0> >::_Insert_at<std::pair<G4String const ,int> &,std::_Tree_node<std::pair<G4String const ,int>,void *> *>",3,0,0,0,0,Hadr04.exe
+8,"std::basic_string<char,std::char_traits<char>,std::allocator<char> >::compare",2,0,0,0,0,Hadr04.exe
+8,memmove,5,0,0,0,0,MSVCR120.dll
+8,?flush@?$basic_ostream@DU?$char_traits@D@std@@@std@@QAEAAV12@XZ,13,0.01,0.01,2.56,2.56,MSVCP120.dll
+8,?widen@?$basic_ios@DU?$char_traits@D@std@@@std@@QBEDD@Z,13,0,0,0,0,MSVCP120.dll
+8,?put@?$basic_ostream@DU?$char_traits@D@std@@@std@@QAEAAV12@D@Z,13,0,0,0,0,MSVCP120.dll
+8,"std::_Tree<std::_Tmap_traits<G4String,int,std::less<G4String>,std::allocator<std::pair<G4String const ,int> >,0> >::_Erase",1,0,0,0,0,Hadr04.exe
+8,"std::_Tree<std::_Tmap_traits<G4String,Run::ParticleData,std::less<G4String>,std::allocator<std::pair<G4String const ,Run::ParticleData> >,0> >::_Erase",3,0,0,0,0,Hadr04.exe
+8,?flush@?$basic_ostream@DU?$char_traits@D@std@@@std@@QAEAAV12@XZ,1,0.01,0.01,52.71,52.71,MSVCP120.dll
+8,?put@?$basic_ostream@DU?$char_traits@D@std@@@std@@QAEAAV12@D@Z,1,0,0,0,0,MSVCP120.dll
+8,?widen@?$basic_ios@DU?$char_traits@D@std@@@std@@QBEDD@Z,1,0,0,0,0,MSVCP120.dll
+8,NeutronHPphysics::`scalar deleting destructor',1,0,0,0.01,0,Hadr04.exe
+8,[G4analysis.dll],1,0,0,0.24,0.24,G4analysis.dll
+8,DetectorMessenger::~DetectorMessenger,1,0,0,0.01,0,Hadr04.exe
+8,"std::_Tree<std::_Tmap_traits<G4String,Run::ParticleData,std::less<G4String>,std::allocator<std::pair<G4String const ,Run::ParticleData> >,0> >::_Erase",1,0,0,0,0,Hadr04.exe
+8,"std::_Tree<std::_Tmap_traits<G4String,int,std::less<G4String>,std::allocator<std::pair<G4String const ,int> >,0> >::_Erase",1,0,0,0,0,Hadr04.exe
+8,"std::_Tree<std::_Tmap_traits<G4String,Run::ParticleData,std::less<G4String>,std::allocator<std::pair<G4String const ,Run::ParticleData> >,0> >::_Insert_at<std::pair<G4String const ,Run::ParticleData> &,std::_Tree_node<std::pair<G4String const ,Run::ParticleData>,void *> *>",8,0,0,0,0,Hadr04.exe
+8,std::less<G4String>::operator(),5,0,0,0,0,Hadr04.exe
+8,"std::_Tree_unchecked_const_iterator<std::_Tree_val<std::_Tree_simple_types<std::pair<G4String const ,Run::ParticleData> > >,std::_Iterator_base0>::operator--",5,0,0,0,0,Hadr04.exe
+8,"std::basic_string<char,std::char_traits<char>,std::allocator<char> >::compare",7,0,0,0,0,Hadr04.exe
+8,"std::_Tree_buy<std::pair<G4String const ,Run::ParticleData>,std::allocator<std::pair<G4String const ,Run::ParticleData> > >::_Buynode0",8,0,0,0,0,Hadr04.exe
+8,"std::basic_string<char,std::char_traits<char>,std::allocator<char> >::assign",8,0,0,0,0,Hadr04.exe
+8,std::char_traits<char>::compare,7,0,0,0,0,Hadr04.exe
+8,HistoManager::Book,1,0,0,0.79,0.79,Hadr04.exe
+8,"std::basic_string<char,std::char_traits<char>,std::allocator<char> >::assign",1,0,0,0,0,Hadr04.exe
+8,"std::vector<G4String,std::allocator<G4String> >::_Reserve",6,0,0,0,0,Hadr04.exe
+8,"std::basic_string<char,std::char_traits<char>,std::allocator<char> >::assign",6,0,0,0,0,Hadr04.exe
+8,"std::basic_string<char,std::char_traits<char>,std::allocator<char> >::_Copy",6,0,0,0,0,Hadr04.exe
+8,"std::vector<yystype,std::allocator<yystype> >::_Reallocate",5,0,0,0,0,Hadr04.exe
+8,"std::basic_string<char,std::char_traits<char>,std::allocator<char> >::assign",5,0,0,0,0,Hadr04.exe
+8,"std::vector<G4UIparameter *,std::allocator<G4UIparameter *> >::_Reallocate",5,0,0,0,0,Hadr04.exe
+8,"std::vector<G4String,std::allocator<G4String> >::push_back",2,0,0,0,0,Hadr04.exe
+8,"std::basic_string<char,std::char_traits<char>,std::allocator<char> >::assign",2,0,0,0,0,Hadr04.exe
+9,"std::basic_string<char,std::char_traits<char>,std::allocator<char> >::_Copy",1,0,0,0,0,Hadr04.exe
+9,std::char_traits<char>::compare,2,0,0,0,0,Hadr04.exe
+9,"std::_Tree<std::_Tmap_traits<G4String,Run::ParticleData,std::less<G4String>,std::allocator<std::pair<G4String const ,Run::ParticleData> >,0> >::_Erase",1,0,0,0,0,Hadr04.exe
+9,NeutronHPphysics::~NeutronHPphysics,1,0,0,0.01,0,Hadr04.exe
+9,[G4intercoms.dll],5,0,0,0,0,G4intercoms.dll
+9,"std::basic_string<char,std::char_traits<char>,std::allocator<char> >::compare",5,0,0,0,0,Hadr04.exe
+9,std::char_traits<char>::compare,7,0,0,0,0,Hadr04.exe
+9,"std::basic_string<char,std::char_traits<char>,std::allocator<char> >::assign",40,0,0,0,0,Hadr04.exe
+9,`eh vector destructor iterator',2,0,0,0,0,Hadr04.exe
+9,"std::vector<G4String,std::allocator<G4String> >::_Reallocate",6,0,0,0,0,Hadr04.exe
+9,"std::basic_string<char,std::char_traits<char>,std::allocator<char> >::_Copy",6,0,0,0,0,Hadr04.exe
+9,"std::_Uninit_move<yystype *,yystype *,std::allocator<yystype>,yystype>",5,0,0,0,0,Hadr04.exe
+9,std::_Destroy_range<std::_Wrap_alloc<std::allocator<yystype> > >,4,0,0,0,0,Hadr04.exe
+9,memmove,5,0,0,0,0,MSVCR120.dll
+9,"std::vector<G4String,std::allocator<G4String> >::_Reserve",2,0,0,0,0,Hadr04.exe
+9,"std::basic_string<char,std::char_traits<char>,std::allocator<char> >::assign",2,0,0,0,0,Hadr04.exe
+9,"std::basic_string<char,std::char_traits<char>,std::allocator<char> >::_Copy",2,0,0,0,0,Hadr04.exe
+10,NeutronHPMessenger::`scalar deleting destructor',1,0,0,0.01,0,Hadr04.exe
+10,std::char_traits<char>::compare,5,0,0,0,0,Hadr04.exe
+10,"std::basic_string<char,std::char_traits<char>,std::allocator<char> >::_Copy",7,0,0,0,0,Hadr04.exe
+10,G4String::~G4String,16,0,0,0,0,Hadr04.exe
+10,__SEH_prolog4,2,0,0,0,0,Hadr04.exe
+10,__SEH_epilog4,2,0,0,0,0,Hadr04.exe
+10,`eh vector destructor iterator',2,0,0,0,0,Hadr04.exe
+10,"std::_Uninit_move<G4String *,G4String *,std::allocator<G4String>,G4String>",6,0,0,0,0,Hadr04.exe
+10,"std::vector<G4String,std::allocator<G4String> >::_Destroy",1,0,0,0,0,Hadr04.exe
+10,"std::basic_string<char,std::char_traits<char>,std::allocator<char> >::assign",10,0,0,0,0,Hadr04.exe
+10,"std::vector<G4String,std::allocator<G4String> >::_Reallocate",2,0,0,0,0,Hadr04.exe
+10,"std::basic_string<char,std::char_traits<char>,std::allocator<char> >::_Copy",2,0,0,0,0,Hadr04.exe
+11,NeutronHPMessenger::~NeutronHPMessenger,1,0,0,0.01,0,Hadr04.exe
+11,"std::basic_string<char,std::char_traits<char>,std::allocator<char> >::assign",1,0,0,0,0,Hadr04.exe
+11,"std::_Uninit_move<G4String *,G4String *,std::allocator<G4String>,G4String>",2,0,0,0,0,Hadr04.exe
+12,[G4intercoms.dll],2,0,0,0,0,G4intercoms.dll
+12,"std::basic_string<char,std::char_traits<char>,std::allocator<char> >::_Copy",1,0,0,0,0,Hadr04.exe

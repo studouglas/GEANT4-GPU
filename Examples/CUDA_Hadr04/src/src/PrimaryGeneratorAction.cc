@@ -53,8 +53,7 @@ PrimaryGeneratorAction::PrimaryGeneratorAction()
   
   // default particle kinematic
 
-  G4ParticleDefinition* particle
-           = G4ParticleTable::GetParticleTable()->FindParticle("neutron");
+  G4ParticleDefinition* particle = G4ParticleTable::GetParticleTable()->FindParticle("neutron");
   fParticleGun->SetParticleDefinition(particle);
   fParticleGun->SetParticleMomentumDirection(G4ThreeVector(1.,0.,0.));
   fParticleGun->SetParticleEnergy(2*MeV);

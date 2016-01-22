@@ -55,7 +55,6 @@ G4ParticleHPVector & operator + (G4ParticleHPVector & left, G4ParticleHPVector &
         result->SetData(running++, x, y);
         j++;
       }
-      //else if(std::abs((right.GetX(j)-left.GetX(i))/(left.GetX(i)+right.GetX(j)))>0.001)
       else if( left.GetX(i)+right.GetX(j) == 0 
          || std::abs((right.GetX(j)-left.GetX(i))/(left.GetX(i)+right.GetX(j))) > 0.001 )
       {
@@ -185,6 +184,9 @@ operator = (const G4ParticleHPVector & right)
 
 G4double G4ParticleHPVector::GetXsec(G4double e) 
 {
+  // note: we initially considered porting this function to the GPU, but decided it is not
+  // worth the effort, as it is a serially-suited task (finding first element satisfying predicate)
+
   #if GEANT4_ENABLE_CUDA
     cudaVector->CopyTheDataToCpuIfChanged();
   #endif
@@ -192,12 +194,6 @@ G4double G4ParticleHPVector::GetXsec(G4double e)
   if(nEntries == 0) {
     return 0;
   }
-
-  //=========================================
-  // #if GEANT4_ENABLE_CUDA
-  //   return cudaVector->GetXsec(e);
-  // #endif
-  //=========================================
   
   if ( !theHash.Prepared() ) {
     if ( G4Threading::IsWorkerThread() ) {
@@ -206,15 +202,18 @@ G4double G4ParticleHPVector::GetXsec(G4double e)
       Hash();
     }
   }
+
   G4int min = theHash.GetMinIndex(e);
   G4int i;
   for(i=min ; i<nEntries; i++)
   {
-    //if(theData[i].GetX()>e) break;
     if(theData[i].GetX() >= e) {
       break;
     }
   }
+  
+  // printf("\n[nEntries,minIndex]:[%d,%d], percentage into array: %f", nEntries, i, (float)i/(float)nEntries);
+  
   G4int low = i-1;
   G4int high = i;
   if(i==0)

@@ -1,5 +1,6 @@
 #include <cuda.h>
 #include <cuda_runtime.h>
+// #include <thrust/device_vector.h>
 #include "G4ParticleHPVector_CUDA.h"
 
 /***********************************************
@@ -9,6 +10,23 @@ __global__ void cudaTimes(double factor, G4ParticleHPDataPoint* cudaTheData, dou
     int tid = blockIdx.x;
     cudaTheData[tid].xSec = cudaTheData[tid].xSec*factor;
     cudaTheIntegral[tid] = cudaTheIntegral[tid]*factor;
+}
+__global__ void cudaGetXsecIndex(double e, G4ParticleHPDataPoint* cudaTheData) {
+    int tid = blockIdx.x;
+    if (cudaTheData[tid].xSec >= e) {
+        // return tid;
+    } else {
+        // return -1;
+    }
+}
+__global__ void cudaSetIfIndexValid(G4ParticleHPDataPoint* cudaTheData, int offset, int* validIndicesOnGpu, double e) {
+    int tid = blockIdx.x;
+    int index = tid*offset;
+    if (cudaTheData[index].energy >= e) {
+        validIndicesOnGpu[tid] = 1;
+    } else {
+        validIndicesOnGpu[tid] = 0;
+    }
 }
 
 /***********************************************
@@ -106,7 +124,24 @@ void G4ParticleHPVector_CUDA::Times(double factor) {
     cudaMemcpy(*(theIntegral), cudaTheIntegral, theIntegralSize, cudaMemcpyDeviceToHost);
 }
 
-double G4ParticleHPVector_CUDA::GetXsec(double e) {
-    printf("\nGetXsec");
+int G4ParticleHPVector_CUDA::GetXsecIndex(double e) {
+    printf("\ntheData (pointer <%d>)(size: %d): \n[", *(theData), *(nEntries));
+    // for (int i = 0; i < *(nEntries); i++) {
+    //     printf("[%f,%f]", ((G4ParticleHPDataPoint) (*(theData))[i]).energy, ((G4ParticleHPDataPoint) (*(theData))[i]).xSec);
+    // }
+    printf("]\n");
+
+    int numBlocks = *(nEntries) / 200;
+    int* validIndicesOnGpu;
+    cudaMalloc(&validIndicesOnGpu, numBlocks*sizeof(int));
+    cudaSetIfIndexValid<<<numBlocks,1>>>(cudaTheData, 200, validIndicesOnGpu, e);
+
+    printf("Resulting validIndicesOnGpu (nEntries = %d): \n[", *(nEntries));
+    int* validIndicesOnCpu = (int*)malloc(numBlocks*sizeof(int));
+    cudaMemcpy(validIndicesOnGpu, validIndicesOnCpu, numBlocks, cudaMemcpyDeviceToHost);
+    for (int i = 0; i < numBlocks; i++) {
+        printf("%d,", validIndicesOnCpu[i]);
+    }
+    printf("]\n");
     return -1;
 }

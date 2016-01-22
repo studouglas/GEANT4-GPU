@@ -62,6 +62,7 @@ downloaded marshalgen from another source, you need to fix this)
 geant4.10.00.p02-install`<br>
 3. `cd /path/to/GEANT4-GPU/geant4.10.00.p02-build`<br>
 4. `cmake -DGEANT4_INSTALL_DATA=ON -DCMAKE_INSTALL_PREFIX=/path/to/GEANT4-GPU/geant4.10.00.p02-install /path/to/GEANT4-GPU/geant4.10.00.p02`<br>
+ cmake -DGEANT4_INSTALL_DATA=ON -GEANT4_ENABLE_CUDA=ON  -DCMAKE_INSTALL_PREFIX=/u50/reginavp/GEANT4-GPU/geant4.10.02-install /u50/reginavp/GEANT4-GPU/geant4.10.02
 5. `make -jN` where `N` is the number of processors on your computer<br>
 6. `make install`
 
