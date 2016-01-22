@@ -25,68 +25,20 @@
 //
 //
 //
-#ifndef G4ParticleHPDataPoint_CUDA_h
-#define G4ParticleHPDataPoint_CUDA_h 1
+#ifndef G4InterpolationScheme_h
+#define G4InterpolationScheme_h 1
 
-#include <cuda.h>
-#include <cuda_runtime.h>
+// #include "globals.hh"
 
-class G4ParticleHPDataPoint_CUDA
+// carthesian interpolation
+// unit base interpolation
+// corresponding point interpolation
+
+enum G4InterpolationScheme 
 {
-  public:  
-  G4ParticleHPDataPoint_CUDA() {
-    energy = 0; 
-    xSec = 0;
-  }
-  G4ParticleHPDataPoint_CUDA(double e, double x){ 
-    energy = e; 
-    xSec = x;
-  }
-  
-  __host__ __device__ void operator= (const G4ParticleHPDataPoint_CUDA & aSet) {
-    if(&aSet!=this) {
-      energy = aSet.GetEnergy();
-      xSec   = aSet.GetXsection();
-    }
-  }
-
-  __host__ __device__ ~G4ParticleHPDataPoint_CUDA() { }
-  
-  __host__ __device__ double GetEnergy() const {
-    return energy;
-  }
-  __host__ __device__ double GetXsection() const { 
-    return xSec;
-  }
-  
-  __host__ __device__ void SetEnergy(double e) { 
-    energy = e;
-  }
-  __host__ __device__ void SetXsection(double x) {
-    xSec = x;
-  }
-  
-  __host__ __device__ double GetX() const { 
-    return energy;
-  }
-  __host__ __device__ double GetY() const {
-    return xSec;
-  }
-  
-  __host__ __device__ void SetX(double e) {
-    energy = e;
-  }
-  __host__ __device__ void SetY(double x) {
-    xSec = x;
-  }
-  
-  __host__ __device__ void SetData(double e, double x) {
-    energy = e; xSec = x;
-  }
-  
-  private:
-  double energy;
-  double xSec;
+  START,  HISTO,  LINLIN,  LINLOG,  LOGLIN,  LOGLOG, RANDOM, 
+  CSTART_,CHISTO, CLINLIN, CLINLOG, CLOGLIN, CLOGLOG, CRANDOM, 
+  USTART, UHISTO, ULINLIN, ULINLOG, ULOGLIN, ULOGLOG, URANDOM 
 };
 
 #endif

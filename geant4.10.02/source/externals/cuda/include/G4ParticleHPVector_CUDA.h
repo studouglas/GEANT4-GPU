@@ -4,7 +4,9 @@
 #include <stdio.h>
 #include <algorithm> // for std::max
 #include <cfloat>
-#include "G4ParticleHPDataPoint.hh"
+#include "G4ParticleHPDataPoint_CUDA.hh"
+#include "G4ParticleHPInterpolator_CUDA.hh"
+#include "G4InterpolationScheme_CUDA.hh"
 
 class G4ParticleHPVector_CUDA {
     

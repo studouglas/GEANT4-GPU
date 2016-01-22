@@ -11,7 +11,9 @@ add_definitions(-DGEANT4_ENABLE_CUDA=1)
 
 set(G4cuda_HEADERS
 	include/G4ParticleHPVector_CUDA.h
-	include/G4ParticleHPDataPoint.hh
+	include/G4ParticleHPInterpolator_CUDA.hh
+	include/G4InterpolationScheme_CUDA.hh
+	include/G4ParticleHPDataPoint_CUDA.hh
 )
 
 set(G4cuda_SOURCES
