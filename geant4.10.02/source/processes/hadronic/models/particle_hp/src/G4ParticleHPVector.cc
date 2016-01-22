@@ -35,6 +35,7 @@
 #include "G4SystemOfUnits.hh"
 #include "G4Threading.hh"
 
+// This should be able to run on GPU
   // if the ranges do not match, constant extrapolation is used.
 G4ParticleHPVector & operator + (G4ParticleHPVector & left, G4ParticleHPVector & right)
 {
