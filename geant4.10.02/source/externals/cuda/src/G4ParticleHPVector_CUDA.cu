@@ -5,12 +5,12 @@
 /***********************************************
 *   CUDA functions
 ***********************************************/
-__global__ void cudaTimes(double factor, G4ParticleHPDataPoint* cudaTheData, double* cudaTheIntegral) {
+__global__ void cudaTimes(G4double factor, G4ParticleHPDataPoint* cudaTheData, G4double* cudaTheIntegral) {
     int tid = blockIdx.x;
     cudaTheData[tid].xSec = cudaTheData[tid].xSec*factor;
     cudaTheIntegral[tid] = cudaTheIntegral[tid]*factor;
 }
-__global__ void cudaGetXsecIndex(double e, G4ParticleHPDataPoint* cudaTheData) {
+__global__ void cudaGetXsecIndex(G4double e, G4ParticleHPDataPoint* cudaTheData) {
     int tid = blockIdx.x;
     if (cudaTheData[tid].xSec >= e) {
         // return tid;
@@ -18,7 +18,7 @@ __global__ void cudaGetXsecIndex(double e, G4ParticleHPDataPoint* cudaTheData) {
         // return -1;
     }
 }
-__global__ void cudaSetIfIndexValid(G4ParticleHPDataPoint* cudaTheData, int offset, int* validIndicesOnGpu, double e) {
+__global__ void cudaSetIfIndexValid(G4ParticleHPDataPoint* cudaTheData, G4int offset, G4int* validIndicesOnGpu, G4double e) {
     int tid = blockIdx.x;
     int index = tid*offset;
     if (cudaTheData[index].energy >= e) {
@@ -28,119 +28,60 @@ __global__ void cudaSetIfIndexValid(G4ParticleHPDataPoint* cudaTheData, int offs
     }
 }
 
+
 /***********************************************
-*   Constructors, Setters
+*   Constructors, Deconstructors
 ***********************************************/
 G4ParticleHPVector_CUDA::G4ParticleHPVector_CUDA()      { }
 G4ParticleHPVector_CUDA::G4ParticleHPVector_CUDA(int n) { }
-
 G4ParticleHPVector_CUDA::~G4ParticleHPVector_CUDA() {
-    if (cudaTheData) {
-        cudaFree(cudaTheData);
+    if (theData) {
+        cudaFree(theData);
     }
-    if (cudaTheIntegral) {
-       cudaFree(cudaTheIntegral);
-    }
-}
-
-void G4ParticleHPVector_CUDA::SetNEntries(int * nEntriesPointer) {
-    nEntries = nEntriesPointer;
-}
-
-void G4ParticleHPVector_CUDA::SetNPoints(int * nPointsPointer) {
-    nPoints = nPointsPointer;
-}
-
-void G4ParticleHPVector_CUDA::SetTheData(G4ParticleHPDataPoint ** theDataPointer) {
-    theData = theDataPointer;
-}
-
-void G4ParticleHPVector_CUDA::SetTheIntegral(double ** theIntegralPointer) {
-    theIntegral = theIntegralPointer;
-}
-
-void G4ParticleHPVector_CUDA::SetTheDataChangedOnCpu() {
-    theDataChangedOnCpuBool = true;
-    theDataChangedOnGpuBool = false;
-}
-
-void G4ParticleHPVector_CUDA::SetTheDataChangedOnGpu() {
-    theDataChangedOnCpuBool = false;
-    theDataChangedOnGpuBool = true;
-}
-
-void G4ParticleHPVector_CUDA::CopyTheDataToGpuIfChanged() {
-    if (theDataChangedOnCpuBool && theDataChangedOnGpuBool) {
-        printf("BIG ERROR in CopyTheDataToGpuIfChanged: theDataChangedOnCpu and theDataChangedOnGpu are both true!\n\n");
-        return;
-    }
-
-    if (theDataChangedOnCpuBool) {
-        int theDataSize = *(nEntries) * sizeof(G4ParticleHPDataPoint);  
-        if (cudaTheDataSize != theDataSize) {
-            if (cudaTheDataSize != 0) {
-                cudaFree(cudaTheData);
-            }
-            cudaMalloc(&cudaTheData, theDataSize);
-            cudaTheDataSize = theDataSize;
-        }
-        cudaMemcpy(cudaTheData, *(theData), theDataSize, cudaMemcpyHostToDevice);
-        
-        theDataChangedOnCpuBool = false;
-        theDataChangedOnGpuBool = false;
+    if (theIntegral) {
+       cudaFree(theIntegral);
     }
 }
 
-void G4ParticleHPVector_CUDA::CopyTheDataToCpuIfChanged() {
-    if (theDataChangedOnCpuBool && theDataChangedOnGpuBool) {
-        printf("BIG ERROR in CopyTheDataToCpuIfChanged: theDataChangedOnCpu and theDataChangedOnGpu are both true!\n\n");
-        return;
-    }
+/******************************************
+* Functions from .cc
+******************************************/
+// G4ParticleHPVector_CUDA & operatorPlus (G4ParticleHPVector & left, G4ParticleHPVector & right) {
 
-    if (theDataChangedOnGpuBool) {
-        // gpu never changes size of theData, so just copy it over
-        int theDataSize = *(nEntries) * sizeof(G4ParticleHPDataPoint);  
-        cudaMemcpy(*(theData), cudaTheData, theDataSize, cudaMemcpyDeviceToHost);
-        
-        theDataChangedOnCpuBool = false;
-        theDataChangedOnGpuBool = false;
-    }
+// }
+
+G4double G4ParticleHPVector_CUDA::GetXsec(G4double e) {
+    return 0;
 }
 
-/***********************************************
-*   Ported Functions
-***********************************************/
-void G4ParticleHPVector_CUDA::Times(double factor) {
-    CopyTheDataToGpuIfChanged();
+void G4ParticleHPVector_CUDA::Dump() {
 
-    int theIntegralSize = *(nEntries) * sizeof(double);
-    cudaMalloc(&cudaTheIntegral, theIntegralSize);    
-    cudaMemcpy(cudaTheIntegral, *(theIntegral), theIntegralSize, cudaMemcpyHostToDevice);
-    
-    cudaTimes<<<*(nEntries),1>>>(factor, cudaTheData, cudaTheIntegral);
-    SetTheDataChangedOnGpu();
-
-    cudaMemcpy(*(theIntegral), cudaTheIntegral, theIntegralSize, cudaMemcpyDeviceToHost);
 }
 
-int G4ParticleHPVector_CUDA::GetXsecIndex(double e) {
-    printf("\ntheData (pointer <%d>)(size: %d): \n[", *(theData), *(nEntries));
-    // for (int i = 0; i < *(nEntries); i++) {
-    //     printf("[%f,%f]", ((G4ParticleHPDataPoint) (*(theData))[i]).energy, ((G4ParticleHPDataPoint) (*(theData))[i]).xSec);
-    // }
-    printf("]\n");
+void G4ParticleHPVector_CUDA::ThinOut(G4double precision) {
 
-    int numBlocks = *(nEntries) / 200;
-    int* validIndicesOnGpu;
-    cudaMalloc(&validIndicesOnGpu, numBlocks*sizeof(int));
-    cudaSetIfIndexValid<<<numBlocks,1>>>(cudaTheData, 200, validIndicesOnGpu, e);
+}
 
-    printf("Resulting validIndicesOnGpu (nEntries = %d): \n[", *(nEntries));
-    int* validIndicesOnCpu = (int*)malloc(numBlocks*sizeof(int));
-    cudaMemcpy(validIndicesOnGpu, validIndicesOnCpu, numBlocks, cudaMemcpyDeviceToHost);
-    for (int i = 0; i < numBlocks; i++) {
-        printf("%d,", validIndicesOnCpu[i]);
-    }
-    printf("]\n");
-    return -1;
+void G4ParticleHPVector_CUDA::Merge(G4InterpolationScheme aScheme, G4double aValue, G4ParticleHPVector_CUDA * active, G4ParticleHPVector_CUDA * passive) {
+
+}
+
+G4double G4ParticleHPVector_CUDA::Sample() {
+    return 0;
+}
+
+G4double G4ParticleHPVector_CUDA::Get15percentBorder() {
+    return 0;
+}
+
+G4double G4ParticleHPVector_CUDA::Get50percentBorder() {
+    return 0;
+}
+
+void G4ParticleHPVector_CUDA::Check(G4int i) {
+
+}
+
+G4bool G4ParticleHPVector_CUDA::IsBlocked(G4double aX) {
+    return false;
 }

@@ -36,6 +36,7 @@
 #include "G4InterpolationScheme_CUDA.hh"
 // #include "Randomize.hh"
 // #include "G4ios.hh"
+#include "G4Types_CUDA.hh"
 #include "G4Exp_CUDA.hh"
 #include "G4Log_CUDA.hh"
 // #include "G4HadronicException.hh"
@@ -51,48 +52,48 @@ class G4ParticleHPInterpolator
     //  G4cout <<"deleted the interpolator"<<G4endl;
    }
   
-  inline double Lin(double x,double x1,double x2,double y1,double y2)
+  inline G4double Lin(G4double x,G4double x1,G4double x2,G4double y1,G4double y2)
   {
-    double slope=0, off=0;
+    G4double slope=0, off=0;
     if(x2-x1==0) return (y2+y1)/2.;
     slope = (y2-y1)/(x2-x1);
     off = y2-x2*slope;
-    double y = x*slope+off;
+    G4double y = x*slope+off;
     return y;
   }
   
-  inline double Interpolate(G4InterpolationScheme aScheme,
-                              double x, double x1, double x2,
-                                          double y1, double y2) const;       
-  inline double Interpolate2(G4InterpolationScheme aScheme,
-                              double x, double x1, double x2,
-                                          double y1, double y2) const;      
+  inline G4double Interpolate(G4InterpolationScheme aScheme,
+                              G4double x, G4double x1, G4double x2,
+                                          G4double y1, G4double y2) const;       
+  inline G4double Interpolate2(G4InterpolationScheme aScheme,
+                              G4double x, G4double x1, G4double x2,
+                                          G4double y1, G4double y2) const;      
   
-  double 
+  G4double 
   GetBinIntegral(const G4InterpolationScheme & aScheme, 
-                const double x1,const double x2,const double y1,const double y2);
+                const G4double x1,const G4double x2,const G4double y1,const G4double y2);
 
-  double 
+  G4double 
   GetWeightedBinIntegral(const G4InterpolationScheme & aScheme, 
-                const double x1,const double x2,const double y1,const double y2);
+                const G4double x1,const G4double x2,const G4double y1,const G4double y2);
 
   private:
   
-  inline double Histogram(double x, double x1, double x2, double y1, double y2) const;
-  inline double LinearLinear(double x, double x1, double x2, double y1, double y2) const;
-  inline double LinearLogarithmic(double x, double x1, double x2, double y1, double y2) const;
-  inline double LogarithmicLinear(double x, double x1, double x2, double y1, double y2) const;
-  inline double LogarithmicLogarithmic(double x, double x1, double x2, double y1, double y2) const;
-  inline double Random(double x, double x1, double x2, double y1, double y2) const;
+  inline G4double Histogram(G4double x, G4double x1, G4double x2, G4double y1, G4double y2) const;
+  inline G4double LinearLinear(G4double x, G4double x1, G4double x2, G4double y1, G4double y2) const;
+  inline G4double LinearLogarithmic(G4double x, G4double x1, G4double x2, G4double y1, G4double y2) const;
+  inline G4double LogarithmicLinear(G4double x, G4double x1, G4double x2, G4double y1, G4double y2) const;
+  inline G4double LogarithmicLogarithmic(G4double x, G4double x1, G4double x2, G4double y1, G4double y2) const;
+  inline G4double Random(G4double x, G4double x1, G4double x2, G4double y1, G4double y2) const;
 
 };
 
-inline double G4ParticleHPInterpolator::
+inline G4double G4ParticleHPInterpolator::
 Interpolate(G4InterpolationScheme aScheme,
-            double x, double x1, double x2, double y1, double y2) const
+            G4double x, G4double x1, G4double x2, G4double y1, G4double y2) const
 {
-  double result(0);
-  int theScheme = aScheme;
+  G4double result(0);
+  G4int theScheme = aScheme;
   theScheme = theScheme%CSTART_;
   switch(theScheme)
   {
@@ -124,12 +125,12 @@ Interpolate(G4InterpolationScheme aScheme,
   return result;
 }
 
-inline double G4ParticleHPInterpolator::
+inline G4double G4ParticleHPInterpolator::
 Interpolate2(G4InterpolationScheme aScheme,
-            double x, double x1, double x2, double y1, double y2) const
+            G4double x, G4double x1, G4double x2, G4double y1, G4double y2) const
 {
-  double result(0);
-  int theScheme = aScheme;
+  G4double result(0);
+  G4int theScheme = aScheme;
   theScheme = theScheme%CSTART_;
   switch(theScheme)
   {
@@ -159,29 +160,29 @@ Interpolate2(G4InterpolationScheme aScheme,
   return result;
 }
 
-inline double G4ParticleHPInterpolator::
-Histogram(double , double , double , double y1, double ) const
+inline G4double G4ParticleHPInterpolator::
+Histogram(G4double , G4double , G4double , G4double y1, G4double ) const
 {
-  double result;
+  G4double result;
   result = y1;
   return result;
 }
 
-inline double G4ParticleHPInterpolator::
-LinearLinear(double x, double x1, double x2, double y1, double y2) const
+inline G4double G4ParticleHPInterpolator::
+LinearLinear(G4double x, G4double x1, G4double x2, G4double y1, G4double y2) const
 {
-  double slope=0, off=0;
+  G4double slope=0, off=0;
   if(x2-x1==0) return (y2+y1)/2.;
   slope = (y2-y1)/(x2-x1);
   off = y2-x2*slope;
-  double y = x*slope+off;
+  G4double y = x*slope+off;
   return y;
 }
 
-inline double G4ParticleHPInterpolator::
-LinearLogarithmic(double x, double x1, double x2, double y1, double y2) const
+inline G4double G4ParticleHPInterpolator::
+LinearLogarithmic(G4double x, G4double x1, G4double x2, G4double y1, G4double y2) const
 {
-  double result;
+  G4double result;
   if(x==0) result = y1+y2/2.;
   else if(x1==0) result = y1;
   else if(x2==0) result = y2;
@@ -189,10 +190,10 @@ LinearLogarithmic(double x, double x1, double x2, double y1, double y2) const
   return result;
 }
   
-inline double G4ParticleHPInterpolator::
-LogarithmicLinear(double x, double x1, double x2, double y1, double y2) const
+inline G4double G4ParticleHPInterpolator::
+LogarithmicLinear(G4double x, G4double x1, G4double x2, G4double y1, G4double y2) const
 {
-  double result;
+  G4double result;
   if(y1==0||y2==0) result = 0;
   else 
   {
@@ -202,13 +203,13 @@ LogarithmicLinear(double x, double x1, double x2, double y1, double y2) const
   return result;
 }
   
-inline double G4ParticleHPInterpolator::
-LogarithmicLogarithmic(double x, double x1, double x2, double y1, double y2) const
+inline G4double G4ParticleHPInterpolator::
+LogarithmicLogarithmic(G4double x, G4double x1, G4double x2, G4double y1, G4double y2) const
 {
   if(x==0) return y1+y2/2.;
   else if(x1==0) return y1;
   else if(x2==0) return y2;
-  double result;
+  G4double result;
   if(y1==0||y2==0) result = 0;
   else 
   {
@@ -218,12 +219,12 @@ LogarithmicLogarithmic(double x, double x1, double x2, double y1, double y2) con
   return result;
 }
 
-inline double G4ParticleHPInterpolator::
-Random(double , double , double , double y1, double y2) const
+inline G4double G4ParticleHPInterpolator::
+Random(G4double , G4double , G4double , G4double y1, G4double y2) const
 {
-  double result;
+  G4double result;
   // result = y1+G4UniformRand()*(y2-y1);
-  result = y1 + ((double)rand()/(double)RAND_MAX) * (y2-y1); // TODO: make this G4Uniformrand
+  result = y1 + ((G4double)rand()/(G4double)RAND_MAX) * (y2-y1); // TODO: make this G4Uniformrand
   return result;
 }
 
