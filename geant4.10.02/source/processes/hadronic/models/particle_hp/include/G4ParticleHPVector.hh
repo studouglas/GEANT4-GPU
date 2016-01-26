@@ -51,7 +51,7 @@
 
 #define GEANT4_ENABLE_CUDA 1
 #if GEANT4_ENABLE_CUDA
-  #include "/Users/stuart/Documents/4th_Year/CS_4ZP6/GEANT4-GPU/geant4.10.02/source/externals/cuda/include/G4ParticleHPVector_CUDA.h"
+  #include "../../../../../../externals/cuda/include/G4ParticleHPVector_CUDA.h"
 #endif
 
 #if defined WIN32-VC
@@ -625,8 +625,7 @@ class G4ParticleHPVector
       	//********************************************************************
       	//EMendoza -> the interpolation scheme is not always lin-lin
       	/*
-              sum+= 0.5*(theData[i].GetY()+theData[i-1].GetY())*
-                        (x1-x0);
+              sum+= 0.5*(theData[i].GetY()+theData[i-1].GetY())*(x1-x0);
       	*/
       	//********************************************************************
         G4InterpolationScheme aScheme = theManager.GetScheme(i);
