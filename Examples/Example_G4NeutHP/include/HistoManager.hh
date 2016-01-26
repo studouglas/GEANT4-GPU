@@ -23,58 +23,25 @@
 // * acceptance of all terms of the Geant4 Software license.          *
 // ********************************************************************
 //
-/// \file electromagnetic/TestEm11/include/Run.hh
-/// \brief Definition of the Run class
+/// \file hadronic/Hadr03/include/HistoManager.hh
+/// \brief Definition of the HistoManager class
 //
-// $Id: Run.hh 71375 2013-06-14 07:39:33Z maire $
+// $Id: HistoManager.hh 66586 2012-12-21 10:48:39Z ihrivnac $
 
-#ifndef Run_h
-#define Run_h 1
+#ifndef HistoManager_h
+#define HistoManager_h 1
 
-#include "G4Run.hh"
-#include "G4VProcess.hh"
 #include "globals.hh"
-#include <map>
+#include "g4root.hh"
 
-class DetectorConstruction;
-class G4ParticleDefinition;
+class HistoManager{
+	public:
+		HistoManager();
+		~HistoManager();
 
-class Run : public G4Run {
-  public:
-    Run(DetectorConstruction*);
-    ~Run();
-
-    void CountProcesses(const G4VProcess* process);                  
-    void ParticleCount(G4String, G4double);
-    void SumTrackLength (G4int,G4int,G4double,G4double,G4double,G4double);
-    
-    void SetPrimary(G4ParticleDefinition* particle, G4double energy);    
-    void EndOfRun(); 
-            
-    virtual void Merge(const G4Run*);
-   
-  private:
-    struct ParticleData {
-     ParticleData()
-       : fCount(0), fEmean(0.), fEmin(0.), fEmax(0.) {}
-     ParticleData(G4int count, G4double ekin, G4double emin, G4double emax)
-       : fCount(count), fEmean(ekin), fEmin(emin), fEmax(emax) {}
-     G4int     fCount;
-     G4double  fEmean;
-     G4double  fEmin;
-     G4double  fEmax;
-    };
-     
-    DetectorConstruction* fDetector;
-    G4ParticleDefinition* fParticle;
-    G4double              fEkin;
-        
-    std::map<G4String,G4int>        fProcCounter;            
-    std::map<G4String,ParticleData> fParticleDataMap;
-        
-    G4int    fNbStep1, fNbStep2;
-    G4double fTrackLen1, fTrackLen2;
-    G4double fTime1, fTime2;    
+	private:
+		void Book();
+		G4String fFileName;
 };
 
 #endif

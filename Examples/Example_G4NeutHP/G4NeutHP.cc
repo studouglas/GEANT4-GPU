@@ -8,6 +8,7 @@
 #include "DetectorConstruction.hh"
 #include "PhysicsList.hh"
 #include "ActionInitialization.hh"
+#include "SteppingVerbose.hh"
 
 int main() {
 	#ifdef G4MULTITHREADED
@@ -31,13 +32,13 @@ int main() {
 	
 	runManager->Initialize(); //this line initializes the G4 kernel (and calculates cross sections)
 	
-	//G4UImanager* UI = G4UImanager::GetUIpointer();
-	//UI->ApplyCommand("/run/verbose 1");
-	//UI->ApplyCommand("event/verbose 1");
-	//UI->ApplyCommand("/tracking/verbose 1");
+	G4UImanager* UI = G4UImanager::GetUIpointer();
+	UI->ApplyCommand("/run/verbose 1");
+	UI->ApplyCommand("event/verbose 1");
+	UI->ApplyCommand("/tracking/verbose 1");
 
-	//int n = n; //number of events
-	//runManager->BeamOn(events); //invokes a run with n number of events
+	int events = 3; //number of events
+	runManager->BeamOn(events); //invokes a run with n number of events
 
 	
 	//terminate the run
