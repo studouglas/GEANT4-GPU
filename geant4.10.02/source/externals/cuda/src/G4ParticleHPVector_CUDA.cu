@@ -1,6 +1,6 @@
 #include <cuda.h>
 #include <cuda_runtime.h>
-#include "G4ParticleHPVector_CUDA.h"
+#include "G4ParticleHPVector_CUDA.hh"
 
 /***********************************************
 *   CUDA functions
