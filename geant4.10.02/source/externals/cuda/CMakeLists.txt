@@ -4,16 +4,18 @@ find_package (CUDA REQUIRED)
 
 include_directories(/usr/local/cuda/include)
 include_directories(include)
+include_directories(src)
 
 # sets the macro in the source file
 add_definitions(-DGEANT4_ENABLE_CUDA=1)
 
 set(G4cuda_HEADERS
-	include/CUDA_G4NeutronHPVector.h
+	include/G4ParticleHPVector_CUDA.h
+	include/G4ParticleHPDataPoint.hh
 )
 
 set(G4cuda_SOURCES
-	src/CUDA_G4NeutronHPVector.cu
+	src/G4ParticleHPVector_CUDA.cu
 )
 
 include(Geant4MacroLibraryTargets)
@@ -26,4 +28,5 @@ set_property(GLOBAL APPEND PROPERTY GEANT4_BUILDTREE_INCLUDE_DIRS
 install(DIRECTORY include/
 	DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/${PROJECT_NAME}
 	COMPONENT Development
-	PATTERN "*.h")
+	PATTERN "*.h"
+	PATTERN "*.hh")

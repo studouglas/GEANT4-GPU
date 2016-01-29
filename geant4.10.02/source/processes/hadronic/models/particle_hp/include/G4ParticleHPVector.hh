@@ -51,7 +51,7 @@
 
 #define GEANT4_ENABLE_CUDA 1
 #if GEANT4_ENABLE_CUDA
-  #include "/Users/stuart/Documents/4th_Year/CS_4ZP6/GEANT4-GPU/geant4.10.02/source/externals/cuda/include/CUDA_G4NeutronHPVector.h"
+  #include "/Users/stuart/Documents/4th_Year/CS_4ZP6/GEANT4-GPU/geant4.10.02/source/externals/cuda/include/G4ParticleHPVector_CUDA.h"
 #endif
 
 #if defined WIN32-VC
@@ -60,111 +60,86 @@
 
 class G4ParticleHPVector
 {
-  friend G4ParticleHPVector & operator + (G4ParticleHPVector & left, 
-                                         G4ParticleHPVector & right);
+  friend G4ParticleHPVector & operator + (G4ParticleHPVector & left, G4ParticleHPVector & right);
   
+  
+  /******************************************
+   * PUBLIC                                  
+   ******************************************/
   public:
   
   G4ParticleHPVector();
-
   G4ParticleHPVector(G4int n);
-  
   ~G4ParticleHPVector();
-  
+
   G4ParticleHPVector & operator = (const G4ParticleHPVector & right);
-  
-  inline void SetVerbose(G4int ff)
-  {
-    Verbose = ff;
-  }
-  
-  inline void Times(G4double factor)
-  {
-    G4int i;
-    for(i=0; i<nEntries; i++)
-    {
-      theData[i].SetY(theData[i].GetY()*factor);
-    }
-    if(theIntegral!=0)
-    {
-      theIntegral[i] *= factor;
-    }
-  }
-  
-  inline void SetPoint(G4int i, const G4ParticleHPDataPoint & it)
-  {
-    G4double x = it.GetX();
-    G4double y = it.GetY();
-    SetData(i, x, y);
-  }
-    
-  inline void SetData(G4int i, G4double x, G4double y) 
+  G4double GetXsec(G4double e);
+  void Dump();
+  void ThinOut(G4double precision);
+  void Merge(G4InterpolationScheme aScheme, G4double aValue, G4ParticleHPVector * active, G4ParticleHPVector * passive);
+  G4double Sample(); // Samples X according to distribution Y
+  G4double Get15percentBorder();
+  G4double Get50percentBorder();
+
+
+  /******************************************
+   * Getters                                 
+   ******************************************/
+  inline const G4ParticleHPDataPoint & GetPoint(G4int i) const 
   { 
-//    G4cout <<"G4ParticleHPVector::SetData called"<<nPoints<<" "<<nEntries<<G4endl;
-    Check(i);
-    if(y>maxValue) maxValue=y;
-    theData[i].SetData(x, y);
+    #if GEANT4_ENABLE_CUDA
+      cudaVector->CopyTheDataToCpuIfChanged();
+    #endif
+    return theData[i]; 
   }
-  inline void SetX(G4int i, G4double e)
+
+  inline G4int GetVectorLength() const 
   {
-    Check(i);
-    theData[i].SetX(e);
+    return nEntries;
   }
-  inline void SetEnergy(G4int i, G4double e)
-  {
-    Check(i);
-    theData[i].SetX(e);
+  
+  inline G4double GetEnergy(G4int i) const 
+  { 
+    #if GEANT4_ENABLE_CUDA
+      cudaVector->CopyTheDataToCpuIfChanged();
+    #endif
+    return theData[i].GetX(); 
   }
-  inline void SetY(G4int i, G4double x)
-  {
-    Check(i);
-    if(x>maxValue) maxValue=x;
-    theData[i].SetY(x);
-  }
-  inline void SetXsec(G4int i, G4double x)
-  {
-    Check(i);
-    if(x>maxValue) maxValue=x;
-    theData[i].SetY(x);
-  }
-  inline G4double GetEnergy(G4int i) const { return theData[i].GetX(); }
-  inline G4double GetXsec(G4int i) { return theData[i].GetY(); }
+
   inline G4double GetX(G4int i) const 
   { 
-    if (i<0) i=0;
-    if(i>=GetVectorLength()) i=GetVectorLength()-1;
+    #if GEANT4_ENABLE_CUDA
+      cudaVector->CopyTheDataToCpuIfChanged();
+    #endif
+    if (i<0) {
+      i=0;
+    }
+    if(i>=GetVectorLength()) {
+      i=GetVectorLength()-1;
+    }
     return theData[i].GetX();
   }
-  inline const G4ParticleHPDataPoint & GetPoint(G4int i) const { return theData[i]; }
   
-  void Hash() 
-  {
-    G4int i;
-    G4double x, y;
-    for(i=0 ; i<nEntries; i++)
-    {
-      if(0 == (i+1)%10)
-      {
-        x = GetX(i);
-	y = GetY(i);
-	theHash.SetData(i, x, y);
-      }
-    }
+  inline G4double GetXsec(G4int i) 
+  { 
+    #if GEANT4_ENABLE_CUDA
+      cudaVector->CopyTheDataToCpuIfChanged();
+    #endif
+    return theData[i].GetY(); 
   }
   
-  void ReHash()
-  {
-    theHash.Clear();
-    Hash();
-  }
-  
-  G4double GetXsec(G4double e);
   G4double GetXsec(G4double e, G4int min)
   {
+    #if GEANT4_ENABLE_CUDA
+      cudaVector->CopyTheDataToCpuIfChanged();
+    #endif
+
     G4int i;
     for(i=min ; i<nEntries; i++)
     {
-      if(theData[i].GetX()>e) break;
+      if(theData[i].GetX()>e) {
+        break;
+      }
     }
     G4int low = i-1;
     G4int high = i;
@@ -190,7 +165,7 @@ class G4ParticleHPVector
       {
         y = theInt.Interpolate(theManager.GetScheme(high), e, 
                                theData[low].GetX(), theData[high].GetX(),
-		  	       theData[low].GetY(), theData[high].GetY());
+                               theData[low].GetY(), theData[high].GetY());
       }
     }
     else
@@ -199,30 +174,197 @@ class G4ParticleHPVector
     }
     return y;
   }
-  
-  inline G4double GetY(G4double x)  {return GetXsec(x);}
-  inline G4int GetVectorLength() const {return nEntries;}
+
+  inline G4double GetY(G4double x)  
+  {
+    return GetXsec(x);
+  }
 
   inline G4double GetY(G4int i)
   { 
-    if (i<0) i=0;
-    if(i>=GetVectorLength()) i=GetVectorLength()-1;
+    #if GEANT4_ENABLE_CUDA
+      cudaVector->CopyTheDataToCpuIfChanged();
+    #endif
+    if (i<0) {
+      i=0;
+    }
+    if(i>=GetVectorLength()){
+      i=GetVectorLength()-1;
+    }
     return theData[i].GetY(); 
   }
 
   inline G4double GetY(G4int i) const
   {
-    if (i<0) i=0;
-    if(i>=GetVectorLength()) i=GetVectorLength()-1;
+    #if GEANT4_ENABLE_CUDA
+      cudaVector->CopyTheDataToCpuIfChanged();
+    #endif
+    if (i<0) {
+      i=0;
+    }
+    if(i>=GetVectorLength()){
+      i=GetVectorLength()-1;
+    }
     return theData[i].GetY(); 
   }
-  void Dump();
-  
-  inline void InitInterpolation(std::istream & aDataFile)
+
+  G4double GetMeanX()
   {
-    theManager.Init(aDataFile);
+    #if GEANT4_ENABLE_CUDA
+      cudaVector->CopyTheDataToCpuIfChanged();
+    #endif
+    G4double result;
+    G4double running = 0;
+    G4double weighted = 0;
+    for(G4int i=1; i<nEntries; i++)
+    {
+      running += theInt.GetBinIntegral(theManager.GetScheme(i-1),
+                           theData[i-1].GetX(), theData[i].GetX(),
+                           theData[i-1].GetY(), theData[i].GetY());
+      weighted += theInt.GetWeightedBinIntegral(theManager.GetScheme(i-1),
+                           theData[i-1].GetX(), theData[i].GetX(),
+                           theData[i-1].GetY(), theData[i].GetY());
+    }  
+    result = weighted / running;  
+    return result;
+  }
+
+  inline G4double GetLabel()
+  {
+    return label;
+  }
+
+  inline G4double GetIntegral() // linear interpolation; use with care
+  { 
+    if(totalIntegral<-0.5) {
+      Integrate();
+    }
+    return totalIntegral; 
   }
   
+  inline const G4InterpolationManager & GetInterpolationManager() const
+  {
+    return theManager;
+  }
+
+  inline G4InterpolationScheme GetScheme(G4int anIndex)
+  {
+    return theManager.GetScheme(anIndex);
+  }
+
+
+  /******************************************
+   * Setters                                 
+   ******************************************/
+  inline void SetVerbose(G4int ff)
+  {
+    Verbose = ff;
+  }
+
+  inline void SetPoint(G4int i, const G4ParticleHPDataPoint & it)
+  {
+    G4double x = it.GetX();
+    G4double y = it.GetY();
+    SetData(i, x, y);
+  }
+    
+  inline void SetData(G4int i, G4double x, G4double y) 
+  { 
+    #if GEANT4_ENABLE_CUDA
+      cudaVector->CopyTheDataToCpuIfChanged();
+    #endif
+    
+    Check(i);
+    if(y>maxValue) maxValue=y;
+    theData[i].SetData(x, y);
+    
+    #if GEANT4_ENABLE_CUDA
+      cudaVector->SetTheDataChangedOnCpu();
+    #endif
+  }
+
+  inline void SetX(G4int i, G4double e)
+  {
+    #if GEANT4_ENABLE_CUDA
+      cudaVector->CopyTheDataToCpuIfChanged();
+    #endif
+
+    Check(i);
+    theData[i].SetX(e);
+
+    #if GEANT4_ENABLE_CUDA
+      cudaVector->SetTheDataChangedOnCpu();
+    #endif
+  }
+
+  inline void SetEnergy(G4int i, G4double e)
+  {
+    #if GEANT4_ENABLE_CUDA
+      cudaVector->CopyTheDataToCpuIfChanged();
+    #endif
+
+    Check(i);
+    theData[i].SetX(e);
+
+    #if GEANT4_ENABLE_CUDA
+      cudaVector->SetTheDataChangedOnCpu();
+    #endif
+  }
+
+  inline void SetY(G4int i, G4double x)
+  {
+    #if GEANT4_ENABLE_CUDA
+      cudaVector->CopyTheDataToCpuIfChanged();
+    #endif
+
+    Check(i);
+    if(x>maxValue) maxValue=x;
+    theData[i].SetY(x);
+
+    #if GEANT4_ENABLE_CUDA
+      cudaVector->SetTheDataChangedOnCpu();
+    #endif
+  }
+
+  inline void SetXsec(G4int i, G4double x)
+  {
+    #if GEANT4_ENABLE_CUDA
+      cudaVector->CopyTheDataToCpuIfChanged();
+    #endif
+
+    Check(i);
+    if(x>maxValue) maxValue=x;
+    theData[i].SetY(x);
+
+    #if GEANT4_ENABLE_CUDA
+      cudaVector->SetTheDataChangedOnCpu();
+    #endif
+  }
+ 
+  inline void SetLabel(G4double aLabel)
+  {
+    label = aLabel;
+  }
+  
+  inline void SetInterpolationManager(const G4InterpolationManager & aManager)
+  {
+    theManager = aManager;
+  }
+
+  inline void SetInterpolationManager(G4InterpolationManager & aMan)
+  {
+    theManager = aMan;
+  }
+  
+  inline void SetScheme(G4int aPoint, const G4InterpolationScheme & aScheme)
+  {
+    theManager.AppendScheme(aPoint, aScheme);
+  }
+
+
+  /******************************************
+   * Computations                            
+   ******************************************/
   void Init(std::istream & aDataFile, G4int total, G4double ux=1., G4double uy=1.)
   {
     G4double x,y;
@@ -243,35 +385,59 @@ class G4ParticleHPVector
   {
     G4int total;
     aDataFile >> total;
-    if(theData!=0) delete [] theData;
+    if(theData!=0) {
+      delete [] theData;
+    }
     theData = new G4ParticleHPDataPoint[total]; 
     nPoints=total;
     nEntries=0;    
     theManager.Init(aDataFile);
     Init(aDataFile, total, ux, uy);
+    
+    #if GEANT4_ENABLE_CUDA
+      cudaVector->SetTheDataChangedOnCpu();
+    #endif
   }
   
-  void ThinOut(G4double precision);
-  
-  inline void SetLabel(G4double aLabel)
+  inline void InitInterpolation(std::istream & aDataFile)
   {
-    label = aLabel;
+    theManager.Init(aDataFile);
   }
   
-  inline G4double GetLabel()
+  void Hash() 
   {
-    return label;
+    G4int i;
+    G4double x, y;
+    for(i=0 ; i<nEntries; i++)
+    {
+      if(0 == (i+1)%10)
+      {
+        x = GetX(i);
+        y = GetY(i);
+        theHash.SetData(i, x, y);
+      }
+    }
   }
   
+  void ReHash()
+  {
+    theHash.Clear();
+    Hash();
+  }
+
   inline void CleanUp()
   {
-    nEntries=0;   
+    nEntries=0;
     theManager.CleanUp();
     maxValue = -DBL_MAX;
     theHash.Clear();
-//080811 TK DB 
+    //080811 TK DB 
     delete[] theIntegral;
     theIntegral = NULL;
+
+    #if GEANT4_ENABLE_CUDA
+      cudaVector->SetTheDataChangedOnCpu();
+    #endif
   }
 
   // merges the vectors active and passive into *this
@@ -293,7 +459,7 @@ class G4ParticleHPVector
         a++;
         G4double xp = passive->GetEnergy(p);
 
-//080409 TKDB 
+        //080409 TKDB 
         //if( std::abs(std::abs(xp-xa)/xa)<0.001 ) p++;
         if ( !( xa == 0 ) && std::abs(std::abs(xp-xa)/xa)<0.001 ) p++;
       } else {
@@ -323,13 +489,15 @@ class G4ParticleHPVector
     }
   }    
   
-  void Merge(G4InterpolationScheme aScheme, G4double aValue, 
-             G4ParticleHPVector * active, G4ParticleHPVector * passive);
-  
   G4double SampleLin() // Samples X according to distribution Y, linear int
   {
+    #if GEANT4_ENABLE_CUDA
+      cudaVector->CopyTheDataToCpuIfChanged();
+    #endif
     G4double result;
-    if(theIntegral==0) IntegrateAndNormalise();
+    if(theIntegral==0) {
+      IntegrateAndNormalise();
+    }
     if(GetVectorLength()==1)
     {
       result = theData[0].GetX();
@@ -340,18 +508,19 @@ class G4ParticleHPVector
       G4double rand = G4UniformRand();
       
       // this was replaced 
-//      for(i=1;i<GetVectorLength();i++)
-//      {
-//	if(rand<theIntegral[i]/theIntegral[GetVectorLength()-1]) break;
-//      }
+      // for(i=1;i<GetVectorLength();i++)
+      //      {
+      //	if(rand<theIntegral[i]/theIntegral[GetVectorLength()-1]) break;
+      //      }
 
-// by this (begin)
+      // by this (begin)
       for(i=GetVectorLength()-1; i>=0 ;i--)
       {
-	if(rand>theIntegral[i]/theIntegral[GetVectorLength()-1]) break;
+      	if(rand>theIntegral[i]/theIntegral[GetVectorLength()-1]) 
+          break;
       }
       if(i!=GetVectorLength()-1) i++;
-// until this (end)
+      // until this (end)
       
       G4double x1, x2, y1, y2;
       y1 = theData[i-1].GetX();
@@ -360,73 +529,24 @@ class G4ParticleHPVector
       x2 = theIntegral[i];
       if(std::abs((y2-y1)/y2)<0.0000001) // not really necessary, since the case is excluded by construction
       {
-	y1 = theData[i-2].GetX();
-	x1 = theIntegral[i-2];
+      	y1 = theData[i-2].GetX();
+      	x1 = theIntegral[i-2];
       }
       result = theLin.Lin(rand, x1, x2, y1, y2);
     }
     return result;
   }
   
-  G4double Sample(); // Samples X according to distribution Y
-  
   G4double * Debug()
   {
     return theIntegral;
   }
 
-  inline void IntegrateAndNormalise()
-  {
-    G4int i;
-    if(theIntegral!=0) return;
-    theIntegral = new G4double[nEntries];
-    if(nEntries == 1)
-    {
-      theIntegral[0] = 1;
-      return;
-    }
-    theIntegral[0] = 0;
-    G4double sum = 0;
-    G4double x1 = 0;
-    G4double x0 = 0;
-    for(i=1;i<GetVectorLength();i++)
-    {
-      x1 = theData[i].GetX();
-      x0 = theData[i-1].GetX();
-      if (std::abs(x1-x0) > std::abs(x1*0.0000001) )
-      {
-	//********************************************************************
-	//EMendoza -> the interpolation scheme is not always lin-lin
-	/*
-        sum+= 0.5*(theData[i].GetY()+theData[i-1].GetY())*
-                  (x1-x0);
-	*/
-	//********************************************************************
-        G4InterpolationScheme aScheme = theManager.GetScheme(i);
-        G4double y0 = theData[i-1].GetY();
-        G4double y1 = theData[i].GetY();
-	G4double integ=theInt.GetBinIntegral(aScheme,x0,x1,y0,y1);
-#if defined WIN32-VC
-	if(!_finite(integ)){integ=0;}
-#elif defined __IBMCPP__
-	if(isinf(integ)||isnan(integ)){integ=0;}
-#else
-	if(std::isinf(integ)||std::isnan(integ)){integ=0;}
-#endif
-	sum+=integ;
-	//********************************************************************
-      }
-      theIntegral[i] = sum;
-    }
-    G4double total = theIntegral[GetVectorLength()-1];
-    for(i=1;i<GetVectorLength();i++)
-    {
-      theIntegral[i]/=total;
-    }
-  }
-
   inline void Integrate() 
   {
+    #if GEANT4_ENABLE_CUDA
+      cudaVector->CopyTheDataToCpuIfChanged();
+    #endif
     G4int i;
     if(nEntries == 1)
     {
@@ -479,91 +599,96 @@ class G4ParticleHPVector
     totalIntegral = sum;
   }
   
-  inline G4double GetIntegral() // linear interpolation; use with care
-  { 
-    if(totalIntegral<-0.5) Integrate();
-    return totalIntegral; 
-  }
-  
-  inline void SetInterpolationManager(const G4InterpolationManager & aManager)
+  inline void IntegrateAndNormalise()
   {
-    theManager = aManager;
-  }
-  
-  inline const G4InterpolationManager & GetInterpolationManager() const
-  {
-    return theManager;
-  }
-  
-  inline void SetInterpolationManager(G4InterpolationManager & aMan)
-  {
-    theManager = aMan;
-  }
-  
-  inline void SetScheme(G4int aPoint, const G4InterpolationScheme & aScheme)
-  {
-    theManager.AppendScheme(aPoint, aScheme);
-  }
-  
-  inline G4InterpolationScheme GetScheme(G4int anIndex)
-  {
-    return theManager.GetScheme(anIndex);
-  }
-  
-  G4double GetMeanX()
-  {
-    G4double result;
-    G4double running = 0;
-    G4double weighted = 0;
-    for(G4int i=1; i<nEntries; i++)
+    #if GEANT4_ENABLE_CUDA
+      cudaVector->CopyTheDataToCpuIfChanged();
+    #endif
+    G4int i;
+    if(theIntegral!=0) return;
+    theIntegral = new G4double[nEntries];
+    if(nEntries == 1)
     {
-      running += theInt.GetBinIntegral(theManager.GetScheme(i-1),
-                           theData[i-1].GetX(), theData[i].GetX(),
-                           theData[i-1].GetY(), theData[i].GetY());
-      weighted += theInt.GetWeightedBinIntegral(theManager.GetScheme(i-1),
-                           theData[i-1].GetX(), theData[i].GetX(),
-                           theData[i-1].GetY(), theData[i].GetY());
-    }  
-    result = weighted / running;  
-    return result;
+      theIntegral[0] = 1;
+      return;
+    }
+    theIntegral[0] = 0;
+    G4double sum = 0;
+    G4double x1 = 0;
+    G4double x0 = 0;
+    for(i=1;i<GetVectorLength();i++)
+    {
+      x1 = theData[i].GetX();
+      x0 = theData[i-1].GetX();
+      if (std::abs(x1-x0) > std::abs(x1*0.0000001) )
+      {
+      	//********************************************************************
+      	//EMendoza -> the interpolation scheme is not always lin-lin
+      	/*
+              sum+= 0.5*(theData[i].GetY()+theData[i-1].GetY())*
+                        (x1-x0);
+      	*/
+      	//********************************************************************
+        G4InterpolationScheme aScheme = theManager.GetScheme(i);
+        G4double y0 = theData[i-1].GetY();
+        G4double y1 = theData[i].GetY();
+      	G4double integ=theInt.GetBinIntegral(aScheme,x0,x1,y0,y1);
+        #if defined WIN32-VC
+        	if(!_finite(integ)){integ=0;}
+        #elif defined __IBMCPP__
+        	if(isinf(integ)||isnan(integ)){integ=0;}
+        #else
+        	if(std::isinf(integ)||std::isnan(integ)){integ=0;}
+        #endif
+        	sum+=integ;
+        	//********************************************************************
+      }
+      theIntegral[i] = sum;
+    }
+    G4double total = theIntegral[GetVectorLength()-1];
+    for(i=1;i<GetVectorLength();i++)
+    {
+      theIntegral[i]/=total;
+    }
   }
-  
-/*
-  void Block(G4double aX)
+    
+  inline void Times(G4double factor)
   {
-    theBlocked.push_back(aX);
+    //=========================================
+    #if GEANT4_ENABLE_CUDA
+      cudaVector->Times(factor);
+    #else
+      G4int i;
+      for(i=0; i<nEntries; i++) {
+        theData[i].SetY(theData[i].GetY()*factor);
+      }
+      if(theIntegral!=0) {
+        theIntegral[i] *= factor;
+      }  
+    #endif
+    //=========================================
   }
-  
-  void Buffer(G4double aX)
-  {
-    theBuffered.push_back(aX);
-  }
-*/
-  
-  std::vector<G4double> GetBlocked() {return theBlocked;}
-  std::vector<G4double> GetBuffered() {return theBuffered;}
-  
-//  void SetBlocked(const std::vector<G4double> &aBlocked) {theBlocked = aBlocked;}
-//  void SetBuffered(const std::vector<G4double> &aBuffer) {theBuffered = aBuffer;}
 
-  G4double Get15percentBorder();
-  G4double Get50percentBorder();
-  
+
+  /******************************************
+   * PRIVATE
+   ******************************************/
   private:
+  
+  //=======================================
+  #if GEANT4_ENABLE_CUDA
+    G4ParticleHPVector_CUDA * cudaVector;
+    void InitializeCudaVariables();
+  #endif
+  //=======================================
   
   void Check(G4int i);
-  
   G4bool IsBlocked(G4double aX);
   
-  private:
-  
   G4ParticleHPInterpolator theLin;
-  
-  private:
-  
   G4double totalIntegral;
   
-  G4ParticleHPDataPoint * theData; // the data
+  G4ParticleHPDataPoint * theData;
   G4InterpolationManager theManager; // knows how to interpolate the data.
   G4double * theIntegral;
   G4int nEntries;
@@ -572,17 +697,14 @@ class G4ParticleHPVector
   
   G4ParticleHPInterpolator theInt;
   G4int Verbose;
-  // debug only
-  G4int isFreed;
+  G4int isFreed; // debug only
   
   G4ParticleHPHash theHash;
   G4double maxValue;
-  
   std::vector<G4double> theBlocked;
   std::vector<G4double> theBuffered;
   G4double the15percentBorderCash;
   G4double the50percentBorderCash;
-
 };
 
 #endif
