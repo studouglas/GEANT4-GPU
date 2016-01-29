@@ -51,7 +51,8 @@
 
 #define GEANT4_ENABLE_CUDA 1
 #if GEANT4_ENABLE_CUDA
-  #include "../../../../../externals/cuda/include/G4ParticleHPVector_CUDA.hh"
+  // #include "../../../../../externals/cuda/include/G4ParticleHPVector_CUDA.hh"
+#include "/Users/stuart/Documents/4th_Year/CS_4ZP6/GEANT4-GPU/geant4.10.00.p02/source/externals/cuda/include/G4ParticleHPVector_CUDA.hh"
 #endif
 
 #if defined WIN32-VC
@@ -578,7 +579,9 @@ class G4ParticleHPVector
         	if(rand>theIntegral[i]/theIntegral[GetVectorLength()-1]) 
             break;
         }
-        if(i!=GetVectorLength()-1) i++;
+        if(i!=GetVectorLength()-1) {
+          i++;
+        }
         // until this (end)
         
         G4double x1, x2, y1, y2;

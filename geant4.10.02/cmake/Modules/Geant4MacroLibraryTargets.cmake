@@ -330,7 +330,6 @@ MACRO(GEANT4_LIBRARY_TARGET_CUDA)
     "NAME" "SOURCES;GEANT4_LINK_LIBRARIES;LINK_LIBRARIES"
     ${ARGN}
     )
-
   if(BUILD_SHARED_LIBS)
     # Add the shared library target and link its dependencies
     # WIN32 first

@@ -2,6 +2,7 @@
 #define G4ParticleHPVector_CUDA_h 1
 
 #include <stdio.h>
+#include <iostream>
 #include <algorithm> // for std::max
 #include <cfloat>
 #include "G4ParticleHPDataPoint_CUDA.hh"
@@ -188,7 +189,7 @@ class G4ParticleHPVector_CUDA {
     private:
     G4ParticleHPInterpolator theLin;
     G4double totalIntegral;
-    
+
     G4ParticleHPDataPoint * theData;
     G4InterpolationManager theManager;
     G4double * theIntegral;

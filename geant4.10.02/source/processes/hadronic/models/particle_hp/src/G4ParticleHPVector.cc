@@ -90,7 +90,7 @@ G4ParticleHPVector::G4ParticleHPVector()
   #if GEANT4_ENABLE_CUDA
     cudaVector = new G4ParticleHPVector_CUDA();
   #else
-    theData = new G4ParticleHPDataPoint[120]; 
+    theData = new G4ParticleHPDataPoint[20]; 
     nPoints=20;
     nEntries=0;
     Verbose=0;

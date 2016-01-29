@@ -22,6 +22,7 @@ set(G4cuda_HEADERS
 
 set(G4cuda_SOURCES
 	src/G4ParticleHPVector_CUDA.cu
+	src/G4InterpolationManager_CUDA.cc
 )
 
 include(Geant4MacroLibraryTargets)
