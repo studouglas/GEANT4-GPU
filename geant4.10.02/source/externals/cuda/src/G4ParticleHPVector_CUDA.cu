@@ -5,28 +5,7 @@
 /***********************************************
 *   CUDA functions
 ***********************************************/
-__global__ void cudaTimes(G4double factor, G4ParticleHPDataPoint* cudaTheData, G4double* cudaTheIntegral) {
-    int tid = blockIdx.x;
-    cudaTheData[tid].xSec = cudaTheData[tid].xSec*factor;
-    cudaTheIntegral[tid] = cudaTheIntegral[tid]*factor;
-}
-__global__ void cudaGetXsecIndex(G4double e, G4ParticleHPDataPoint* cudaTheData) {
-    int tid = blockIdx.x;
-    if (cudaTheData[tid].xSec >= e) {
-        // return tid;
-    } else {
-        // return -1;
-    }
-}
-__global__ void cudaSetIfIndexValid(G4ParticleHPDataPoint* cudaTheData, G4int offset, G4int* validIndicesOnGpu, G4double e) {
-    int tid = blockIdx.x;
-    int index = tid*offset;
-    if (cudaTheData[index].energy >= e) {
-        validIndicesOnGpu[tid] = 1;
-    } else {
-        validIndicesOnGpu[tid] = 0;
-    }
-}
+
 
 
 /***********************************************
@@ -44,12 +23,111 @@ G4ParticleHPVector_CUDA::~G4ParticleHPVector_CUDA() {
 }
 
 /******************************************
+* Getters from .hh that use CUDA
+******************************************/
+const G4ParticleHPDataPoint & GetPoint(G4int i) {
+    return 0;
+}
+
+G4double GetEnergy(G4int i) {
+    G4ParticleHPDataPoint *p;
+    cudaMemcpy(p, theData[i], sizeof(G4ParticleHPDataPoint), cudaMemcpyDeviceToHost);
+    return p.energy;
+}
+
+G4double GetX(G4int i) {
+    G4ParticleHPDataPoint *p;
+    cudaMemcpy(p, theData[i], sizeof(G4ParticleHPDataPoint), cudaMemcpyDeviceToHost);
+    return p.energy;
+}
+
+G4double GetXsec(G4int i) {
+    G4ParticleHPDataPoint *p;
+    cudaMemcpy(p, theData[i], sizeof(G4ParticleHPDataPoint), cudaMemcpyDeviceToHost);
+    return p.xSec;
+}
+
+G4double GetXsec(G4double e, G4int min) {
+    return 0;
+}
+
+G4double GetY(G4double x) {
+    return 0;
+}
+
+G4double GetY(G4int i) {
+    G4ParticleHPDataPoint *p;
+    cudaMemcpy(p, theData[i], sizeof(G4ParticleHPDataPoint), cudaMemcpyDeviceToHost);
+    return p.xSec;
+}
+
+G4double GetMeanX() {
+    return 0;
+}
+
+/******************************************
+* Setters from .hh that use CUDA
+******************************************/
+void SetData(G4int i, G4double x, G4double y) {
+
+}
+
+void SetX(G4int i, G4double e) {
+
+}
+
+void SetEnergy(G4int i, G4double e) {
+
+}
+
+void SetY(G4int i, G4double x) {
+
+}
+
+void SetXsec(G4int i, G4double x {
+
+}
+
+
+/******************************************
+* Computations from .hh that use CUDA
+******************************************/
+void Init(std::istream & aDataFile,G4double ux=1., G4double uy=1.) {
+
+}
+
+void CleanUp() {
+
+}
+
+G4double SampleLin() {
+    return 0;
+}
+
+G4double * Debug() {
+    return 0;
+}
+
+void Integrate() {
+
+}
+
+void IntegrateAndNormalise() {
+
+}
+
+void Times(G4double factor) {
+    cudaTimes(factor, theData, theIntegral);
+}
+__global__ void cudaTimes(G4double factor, G4ParticleHPDataPoint* theData, G4double* theIntegral) {
+    int tid = blockIdx.x;
+    theData[tid].xSec = theData[tid].xSec*factor;
+    theIntegral[tid] = theIntegral[tid]*factor;
+}
+
+/******************************************
 * Functions from .cc
 ******************************************/
-// G4ParticleHPVector_CUDA & operatorPlus (G4ParticleHPVector & left, G4ParticleHPVector & right) {
-
-// }
-
 G4double G4ParticleHPVector_CUDA::GetXsec(G4double e) {
     return 0;
 }
@@ -85,3 +163,5 @@ void G4ParticleHPVector_CUDA::Check(G4int i) {
 G4bool G4ParticleHPVector_CUDA::IsBlocked(G4double aX) {
     return false;
 }
+
+// G4ParticleHPVector_CUDA & operatorPlus (G4ParticleHPVector & left, G4ParticleHPVector & right) { }

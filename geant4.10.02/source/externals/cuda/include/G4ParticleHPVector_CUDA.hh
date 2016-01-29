@@ -20,7 +20,6 @@ class G4ParticleHPVector_CUDA {
     G4ParticleHPVector_CUDA(G4int);
     ~G4ParticleHPVector_CUDA();
 
-    //G4ParticleHPVector & operator = (const G4ParticleHPVector & right);
     G4double GetXsec(G4double e);
     void Dump();
     void ThinOut(G4double precision);
@@ -28,6 +27,7 @@ class G4ParticleHPVector_CUDA {
     G4double Sample();
     G4double Get15percentBorder();
     G4double Get50percentBorder();
+    //G4ParticleHPVector & operator = (const G4ParticleHPVector & right);
 
     void Check(G4int i);
     G4bool IsBlocked(G4double aX);
@@ -35,45 +35,35 @@ class G4ParticleHPVector_CUDA {
     /******************************************
     * Getters from .hh
     *******************************************/
-    inline const G4ParticleHPDataPoint & GetPoint(G4int i) const {
-        return theData[i];
-    }
+    const G4ParticleHPDataPoint & GetPoint(G4int i);
+    
     inline G4int GetVectorLength() const {
-        return 0;
+        return nEntries;
     }
-    inline G4double GetEnergy(G4int i) const {
-        return 0;
-    }
-    inline G4double GetX(G4int i) const {
-        return 0;
-    }
-    inline G4double GetXsec(G4int i) {
-        return 0;
-    }
-    G4double GetXsec(G4double e, G4int min) {
-        return 0;
-    }
-    inline G4double GetY(G4double x) {
-        return 0;
-    }
-    inline G4double GetY(G4int i) {
-        return 0;
-    }
-    inline G4double GetY(G4int i) const {
-        return 0;
-    }
-    G4double GetMeanX() {
-        return 0;
-    }
+    
+    G4double GetEnergy(G4int i);
+    G4double GetX(G4int i);
+    G4double GetXsec(G4int i);
+    G4double GetXsec(G4double e, G4int min);
+    G4double GetY(G4double x);
+    G4double GetY(G4int i);
+    G4double GetMeanX();
+    
     inline G4double GetLabel() {
-        return 0;
+        return label;
     }
+    
     inline G4double GetIntegral() {
-        return 0;
+        if (totalIntegral < -0.5) {
+            Integrate();
+        }
+        return totalIntegral;
     }
+    
     inline const G4InterpolationManager & GetInterpolationManager() const {
         return theManager;
     }
+    
     inline G4InterpolationScheme GetScheme(G4int anIndex) {
         return theManager.GetScheme(anIndex);
     }
@@ -83,37 +73,35 @@ class G4ParticleHPVector_CUDA {
     * Setters from .hh
     ******************************************/
     inline void SetVerbose(G4int ff) {
-
+        Verbose = ff;
     }
+    
     inline void SetPoint(G4int i, const G4ParticleHPDataPoint & it) {
-
+        G4double x = it.GetX();
+        G4double y = it.GetY();
+        SetData(i,x,y);
     }
-    inline void SetData(G4int i, G4double x, G4double y) {
-
-    }
-    inline void SetX(G4int i, G4double e) {
-
-    }
-    inline void SetEnergy(G4int i, G4double e) {
-
-    }
-    inline void SetY(G4int i, G4double x) {
-
-    }
-    inline void SetXsec(G4int i, G4double x) {
-
-    }
+    
+    void SetData(G4int i, G4double x, G4double y);
+    void SetX(G4int i, G4double e);
+    void SetEnergy(G4int i, G4double e);
+    void SetY(G4int i, G4double x);
+    void SetXsec(G4int i, G4double x);
+    
     inline void SetLabel(G4double aLabel) {
-
+        label = aLabel;
     }
+    
     inline void SetInterpolationManager(const G4InterpolationManager & aManager) {
-
+        theManager = aManager;
     }
+    
     inline void SetInterpolationManager(G4InterpolationManager & aMan) {
-
+        theManager = aMan;
     }
+    
     inline void SetScheme(G4int aPoint, const G4InterpolationScheme & aScheme) {
-
+        theManager.AppendScheme(aPoint, aScheme);
     }
 
 
@@ -121,35 +109,78 @@ class G4ParticleHPVector_CUDA {
     * Computations from .hh
     ******************************************/
     void Init(std::istream & aDataFile, G4int total, G4double ux=1., G4double uy=1.) {
-
+        G4double x, y;
+        for (G4int i = 0; i < total; i++) {
+            aDataFile >> x >> y;
+            // TODO: Optimize with one cuda function
+            x *= ux;
+            y *= uy;
+            SetData(i,x,y);
+        }
     }
-    void Init(std::istream & aDataFile,G4double ux=1., G4double uy=1.) {
-
-    }
+    
+    void Init(std::istream & aDataFile,G4double ux=1., G4double uy=1.);
+    
     inline void InitInterpolation(std::istream & aDataFile) {
-
+        theManager.Init(aDataFile);
     }
-    inline void CleanUp() {
-
-    }
+    
+    void CleanUp();
+    
     inline void Merge(G4ParticleHPVector_CUDA * active, G4ParticleHPVector_CUDA * passive) {
+        CleanUp();
+        G4int s_tmp = 0;
+        G4int n = 0;
+        G4int m_tmp = 0;
 
-    }
-    G4double SampleLin() {
-        return 0;
-    }
-    G4double * Debug() {
-        return 0;
-    }
-    inline void Integrate() {
+        G4ParticleHPVector_CUDA * tmp;
+        G4int a = s_tmp;
+        G4int p = n;
+        G4int t;
 
-    }
-    inline void IntegrateAndNormalise() {
+        while (a < active->GetVectorLength() && p < passive->GetVectorLength()) {
+            if (active->GetEnergy(a) <= passive->GetEnergy(p)) {
+                G4double xa = active->GetEnergy(a);
+                G4double yy = active->GetXsec(a);
+                SetData(m_tmp, xa, yy);
+                theManager.AppendScheme(m_tmp, active->GetScheme(a));
+                m_tmp++;
+                a++;
+                G4double xp = passive->GetEnergy(p);
 
+                if (!(xa == 0) && std::abs(std::abs(xp - xa) / xa) < 0.001) {
+                    p++;
+                }
+            } else {
+                tmp = active; 
+                t = a;
+                active = passive; 
+                a = p;
+                passive = tmp; 
+                p = t;
+            }
+        }
+        while (a != active->GetVectorLength()) {
+            SetData(m_tmp, active->GetEnergy(a), active->GetXsec(a));
+            theManager.AppendScheme(m_tmp, active->GetScheme(a));
+            m_tmp++;
+            a++;
+        }
+        while (p != passive->GetVectorLength()) {
+            if (std::abs(GetEnergy(m_tmp - 1) - passive->GetEnergy(p)) / passive->GetEnergy(p) > 0.001) {
+                SetData(m_tmp, passive->GetEnergy(p), passive->GetXsec(p));
+                theManager.AppendScheme(m_tmp, active->GetScheme(p));
+                m_tmp++;
+            }
+            p++;
+        } 
     }
-    inline void Times(G4double factor) {
-
-    }
+    
+    G4double SampleLin();
+    G4double * Debug();
+    void Integrate();
+    void IntegrateAndNormalise();
+    void Times(G4double factor);
 
     /******************************************
     * PRIVATE                                 
