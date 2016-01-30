@@ -574,9 +574,9 @@ class G4ParticleHPVector
         //      }
 
         // by this (begin)
-        for(i=GetVectorLength()-1; i>=0 ;i--)
+        for (i = GetVectorLength()-1; i >= 0 ; i--)
         {
-        	if(rand>theIntegral[i]/theIntegral[GetVectorLength()-1]) 
+        	if(rand > theIntegral[i]/theIntegral[GetVectorLength()-1]) 
             break;
         }
         if(i!=GetVectorLength()-1) {
