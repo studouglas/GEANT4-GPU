@@ -53,6 +53,8 @@
 #include "G4Log_CUDA.hh"
 #include "G4Exp_CUDA.hh"
 #include "G4DataVector_CUDA.hh"
+#include <cuda.h>
+#include <cuda_runtime.h>
 
 class G4Pow
 {
@@ -125,12 +127,12 @@ class G4Pow
 
 // -------------------------------------------------------------------
 
-inline G4double G4Pow::Z13(G4int Z) const
+__host__ __device__ inline G4double G4Pow::Z13(G4int Z) const
 {
   return pz13[Z];
 }
 
-inline G4double G4Pow::A13(G4double A) const
+__host__ __device__ inline G4double G4Pow::A13(G4double A) const
 {
   G4double res = 0.0;
   if(A > 0.0) 
@@ -152,24 +154,24 @@ inline G4double G4Pow::A13(G4double A) const
   return res;
 }
 
-inline G4double G4Pow::Z23(G4int Z) const
+__host__ __device__ inline G4double G4Pow::Z23(G4int Z) const
 {
   G4double x = Z13(Z);
   return x*x;
 }
 
-inline G4double G4Pow::A23(G4double A) const
+__host__ __device__ inline G4double G4Pow::A23(G4double A) const
 {
   G4double x = A13(A);
   return x*x;
 }
 
-inline G4double G4Pow::logZ(G4int Z) const
+__host__ __device__ inline G4double G4Pow::logZ(G4int Z) const
 {
   return lz[Z];
 }
 
-inline G4double G4Pow::logBase(G4double a) const
+__host__ __device__ inline G4double G4Pow::logBase(G4double a) const
 {
   G4double res;
   if(a <= maxA2) 
@@ -192,82 +194,80 @@ inline G4double G4Pow::logBase(G4double a) const
   return res;
 }
 
-inline G4double G4Pow::logA(G4double A) const
+__host__ __device__ inline G4double G4Pow::logA(G4double A) const
 {
   return (1.0 <= A ? logBase(A) : -logBase(1./A));
 }
 
-inline G4double G4Pow::logX(G4double x) const
-{
+__host__ __device__ inline G4double G4Pow::logX(G4double x) const {
   G4double res = 0.0;
   G4double a = (1.0 <= x) ? x : 1.0/x;
 
-  if(a <= maxA) 
-  {
+  if(a <= maxA) {
     res = logBase(a);
   }
-  else if(a <= ener[2])
-  {
+  else if(a <= ener[2]) {
     res = logen[1] + logBase(a/ener[1]);
   }
-  else if(a <= ener[3])
-  {
+  else if(a <= ener[3]) {
     res = logen[2] + logBase(a/ener[2]);
   }
-  else
-  {
+  else {
     res = G4Log(a);
   }
 
-  if(1.0 > x) { res = -res; }
+  if (1.0 > x) { 
+    res = -res; 
+  }
   return res;
 }
 
-inline G4double G4Pow::log10Z(G4int Z) const
+__host__ __device__ inline G4double G4Pow::log10Z(G4int Z) const
 {
   return lz[Z]/lz[10];
 }
 
-inline G4double G4Pow::log10A(G4double A) const
+__host__ __device__ inline G4double G4Pow::log10A(G4double A) const
 {
   return logX(A)/lz[10];
 }
 
-inline G4double G4Pow::expA(G4double A) const
+__host__ __device__ inline G4double G4Pow::expA(G4double A) const
 {
   G4double res;
   G4double a = (0.0 <= A) ? A : -A;
 
-  if(a <= maxAexp)
-  {
+  if(a <= maxAexp) {
     G4int i = G4int(2*a + 0.5);
     G4double x = a - i*0.5;
     res = fexp[i]*(1.0 + x*(1.0 + 0.5*(1.0 + onethird*x)*x));
-  }
-  else
-  {
+  } 
+  else {
     res = G4Exp(a);
   }
-  if(0.0 > A) { res = 1.0/res; }
+  
+  if (0.0 > A) { 
+    res = 1.0/res; 
+  }
   return res;
 }
 
-inline G4double G4Pow::powZ(G4int Z, G4double y) const
+__host__ __device__ inline G4double G4Pow::powZ(G4int Z, G4double y) const
 {
   return expA(y*lz[Z]);
 }
 
-inline G4double G4Pow::powA(G4double A, G4double y) const
+__host__ __device__ inline G4double G4Pow::powA(G4double A, G4double y) const
 {
   return (0.0 == A ? 0.0 : expA(y*logX(A)));
 }
 
-inline G4double G4Pow::factorial(G4int Z) const
+__host__ __device__ inline G4double G4Pow::factorial(G4int Z) const
 {
   return fact[Z];
 }
 
-inline G4double G4Pow::logfactorial(G4int Z) const
+__host__ __device__ inline G4double G4Pow::logfactorial(G4int Z) const
 {
   return logfact[Z];
 }

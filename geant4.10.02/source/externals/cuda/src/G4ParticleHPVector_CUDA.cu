@@ -12,6 +12,20 @@ __global__ void firstIndexGreaterThan(G4ParticleHPDataPoint * theDataArg, G4doub
     }
 }
 
+// http://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html#atomic-functions
+__device__ double atomicAdd(double* address, double val) { 
+    unsigned long long int* address_as_ull = (unsigned long long int*)address; 
+    unsigned long long int old = *address_as_ull, assumed; 
+    do { 
+        assumed = old; 
+        old = atomicCAS(address_as_ull, assumed, 
+            __double_as_longlong(val + __longlong_as_double(assumed))); 
+        // Note: uses integer comparison to avoid hang in case of NaN (since NaN != NaN) 
+    } while (assumed != old); 
+    return __longlong_as_double(old); 
+}
+
+
 /***********************************************
 *   Constructors, Deconstructors
 ***********************************************/
@@ -183,49 +197,66 @@ G4double * G4ParticleHPVector_CUDA::Debug() {
     return 0;
 }
 
-__global__ void Integrate_CUDA(G4ParticleHPDataPoint * theDataArg, G4double * sum, G4InterpolationManager manager) {
-    // G4int i = blockDim.x * blockIdx.x + threadIdx.x;
-    // if (i == 0) {
-    //     return;
-    // }
+// TODO: test that this gives same results
+__global__ void Integrate_CUDA(G4ParticleHPDataPoint * theDataArg, G4double * sum, G4InterpolationManager theManagerArg) {
+    G4int i = blockDim.x * blockIdx.x + threadIdx.x;
+    if (i == 0) {
+        return;
+    }
 
-    // if (abs((theDataArg[i].energy - theData[i-1].energy) / theData[i].energy) > 0.0000001) {
-    //     G4double x1 = theData[i-1].energy;
-    //     G4double x2 = theData[i].energy;
-    //     G4double y1 = theData[i-1].xSec;
-    //     G4double y2 = theData[i].xSec;
+    if (abs((theDataArg[i].energy - theDataArg[i-1].energy) / theDataArg[i].energy) > 0.0000001) {
+        G4double x1 = theDataArg[i-1].energy;
+        G4double x2 = theDataArg[i].energy;
+        G4double y1 = theDataArg[i-1].xSec;
+        G4double y2 = theDataArg[i].xSec;
 
-    //     G4double toAdd = 0;
-    //     G4InterpolationScheme aScheme = manager.GetScheme(i);
-    //     if (aScheme == LINLIN || aScheme == CLINLIN || aScheme == ULINLIN) {
-    //         toAdd += 0.5 * (y2+y1) * (x2-x1);
-    //     }
-    //     else if (aScheme == LINLOG || aScheme == CLINLOG || aScheme == ULINLOG) {
-    //         G4double a = y1;
-    //         G4double b = (y2-y1)/(G4Log(x2)-G4Log(x1));
-    //         toAdd += (a-b) * (x2-x1) + b*(x2 * G4Log(x2) - x1 * G4Log(x1));
-    //     }
-    //     else if (aScheme == LOGLIN || aScheme == CLOGLIN || aScheme == ULOGLIN) {
-    //         G4double a = G4Log(y1);
-    //         G4double b = (G4Log(y2)-G4Log(y1))/(x2-x1);
-    //         toAdd += (G4Exp(a)/b) * (G4Exp(b * x2) - G4Exp(b * x1));
-    //     }
-    //     else if (aScheme == HISTO || aScheme == CHISTO || aScheme == UHISTO) {
-    //         toAdd += y1 * (x2-x1);
-    //     }
-    //     else if (aScheme == LOGLOG || aScheme == CLOGLOG || aScheme == ULOGLOG) {
-    //         G4double a = G4Log(y1);
-    //         G4double b = (G4Log(y2) - G4Log(y1)) / (G4Log(x2) - G4Log(x1));
-    //         toAdd += (G4Exp(a)/(b+1)) * (G4Pow::GetInstance()->powA(x2,b+1) - G4Pow::GetInstance()->powA(x1,b+1));
-    //     }
+        double toAdd = 0;
+        G4InterpolationScheme aScheme = theManagerArg.GetScheme(i);
+        if (aScheme == LINLIN || aScheme == CLINLIN || aScheme == ULINLIN) {
+            toAdd += 0.5 * (y2+y1) * (x2-x1);
+        }
+        else if (aScheme == LINLOG || aScheme == CLINLOG || aScheme == ULINLOG) {
+            G4double a = y1;
+            // G4double b = (y2-y1) / (G4Log(x2) - G4Log(x1));
+            // toAdd += (a-b) * (x2-x1) + b*(x2 * G4Log(x2) - x1 * G4Log(x1));
+            
+            // NOTE: cuda's log function requires compute capability >= 3.0 for double precision
+            // make sure you are compiling for 3.0 (nvcc -arch sm_30)
+            G4double b = (y2 - y1) / (log(x2) - log(x1));
+            toAdd += (a-b) * (x2-x1) + b*(x2 * log(x2) - x1 * log(x1));
+        }
+        else if (aScheme == LOGLIN || aScheme == CLOGLIN || aScheme == ULOGLIN) {
+            // G4double a = G4Log(y1);
+            // G4double b = (G4Log(y2)-G4Log(y1))/(x2-x1);
+            // toAdd += (G4Exp(a)/b) * (G4Exp(b * x2) - G4Exp(b * x1));
 
-    //     if (toAdd != 0) {
-    //         atomicAdd(sum, toAdd);
-    //     }
-    // }
+            // NOTE: cuda's log function requires compute capability >= 3.0 for double precision
+            // make sure you are compiling for 3.0 (nvcc -arch sm_30)
+            G4double a = log(y1);
+            G4double b = (log(y2) - log(y1)) / (x2-x1);
+            // toAdd += (G4Exp(a) / b) * (G4Exp(b * x2) - G4Exp(b * x1));
+
+        }
+        else if (aScheme == HISTO || aScheme == CHISTO || aScheme == UHISTO) {
+            toAdd += y1 * (x2-x1);
+        }
+        else if (aScheme == LOGLOG || aScheme == CLOGLOG || aScheme == ULOGLOG) {
+            // G4double a = G4Log(y1);
+            // G4double b = (G4Log(y2) - G4Log(y1)) / (G4Log(x2) - G4Log(x1));
+            // toAdd += (G4Exp(a)/(b+1)) * (G4Pow::GetInstance()->powA(x2,b+1) - G4Pow::GetInstance()->powA(x1,b+1));
+
+            // NOTE: cuda's log function requires compute capability >= 3.0 for double precision
+            // make sure you are compiling for 3.0 (nvcc -arch sm_30)
+            G4double a = log(y1);
+            G4double b = (log(y2) - log(y1)) / (log(x2) - log(x1));
+            toAdd += (G4Exp(a)/(b+1)) * (pow(x2,b+1) - pow(x1,b+1));
+        }
+
+        if (toAdd != 0) {
+            atomicAdd(sum, toAdd);
+        }
+    }
 }
-
-// TODO: port me (requires InterpolationManager on GPU)
 void G4ParticleHPVector_CUDA::Integrate() {
     G4int i;
     if (nEntries == 1) {
@@ -235,43 +266,8 @@ void G4ParticleHPVector_CUDA::Integrate() {
     
     G4double *sum;
     cudaMalloc(&sum, sizeof(G4double));
-    // Integrate_CUDA<<<1, nEntries>>>(theData, sum, )
-
-    // for (i = 1; i < GetVectorLength(); i++) {
-    //     if (std::abs((theData[i].GetX() - theData[i-1].GetX()) / theData[i].GetX()) > 0.0000001) {
-    //         G4double x1 = theData[i-1].GetX();
-    //         G4double x2 = theData[i].GetX();
-    //         G4double y1 = theData[i-1].GetY();
-    //         G4double y2 = theData[i].GetY();
-    //         G4InterpolationScheme aScheme = theManager.GetScheme(i);
-            
-    //         if (aScheme == LINLIN || aScheme == CLINLIN || aScheme == ULINLIN) {
-    //             sum += 0.5 * (y2+y1) * (x2-x1);
-    //         }
-    //         else if (aScheme == LINLOG || aScheme == CLINLOG || aScheme == ULINLOG) {
-    //             G4double a = y1;
-    //             G4double b = (y2-y1)/(G4Log(x2)-G4Log(x1));
-    //             sum += (a-b)*(x2-x1) + b*(x2*G4Log(x2)-x1*G4Log(x1));
-    //         }
-    //         else if (aScheme == LOGLIN || aScheme == CLOGLIN || aScheme == ULOGLIN) {
-    //             G4double a = G4Log(y1);
-    //             G4double b = (G4Log(y2)-G4Log(y1))/(x2-x1);
-    //             sum += (G4Exp(a)/b) * (G4Exp(b*x2) - G4Exp(b*x1));
-    //         }
-    //         else if (aScheme == HISTO || aScheme == CHISTO || aScheme == UHISTO) {
-    //             sum+= y1*(x2-x1);
-    //         }
-    //         else if (aScheme == LOGLOG || aScheme == CLOGLOG || aScheme == ULOGLOG) {
-    //             G4double a = G4Log(y1);
-    //             G4double b = (G4Log(y2) - G4Log(y1)) / (G4Log(x2) - G4Log(x1));
-    //             sum += (G4Exp(a)/(b+1)) * (G4Pow::GetInstance()->powA(x2,b+1) - G4Pow::GetInstance()->powA(x1,b+1));
-    //         }
-    //         else {
-    //             // throw G4HadronicException(__FILE__, __LINE__, "Unknown interpolation scheme in G4ParticleHPVector::Integrate");
-    //         }
-    //     }
-    // }
-    // totalIntegral = sum;
+    Integrate_CUDA<<<1, nEntries>>>(theData, sum, theManager);
+    totalIntegral = *sum;
 }
 
 // TODO: Port Me

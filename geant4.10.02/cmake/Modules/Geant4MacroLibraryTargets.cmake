@@ -376,7 +376,8 @@ MACRO(GEANT4_LIBRARY_TARGET_CUDA)
         ${_archive}
         ${G4LIBTARGET_GEANT4_LINK_LIBRARIES}
         ${G4LIBTARGET_LINK_LIBRARIES})
-
+      LIST(APPEND CUDA_NVCC_FLAGS --compiler-options -fno-strict-aliasing -lineinfo -use_fast_math -Xptxas -dlcm=cg -Wno-unused-function -Wno-language-extension-token)
+      LIST(APPEND CUDA_NVCC_FLAGS -gencode arch=compute_30,code=sm_30)
       set_target_properties(${G4LIBTARGET_NAME}
         PROPERTIES INTERFACE_LINK_LIBRARIES "${G4LIBTARGET_GEANT4_LINK_LIBRARIES};${G4LIBTARGET_LINK_LIBRARIES}")
 
@@ -389,6 +390,8 @@ MACRO(GEANT4_LIBRARY_TARGET_CUDA)
       target_link_libraries(${G4LIBTARGET_NAME}
         ${G4LIBTARGET_GEANT4_LINK_LIBRARIES}
         ${G4LIBTARGET_LINK_LIBRARIES})
+      LIST(APPEND CUDA_NVCC_FLAGS --compiler-options -fno-strict-aliasing -lineinfo -use_fast_math -Xptxas -dlcm=cg -Wno-unused-function -Wno-language-extension-token)
+      LIST(APPEND CUDA_NVCC_FLAGS -gencode arch=compute_30,code=sm_30)
     endif()
 
     # This property is set to prevent concurrent builds of static and

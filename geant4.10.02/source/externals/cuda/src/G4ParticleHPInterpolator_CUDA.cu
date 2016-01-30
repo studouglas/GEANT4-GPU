@@ -34,7 +34,7 @@
 #include <cuda.h>
 #include <cuda_runtime.h>
 
-  G4double G4ParticleHPInterpolator::GetBinIntegral(const G4InterpolationScheme & aScheme, const G4double x1,const G4double x2,const G4double y1,const G4double y2) {
+  __host__ __device__ G4double G4ParticleHPInterpolator::GetBinIntegral(const G4InterpolationScheme & aScheme, const G4double x1,const G4double x2,const G4double y1,const G4double y2) {
     G4double result = 0;
     if(aScheme==HISTO||aScheme==CHISTO||aScheme==UHISTO) {
       result = y1*(x2-x1);
@@ -95,7 +95,7 @@
     return result;
   }
   
-  G4double G4ParticleHPInterpolator::GetWeightedBinIntegral(const G4InterpolationScheme & aScheme, const G4double x1,const G4double x2,const G4double y1,const G4double y2) {
+  __host__ __device__ G4double G4ParticleHPInterpolator::GetWeightedBinIntegral(const G4InterpolationScheme & aScheme, const G4double x1,const G4double x2,const G4double y1,const G4double y2) {
     G4double result = 0;
     
     if(aScheme==HISTO||aScheme==CHISTO||aScheme==UHISTO) {

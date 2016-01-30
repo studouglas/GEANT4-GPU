@@ -26,7 +26,7 @@ set(G4cuda_SOURCES
 	src/G4DataVector_CUDA.cc
 	src/G4DataVector_CUDA.icc
 	src/G4InterpolationManager_CUDA.cc
-	src/G4ParticleHPInterpolator_CUDA.cc
+	src/G4ParticleHPInterpolator_CUDA.cu
 	src/G4ParticleHPVector_CUDA.cu
 	src/G4Pow_CUDA.cc
 )
