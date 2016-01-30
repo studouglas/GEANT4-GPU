@@ -6,10 +6,12 @@
 *   CUDA functions
 ***********************************************/
 __global__ void firstIndexGreaterThan(G4ParticleHPDataPoint * theDataArg, G4double e, int* resultIndex) {
-    int startIndex = blockDim.x * blockIdx.x * threadIdx.x;
-    if (theDataArg[startIndex].energy > e) {
-        atomicMin(resultIndex, startIndex);
-    }
+    int idx = blockDim.x * blockIdx.x * threadIdx.x;
+    if(idx < *min_idx){
+		if (theDataArg[idx].energy > e) {
+			atomicMin(resultIndex, idx);
+		}
+	}
 }
 
 /***********************************************
@@ -292,15 +294,25 @@ void G4ParticleHPVector_CUDA::Times(G4double factor) {
 * Functions from .cc
 ******************************************/
 // TODO: Port Me (requires first occurence)
+__global__ void setMin(int *min_idx)
+{
+	*min_idx = INT_MAX;
+}
+
 G4double G4ParticleHPVector_CUDA::GetXsec(G4double e) {
-    int *resultIndex;
-    cudaMalloc(&resultIndex, sizeof(int));
-    cudaMemcpy(&resultIndex, &nEntries, sizeof(int), cudaMemcpyHostToDevice);
+    //Initialize and malloc in constructor to make this more efficient
+	int *resultIndex;
+    int block_size = 64;// testing showed block_size of 64 gave best times. -- may be different for different GPU's
+	int n_blocks = nEntries/block_size + (nEntries%block)_size == 0 ? 0:1);
+	cudaMalloc(&resultIndex, sizeof(int));
+	setMin <<<1,1>>> (resultIndex); // set the Result Index to max value so min will always set it to an actual index -- only need one thread to do this
+	
+	    
+    firstIndexGreaterThan<<<1, nEntries>>> (theData, e, resultIndex); // find the first index who's energy is greater than e -- one thread of each index
     
-    firstIndexGreaterThan<<<1, nEntries>>> (theData, e, resultIndex);
-    
+	//getting the index and getting the xSec
     G4int i = 0;
-    cudaMemcpy(&i, resultIndex, sizeof(G4int), cudaMemcpyDeviceToHost);
+    cudaMemcpy(&i, resultIndex, sizeof(G4int), cudaMemcpyDeviceToHost); //It is preferable to only do one memcpy
     G4double resultVal = 0;
     cudaMemcpy(&resultVal, &theData[i].xSec, sizeof(G4int), cudaMemcpyDeviceToHost);
     
@@ -337,7 +349,7 @@ G4double G4ParticleHPVector_CUDA::GetXsec(G4double e) {
     else {
         y = pointNentriesMinusOne.xSec;
     }
-
+	cudafree(resultIndex);// free resultIndex to avoid memory leaks -- if resultIndex is moved to init. more this to the deconstructor
     return y;
 }
 
