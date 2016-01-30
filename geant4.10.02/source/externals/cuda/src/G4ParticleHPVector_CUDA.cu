@@ -287,7 +287,9 @@ __global__ void Times_CUDA(G4double factor, G4ParticleHPDataPoint* theDataArg, G
     theIntegralArg[tid] = theIntegralArg[tid]*factor;
 }
 void G4ParticleHPVector_CUDA::Times(G4double factor) {
-    Times_CUDA<<<1, nEntries>>> (factor, theData, theIntegral);
+	int block_size = 64;
+	int n_blocks = nEntries/block_size + ((nEntries%block_size) == 0 ?0:1); 
+    Times_CUDA<<<n_blocks, block_size>>> (factor, theData, theIntegral);
 }
 
 /******************************************
@@ -303,12 +305,12 @@ G4double G4ParticleHPVector_CUDA::GetXsec(G4double e) {
     //Initialize and malloc in constructor to make this more efficient
 	int *resultIndex;
     int block_size = 64;// testing showed block_size of 64 gave best times. -- may be different for different GPU's
-	int n_blocks = nEntries/block_size + (nEntries%block)_size == 0 ? 0:1);
+	int n_blocks = nEntries/block_size + ((nEntries%block_size) == 0 ? 0:1);
 	cudaMalloc(&resultIndex, sizeof(int));
 	setMin <<<1,1>>> (resultIndex); // set the Result Index to max value so min will always set it to an actual index -- only need one thread to do this
 	
 	    
-    firstIndexGreaterThan<<<1, nEntries>>> (theData, e, resultIndex); // find the first index who's energy is greater than e -- one thread of each index
+    firstIndexGreaterThan<<<n_blocks, block_size>> (theData, e, resultIndex); // find the first index who's energy is greater than e -- one thread of each index
     
 	//getting the index and getting the xSec
     G4int i = 0;
