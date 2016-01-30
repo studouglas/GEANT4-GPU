@@ -10,6 +10,7 @@
 #include "G4InterpolationScheme_CUDA.hh"
 #include "G4InterpolationManager_CUDA.hh"
 #include "G4Types_CUDA.hh"
+#include "G4Pow_CUDA.hh"
 
 class G4ParticleHPVector_CUDA {
     

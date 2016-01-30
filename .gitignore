@@ -13,6 +13,7 @@ Documentation/*/*.out
 # Xcode project files
 G4STORK/Build-xcode
 G4STORK/Build-xcode-serial
+*.sublime-workspace
 
 Examples/CUDA_simpleTest/bin
 Examples/CUDA_Hadr04/bin

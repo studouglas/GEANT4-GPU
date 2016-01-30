@@ -43,11 +43,10 @@
 //
 // -------------------------------------------------------------------
 
-#include "G4Pow.hh"
-#define G4MULTITHREADED 0
-#ifdef G4MULTITHREADED
-#include "G4Threading.hh"
-#endif
+#include "G4Pow_CUDA.hh"
+// #ifdef G4MULTITHREADED
+// #include "G4Threading.hh"
+// #endif
 
 G4Pow* G4Pow::fpInstance = 0;
 
@@ -68,13 +67,13 @@ G4Pow* G4Pow::GetInstance()
 G4Pow::G4Pow()
   : onethird(1.0/3.0), max2(5)
 {  
-#ifdef G4MULTITHREADED
-  if(G4Threading::IsWorkerThread())
-  { 
-    G4Exception ("G4Pow::G4Pow()", "InvalidSetup", FatalException, 
-                 "Attempt to instantiate G4Pow in worker thread!");
-  }
-#endif
+// #ifdef G4MULTITHREADED
+//   if(G4Threading::IsWorkerThread())
+//   { 
+//     G4Exception ("G4Pow::G4Pow()", "InvalidSetup", FatalException, 
+//                  "Attempt to instantiate G4Pow in worker thread!");
+//   }
+// #endif
   const G4int maxZ = 512; 
   const G4int maxZfact = 170; 
 

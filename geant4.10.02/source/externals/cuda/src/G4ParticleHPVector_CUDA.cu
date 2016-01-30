@@ -83,7 +83,7 @@ G4double G4ParticleHPVector_CUDA::GetXsec(G4int i) {
     return xSec;
 }
 
-// TODO: Port Me
+// TODO: Port Me (requires 1st element predicate alg.)
 G4double G4ParticleHPVector_CUDA::GetXsec(G4double e, G4int min) {
     return 0;
 }
@@ -98,7 +98,7 @@ G4double G4ParticleHPVector_CUDA::GetY(G4int i) {
     return xSec;
 }
 
-// TODO: Port Me
+// TODO: Port Me (requires interpolation)
 G4double G4ParticleHPVector_CUDA::GetMeanX() {
     return 0;
 }
@@ -156,7 +156,7 @@ void G4ParticleHPVector_CUDA::CleanUp() {
     }
 }
 
-// TODO: Port Me
+// TODO: Port Me (requries first occurence alg)
 G4double G4ParticleHPVector_CUDA::SampleLin() {
     G4double result;
     if (!theIntegral) {
@@ -183,17 +183,95 @@ G4double * G4ParticleHPVector_CUDA::Debug() {
     return 0;
 }
 
-// TODO: Port Me
+__global__ void Integrate_CUDA(G4ParticleHPDataPoint * theDataArg, G4double * sum, G4InterpolationManager manager) {
+    // G4int i = blockDim.x * blockIdx.x + threadIdx.x;
+    // if (i == 0) {
+    //     return;
+    // }
+
+    // if (abs((theDataArg[i].energy - theData[i-1].energy) / theData[i].energy) > 0.0000001) {
+    //     G4double x1 = theData[i-1].energy;
+    //     G4double x2 = theData[i].energy;
+    //     G4double y1 = theData[i-1].xSec;
+    //     G4double y2 = theData[i].xSec;
+
+    //     G4double toAdd = 0;
+    //     G4InterpolationScheme aScheme = manager.GetScheme(i);
+    //     if (aScheme == LINLIN || aScheme == CLINLIN || aScheme == ULINLIN) {
+    //         toAdd += 0.5 * (y2+y1) * (x2-x1);
+    //     }
+    //     else if (aScheme == LINLOG || aScheme == CLINLOG || aScheme == ULINLOG) {
+    //         G4double a = y1;
+    //         G4double b = (y2-y1)/(G4Log(x2)-G4Log(x1));
+    //         toAdd += (a-b) * (x2-x1) + b*(x2 * G4Log(x2) - x1 * G4Log(x1));
+    //     }
+    //     else if (aScheme == LOGLIN || aScheme == CLOGLIN || aScheme == ULOGLIN) {
+    //         G4double a = G4Log(y1);
+    //         G4double b = (G4Log(y2)-G4Log(y1))/(x2-x1);
+    //         toAdd += (G4Exp(a)/b) * (G4Exp(b * x2) - G4Exp(b * x1));
+    //     }
+    //     else if (aScheme == HISTO || aScheme == CHISTO || aScheme == UHISTO) {
+    //         toAdd += y1 * (x2-x1);
+    //     }
+    //     else if (aScheme == LOGLOG || aScheme == CLOGLOG || aScheme == ULOGLOG) {
+    //         G4double a = G4Log(y1);
+    //         G4double b = (G4Log(y2) - G4Log(y1)) / (G4Log(x2) - G4Log(x1));
+    //         toAdd += (G4Exp(a)/(b+1)) * (G4Pow::GetInstance()->powA(x2,b+1) - G4Pow::GetInstance()->powA(x1,b+1));
+    //     }
+
+    //     if (toAdd != 0) {
+    //         atomicAdd(sum, toAdd);
+    //     }
+    // }
+}
+
+// TODO: port me (requires InterpolationManager on GPU)
 void G4ParticleHPVector_CUDA::Integrate() {
     G4int i;
     if (nEntries == 1) {
         totalIntegral = 0;
         return;
     }
+    
+    G4double *sum;
+    cudaMalloc(&sum, sizeof(G4double));
+    // Integrate_CUDA<<<1, nEntries>>>(theData, sum, )
 
-    G4double sum = 0;
-    // cudaIntegrate<<<1, nEntries>>>(&sum);
-    totalIntegral = sum;
+    // for (i = 1; i < GetVectorLength(); i++) {
+    //     if (std::abs((theData[i].GetX() - theData[i-1].GetX()) / theData[i].GetX()) > 0.0000001) {
+    //         G4double x1 = theData[i-1].GetX();
+    //         G4double x2 = theData[i].GetX();
+    //         G4double y1 = theData[i-1].GetY();
+    //         G4double y2 = theData[i].GetY();
+    //         G4InterpolationScheme aScheme = theManager.GetScheme(i);
+            
+    //         if (aScheme == LINLIN || aScheme == CLINLIN || aScheme == ULINLIN) {
+    //             sum += 0.5 * (y2+y1) * (x2-x1);
+    //         }
+    //         else if (aScheme == LINLOG || aScheme == CLINLOG || aScheme == ULINLOG) {
+    //             G4double a = y1;
+    //             G4double b = (y2-y1)/(G4Log(x2)-G4Log(x1));
+    //             sum += (a-b)*(x2-x1) + b*(x2*G4Log(x2)-x1*G4Log(x1));
+    //         }
+    //         else if (aScheme == LOGLIN || aScheme == CLOGLIN || aScheme == ULOGLIN) {
+    //             G4double a = G4Log(y1);
+    //             G4double b = (G4Log(y2)-G4Log(y1))/(x2-x1);
+    //             sum += (G4Exp(a)/b) * (G4Exp(b*x2) - G4Exp(b*x1));
+    //         }
+    //         else if (aScheme == HISTO || aScheme == CHISTO || aScheme == UHISTO) {
+    //             sum+= y1*(x2-x1);
+    //         }
+    //         else if (aScheme == LOGLOG || aScheme == CLOGLOG || aScheme == ULOGLOG) {
+    //             G4double a = G4Log(y1);
+    //             G4double b = (G4Log(y2) - G4Log(y1)) / (G4Log(x2) - G4Log(x1));
+    //             sum += (G4Exp(a)/(b+1)) * (G4Pow::GetInstance()->powA(x2,b+1) - G4Pow::GetInstance()->powA(x1,b+1));
+    //         }
+    //         else {
+    //             // throw G4HadronicException(__FILE__, __LINE__, "Unknown interpolation scheme in G4ParticleHPVector::Integrate");
+    //         }
+    //     }
+    // }
+    // totalIntegral = sum;
 }
 
 // TODO: Port Me
@@ -201,19 +279,19 @@ void G4ParticleHPVector_CUDA::IntegrateAndNormalise() {
 
 }
 
-__global__ void cudaTimes(G4double factor, G4ParticleHPDataPoint* theDataArg, G4double* theIntegralArg) {
-    int tid = blockIdx.x;
+__global__ void Times_CUDA(G4double factor, G4ParticleHPDataPoint* theDataArg, G4double* theIntegralArg) {
+    int tid = blockDim.x * blockIdx.x + threadIdx.x;
     theDataArg[tid].xSec = theDataArg[tid].xSec*factor;
     theIntegralArg[tid] = theIntegralArg[tid]*factor;
 }
 void G4ParticleHPVector_CUDA::Times(G4double factor) {
-    cudaTimes<<<1, nPoints>>> (factor, theData, theIntegral);
+    Times_CUDA<<<1, nEntries>>> (factor, theData, theIntegral);
 }
 
 /******************************************
 * Functions from .cc
 ******************************************/
-// TODO: Port Me
+// TODO: Port Me (requires first occurence)
 G4double G4ParticleHPVector_CUDA::GetXsec(G4double e) {
     int *resultIndex;
     cudaMalloc(&resultIndex, sizeof(int));

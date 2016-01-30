@@ -52,7 +52,7 @@
 #define GEANT4_ENABLE_CUDA 1
 #if GEANT4_ENABLE_CUDA
   // #include "../../../../../externals/cuda/include/G4ParticleHPVector_CUDA.hh"
-#include "/Users/stuart/Documents/4th_Year/CS_4ZP6/GEANT4-GPU/geant4.10.00.p02/source/externals/cuda/include/G4ParticleHPVector_CUDA.hh"
+#include "/Users/stuart/Documents/4th_Year/CS_4ZP6/GEANT4-GPU/geant4.10.02/source/externals/cuda/include/G4ParticleHPVector_CUDA.hh"
 #endif
 
 #if defined WIN32-VC
@@ -614,6 +614,7 @@ class G4ParticleHPVector
     #if GEANT4_ENABLE_CUDA
       cudaVector->Integrate();
     #else
+      printf("\n\n\n\nINTEGRATING NOW\n\n\n");
       G4int i;
       if(nEntries == 1)
       {
@@ -621,6 +622,7 @@ class G4ParticleHPVector
         return;
       }
       G4double sum = 0;
+      G4InterpolationScheme scheme1 = theManager.GetScheme(1);
       for(i=1;i<GetVectorLength();i++)
       {
         if(std::abs((theData[i].GetX()-theData[i-1].GetX())/theData[i].GetX())>0.0000001)
@@ -630,6 +632,9 @@ class G4ParticleHPVector
           G4double y1 = theData[i-1].GetY();
           G4double y2 = theData[i].GetY();
           G4InterpolationScheme aScheme = theManager.GetScheme(i);
+          if (aScheme != scheme1) {
+              printf("\n\n\nSCHEMES DIFFERENT! %d vs %d", scheme1, aScheme);
+          }
           if(aScheme==LINLIN||aScheme==CLINLIN||aScheme==ULINLIN)
           {
             sum+= 0.5*(y2+y1)*(x2-x1);
