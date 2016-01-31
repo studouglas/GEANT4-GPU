@@ -66,45 +66,45 @@ class G4Pow
 
     // Fast computation of Z^1/3
     //
-    inline G4double Z13(G4int Z) const;
-    inline G4double A13(G4double A) const;
+    __host__ __device__ inline G4double Z13(G4int Z) const;
+    __host__ __device__ inline G4double A13(G4double A) const;
 
     // Fast computation of Z^2/3
     //
-    inline G4double Z23(G4int Z) const;
-    inline G4double A23(G4double A) const;
+    __host__ __device__ inline G4double Z23(G4int Z) const;
+    __host__ __device__ inline G4double A23(G4double A) const;
 
     // Fast computation of log(Z)
     //
-    inline G4double logZ(G4int Z) const;
-    inline G4double logA(G4double A) const;
-    inline G4double logX(G4double x) const;
+    __host__ __device__ inline G4double logZ(G4int Z) const;
+    __host__ __device__ inline G4double logA(G4double A) const;
+    __host__ __device__ inline G4double logX(G4double x) const;
 
     // Fast computation of log10(Z)
     //
-    inline G4double log10Z(G4int Z) const;
-    inline G4double log10A(G4double A) const;
+    __host__ __device__ inline G4double log10Z(G4int Z) const;
+    __host__ __device__ inline G4double log10A(G4double A) const;
 
     // Fast computation of exp(X)
     //
-    inline G4double expA(G4double A) const;
+    __host__ __device__ inline G4double expA(G4double A) const;
 
     // Fast computation of pow(Z,X)
     //
-    inline G4double powZ(G4int Z, G4double y) const;
-    inline G4double powA(G4double A, G4double y) const;
-           G4double powN(G4double x, G4int n) const;
+    __host__ __device__ inline G4double powZ(G4int Z, G4double y) const;
+    __host__ __device__ inline G4double powA(G4double A, G4double y) const;
+    __host__ __device__ G4double powN(G4double x, G4int n) const;
 
     // Fast factorial
     //
-    inline G4double factorial(G4int Z) const;
-    inline G4double logfactorial(G4int Z) const;
+    __host__ __device__ inline G4double factorial(G4int Z) const;
+    __host__ __device__ inline G4double logfactorial(G4int Z) const;
 
   private:
 
     G4Pow();
 
-    inline G4double logBase(G4double x) const;
+    __host__ __device__ inline G4double logBase(G4double x) const;
 
     static G4Pow* fpInstance;
 

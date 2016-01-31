@@ -12,6 +12,8 @@
 #include "G4Types_CUDA.hh"
 #include "G4Pow_CUDA.hh"
 
+#define THREADS_PER_BLOCK 64 // test this number for optimal performance
+
 class G4ParticleHPVector_CUDA {
     
     /******************************************
@@ -188,12 +190,16 @@ class G4ParticleHPVector_CUDA {
     * PRIVATE                                 
     *******************************************/
     private:
+    inline int GetNumBlocks(int totalNumThreads) {
+        return (THREADS_PER_BLOCK / totalNumThreads + ((THREADS_PER_BLOCK % totalNumThreads == 0) ? 0 : 1));
+    }
+
     G4ParticleHPInterpolator theLin;
     G4double totalIntegral;
 
-    G4ParticleHPDataPoint * theData;
+    G4ParticleHPDataPoint * d_theData;
+    G4double * d_theIntegral;
     G4InterpolationManager theManager;
-    G4double * theIntegral;
     G4int nEntries;
     G4int nPoints;
     G4double label;
