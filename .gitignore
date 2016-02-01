@@ -24,6 +24,12 @@ G4STORK/include/*.msh
 G4STORK/OutputFiles
 G4STORK/SourceFiles
 
+geant4.10.00.p02.tar.gz
+geant4.10.00.p02.tar
+geant4.10.00.p02
+geant4.10.00.p02-build
+geant4.10.00.p02-install
+
 geant4.10.02/tmp
 geant4.10.02-build
 geant4.10.02-install
