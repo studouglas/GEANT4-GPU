@@ -27,9 +27,25 @@ PhysicsList::PhysicsList():G4VModularPhysicsList() {
 PhysicsList::~PhysicsList() { } //class destructor
 
 void PhysicsList::ConstructParticle() {
+	G4BosonConstructor  pBosonConstructor;
+  pBosonConstructor.ConstructParticle();
 
+  G4LeptonConstructor pLeptonConstructor;
+  pLeptonConstructor.ConstructParticle();
+
+  G4MesonConstructor pMesonConstructor;
+  pMesonConstructor.ConstructParticle();
+
+  G4BaryonConstructor pBaryonConstructor;
+  pBaryonConstructor.ConstructParticle();
+
+  G4IonConstructor pIonConstructor;
+  pIonConstructor.ConstructParticle();
+
+  G4ShortLivedConstructor pShortLivedConstructor;
+  pShortLivedConstructor.ConstructParticle();
 }
 
 void PhysicsList::SetCuts() {
-
+	SetCutValue(0*mm, "proton");
 }

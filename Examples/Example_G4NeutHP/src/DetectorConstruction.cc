@@ -21,7 +21,8 @@ DetectorConstruction::DetectorConstruction()
 	 fDetectorMessenger(0){ //initialization list for DetectorConstruction constructor
 	fBoxSide = 1*m;
 	DefineMaterials();
-	//SetMaterial("Uranium");
+	SetMaterial("Uranium_a");
+	SetMaterial("Uranium_b");
 	fDetectorMessenger = new DetectorMessenger(this);
 }
 
@@ -89,18 +90,50 @@ void DetectorConstruction::DefineMaterials() {
 }
 
 G4Material* DetectorConstruction::MaterialWithSingleIsotope(G4String name, G4String symbol, G4double density, G4int Z, G4int A){ //define a material from an isoptope
+	G4int ncomponents;
+	G4double abundance, massfraction;
 
+	G4Isotope* isotope = new G4Isotope(symbol, Z, A);
+ 
+	G4Element* element  = new G4Element(name, symbol, ncomponents=1);
+	element->AddIsotope(isotope, abundance= 100.*perCent);
+ 
+	G4Material* material = new G4Material(name, density, ncomponents=1);
+	material->AddElement(element, massfraction=100.*perCent);
+
+	return material;
 }
 
-G4VPhysicalVolume* DetectorConstruction::ConstructVolumes(){
+G4VPhysicalVolume* DetectorConstruction::ConstructVolumes() {
 	//cleanup old geometry
 	G4GeometryManager::GetInstance()->OpenGeometry();
 	G4PhysicalVolumeStore::GetInstance()->Clean();
 	G4LogicalVolumeStore::GetInstance()->Clean();
 	G4SolidStore::GetInstance()->Clean();
+	
+	G4Box*
+  sBox = new G4Box("Container",                         //its name
+                   fBoxSize/2,fBoxSize/2,fBoxSize/2);   //its dimensions
+
+  fLBox = new G4LogicalVolume(sBox,                     //its shape
+                             fMaterial,                 //its material
+                             fMaterial->GetName());     //its name
+
+  fPBox = new G4PVPlacement(0,                          //no rotation
+                            G4ThreeVector(),            //at (0,0,0)
+                            fLBox,                      //its logical volume
+                            fMaterial->GetName(),       //its name
+                            0,                          //its mother  volume
+                            false,                      //no boolean operation
+                            0);                         //copy number
+                           
+  PrintParameters();
+  
+  //always return the root volume
+  return fPBox;
 }
 
-void DetectorConstruction::SetMaterial(G4String materialChoice){
+void DetectorConstruction::SetMaterial(G4String materialChoice) {
 	// search the material by its name
   G4Material* pttoMaterial =
      G4NistManager::Instance()->FindOrBuildMaterial(materialChoice);   
@@ -117,8 +150,15 @@ void DetectorConstruction::SetMaterial(G4String materialChoice){
   } 
 }
 
-void DetectorConstruction::SetSize(G4double value){
+void DetectorConstruction::SetSize(G4double value) {
+	fBoxSize = value;
+  G4RunManager::GetRunManager()->ReinitializeGeometry();
+}
 
+void DetectorConstruction::PrintParameters() {
+	G4cout << "\n The Box is " << G4BestUnit(fBoxSize,"Length")
+         << " of " << fMaterial->GetName() 
+         << "\n \n" << fMaterial << G4endl;
 }
 
 
