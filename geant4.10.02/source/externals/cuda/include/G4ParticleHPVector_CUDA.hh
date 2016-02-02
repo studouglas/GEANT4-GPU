@@ -16,10 +16,13 @@
 
 class G4ParticleHPVector_CUDA {
     
+
     /******************************************
     * CONSTRUCTORS / DECONSTRUCTORS
     *******************************************/
     public:
+    bool doesTheDataContainNan();
+
     G4ParticleHPVector_CUDA();
     G4ParticleHPVector_CUDA(G4int);
     ~G4ParticleHPVector_CUDA();
@@ -45,9 +48,9 @@ class G4ParticleHPVector_CUDA {
         return nEntries;
     }
     
-    G4double GetEnergy(G4int i);
+    // G4double GetEnergy(G4int i);
     G4double GetX(G4int i);
-    G4double GetXsec(G4int i);
+    // G4double GetXsec(G4int i);
     G4double GetXsec(G4double e, G4int min);
     G4double GetY(G4double x);
     G4double GetY(G4int i);
@@ -143,14 +146,14 @@ class G4ParticleHPVector_CUDA {
         G4int t;
 
         while (a < active->GetVectorLength() && p < passive->GetVectorLength()) {
-            if (active->GetEnergy(a) <= passive->GetEnergy(p)) {
-                G4double xa = active->GetEnergy(a);
-                G4double yy = active->GetXsec(a);
+            if (active->GetX(a) <= passive->GetX(p)) {
+                G4double xa = active->GetX(a);
+                G4double yy = active->GetY(a);
                 SetData(m_tmp, xa, yy);
                 theManager.AppendScheme(m_tmp, active->GetScheme(a));
                 m_tmp++;
                 a++;
-                G4double xp = passive->GetEnergy(p);
+                G4double xp = passive->GetX(p);
 
                 if (!(xa == 0) && std::abs(std::abs(xp - xa) / xa) < 0.001) {
                     p++;
@@ -160,19 +163,19 @@ class G4ParticleHPVector_CUDA {
                 t = a;
                 active = passive; 
                 a = p;
-                passive = tmp; 
+                passive = tmp;
                 p = t;
             }
         }
         while (a != active->GetVectorLength()) {
-            SetData(m_tmp, active->GetEnergy(a), active->GetXsec(a));
+            SetData(m_tmp, active->GetX(a), active->GetY(a));
             theManager.AppendScheme(m_tmp, active->GetScheme(a));
             m_tmp++;
             a++;
         }
         while (p != passive->GetVectorLength()) {
-            if (std::abs(GetEnergy(m_tmp - 1) - passive->GetEnergy(p)) / passive->GetEnergy(p) > 0.001) {
-                SetData(m_tmp, passive->GetEnergy(p), passive->GetXsec(p));
+            if (std::abs(GetX(m_tmp - 1) - passive->GetX(p)) / passive->GetX(p) > 0.001) {
+                SetData(m_tmp, passive->GetX(p), passive->GetY(p));
                 theManager.AppendScheme(m_tmp, active->GetScheme(p));
                 m_tmp++;
             }
@@ -191,7 +194,10 @@ class G4ParticleHPVector_CUDA {
     *******************************************/
     private:
     inline int GetNumBlocks(int totalNumThreads) {
-        return (THREADS_PER_BLOCK / totalNumThreads + ((THREADS_PER_BLOCK % totalNumThreads == 0) ? 0 : 1));
+        if (totalNumThreads == 0) {
+            return 0;
+        }
+        return (totalNumThreads / THREADS_PER_BLOCK + ((totalNumThreads % THREADS_PER_BLOCK == 0) ? 0 : 1));
     }
 
     G4ParticleHPInterpolator theLin;

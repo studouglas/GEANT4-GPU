@@ -34,6 +34,7 @@ __global__ void CopyDataPointsToBuffer_CUDA(G4ParticleHPDataPoint * fromBuffer, 
 *   Constructors, Deconstructors
 ***********************************************/
 G4ParticleHPVector_CUDA::G4ParticleHPVector_CUDA()      { 
+    // printf("\nConstructor called");
     nPoints = 20;
     cudaMalloc(&d_theData, nPoints*sizeof(G4ParticleHPDataPoint));
     nEntries = 0;
@@ -48,6 +49,7 @@ G4ParticleHPVector_CUDA::G4ParticleHPVector_CUDA()      {
 }
 
 G4ParticleHPVector_CUDA::G4ParticleHPVector_CUDA(int n) { 
+    // printf("\nConstructor(%d) called", n);
     nPoints = std::max(n,20);
     cudaMalloc(&d_theData, nPoints*sizeof(G4ParticleHPDataPoint));
     nEntries = 0;
@@ -59,6 +61,7 @@ G4ParticleHPVector_CUDA::G4ParticleHPVector_CUDA(int n) {
     the15percentBorderCash = -DBL_MAX;
     the50percentBorderCash = -DBL_MAX;
     label = -DBL_MAX;
+    // printf("\ndone counstructor(n)");
 }
 
 G4ParticleHPVector_CUDA::~G4ParticleHPVector_CUDA() {
@@ -79,22 +82,55 @@ G4ParticleHPVector_CUDA::~G4ParticleHPVector_CUDA() {
 const G4ParticleHPDataPoint & G4ParticleHPVector_CUDA::GetPoint(G4int i) {
     G4ParticleHPDataPoint point;
     cudaMemcpy(&point, &d_theData[i], sizeof(G4ParticleHPDataPoint), cudaMemcpyDeviceToHost);
-    return point;
+    return point; // TODO: warning: returning referecne to local variable
 }
 
-G4double G4ParticleHPVector_CUDA::GetEnergy(G4int i) {
-    G4double energy;
-    cudaMemcpy(&energy, &d_theData[i].energy, sizeof(G4double), cudaMemcpyDeviceToHost);
-    return energy;
-}
+// G4double G4ParticleHPVector_CUDA::GetEnergy(G4int i) {
+    
+// }
 
 G4double G4ParticleHPVector_CUDA::GetX(G4int i) {
+    if (i < 0) {
+        i = 0;
+    }
+    if (i >= GetVectorLength()) {
+        i = GetVectorLength() - 1;
+    }
+
     G4double energy;
     cudaMemcpy(&energy, &d_theData[i].energy, sizeof(G4double), cudaMemcpyDeviceToHost);
+
+    if (energy != energy) {
+        printf("\nGetEnergy(%d) = %f, nEntries=%d", i, energy, nEntries);
+        // Dump();
+    }
     return energy;
 }
 
-G4double G4ParticleHPVector_CUDA::GetXsec(G4int i) {
+// G4double G4ParticleHPVector_CUDA::GetXsec(G4int i) {
+//     if (i < 0) {
+//         i = 0;
+//     }
+//     if (i >= GetVectorLength()) {
+//         i = GetVectorLength() - 1;
+//     }
+//     G4double xSec;
+//     cudaMemcpy(&xSec, &d_theData[i].xSec, sizeof(G4double), cudaMemcpyDeviceToHost);
+//     return xSec;
+// }
+
+G4double G4ParticleHPVector_CUDA::GetY(G4double x) {
+    return GetXsec(x);
+}
+
+G4double G4ParticleHPVector_CUDA::GetY(G4int i) {    
+    if (i < 0) {
+        i = 0;
+    }
+    if (i >= GetVectorLength()) {
+        i = GetVectorLength() - 1;
+    }
+
     G4double xSec;
     cudaMemcpy(&xSec, &d_theData[i].xSec, sizeof(G4double), cudaMemcpyDeviceToHost);
     return xSec;
@@ -102,21 +138,13 @@ G4double G4ParticleHPVector_CUDA::GetXsec(G4int i) {
 
 // TODO: Port Me (requires 1st element predicate alg.)
 G4double G4ParticleHPVector_CUDA::GetXsec(G4double e, G4int min) {
+    printf("\nGetXsec(e,min) is not yetimplemented");
     return 0;
-}
-
-G4double G4ParticleHPVector_CUDA::GetY(G4double x) {
-    return GetXsec(x);
-}
-
-G4double G4ParticleHPVector_CUDA::GetY(G4int i) {
-    G4double xSec;
-    cudaMemcpy(&xSec, &d_theData[i].xSec, sizeof(G4ParticleHPDataPoint), cudaMemcpyDeviceToHost);
-    return xSec;
 }
 
 // TODO: Port Me (requires interpolation)
 G4double G4ParticleHPVector_CUDA::GetMeanX() {
+    printf("\nGET MEAN X NOT YET IMPLEMENTED");
     return 0;
 }
 
@@ -129,26 +157,41 @@ void G4ParticleHPVector_CUDA::SetData(G4int i, G4double x, G4double y) {
     point.energy = x;
     point.xSec = y;
     cudaMemcpy(&d_theData[i], &point, sizeof(G4ParticleHPDataPoint), cudaMemcpyHostToDevice);
+    if (x != x || y != y) {
+        printf("\nSetData got passed NAN!, SetData(%d, %0.5e, %0.5e)", i, x, y);
+    }
 }
 
 void G4ParticleHPVector_CUDA::SetX(G4int i, G4double e) {
     Check(i);
     cudaMemcpy(&d_theData[i].energy, &e, sizeof(G4double), cudaMemcpyHostToDevice);
+    if (e != e) {
+        printf("\nSetX(%d) got passed NAN!!!", i);
+    }
 }
 
 void G4ParticleHPVector_CUDA::SetEnergy(G4int i, G4double e) {
     Check(i);
     cudaMemcpy(&d_theData[i].energy, &e, sizeof(G4double), cudaMemcpyHostToDevice);
+    if (e != e) {
+        printf("\nSetenergy(%d) got passed NAN!!!", i);
+    }
 }
 
 void G4ParticleHPVector_CUDA::SetY(G4int i, G4double x) {
     Check(i);
     cudaMemcpy(&d_theData[i].xSec, &x, sizeof(G4double), cudaMemcpyHostToDevice);
+    if (x != x) {
+        printf("\nSety(%d) got passed NAN!!!", i);
+    }
 }
 
 void G4ParticleHPVector_CUDA::SetXsec(G4int i, G4double x) {
     Check(i);
     cudaMemcpy(&d_theData[i].xSec, &x, sizeof(G4double), cudaMemcpyHostToDevice);
+    if (x != x) {
+        printf("\nSetXsec(%d) got passed NAN!!!", i);
+    }
 }
 
 
@@ -156,6 +199,7 @@ void G4ParticleHPVector_CUDA::SetXsec(G4int i, G4double x) {
 * Computations from .hh that use CUDA
 ******************************************/
 void G4ParticleHPVector_CUDA::Init(std::istream & aDataFile, G4double ux, G4double uy) {
+    printf("\nInit called");
     G4int total;
     aDataFile >> total;
     if (d_theData) {
@@ -335,7 +379,53 @@ void G4ParticleHPVector_CUDA::Integrate() {
 
 // TODO: Port Me
 void G4ParticleHPVector_CUDA::IntegrateAndNormalise() {
-
+    printf("\nIntegtateandnormalize not yet implemented");
+    // G4int i;
+    //   if(theIntegral != 0)
+    //     return;
+    //   theIntegral = new G4double[nEntries];
+    //   if(nEntries == 1)
+    //   {
+    //     theIntegral[0] = 1;
+    //     return;
+    //   }
+    //   theIntegral[0] = 0;
+    //   G4double sum = 0;
+    //   G4double x1 = 0;
+    //   G4double x0 = 0;
+    //   for(i=1;i<GetVectorLength();i++)
+    //   {
+    //     x1 = theData[i].GetX();
+    //     x0 = theData[i-1].GetX();
+    //     if (std::abs(x1-x0) > std::abs(x1*0.0000001) )
+    //     {
+    //         //********************************************************************
+    //         //EMendoza -> the interpolation scheme is not always lin-lin
+    //         /*
+    //             sum+= 0.5*(theData[i].GetY()+theData[i-1].GetY())*(x1-x0);
+    //         */
+    //         //********************************************************************
+    //       G4InterpolationScheme aScheme = theManager.GetScheme(i);
+    //       G4double y0 = theData[i-1].GetY();
+    //       G4double y1 = theData[i].GetY();
+    //         G4double integ=theInt.GetBinIntegral(aScheme,x0,x1,y0,y1);
+    //       #if defined WIN32-VC
+    //         if(!_finite(integ)){integ=0;}
+    //       #elif defined __IBMCPP__
+    //         if(isinf(integ)||isnan(integ)){integ=0;}
+    //       #else
+    //         if(std::isinf(integ)||std::isnan(integ)){integ=0;}
+    //       #endif
+    //         sum+=integ;
+    //         //********************************************************************
+    //     }
+    //     theIntegral[i] = sum;
+    //   }
+    //   G4double total = theIntegral[GetVectorLength()-1];
+    //   for(i=1;i<GetVectorLength();i++)
+    //   {
+    //     theIntegral[i]/=total;
+    //   }
 }
 
 __global__ void Times_CUDA(G4double factor, G4ParticleHPDataPoint* theData, G4double* theIntegral, G4int nEntriesArg) {
@@ -362,7 +452,13 @@ __global__ void GetXSecFirstIndex_CUDA(G4ParticleHPDataPoint * theData, G4double
     }
 }
 G4double G4ParticleHPVector_CUDA::GetXsec(G4double e) {
-	int *d_resultIndex;
+	// printf("\nGetXsec called");
+
+    if (nEntries == 0) {
+        return 0;
+    }
+
+    int *d_resultIndex;
 	cudaMalloc(&d_resultIndex, sizeof(int));
 	SetValueTo_CUDA<<<1,1>>> (d_resultIndex, INT_MAX);
 	
@@ -419,9 +515,7 @@ void G4ParticleHPVector_CUDA::Dump() {
     
     std::cout << nEntries << std::endl;
     for (G4int i = 0; i < nEntries; i++) {
-        std::cout << localTheData[i].GetX() << " ";
-        std::cout << localTheData[i].GetY() << " ";
-        std::cout << std::endl;
+        printf("%0.5e %0.5e\n",localTheData[i].GetX(), localTheData[i].GetY());
     }
     std::cout << std::endl;
 
@@ -507,14 +601,28 @@ G4double G4ParticleHPVector_CUDA::Get50percentBorder() {
     return 0;
 }
 
+bool G4ParticleHPVector_CUDA::doesTheDataContainNan() {
+    G4ParticleHPDataPoint* localTheData = (G4ParticleHPDataPoint*) malloc(nEntries * sizeof(G4ParticleHPDataPoint));
+    cudaMemcpy(localTheData, d_theData, nEntries * sizeof(G4ParticleHPDataPoint), cudaMemcpyDeviceToHost);
+    for (int i = 0; i < nEntries; i++) {
+        if (localTheData[i].energy != localTheData[i].energy || localTheData[i].xSec != localTheData[i].xSec) {
+            free(localTheData);
+            return true;
+        }
+    }
+    free(localTheData);
+    return false;
+}
+
 void G4ParticleHPVector_CUDA::Check(G4int i) {
     if (i > nEntries) {
         // throw G4HadronicException(__FILE__, __LINE__, "Skipped some index numbers in G4ParticleHPVector");
     }
     if (i == nPoints) {
         nPoints = static_cast<G4int>(1.2 * nPoints);
+
         G4ParticleHPDataPoint* d_newTheData;
-        cudaMalloc(&d_newTheData, nPoints*sizeof(G4ParticleHPDataPoint));
+        cudaMalloc(&d_newTheData, nPoints * sizeof(G4ParticleHPDataPoint));
 
         int nBlocks = GetNumBlocks(nEntries);
         CopyDataPointsToBuffer_CUDA<<<nBlocks,THREADS_PER_BLOCK>>> (d_theData, d_newTheData, nEntries);

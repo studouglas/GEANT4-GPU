@@ -169,9 +169,12 @@
         a++;
       } else {
 //        G4cout << "swapping in Harmonise"<<G4endl;
-        tmp = active; t=a;
-        active = passive; a=p;
-        passive = tmp; p=t;
+        tmp = active;
+        t=a;
+        active = passive;
+        a=p;
+        passive = tmp;
+        p=t;
       }
     }
 //    G4cout << "Harmonise 3: "<< a <<" "<<active->GetVectorLength()<<" "<<m<<G4endl;

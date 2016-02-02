@@ -107,7 +107,7 @@ class G4ParticleHPVector
   inline G4double GetEnergy(G4int i) const 
   { 
     #if GEANT4_ENABLE_CUDA
-      return cudaVector->GetEnergy(i);
+      return cudaVector->GetX(i);
     #else
       return theData[i].GetX(); 
     #endif
@@ -131,7 +131,7 @@ class G4ParticleHPVector
   inline G4double GetXsec(G4int i) 
   { 
     #if GEANT4_ENABLE_CUDA
-      return cudaVector->GetXsec(i);
+      return cudaVector->GetY(i);
     #else
       return theData[i].GetY();
     #endif
@@ -187,7 +187,7 @@ class G4ParticleHPVector
   inline G4double GetY(G4double x)  
   {
     #if GEANT4_ENABLE_CUDA
-      return cudaVector->GetY(x);
+      return cudaVector->GetXsec(x);
     #else
       return GetXsec(x);
     #endif
