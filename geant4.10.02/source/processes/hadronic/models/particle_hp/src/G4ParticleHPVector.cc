@@ -137,13 +137,16 @@ G4ParticleHPVector::~G4ParticleHPVector()
 G4ParticleHPVector & G4ParticleHPVector::  
 operator = (const G4ParticleHPVector & right)
 {
-  if(&right == this) {
+  if (&right == this) {
     return *this;
   }
   #if GEANT4_ENABLE_CUDA
-    G4cout << "Operator = called but it's not implemented!" << G4endl;
-    // TODO: implement this
-    return *this;//cudaVector->operatorEquals(right);
+    // G4cout << "Operator = called but it's not implemented!" << G4endl;
+    
+    // TODO: implement this  
+    cudaVector->OperatorEquals(right.cudaVector);
+    return *this;
+  
   #else
     G4int i;
 

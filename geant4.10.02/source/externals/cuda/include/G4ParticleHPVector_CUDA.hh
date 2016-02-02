@@ -34,7 +34,8 @@ class G4ParticleHPVector_CUDA {
     G4double Sample();
     G4double Get15percentBorder();
     G4double Get50percentBorder();
-    //G4ParticleHPVector & operator = (const G4ParticleHPVector & right);
+    
+    void OperatorEquals (G4ParticleHPVector_CUDA* right);
 
     void Check(G4int i);
     G4bool IsBlocked(G4double aX);
@@ -192,6 +193,8 @@ class G4ParticleHPVector_CUDA {
     /******************************************
     * PRIVATE                                 
     *******************************************/
+    public: // TODO: change to private somehow
+
     private:
     inline int GetNumBlocks(int totalNumThreads) {
         if (totalNumThreads == 0) {
