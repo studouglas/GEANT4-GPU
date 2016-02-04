@@ -1,3 +1,4 @@
+//
 // ********************************************************************
 // * License and Disclaimer                                           *
 // *                                                                  *
@@ -21,71 +22,67 @@
 // * use  in  resulting  scientific  publications,  and indicate your *
 // * acceptance of all terms of the Geant4 Software license.          *
 // ********************************************************************
+//
+//
+// $Id: G4Types.hh 67970 2013-03-13 10:10:06Z gcosmo $
+//
+//
+// GEANT4 native types
+//
 
+#ifndef G4TYPES_HH
+#define G4TYPES_HH
 
-
-#ifndef G4ParticleHPDataPoint_CUDA_h
-#define G4ParticleHPDataPoint_CUDA_h 1
-
-#include <cuda.h>
-#include <cuda_runtime.h>
-
-class G4ParticleHPDataPoint_CUDA
-{
-  public:  
-  G4ParticleHPDataPoint_CUDA() {
-    energy = 0; 
-    xSec = 0;
-  }
-  G4ParticleHPDataPoint_CUDA(double e, double x){ 
-    energy = e; 
-    xSec = x;
-  }
-  
-  __host__ __device__ void operator= (const G4ParticleHPDataPoint_CUDA & aSet) {
-    if(&aSet!=this) {
-      energy = aSet.GetEnergy();
-      xSec   = aSet.GetXsection();
-    }
-  }
-
-  __host__ __device__ ~G4ParticleHPDataPoint_CUDA() { }
-  
-  __host__ __device__ double GetEnergy() const {
-    return energy;
-  }
-  __host__ __device__ double GetXsection() const { 
-    return xSec;
-  }
-  
-  __host__ __device__ void SetEnergy(double e) { 
-    energy = e;
-  }
-  __host__ __device__ void SetXsection(double x) {
-    xSec = x;
-  }
-  
-  __host__ __device__ double GetX() const { 
-    return energy;
-  }
-  __host__ __device__ double GetY() const {
-    return xSec;
-  }
-  
-  __host__ __device__ void SetX(double e) {
-    energy = e;
-  }
-  __host__ __device__ void SetY(double x) {
-    xSec = x;
-  }
-  
-  __host__ __device__ void SetData(double e, double x) {
-    energy = e; xSec = x;
-  }
-  
-  private:
-  double energy;
-  double xSec;
-};
-
+#ifdef WIN32
+  // Disable warning C4786 on WIN32 architectures:
+  // identifier was truncated to '255' characters
+  // in the debug information
+  //
+  #pragma warning ( disable : 4786 )
+  //
+  // Define DLL export macro for WIN32 systems for
+  // importing/exporting external symbols to DLLs
+  //
+  #if defined G4LIB_BUILD_DLL
+    #define G4DLLEXPORT __declspec( dllexport )
+    #define G4DLLIMPORT __declspec( dllimport )
+  #else
+    #define G4DLLEXPORT
+    #define G4DLLIMPORT
+  #endif
+  //
+  // Unique identifier for global module
+  //
+  #if defined G4GLOB_ALLOC_EXPORT
+    #define G4GLOB_DLL G4DLLEXPORT
+  #else
+    #define G4GLOB_DLL G4DLLIMPORT
+  #endif
+#else
+  #define G4DLLEXPORT
+  #define G4DLLIMPORT
+  #define G4GLOB_DLL
 #endif
+
+#include <complex>
+
+// Definitions for Thread Local Storage
+//
+// #include "tls.hh"
+
+// Typedefs to decouple from library classes
+// Typedefs for numeric types
+//
+typedef double G4double;
+typedef float G4float;
+typedef int G4int;
+typedef bool G4bool;
+typedef long G4long;
+typedef std::complex<G4double> G4complex;
+
+// Forward declation of void type argument for usage in direct object
+// persistency to define fake default constructors
+//
+class __void__;
+
+#endif /* G4TYPES_HH */

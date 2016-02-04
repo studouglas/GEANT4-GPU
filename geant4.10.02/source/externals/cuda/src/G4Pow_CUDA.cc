@@ -43,17 +43,16 @@
 //
 // -------------------------------------------------------------------
 
-#include "G4Pow.hh"
-#define G4MULTITHREADED 0
-#ifdef G4MULTITHREADED
-#include "G4Threading.hh"
-#endif
+#include "G4Pow_CUDA.hh"
+// #ifdef G4MULTITHREADED
+// #include "G4Threading.hh"
+// #endif
 
 G4Pow* G4Pow::fpInstance = 0;
 
 // -------------------------------------------------------------------
 
-G4Pow* G4Pow::GetInstance()
+__host__ __device__ G4Pow* G4Pow::GetInstance()
 {
   if (fpInstance == 0)
   {
@@ -65,16 +64,16 @@ G4Pow* G4Pow::GetInstance()
 
 // -------------------------------------------------------------------
 
-G4Pow::G4Pow()
+__host__ __device__ G4Pow::G4Pow()
   : onethird(1.0/3.0), max2(5)
 {  
-#ifdef G4MULTITHREADED
-  if(G4Threading::IsWorkerThread())
-  { 
-    G4Exception ("G4Pow::G4Pow()", "InvalidSetup", FatalException, 
-                 "Attempt to instantiate G4Pow in worker thread!");
-  }
-#endif
+// #ifdef G4MULTITHREADED
+//   if(G4Threading::IsWorkerThread())
+//   { 
+//     G4Exception ("G4Pow::G4Pow()", "InvalidSetup", FatalException, 
+//                  "Attempt to instantiate G4Pow in worker thread!");
+//   }
+// #endif
   const G4int maxZ = 512; 
   const G4int maxZfact = 170; 
 
@@ -126,7 +125,7 @@ G4Pow::~G4Pow()
 
 // -------------------------------------------------------------------
 
-G4double G4Pow::powN(G4double x, G4int n) const
+__host__ __device__ G4double G4Pow::powN(G4double x, G4int n) const
 {
   if(0.0 == x)        { return 0.0; }
   if(std::abs(n) > 8) { return std::pow(x, G4double(n)); }
