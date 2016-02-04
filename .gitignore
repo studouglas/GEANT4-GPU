@@ -16,8 +16,7 @@ G4STORK/Build-xcode-serial
 *.sublime-workspace
 
 Examples/CUDA_simpleTest/bin
-Examples/CUDA_Hadr04/bin
-
+Examples/CUDA_Hadr04/bin*
 # Geant / G4STORK build files
 G4STORK/Build/*
 G4STORK/include/Marshaled*
