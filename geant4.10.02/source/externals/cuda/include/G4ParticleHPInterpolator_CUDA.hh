@@ -55,7 +55,9 @@ class G4ParticleHPInterpolator
   inline G4double Lin(G4double x,G4double x1,G4double x2,G4double y1,G4double y2)
   {
     G4double slope=0, off=0;
-    if(x2-x1==0) return (y2+y1)/2.;
+    if(x2-x1==0) {
+      return (y2+y1)/2.;
+    }
     slope = (y2-y1)/(x2-x1);
     off = y2-x2*slope;
     G4double y = x*slope+off;

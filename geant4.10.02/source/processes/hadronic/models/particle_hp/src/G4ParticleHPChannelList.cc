@@ -118,11 +118,8 @@ G4ThreadLocal G4int G4ParticleHPChannelList::trycounter = 0;
       if (i != 0) {
         running[i] = running[i-1];
       }
-//        if (theChannels[i]->theBuffer != NULL) {
-//            printf("\ntheChannels[%d] has a non-null buffer.", i);
-//        }
       if (theChannels[i]->HasAnyData(isotope)) {
-        printf("\nTHE CHANNELS[%d] HAS DATA! nChannels = %d", i, nChannels);
+        //printf("\nTHE CHANNELS[%d] HAS DATA! nChannels = %d", i, nChannels);
         targA=(G4int)theChannels[i]->GetN(isotope); //Will be simply used the last valid value
         targZ=(G4int)theChannels[i]->GetZ(isotope);
         running[i] += theChannels[i]->GetFSCrossSection(aThermalE.GetThermalEnergy(aTrack,

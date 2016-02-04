@@ -23,6 +23,9 @@ class G4ParticleHPVector_CUDA {
     public:
     bool doesTheDataContainNan();
 
+    void CopyToGpu();
+    void CopyToCpu();
+    
     G4ParticleHPVector_CUDA();
     G4ParticleHPVector_CUDA(G4int);
     ~G4ParticleHPVector_CUDA();
@@ -43,7 +46,7 @@ class G4ParticleHPVector_CUDA {
     /******************************************
     * Getters from .hh
     *******************************************/
-    const G4ParticleHPDataPoint & GetPoint(G4int i);
+    G4ParticleHPDataPoint & GetPoint(G4int i);
     
     inline G4int GetVectorLength() const {
         return nEntries;
@@ -136,6 +139,7 @@ class G4ParticleHPVector_CUDA {
     void CleanUp();
     
     inline void Merge(G4ParticleHPVector_CUDA * active, G4ParticleHPVector_CUDA * passive) {
+        printf("\nMERGE CALLED");
         CleanUp();
         G4int s_tmp = 0;
         G4int n = 0;
@@ -206,6 +210,7 @@ class G4ParticleHPVector_CUDA {
     G4ParticleHPInterpolator theLin;
     G4double totalIntegral;
 
+    G4ParticleHPDataPoint * c_theData;
     G4ParticleHPDataPoint * d_theData;
     G4double * d_theIntegral;
     G4InterpolationManager theManager;

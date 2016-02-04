@@ -176,6 +176,7 @@ operator = (const G4ParticleHPVector & right)
 G4double G4ParticleHPVector::GetXsec(G4double e) 
 {
   #if GEANT4_ENABLE_CUDA
+    // return 10;
     return cudaVector->GetXsec(e);
   #else
     if(nEntries == 0) {
@@ -356,10 +357,7 @@ void G4ParticleHPVector::ThinOut(G4double precision)
       return;
     }
 
-    #if GEANT4_ENABLE_CUDA
-      cudaVector->CopyTheDataToCpuIfChanged();
-    #endif
-
+    printf("\nThinOut starting with nEntries = %d | ", nEntries);
     // make the new vector
     G4ParticleHPDataPoint * aBuff = new G4ParticleHPDataPoint[nPoints];
     G4double x, x1, x2, y, y1, y2;
@@ -399,7 +397,7 @@ void G4ParticleHPVector::ThinOut(G4double precision)
     delete [] theData;
     theData = aBuff;
     nEntries = count+1;
-
+    printf(" now nEntries = %d", nEntries);
     // Rebuild the Hash;
     if(theHash.Prepared()) 
     {
