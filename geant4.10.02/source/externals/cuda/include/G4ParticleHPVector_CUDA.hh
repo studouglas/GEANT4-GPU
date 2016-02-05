@@ -22,7 +22,6 @@ typedef struct GetXsecResultStruct {
 } GetXsecResultStruct;
 
 class G4ParticleHPVector_CUDA {
-    
 
     /******************************************
     * CONSTRUCTORS / DECONSTRUCTORS
@@ -59,9 +58,7 @@ class G4ParticleHPVector_CUDA {
         return nEntries;
     }
     
-    // G4double GetEnergy(G4int i);
     G4double GetX(G4int i);
-    // G4double GetXsec(G4int i);
     G4double GetXsec(G4double e, G4int min);
     G4double GetY(G4double x);
     G4double GetY(G4int i);
@@ -204,8 +201,6 @@ class G4ParticleHPVector_CUDA {
     /******************************************
     * PRIVATE                                 
     *******************************************/
-    public: // TODO: change to private somehow
-
     private:
     inline int GetNumBlocks(int totalNumThreads) {
         if (totalNumThreads == 0) {
@@ -217,10 +212,9 @@ class G4ParticleHPVector_CUDA {
     G4ParticleHPInterpolator theLin;
     G4double totalIntegral;
 
-    
-
+    GetXsecResultStruct * d_res;
     G4int *d_singleIntResult;
-    // G4ParticleHPDataPoint * c_theData;
+
     G4ParticleHPDataPoint * d_theData;
     G4double * d_theIntegral;
     G4InterpolationManager theManager;
@@ -233,7 +227,6 @@ class G4ParticleHPVector_CUDA {
     G4int isFreed;
     
     G4double maxValue;
-    // std::vector<G4double> theBlocked;
 
     G4double the15percentBorderCash;
     G4double the50percentBorderCash;
