@@ -14,6 +14,13 @@
 
 #define THREADS_PER_BLOCK 64 // test this number for optimal performance
 
+typedef struct GetXsecResultStruct {
+    G4double y; // if -1, other 3 are non-null
+    G4ParticleHPDataPoint pointLow;
+    G4ParticleHPDataPoint pointHigh;
+    G4int indexHigh;
+} GetXsecResultStruct;
+
 class G4ParticleHPVector_CUDA {
     
 
@@ -210,7 +217,10 @@ class G4ParticleHPVector_CUDA {
     G4ParticleHPInterpolator theLin;
     G4double totalIntegral;
 
-    G4ParticleHPDataPoint * c_theData;
+    
+
+    G4int *d_singleIntResult;
+    // G4ParticleHPDataPoint * c_theData;
     G4ParticleHPDataPoint * d_theData;
     G4double * d_theIntegral;
     G4InterpolationManager theManager;
