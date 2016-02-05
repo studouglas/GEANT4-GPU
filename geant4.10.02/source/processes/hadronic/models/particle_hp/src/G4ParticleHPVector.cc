@@ -200,8 +200,6 @@ G4double G4ParticleHPVector::GetXsec(G4double e)
       }
     }
     
-    // printf("\n[nEntries,minIndex]:[%d,%d], percentage into array: %f", nEntries, i, (float)i/(float)nEntries);
-    
     G4int low = i-1;
     G4int high = i;
     if(i==0)
@@ -225,23 +223,17 @@ G4double G4ParticleHPVector::GetXsec(G4double e)
         &&( std::abs( (theData[high].GetX()-theData[low].GetX())/theData[high].GetX() ) < 0.000001 ) )
       {
         y = theData[low].GetY();
-        // printf("\nCUDA GetXSec Immediate1 (%e) | i = %4d | theData[high] = (%e,%e) | theData[low] = (%e,%e) | high = %d | y = %e",
-              // e, i, theData[high].GetX(), theData[high].GetY(), theData[low].GetX(), theData[low].GetY(), high, y);
       }
       else
       {
         y = theInt.Interpolate(theManager.GetScheme(high), e, 
         theData[low].GetX(), theData[high].GetX(),
         theData[low].GetY(), theData[high].GetY());
-        // printf("\nCUDA GetXSec Interpolat (%e) | i = %4d | theData[high] = (%e,%e) | theData[low] = (%e,%e) | high = %d | y = %e",
-              // e, i, theData[high].GetX(), theData[high].GetY(), theData[low].GetX(), theData[low].GetY(), high, y);
       }
     }
     else
     {
       y=theData[nEntries-1].GetY();
-      // printf("\nCUDA GetXSec Immediate2 (%e) | i = %4d | theData[high] = (%e,%e) | theData[low] = (%e,%e) | high = %d | y = %e",
-              // e, i, theData[high].GetX(), theData[high].GetY(), theData[low].GetX(), theData[low].GetY(), high, y);
     }
     return y;
   #endif

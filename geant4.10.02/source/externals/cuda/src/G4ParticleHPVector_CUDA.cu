@@ -548,74 +548,77 @@ __global__ void GetYForXSec_CUDA(G4ParticleHPDataPoint * theData, G4double e, G4
 }
 G4double G4ParticleHPVector_CUDA::GetXsec(G4double e) {
 	// printf("\nGetXsec called");
+ 
+   //  // === SLOW SERIAL CODE (works) ==============================================
+   //  G4ParticleHPDataPoint* localTheData = (G4ParticleHPDataPoint*)malloc(nEntries*sizeof(G4ParticleHPDataPoint));
+   //  cudaMemcpy(localTheData, d_theData, nEntries * sizeof(G4ParticleHPDataPoint), cudaMemcpyDeviceToHost);
+   //  if(nEntries == 0) {
+   //    return 0;
+   //  }
+   //  G4int min = 0;
+   //  G4int i;
+   //  for(i=min ; i<nEntries; i++){
+   //    if(localTheData[i].GetX() >= e) {
+   //      break;
+   //    }
+   //  }
+   //  G4int low = i-1;
+   //  G4int high = i;
+   //  if(i==0){
+   //    low = 0;
+   //    high = 1;
+   //  }
+   //  else if(i==nEntries){
+   //    low = nEntries-2;
+   //    high = nEntries-1;
+   //  }
+   //  G4double y;
+   //  if(e < localTheData[nEntries-1].GetX()) {
+   //    if (localTheData[high].GetX() !=0 &&( std::abs( (localTheData[high].GetX()-localTheData[low].GetX())/localTheData[high].GetX()) < 0.000001 ) ) {
+   //      serialY = localTheData[low].GetY();
+   //    }
+   //    else {
+   //      serialY = theInt.Interpolate(theManager.GetScheme(high), e, 
+	  //       localTheData[low].GetX(), localTheData[high].GetX(),
+	  //       localTheData[low].GetY(), localTheData[high].GetY());
+	//    }
+	//  }
+	// else {
+	//    serialY = localTheData[nEntries-1].GetY();
+	// }
+	// free(localTheData);
+    // return y;
+    // === END SLOW SERIAL CODE ==============================================
+
+    // === SLOW GPU CODE ==============================================
+    if (nEntries == 0) {
+        return 0;
+    }
+
+	SetValueTo_CUDA<<<1,1>>> (d_singleIntResult, nEntries);
+    int nBlocks = GetNumBlocks(nEntries);
+    GetXSecFirstIndex_CUDA<<<nBlocks, THREADS_PER_BLOCK>>> (d_theData, e, d_singleIntResult, nEntries);
+
+    GetXsecResultStruct * d_res;
+    cudaMalloc(&d_res, sizeof(GetXsecResultStruct));
     
-    // === FASTER CPU SERIAL CODE ==============================================
-    G4ParticleHPDataPoint* localTheData = (G4ParticleHPDataPoint*)malloc(nEntries*sizeof(G4ParticleHPDataPoint));
-    cudaMemcpy(localTheData, d_theData, nEntries * sizeof(G4ParticleHPDataPoint), cudaMemcpyDeviceToHost);
-    if(nEntries == 0) {
-      return 0;
-    }
-    G4int min = 0;
-    G4int i;
-    for(i=min ; i<nEntries; i++){
-      if(localTheData[i].GetX() >= e) {
-        break;
-      }
-    }
-    G4int low = i-1;
-    G4int high = i;
-    if(i==0){
-      low = 0;
-      high = 1;
-    }
-    else if(i==nEntries){
-      low = nEntries-2;
-      high = nEntries-1;
-    }
-    G4double y;
-    if(e<localTheData[nEntries-1].GetX()) {
-      if ( localTheData[high].GetX() !=0 &&( std::abs( (localTheData[high].GetX()-localTheData[low].GetX())/localTheData[high].GetX() ) < 0.000001 ) ) {
-        y = localTheData[low].GetY();
-      }
-      else {
-        y = theInt.Interpolate(theManager.GetScheme(high), e, 
-        localTheData[low].GetX(), localTheData[high].GetX(),
-        localTheData[low].GetY(), localTheData[high].GetY());
-      }
-    }
+    GetXsecResultStruct res;
+    GetYForXSec_CUDA<<<1, 1>>> (d_theData, e, d_singleIntResult, d_res, nEntries);
+    cudaMemcpy(&res, d_res, sizeof(GetXsecResultStruct), cudaMemcpyDeviceToHost);
+    cudaFree(d_res);
+    if (res.y != -1) {
+    	return res.y;
+    } 
     else {
-      y = localTheData[nEntries-1].GetY();
+    	G4double y = theInt.Interpolate(theManager.GetScheme(res.indexHigh), e, 
+                res.pointLow.energy, res.pointHigh.energy,
+                res.pointLow.xSec, res.pointHigh.xSec);
+    	if (nEntries == 1) {
+    		return 0.0;
+    	}
+    	return y;
     }
-    free(localTheData);
-    return y;
-    // === END FASTER CPU SERIAL CODE ==============================================
-    
-    // === FAST GPU CODE ==============================================
- //    if (nEntries == 0) {
- //        return 0;
- //    }
-
- //    clock_t t1 = clock();
-	// SetValueTo_CUDA<<<1,1>>> (d_singleIntResult, nEntries);
-	// // clock_t t15 = clock();
- //    int nBlocks = GetNumBlocks(nEntries);
- //    GetXSecFirstIndex_CUDA<<<nBlocks, THREADS_PER_BLOCK>>> (d_theData, e, d_singleIntResult, nEntries);
- //    // clock_t t2 = clock();
-
- //    GetXsecResultStruct * d_res;
- //    cudaMalloc(&d_res, sizeof(GetXsecResultStruct));
-    
- //    GetXsecResultStruct res;
- //    GetYForXSec_CUDA<<<1, 1>>> (d_theData, e, d_singleIntResult, d_res, nEntries);
- //    cudaMemcpy(&res, d_res, sizeof(GetXsecResultStruct), cudaMemcpyDeviceToHost);
- //    cudaFree(d_res);
- //    if (res.y != -1) {
- //    	return res.y;
- //    } else {
- //    	return theInt.Interpolate(theManager.GetScheme(res.indexHigh), e, 
- //                    res.pointLow.energy, res.pointHigh.energy,
- //                    res.pointLow.xSec, res.pointHigh.xSec);
- //    }
+	// === END SLOW GPU CODE ==============================================  
 }
 
 void G4ParticleHPVector_CUDA::Dump() {
