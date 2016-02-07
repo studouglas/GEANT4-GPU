@@ -157,7 +157,7 @@ Geant4 simulations typically involve simulating the movement of many particles (
 This problem is well-suited to parallelization, as each particle has the same, relatively simple functions applied to it independently. Although not faster in many cases, when massive parallelization is possible, running on the GPU can lead to significant performance improvements. This led the stakeholders to propose using the GPU to do some calculations in Geant4 with the goal of reducing the runtime of the simulations.
 
 \subsection{CUDA}
-The two most popular software libraries for performing general computing tasks on the CPU are CUDA and OpenCL. The decision was made to use CUDA for a variety of reasons. Developed by NVIDIA, CUDA has more extensive documentation than OpenCL, a larger online community, a more consistent interface, integration with CMake (the Geant4 build system), and several researchers have successfully integrated small parts of Geant4 with CUDA.
+The two most popular software libraries for performing general computing tasks on the GPU are CUDA and OpenCL. The decision was made to use CUDA for a variety of reasons. Developed by NVIDIA, CUDA has more extensive documentation than OpenCL, a larger online community, a more consistent interface, integration with CMake (the Geant4 build system), and several researchers have successfully integrated small parts of Geant4 with CUDA.
 
 There are two main disadvantages of CUDA however that are worth discussing. First and foremost, CUDA programs can only run on NVIDIA GPUs. If the user has a GPU made by a different manufacturer, they will not be able to receive any of the performance benefits of the new product. This was determined to be acceptable as the stakeholders explicitly stated plans to purchase a NVIDIA GPU, and McMaster's GPU servers all use NVIDIA graphics cards. Secondly, while OpenCL is open-source, CUDA is proprietary and owned by NVIDIA (although distributed as freeware). This is not optimal, however it was decided that the advantages of the larger community and consistent interface outweighed the disadvantages of a non-open-source library.
 
@@ -218,7 +218,7 @@ In all options except 1 and 2, a function call to one of the functions of a port
 
 Option 5 was chosen due to its ability to divide work easily, its compatibility with the current codebase, and the memory advantages over option 4.
 
-\subsection{G4NeutronHPVector}\label{subsec_G4NeutronHPVector} % rob
+\subsection{G4NeutronHPVector}\label{subsec_G4NeutronHPVector}
 As was explained in the preceding subsection, the problem has been decomposed to that of only integrating specific functions from given modules with the CUDA technology. With that said, a decision needed to be made as for which class and which functions within that class to integrate.
 
 G4HPNeutronVector was chosen to port to the GPU for two main reasons. The first is that this decision was made to satisfy system and technical requirements, and the second is a matter of satisfying stakeholder requirements.
@@ -232,14 +232,14 @@ Different aspects of the system are presented below in two lists, those that are
 
 Following the lists of likely and unlikely changes, the relationship between likely changes and design components is presented.
 
-\subsection{Likely Changes}\label{Sec_LikelyChanges} %========== Rob
+\subsection{Likely Changes}\label{Sec_LikelyChanges}
 \begin{enumerate}
 \item Parallelizing other modules in addition to G4NeutronHPVector
 \item The serial, CPU-bound algorithms used by Geant4 will likely not be suited to running on the GPU
 \item Specifics of CMake implementation to compile and link CUDA code
 \end{enumerate}
 
-\subsection{Unlikely Changes} %========= Rob
+\subsection{Unlikely Changes}
 \begin{enumerate}
 \item Using CUDA as GPU programming library
 \item Using the GPU to run certain computations in parallel
@@ -268,7 +268,7 @@ The following table addresses all likely changes discussed above and their relat
 \end{longtable}
 \end{center}
 
-\section{Module Hierarchy}%============= Stuart
+\section{Module Hierarchy}
 \subsection{Decomposition of Components}
 The project is based off of Geant4, an existing software system, and modifying specific modules of that system. As such, the decomposition used by the existing system will match the modules of the new system in the project development.
 
@@ -287,7 +287,7 @@ Geant4 is an extremely large system with many modules, so its entire uses hierar
 
 \ds{Hard to read.}
 
-\section{Traceability of Requirements and Design Components}% ===== Stuart
+\section{Traceability of Requirements and Design Components}
 The following table outlines each requirement and its relationship to the design.
 
 For requirements that do not directly map to sections in the design document (such as providing a repository), the requirement is discussed at a high level in relationship to the design within the context of the entire project.
