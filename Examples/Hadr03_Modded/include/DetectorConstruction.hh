@@ -23,48 +23,75 @@
 // * acceptance of all terms of the Geant4 Software license.          *
 // ********************************************************************
 //
-/// \file electromagnetic/TestEm5/src/StackingAction.cc
-/// \brief Implementation of the StackingAction class
+/// \file hadronic/Hadr03/include/DetectorConstruction.hh
+/// \brief Definition of the DetectorConstruction class
 //
-// $Id: StackingAction.cc 67268 2013-02-13 11:38:40Z ihrivnac $
-//
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
-#include "StackingAction.hh"
-#include "Run.hh"
-
-#include "G4RunManager.hh"
-#include "G4Track.hh"
+// $Id: DetectorConstruction.hh 77251 2013-11-22 10:06:41Z gcosmo $
+// 
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
-StackingAction::StackingAction()
-:G4UserStackingAction()
-{ }
-
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-StackingAction::~StackingAction()
-{ }
+#ifndef DetectorConstruction_h
+#define DetectorConstruction_h 1
+
+#include "G4VUserDetectorConstruction.hh"
+#include "globals.hh"
+
+class G4LogicalVolume;
+class G4Material;
+class G4UniformMagField;
+class DetectorMessenger;
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-G4ClassificationOfNewTrack
-StackingAction::ClassifyNewTrack(const G4Track* aTrack)
+class DetectorConstruction : public G4VUserDetectorConstruction
 {
-  //keep primary particle
-  if (aTrack->GetParentID() == 0) return fUrgent;
+  public:
+  
+    DetectorConstruction();
+   ~DetectorConstruction();
 
-  //count secondary particles
-  G4String name   = aTrack->GetDefinition()->GetParticleName();
-  G4double energy = aTrack->GetKineticEnergy();
-  Run* run = static_cast<Run*>(
-        G4RunManager::GetRunManager()->GetNonConstCurrentRun());    
-  run->ParticleCount(name,energy);
+  public:
+  
+    virtual G4VPhysicalVolume* Construct();
 
-  //kill all secondaries  
-  return fKill;
-}
+    G4Material* 
+    MaterialWithSingleIsotope(G4String, G4String, G4double, G4int, G4int);
+         
+    void SetSize     (G4double);              
+    void SetMaterial (G4String);            
+    void SetMagField (G4double);
+
+  public:
+  
+     const
+     G4VPhysicalVolume* GetWorld()      {return fPBox;};           
+                    
+     G4double           GetSize()       {return fBoxSize;};      
+     G4Material*        GetMaterial()   {return fMaterial;};
+     
+     void               PrintParameters();
+                       
+  private:
+  
+     G4VPhysicalVolume*    fPBox;
+     G4LogicalVolume*      fLBox;
+     
+     G4double              fBoxSize;
+     G4Material*           fMaterial;     
+     G4UniformMagField*    fMagField;
+     
+     DetectorMessenger* fDetectorMessenger;
+
+  private:
+    
+     void               DefineMaterials();
+     G4VPhysicalVolume* ConstructVolumes();     
+};
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
+
+#endif
+

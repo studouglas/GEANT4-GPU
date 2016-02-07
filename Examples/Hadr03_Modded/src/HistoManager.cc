@@ -26,10 +26,10 @@
 /// \file hadronic/Hadr03/src/HistoManager.cc
 /// \brief Implementation of the HistoManager class
 //
-// $Id: HistoManager.cc 67909 2013-03-12 18:51:09Z vnivanch $
+// $Id: HistoManager.cc 72245 2013-07-12 08:51:51Z gcosmo $
 // 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo...... 
 
 #include "HistoManager.hh"
 #include "G4UnitsTable.hh"
@@ -37,7 +37,7 @@
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 HistoManager::HistoManager()
-  : fFileName("Hadr04")
+  : fFileName("Hadr03")
 {
   Book();
 }
@@ -46,7 +46,7 @@ HistoManager::HistoManager()
 
 HistoManager::~HistoManager()
 {
-  delete G4AnalysisManager::Instance();
+  //  delete G4AnalysisManager::Instance();
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
@@ -62,17 +62,23 @@ void HistoManager::Book()
   analysisManager->SetActivation(true);     //enable inactivation of histograms
   
   // Define histograms start values
-  const G4int kMaxHisto = 8;
-  const G4String id[] = {"0","1","2","3","4","5","6","7"};
+  const G4int kMaxHisto = 13;
+  const G4String id[] = {"0","1","2","3","4","5","6","7","8","9",
+                         "10","11","12"};
   const G4String title[] = 
-                { "dummy",                                           //0
-                  "incident neutron: nb of collisions above 1 eV",   //1
-                  "incident neutron: total track length above 1 eV", //2
-                  "incident neutron: time of flight above 1 eV",     //3
-                  "incident neutron: nb of collisions below 1 eV",   //4
-                  "incident neutron: total track length below 1*eV", //5
-                  "incident neutron: time of flight below 1 eV",     //6
-                  "incident neutron: energy distribution below 1*eV" //7
+                { "dummy",                                          //0
+                  "kinetic energy of scattered primary particle",   //1
+                  "kinetic energy of recoil nuclei",                //2
+                  "kinetic energy of gamma",                        //3
+                  "kinetic energy of neutrons",                     //4
+                  "kinetic energy of protons",                      //5
+                  "kinetic energy of deuterons",                    //6
+                  "kinetic energy of alphas",                       //7
+                  "kinetic energy of all others ions",              //8
+                  "kinetic energy of all others mesons",            //9
+                  "kinetic energy of all others baryons",           //10
+                  "Q = Ekin out - Ekin in",                         //11
+                  "Pbalance = mag(P_out - P_in)"                    //12
                  };  
 
   // Default values (to be reset via /analysis/h1/set command)               

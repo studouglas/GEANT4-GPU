@@ -23,48 +23,51 @@
 // * acceptance of all terms of the Geant4 Software license.          *
 // ********************************************************************
 //
-/// \file electromagnetic/TestEm5/src/StackingAction.cc
-/// \brief Implementation of the StackingAction class
+/// \file hadronic/Hadr03/src/EventActionMessenger.cc
+/// \brief Implementation of the EventActionMessenger class
 //
-// $Id: StackingAction.cc 67268 2013-02-13 11:38:40Z ihrivnac $
-//
+// $Id: EventActionMessenger.cc 70759 2013-06-05 12:26:43Z gcosmo $
+// 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-#include "StackingAction.hh"
-#include "Run.hh"
+#include "EventActionMessenger.hh"
 
-#include "G4RunManager.hh"
-#include "G4Track.hh"
+#include "EventAction.hh"
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
-StackingAction::StackingAction()
-:G4UserStackingAction()
-{ }
+#include "G4UIdirectory.hh"
+#include "G4UIcmdWithAnInteger.hh"
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-StackingAction::~StackingAction()
-{ }
+EventActionMessenger::EventActionMessenger(EventAction* EvAct)
+:G4UImessenger(),
+ fEventAction(EvAct),fEventDir(0), fPrintCmd(0) 
+{ 
+  fEventDir = new G4UIdirectory("/testhadr/event/");
+  fEventDir ->SetGuidance("event control");
+      
+  fPrintCmd = new G4UIcmdWithAnInteger("/testhadr/event/printModulo",this);
+  fPrintCmd->SetGuidance("Print events modulo n");
+  fPrintCmd->SetParameterName("EventNb",false);
+  fPrintCmd->SetRange("EventNb>0");
+  fPrintCmd->AvailableForStates(G4State_Idle);      
+}
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-G4ClassificationOfNewTrack
-StackingAction::ClassifyNewTrack(const G4Track* aTrack)
+EventActionMessenger::~EventActionMessenger()
 {
-  //keep primary particle
-  if (aTrack->GetParentID() == 0) return fUrgent;
+  delete fPrintCmd;
+  delete fEventDir;   
+}
 
-  //count secondary particles
-  G4String name   = aTrack->GetDefinition()->GetParticleName();
-  G4double energy = aTrack->GetKineticEnergy();
-  Run* run = static_cast<Run*>(
-        G4RunManager::GetRunManager()->GetNonConstCurrentRun());    
-  run->ParticleCount(name,energy);
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-  //kill all secondaries  
-  return fKill;
+void EventActionMessenger::SetNewValue(G4UIcommand* command, G4String newValue)
+{ 
+  if (command == fPrintCmd)
+    {fEventAction->SetPrintModulo(fPrintCmd->GetNewIntValue(newValue));}
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

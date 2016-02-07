@@ -1,0 +1,32 @@
+# $Id$
+#
+# Macro file for "Hadr03.cc"
+# (can be run in batch, without graphic)
+#
+# proton 10 MeV; all processes
+#
+/control/verbose 2
+/run/verbose 2
+#
+/testhadr/det/setIsotopeMat Mo100 42 100 10.28 g/cm3
+###/testhadr/det/setMat G4_Mo
+#
+/testhadr/det/setSize 1000 m 
+#
+/run/initialize
+#
+/gun/particle proton
+/gun/energy 10 MeV
+#
+/process/list
+/process/inactivate protonInelastic
+#
+/analysis/setFileName elastic
+/analysis/h1/set 1  100  9. 11 MeV	# scaterred proton
+/analysis/h1/set 2  100  0. 50 keV	#recoil ion
+/analysis/h1/set 11 100 -700. 10 eV	#Q
+/analysis/h1/set 12 100  0. 15 MeV	#Pbalance
+#
+/run/beamOn 10000
+
+

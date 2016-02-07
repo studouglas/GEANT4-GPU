@@ -23,48 +23,36 @@
 // * acceptance of all terms of the Geant4 Software license.          *
 // ********************************************************************
 //
-/// \file electromagnetic/TestEm5/src/StackingAction.cc
-/// \brief Implementation of the StackingAction class
+/// \file hadronic/Hadr03/include/HistoManager.hh
+/// \brief Definition of the HistoManager class
 //
-// $Id: StackingAction.cc 67268 2013-02-13 11:38:40Z ihrivnac $
-//
+// $Id: HistoManager.hh 66586 2012-12-21 10:48:39Z ihrivnac $
+// 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo...... 
 
-#include "StackingAction.hh"
-#include "Run.hh"
+#ifndef HistoManager_h
+#define HistoManager_h 1
 
-#include "G4RunManager.hh"
-#include "G4Track.hh"
+#include "globals.hh"
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
-StackingAction::StackingAction()
-:G4UserStackingAction()
-{ }
+#include "g4root.hh"
+//#include "g4xml.hh"
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-StackingAction::~StackingAction()
-{ }
-
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
-G4ClassificationOfNewTrack
-StackingAction::ClassifyNewTrack(const G4Track* aTrack)
+class HistoManager
 {
-  //keep primary particle
-  if (aTrack->GetParentID() == 0) return fUrgent;
+  public:
+   HistoManager();
+  ~HistoManager();
 
-  //count secondary particles
-  G4String name   = aTrack->GetDefinition()->GetParticleName();
-  G4double energy = aTrack->GetKineticEnergy();
-  Run* run = static_cast<Run*>(
-        G4RunManager::GetRunManager()->GetNonConstCurrentRun());    
-  run->ParticleCount(name,energy);
-
-  //kill all secondaries  
-  return fKill;
-}
+  private:
+    void Book();
+    G4String fFileName;
+};
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
+#endif
+

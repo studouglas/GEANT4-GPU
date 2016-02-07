@@ -23,48 +23,50 @@
 // * acceptance of all terms of the Geant4 Software license.          *
 // ********************************************************************
 //
-/// \file electromagnetic/TestEm5/src/StackingAction.cc
-/// \brief Implementation of the StackingAction class
+/// \file hadronic/Hadr03/src/GammaPhysics.cc
+/// \brief Implementation of the GammaPhysics class
 //
-// $Id: StackingAction.cc 67268 2013-02-13 11:38:40Z ihrivnac $
+// $Id: GammaPhysics.cc 66587 2012-12-21 11:06:44Z ihrivnac $
 //
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
-#include "StackingAction.hh"
-#include "Run.hh"
-
-#include "G4RunManager.hh"
-#include "G4Track.hh"
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-StackingAction::StackingAction()
-:G4UserStackingAction()
+#include "GammaPhysics.hh"
+
+#include "G4ParticleDefinition.hh"
+#include "G4ProcessManager.hh"
+
+// Processes
+
+#include "G4PhotoNuclearProcess.hh"
+#include "G4CascadeInterface.hh"
+
+#include "G4SystemOfUnits.hh"
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
+GammaPhysics::GammaPhysics(const G4String& name)
+:  G4VPhysicsConstructor(name)
 { }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-StackingAction::~StackingAction()
+GammaPhysics::~GammaPhysics()
 { }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-G4ClassificationOfNewTrack
-StackingAction::ClassifyNewTrack(const G4Track* aTrack)
+void GammaPhysics::ConstructProcess()
 {
-  //keep primary particle
-  if (aTrack->GetParentID() == 0) return fUrgent;
-
-  //count secondary particles
-  G4String name   = aTrack->GetDefinition()->GetParticleName();
-  G4double energy = aTrack->GetKineticEnergy();
-  Run* run = static_cast<Run*>(
-        G4RunManager::GetRunManager()->GetNonConstCurrentRun());    
-  run->ParticleCount(name,energy);
-
-  //kill all secondaries  
-  return fKill;
+   G4ProcessManager* pManager = G4Gamma::Gamma()->GetProcessManager();
+   //
+   G4PhotoNuclearProcess* process = new G4PhotoNuclearProcess();
+   //
+   G4CascadeInterface* bertini = new G4CascadeInterface();
+   bertini->SetMaxEnergy(10*GeV);
+   process->RegisterMe(bertini);
+   //
+   pManager->AddDiscreteProcess(process);
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
