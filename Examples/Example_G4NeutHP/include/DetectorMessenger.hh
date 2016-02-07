@@ -23,59 +23,39 @@
 // * acceptance of all terms of the Geant4 Software license.          *
 // ********************************************************************
 //
-/// \file electromagnetic/TestEm11/include/Run.hh
-/// \brief Definition of the Run class
+/// \file hadronic/Hadr03/include/DetectorMessenger.hh
+/// \brief Definition of the DetectorMessenger class
 //
-// $Id: Run.hh 71375 2013-06-14 07:39:33Z maire $
+// $Id: DetectorMessenger.hh 67103 2013-01-31 18:18:03Z maire $
 
-#ifndef Run_h
-#define Run_h 1
+#ifndef DetectorMessenger_h
+#define DetectorMessenger_h 1
 
-#include "G4Run.hh"
-#include "G4VProcess.hh"
+#include "G4UImessenger.hh"
 #include "globals.hh"
-#include <map>
 
 class DetectorConstruction;
-class G4ParticleDefinition;
+class G4UIdirectory;
+class G4UIcommand;
+class G4UIcmdWithAString;
+class G4UIcmdWithADoubleAndUnit;
+class G4UIcmdWithoutParameter;
 
-class Run : public G4Run {
-  public:
-    Run(DetectorConstruction*);
-    ~Run();
-
-    void CountProcesses(const G4VProcess* process);                  
-    void ParticleCount(G4String, G4double);
-    void SumTrackLength (G4int,G4int,G4double,G4double,G4double,G4double);
+class DetectorMessenger: public G4UImessenger {
+	public:
+		DetectorMessenger(DetectorConstruction* );
+		~DetectorMessenger();
     
-    void SetPrimary(G4ParticleDefinition* particle, G4double energy);    
-    void EndOfRun(); 
-            
-    virtual void Merge(const G4Run*);
-   
+    virtual void SetNewValue(G4UIcommand*, G4String);
+    
   private:
-    struct ParticleData {
-     ParticleData()
-       : fCount(0), fEmean(0.), fEmin(0.), fEmax(0.) {}
-     ParticleData(G4int count, G4double ekin, G4double emin, G4double emax)
-       : fCount(count), fEmean(ekin), fEmin(emin), fEmax(emax) {}
-     G4int     fCount;
-     G4double  fEmean;
-     G4double  fEmin;
-     G4double  fEmax;
-    };
-     
-    DetectorConstruction* fDetector;
-    G4ParticleDefinition* fParticle;
-    G4double              fEkin;
-        
-    std::map<G4String,G4int>        fProcCounter;            
-    std::map<G4String,ParticleData> fParticleDataMap;
-        
-    G4int    fNbStep1, fNbStep2;
-    G4double fTrackLen1, fTrackLen2;
-    G4double fTime1, fTime2;    
+		DetectorConstruction*      fDetector;
+    
+		G4UIdirectory*             fTestemDir;
+		G4UIdirectory*             fDetDir;
+		G4UIcmdWithAString*        fMaterCmd;
+		G4UIcmdWithADoubleAndUnit* fSizeCmd;
+		G4UIcommand*               fIsotopeCmd;    
 };
 
 #endif
-

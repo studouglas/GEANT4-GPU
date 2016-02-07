@@ -23,59 +23,73 @@
 // * acceptance of all terms of the Geant4 Software license.          *
 // ********************************************************************
 //
-/// \file electromagnetic/TestEm11/include/Run.hh
-/// \brief Definition of the Run class
 //
-// $Id: Run.hh 71375 2013-06-14 07:39:33Z maire $
+// $Id: G4DataVector.icc 67970 2013-03-13 10:10:06Z gcosmo $
+//
+//
+// class G4DataVector inline implementation
+// 
 
-#ifndef Run_h
-#define Run_h 1
+inline
+void G4DataVector::insertAt(size_t pos, const G4double& a) 
+{ 
+  iterator i = begin();
+  for (size_t ptn=0; (ptn<pos)&&(i!=end()); i++,ptn++) {;}
+  if (i!=end())
+    { insert(i,a); }
+  else
+    { push_back(a); }
+}
 
-#include "G4Run.hh"
-#include "G4VProcess.hh"
-#include "globals.hh"
-#include <map>
+inline
+size_t G4DataVector::index(const G4double& a) 
+{ 
+  size_t ptn = 0;
+  for (iterator i=begin(); i!=end(); i++,ptn++)
+    { if (!(*i!=a)) { return ptn; } }
 
-class DetectorConstruction;
-class G4ParticleDefinition;
+  return (ptn=~(size_t)0);
+}
 
-class Run : public G4Run {
-  public:
-    Run(DetectorConstruction*);
-    ~Run();
+inline
+G4bool G4DataVector::contains(const G4double& a) const
+{
+  for (const_iterator i=begin(); i!=end(); i++)
+    { if (!(*i!=a)) { return true; } }
 
-    void CountProcesses(const G4VProcess* process);                  
-    void ParticleCount(G4String, G4double);
-    void SumTrackLength (G4int,G4int,G4double,G4double,G4double,G4double);
-    
-    void SetPrimary(G4ParticleDefinition* particle, G4double energy);    
-    void EndOfRun(); 
-            
-    virtual void Merge(const G4Run*);
-   
-  private:
-    struct ParticleData {
-     ParticleData()
-       : fCount(0), fEmean(0.), fEmin(0.), fEmax(0.) {}
-     ParticleData(G4int count, G4double ekin, G4double emin, G4double emax)
-       : fCount(count), fEmean(ekin), fEmin(emin), fEmax(emax) {}
-     G4int     fCount;
-     G4double  fEmean;
-     G4double  fEmin;
-     G4double  fEmax;
-    };
-     
-    DetectorConstruction* fDetector;
-    G4ParticleDefinition* fParticle;
-    G4double              fEkin;
-        
-    std::map<G4String,G4int>        fProcCounter;            
-    std::map<G4String,ParticleData> fParticleDataMap;
-        
-    G4int    fNbStep1, fNbStep2;
-    G4double fTrackLen1, fTrackLen2;
-    G4double fTime1, fTime2;    
-};
+  return false;
+}
 
-#endif
+inline 
+G4bool G4DataVector::remove(const G4double& a)
+{
+  G4bool found = false;
 
+  for (iterator i=begin(); i!=end(); i++)
+  {
+    if (!(*i!=a))
+    {
+      erase(i);
+      found = true;
+      break;
+    }
+  }
+  return found;
+}
+
+inline 
+size_t G4DataVector::removeAll(const G4double& a)
+{
+  size_t ptn=0;
+
+  for (iterator i=begin(); i!=end(); i++)
+  {
+    if (!(*i!=a))
+    {
+      erase(i);
+      ptn++;
+      i--;
+    } 
+  }
+  return ptn;
+}

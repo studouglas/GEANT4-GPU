@@ -1,0 +1,3 @@
+
+
+nvcc $OBJS

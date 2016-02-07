@@ -23,70 +23,33 @@
 // * acceptance of all terms of the Geant4 Software license.          *
 // ********************************************************************
 //
+/// \file electromagnetic/TestEm12/include/NeutronHPMessenger.hh
+/// \brief Definition of the NeutronHPMessenger class
 //
-//
-#ifndef G4ParticleHPDataPoint_CUDA_h
-#define G4ParticleHPDataPoint_CUDA_h 1
+// $Id: NeutronHPMessenger.hh 66241 2012-12-13 18:34:42Z gunter $
 
-#include <cuda.h>
-#include <cuda_runtime.h>
+#ifndef NeutronHPMessenger_h
+#define NeutronHPMessenger_h 1
 
-class G4ParticleHPDataPoint_CUDA
-{
-  public:  
-  G4ParticleHPDataPoint_CUDA() {
-    energy = 0; 
-    xSec = 0;
-  }
-  G4ParticleHPDataPoint_CUDA(double e, double x){ 
-    energy = e; 
-    xSec = x;
-  }
-  
-  __host__ __device__ void operator= (const G4ParticleHPDataPoint_CUDA & aSet) {
-    if(&aSet!=this) {
-      energy = aSet.GetEnergy();
-      xSec   = aSet.GetXsection();
-    }
-  }
+#include "globals.hh"
+#include "G4UImessenger.hh"
 
-  __host__ __device__ ~G4ParticleHPDataPoint_CUDA() { }
-  
-  __host__ __device__ double GetEnergy() const {
-    return energy;
-  }
-  __host__ __device__ double GetXsection() const { 
-    return xSec;
-  }
-  
-  __host__ __device__ void SetEnergy(double e) { 
-    energy = e;
-  }
-  __host__ __device__ void SetXsection(double x) {
-    xSec = x;
-  }
-  
-  __host__ __device__ double GetX() const { 
-    return energy;
-  }
-  __host__ __device__ double GetY() const {
-    return xSec;
-  }
-  
-  __host__ __device__ void SetX(double e) {
-    energy = e;
-  }
-  __host__ __device__ void SetY(double x) {
-    xSec = x;
-  }
-  
-  __host__ __device__ void SetData(double e, double x) {
-    energy = e; xSec = x;
-  }
-  
-  private:
-  double energy;
-  double xSec;
+class NeutronHPphysics;
+class G4UIdirectory;
+class G4UIcmdWithABool;
+
+class NeutronHPMessenger: public G4UImessenger {
+	public:
+		NeutronHPMessenger(NeutronHPphysics*);
+		~NeutronHPMessenger();
+    
+		virtual void SetNewValue(G4UIcommand*, G4String);
+    
+	private:    
+		NeutronHPphysics*  fNeutronPhysics;
+    
+		G4UIdirectory*     fPhysDir;      
+		G4UIcmdWithABool*  fThermalCmd;
 };
 
 #endif

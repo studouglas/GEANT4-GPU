@@ -13,16 +13,22 @@ Documentation/*/*.out
 # Xcode project files
 G4STORK/Build-xcode
 G4STORK/Build-xcode-serial
+*.sublime-workspace
 
 Examples/CUDA_simpleTest/bin
-Examples/CUDA_Hadr04/bin
-
+Examples/CUDA_Hadr04/bin*
 # Geant / G4STORK build files
 G4STORK/Build/*
 G4STORK/include/Marshaled*
 G4STORK/include/*.msh
 G4STORK/OutputFiles
 G4STORK/SourceFiles
+
+geant4.10.00.p02.tar.gz
+geant4.10.00.p02.tar
+geant4.10.00.p02
+geant4.10.00.p02-build
+geant4.10.00.p02-install
 
 geant4.10.02/tmp
 geant4.10.02-build

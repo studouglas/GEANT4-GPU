@@ -24,17 +24,17 @@ void ActionInitialization::Build() const {
 	PrimaryGeneratorAction* primary = new PrimaryGeneratorAction();
 	SetUserAction(primary);
     
-	RunAction* runAction = new RunAction(fDetector, primary );
-	SetUserAction(runAction);
+	//RunAction* runAction = new RunAction(fDetector, primary );
+	//SetUserAction(runAction);
   
-	TrackingAction* trackingAction = new TrackingAction();
-	SetUserAction(trackingAction);
+	//TrackingAction* trackingAction = new TrackingAction();
+	//SetUserAction(trackingAction);
   
-	SteppingAction* steppingAction = new SteppingAction(trackingAction);
-	SetUserAction(steppingAction);
+	//SteppingAction* steppingAction = new SteppingAction(trackingAction);
+	//SetUserAction(steppingAction);
   
-	StackingAction* stackingAction = new StackingAction();
-	SetUserAction(stackingAction); 
+	//StackingAction* stackingAction = new StackingAction();
+	//SetUserAction(stackingAction); 
 }
 
 G4VSteppingVerbose* ActionInitialization::InitializeSteppingVerbose() const {

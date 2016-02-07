@@ -1,3 +1,4 @@
+//
 // ********************************************************************
 // * License and Disclaimer                                           *
 // *                                                                  *
@@ -21,71 +22,27 @@
 // * use  in  resulting  scientific  publications,  and indicate your *
 // * acceptance of all terms of the Geant4 Software license.          *
 // ********************************************************************
+//
+/// \file hadronic/Hadr03/include/HistoManager.hh
+/// \brief Definition of the HistoManager class
+//
+// $Id: HistoManager.hh 66586 2012-12-21 10:48:39Z ihrivnac $
 
+#ifndef HistoManager_h
+#define HistoManager_h 1
 
+#include "globals.hh"
+#include "g4root.hh"
 
-#ifndef G4ParticleHPDataPoint_CUDA_h
-#define G4ParticleHPDataPoint_CUDA_h 1
+class HistoManager{
+	public:
+		HistoManager();
+		~HistoManager();
 
-#include <cuda.h>
-#include <cuda_runtime.h>
-
-class G4ParticleHPDataPoint_CUDA
-{
-  public:  
-  G4ParticleHPDataPoint_CUDA() {
-    energy = 0; 
-    xSec = 0;
-  }
-  G4ParticleHPDataPoint_CUDA(double e, double x){ 
-    energy = e; 
-    xSec = x;
-  }
-  
-  __host__ __device__ void operator= (const G4ParticleHPDataPoint_CUDA & aSet) {
-    if(&aSet!=this) {
-      energy = aSet.GetEnergy();
-      xSec   = aSet.GetXsection();
-    }
-  }
-
-  __host__ __device__ ~G4ParticleHPDataPoint_CUDA() { }
-  
-  __host__ __device__ double GetEnergy() const {
-    return energy;
-  }
-  __host__ __device__ double GetXsection() const { 
-    return xSec;
-  }
-  
-  __host__ __device__ void SetEnergy(double e) { 
-    energy = e;
-  }
-  __host__ __device__ void SetXsection(double x) {
-    xSec = x;
-  }
-  
-  __host__ __device__ double GetX() const { 
-    return energy;
-  }
-  __host__ __device__ double GetY() const {
-    return xSec;
-  }
-  
-  __host__ __device__ void SetX(double e) {
-    energy = e;
-  }
-  __host__ __device__ void SetY(double x) {
-    xSec = x;
-  }
-  
-  __host__ __device__ void SetData(double e, double x) {
-    energy = e; xSec = x;
-  }
-  
-  private:
-  double energy;
-  double xSec;
+	private:
+		void Book();
+		G4String fFileName;
 };
 
 #endif
+

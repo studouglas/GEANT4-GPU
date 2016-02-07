@@ -163,6 +163,11 @@
     theBuffer = 0;
     if(theFinalStates[index]->HasXsec())
     {
+      printf("\nG4ParticlehPChannel::UpdateData is setting the buffer to %p", theFinalStates[index]->GetXsec());
+      // if (theFinalStates[index]->GetXsec() > 0.0001 || theFinalStates[index]->GetXsec() < 0.0001) {
+        // int a = 0;
+        // int b = 4 / a;
+      // }
       theBuffer = theFinalStates[index]->GetXsec();
       theBuffer->Times(abundance/100.);
       theIsotopeWiseData[index].FillChannelData(theBuffer);

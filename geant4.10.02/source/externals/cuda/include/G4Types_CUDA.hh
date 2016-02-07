@@ -23,59 +23,66 @@
 // * acceptance of all terms of the Geant4 Software license.          *
 // ********************************************************************
 //
-/// \file electromagnetic/TestEm11/include/Run.hh
-/// \brief Definition of the Run class
 //
-// $Id: Run.hh 71375 2013-06-14 07:39:33Z maire $
+// $Id: G4Types.hh 67970 2013-03-13 10:10:06Z gcosmo $
+//
+//
+// GEANT4 native types
+//
 
-#ifndef Run_h
-#define Run_h 1
+#ifndef G4TYPES_HH
+#define G4TYPES_HH
 
-#include "G4Run.hh"
-#include "G4VProcess.hh"
-#include "globals.hh"
-#include <map>
-
-class DetectorConstruction;
-class G4ParticleDefinition;
-
-class Run : public G4Run {
-  public:
-    Run(DetectorConstruction*);
-    ~Run();
-
-    void CountProcesses(const G4VProcess* process);                  
-    void ParticleCount(G4String, G4double);
-    void SumTrackLength (G4int,G4int,G4double,G4double,G4double,G4double);
-    
-    void SetPrimary(G4ParticleDefinition* particle, G4double energy);    
-    void EndOfRun(); 
-            
-    virtual void Merge(const G4Run*);
-   
-  private:
-    struct ParticleData {
-     ParticleData()
-       : fCount(0), fEmean(0.), fEmin(0.), fEmax(0.) {}
-     ParticleData(G4int count, G4double ekin, G4double emin, G4double emax)
-       : fCount(count), fEmean(ekin), fEmin(emin), fEmax(emax) {}
-     G4int     fCount;
-     G4double  fEmean;
-     G4double  fEmin;
-     G4double  fEmax;
-    };
-     
-    DetectorConstruction* fDetector;
-    G4ParticleDefinition* fParticle;
-    G4double              fEkin;
-        
-    std::map<G4String,G4int>        fProcCounter;            
-    std::map<G4String,ParticleData> fParticleDataMap;
-        
-    G4int    fNbStep1, fNbStep2;
-    G4double fTrackLen1, fTrackLen2;
-    G4double fTime1, fTime2;    
-};
-
+#ifdef WIN32
+  // Disable warning C4786 on WIN32 architectures:
+  // identifier was truncated to '255' characters
+  // in the debug information
+  //
+  #pragma warning ( disable : 4786 )
+  //
+  // Define DLL export macro for WIN32 systems for
+  // importing/exporting external symbols to DLLs
+  //
+  #if defined G4LIB_BUILD_DLL
+    #define G4DLLEXPORT __declspec( dllexport )
+    #define G4DLLIMPORT __declspec( dllimport )
+  #else
+    #define G4DLLEXPORT
+    #define G4DLLIMPORT
+  #endif
+  //
+  // Unique identifier for global module
+  //
+  #if defined G4GLOB_ALLOC_EXPORT
+    #define G4GLOB_DLL G4DLLEXPORT
+  #else
+    #define G4GLOB_DLL G4DLLIMPORT
+  #endif
+#else
+  #define G4DLLEXPORT
+  #define G4DLLIMPORT
+  #define G4GLOB_DLL
 #endif
 
+#include <complex>
+
+// Definitions for Thread Local Storage
+//
+// #include "tls.hh"
+
+// Typedefs to decouple from library classes
+// Typedefs for numeric types
+//
+typedef double G4double;
+typedef float G4float;
+typedef int G4int;
+typedef bool G4bool;
+typedef long G4long;
+typedef std::complex<G4double> G4complex;
+
+// Forward declation of void type argument for usage in direct object
+// persistency to define fake default constructors
+//
+class __void__;
+
+#endif /* G4TYPES_HH */
