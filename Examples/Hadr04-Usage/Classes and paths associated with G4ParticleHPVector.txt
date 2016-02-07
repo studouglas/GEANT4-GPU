@@ -1,0 +1,27 @@
+G4ParticleHPThermalScatteringData contains refernces to G4ParticleHPVector, in the GetX method (it calls G4ParticleHPVector's GetXsec method):
+F:\School\geant4_10_02\source\processes\hadronic\models\particle_hp\src\G4ParticleHPThermalScatteringData.cc
+F:\School\geant4_10_02\source\processes\hadronic\models\particle_hp\include\G4ParticleHPThermalScatteringData.hh
+G4ParticleHPThermalScatteringData calls it's own GetX method in it's GetCrossSection method: 
+G4double G4ParticleHPThermalScatteringData::GetCrossSection( const G4DynamicParticle* aP , const G4Element*anE , const G4Material* aM )
+
+G4ParticleHPThermalScatteringData is added as a data set to process 1
+-------------------------------------------------------------------------------------------
+process1 is of type G4HadronElasticProcess
+54  AddDataSet(new G4HadronElasticDataSet);
+
+F:\School\geant4_10_02\source\processes\hadronic\processes\src\G4HadronElasticProcess.cc
+F:\School\geant4_10_02\source\processes\hadronic\processes\include\G4HadronElasticProcess.hh
+which has the parent type G4HadronicProcess.cc
+which defines AddDataSet as
+110 // add cross section data set
+  
+111 inline void AddDataSet(G4VCrossSectionDataSet * aDataSet)
+  
+112 { theCrossSectionDataStore->AddDataSet(aDataSet);}
+DIVERGE TO TYPE ACCEPTED BY AddDataSet ((G4VCrossSectionDataSet )
+G4VCrossSectionDataSet is a parent of G4ParticleHPThermalScatteringData 
+F:\School\geant4_10_02\source\processes\hadronic\management\src\G4HadronicProcess.cc
+F:\School\geant4_10_02\source\processes\hadronic\management\include\G4HadronicProcess.hh
+BACK TO G4HadronicProcess.cc
+which calls GetCrossSection of it's theCrossSectionDataStore (in this case, the G4ParticleHPThermalScatteringData class....)
+in the GetElementCrossSection method
