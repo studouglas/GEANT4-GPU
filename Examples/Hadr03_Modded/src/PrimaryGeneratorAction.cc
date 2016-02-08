@@ -23,48 +23,63 @@
 // * acceptance of all terms of the Geant4 Software license.          *
 // ********************************************************************
 //
-/// \file electromagnetic/TestEm5/src/StackingAction.cc
-/// \brief Implementation of the StackingAction class
+/// \file hadronic/Hadr03/src/PrimaryGeneratorAction.cc
+/// \brief Implementation of the PrimaryGeneratorAction class
 //
-// $Id: StackingAction.cc 67268 2013-02-13 11:38:40Z ihrivnac $
-//
+// $Id: PrimaryGeneratorAction.cc 70759 2013-06-05 12:26:43Z gcosmo $
+// 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-#include "StackingAction.hh"
-#include "Run.hh"
+#include "PrimaryGeneratorAction.hh"
 
-#include "G4RunManager.hh"
-#include "G4Track.hh"
+#include "DetectorConstruction.hh"
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
-StackingAction::StackingAction()
-:G4UserStackingAction()
-{ }
+#include "G4Event.hh"
+#include "G4ParticleTable.hh"
+#include "G4ParticleDefinition.hh"
+#include "G4SystemOfUnits.hh"
+#include "Randomize.hh"
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-StackingAction::~StackingAction()
-{ }
-
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
-G4ClassificationOfNewTrack
-StackingAction::ClassifyNewTrack(const G4Track* aTrack)
+PrimaryGeneratorAction::PrimaryGeneratorAction(DetectorConstruction* det)
+:G4VUserPrimaryGeneratorAction(),
+ fParticleGun(0), fDetector(det)                                               
 {
-  //keep primary particle
-  if (aTrack->GetParentID() == 0) return fUrgent;
-
-  //count secondary particles
-  G4String name   = aTrack->GetDefinition()->GetParticleName();
-  G4double energy = aTrack->GetKineticEnergy();
-  Run* run = static_cast<Run*>(
-        G4RunManager::GetRunManager()->GetNonConstCurrentRun());    
-  run->ParticleCount(name,energy);
-
-  //kill all secondaries  
-  return fKill;
+  fParticleGun  = new G4ParticleGun(1);
+  G4ParticleDefinition* particle
+           = G4ParticleTable::GetParticleTable()->FindParticle("neutron");
+  fParticleGun->SetParticleDefinition(particle);
+  fParticleGun->SetParticleEnergy(1*MeV);    
+  fParticleGun->SetParticleMomentumDirection(G4ThreeVector(1.,0.,0.));
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
+PrimaryGeneratorAction::~PrimaryGeneratorAction()
+{
+  delete fParticleGun;
+}
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
+void PrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
+{
+  //this function is called at the begining of event
+  //
+  G4double halfSize = 0.5*(fDetector->GetSize());
+  G4double x0 = - halfSize;
+  
+  //randomize (y0,z0)
+  //
+  G4double beam = 0.8*halfSize; 
+  G4double y0 = (2*G4UniformRand()-1.)*beam;
+  G4double z0 = (2*G4UniformRand()-1.)*beam;
+  
+  fParticleGun->SetParticlePosition(G4ThreeVector(x0,y0,z0));
+  fParticleGun->GeneratePrimaryVertex(anEvent);
+}
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+

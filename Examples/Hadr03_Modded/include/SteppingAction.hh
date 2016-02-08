@@ -23,48 +23,39 @@
 // * acceptance of all terms of the Geant4 Software license.          *
 // ********************************************************************
 //
-/// \file electromagnetic/TestEm5/src/StackingAction.cc
-/// \brief Implementation of the StackingAction class
+/// \file hadronic/Hadr03/include/SteppingAction.hh
+/// \brief Definition of the SteppingAction class
 //
-// $Id: StackingAction.cc 67268 2013-02-13 11:38:40Z ihrivnac $
+// $Id: SteppingAction.hh 73011 2013-08-15 08:48:30Z gcosmo $
 //
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-#include "StackingAction.hh"
-#include "Run.hh"
+#ifndef SteppingAction_h
+#define SteppingAction_h 1
 
-#include "G4RunManager.hh"
-#include "G4Track.hh"
+#include "G4UserSteppingAction.hh"
+#include "globals.hh"
+#include <map>
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
-StackingAction::StackingAction()
-:G4UserStackingAction()
-{ }
+class G4ParticleDefinition;
+class RunAction;
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-StackingAction::~StackingAction()
-{ }
-
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
-G4ClassificationOfNewTrack
-StackingAction::ClassifyNewTrack(const G4Track* aTrack)
+class SteppingAction : public G4UserSteppingAction
 {
-  //keep primary particle
-  if (aTrack->GetParentID() == 0) return fUrgent;
+  public:
+    SteppingAction(RunAction*);
+   ~SteppingAction();
 
-  //count secondary particles
-  G4String name   = aTrack->GetDefinition()->GetParticleName();
-  G4double energy = aTrack->GetKineticEnergy();
-  Run* run = static_cast<Run*>(
-        G4RunManager::GetRunManager()->GetNonConstCurrentRun());    
-  run->ParticleCount(name,energy);
-
-  //kill all secondaries  
-  return fKill;
-}
+    virtual void UserSteppingAction(const G4Step*);
+    
+  private:
+    RunAction*              fRunAction;
+    std::map<G4ParticleDefinition*,G4int> fParticleFlag;    
+};
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
+#endif

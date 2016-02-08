@@ -23,48 +23,96 @@
 // * acceptance of all terms of the Geant4 Software license.          *
 // ********************************************************************
 //
-/// \file electromagnetic/TestEm5/src/StackingAction.cc
-/// \brief Implementation of the StackingAction class
+/// \file hadronic/Hadr03/Hadr03.cc
+/// \brief Main program of the hadronic/Hadr03 example
 //
-// $Id: StackingAction.cc 67268 2013-02-13 11:38:40Z ihrivnac $
+//
+// $Id: TestEm1.cc,v 1.16 2010-04-06 11:11:24 maire Exp $
 //
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
-#include "StackingAction.hh"
-#include "Run.hh"
 
 #include "G4RunManager.hh"
-#include "G4Track.hh"
+#include "G4UImanager.hh"
+#include "Randomize.hh"
+
+#include "DetectorConstruction.hh"
+#include "PhysicsList.hh"
+#include "PrimaryGeneratorAction.hh"
+#include "SteppingVerbose.hh"
+
+#include "RunAction.hh"
+#include "EventAction.hh"
+#include "SteppingAction.hh"
+
+#ifdef G4VIS_USE
+ #include "G4VisExecutive.hh"
+#endif
+
+#ifdef G4UI_USE
+#include "G4UIExecutive.hh"
+#endif
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+ 
+int main(int argc,char** argv) {
+ 
+  //choose the Random engine
+  CLHEP::HepRandom::setTheEngine(new CLHEP::RanecuEngine);
 
-StackingAction::StackingAction()
-:G4UserStackingAction()
-{ }
+  //my Verbose output class
+  G4VSteppingVerbose::SetInstance(new SteppingVerbose);
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+  // Construct the default run manager
+  G4RunManager * runManager = new G4RunManager;
 
-StackingAction::~StackingAction()
-{ }
+  // set mandatory initialization classes
+  DetectorConstruction* det;
+  PrimaryGeneratorAction* prim;
+  runManager->SetUserInitialization(det = new DetectorConstruction);
+  runManager->SetUserInitialization(new PhysicsList);
+  runManager->SetUserAction(prim = new PrimaryGeneratorAction(det));
+ 
+  // set user action classes
+  RunAction*   run;
+  
+  runManager->SetUserAction(run = new RunAction(det,prim));
+  runManager->SetUserAction(new EventAction());
+  runManager->SetUserAction(new SteppingAction(run));
+ 
+  // get the pointer to the User Interface manager
+    G4UImanager* UI = G4UImanager::GetUIpointer();  
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+  if (argc!=1)   // batch mode
+    {
+     G4String command = "/control/execute ";
+     G4String fileName = argv[1];
+     UI->ApplyCommand(command+fileName);
+    }
 
-G4ClassificationOfNewTrack
-StackingAction::ClassifyNewTrack(const G4Track* aTrack)
-{
-  //keep primary particle
-  if (aTrack->GetParentID() == 0) return fUrgent;
+  else           //define visualization and UI terminal for interactive mode
+    {
+#ifdef G4VIS_USE
+   G4VisManager* visManager = new G4VisExecutive;
+   visManager->Initialize();
+#endif
 
-  //count secondary particles
-  G4String name   = aTrack->GetDefinition()->GetParticleName();
-  G4double energy = aTrack->GetKineticEnergy();
-  Run* run = static_cast<Run*>(
-        G4RunManager::GetRunManager()->GetNonConstCurrentRun());    
-  run->ParticleCount(name,energy);
+#ifdef G4UI_USE
+      G4UIExecutive * ui = new G4UIExecutive(argc,argv);
+      ui->SessionStart();
+      delete ui;
+#endif
 
-  //kill all secondaries  
-  return fKill;
+#ifdef G4VIS_USE
+     delete visManager;
+#endif
+    }
+
+  // job termination
+  //
+  delete runManager;
+
+  return 0;
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

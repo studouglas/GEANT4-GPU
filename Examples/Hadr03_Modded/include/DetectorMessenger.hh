@@ -23,48 +23,51 @@
 // * acceptance of all terms of the Geant4 Software license.          *
 // ********************************************************************
 //
-/// \file electromagnetic/TestEm5/src/StackingAction.cc
-/// \brief Implementation of the StackingAction class
+/// \file hadronic/Hadr03/include/DetectorMessenger.hh
+/// \brief Definition of the DetectorMessenger class
 //
-// $Id: StackingAction.cc 67268 2013-02-13 11:38:40Z ihrivnac $
+// $Id: DetectorMessenger.hh 77251 2013-11-22 10:06:41Z gcosmo $
 //
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-#include "StackingAction.hh"
-#include "Run.hh"
+#ifndef DetectorMessenger_h
+#define DetectorMessenger_h 1
 
-#include "G4RunManager.hh"
-#include "G4Track.hh"
+#include "G4UImessenger.hh"
+#include "globals.hh"
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
-StackingAction::StackingAction()
-:G4UserStackingAction()
-{ }
-
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
-StackingAction::~StackingAction()
-{ }
+class DetectorConstruction;
+class G4UIdirectory;
+class G4UIcommand;
+class G4UIcmdWithAString;
+class G4UIcmdWithADoubleAndUnit;
+class G4UIcmdWithoutParameter;
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-G4ClassificationOfNewTrack
-StackingAction::ClassifyNewTrack(const G4Track* aTrack)
+class DetectorMessenger: public G4UImessenger
 {
-  //keep primary particle
-  if (aTrack->GetParentID() == 0) return fUrgent;
-
-  //count secondary particles
-  G4String name   = aTrack->GetDefinition()->GetParticleName();
-  G4double energy = aTrack->GetKineticEnergy();
-  Run* run = static_cast<Run*>(
-        G4RunManager::GetRunManager()->GetNonConstCurrentRun());    
-  run->ParticleCount(name,energy);
-
-  //kill all secondaries  
-  return fKill;
-}
+  public:
+  
+    DetectorMessenger(DetectorConstruction* );
+   ~DetectorMessenger();
+    
+    virtual void SetNewValue(G4UIcommand*, G4String);
+    
+  private:
+  
+    DetectorConstruction*      fDetector;
+    
+    G4UIdirectory*             fTestemDir;
+    G4UIdirectory*             fDetDir;
+    G4UIcmdWithAString*        fMaterCmd;
+    G4UIcmdWithADoubleAndUnit* fSizeCmd;
+    G4UIcmdWithADoubleAndUnit* fMagFieldCmd;
+    G4UIcommand*               fIsotopeCmd;    
+};
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
+#endif
+
