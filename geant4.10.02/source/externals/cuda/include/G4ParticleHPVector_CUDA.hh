@@ -214,7 +214,8 @@ class G4ParticleHPVector_CUDA {
 
     GetXsecResultStruct * d_res;
     G4int *d_singleIntResult;
-
+    G4double *d_singleDoubleResult;
+    
     G4ParticleHPDataPoint * d_theData;
     G4double * d_theIntegral;
     G4InterpolationManager theManager;

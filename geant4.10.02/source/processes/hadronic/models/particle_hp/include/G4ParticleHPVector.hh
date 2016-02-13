@@ -613,7 +613,6 @@ class G4ParticleHPVector
     #if GEANT4_ENABLE_CUDA
       cudaVector->Integrate();
     #else
-      printf("\n\n\n\nINTEGRATING NOW\n\n\n");
       G4int i;
       if(nEntries == 1)
       {
@@ -631,9 +630,6 @@ class G4ParticleHPVector
           G4double y1 = theData[i-1].GetY();
           G4double y2 = theData[i].GetY();
           G4InterpolationScheme aScheme = theManager.GetScheme(i);
-          if (aScheme != scheme1) {
-              printf("\n\n\nSCHEMES DIFFERENT! %d vs %d", scheme1, aScheme);
-          }
           if(aScheme==LINLIN||aScheme==CLINLIN||aScheme==ULINLIN)
           {
             sum+= 0.5*(y2+y1)*(x2-x1);

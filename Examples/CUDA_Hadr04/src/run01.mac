@@ -12,6 +12,7 @@
 /testhadr/det/setSize 1 m
 #
 /testhadr/phys/thermalScattering true
+/random/setSeeds 9876 54321
 #
 /run/initialize
 #
@@ -31,4 +32,4 @@
 #
 /run/printProgress 100
 #
-/run/beamOn 400
+/run/beamOn 500
