@@ -23,7 +23,7 @@ G4STORK/include/*.msh
 G4STORK/OutputFiles
 G4STORK/SourceFiles
 
-Examples/Hadr04/bin/*
+Examples/**/bin/
 
 geant4.10.02/tmp
 geant4.10.02-build
