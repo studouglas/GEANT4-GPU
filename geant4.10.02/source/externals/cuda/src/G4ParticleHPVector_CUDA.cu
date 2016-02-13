@@ -574,7 +574,7 @@ void G4ParticleHPVector_CUDA::ThinOut(G4double precision) {
     if (GetVectorLength() == 0) {
         return;
     }
-	printf("\nThinOut starting with nEntries = %d | ", nEntries);
+	// printf("\nThinOut starting with nEntries = %d | ", nEntries);
     G4ParticleHPDataPoint *localTheData = (G4ParticleHPDataPoint*)malloc(nEntries * sizeof(G4ParticleHPDataPoint));
     cudaMemcpy(localTheData, d_theData, nEntries * sizeof(G4ParticleHPDataPoint), cudaMemcpyDeviceToHost);
     G4ParticleHPDataPoint * aBuff = new G4ParticleHPDataPoint[nPoints];
@@ -611,7 +611,7 @@ void G4ParticleHPVector_CUDA::ThinOut(G4double precision) {
     // the last one also always goes, and is never tested
     aBuff[++count] = localTheData[GetVectorLength()-1];
     nEntries = count+1;
-    printf("now nEntries = %d", nEntries);
+    // printf("now nEntries = %d", nEntries);
     cudaFree(d_theData);
     cudaMalloc(&d_theData, nPoints * sizeof(G4ParticleHPDataPoint));
     cudaMemcpy(d_theData, aBuff, nEntries * sizeof(G4ParticleHPDataPoint), cudaMemcpyHostToDevice);
@@ -626,7 +626,7 @@ void G4ParticleHPVector_CUDA::Merge(G4InterpolationScheme aScheme, G4double aVal
 
 // TODO: Port Me
 G4double G4ParticleHPVector_CUDA::Sample() {
-    printf("SAMPLE NOT YET IMPLEMENTED\n\n");
+    //printf("SAMPLE NOT YET IMPLEMENTED\n\n");
     return 0;
 }
 
