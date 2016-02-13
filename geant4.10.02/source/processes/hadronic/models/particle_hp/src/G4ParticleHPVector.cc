@@ -201,8 +201,6 @@ G4double G4ParticleHPVector::GetXsec(G4double e)
       }
     }
     
-    // printf("\n[nEntries,minIndex]:[%d,%d], percentage into array: %f", nEntries, i, (float)i/(float)nEntries);
-    
     G4int low = i-1;
     G4int high = i;
     if(i==0)
@@ -358,7 +356,6 @@ void G4ParticleHPVector::ThinOut(G4double precision)
       return;
     }
 
-    printf("\nThinOut starting with nEntries = %d | ", nEntries);
     // make the new vector
     G4ParticleHPDataPoint * aBuff = new G4ParticleHPDataPoint[nPoints];
     G4double x, x1, x2, y, y1, y2;
@@ -398,7 +395,7 @@ void G4ParticleHPVector::ThinOut(G4double precision)
     delete [] theData;
     theData = aBuff;
     nEntries = count+1;
-    printf(" now nEntries = %d", nEntries);
+
     // Rebuild the Hash;
     if(theHash.Prepared()) 
     {

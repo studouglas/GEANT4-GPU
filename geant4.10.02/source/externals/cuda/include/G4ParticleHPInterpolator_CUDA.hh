@@ -52,7 +52,7 @@ class G4ParticleHPInterpolator
     //  G4cout <<"deleted the interpolator"<<G4endl;
    }
   
-  inline G4double Lin(G4double x,G4double x1,G4double x2,G4double y1,G4double y2)
+  __host__ __device__ inline G4double Lin(G4double x,G4double x1,G4double x2,G4double y1,G4double y2)
   {
     G4double slope=0, off=0;
     if(x2-x1==0) {
@@ -64,33 +64,33 @@ class G4ParticleHPInterpolator
     return y;
   }
   
-  inline G4double Interpolate(G4InterpolationScheme aScheme,
+  __host__ __device__ inline G4double Interpolate(G4InterpolationScheme aScheme,
                               G4double x, G4double x1, G4double x2,
                                           G4double y1, G4double y2) const;       
-  inline G4double Interpolate2(G4InterpolationScheme aScheme,
+  __host__ __device__ inline G4double Interpolate2(G4InterpolationScheme aScheme,
                               G4double x, G4double x1, G4double x2,
                                           G4double y1, G4double y2) const;      
   
-  G4double 
+  __host__ __device__ G4double 
   GetBinIntegral(const G4InterpolationScheme & aScheme, 
                 const G4double x1,const G4double x2,const G4double y1,const G4double y2);
 
-  G4double 
+  __host__ __device__ G4double 
   GetWeightedBinIntegral(const G4InterpolationScheme & aScheme, 
                 const G4double x1,const G4double x2,const G4double y1,const G4double y2);
 
   private:
   
-  inline G4double Histogram(G4double x, G4double x1, G4double x2, G4double y1, G4double y2) const;
-  inline G4double LinearLinear(G4double x, G4double x1, G4double x2, G4double y1, G4double y2) const;
-  inline G4double LinearLogarithmic(G4double x, G4double x1, G4double x2, G4double y1, G4double y2) const;
-  inline G4double LogarithmicLinear(G4double x, G4double x1, G4double x2, G4double y1, G4double y2) const;
-  inline G4double LogarithmicLogarithmic(G4double x, G4double x1, G4double x2, G4double y1, G4double y2) const;
-  inline G4double Random(G4double x, G4double x1, G4double x2, G4double y1, G4double y2) const;
+  __host__ __device__ inline G4double Histogram(G4double x, G4double x1, G4double x2, G4double y1, G4double y2) const;
+  __host__ __device__ inline G4double LinearLinear(G4double x, G4double x1, G4double x2, G4double y1, G4double y2) const;
+  __host__ __device__ inline G4double LinearLogarithmic(G4double x, G4double x1, G4double x2, G4double y1, G4double y2) const;
+  __host__ __device__ inline G4double LogarithmicLinear(G4double x, G4double x1, G4double x2, G4double y1, G4double y2) const;
+  __host__ __device__ inline G4double LogarithmicLogarithmic(G4double x, G4double x1, G4double x2, G4double y1, G4double y2) const;
+  __host__ __device__ inline G4double Random(G4double x, G4double x1, G4double x2, G4double y1, G4double y2) const;
 
 };
 
-inline G4double G4ParticleHPInterpolator::
+__host__ __device__ inline G4double G4ParticleHPInterpolator::
 Interpolate(G4InterpolationScheme aScheme,
             G4double x, G4double x1, G4double x2, G4double y1, G4double y2) const
 {
@@ -127,7 +127,7 @@ Interpolate(G4InterpolationScheme aScheme,
   return result;
 }
 
-inline G4double G4ParticleHPInterpolator::
+__host__ __device__ inline G4double G4ParticleHPInterpolator::
 Interpolate2(G4InterpolationScheme aScheme,
             G4double x, G4double x1, G4double x2, G4double y1, G4double y2) const
 {
@@ -162,7 +162,7 @@ Interpolate2(G4InterpolationScheme aScheme,
   return result;
 }
 
-inline G4double G4ParticleHPInterpolator::
+__host__ __device__ inline G4double G4ParticleHPInterpolator::
 Histogram(G4double , G4double , G4double , G4double y1, G4double ) const
 {
   G4double result;
@@ -170,7 +170,7 @@ Histogram(G4double , G4double , G4double , G4double y1, G4double ) const
   return result;
 }
 
-inline G4double G4ParticleHPInterpolator::
+__host__ __device__ inline G4double G4ParticleHPInterpolator::
 LinearLinear(G4double x, G4double x1, G4double x2, G4double y1, G4double y2) const
 {
   G4double slope=0, off=0;
@@ -181,7 +181,7 @@ LinearLinear(G4double x, G4double x1, G4double x2, G4double y1, G4double y2) con
   return y;
 }
 
-inline G4double G4ParticleHPInterpolator::
+__host__ __device__ inline G4double G4ParticleHPInterpolator::
 LinearLogarithmic(G4double x, G4double x1, G4double x2, G4double y1, G4double y2) const
 {
   G4double result;
@@ -192,7 +192,7 @@ LinearLogarithmic(G4double x, G4double x1, G4double x2, G4double y1, G4double y2
   return result;
 }
   
-inline G4double G4ParticleHPInterpolator::
+__host__ __device__ inline G4double G4ParticleHPInterpolator::
 LogarithmicLinear(G4double x, G4double x1, G4double x2, G4double y1, G4double y2) const
 {
   G4double result;
@@ -205,7 +205,7 @@ LogarithmicLinear(G4double x, G4double x1, G4double x2, G4double y1, G4double y2
   return result;
 }
   
-inline G4double G4ParticleHPInterpolator::
+__host__ __device__ inline G4double G4ParticleHPInterpolator::
 LogarithmicLogarithmic(G4double x, G4double x1, G4double x2, G4double y1, G4double y2) const
 {
   if(x==0) return y1+y2/2.;
@@ -221,7 +221,7 @@ LogarithmicLogarithmic(G4double x, G4double x1, G4double x2, G4double y1, G4doub
   return result;
 }
 
-inline G4double G4ParticleHPInterpolator::
+__host__ __device__ inline G4double G4ParticleHPInterpolator::
 Random(G4double , G4double , G4double , G4double y1, G4double y2) const
 {
   G4double result;

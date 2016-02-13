@@ -26,6 +26,8 @@
 \newcommand{\authornote}[3]{} \newcommand{\todo}[1]{} \fi
 \newcommand{\wss}[1]{\authornote{magenta}{SS}{#1}}
 \newcommand{\ds}[1]{\authornote{blue}{DS}{#1}}
+\newcommand{\mmp}[1]{\authornote{green}{MP}{#1}}
+
 % End Comments ---------------------------------------------------------------
 
 % Formatting
@@ -101,9 +103,9 @@ This detailed design document covers the specifics of several key modules in the
 \ref{Table_NeutronHPDataPointInterface} & G4NeutronHPDataPoint -- access program syntax\\\hline
 \ref{Table_NeutronHPDataPointSemantics} & G4NeutronHPDataPoint -- access program semantics\\\hline
 \ref{Table_NeutronHPDataPointStateVariables} & G4NeutronHPDataPoint -- state variables\\\hline
-\ref{Table_NeutronHPVectorInterface} & G4NeutronHPVector -- access program syntax\\\hline
-\ref{Table_NeutronHPVectorSemantics} & G4NeutronHPVector -- access program semantics\\\hline
-\ref{Table_NeutronHPDataPointStateVariables} & G4NeutronHPVector -- state variables\\\hline
+\ref{Table_NeutronHPVectorInterface} & G4ParticleVector -- access program syntax\\\hline
+\ref{Table_NeutronHPVectorSemantics} & G4ParticleVector -- access program semantics\\\hline
+\ref{Table_NeutronHPDataPointStateVariables} & G4ParticleVector -- state variables\\\hline
 \ref{Table_CMakeStateVariables} & CMake Files -- state variables\\
 \arrayrulecolor{black}
 \bottomrule
@@ -116,12 +118,12 @@ Geant4 is developed entirely in C++. The project will use C++ as the interface b
 \subsection{Notes}
 Geant4 uses its own basic types for standard C++ types (G4int, G4bool, G4double, etc). These types are currently just \texttt{typedefs} to the respective type as defined in the system libraries.\\
 
-The modules G4NeutronHPDataPoint and G4NeutronHPVector described below are existing modules of Geant4. All methods and state variables are pre-existing, and will be replicated on the GPU. The interface of the modules will not change.
+The modules G4NeutronHPDataPoint and G4ParticleVector described below are existing modules of Geant4. All methods and state variables are pre-existing, and will be replicated on the GPU. The interface of the modules will not change.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ----- NeutronHPDataPoint
 \section{G4NeutronHPDataPoint}
 \subsection{Description}
-This class encapsulates all of the data as well as the setter and getter methods that each data point in G4NeutronHPVector's list of data requires. Two private variables are used to store the xSection and the energy of the data point.
+This class encapsulates all of the data as well as the setter and getter methods that each data point in G4ParticleVector's list of data requires. Two private variables are used to store the xSection and the energy of the data point.
 
 \subsection{MIS (Module Interface Specification)}
 \subsubsection{Access Program Syntax}% ================ Victor
@@ -133,11 +135,11 @@ This class encapsulates all of the data as well as the setter and getter methods
 \arrayrulecolor{lightgray}
 G4NeutronHPDataPoint &  &  &  \\\hline
 G4NeutronHPDataPoint & G4double, G4double &  & \\\hline
-= \ds{=?} & G4NeutronHPDataPoint &  & \\\hline
-GetEnergy & & G4double &  \\\hline
-GetXsection & & G4double &  \\\hline
-SetEnergy & G4double & & \\\hline
-SetXsection & G4double & & \\\hline
+operator = \ds{=? \mmp{added operator}} & G4NeutronHPDataPoint &  & \\\hline
+%GetEnergy & & G4double &  \\\hline
+%GetXsection & & G4double &  \\\hline
+%SetEnergy & G4double & & \\\hline
+%SetXsection & G4double & & \\\hline
 GetX & & G4double &  \\\hline
 GetY & & G4double &  \\\hline
 SetX & G4double & & \\\hline
@@ -147,7 +149,7 @@ SetData & G4double, G4double & &\\
 \bottomrule
 \end{tabular}
 \end{table}
-
+\mmp{commented out energy and Xsec functions since X and Y do the exact same thing. Our code no longer has those functions}
 \subsubsection{Access Program Semantics}% =========== Victor
 Note that hyphens in routine names and inputs are just for line breaks due to the table size. The actual routine names and inputs do not have hyphens.
 
@@ -159,11 +161,11 @@ Note that hyphens in routine names and inputs are just for line breaks due to th
 \arrayrulecolor{lightgray}
 G4NeutronHPDataPoint  &                      & instantiates the class, setting \texttt{energy} and \texttt{xSec} to 0\\\hline
 G4NeutronHPDataPoint  & G4double, G4double   & instantiates the class with the inputted \texttt{energy} and \texttt{xSec}\\\hline
-=                     & G4NeutronHP-DataPoint& sets the \texttt{energy} and \texttt{xSec} of the instance to those of the input \\\hline
-GetEnergy             &                      & returns \texttt{energy} of the instance \\\hline
-GetXsection           &                      & returns the \texttt{xSec} of the instance\\\hline
-SetEnergy             & G4double             & sets \texttt{energy} of instance to the argument\\\hline
-SetXsection           & G4double             & sets \texttt{xSec} of instance to the argument\\\hline
+operator =                     & G4NeutronHP-DataPoint& sets the \texttt{energy} and \texttt{xSec} of the instance to those of the input \\\hline
+%GetEnergy             &                      & returns \texttt{energy} of the instance \\\hline
+%GetXsection           &                      & returns the \texttt{xSec} of the instance\\\hline
+%SetEnergy             & G4double             & sets \texttt{energy} of instance to the argument\\\hline
+%SetXsection           & G4double             & sets \texttt{xSec} of instance to the argument\\\hline
 GetX                  &                      & returns the \texttt{energy} of the instance\\\hline
 GetY 				  &                      & returns the \texttt{xSec} of the instance\\\hline
 SetX				  & G4double             & sets \texttt{energy} of instance to the argument\\\hline
@@ -173,7 +175,7 @@ SetData				  & G4double, G4double   & sets instance's \texttt{energy} and \textt
 \bottomrule
 \end{tabular}
 \end{table}
-
+\mmp{commented out energy and Xsec functions since X and Y do the exact same thing. Our code no longer has those functions}
 \subsubsection{State Variables}% ================== Matt
 The following variables maintain state for the class, and are all private to the module.
 
@@ -206,7 +208,7 @@ This module represents data, and as such does not contain any algorithms.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ----- NeutronHPVector
-\section{G4NeutronHPVector}
+\section{G4ParticleVector}
 
 \subsection{Description}
 This module stores a large vector of data points (G4NeutronHPDataPoint). It includes functions for setting the data points, retrieving them, and calculating information over them (such as the integral).
@@ -216,33 +218,33 @@ Note that hyphens in routine names, inputs, outputs, and exceptions are just for
 
 \subsubsection{Access Program Syntax}% ================ Victor
 \begin{longtable}{p{0.28\textwidth}p{0.28\textwidth}p{0.28\textwidth}p{0.14\textwidth}}
-\caption{G4NeutronHPVector -- access program syntax}\label{Table_NeutronHPVectorInterface}\\
+\caption{G4ParticleVector -- access program syntax}\label{Table_NeutronHPVectorInterface}\\
 \toprule
 \bf Routine Name & \bf Input & \bf Output & \bf Exceptions \\\midrule
 \arrayrulecolor{lightgray}
-G4NeutronHPVector & & & \\\hline
-G4NeutronHPVector & G4int & & \\\hline
-= & G4NeutronHPVector\& & G4NeutronHPVector\& &\\\hline
-+ & G4NeutronHPVector\&, G4NeutronHPVector\& & G4NeutronHPVector\& &\\\hline
+G4ParticleVector & & & \\\hline
+G4ParticleVector & G4int & & \\\hline
+= & G4ParticleVector\& & G4ParticleVector\& &\\\hline
++ & G4ParticleVector\&, G4ParticleVector\& & G4ParticleVector\& &\\\hline
 SetVerbose & G4int & & \\\hline
 Times &G4double & & \\\hline
 SetPoint  &G4int, G4NeutronHPDataPoint & & \\\hline
 SetData & G4int, G4double,G4double& & \\\hline
 SetX & G4int, G4double & & \\\hline
-SetEnergy & G4int, G4double & & \\\hline
+%SetEnergy & G4int, G4double & & \\\hline
 SetY & G4int, G4double & & \\\hline
-SetXsec & G4int, G4double & & \\\hline
-GetEnergy & G4int & G4double & \\\hline
+%SetXsec & G4int, G4double & & \\\hline
+%GetEnergy & G4int & G4double & \\\hline
 GetXsec & G4int & G4double & \\\hline
 GetXsec & G4double & G4double & \\\hline
 GetXsec & G4double,G4int & G4double & \\\hline
 GetX & G4int & G4double & \\\hline
-GetY & G4double & G4double & \\\hline
-GetY & G4int & G4double & \\\hline
+%GetY & G4double & G4double & \\\hline
+%GetY & G4int & G4double & \\\hline
 GetVectorLength & & G4int & \\\hline
 GetPoint & G4int & const G4NeutronHPDataPoint\& & \\\hline
-Hash & & & \\\hline
-ReHash & & & \\\hline
+%Hash & & & \\\hline
+%ReHash & & & \\\hline
 InitInterpolation & istream & & \\\hline
 Init & istream,G4int, G4double, G4double& & \\\hline
 Init & istream, G4double,G4double & & \\\hline
@@ -252,8 +254,8 @@ GetLabel & & G4double & \\\hline
 CleanUp & & & \\\hline
 Sample & & G4double & \\\hline
 Debug & & G4double * & \\\hline
-Merge & G4NeutronHPVector *,  G4NeutronHPVector *& & \\\hline
-Merge & G4InterpolationScheme, G4double, G4NeutronHPVector *, G4NeutronHPVector * & &\\\hline
+Merge & G4ParticleVector *,  G4ParticleVector *& & \\\hline
+Merge & G4InterpolationScheme, G4double, G4ParticleVector *, G4ParticleVector * & &\\\hline
 SampleLin & & G4double & \\\hline
 IntegrateAndNormalise & & & \\\hline
 Integrate & & & \\\hline
@@ -272,35 +274,38 @@ Check & G4int & & G4Hadronic-Exception\\
 \bottomrule
 \end{longtable}
 
+\mmp{commented out energy and Xsec functions since X and Y do the exact same thing. Our code no longer has those functions}
+\mmp{We do not need the hash function since it was used to make cpu execution faster, which we are porting to the gpu}
+
 \subsubsection{Access Program Semantics}% ============ Rob
 Note that hyphens in routine names and inputs are just for linebreaks due to the table size. The actual routine names and inputs do not have hyphens.
 
 \begin{longtable}{p{0.25\textwidth}p{0.25\textwidth}p{0.5\textwidth}}
-\caption{G4NeutronHPVector -- access program semantics}\label{Table_NeutronHPVectorSemantics}\\
+\caption{G4ParticleVector -- access program semantics}\label{Table_NeutronHPVectorSemantics}\\
 \toprule
 \bf Routine Name & \bf Input & \bf Description \\\midrule
 \arrayrulecolor{lightgray}
-G4NeutronHPVector & & Instantiates the class with no parameters\\ \hline
-G4NeutronHPVector & G4int & Instantiates the class with the number of points to consider as the parameter\\\hline
-= & G4NeutronHPVector\& & Sets the current instance to the passed instance\\\hline
-+ & G4NeutronHPVector\&, G4NeutronHPVector\& & Returns the vector addition of the two passed vectors\\\hline
+G4ParticleVector & & Instantiates the class with no parameters\\ \hline
+G4ParticleVector & G4int & Instantiates the class with the number of points to consider as the parameter\\\hline
+= & G4ParticleVector\& & Sets the current instance to the passed instance\\\hline
++ & G4ParticleVector\&, G4ParticleVector\& & Returns the vector addition of the two passed vectors\\\hline
 SetVerbose & G4int & sets the verbosity to the input\\\hline
 Times & G4double & Multiplies all points y-values and integrals from \texttt{theData} by the input\\\hline
 SetPoint & G4int, G4NeutronHP-DataPoint & sets point at passed index to the passed point\\\hline
 SetData & G4int, G4double, G4double & sets point at passed index with given values\\\hline
 SetX & G4int, G4double &  sets \texttt{x} value of point at passed index to passed value\\\hline
-SetEnergy & G4int, G4double & sets \texttt{x} value of point at passed index to passed value\\\hline
+%SetEnergy & G4int, G4double & sets \texttt{x} value of point at passed index to passed value\\\hline
 SetY & G4int, G4double &  sets \texttt{y} value of point at passed index to passed value\\\hline
-SetXsec & G4int, G4double & sets \texttt{y} value of point at passed index to passed value\\\hline
-GetEnergy & G4int & returns \texttt{x} value of point at passed index\\\hline
+%SetXsec & G4int, G4double & sets \texttt{y} value of point at passed index to passed value\\\hline
+%GetEnergy & G4int & returns \texttt{x} value of point at passed index\\\hline
 GetXsec & G4int & returns \texttt{y} value of point at passed index\\\hline
 GetXsec & G4double & returns \texttt{y} value of point with lowest xSection above passed double\\\hline
 GetX & G4int & returns \texttt{x} value of point at passed index\\\hline
-GetY & G4int & returns \texttt{y} value of point at passed index\\\hline
+%GetY & G4int & returns \texttt{y} value of point at passed index\\\hline
 GetVectorLength & & returns number of points\\\hline
 GetPoint & G4int & returns point at passed index\\\hline
-Hash & & sets \texttt{theHash}'s up based on \texttt{theData}\\\hline
-ReHash & & clears \texttt{theHash} and re-evaluates it based on \texttt{theData} \\\hline
+%Hash & & sets \texttt{theHash}'s up based on \texttt{theData}\\\hline
+%ReHash & & clears \texttt{theHash} and re-evaluates it based on \texttt{theData} \\\hline
 InitInterpolation & istream & sends the passed data file to the interpolation manager\\\hline
 Init & istream, G4int, G4double, G4double & initializes class and \texttt{theHash}\\\hline
 Init & istream, G4double,G4double & initializes class and \texttt{theHash}\\\hline
@@ -310,9 +315,9 @@ GetLabel & & returns the label of the current instance\\\hline
 CleanUp & & clears all data\\\hline
 Sample & & performs samples of \texttt{X} according to interpolation scheme\\\hline
 Debug & & returns \texttt{theIntegral} \\\hline
-Merge & G4NeutronHPVector*,  G4NeutronHPVector* & interpolate between labels, continue in unknown areas by subtraction     
+Merge & G4ParticleVector*,  G4ParticleVector* & interpolate between labels, continue in unknown areas by subtraction     
 of the last difference\\\hline
-Merge & G4Interpolation-Scheme, G4double, G4NeutronHPVector*, G4NeutronHPVector* & interpolate between labels according     
+Merge & G4Interpolation-Scheme, G4double, G4ParticleVector*, G4ParticleVector* & interpolate between labels according     
 to passed G4InterpolationScheme, cut at passed G4double, continue in unknown areas by subtraction of the last difference.\\\hline
 SampleLin & & samples \texttt{X} according to distribution \texttt{Y}, linear\\\hline
 IntegrateAndNormalise & & calculates the integral for every data point and normalizes each\\\hline
@@ -332,6 +337,8 @@ Check & G4int & checks that passed index is greater than the number of points, t
 \arrayrulecolor{black}
 \bottomrule
 \end{longtable}
+\mmp{commented out energy and Xsec functions since X and Y do the exact same thing. Our code no longer has those functions}
+\mmp{We do not need the hash function since it was used to make cpu execution faster, which we are porting to the gpu}
 
 \subsubsection{State Variables}% ================== Matt
 The following variables maintain state for the class, and are all private to the class.
@@ -339,7 +346,7 @@ The following variables maintain state for the class, and are all private to the
 Note that hyphens in variable names and types are just for line breaks due to the table size. The actual variable names and types do not have hyphens.
 
 \begin{table}[h]
-\caption{G4NeutronHPVector -- state variables}\label{Table_NeutronHPDataPointStateVariables}
+\caption{G4ParticleVector -- state variables}\label{Table_NeutronHPDataPointStateVariables}
 \begin{tabularx}{\textwidth}{p{0.2\textwidth}p{0.2\textwidth}p{0.5\textwidth}}
 \toprule
 \bf Variable & \bf Type & \bf Description\\\midrule
@@ -355,7 +362,7 @@ Note that hyphens in variable names and types are just for line breaks due to th
 \texttt{theInt} & G4Neutron-Interpolator & the interpolator for sampling data (may not be linear)\\\hline
 \texttt{Verbose} & G4int & verbosity level, some statements will only print to console with higher values \\\hline
 \texttt{isFreed} & G4int & only used for debugging, 1 if class has been destructed 0 otherwise\\\hline
-\texttt{theHash} & G4NeutronHP-Hash & stores the \emph{x} and \emph{y} value of every tenth data point from \texttt{theData} to speed up getting the minimum index in \texttt{theData} of a data point with X larger than a given value \\\hline
+%\texttt{theHash} & G4NeutronHP-Hash & stores the \emph{x} and \emph{y} value of every tenth data point from \texttt{theData} to speed up getting the minimum index in \texttt{theData} of a data point with X larger than a given value \\\hline
 \texttt{maxValue} & G4double & maximum value of \texttt{Xsec} or \texttt{Y} passed in SetData, SetY, or SetXSec so far. Initialized to \texttt{-DBL\_MAX} (min representable double).\\\hline
 \texttt{theBlocked} & vector \textless G4double\textgreater & deprecated: vector still exists in class but data never added to it\\\hline
 \texttt{theBuffered} & vector \textless G4double\textgreater & stores buffer of samples to speed up sampling the vector \\\hline
@@ -366,7 +373,7 @@ Note that hyphens in variable names and types are just for line breaks due to th
 \end{tabularx}
 \end{table}
 \clearpage
-
+\mmp{no longer use theHash since it was a object used to speed up cpu computions, which has been ported to GPU}
 \subsubsection{Environment Variables}% ============== Matt
 There are no environment variables for this module.
 
@@ -407,7 +414,7 @@ CUDA support is built in to CMake, as such no new access programs or public macr
 \subsubsection{Environment Variables}% ============== Matt
 \begin{itemize}
 \item CUDA source files (.cu) containing the GPU code. CMake files will contain directives to compile and link the CUDA files.
-\item Source code from Geant4 project, such as the G4NeutronHPVector.cpp file. The relevant source code files will be compiled and linked as per CMake directives to the CUDA files listed above.
+\item Source code from Geant4 project, such as the G4ParticleVector.cpp file. The relevant source code files will be compiled and linked as per CMake directives to the CUDA files listed above.
 \end{itemize}
 
 \subsubsection{Assumptions}% ==================== Stuart	 

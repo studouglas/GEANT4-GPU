@@ -22,6 +22,7 @@
 \newcommand{\authornote}[3]{} \newcommand{\todo}[1]{} \fi
 \newcommand{\wss}[1]{\authornote{magenta}{SS}{#1}}
 \newcommand{\ds}[1]{\authornote{blue}{DS}{#1}}
+\newcommand{\mmp}[1]{\authornote{green}{MP}{#1}}
 % End Comments ---------------------------------------------------------------
 
 \setlength\parindent{0pt} % Cleaner look
@@ -77,6 +78,7 @@ All major edits to this document will be recorded in the table below.
 
 \toprule
 \bf Description of Changes & \bf Author & \bf Date\\\midrule
+Changes for rev0 presentation & Matt & 2016-02-08\\
 Added Test Schedule Table & Stuart & 2015-10-30\\
 Reformatted Tables & Matthew & 2015-10-30\\
 Added System test cases & Matthew & 2015-10-29\\
@@ -117,7 +119,7 @@ Initial draft of document & Stuart, Matthew, Rob, Victor & 2015-10-26\\
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Summary} % Matt
 The product, GEANT4-GPU, will be a modified version of G4-STORK that will leverage GPU computing to increase performance while still outputting the same results as the existing, CPU-based G4-STORK project. This testing plan outlines how the development team is expected to test the correctness and performance of the product through the use of unit testing, system testing, and code testing.
-
+\newpage
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Risks} % Stuart
 The following table outlines the major risks associated with the testing of the product. A more detailed analysis of each of the risks follows the table.
@@ -149,7 +151,7 @@ The following table outlines the major risks associated with the testing of the 
 The GEANT4 project is heavily dependent on random numbers. Random numbers are used to determine attributes about particles (independent of all other particles) as they move through the system. By parallelizing the workload, the order in which the particles are evaluated may change, causing it to draw a different random number from the sequence, leading to different results. If it is decided to generate the random numbers using GPU API calls, then they will certainly be different than in the serial, CPU version of the software.\\
 
 Two solutions to this problem have been discussed. The first is to develop a solution to pass the CPU-generated numbers to the GPU while ensuring they remain in sync to the order they would be received in the serial version. This would require extra development work, but would ensure that testing the product against the existing system can be done in a straight-forward manner. The alternative is to test the software based on degree of similarity between single points of summarizing data (e.g. a mean). Comparing the products in this manner would have the developers check that the results are within a given margin of error, and if so the product would be deemed correct. This is the solution that is planning on being implemented at this point, however if it does not seem feasible during the design and development phases the developers are open to exploring solution one.\\
-
+\newpage
 \textbf{Risk \ref{R_IsolateFunctions} -- Isolating Functions}:\\
 The codebase of GEANT4 is large and complex, a potential testing risk would be that the functions to be parallelized are not well-enough isolated to easily test inputs and outputs. The objects used in GEANT4's calculations are large and often dependent on other objects. To mitigate this testing risk, development will focus on porting single functions in classes to be tested, and unit testing will test those specific functions.\\
 
@@ -158,8 +160,8 @@ Running a full system test on the modified code is a computationally intensive p
 
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Constraints} % Victor
-Time is one of the largest constraints, the completed project is due next April, which is 6 months from the initial revision of this document. In order to perform rigorous testing on all functions, classes, and sections of code that have been parallelized, a  large amount of time is required. G4-STORK is a large library with many different objects and functions, with each section contributing to the overall performance. Each addition of a control branch to the code must be tested to ensure that the original functionality is preserved. Maximizing performance while minimizing changes to the actual code should help to deal with the time constraint.
-
+Time is one of the largest constraints, the completed project is due next April, which is 6 months from the initial revision of this document. In order to perform rigorous testing on all functions, classes, and sections of code that have been parallelized, a  large amount of time is required. GEANT4 is a large library with many different objects and functions, with each section contributing to the overall performance. Each addition of a control branch to the code must be tested to ensure that the original functionality is preserved. Maximizing performance while minimizing changes to the actual code should help to deal with the time constraint.
+\newpage
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Definitions and Acronyms} % Rob
 \begin{center}
@@ -193,18 +195,17 @@ The following documents are referenced within this test plan.
 \bf Title & \bf Author(s) & \bf Description\\\midrule
 GEANT-4 GPU Port: SRS & Stuart, Matthew, Rob, Victor & Requirements specification for the project\\\midrule
 PoC Plan for GEANT4-GPU & Stuart, Matthew, Rob, Victor & Demonstration details for product's Proof of Concept\\\midrule
-UniNotesTestPlan & Umar Khan, Ashwin Samtani, Olakotumbo Agia & Test plan outline / framework\\
+UniNotesTestPlan & Umar Khan, Ashwin Samtani, Olakotumbo Agia & Test plan outline/framework\\
 
 \bottomrule
 \end{longtable}
 \end{center}
-
 % =============================== Section =============================== %
 \section{Test Types}
 
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{System Testing} % Matt
-There are several examples included with the GEANT4 toolkit as well as some created by McMaster's Engineering Physics department for G4-STORK. Both examples in G4-STORK and GEANT4 will be used for system testing. Due to the computation time for some of the examples, they will be run less frequently than the simpler ones. This will let the developers run system tests regularly on the simple files, while checking that more realistic, complex examples are also correct after bigger changes.
+There are several examples included with the GEANT4 toolkit as well as some created by McMaster's Engineering Physics department for G4-STORK. Examples in GEANT4 will be used for system testing. Due to the computation time for some of the examples, they will be run less frequently than the simpler ones. This will let the developers run system tests regularly on the simple files, while checking that more realistic, complex examples are also correct after bigger changes.
 
 \begin{center}
 \begin{longtable}{cc >{\raggedright\arraybackslash}p{2.8cm}>{\raggedright\arraybackslash}p{3cm}>{\raggedright\arraybackslash}p{4.5cm}}
@@ -214,80 +215,78 @@ There are several examples included with the GEANT4 toolkit as well as some crea
 \bf \# & \bf Initial State & \bf Inputs & \bf Outputs & \bf Description\\\midrule
 \stepcounter{TestCounter}\arabic{TestCounter} 
 & Fresh start up 
-& Runs = 50
-Events = 12
-Particles = 20
-& Same output as non-GPU G4STORK 
-&  SCWRDopplerInput.txt -- Default example\\\midrule
+& Events = 2000
+Material = water
+& Same output as non-GPU GEANT4 
+&  HADR04 no changes\\\midrule
 
 \stepcounter{TestCounter}\arabic{TestCounter}
 & Fresh start up 
-& Runs = 1
-Events = 12
-Particles = 20
-& Same output as non-GPU G4STORK 
-& SCWRDopplerInput.txt -- 1 run\\\midrule
+& Events = 2000
+Material = Uranium
+& Same output as non-GPU GEANT4 
+& HADR04 -- basic example\\\midrule
 
 \stepcounter{TestCounter}\arabic{TestCounter}
 & Fresh start up 
-& Runs = 500
-Events = 12
-Particles = 20
-& Same output as non-GPU G4STORK 
-& SCWRDopplerInput.txt -- Many runs\\\midrule
+& Events = 600
+Material
+& Same output as non-GPU GEANT4 
+& HADR04 -- Shorter test \\\midrule
 
 \stepcounter{TestCounter}\arabic{TestCounter}
 & Fresh start up 
-& Runs = 50
-Events = 2
-Particles = 20
-& Same output as non-GPU G4STORK 
-& SCWRDopplerInput.txt -- Short simulation\\\midrule
+& Events = 20000
+Material = Uranium
+& Same output as non-GPU GEANT4 
+& HADR04 -- Long simulation stress Test\\
 
 \stepcounter{TestCounter}\arabic{TestCounter}
 & Fresh start up 
-& Runs = 50
-Events = 60
-Particles = 20
-& Same output as non-GPU G4STORK 
-& SCWRDopplerInput.txt -- Long simulation\\\midrule
+& Events = 0
+Material = Uranium
+& Same output as non-GPU GEANT4 
+& HADR04 -- no runs,  Edge case\\
 
-\stepcounter{TestCounter}\arabic{TestCounter}
-& Fresh start up 
-& Runs = 50
-Events = 12
-Particles = 2
-& Same output as non-GPU G4STORK 
-& SCWRDopplerInput.txt -- Few Particles\\\midrule
-
-\stepcounter{TestCounter}\arabic{TestCounter}
-& Fresh start up 
-& Runs = 50
-Events = 12
-Particles = 2000
-& Same output as non-GPU G4STORK 
-& SCWRDopplerInput.txt -- Many Particles\\\midrule
-
-\stepcounter{TestCounter}\arabic{TestCounter} 
-& Fresh start up 
-& Runs = 1
-Events = 2
-Particles = 2
-& Same output as non-GPU G4STORK 
-&  SCWRDopplerInput.txt  -- Minimum stress\\\midrule
-
-\stepcounter{TestCounter}\arabic{TestCounter} 
-& Fresh start up 
-& Runs = 500
-Events = 60
-Particles = 2000
-& Same output as non-GPU G4STORK 
-&  SCWRDopplerInput.txt  -- Stress test\\
+%\stepcounter{TestCounter}\arabic{TestCounter}
+%& Fresh start up 
+%& Events = 60
+%Particles = 20
+%& Same output as non-GPU G4STORK 
+%& HADR04 -- Long simulation\\\midrule
+%
+%\stepcounter{TestCounter}\arabic{TestCounter}
+%& Fresh start up 
+%& Events = 12
+%Particles = 2
+%& Same output as non-GPU G4STORK 
+%& SCWRDopplerInput.txt -- Few Particles\\\midrule
+%
+%\stepcounter{TestCounter}\arabic{TestCounter}
+%& Fresh start up 
+%& Events = 12
+%Particles = 2000
+%& Same output as non-GPU G4STORK 
+%& SCWRDopplerInput.txt -- Many Particles\\\midrule
+%
+%\stepcounter{TestCounter}\arabic{TestCounter} 
+%& Fresh start up 
+%& Events = 2
+%Particles = 2
+%& Same output as non-GPU G4STORK 
+%&  SCWRDopplerInput.txt  -- Minimum stress\\\midrule
+%
+%\stepcounter{TestCounter}\arabic{TestCounter} 
+%& Fresh start up 
+%& Events = 60
+%Particles = 2000
+%& Same output as non-GPU G4STORK 
+%&  SCWRDopplerInput.txt  -- Stress test\\
 
 \bottomrule
 \end{longtable}
 \end{center}
-
+\mmp{Not using G4-STORK for system tests - therefore had to change system tests}
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Unit Testing}  
 Unit tests will be created throughout development as functions and classes are ported to the GPU. Before porting a specific function of a class, a variety of inputs covering edge cases for the function as well as several ``normal'' cases will be created. The results of the function for each of the inputs will be recorded from the CPU version, and a test case will be added to test whether the outputs are the same with GPU computation enabled (once it's implemented). Due to the nature of this testing strategy, most explicit unit tests are not currently known, as no functions have yet been ported to the GPU. The following functions have been identified that are likely to be ported first to the GPU, and the tests to be created for them have been noted as well.\\
@@ -347,6 +346,13 @@ Unit tests will be created throughout development as functions and classes are p
 & no output, vector object still represents vector (0,0,...,0)
 & multiplying zero vector object by 4 should not change the object's state\\
 
+\stepcounter{TestCounter}\arabic{TestCounter} 
+& object represents empty vector
+& factor: 4 
+& exception raised 
+& multiplying an empty vector is an exception\\
+
+
 \bottomrule
 \end{longtable}
 \end{center}
@@ -387,7 +393,19 @@ Unit tests will be created throughout development as functions and classes are p
 & NA (vectors passed as arguments)
 & left: (-1,-2,...,-512), right: (1,2,...,512)
 & vector object representing (0,0,...,0) of length 512 
-& adding a vector to its inverse should output the zero vector\\
+& adding a vector to its inverse should output the zero vector\\\midrule
+
+\stepcounter{TestCounter}\arabic{TestCounter} 
+& NA (vectors passed as arguments)
+& left: (1,2,3), right: (1,2,...,512)
+& vector object representing (2,4,6,...,512) of length 512 
+& adding a vector to a smaller vector outputs the larger vector with the addition applied to what elements it can \\\midrule
+
+\stepcounter{TestCounter}\arabic{TestCounter} 
+& NA (vectors passed as arguments)
+& left: (-1,-2,...,-512), right: empty vector
+& (-1,-2,...-512)
+& new vector will be the same at the left vector in this case \\
 
 \bottomrule
 \end{longtable}
@@ -397,8 +415,8 @@ The unit tests as described in tables \ref{Table_UnitTestsTimes} and \ref{Table_
 
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Code Testing} % Victor
-The developers will following strict code testing guidelines to help reduce coding errors and improve collaboration. This will be done by adhering to the \emph{Feature Branch Workflow} and enforcing code reviews for every commit. Developers will create separate branches for each new feature, commit to that branch and then push it to the repository. Using GitHub's pull request feature, all branches will go through a code review process. The author will open a pull request for their feature, and a different developer (to be chosen based on availibility
-\ds{``availability"}
+The developers will follow strict code testing guidelines to help reduce coding errors and improve collaboration. This will be done by adhering to the \emph{Feature Branch Workflow} and enforcing code reviews for every commit. Developers will create separate branches for each new feature, commit to that branch and then push it to the repository. Using GitHub's pull request feature, all branches will go through a code review process. The author will open a pull request for their feature, and a different developer (to be chosen based on availability
+\ds{``availability"}\mmp{fixed spelling mistake}
 and knowledge of the feature) will be assigned as reviewer. The reviewer will manually read through the changes on GitHub and post comments as necessary. After comments have been addressed, the reviewer will merge the feature branch into the master. Following such a strict model will ensure that all committed code is double-checked by a different developer, which can catch many bugs and errors. This practice will not apply to changes to documentation.
 
 % ----------------------------- Sub Section ----------------------------- %
@@ -418,11 +436,11 @@ Testing requirements refers to tests which verify that documented requirements a
 & NA
 & enabling GPU computations should be straightforward -- an extra flag for the CMake tool will be used to enable or disable it\\\midrule
 
-\stepcounter{TestCounter}\arabic{TestCounter} 
-& 4
-& NA
-& NA
-& trying to enable GPU computations on a computer with incompatible hardware should result in an appropriate error message\\\midrule
+%\stepcounter{TestCounter}\arabic{TestCounter} 
+%& 4
+%& NA
+%& NA
+%& trying to enable GPU computations on a computer with incompatible hardware should result in an appropriate error message\\\midrule
 
 \stepcounter{TestCounter}\arabic{TestCounter} 
 & 12
@@ -439,6 +457,7 @@ Testing requirements refers to tests which verify that documented requirements a
 \bottomrule
 \end{tabular}
 \end{table}
+\mmp{removed hardware detection, no longer a requirement}
 
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Performance Profiling}
@@ -455,8 +474,8 @@ NVIDIA has developed a solution for profiling CUDA code, called the ``NVIDIA Vis
 
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Factors to be Tested} % Rob
-The purpoes
-\ds{``purpose"}
+The purpose
+\ds{``purpose"}\mmp{fixed spelling mistake}
 of this section is to shed light on the features and properties of the system that we wish to stress and test. The chart below provides a brief description of every property we aim to measure and a method as means for measuring.\\
 
 \begin{table}[h]
@@ -467,8 +486,8 @@ of this section is to shed light on the features and properties of the system th
 
 \bf Factors & \bf Description & \bf Test Method\\\midrule
 Correctness & Objective success or failure of a function & Unit Testing\\\midrule
-Performance & Quantitative and Qualitative measure of temporal performance and stability in a particular workload & Unit Testing, black-box, stress
-\ds{How are you stress-testing the system?}
+Performance & Quantitative and Qualitative measure of temporal performance and stability in a particular workload & Unit Testing, black-box, System stress testing
+\ds{How are you stress-testing the system?} \mmp{defined what type of stress testing will be used}
 \\\midrule
 Reliability & Consistent performance of functions in routine circumstances & Unit Testing, requirements\\\midrule
 
@@ -525,33 +544,36 @@ A testing class will be added to the project which will contain all unit tests. 
 
 % =============================== Section =============================== %
 \section{Proof of Concept Test}
-As documented in the Proof of Concept Plan, the demonstration will include running G4-STORK examples with and without GPU computation enabled, as well as a very minor CUDA example. Since it is not planned to have any ported functions running on the GPU, unit tests will not be used at this point. A full system test will be used to verify that adding the small CUDA example does not impact the results. It is expected that the CUDA example won't affect the results, as it will not be passing any data back to G4-STORK to be used. The empty unit testing file (along with a trivial unit test) will be included in the project, and may be demonstrated if requested.
+As documented in the Proof of Concept Plan, the demonstration will include running GEANT4 examples with and without GPU computation enabled, as well as a very minor CUDA example. Since it is not planned to have any ported functions running on the GPU, unit tests will not be used at this point. A full system test will be used to verify that adding the small CUDA example does not impact the results. It is expected that the CUDA example won't affect the results, as it will not be passing any data back to G4-STORK to be used. The empty unit testing file (along with a trivial unit test) will be included in the project, and may be demonstrated if requested.
 
 % =============================== Section =============================== %
 \section{Schedule}
 The testing schedule can be summarized as follows: manual code reviews for every commit, unit tests added for every ported function and run throughout development and passed before every commit, system tests run throughout development and passed before every commit, performance profiling used throughout development, requirements testing done for Revision 0. The following testing timeline will be followed. The \emph{date} column refers to the date by which the event shall be completed, if it is not a range.
 
 \begin{center}
-\begin{longtable}{>{\raggedright\arraybackslash}p{0.15\textwidth}>{\raggedright\arraybackslash}p{0.2\textwidth}>{\raggedright\arraybackslash}p{0.55\textwidth}}
+\begin{longtable}{>{\raggedright\arraybackslash}p{0.1\textwidth}>{\raggedright\arraybackslash}p{0.15\textwidth}>{\raggedright\arraybackslash}p{0.55\textwidth}
+>{\raggedright\arraybackslash}p{0.1\textwidth}
+}
+
 \caption{Testing Schedule}\label{Table_Schedule}\\\toprule
 
-\bf Date & \bf Test Type & \bf Event\\\toprule
-2015-11-04 & System Test & Input files will be chosen for system tests, and their outputs on the existing product recorded\\\midrule
-2015-11-04 & System Test & Script will be created to run system test and compare results. Running the script on the existing product will pass\\\midrule
-2015-11-04 - 2016-04-01 & System Test & System tests will be run throughout development, and must be passed before every commit\\\midrule
-2015-11-04 - 2016-04-01 & Code Testing & All changes will be reviewed by a different developer before merging\\\midrule
-2015-11-06 & Performance Profiling & Profiling tools will be used to identify the most computationally involved portions of the codebase\\\midrule
-2015-11-10 & Unit Test & Unit tests framework file will be created and added to the project. Methods will be added to run tests and report their results.\\\midrule
-2016-11-10 & Unit Test & Two trivial unit tests (one that will fail, one that will pass) will be added to unit tests file. Running the unit tests should produce expected outputs.\\\midrule
-2015-11-10 - 2016-04-01 & Unit Test & Unit tests will be added throughout development for every function that is ported to the GPU.\\\midrule
-2015-11-10 - 2016-04-01 & Unit Test & Unit tests will be run throughout development, and must be passed before every commit\\\midrule
-2016-02-10 & Requirements Testing & All requirements tests will be evaluated at Revision 0, results will guide product development for Revision 1.\\
+\bf Date & \bf Test Type & \bf Event & \bf Testers\\\toprule
+2015-11-04 & System Test & Input files will be chosen for system tests, and their outputs on the existing product recorded & Everyone \\\midrule
+2015-11-04 & System Test & Script will be created to run system test and compare results. Running the script on the existing product will pass \& Victor and Rob\\\midrule
+2015-11-04 - 2016-04-01 & System Test & System tests will be run throughout development, and must be passed before every commit & Matt \& Stuart\\\midrule
+2015-11-04 - 2016-04-01 & Code Testing & All changes will be reviewed by a different developer before merging & Matt\\\midrule
+2015-11-06 & Performance Profiling & Profiling tools will be used to identify the most computationally involved portions of the codebase & Rob \& Victor\\\midrule
+2015-11-10 & Unit Test & Unit tests framework file will be created and added to the project. Methods will be added to run tests and report their results.& Victor \\\midrule
+2016-11-10 & Unit Test & Two trivial unit tests (one that will fail, one that will pass) will be added to unit tests file. Running the unit tests should produce expected outputs. Rob \& Victor\\\midrule
+2015-11-10 - 2016-04-01 & Unit Test & Unit tests will be added throughout development for every function that is ported to the GPU. & Matt\\\midrule
+2015-11-10 - 2016-04-01 & Unit Test & Unit tests will be run throughout development, and must be passed before every commit & Matt\\\midrule
+2016-02-10 & Requirements Testing & All requirements tests will be evaluated at Revision 0, results will guide product development for Revision 1. & Everyone\\
 
 \bottomrule
 \end{longtable}
 \end{center}
 
-\ds{Who will be doing what?}
+\ds{Who will be doing what?}\mmp{Added people to work on specific testing tasks}
 
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Deliverables} % Rob
@@ -564,8 +586,8 @@ The deliverables specific to testing are as follows:
 \bf Date & \bf Deliverable & \bf Description\\\toprule
 2015-10-30 & Test Plan Revision 0 & set guidelines and objectives for testing, subject to change\\\midrule
 2016-03-21 & Test Report Revision 0 & report on progress, history, and results regarding testing and test methods\\\midrule
-2016-04-01 & Test Plan Final & rigorously outline test cases and considerations in preperation
-\ds{``preparation"}
+2016-04-01 & Test Plan Final & rigorously outline test cases and considerations in preparation
+\ds{``preparation"}\mmp{fixed}
 for the projects final release\\\midrule
 2016-04-01 & Test Report Final & report on the final results of tests performed and provide relevant analytics\\\bottomrule
 
@@ -575,5 +597,6 @@ for the projects final release\\\midrule
 \ds{Will you be doing any tests that result in exceptions? How will those be performed?
  You are missing a lot of edge/boundary test cases (or you do not make it clear that
  they are being tested).}
+\mmp{Added a few exception and edge case tests in unit testing and system testing}
 
 \end{document}
