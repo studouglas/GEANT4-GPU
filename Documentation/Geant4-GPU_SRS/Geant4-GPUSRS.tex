@@ -19,6 +19,7 @@
 \newcommand{\wss}[1]{\authornote{magenta}{SS}{#1}}
 \newcommand{\ds}[1]{\authornote{blue}{DS}{#1}} %I fixed your comment code again -- DS
 \newcommand{\mmp}[1]{\authornote{green}{MP}{#1}}
+\newcommand{\vr}[1]{\authornote{green}{VR}{#1}}
 % End Comments ---------------------------------------------------------------
 
 \renewcommand\thesubsubsection{\thesection.\arabic{subsection}.\alph{subsubsection}}
@@ -89,6 +90,7 @@ All major edits to this document will be recorded in the table below.
 \Xhline{2\arrayrulewidth}
 \bf Description of Changes & \bf Author & \bf Date\\\hline
 Initial draft of document & Stuart, Matthew, Rob, Victor & 2015-10-07\\
+Update for Rev0 presentation & Matt & 2016--08-02\\
 \Xhline{2\arrayrulewidth}
 \end{tabular}
 \end{table}
@@ -123,7 +125,8 @@ The customer in this case also includes the clients. As such they will be the pa
 The customer is also other members of the Engineering Physics department who wish to run simulations using GEANT-4 as they also have use for the end product. The users will want to run simulations with many particles and particle collisions, the optimization of the code will allow for them to do this in a timely fashion.
 	
 \subsubsection{Other Stakeholders}
-The project group members hold stake in the successful completion of the project. If the project is done well, and the documentation is error free and concise, they are bound for high grades in their course.\\
+%The project group members hold stake in the successful completion of the project. If the project is done well, and the documentation is error free and concise, they are bound for high grades in their course.\\
+\mmp{removed this section as suggested by peer review}
 
 Collaborators and GEANT-4 users external to McMaster could be potential stakeholders. If the software is successfully completed and the resulting performance improvements are significant, the changes will be submitted to the GEANT-4 repository. It is then up to the GEANT-4 group to decide if those contributions are accepted or not, and if they are then all users of GEANT-4 stand to benefit from them. However, they are not considered stakeholders throughout the development of the project, the focus is instead on those mentioned in \ref{SubSec_Stakeholders}.
 
@@ -131,7 +134,7 @@ Collaborators and GEANT-4 users external to McMaster could be potential stakehol
 Graduate students and professors from the McMaster Engineering Physics Department will be hands-on users of the product. They will all have familiarity with the existing product. 
 
 \subsubsection{Personas}
-Consider Matt Douglas, a graduate student in the Engineering Physics Department. Matt wants to study how particles in McMaster's nuclear reactor affect each other, given some specific starting conditions, and a very large number of particles. Matt knows how to use the existing G4-STORK program, but it will take weeks to run the computations. Matt inputs his desired number of particles and specific starting conditions into a G4-STORK simulation. He enables the GPU features of the new product, and successfully runs the simulation in a reasonable amount of time. He observes interesting results that would not have been feasible to obtain with the old product.\\
+Consider Tanner Thomson, a graduate student in the Engineering Physics Department. Tanner wants to study how particles in McMaster's nuclear reactor affect each other, given some specific starting conditions, and a very large number of particles. Tanner knows how to use the existing G4-STORK program, but it will take weeks to run the computations. Tanner inputs his desired number of particles and specific starting conditions into a G4-STORK simulation. He enables the GPU features of the new product, and successfully runs the simulation in a reasonable amount of time. He observes interesting results that would not have been feasible to obtain with the old product.\\
 
 \subsubsection{Priorities Assigned to Users}
 Priority will be given to Wesley Ford, the graduate
@@ -143,7 +146,9 @@ student that proposed the project to Dr. Buijs. He will be the primary user of G
 
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Mandated Constraints} % Rob
-There are global constraints put in place by the existing software, the stakeholders, and the structure of 4ZP6. The project must be built upon the existing GEANT-4 code, which is used by G4-STORK to run the simulation. The final product must be able to run any code/simulation that ran on the existing software. The GPU code being used to speed up the simulation is only able to be run on a NVIDIA GPU. Therefore the software must run in parallel on a NVIDIA GPU . Additionally, the final product needs to be completed by the end of April, 2016. If these global constraints are not met the final product is not acceptable.\\
+There are global constraints put in place by the existing software, the stakeholders, and the structure of 4ZP6. The project must be built upon the existing GEANT-4 code, which is used by G4-STORK to run the simulation. The final product must be able to run any code/simulation that ran on the existing software.\\ 
+The GPU code being used to speed up the simulation is only able to be run on a NVIDIA GPU. Therefore the software must run in parallel on a NVIDIA GPU. The GPU's must also have been made in 2008 or later since GPU's older than 2008 do not support CUDA. Newer GPU's are preferable since they will have better data transfer times.\\
+Additionally, the final product needs to be completed by the end of April, 2016. If these global constraints are not met the final product is not acceptable.\\
 
 
 
@@ -199,13 +204,36 @@ The project, G4-STORK, is currently at a point where it is able to run all neces
 
 \subsubsection{The Context of The Work}
 \begin{figure}[h]
+\caption{Work Context Diagram}
 \includegraphics[width=\textwidth]{WorkContextDiagram} 
 \end{figure} 
-\ds{Figure caption?}
-\subsubsection{Work Partitioning}
-All tasks will be divided equally among all members of the development team. The team will work together to initially define the interface for using the GPU to run calculations, and once that is completed each member will independently work on porting specific classes to the GPU. Testing will be done throughout the development by the developers. This ensures that all developers are able to easily debug their contributions.
-\ds{This section is supposed to show a breakdown of the business use cases}
 
+\ds{Figure caption?}\vr{Added caption and revised diagram}
+\subsubsection{Work Partitioning}
+%All tasks will be divided equally among all members of the development team. The team will work together to initially define the interface for using the GPU to run calculations, and once that is completed each member will independently work on porting specific classes to the GPU. Testing will be done throughout the development by the developers. This ensures that all developers are able to easily debug their contributions.
+%
+
+\begin{table}[h]
+\centering
+\caption{Work Partitioning}
+\begin{tabularx}{\textwidth}{XXX}
+\Xhline{2\arrayrulewidth}
+\bf Event Name & \bf Input/Output & \bf Summary\\
+\hline
+Input parameters & overloaded classes and macro file are read (in) overloaded 
+classes are compiled and linked to obj files(out) & This step is just checking to see what in the program 
+needs to be compiled and compiling it before the run is executed \\
+ Program initializes simulation values& overloaded classes object files and 
+macro file are read (in) geometry is drawn in simulation world (out) & This event sets up the simulation 
+environment and starts execution of the main run as defined in the macro file \\
+GPU performs calculations & data required for calculations is transferred to 
+GPU memory space(in) calculations are performed and useful work is returned (out)& This step calculates specific methods in parallel on the GPU and returns the result to the CPU.  \\
+%CPU finishes execution & results of tracking all particles (in) output file is written to,
+% terminal displays the results of the simulation(out) & This step is the final step before a run ends. Once the run ends it prints out all remaining relevant data to the terminal and then ends\\
+\hline
+\end{tabularx}
+\end{table}
+\ds{This section is supposed to show a breakdown of the business use cases}\vr{revised this section}
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Business Data Model \& Data Dictionary} % Rob
 NA -- The product does not store any data, and requires no data model.
@@ -268,36 +296,45 @@ Descriptions of each PUC, referenced by PUC \# are as follows.
 {Low}
 {Created January 8, 2016}
 
-\requirement
-{Req_HardwareDetection}
-{Req_Type_Functional}
-{PUC_SimulatingParticles}
-{GEANT4-GPU should be able to detect if the computer has a compatible graphics card that can run the GPU code}
-{Don't want GEANT4 to try to run GPU code on a graphics card that is not compatible}
-{When building GEANT4-GPU, The system should inform the user if they have a compatible graphics card or not}
-{Medium}
-{Created January 8 2016}
+%\requirement
+%{Req_HardwareDetection}
+%{Req_Type_Functional}
+%{PUC_SimulatingParticles}
+%{GEANT4-GPU should be able to detect if the computer has a compatible graphics card that can run the GPU code}
+%{Don't want GEANT4 to try to run GPU code on a graphics card that is not compatible}
+%{When building GEANT4-GPU, The system should inform the user if they have a compatible graphics card or not}
+%{Medium}
+%{Created January 8 2016}
+\mmp{Removed this requirement. Anyone using this software will know if they have a compatible GPU}
 
-\requirement
-{Req_CompatableGPU}
-{ReqType_Functional}
-{PUC_SimulatingParticles}
-{Trying to enable GPU computing with a computer that does not have a compatible graphics card should be detected and not be allowed.}
-{New product should not limit the amount of users who can use GEANT-4}
-{Any computer that can currently run the existing product should be able to run the new product.}
-{Medium}
-{Created September 29, 2015}
-\ds{This requirement should be split. There should be one for detecting hardware and
-one for what to do based on hardware detected.}\mmp{split into two requirements}
+%\requirement
+%{Req_CompatableGPU}
+%{ReqType_Functional}
+%{PUC_SimulatingParticles}
+%{Trying to enable GPU computing with a computer that does not have a compatible graphics card should be detected and not be allowed.}
+%{New product should not limit the amount of users who can use GEANT-4}
+%{Any computer that can currently run the existing product should be able to run the new product.}
+%{Medium}
+%{Created September 29, 2015}
+%\ds{This requirement should be split. There should be one for detecting hardware and
+%one for what to do based on hardware detected.}\mmp{split into two requirements}
+\mmp{Removed for same reason }
 
-\ds{Will users be aware of whether or not their machine can run the code
-on the GPU?}\mmp{This was taken care of in requirement HardwareDetection}
+%\ds{Will users be aware of whether or not their machine can run the code
+%on the GPU?}\mmp{This was taken care of in requirement HardwareDetection}
 
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Look and Feel Requirements}\label{ReqType_Look} % Victor
 \subsubsection{Appearance Requirements}
-NA -- The scope of the project does not include any visual aspects. Simulations are run through the command line.
-\ds{Then why does your 4.1.b diagram show ``Visualizations rendered and stored?"}
+%\requirement
+%{Req_Visualization}
+%{ReqType_Look}
+%{PUC_SimulatingParticles}
+%{The visualizations of particle simulations will be rendered according to the data generated.}
+%{The margin that the visualization changes (compared to the GPU) should be within the acceptable margin of error, according to  (requirement \ref{ReqType_Performance}).}
+%{The visualizations of particle interactions should accurately depict the slight change in particle data generated by running sections of the simulation in parallel (on the GPU).}
+%{Medium}
+\ds{Then why does your 4.1.b diagram show ``Visualizations rendered and stored?"}\vr{Revised Figure 1 to remove visualization.}
 
 \subsubsection{Style Requirements} 
 NA - No Style Requirements
@@ -315,6 +352,7 @@ NA - No Style Requirements
 \subsection{Usability and Humanity Requirements}\label{ReqType_Usabil} % Rob
 
 \subsubsection{Ease of Use Requirements}
+NA -- There are no Usability and Humanity Requirements
 %\requirement
 %{Req_Ease of Use}
 %{ReqType_Usabil}
@@ -326,15 +364,16 @@ NA - No Style Requirements
 %{Created October 6, 2015}
 %\\\\
 
-\requirement
-{Req_EasyChange}
-{ReqType_Functional}
-{PUC_SimulatingParticles}
-{Changing existing projects to run with new GPU functions should be easy}
-{Design requirement, the user is able to easily choose to run old or new projects on the GPU.}
-{User should be able to quickly enable GPU computations after referencing the documentation. If their hardware is compatible, their project should run with no errors.}
-{High}
-{Created September 29, 2015}
+%\requirement
+%{Req_EasyChange}
+%{ReqType_Functional}
+%{PUC_SimulatingParticles}
+%{Changing existing projects to run with new GPU functions should be easy}
+%{Design requirement, the user is able to easily choose to run old or new projects on the GPU.}
+%{User should be able to quickly enable GPU computations after referencing the documentation. If their hardware is compatible, their project should run with no errors.}
+%{High}
+%{Created September 29, 2015}
+\mmp{Removed this requirement since it is done automatically by the code}
 \ds{Your description shouldn't include ``should be easy". 
 It should be detailing \emph{what} the product is supposed to do.
 Ease of use is a non-functional requirement.}\mmp{Moved to Ease of Use Requirements}
@@ -387,7 +426,7 @@ NA -- The software will not provide any specific support for accessibility.
 {Req_SpeedLatency}
 {ReqType_Performance}
 {PUC_SimulatingParticles}
-{Decrease the time it takes to run a particle simulation on the GPU while maintaining the same output.}
+{Decrease the time it takes to run a particle simulation on the GPU while maintaining output that is determined to be precise according to (requirement \ref{Req_Precision})}
 {The entire purpose of the project is to improve the speed of the simulation.}
 {Running a simulation with a given set of input parameters should complete significantly faster on the product as compared to the existing software. Both should have identical outputs.}
 {Very High}
@@ -401,9 +440,9 @@ NA -- The software is not used in safety critical environments. It is a tool for
 {Req_Precision}
 {ReqType_Performance}
 {PUC_SimulatingParticles}
-{Results should have same accuracy whether simulation is run on CPU or GPU.}
+{Results should be produced accurately, within a certain margin of error, whether simulation is run on CPU or GPU.}
 {If results are not as accurate as with the existing product then researchers will not be able to draw as strong conclusions.}
-{The results of a simulation should be identical on the new product as the existing one, given that the inputs are the same.}
+{The results of a GPU run simulation should be close to the results of the simulation run on the CPU given that the inputs are the same. How close the results of the simulations are is influenced by the difference in the random numbers generated on the CPU and the GPU.}
 {High}
 {Created September 27, 2015}
 
@@ -444,7 +483,7 @@ NA -- see requirement \ref{Req_SpeedLatency}.
 %{Created September 27, 2015}
 
 \subsubsection{Scalability Requirements}
-NA -- The product will be used by single researchers, and is run locally on their machines. This project does not encompass the giving the functionality for distributing GEANT4-GPU to multiple GPU's. 
+NA -- The product will be used by single researchers, and is run locally on their machines. This project does not encompass the functionality for distributing GEANT4-GPU to multiple GPU's. 
 
 \ds{What if the researchers wanted to run it on a server with multiple GPUs
 (or hundreds of CPU cores?)}\mmp{added a statement indicating this project does not encompass distributed system gpu functionality.}
