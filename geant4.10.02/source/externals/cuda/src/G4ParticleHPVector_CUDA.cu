@@ -66,28 +66,23 @@ __global__ void CopyTheIntegralToBuffer_CUDA(G4double * fromBuffer, G4double * t
 *   Constructors, Deconstructors
 ***********************************************/
 G4ParticleHPVector_CUDA::G4ParticleHPVector_CUDA()      { 
-    nPoints = 20;
-    cudaMalloc(&d_theData, nPoints*sizeof(G4ParticleHPDataPoint));
-	cudaMalloc(&d_singleIntResult, sizeof(G4int));
-	cudaMalloc(&d_singleDoubleResult, sizeof(G4double));
-	cudaMalloc(&d_res, sizeof(GetXsecResultStruct));
-    nEntries = 0;
-    Verbose = 0;
-    d_theIntegral = 0;
-    totalIntegral = -1;
-    isFreed = 0;
-    maxValue = -DBL_MAX;
-    the15percentBorderCash = -DBL_MAX;
-    the50percentBorderCash = -DBL_MAX;
-    label = -DBL_MAX;
+    PerformInitialization(20);
 }
 
-G4ParticleHPVector_CUDA::G4ParticleHPVector_CUDA(int n) {
-    nPoints = std::max(n,20);
-    cudaMalloc(&d_theData, nPoints*sizeof(G4ParticleHPDataPoint));
+G4ParticleHPVector_CUDA::G4ParticleHPVector_CUDA(G4int n) {
+    PerformInitialization(std::max(n,20));
+}
+
+void G4ParticleHPVector_CUDA::PerformInitialization(G4int n) {
+	nPoints = n;
+	cudaMalloc(&d_theData, nPoints*sizeof(G4ParticleHPDataPoint));
+	
 	cudaMalloc(&d_singleIntResult, sizeof(G4int));
+	cudaMallocHost(&h_singleIntResult, sizeof(G4int));
 	cudaMalloc(&d_singleDoubleResult, sizeof(G4double));
+	cudaMallocHost(&h_singleDoubleResult, sizeof(G4double));
 	cudaMalloc(&d_res, sizeof(GetXsecResultStruct));
+	cudaMallocHost(&h_res, sizeof(GetXsecResultStruct));
     nEntries = 0;
     Verbose = 0;
     d_theIntegral = 0;
@@ -104,13 +99,25 @@ G4ParticleHPVector_CUDA::~G4ParticleHPVector_CUDA() {
   		cudaFree(d_singleIntResult);
   		d_singleIntResult = nullptr;
   	}
+  	if (h_singleIntResult) {
+  		cudaFreeHost(h_singleIntResult);
+  		h_singleIntResult = nullptr;
+  	}
   	if (d_singleDoubleResult) {
         cudaFree(d_singleDoubleResult);
         d_singleDoubleResult = nullptr;
     }
+    if (h_singleDoubleResult) {
+		cudaFreeHost(h_singleDoubleResult);
+  		h_singleDoubleResult = nullptr;
+    }
     if (d_res) {
         cudaFree(d_res);
         d_res = nullptr;
+    }
+    if (h_res) {
+		cudaFreeHost(h_res);
+  		h_res = nullptr;
     }
     if (d_theData) {
         cudaFree(d_theData);
@@ -205,10 +212,10 @@ G4double G4ParticleHPVector_CUDA::GetX(G4int i) {
     if (i >= GetVectorLength()) {
         i = GetVectorLength() - 1;
     }
-    G4double energy;
-    cudaMemcpy(&energy, &d_theData[i].energy, sizeof(G4double), cudaMemcpyDeviceToHost);
-    if (energy != energy) { printf("\nGetEnergy(%d) = %f, nEntries=%d", i, energy, nEntries); }
-    return energy;
+    // G4double energy;
+    cudaMemcpy(h_singleDoubleResult, &d_theData[i].energy, sizeof(G4double), cudaMemcpyDeviceToHost);
+    if (*(h_singleDoubleResult) != *(h_singleDoubleResult)) { printf("\nGetEnergy(%d) = %f, nEntries=%d", i, *h_singleDoubleResult, nEntries); }
+    return *(h_singleDoubleResult);
 }
 
 G4double G4ParticleHPVector_CUDA::GetY(G4int i) {    
@@ -218,9 +225,9 @@ G4double G4ParticleHPVector_CUDA::GetY(G4int i) {
     if (i >= GetVectorLength()) {
         i = GetVectorLength() - 1;
     }
-    G4double xSec;
-    cudaMemcpy(&xSec, &d_theData[i].xSec, sizeof(G4double), cudaMemcpyDeviceToHost);
-    return xSec;
+    // G4double xSec;
+    cudaMemcpy(h_singleDoubleResult, &d_theData[i].xSec, sizeof(G4double), cudaMemcpyDeviceToHost);
+    return *(h_singleDoubleResult);
 }
 
 G4double G4ParticleHPVector_CUDA::GetY(G4double x) {
@@ -613,10 +620,10 @@ G4double G4ParticleHPVector_CUDA::GetXsec(G4double e) {
     int nBlocks = GetNumBlocks(nEntries);
     GetXSecFirstIndex_CUDA<<<nBlocks, THREADS_PER_BLOCK>>> (d_theData, e, d_singleIntResult, nEntries);
     
-    GetXsecResultStruct res;
+    // GetXsecResultStruct res;
     GetYForXSec_CUDA<<<1, 1>>> (d_theData, e, d_singleIntResult, d_res, nEntries);
-    cudaMemcpy(&res, d_res, sizeof(GetXsecResultStruct), cudaMemcpyDeviceToHost);
-    // cudaFree(d_res);
+    cudaMemcpy(h_res, d_res, sizeof(GetXsecResultStruct), cudaMemcpyDeviceToHost);
+    GetXsecResultStruct res = *(h_res);
     if (res.y != -1) {
     	return res.y;
     } 
