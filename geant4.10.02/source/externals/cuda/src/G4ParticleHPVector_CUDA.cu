@@ -620,7 +620,6 @@ G4double G4ParticleHPVector_CUDA::GetXsec(G4double e) {
     int nBlocks = GetNumBlocks(nEntries);
     GetXSecFirstIndex_CUDA<<<nBlocks, THREADS_PER_BLOCK>>> (d_theData, e, d_singleIntResult, nEntries);
     
-    // GetXsecResultStruct res;
     GetYForXSec_CUDA<<<1, 1>>> (d_theData, e, d_singleIntResult, d_res, nEntries);
     cudaMemcpy(h_res, d_res, sizeof(GetXsecResultStruct), cudaMemcpyDeviceToHost);
     GetXsecResultStruct res = *(h_res);
