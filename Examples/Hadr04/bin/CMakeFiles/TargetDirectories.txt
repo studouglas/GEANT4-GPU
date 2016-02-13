@@ -1,3 +1,0 @@
-/Users/stuart/Documents/4th_Year/CS_4ZP6/GEANT4-GPU/Examples/CUDA_Hadr04/bin/CMakeFiles/ZERO_CHECK.dir
-/Users/stuart/Documents/4th_Year/CS_4ZP6/GEANT4-GPU/Examples/CUDA_Hadr04/bin/CMakeFiles/ALL_BUILD.dir
-/Users/stuart/Documents/4th_Year/CS_4ZP6/GEANT4-GPU/Examples/CUDA_Hadr04/bin/CMakeFiles/Hadr04.dir
