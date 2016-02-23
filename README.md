@@ -57,11 +57,12 @@ extra `\)` before the `;\n";`. The version in the repo is fixed, but if you
 downloaded marshalgen from another source, you need to fix this)
 
 **Install GEANT-4**<br>
+If installing on McMaster's servers, add `. /opt/rh/devtoolset-3/enable` to your bash_profile to use the newer version of gcc.
 1. (Fedora only) `yum install expat-devel`<br>
 2. `mkdir /path/to/GEANT4-GPU/geant4.10.00.p02-build /path/to/GEANT4-GPU/
 geant4.10.00.p02-install`<br>
 3. `cd /path/to/GEANT4-GPU/geant4.10.00.p02-build`<br>
-4. `cmake -DGEANT4_INSTALL_DATA=ON -DGEANT4_ENABLE_CUDA=ON -DUSE_SYSTEM_EXPAT=OFF -DCMAKE_INSTALL_PREFIX=/path/to/GEANT4-GPU/geant4.10.00.p02-install /path/to/GEANT4-GPU/geant4.10.00.p02`<br>
+4. `cmake -DGEANT4_INSTALL_DATA=ON -DGEANT4_ENABLE_CUDA=ON -DGEANT4_USE_SYSTEM_EXPAT=OFF -DCMAKE_INSTALL_PREFIX=/path/to/GEANT4-GPU/geant4.10.00.p02-install /path/to/GEANT4-GPU/geant4.10.00.p02`<br>
 IF installing on McMaster's server, you must add flag `-DCUDA_HOST_COMPILER=/usr/bin/g++`<br>
 5. `make -jN` where `N` is the number of processors on your computer<br>
 6. `make install`
