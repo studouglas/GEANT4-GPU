@@ -26,14 +26,10 @@ class G4ParticleHPVector_CUDA {
     /******************************************
     * CONSTRUCTORS / DECONSTRUCTORS
     *******************************************/
-    public:
-    bool doesTheDataContainNan();
-
-    void CopyToGpu();
-    void CopyToCpu();
-    
+    public:    
     G4ParticleHPVector_CUDA();
     G4ParticleHPVector_CUDA(G4int);
+    void PerformInitialization(G4int);
     ~G4ParticleHPVector_CUDA();
 
     G4double GetXsec(G4double e);
@@ -202,6 +198,7 @@ class G4ParticleHPVector_CUDA {
     * PRIVATE                                 
     *******************************************/
     private:
+    G4double GetUniformRand();
     inline int GetNumBlocks(int totalNumThreads) {
         if (totalNumThreads == 0) {
             return 0;
@@ -212,8 +209,11 @@ class G4ParticleHPVector_CUDA {
     G4ParticleHPInterpolator theLin;
     G4double totalIntegral;
 
+    GetXsecResultStruct * h_res;
     GetXsecResultStruct * d_res;
+    G4int *h_singleIntResult;
     G4int *d_singleIntResult;
+    G4double *h_singleDoubleResult;
     G4double *d_singleDoubleResult;
     
     G4ParticleHPDataPoint * d_theData;

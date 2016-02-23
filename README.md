@@ -25,8 +25,8 @@ system.
 Prerequisites
 ==========
 The following operating systems are supported:
-- Mac OS X (tested on 10.11 with Xcode 6)
-- Fedora 20
+- gcc (at least 4.8)
+- CUDA requires gcc version less than 4.9
 
 *Note*: Xcode 7 includes a newer version of the clang compiler that is not yet 
 supported.
@@ -61,8 +61,8 @@ downloaded marshalgen from another source, you need to fix this)
 2. `mkdir /path/to/GEANT4-GPU/geant4.10.00.p02-build /path/to/GEANT4-GPU/
 geant4.10.00.p02-install`<br>
 3. `cd /path/to/GEANT4-GPU/geant4.10.00.p02-build`<br>
-4. `cmake -DGEANT4_INSTALL_DATA=ON -DCMAKE_INSTALL_PREFIX=/path/to/GEANT4-GPU/geant4.10.00.p02-install /path/to/GEANT4-GPU/geant4.10.00.p02`<br>
- cmake -DGEANT4_INSTALL_DATA=ON -GEANT4_ENABLE_CUDA=ON  -DCMAKE_INSTALL_PREFIX=/u50/reginavp/GEANT4-GPU/geant4.10.02-install /u50/reginavp/GEANT4-GPU/geant4.10.02
+4. `cmake -DGEANT4_INSTALL_DATA=ON -DGEANT4_ENABLE_CUDA=ON -DUSE_SYSTEM_EXPAT=OFF -DCMAKE_INSTALL_PREFIX=/path/to/GEANT4-GPU/geant4.10.00.p02-install /path/to/GEANT4-GPU/geant4.10.00.p02`<br>
+IF installing on McMaster's server, you must add flag `-DCUDA_HOST_COMPILER=/usr/bin/g++`<br>
 5. `make -jN` where `N` is the number of processors on your computer<br>
 6. `make install`
 
@@ -80,7 +80,7 @@ geant4.10.00.p02-install`<br>
 variables with the correct paths for your install.
 
 **Installing Geant4 on McMaster's Server (no root privileges)**<br>
-1. SSH into one of McMaster's servers (i.e. `ssh yourMacId@gpu1.mcmaster.ca`), account is on a shared drive across all department servers so once you install once you can access it from any one.<br>
+1. SSH into one of McMaster's servers (i.e. `ssh macid@gpu1.mcmaster.ca`), account is on a shared drive across all department servers so once you install once you can access it from any one.<br>
 2. Set up your .gitconfig file, ssh keys, and clone the repo in your home folder (path is `/u50/yourMacId/`)<br>
 3. You'll need to install cmake, to do this download the latest version onto your regular desktop<br>
 4. Copy the tarred file to McMaster's server via SSH: `scp cmake-3.4.0.tar yourMacId@gpu1.mcmaster.ca:/u50/yourMacId/`<br>
