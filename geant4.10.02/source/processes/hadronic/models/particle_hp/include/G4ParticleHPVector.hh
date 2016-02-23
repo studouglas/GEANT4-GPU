@@ -136,6 +136,7 @@ class G4ParticleHPVector
     #endif
   }
   
+  // ---- Can put on GPU
   G4double GetXsec(G4double e, G4int min)
   {
     #if GEANT4_ENABLE_CUDA
@@ -221,7 +222,7 @@ class G4ParticleHPVector
       return theData[i].GetY(); 
     #endif
   }
-
+  // Should be able to run this on GPU
   G4double GetMeanX()
   {
     #if GEANT4_ENABLE_CUDA
