@@ -517,11 +517,16 @@ __global__ void GetYForXSec_CUDA(G4ParticleHPDataPoint * theData, G4double e, G4
         resultsStruct->y = theData[nEntries - 1].xSec;
     }
 }
+
 G4double G4ParticleHPVector_CUDA::GetXsec(G4double e) {
     if (nEntries == 0) {
         return 0;
     }
 
+    // TODO try having each thread iterate over X values in array
+
+    // look at StorkNeutronHPCSData - line 295
+    
 	SetValueTo_CUDA<<<1,1>>> (d_singleIntResult, nEntries);
     int nBlocks = GetNumBlocks(nEntries);
     GetXSecFirstIndex_CUDA<<<nBlocks, THREADS_PER_BLOCK>>> (d_theData, e, d_singleIntResult, nEntries);
