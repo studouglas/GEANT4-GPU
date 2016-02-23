@@ -1,0 +1,31 @@
+#/bin/csh
+
+setenv HISTODIR 20140131
+mkdir -p $HISTODIR
+
+setenv PHYSLIST QGSP_BERT_EMV
+$G4MY/Hadr01 p_pb.in >& $HISTODIR/$PHYSLIST.out
+
+setenv PHYSLIST QGSP_BERT_EMX
+$G4MY/Hadr01 p_pb.in >& $HISTODIR/$PHYSLIST.out
+
+setenv PHYSLIST QGSP_BERT
+$G4MY/Hadr01 p_pb.in >& $HISTODIR/$PHYSLIST.out
+
+setenv PHYSLIST QGSP_BIC
+$G4MY/Hadr01 p_pb.in >& $HISTODIR/$PHYSLIST.out
+
+setenv PHYSLIST QBBC
+$G4MY/Hadr01 p_pb.in >& $HISTODIR/$PHYSLIST.out
+
+setenv PHYSLIST QBBC_EMZ
+$G4MY/Hadr01 p_pb.in >& $HISTODIR/$PHYSLIST.out
+
+setenv PHYSLIST FTFP_BERT
+$G4MY/Hadr01 p_pb.in >& $HISTODIR/$PHYSLIST.out
+
+setenv PHYSLIST QGSP_FTFP_BERT
+$G4MY/Hadr01 p_pb.in >& $HISTODIR/$PHYSLIST.out
+
+echo "Done!"
+#

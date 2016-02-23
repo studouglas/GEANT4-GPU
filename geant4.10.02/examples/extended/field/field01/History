@@ -1,0 +1,190 @@
+$Id: History 92496 2015-09-02 07:22:25Z gcosmo $
+-------------------------------------------------------------------
+
+     =========================================================
+     Geant4 - an Object-Oriented Toolkit for Simulation in HEP
+     =========================================================
+
+                    field01 History file
+                    ------------------------
+This file should be used by the G4 example coordinator to briefly
+summarize all major modifications introduced in the code and keep
+track of all tags.
+
+     ----------------------------------------------------------
+     * Reverse chronological order (last date on top), please *
+     ----------------------------------------------------------
+
+September 01, 2015 - I. Hrivnacova - fieldex01-V10-01-02
+- Removed F01EventActionMessenger classes, now obsolete, and 
+  replaced /event/printModulo commands in macros with /run/printProgress
+- Code cleanup
+
+May 22, 2015 - P. Gumplinger - fieldex01-V10-01-00
+- apply coding guideline 3.3
+
+December 02, 2013
+- More fixes in gui.mac:
+  Let execute vis.mac first to make the command in added menus available;
+  corrected wireframe parameter
+
+November 29, 2013 - I. Hrivnacova
+- Fixed gui.mac (commented out command specific to B2 example)
+
+November 28, 2013 - P.Gumplinger - fieldex01-V09-06-10
+- fixed typo in F01PrimaryGeneratorAction.cc and added icons.mac
+  and run.png to svn
+
+November 28, 2013 - M.Asai - fieldex01-V09-06-09
+- Fix F01PrimaryGeneratorAction to avoid race condition problem.
+
+November 28, 2013 - M.Asai - fieldex01-V09-06-08
+- Fix F01PhysicsList to avoid race condition problem.
+
+November 26, 2013 - I.Hrivnacova - fieldex01-V09-06-07
+- Fixed ConstructSDandField():
+  Moved setting the SD to logical volume outside the test
+- Do not test (fAbsorberThickness > 0.) in ConstructCalorimeter()
+  as setting 0 is not allowed in set command  
+
+November 25, 2013 - I.Hrivnacova - fieldex01-V09-06-06
+- Put back cleaning volumes and solid stores in ConstructGeometry()
+
+November 22, 2013 - P.Gumplinger - fieldex01-V09-06-05
+- add gui.mac and avoid long line
+
+November 21, 2013 - I.Hrivnacova - fieldex01-V09-06-04
+- Use new G4RunManager::ReinitializeGeometry to trigger geometry rebuild 
+  when geometry changes
+- Remove DetectorConstruction::Update and corresponding UI command that
+  is not needed anymore
+- Set "ToBeBroadcasted == false" for UI commands that modify detector 
+  since these should be executed only by master     
+- Fixed main (do not call gui.mac which does not exist)
+- Code cleanup in F01FieldSetup.*
+
+November 7, 2013 - P.Gumplinger - fieldex01-V09-06-02 and -03
+- migration to MT and code cleanup
+
+July 28/31, 2013 - P.Gumplinger - fieldex01-V09-06-00 and -01
+- fix clang32 compilation error
+
+February 14, 2013 - I.Hrivnacova
+-----------------------------
+- Applied coding guidelines (data members initialization);
+  tagged in examples/field
+
+November 15, 2012 - I.Hrivnacova - fieldex01-V09-05-01
+-----------------------------
+- Fixed F01DetectorMessenger.hh file description
+
+October 15, 2012 - I.Hrivnacova - fieldex01-V09-05-00
+-----------------------------
+- Applied coding guidelines, code clean-up
+
+August 16, 2010 - H.Kurashige - fieldex01-V09-03-04
+-----------------------------
+- Removed inclusion of G4ParticleWithCuts header.
+
+June 2, 2010 J.Perl - fieldex01-V09-03-03
+-------------------
+- Updated vis usage
+
+May 12, 2010 John Allison - fieldex01-V09-03-02
+-------------------------
+- Introduced G4UIExecutive.
+
+Apr 8th, 2010 Gabriele Cosmo - fieldex01-V09-03-01
+----------------------------
+- Removed unused pointers to G4MultipleScattering left...
+
+Mar 25th, 2010 Gabriele Cosmo - fieldex01-V09-03-00
+-----------------------------
+- Migrated physics list to use particle-based multiple-scattering processes.
+
+Nov 4th,  2009  Peter Gumplinger - fieldex01-V09-02-00
+--------------------------------
+- fix the density of STP Carbon Dioxide in DetectorConstruction
+
+May 23rd, 2007  John Apostolakis  -  fieldex01-V08-03-00
+--------------------------------
+- Taken out FastSimulationManagerProcess, which is not needed.
+
+Dec 6th, 2005  Gabriele Cosmo
+-----------------------------
+- Trivial changes for support of CLHEP-2.0.X series.
+
+May 3rd, 2005  John Allison  (examples-V07-00-03)
+------------------------------------------------
+- Replaced vis manager with G4VisExecutive.
+
+Dec 3rd, 2004 Gabriele Cosmo
+----------------------------
+- Implemented migration to <cmath>.
+
+Dec 3rd, 2004 Vladimir Grichine
+-------------------------------
+- Removed dependency on old PAI and XTR models in PhysicsList.
+
+Dec 2nd, 2004 John Apostolakis (fieldex01-V06-02-01)
+-------------------------------------------------
+- Took out un-needed inclusion of G4PAIclusterModel in Detector-Construction
+
+Sep 15rd, 2004 V.Ivanchenko (fieldex01-V06-02-00)
+-------------------------------------------------
+- Minor cleanup of PhysicsList
+
+Mar 23rd, 2003 John Apostolakis (fieldex01-V06-00-00)
+-----------------------------------------------------
+- F01FieldSetup corrections
+   o fixed SetFieldValue(double) method (along Z) to update field mgr & eq
+   o fixed SetFieldValue(vector) method to update equation as well
+
+Dec  1st, 2003 John Apostolakis (fieldex01-V05-02-01)
+-----------------------------------------------------
+- F01FieldSetup corrections
+   o deleting forgotten inheritance from G4MagneticField
+   o fixing SetFieldValue(vector) method to update field manager
+- F01SteppingVerbose: New output format.
+- Fully deleted F01ElectroMagneticField.
+- field01.in: different energies, 1 track each in place of 100 events of 1 energy.
+    --> updated output file, using output from run on pcgeant2 / gcc 3.2
+
+Nov 25th, 2003 John Apostolakis (fieldex01-V05-02-00)
+-----------------------------------------------------
+- Renamed F01ElectroMagneticField into F01FieldSetup (as it is a creator, 
+   not a field). 
+- FieldSetup is now called in Detector Construction, not main.
+
+Nov 25th, 2003 Gabriele Cosmo
+-----------------------------
+- Open geometry before clearing stores in DetectorConstruction class.
+
+Nov 13th, 2003 - John Allison
+-----------------------------
+- Removed OPACS from Vis Manager.
+
+Nov 12th, 2003 - G.Cosmo (fieldex-V05-02-01)
+--------------------------------------------
+- Cleared compilation warnings in F01ElectroMagneticField.hh.
+
+Aug 27th, 2003 - V.Ivantchenko (fieldex-V05-02-00)
+--------------------------------------------------
+- Removed obsolete interfaces.
+
+Jun 25th, 2003 - G.Cosmo (fieldex-V05-01-00)
+--------------------------------------------
+- Fixed mechanism for update of geometry in detector-construction.
+- Fixed pedantic warnings ...
+
+Feb 20th, 2003 - V.Ivanchenko
+-----------------------------
+- Cut per region
+
+Nov 7th, 2001 - G.Cosmo
+-----------------------
+- More cleanup and fixes to primary generator gun (V.Grichine).
+
+Oct 15th, 2001 - G.Cosmo
+------------------------
+- Cleaned from test code.

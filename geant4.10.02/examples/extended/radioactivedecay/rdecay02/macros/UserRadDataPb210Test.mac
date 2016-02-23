@@ -1,0 +1,40 @@
+# $Id$								                                            #	
+# 									      										#
+#  Demonstrate the use of user data for radioactive decay.
+#  Here the decay of excited No252 is simulated
+#  Laurent Desorgher, 4 November 2011
+#
+#
+/control/verbose 2
+/run/verbose 1
+#
+# set the target/detector geometry
+/rdecay02/det/setTargetRadius 1e10 pc
+/rdecay02/det/setTargetLength 1e10 pc
+/rdecay02/det/setDetectorThickness 1e10 pc
+/rdecay02/det/setDetectorLength  1e10 pc
+#
+/run/initialize
+#
+/process/list
+#
+# rdm is applied only to the target volume
+/grdm/noVolumes
+/grdm/selectVolume Target
+#
+# Define user radioactive data 
+# The data files should be defined before definition of the ion source 
+# otherwise the mean life time will not be selected correctly
+#
+/grdm/setRadioactiveDecayFile 82 210 UserRadData_z82.a210
+/grdm/nucleusLimits 210 210 82 82 
+#
+# place the isotopes in the middle of the target, at rest.
+/gun/particle ion 
+/gun/ion 82 210
+#
+# only few 
+/analysis/setFileName userPb210
+/analysis/h1/set 6 100 0. 15. MeV
+/tracking/verbose 2
+/run/beamOn 2

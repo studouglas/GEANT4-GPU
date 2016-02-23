@@ -1,0 +1,87 @@
+$Id: History 81444 2014-05-28 14:28:20Z gcosmo $
+-------------------------------------------------------------------
+
+     =========================================================
+     Analysis History File
+     =========================================================
+
+     ----------------------------------------------------------
+     * Reverse chronological order (last date on top), please *
+     ----------------------------------------------------------
+
+28th May 2014 I. Hrivnacova (analysisExample-V10-00-00)
+- Use Geant4 physics list (FTFP_BERT) in AnaEx01,02,03, 
+  removed PhysicList class from shared
+
+21th November 2013 A. Dotti      (analysisExample-V09-06-06)
+- Removing Update method and UI command in shared
+  DetectorConstruction
+- Adding G4RunManager::ReinitializeGeoemtry in set methods
+  that change geometry
+- Mark /N03/det commands as not to be broadcasted
+
+09th November 2013 I. Hrivnacova (analysisExample-V09-06-05)
+- Removed A01, as it was transformed in basic/B5
+
+22th October 2013 I. Hrivnacova (analysisExample-V09-06-04)
+- N03Con replaced with B1Con 
+- Adding README files on AIDA and OpenScientist form A01 
+  (which is being migrated to g4tools in B5) in AnaEx03
+
+30th September 2013 I. Hrivnacova (analysisExample-V09-06-03)
+- Updated for changes in analysis:
+  removal of G4AnalysisManager::Create(isMaster)
+
+16th September 2013 I. Hrivnacova (analysisExample-V09-06-02)
+- AnaEx01 migrated to MT;
+  an argument isOnMaster added to HistoManager::book() method
+  (for consistency in all AnaEx0N examples)
+
+16th September 2013 I. Hrivnacova (analysisExample-V09-06-01)
+- Fixed handling required packages in CMake files
+
+08th February 2013 Ivana Hrivnacova (analysisExample-V09-06-00)
+- Applied coding guidelines in AnaEx01,2,3
+
+10th October 2012 Ivana Hrivnacova (analysisExample-V09-05-05)
+- Removed FindAIDA.cmake modules (now available in geant4/cmake)
+- Added support for HBOOK in AnaEx01 CMake build
+- Fixed setting directories names in AnaEx01/HistoManager
+  (they have to be defined before openning a file)
+
+18th September 2012 Ivana Hrivnacova (analysisExample-V09-05-04)
+- Adding explicit includes of G4SystemOfUnits.hh and G4PhysicalConstants.hh
+  where needed
+- Replaced tabulators with space characters  
+     
+08th June 2012 mma (analysisExample-V09-05-03)
+- apply coding conventions in shared
+
+22th May 2012 Ivana Hrivnacova (analysisExample-V09-05-02)
+- Fixed compiler warning (variable set but not used) in N03Con
+
+18th May 2012 Ivana Hrivnacova (analysisExample-V09-05-01)
+- Adding CMakeList.txt files to restructured examples.
+
+17th April 2012 Ivana Hrivnacova (analysisExample-V09-05-00)
+- Restoring the examples with use of AIDA as AnaEx03
+- Restructuring AnaEx01, AnaEx02, AnaEx03 examples for use of shared classes;
+  the shared classes are now in a new directory (shared)
+
+8rd November 2010  Michel Maire
+- add README
+
+3rd May 2005  John Allison  (examples-V07-00-03)
+- Replaced vis manager with G4VisExecutive.
+
+27th November 2002 Makoto Asai (analysisExample-V04-01-01)
+- Tag for release 5.0
+
+26th November 2002 Mark Donszelmann
+- Fixed DrifChamberHit to have a reasonable screensize (2) rather than 0.1
+- Fixed minimum value for EmCalHit color to be visible (0.4).
+
+21st November 2002 Makoto Asai (analysisExample-V04-01-00)
+
+14th November 2002 Mark Donszelmann
+- Added A01 example to repository

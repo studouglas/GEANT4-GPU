@@ -1,0 +1,41 @@
+$Id: History 90849 2015-06-10 13:46:10Z gcosmo $
+-------------------------------------------------------------------
+
+     =========================================================
+     Geant4 - an Object-Oriented Toolkit for Simulation in HEP
+     =========================================================
+
+                      Category History file
+                      ---------------------
+This file should be used by G4 developers and category coordinators
+to briefly summarize all major modifications introduced in the code
+and keep track of all category-tags.
+It DOES NOT substitute the  CVS log-message one should put at every
+committal in the CVS repository !
+
+     ----------------------------------------------------------
+     * Reverse chronological order (last date on top), please *
+     ----------------------------------------------------------
+
+Jun 10th, 2015 I. Hrivnacova (exParameterisations-V10-01-01)
+--------------------
+- Fixed handling required gdml package in CMake files
+
+May 13th, 2015 I. Hrivnacova (exParameterisations-V10-01-00)
+--------------------
+- Added new Par02 example
+
+Dec 13th, 2012 I. Hrivnacova (exParameterisations-V09-06-00)
+--------------------
+- Added Par01 example (moved from novice/N05)
+
+Sep 24th, 2012 I. Hrivnacova (exParameterisations-V09-05-00)
+--------------------
+- Updated CMakeLists.txt:
+  adding visualization, copying macros, install target and comment lines 
+- Added explicit includes of G4SystemOfUnits.hh and G4PhysicalConstants.hh
+- Replaced tabulators with space characters  
+
+Nov 4th, 2005 J.Weng (exparam-V07-01-01)
+--------------------
+- Added new example demonstrating usage 'gflash' shower parameterisation.

@@ -1,0 +1,207 @@
+-------------------------------------------------------------------
+$Id: History 93897 2015-11-03 08:38:30Z gcosmo $
+-------------------------------------------------------------------
+
+     =========================================================
+            Geant4 - Underground Dark Matter experiment
+     =========================================================
+
+                      Category History file
+                      ---------------------
+
+02.11.2015 - A. Ribon (DMX-V10-01-01)
+             DMXPhysicsList: migrated to ParticleHP.
+
+27.10.2015 - A. Ribon (DMX-V10-01-00)
+             DMXPhysicsList: replaced old G4GGNuclNuclCrossSection class
+             with the new, recommended one, G4ComponentGGNuclNuclXsc .
+
+30.10.2014 - V.Ivanchenko (DMX-V10-00-08)
+             use correct mu- stopping process
+
+11.10.2014 - M. Asai (DMX-V10-00-07)
+	     Replace obsolete G4ParticleTable::GetIon() with G4IonTable::GetIon().
+
+06.08.2014 - A. Howard (DMX-V10-00-06)
+	     Removed scintillator energy deposits from optical photons (double
+	     counting!).
+
+06.08.2014 - A. Howard (DMX-V10-00-05)
+	     Repaired the photocathode description such that photon hits are now
+	     registered - must have been broken for a while since EFFICIENCY
+	     was introduced to the optical boundary process.
+
+23.05.2014 - L. Pandola (DMX-V10-00-04)
+	     Actual MT migration. Use G4MTRunManager
+	     Added G4ShortLivedConstructor in the physics list, to 
+              avoid G4Exception PART10116.
+
+21.05.2014 - L. Pandola (DMX-V10-00-03)
+	     Edit constructor of DMXSteppingAction, make const 
+             Getters in DMXEventAction.
+	     Instantiate DMXRunAction also in the master
+	     Fix a problem with the names of the ASCII files
+
+20.05.2014 - L. Pandola (DMX-V10-00-02)
+	     Edit the constructor of DMXEventAction 
+	     Make Getters const in RunAction and PrimaryGenerator
+	     ASCII files are created per-thread. Not open at every 
+	      event, but kept as private class members.
+
+13.05.2014 - L. Pandola (DMX-V10-00-01)
+	     Analysis files closed at the end of execution (not
+             end of event). 
+             Added ConstructSDandField() method in the Detector
+             Clean up the detector construction messenger
+             Made Hits allocators as ThreadLocal
+             Remove CLHEP::Random
+
+08.05.2014 - L. Pandola (DMX-V10-00-00)
+             Added ActionInitialization class 
+
+07.11.2013 - L. Pandola (DMX-V09-06-08)
+	     Remove dependency from the deprecated LEP and HEP 	
+	     models from Geisha
+
+30.07.2013 - A. Dotti (DMX-V09-06-07)
+             Fixing compilation warnings for clang32:
+             unused private data members
+
+31.05.2013 - L. Pandola (DMX-V09-06-06)
+	     Migrate analysis from the AIDA-based local singleton 
+	     class to the g4analysis tools (no AIDA dependency 
+	     any longer). Clean-up of README and CMakeLists.txt.
+	     Some cosmetics in the code.
+ 
+18.04.2013 - L. Pandola (DMX-V09-06-05)
+	     In DMXMinEkineCuts.cc, migrate calculation of the range 
+             from G4EnergyLossTable (obsolete class) to 
+             G4LossTableManager. This should hopefully fix the problems 
+	     observed in DMX-V09-06-04. Other minor cosmetics.
+
+16.04.2013 - L. Pandola (DMX-V09-06-04)
+	   - Trying to understand the origin of the crashes which 
+	     caused the rejection of DMX-V09-06-03
+
+21.03.2013 - L. Pandola (DMX-V09-06-03)
+	   - Fix compiler warnings (appearing only for some compilers)
+
+13.03.2013 - A. Dotti (DMX-V09-06-02)
+           - New SetEmModel interface used in physics list
+
+18.12.2012 - M.Kelsey (DMX-V09-06-01)
+	   - Migrate hadron-stopping processes
+
+31.10.2012 - A.Howard (DMX-V09-06-00)
+	   - Fixed missing G4SystemOfUnits.hh header
+	   - Fixed Bug 1386 so that auger, fluorescence and PIXE are now
+	     switched on by default
+
+31.10.2012 - L.Pandola (DMX-V09-05-03)
+	   - Fix the CMakeLists.txt file (AIDA optional dependency)
+
+16.10.2012 - L.Pandola (DMX-V09-05-02)
+	   - Change the logic of the CMakeLists.txt file. The env variable 
+             and the cmake line command can be used (the cmake commands gets 
+             the priority)
+
+12.10.2012 - L.Pandola (DMX-V09-05-01)
+           - Removed obsolete call to G4OpBoundaryProcess::SetModel()
+           - Add a CMakeLists.txt file
+
+12.10.2012 - G.Cosmo (DMX-V09-05-00)
+           - Explicit inclusion of units and constants headers.
+
+19.01.2011 - L.Pandola (DMX-V09-04-00)
+	   - Removed #includes of G4hLowEnergyIonisation (though commented)
+
+18.11.2010 - J.Allison (DMX-V09-03-02)
+           - DMX.cc: Introduce G4UIExecutive.
+	   - initInter.mac: Improve vis commands.  (Note: With the
+             introduction of /vis/scene/add/trajectories, it is no
+             longer necessary to draw them in EndOfEventAction.  The
+             corresponding locall commands can also be removed.)
+
+03.06.2010 - J.Perl (DMX-V09-03-01)
+             Change /vis/open OGLxxx to /vis/open OGL
+
+16.02.2010 - L. Pandola (DMX-V09-03-00)
+	     Copy of the previous tag, DMX-V09-02-02, which was not submitted for 
+	     testing.
+
+26.10.2009 - L. Pandola (DMX-V09-02-02)
+	     Physics list migrated from LowEnergy processes to the new Livermore 
+	     models. Physics results unchanged for gamma/e-. Possible differences 
+             with ions/protons, since we don't use anymore G4hLowEnergyIonisation
+
+22.10.2009 - L. Pandola (DMX-V09-02-01)
+	     Correct Analysis manager to solve a problem with the HBOOK output files
+	     (ntuples not filled, histograms not saved). Still at the stage of 
+	     pre-migration.
+
+22.10.2009 - L. Pandola (DMX-V09-02-00)
+             Get rid of a warning message and allocation problems with ntuple2
+             Meant to be the reference to verify the migration to new 
+	     Livermore models. 
+
+16.06.2008 - G.A.P.Cirrone (DMX-V09-01-01)
+             Removed AIDA command from GNUmakefile
+
+04.04.2008 - A. Howard (DMX-V09-01-00)
+	     Fixed mis-sized arrays - ring_phys_gas[] and ring_phys_liq[].
+	     Both one were less than the utilized size (!).  This has always
+             been wrong.
+
+06.11.2007 - A. Howard (DMX-V09-00-02)
+	     Corrected micrometer unit in macros from mum to um (old bug since
+             release 8.2)
+
+02.07.2007 - A. Howard (DMX-V09-00-01)
+	     Added G4StepLimiter to physics list (correction of migration to
+             Geant4 9.0)
+
+02.07.2007 - A. Howard (DMX-V09-00-00)
+	     Added missing header file G4hIonisation.hh to DMXPhysicsLists.cc
+
+06.06.2007 - A. Howard (DMX-V08-03-01)
+	     Changed fG4v71 to preferable fMinimal for msc step limitation
+	     Converted to hIonisation from hLowEnergyIonisation until
+             un-initialiased variables are fixed
+
+06.06.2007 - A. Howard (DMX-V08-03-00)
+	     Migrated to new interface for SetMscStepLimitation(fG4v71) in
+             DMXPhysicsList
+
+13.10.2006 - A. Howard (DMX-V08-01-00)
+	     Removed uninitialized UserLimitsForXenon (bug)
+
+07.12.2005 - S. Guatelli (DMX-V07-01-02)
+             Compiles with CLHEP 2.0.2.2
+
+15.11.2005 - G.Cosmo (DMX-V07-01-00)
+             Migration to <sstream> from deprecated <strstream>.
+
+03.05.2005 - J.Allison
+             Replaced vis manager with G4VisExecutive.
+
+07.12.2004 - S. Guatelli (DMX-V06-02-02)
+             G4VParticleChange migrated
+
+29.11.2004 - S. Guatelli (DMX-V06-02-00)
+             Migrated to <cmath>
+
+28.05.2004 - S. Guatelli (DMX-V06-01-00)
+             Migrated to AIDA 3.2.1 and PI 1.2.1
+
+02.12.2003 - G.Cosmo (DMX-V05-02-01)
+             Migrated to new hadronic processes for release 6.0.
+             Fixed compilation warnings.
+
+12.11.2003 - John Allison
+             Updated Vis Manager.
+
+08.11.2002 - A.Howard
+             Migrated to AIDA 3.
+
+28.11.2001 - A.Howard
+             Created, first version.

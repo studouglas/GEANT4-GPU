@@ -28,7 +28,6 @@ Examples/**/bin/
 geant4.10.02/tmp
 geant4.10.02-build
 geant4.10.02-install
-geant4.10.02/examples/*
 
 marshalgen-1.0/Examples
 marshalgen-1.0/Phase2/*.yy.*

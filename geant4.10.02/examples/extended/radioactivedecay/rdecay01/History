@@ -1,0 +1,213 @@
+$Id: History 94458 2015-11-18 14:36:25Z gcosmo $
+-----------------------------------------------------
+
+     =========================================================
+     Geant4 - an Object-Oriented Toolkit for Simulation in HEP
+     =========================================================
+
+                    rdecay01 History file
+                    ---------------------
+This file should be used by the G4 example coordinator to briefly
+summarize all major modifications introduced in the code and keep
+track of all tags.
+
+     ----------------------------------------------------------
+     * Reverse chronological order (last date on top), please *
+     ----------------------------------------------------------
+	 
+18-11-15 mma  (rdecay01-V10-01-06)
+- PhysicsList : add LevelTolerance (100*eV),  HalfLife(0.1*ps)
+
+13-10-15 mma  (rdecay01-V10-01-05)
+- small cosmetic in EventAction::EndOfEventAction()
+  
+01-09-15 I. Hrivnacova  (rdecay01-V10-01-04)
+- Removed EventMessenger class, now obsolete, and replaced 
+  /rdecay01/event/printModulo commands in macros with /run/printProgress
+ 
+08-06-15 mma  (rdecay01-V10-01-03)
+- references: update it1.mac and it2.mac
+	 	 
+13-03-15 mma  (rdecay01-V10-01-02)
+- PhysicsList.cc : remove initialization of UAtomicDeexcitation
+	 
+19-01-15 mma  (rdecay01-V10-01-01)
+- add subdirectory references
+
+12-01-15 mma  (rdecay01-V10-01-00)
+- PhysicsList.cc : remove SetICM()
+- compute total visible energy : TrackingAction, EventAction, Run, HistoManager
+
+18-09-14 mma (rdecay01-V10-00-03)
+- rdecay01.cc : SetNumberOfThreads(G4Threading::G4GetNumberOfCores())
+     
+11-12-13 mma (rdecay01-V10-00-02)
+- MT: move histo normalization in Run::EndOfRun()
+     
+09-12-13 mma (rdecay01-V10-00-01)
+- MT: add primary particle info in Run::Merge()
+     
+05-12-13 mma (rdecay01-V10-00-00)
+- PhysicsList: suppress SetHLThreshold()
+- TrackingAction: set fullChain true by default
+- TrackingAction: if singleDecay, kill secondary ion at BeginOfTrack
+- ParticleCount: remove incident ion
+- MT: add ActionInitialization. Modify rdecay01.cc
+- MT: PrimaryGenerator: use G4IonTable
+- MT: add Run. Modify RunAction, TrackingAction
+
+23-08-13 L.Desorgher (rdecay01-V09-06-06) 
+- In PhysicsList set the half life threshold of the G4RadioactiveDecay to 
+   nanosecond 
+
+11-07-13 I.Hrivnacova (rdecay01-V09-06-05) 
+- In HistoManager: use new analysis manager method SetH1Activation()   
+
+19-06-13 mma (rdecay01-V09-06-04)
+- SteppingVerbose: use G4Step::GetSecondaryInCurrentStep()
+
+14-06-13 mma (rdecay01-V09-06-03)
+- TrackingAction: use G4Step::GetSecondaryInCurrentStep()
+     
+25-05-13 mma (rdecay01-V09-06-02)
+- cosmetic in SteppingVerbose
+  
+19-02-13 I. Hrivnacova (rdecay01-V09-06-01) 
+- Applied coding guidelines (data members names and initialization)    
+
+11-02-13 mma (rdecay01-V09-06-00)
+- TrackingAction : suppress AbortEvent() for single decay mode. Not convenient
+  for IT decay
+- DetectorConstruction : fWorldSize = 2 um
+       
+
+14-11-12 I. Hrivnacova (rdecay01-V09-05-14)
+- Fixed order of instantiating G4VisExecutive and G4UIExecutive
+  (required when Qt driver is activated).
+    
+28-10-12 mma (rdecay01-V09-05-13)
+- update README and .README
+     
+07-10-12 mma (rdecay01-V09-05-12)
+- use G4AnalysisManager
+
+02-10-12 V.Ivantchenko (rdecay01-V09-05-11)
+- PhysicsList - removed initialisation of de-excitation, because it can 
+    be called only after initialisation of geometry and not when 
+    processes are instantiated
+     
+22-09-12 mma
+- DetectorConstruction : fWorldSize = 2 cm
+     
+05-05-12 mma (rdecay01-V09-05-10)
+- add macro No252.mac to demonstrate UserEvapData file
+- update readme
+      
+03-05-12 mma (rdecay01-V09-05-09)
+- add macro Cf238.mac to demonstrate UserRadData file 
+     
+26-03-12 mma (rdecay01-V09-05-08)
+- all classes : apply G4 coding conventions
+     
+23-02-12 mma (rdecay01-V09-05-07)
+- HistoManager : GetFileType()
+     
+11-02-12 mma (rdecay01-V09-05-06)
+- HistoManager : new handle namespace and fileName[2]
+                 no subdirectory in histos file
+      
+25-01-12 mma (rdecay01-V09-05-05) 
+- HistoManager : add protections for histo file management 
+    
+15-01-12 mma (rdecay01-V09-05-04) 
+- HistoManager : histId and histPt
+- SetHisto() : simplification of Unit handling (HistoManager and HistoMessenger)
+- HistoManager and HistoMessenger : coding conventions
+       
+13-01-12 mma (rdecay01-V09-05-03)
+- Functions Normalize() and saveAscii() re-activated  
+- RunAction.cc : normalize histos 1 to 5
+     
+10-01-12 mma (rdecay01-V09-05-02)
+- HistoManager.hh and .cc : migrate to new g4tools histogramming system
+  Do not need aida anymore, nor G4ANALYSIS_USE
+- Functions Normalize() and saveAscii() temporarily empty  
+- HistoMessenger.hh and .cc : suppress fileType command
+- Update Readme and all macros accordingly
+  
+02-01-12 mma (rdecay01-V09-05-01)
+- PhysicsList : use G4PhysicsHelper
+- RunAction : cosmetic in Activity calculation
+- fullChain.mac : example of command /grdm/nuleusLimits
+- new macro electronicCapture.mac
+
+19-12-11 V.Ivanchenko (rdecay01-V09-05-00)
+- RunAction : added protections against division by zero
+- PhysicsList : added atomic deexcitation
+     
+08-11-11 mma (rdecay01-V09-04-06)
+- modify SteppingVerbose for OutOfWorld
+          
+16-05-11 mma (rdecay01-V09-04-05)
+- histo 6 : total kinetic energy (Q) 
+   
+14-04-11 mma (rdecay01-V09-04-04)
+- RunAction : compute activity from primary ion
+- suppress histo 9
+    
+13-02-11 mma (rdecay01-V09-04-03)
+- RunAction : fixe a bug in time counting
+     
+11-02-11 mma (rdecay01-V09-04-02)
+- update SteppingVerbose
+      
+31-01-11 mma (rdecay01-V09-04-01)
+- PhysicsList : SetARM false
+- SteppingVerbose : print global time 
+    
+28-01-11 mma (rdecay01-V09-04-00)
+- add Co60.mac
+- HistoManager : fix aida fileOptions
+     
+11-10-10 mma (rdecay01-V09-03-02)
+- TrackingAction and RunAction : modify calculation of Activity
+- PhysicsList : time life threshold = -1. sec
+      
+17-09-10 mma (rdecay01-V09-03-01)
+- UI commands --> /rdecay01/ 
+    
+16-09-10 Gabriele Cosmo (rdecay01-V09-03-00)
+- Migrated name to "rdecay01".
+
+09-09-10 mma (radioActiv-V09-03-06)
+- TrackingAction : AbortEvent() in single decay mode
+- UI commands : radioActiv --> rdecay1 
+    
+27-08-10 mma (radioActiv-V09-03-05)
+- PhysicsList : time life threshold = 0. sec; no ICM; no ARM 
+- TrackingAction : save rndm event under condition
+- Ebalance : final - initial
+     
+05-08-10 mma (radioActiv-V09-03-04)
+- Update Readme and HistoManager.cc
+     
+27-07-10 mma (radioActiv-V09-03-03)
+- TrackingAction : activity = f(t). Plot (histo 9)
+     
+20-07-10 mma (radioActiv-V09-03-02)
+- TrackingAction : Get global time of an event. Plot (histo 8)
+- /testem/ --> /radioActiv/
+- PhysicsList : more units of time
+     
+15-07-10 mma (radioActiv-V09-03-01)
+- PhysicsList : SetCutsWithDefault
+     
+01-07-10 mma (radioActiv-V09-03-00)
+      
+27-06-10 mma 
+- DetectorConstruction : 2um*2um*2um
+- PrimaryGenerator : E=0*eV by default
+- RunAction : correct computation of min -> max
+    
+06-06-10 Michel Maire
+- Created.

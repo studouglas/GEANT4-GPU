@@ -1,0 +1,22 @@
+# $Id: basic.mac 93259 2015-10-14 08:35:22Z gcosmo $
+#
+/control/verbose 2
+/run/verbose 2
+#
+/testem/det/wallMater Water
+/testem/det/wallThickness 5 cm
+#
+/testem/phys/addPhysics standard_opt3
+#
+/run/initialize
+#
+/process/inactivate msc
+/process/eLoss/fluct false
+#
+/process/eLoss/StepFunction 0.2 10 um
+#
+/gun/energy 1 MeV
+#
+/run/printProgress 50000
+#
+/run/beamOn 500000

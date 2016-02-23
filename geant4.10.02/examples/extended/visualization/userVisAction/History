@@ -1,0 +1,76 @@
+$Id: History 87255 2014-11-28 07:52:46Z gcosmo $
+-------------------------------------------------------------------
+
+     =========================================================
+     Geant4 - an Object-Oriented Toolkit for Simulation in HEP
+     =========================================================
+
+        examples/extended/visualization/userVisAction History file
+        ----------------------------------------------------------
+
+This file should be used by the G4 example coordinator to briefly
+summarize all major modifications introduced in the code and keep
+track of all tags.
+
+     ----------------------------------------------------------
+     * Reverse chronological order (last date on top), please *
+     ----------------------------------------------------------
+
+27th November 2014  John Allison  (exam-ext-vis-UVA-V10-00-02)
+- README: Mention /vis/scene/add/extent.
+
+22st April March 2014  John Allison  (exam-ext-vis-UVA-V10-00-00)
+- Migrated to 10.0.  Multi-thread compliant.
+- Based on examples/basic/B1.
+
+4th November 2013 Dennis Wright (exam-ext-vis-UVA-V09-06-02)
+- generated new userVisAction.out to reflect removal of LEP models;
+  no code was changed.
+
+27th March 2013  John Allison  (exam-ext-vis-UVA-V09-06-01)
+- Added separators between functions.
+
+14th December 2012  Alberto Ribon  (exam-ext-vis-UVA-V09-06-00)
+- Replaced physics list QGSP_BIC_EMY with FTFP_BERT.
+
+11th June 2012  John Allison  (exam-ext-vis-UVA-V09-05-04)
+- Improved README.
+- Added .README for doxygen.
+
+10th April 2012  John Allison  (exam-ext-vis-UVA-V09-05-03)
+- Fixed run1/2.mac and userVisAction.out.
+
+9th April 2012  John Allison  (exam-ext-vis-UVA-V09-05-02)
+- userVisAction.cc: Corrected vis user action extent.
+- README: Improved.
+
+7th April 2012  John Allison  (exam-ext-vis-UVA-V09-05-01)
+- Changed to using B1 as basis.
+- vis.mac: /vis/scene/add/scale: Removed parameters; no uses default,
+  which is to calculate length of axes automatically.
+
+21st March 2012  John Allison  (exam-ext-vis-UVA-V09-05-00)
+- Added README.
+
+11th November 2011  John Allison  (exam-ext-vis-UVA-V09-04-00)
+- Changed to new G4Exception.
+
+9th November 2010  John Allison  (exam-ext-vis-UVA-V09-03-02)
+- vis.mac: /vis/open OGL.
+
+5th November 2010 Gunter Folger   (exam-ext-vis-UVA-V09-03-01)
+- Use new G4MultipleScattering classes
+
+22nd December 2009  John Allison  (exam-ext-vis-UVA-V09-03-00)
+- Introduced G4UIExecutive.
+
+6th November 2006  John Allison  (exam-ext-vis-UVA-V08-01-00)
+- Remove Mac dylib special - no longer necessary.
+
+25th May 2006  John Allison  (exam-ext-vis-V08-00-00)
+- Improved vis.mac.
+- UVA_VisAction.cc: Follow changes in G4Colour statics.
+
+18th October 2005  John Allison  (exam-ext-vis-V07-01-00)
+- Based on examples/novice/N02.
+- My beautiful logo vis action.

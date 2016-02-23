@@ -1,0 +1,264 @@
+$Id: History 92820 2015-09-17 15:22:14Z gcosmo $
+-------------------------------------------------------------------
+
+     =========================================================
+ 		      Geant4 - DICOM example
+     =========================================================
+
+                      Category History file
+
+                      ---------------------
+17.09.2015 - Pedro Arce (DICOM-V10-01-01)
+           - Fixed coding guidelines (long lines) 
+
+21.10.2014 - Pedro Arce (DICOM-V10-00-04)
+           - Fixed coding guidelines (long lines) 
+                      
+16.10.2014 - Ivana Hrivnacova (DICOM-V10-00-03)
+           - Fixed coding guidelines (long lines) in 
+             DicomPartialDetectorConstruction.hh, DicomPhantomZSliceHeader.hh
+
+29.07.2014 - Pedro Arce (DICOM-V10-00-02)
+           - Remove DicomPhysicsList
+
+25.07.2014 - Pedro Arce (DICOM-V10-00-01)
+           - Using G4GenericPhysicsList
+     	   - no std::cout 
+	   - no exit()
+
+03.12.2013 - Gabriele Cosmo (DICOM-V10-00-00)
+           - Attempt to fix Valgrind run-time error from printout in
+             DicomHandler::CheckFileFormat().
+
+03.12.2013 - Ivana Hrivnacova (DICOM-V09-06-09)
+           - Updated README and .README to match (Pedro Arce)
+
+18.11.2014 - Ivana Hrivnacova (DICOM-V09-06-08)
+           - Fixed DicomPhantomZSliceMerged.hh file description 
+             (for Doxygen)
+
+13.11.2014 - Jonathan Mdsen (DICOM-V09-06-07)
+           - Updated README and .README
+           - Fixed some comments
+
+04.11.2013 - Dennis Wright  (DICOM-V09-06-06)
+           - replaced LEP model for alphas by extending Binary cascade to
+             zero energy
+           - updated sample output files to reflect this
+
+23.10.2013 - Gabriele Cosmo (DICOM-V09-06-05)
+	   - Fixed compilation warnings.
+
+15.10.2013 - Jonathan Madsen (DICOM-V09-06-04)
+	   - Modified DICOM to enable multithreading
+	     - Adapted scorers
+	     - Added ActionInitialization class
+	     - Modified RunAction to handle master and daughter threads
+
+09.10.2013 - Ivana Hrivnacova (DICOM-V09-06-03)
+           Fixed file description (DicomPhantomZSliceMerged.hh)
+
+28.08.2013 - Gabriele Cosmo (DICOM-V09-06-02)
+           Added G4Ellipsoid to solids enabled for parameterisation in
+           DicomNestedPhantomParameterisation.
+
+29.07.2013 - Peter Gumplinger (DICOM-V09-06-01)
+           Fixed MAC/clang32 compilation warnings in DicomRunAction and
+           DiconIntersectVolume classes
+
+18.07.2013 - Jonathan Madsen
+           Missing documentation update from 18.12.2012:
+             Improvements and bug-fixes ->
+             DicomHandler had some bugs when using DCM files
+               other than examples provided
+             Added DicomPhantomZSliceMerged class to handle 
+               inconsistencies in DCM file meta-data
+             DicomPhantomZSliceHeader class is extended to hold density
+               and material ID data and the printing of data
+               to files instead of DicomHandler
+           Removed additions on 16.07.2013 pending further discussion
+           Reverted DICOM example to 18.12.2012 update with some very
+             minor tweaks
+           Kept share folder with additional anonymous DCM files
+             and additional data files (SixSlice.dat, AltData.dat). Rename
+             these files with Data.dat to use
+           Kept CMakeLists.txt to copy over extra data file and anonymous
+             DCM files
+      
+16.07.2013 - Jonathan Madsen
+           Many modifications to the DICOM example. 
+           Added more anonymous DICOM files.
+           Added more script configurations. 
+           Added DicomCommandLineOptions, DicomHelpers, DicomTypeConversion,
+             DicomOption as part of a command line processing package.
+           Modified CMakeLists.txt to configure extra files. 
+           Added capability to use different data files for DICOM set,
+             CT2Density file, ColourMap file.
+           Added Statistical Analysis and Statistical Manager classes
+           Miscellaneous improvements. 
+           DICOM.cc now has a large list of runtime configuration options 
+             via command line. 
+           Options set at command line are set to override environment
+             variables.
+
+15.02.2013 - Ivana Hrivnacova (DICOM-V09-06-00)
+           Applied coding guidelines (virtual keyword, data members
+           names and initialization)
+           
+07.11.2012 - Gabriele Cosmo (DICOM-V09-05-10)
+           Fixed compilation warnings for shadowing of variables and unused
+           return flag from system calls.
+
+18.10.2012 - Ivana Hrivnacova (DICOM-V09-05-09)
+	   Updated CMakeLists.txt: added copying data files to the build
+           area as they are needed to run the tests. 
+
+13.10.2012 - Andrea Dotti (DICOM-V09-05-08)
+	   Removing previous tag modification (not needed)
+
+13.10.2012 - Andrea Dotti (DICOM-V09-05-07)
+	     Adding explicit use of system of units
+
+05.09.2012 - Ivana Hrivnacova (DICOM-V09-05-06)
+             Fixed compiler warning
+
+04.09.2012 - Pedro Arce    (DICOM-V09-05-05)
+             Remove old renamed files
+             Updated CMakeLists.txt (By I.Hrivnacova)
+             Adding visualization, copying macros, install target and 
+             comment lines 
+
+17.07.2012 - Ivana Hrivnacova (DICOM-V09-05-04)
+             Improved README files
+
+06.07.2012 - Pedro Arce    (DICOM-V09-05-03)
+             Reviewed examples according to coding guidelines
+
+13.06.2012 - Gabriele Cosmo   (DICOM-V09-05-02)
+             Assign return value for fread() and fscanf() calls in
+             DicomHandler. Fixes compilation warnings on Ubuntu.
+
+28.03.2012 - Pedro Arce   (DICOM-V09-05-01)
+             Corrections in materials Z/A. Addressing problem report #1287.
+
+13.11.2011 - Pedro Arce   (DICOM-V09-04-03)
+             Migration to new G4Exception scheme.
+
+03.10.2011 - G.Folger   (DICOM-V09-04-02)
+             Fix gcc46 compilation warning in DicomHandler.cc 
+             and DicomPhantomParameterisationColour.cc
+
+05.06.2011 - Pedro Arce (DICOM-V09-04-01)
+             Corrected name for sensitive detector to be consistently
+             named as "phantomSD" in DicomRunAction. Addressing problem
+             report #1210.
+             Corrected axis slicing hint in nested-parameterisation.
+
+23.12.2010 - Stephane Chauvie 
+             Corrected 2 bugs in DicomHandler
+
+30.11.2010 - John Allison
+             dicom.cc: Removed redundant headers:
+             "G4UIterminal.hh" and "G4UItcsh.hh".             
+
+30.11.2010 - Ivana Hrivnacova (DICOM-V09-03-09)
+             Moved inclusion of vis headers as last in main().
+
+26.11.2010 - Pedro Arce (DICOM-V09-03-08)
+	     Correction of warnings
+
+24.11.2010 - Pedro Arce (DICOM-V09-03-07)
+	     Introduced partial phantom example
+	     Delete G4PSDoseDeposit_RegNav and use G4ScoreSplittingProcess instead
+     
+11.11.2010 - Gabriele Cosmo (DICOM-V09-03-06)
+             Corrected vis.mac macro and set OGL as default viewer.
+             Corrected some printouts in code...
+
+09.11.2010 - Gabriele Cosmo (DICOM-V09-03-05)
+             Fixed compilation warning on virtual methods hiding
+             Fixed compilation warnings in DicomPhantomParameterisationColour
+             and DicomHandler.
+
+02.11.2010 - John Allison (DICOM-V09-03-04)
+             Introduced G4UIExecutive.
+
+06.06.2010 - Joseph Perl (DICOM-V09-03-03)
+	     Remove unused variable in EventAction 
+
+03.06.2010 - Joseph Perl (DICOM-V09-03-02)
+	     Updated vis usage
+
+19.11.2009 - Stéphane Chauvie (DICOM-V09-03-00)
+01.06.2010 - Stephane Chauvie - Andrea Armando 
+	     Added function to read nested items (defined and undefined)
+	     Removed dependencies on CONQUEST
+	     DICOM handler could now read whichever DICOM file
+             (PT,CT,DR,CR,US,MR... ) 
+	    
+19.11.2009 - Stephanee Chauvie (DICOM-V09-02-03)
+	     Changed DICOM Handler to read CT files coming from CONQUEST
+             DICOM server
+
+05.02.2009 - Pedro Arce (DICOM-V09-02-01)
+             Added report on dose per voxel.
+             Added warning for erroneous inclusion of development code in
+             release 9.2 (to be removed when fix will be included in patch).
+
+27.01.2009 - Gabriele Cosmo (DICOM-V09-02-00)
+             Use new class G4RegularNavigationHistory for counting of step
+             lengths in voxels of the regular structure.
+
+27.11.2008 - Pedro Arce (DICOM-V09-01-02)
+             Included G4PSDoseDeposit_RegNav to distribute dose along voxels, 
+	     including msc and energy loss corrections, for the case of 
+	     skipping voxel with equal materials when using regular
+	     navigation
+
+21.07.2008 - Pedro Arce (DICOM-V09-01-01)
+             Bug fix in DicomNestedPhantomParameterisation in calculating the
+             'copyNo', so that material assignment was wrong
+             Set default cut to 1 mm (with previous 1.E-3 mm too much time is
+             spent on physics and no improvement is seen with different
+             navigation options).
+             Corrected direction and position of primary particles so that
+             they traverse the DICOM voxels.
+
+22.01.2008 - Pedro Arce (DICOM-V09-01-00)
+             Do not use 'rindex' in DicomHandler class to avoid problems
+             on Windows.
+
+06.12.2007 - Pedro Arce
+             Added voxel colouring by material. Added possibility to use nested parameterisation
+
+05.12.2007 - Pedro Arce
+             Deep review on the input files and the way how the geometry is built.
+             Use of G4PhantomParameterisation and G4RegularNavigation.
+
+06.12.2005 - Gabriele Cosmo
+             Trivial changes for support of CLHEP-2.0.X series.
+
+29.11.2005 - Susanna Guatelli (DICOM-V07-01-00)
+             Documentation update
+
+12.06.2005 - Stephane Chauvie (DICOM-V07-00-01)
+             Added improvement by Akinori Kimura.
+
+03.05.2005 - John Allison
+             Replaced vis manager with G4VisExecutive.
+
+10.12.2004 - Maria Grazia Pia (DICOM-V06-02-02)
+             Update README to announce further improvements and fixes
+             by Akinori Kimura.
+
+3.12.2004 - Gabriele Cosmo (DICOM-V06-02-01)
+            Implemented migration to <cmath>.
+
+13.5.2004 - Susanna Guatelli
+            updated compiler: gcc3.2.3
+
+11.3.2003 - Susanna Guatelli
+            README changed
+
+6.2003 - Susanna Guatelli
+         First public release of the example

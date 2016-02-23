@@ -1,0 +1,107 @@
+$Id: History 83404 2014-08-21 15:08:52Z gcosmo $
+-------------------------------------------------------------------
+
+     =========================================================
+     Geant4 - an Object-Oriented Toolkit for Simulation in HEP
+     =========================================================
+
+                    Hadr00 History file
+                    --------------------
+This file should be used by the G4 example coordinator to briefly
+summarize all major modifications introduced in the code and keep
+track of all tags.
+
+     ----------------------------------------------------------
+     * Reverse chronological order (last date on top), please *
+     ----------------------------------------------------------
+
+11-08-14  V.Ivanchenko (exhadr00-V10-00-01)
+- Reduced log output
+
+20-05-14  V.Ivanchenko (exhadr00-V10-00-00)
+- HistoManager - added histogram with cross section per volume
+
+27-11-13  I. Hrivnacova (exhadr00-V09-06-06)
+- Removed #ifdef G4MULTITHREADED from RunAction (not needed)
+- Fixed .README 
+
+21-11-13  A. Dotti      (exhadr00-V09-06-05)
+- USe G4RunManager::ReinitializeGeometry() to trigger geometry
+  rebuilds. 
+- Remove ui command /testhadr/Update and corresponding
+  DetectorConstruction::Update method
+- Mark UI command to change detector as ToBeBroadcasted(false)
+- Update README file for change in ui command 
+
+06-11-13  V.Ivanchenko (exhadr00-V09-06-04)
+- Fixed for MT
+
+05-11-13  V.Ivanchenko (exhadr00-V09-06-03)
+- Fixed for sequential
+
+05-11-13  V.Ivanchenko (exhadr00-V09-06-02)
+- Appling review recommendations, migration to MT, simplified access 
+    to histograms
+
+05-06-13  I. Hrivnacova (exhadr00-V09-06-01)
+- Applied coding guidelines (data members names and initialization, 
+  tabulations, separators)
+
+05-04-13  V.Ivanchenko (exhadr00-V09-06-00)
+- Appling code guidelines
+
+15-11-12 I. Hrivnacova (exhadr00-V09-05-07)
+- Synchronized .README with changes in README
+
+13-07-12 V.Ivant (exhadr00-V09-05-06)
+- upgraded README
+
+21-09-12 I.Hrivnacova (exhadr00-V09-05-05)
+- Cleanup CMakeLists.txt
+- Adding explicit includes of G4SystemOfUnits.hh and G4PhysicalConstants.hh
+- Replaced tabulators with space characters
+
+12-07-12 V.Ivant (exhadr00-V09-05-04)
+- use FTFP_BERT as a default
+
+23-05-12 V.Ivant (exhadr00-V09-05-03)
+- Histo - fixed n-tuples
+
+30-04-12 V.Ivant (exhadr00-V09-05-02)
+- Fixed compillation problem of previous tag
+
+26-04-12 V.Ivant (exhadr00-V09-05-01)
+- Migration to built-in Geant4 analysis and apply code convention
+
+20-03-12 V.Ivant (exhadr00-V09-05-00)
+- HistoManager - use material pointer in the interface to cross
+   sections (avoid crash for Physics Lists with HP)
+
+11-10-10 V.Ivant (exhadr00-V09-03-04)
+- Cleanup AIDA interface
+
+06-06-10 J.Perl (exhadr00-V09-03-03)
+- Remove unused variable in EventAction 
+
+03-06-10 J.Perl (exhadr00-V09-03-02)
+- Updated vis usage 
+
+27-05-10 V.Ivant (exhadr00-V09-03-01)
+- Improved printout
+
+26-05-10 J.Allsion (exhadr00-V09-03-00)
+- Introduced G4UIExecutive.
+
+26-06-09 V.Ivant (exhadr00-V09-02-00)
+- added a possibility to define Physics List as a job parameter 
+- added script for the test run of all Physics Lists 
+
+20-11-08 V.Ivant (exhadr00-V09-01-02)
+- added charge exchange cross section
+
+06-08-08 V.Ivant (exhadr00-V09-01-01)
+- added capture and fission cross sections
+
+07-07-08 V.Ivant (exhadr00-V09-01-00)
+- first release
+     

@@ -1,0 +1,106 @@
+$Id: History 94340 2015-11-12 10:07:47Z gcosmo $
+--------------------------------------------------
+
+     =========================================================
+     Geant4 - an Object-Oriented Toolkit for Simulation in HEP
+     =========================================================
+
+               Persistency Examples History file
+               ---------------------------------
+
+This file should be used by the G4 example coordinator to briefly
+summarize all major modifications introduced in the code and keep
+track of all tags.
+
+     ----------------------------------------------------------
+     * Reverse chronological order (last date on top), please *
+     ----------------------------------------------------------
+
+November 11, 2015 W. Pokorski (exPersistency-V10-01-01)
+- Adding ROOT6 as minimal version
+
+November 02, 2015 W. Pokorski (exPersistency-V10-01-00)
+- Removing obsolete check for GCCXML
+
+May 27th, 2013 I. Hrivnacova (exPersistency-V09-06-01)
+- Fixed handling required packages/options in CMake files
+
+February 15th, 2013 I. Hrivnacova (exPersistency-V09-06-00)
+- Applied coding guidelines in gdml (virtual keyword, data members
+  initialization)
+
+November 17th, 2012 I. Hrivnacova (exPersistency-V09-05-08)
+- Fixed .README files for artefacts from Markdown support
+- Removed/updated obsolete instructions (how to compile & link)
+
+November 15th, 2012 I. Hrivnacova (exPersistency-V09-05-07)
+- Fixes in files descriptions (for Doxygen)
+
+October 22th, 2012 I. Hrivnacova (exPersistency-V09-05-06)
+- Fixed handling GDML option in CMake build:
+  The "gdml" component is added to find_package call in G0*/CMakeLists.txt
+  examples (Ben Morgan); check on existence of Geant4_gdml_FOUND only in the
+  persistency/CMakeLists.txt
+
+October 18th, 2012 I. Hrivnacova (exPersistency-V09-05-05)
+- Adding a test for GEANT4_USE_GDML option in CMake files
+
+October 1st, 2012 I. Hrivnacova (exPersistency-V09-05-04)
+- The same version as in previous tag
+
+September 28th, 2012 I. Hrivnacova (exPersistency-V09-05-03)
+- Adding back visualization drivers in GDML CMake build and keeping
+  off only UI drivers.
+
+September 27th, 2012 I. Hrivnacova (exPersistency-V09-05-02)
+- Temporarily removed visualization from GDML CMake build
+  (causing a name clash when compiling examples on Windows)
+
+September 25th, 2012 I. Hrivnacova (exPersistency-V09-05-01)
+- Fixed P01 for renaming of the dictionary;
+  Fixed GNUmake build in P01, P02
+
+Sep 24th, 2012  Ivana Hrivnacova (exPersistency-V09-05-00)
+- Updated CMakeLists.txt files:
+  adding visualization, copying macros, install target and comment lines 
+- Added explicit includes of G4SystemOfUnits.hh and G4PhysicalConstants.hh
+- Replaced tabulators with space characters  
+
+Aug 27th, 2008  Gabriele Cosmo (persistencyEx-V09-01-00)
+- Added examples set for GDML plugin module.
+- Imported old GDML example placed inside extended/gdml.
+
+Jun 16th, 2006  Witold Pokorski (persistencyEx-V08-00-00)
+- Archived old PersEx01 example based on CINT dictionary.
+- Introduced new example P01 for persistency using the Reflex tool.
+
+Dec 6th, 2005  Gabriele Cosmo
+- Trivial changes for support of CLHEP-2.0.X series.
+
+Jul 5th, 2005  Gabriele Cosmo  (persistencyEx-V07-01-00)
+- Added missing ESTRALIBS to link list for specialised setup.
+
+May 3rd, 2005  John Allison  (examples-V07-00-03)
+- Replaced vis manager with G4VisExecutive.
+
+May 27th, 2005  Gabriele Cosmo (persistencyEx-V07-00-01)
+- Fixed trivial compilation errors for utility HitsAnalyzer.
+
+Mar 3rd, 2005  Gabriele Cosmo (persistencyEx-V07-00-00)
+- Brought up-to-date ...
+
+Nov 13th, 2003  John Allison
+- Removed OPACS from Vis Manager.
+
+30 May, 03  G.Cosmo (persistencyEx-V05-01-00)
+- Tagged and included updates to README and scripts which were on the HEAD.
+
+17 March, 03  J.Allison
+- Added HepRep to Pers01VisManager.cc.
+
+06 December, 02   G.Cosmo (persistencyEx-V04-01-01)
+- Migration to new G4ApplicationState for messengers.
+
+05 December, 02   Y.Morita (persistencyEx-V04-01-00)
+- Initial creation of Geant4 ROOT I/O examples
+

@@ -13,7 +13,8 @@ __global__ void SetValueTo_CUDA(int *addressToSet, int value) {
 __global__ void SetValueTo_CUDA(G4double *addressToSet, G4double value) {
     *(addressToSet) = value;
 }
-__global__ void SetValueTo_CUDA(G4ParticleHPDataPoint *addressToSet, G4double energy, G4double xSec) {
+__global__ void SetValueTo_CUDA(G4ParticleHPDataPoint *addressToSet, G4double energy,
+    G4double xSec) {
     addressToSet->energy = energy;
     addressToSet->xSec = xSec;
 }
@@ -47,7 +48,8 @@ __device__ double AtomicAdd_CUDA(double* address, double val) {
     return __longlong_as_double(old);
 }
 
-__global__ void CopyDataPointsToBuffer_CUDA(G4ParticleHPDataPoint * fromBuffer, G4ParticleHPDataPoint * toBuffer, G4int nEntries) {
+__global__ void CopyDataPointsToBuffer_CUDA(G4ParticleHPDataPoint * fromBuffer,
+    G4ParticleHPDataPoint * toBuffer, G4int nEntries) {
     int i = blockDim.x * blockIdx.x + threadIdx.x;
     if (i < nEntries) {
         toBuffer[i].energy = fromBuffer[i].energy;
@@ -55,7 +57,8 @@ __global__ void CopyDataPointsToBuffer_CUDA(G4ParticleHPDataPoint * fromBuffer, 
     }
 }
 
-__global__ void CopyTheIntegralToBuffer_CUDA(G4double * fromBuffer, G4double * toBuffer, G4int nEntries) {
+__global__ void CopyTheIntegralToBuffer_CUDA(G4double * fromBuffer, G4double * toBuffer,
+    G4int nEntries) {
     int i = blockDim.x * blockIdx.x + threadIdx.x;
     if (i < nEntries) {
         toBuffer[i] = fromBuffer[i];
@@ -267,7 +270,8 @@ void G4ParticleHPVector_CUDA::CleanUp() {
     }
 }
 
-__global__ void SampleLinFindLastIndex_CUDA(G4double * theIntegral, int rand, int * resultIndex, int nEntries) {
+__global__ void SampleLinFindLastIndex_CUDA(G4double * theIntegral, int rand, int * resultIndex,
+    int nEntries) {
     int i = blockDim.x * blockIdx.x + threadIdx.x;
     if (i >= nEntries) {
         return;
@@ -277,7 +281,8 @@ __global__ void SampleLinFindLastIndex_CUDA(G4double * theIntegral, int rand, in
     }
 }
 
-__global__ void SampleLinGetValues(G4ParticleHPDataPoint * theData, G4double * theIntegral, G4double * d_vals, G4int i) {
+__global__ void SampleLinGetValues(G4ParticleHPDataPoint * theData, G4double * theIntegral,
+    G4double * d_vals, G4int i) {
     // d_vals = [x1,x2,y1,y2]
     switch(threadIdx.x) {
         case 0:
@@ -347,7 +352,8 @@ G4double * G4ParticleHPVector_CUDA::Debug() {
 }
 
 // TODO: test that this gives same results
-__global__ void Integrate_CUDA(G4ParticleHPDataPoint * theData, G4double * sum, G4InterpolationManager theManager) {
+__global__ void Integrate_CUDA(G4ParticleHPDataPoint * theData, G4double * sum,
+    G4InterpolationManager theManager) {
     G4int i = blockDim.x * blockIdx.x + threadIdx.x;
     if (i == 0) {
         return;
@@ -464,7 +470,8 @@ void G4ParticleHPVector_CUDA::IntegrateAndNormalise() {
     TimesTheIntegral_CUDA<<<nBlocks, THREADS_PER_BLOCK>>> (d_theIntegral, nEntries, 1.0/total);
 }
 
-__global__ void Times_CUDA(G4double factor, G4ParticleHPDataPoint* theData, G4double* theIntegral, G4int nEntriesArg) {
+__global__ void Times_CUDA(G4double factor, G4ParticleHPDataPoint* theData, G4double* theIntegral,
+    G4int nEntriesArg) {
     int tid = blockDim.x * blockIdx.x + threadIdx.x;
     if (tid >= nEntriesArg) {
         return;
@@ -483,7 +490,8 @@ void G4ParticleHPVector_CUDA::Times(G4double factor) {
 /******************************************
 * Functions from .cc
 ******************************************/
-__global__ void GetXSecFirstIndex_CUDA(G4ParticleHPDataPoint * theData, G4double e, int * resultIndex, int elementsPerThread, int nEntries) {
+__global__ void GetXSecFirstIndexLooped_CUDA(G4ParticleHPDataPoint * theData, G4double e,
+    int * resultIndex, int elementsPerThread, int nEntries) {
     int tidx = blockDim.x * blockIdx.x + threadIdx.x;
     int start = elementsPerThread * tidx;
     int end = (start + elementsPerThread < nEntries) ? start + elementsPerThread : nEntries - 1;
@@ -495,7 +503,16 @@ __global__ void GetXSecFirstIndex_CUDA(G4ParticleHPDataPoint * theData, G4double
     }
 }
 
-__global__ void GetYForXSec_CUDA(G4ParticleHPDataPoint * theData, G4double e, G4int * singleIntResult, GetXsecResultStruct * resultsStruct, int nEntries) {
+__global__ void GetXSecFirstIndexSingle_CUDA(G4ParticleHPDataPoint * theData, G4double e,
+    int * resultIndex, int nEntries) {
+    int tidx = blockDim.x * blockIdx.x + threadIdx.x;
+    if (tidx < nEntries && tidx < *(resultIndex) && theData[i].energy >= e) {
+        atomicMin(resultIndex, tidx);
+    }
+}
+
+__global__ void GetYForXSec_CUDA(G4ParticleHPDataPoint * theData, G4double e,
+    G4int * singleIntResult, GetXsecResultStruct * resultsStruct, int nEntries) {
 	G4int low = *(singleIntResult) - 1;
 	G4int high = *(singleIntResult);
 	if (*(singleIntResult) == 0) {
@@ -528,16 +545,18 @@ G4double G4ParticleHPVector_CUDA::GetXsec(G4double e) {
     if (nEntries == 0) {
         return 0;
     }
-
-    // TODO try having each thread iterate over X values in array
     // look at StorkNeutronHPCSData - line 295
 
 	SetValueTo_CUDA<<<1,1>>> (d_singleIntResult, nEntries);
-    int elementsPerThread = 4;
-    int nBlocks = GetNumBlocks(nEntries/elementsPerThread);
-    // printf("\nnEntries = [%5d] | elementsPerThread = [%5d] | nBlocks = [%5d]", nEntries, elementsPerThread, nBlocks);
-    GetXSecFirstIndex_CUDA<<<nBlocks, THREADS_PER_BLOCK>>> (d_theData, e, d_singleIntResult, elementsPerThread, nEntries);
+    //int nBlocks = GetNumBlocks(nEntries);
+    //GetXSecFirstIndexSingle_CUDA<<<nBlocks, THREADS_PER_BLOCK>>>
+    //    (d_theData, e, d_singleIntResult, nEntries);
+    int elementsPerThread = 2;
+    int nBlocks = GetNumBlocks(nEntries/elementsPerThread); 
+    GetXSecFirstIndexLooped_CUDA<<<nBlocks, THREADS_PER_BLOCK>>>
+       (d_theData, e, d_singleIntResult, elementsPerThread, nEntries);
     GetYForXSec_CUDA<<<1, 1>>> (d_theData, e, d_singleIntResult, d_res, nEntries);
+
     cudaMemcpy(h_res, d_res, sizeof(GetXsecResultStruct), cudaMemcpyDeviceToHost);
     GetXsecResultStruct res = *(h_res);
     if (res.y != -1) {
@@ -617,7 +636,8 @@ void G4ParticleHPVector_CUDA::ThinOut(G4double precision) {
 }
 
 // TODO: Port Me
-void G4ParticleHPVector_CUDA::Merge(G4InterpolationScheme aScheme, G4double aValue, G4ParticleHPVector_CUDA * active, G4ParticleHPVector_CUDA * passive) {
+void G4ParticleHPVector_CUDA::Merge(G4InterpolationScheme aScheme, G4double aValue,
+    G4ParticleHPVector_CUDA * active, G4ParticleHPVector_CUDA * passive) {
     printf("MERGE NOT YET IMPLEMENTED\n\n");
 }
 
@@ -630,7 +650,8 @@ __device__ int SampleGetFirstIndex_CUDA(G4double * theIntegral, G4double myRand,
     return -1;
 }
 
-__global__ void SampleGetResult_CUDA(G4ParticleHPDataPoint * theData, G4double * theIntegral, G4int nEntries, G4double * result) {
+__global__ void SampleGetResult_CUDA(G4ParticleHPDataPoint * theData, G4double * theIntegral,
+    G4int nEntries, G4double * result) {
     G4double myRand;
     G4double value;
     G4double test;

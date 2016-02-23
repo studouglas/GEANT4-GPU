@@ -1,0 +1,41 @@
+# $Id$
+# 									
+# Decays of Po201m in VR mode   
+#
+#                                                                         
+/control/verbose 2
+/run/verbose 1
+#
+# set the target/detector geometry
+/rdecay02/det/setTargetRadius 1e10 pc
+/rdecay02/det/setTargetLength 1e10 pc
+/rdecay02/det/setDetectorThickness 1e10 pc
+/rdecay02/det/setDetectorLength 1e10 pc
+#
+/run/initialize
+#
+/process/list
+#
+# rdm is applied only to the target volume
+/grdm/noVolumes
+/grdm/selectVolume Target
+
+#
+# place the isotopes in the middle of the target, at rest. 
+/gun/particle ion
+/gun/ion 84 201 0 424. keV
+#
+# complete decay chain in VR mode
+/grdm/analogueMC false
+/grdm/sourceTimeProfile beam.data
+/grdm/decayBiasProfile measures.data
+#/grdm/nucleusLimits 238 238 90 92
+/grdm/hlThreshold 1e-6 s
+/grdm/applyARM false
+#
+/analysis/setFileName po201m
+/analysis/h1/set 6 100 0. 15. MeV
+###/analysis/ntuple/setActivation 3 true
+#
+/run/printProgress 1000
+/run/beamOn 10000

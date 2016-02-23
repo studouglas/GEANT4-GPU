@@ -1,0 +1,52 @@
+# $Id$
+# 									
+# Decays of Ne24 in vr mode
+#
+#  Compare the branching ratio, bias switched on-off
+#
+#                                                                         
+/control/verbose 2
+/run/verbose 1
+#
+# set the target/detector geometry
+/rdecay02/det/setTargetRadius 10 um
+/rdecay02/det/setTargetLength 10 um
+/rdecay02/det/setDetectorThickness 20 cm
+/rdecay02/det/setDetectorLength 40 cm
+#
+/run/initialize
+#
+/process/list
+#
+# rdm is applied only to the target volume
+/grdm/noVolumes
+/grdm/selectVolume Target
+#
+# place the isotopes in the middle of the target, at rest.
+/gun/particle ion
+/gun/ion 10 24
+#
+# vr mode
+/grdm/analogueMC 0
+/grdm/applyARM false
+/grdm/applyICM false
+/grdm/verbose 1
+# 
+# Branching ratio biasing on (as default)
+/grdm/BRbias 1
+/analysis/setFileName ne24-br-on
+/analysis/h1/set 6 100 0. 10. MeV
+###/analysis/ntuple/setActivation 3 true
+/tracking/verbose 2
+/run/beamOn 10
+#
+# Branching ratio biasing off
+/grdm/BRbias 0
+/analysis/setFileName ne24-br-off
+##/run/beamOn 1000
+
+
+
+
+
+

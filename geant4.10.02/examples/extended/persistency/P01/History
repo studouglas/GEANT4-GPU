@@ -1,0 +1,88 @@
+$Id: History 94557 2015-11-24 09:15:09Z gcosmo $
+-------------------------------------------------------------------
+
+     =========================================================
+     Geant4 - an Object-Oriented Toolkit for Simulation in HEP
+     =========================================================
+
+                    Example P01 History file
+                    ------------------------
+This file should be used by the G4 example coordinator to briefly
+summarize all major modifications introduced in the code and keep
+track of all tags.
+
+     ----------------------------------------------------------
+     * Reverse chronological order (last date on top), please *
+     ----------------------------------------------------------
+
+November 23rd, 2015 I. Hrivnacova (exampleP01-V10-01-02)
+- Updated documentation and CMakeLists.tx (requiring ROOT 6)
+
+October 15th, 2015 W. Pokorski (exampleP01-V10-01-00)
+- changes for ROOT6
+
+July 4th, 2014 W. Pokorski (exampleP01-V10-00-02,03)
+- adding ExP01ClassesDict to the install targets so it is copied to the right place
+
+June 1th, 2014 W. Pokorski  (exampleP01-V10-00-01)
+ - Replacing broken previous tag
+
+June 6th, 2014 W. Pokorski  (exampleP01-V10-00-00)
+ - Modifications to comply with coding conventions
+
+August 27th, 2013  G. Cosmo (exampleP01-V09-06-03)
+- Added G4Ellipsoid among solids enabled for parameterisation.
+
+June 17th, 2013 I. Hrivnacova (exampleP01-V09-06-02)
+- Applied coding guidelines (data members names, intialization, separators)
+
+June 14th, 2013 W. Pokorski (exampleP01-V09-06-01)
+- changing the names of the members according to coding convention
+
+June 10th, 2013 W. Pokorski (exampleP01-V09-06-00)
+- changes to comply to coding rules
+
+May 27th, 2013 I. Hrivnacova
+- Fixed handling required packages/options in CMake files
+
+November 14th, 2012 P. Mato (exampleP01-V09-05-08)
+- Fixed compilation warning
+
+October 11th, 2012 A. Dotti (exampleP01-V09-05-07)
+- Adding protection in case GCCXML is not found: disabling
+  example in CMake
+
+September 25th, 2012 I. Hrivnacova
+- Taking into account renaming the dictionary also in macros, code
+  and GNUmake build 
+- Fixes in GNUmakefile (was failing when building with internal
+  CLHEP and xerces-c)  
+
+September 25th, 2012 I. Hrivnacova (exampleP01-V09-05-06)
+- renamed Classes.hh to ExP01Classes.hh
+
+August 1st, 2012 W. Pokorski (exampleP01-V09-05-05)
+- cosmetic changes for the examples code review
+
+June 10th, 2012 P. Mato (exampleP01-V09-05-04)
+- disable building example if only static libraries are build
+
+April 10th, 2012 W.Pokorski (exampleP01-V09-05-03)
+- removing debug printout, small fix in the iterator type
+
+March 29th, 2012 W.Pokorski (exampleP01-V09-05-01)
+- fixes in GNUMakefile, CMakeLists.txt, removing G4Exception from the code and 
+adding root macro to read the hits.
+ 
+December 1th, 2010  W.Pokorski, I.Hrivnacova (exampleP01-V09-03-02)
+- Updated setup to use latest version of Root. 
+
+November 7th, 2010  J.Allison (exampleP01-V09-03-01)
+- Introduced G4UIExecutive.
+
+June 4th, 2010  J.Perl (exampleP01-V09-03-00)
+- Updated vis usage.
+
+June 01, 06 W.Pokorski
+
+- Created.

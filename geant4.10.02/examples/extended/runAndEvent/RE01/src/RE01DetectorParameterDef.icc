@@ -1,0 +1,77 @@
+//
+// ********************************************************************
+// * License and Disclaimer                                           *
+// *                                                                  *
+// * The  Geant4 software  is  copyright of the Copyright Holders  of *
+// * the Geant4 Collaboration.  It is provided  under  the terms  and *
+// * conditions of the Geant4 Software License,  included in the file *
+// * LICENSE and available at  http://cern.ch/geant4/license .  These *
+// * include a list of copyright holders.                             *
+// *                                                                  *
+// * Neither the authors of this software system, nor their employing *
+// * institutes,nor the agencies providing financial support for this *
+// * work  make  any representation or  warranty, express or implied, *
+// * regarding  this  software system or assume any liability for its *
+// * use.  Please see the license in the file  LICENSE  and URL above *
+// * for the full disclaimer and the limitation of liability.         *
+// *                                                                  *
+// * This  code  implementation is the result of  the  scientific and *
+// * technical work of the GEANT4 collaboration.                      *
+// * By using,  copying,  modifying or  distributing the software (or *
+// * any work based  on the software)  you  agree  to acknowledge its *
+// * use  in  resulting  scientific  publications,  and indicate your *
+// * acceptance of all terms of the Geant4 Software license.          *
+// ********************************************************************
+//
+/// \file runAndEvent/RE01/src/RE01DetectorParameterDef.icc
+/// \brief Implementation of the RE01DetectorParameterDef.icc
+//
+// $Id: RE01DetectorParameterDef.icc 66379 2012-12-18 09:46:33Z gcosmo $
+//
+
+  fExpHall_x = 600.*cm;
+  fExpHall_y = 600.*cm;
+  fExpHall_z = 600.*cm;
+
+  fTrkTubs_rmax =  50.*cm;
+  fTrkTubs_rmin =  20.*cm;
+  fTrkTubs_dz   = 100.*cm;
+  fTrkTubs_sphi =   0.*deg;
+  fTrkTubs_dphi = 360.*deg;
+
+  fNotrkLayers = 5;
+  fTracker_radius[0] = 25.*cm;
+  fTracker_radius[1] = 30.*cm;
+  fTracker_radius[2] = 35.*cm;
+  fTracker_radius[3] = 40.*cm;
+  fTracker_radius[4] = 45.*cm;
+
+  fTracker_thick     =  0.5*cm;
+  for(int il=0;il<5;il++)
+  {
+    fTracker_length[il] = fTracker_radius[il];
+  }
+
+  fCaloTubs_rmax = 300.*cm;
+  fCaloTubs_rmin =  50.*cm;
+  fCaloTubs_dz   = 200.*cm;
+  fCaloTubs_sphi =   0.*deg;
+  fCaloTubs_dphi = 360.*deg;
+
+  fAbsorber_thick = 3.*cm;
+  fScinti_thick = 2.*cm;
+  fNocaloLayers = int((fCaloTubs_rmax-fCaloTubs_rmin)/(fAbsorber_thick+fScinti_thick));
+
+  fSegmentsinPhi = 48;
+  fCaloCell_rmax = fCaloTubs_rmax;
+  fCaloCell_rmin = fCaloTubs_rmin;
+  fCaloCell_dz   = fCaloTubs_dz;
+  fCaloCell_sphi = fCaloTubs_sphi;
+  fCaloCell_dphi = fCaloTubs_dphi/fSegmentsinPhi;
+
+  fSegmentsinZ = 20;
+  fCaloRing_rmax = fCaloCell_rmax;
+  fCaloRing_rmin = fCaloCell_rmin;
+  fCaloRing_dz   = fCaloCell_dz/fSegmentsinZ ;
+  fCaloRing_sphi = fCaloCell_sphi;
+  fCaloRing_dphi = fCaloCell_dphi;

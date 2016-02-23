@@ -1,0 +1,28 @@
+/control/verbose 2
+/run/verbose 1
+#
+/gun/particle ion
+/gun/ion 92 238
+#
+/rdecay01/fullChain true
+#
+/analysis/setFileName run2
+/analysis/h1/set 1  100  0. 4000 keV	#e+ e-
+/analysis/h1/set 2  100  0. 4000 keV	#neutrino
+/analysis/h1/set 3  100  0. 4000 keV	#gamma
+/analysis/h1/set 4  100  0. 10   MeV	#alpha
+/analysis/h1/set 5  100  0. 200  keV	#recoil ion
+/analysis/h1/set 6  100  0  8    MeV	#EkinTot (Q)
+/analysis/h1/set 7  100  0. 300  MeV	#P balance
+/analysis/h1/set 8  100  0. 1.e+11 y	#time of life
+/analysis/h1/set 9  100  40. 100. MeV  	#EvisTot
+#
+/run/printProgress 10000
+#  
+/run/beamOn 100000
+
+#limit the chain
+#
+###/grdm/nucleusLimits 234 238 90 92
+#
+###/run/beamOn 1

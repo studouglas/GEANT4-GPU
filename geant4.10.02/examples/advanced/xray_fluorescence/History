@@ -1,0 +1,182 @@
+# $Id: History 92689 2015-09-14 07:03:16Z gcosmo $
+# -------------------------------------------------------------------
+# GEANT4 tag $Name: geant4-09-04-ref-00 $
+# -------------------------------------------------------------------
+
+     =========================================================
+     Geant4 - an Object-Oriented Toolkit for Simulation in HEP
+     =========================================================
+
+               Xray_Fluorescence example History file
+               --------------------------------------
+This file should be used by G4 developers and category coordinators
+to briefly summarize all major modifications introduced in the code
+and keep track of all category-tags.
+It DOES NOT substitute the  CVS log-message one should put at every
+committal in the CVS repository !
+
+     ----------------------------------------------------------
+     * Reverse chronological order (last date on top), please *
+     ----------------------------------------------------------
+
+11.09.2015 S. Incerti Tag: XrayFluo-V10-01-00
+- Updated macro livermore.mac
+
+06-06-2014 L.Pandola Tag: XrayFluo-V10-00-10
+- Changed verbosity in livermore.mac to bring the output 
+below 1 MB (as requested for system testing)
+
+20-05-2014 L.Pandola Tag: XrayFluo-V10-00-09
+- Migrated SteppingVerbose, registered now through the 
+ ActionInitialization class.
+
+16-05-2014 L.Pandola Tag: XrayFluo-V10-00-08
+- Real MT migration: use the G4MTRunManager
+- Add PhysicsHasBeenChanged() to the commands of the physics list 
+ messenger
+
+13-05-2014 L.Pandola Tag: XrayFluo-V10-00-07
+- Fix a bug with ntuple numbering in XrayFluoAnalysisManager
+- Fix a bug in the ActionInitializer causing the rejection of previous tag
+
+08-05-2014 L.Pandola Tag: XrayFluo-V10-00-06
+- Updated hit class to make it MT-compliant
+- Fixed the procedure for the update of geometry between runs
+- Make const methods in the RunAction. Revised logic of RunAction: only 
+the master RunAction loads data
+- Take RunAction pointer in XrayFluoPrimaryGeneratorAction
+- Remove unused verbosity in XrayFluoDataSet
+- Revise logic for reading external events (MT-compliant). 
+- Protect methods of the singleton analysis class by Mutex.
+
+22-04-2014 L.Pandola Tag: XrayFluo-V10-00-05
+- Created and integrated an action initialization class. 
+- Make const methods and add ConstructSDandField() in the detector 
+ construction classes. 
+- Getting prepared for the MT migration
+
+17-04-2014 L.Pandola Tag: XrayFluo-V10-00-04
+- Fix bug in the analysis manager
+- Remove the workaround to avoid the deletion of the output file
+ (following the fix in analysis-V10-00-09)
+
+15-04-2014 L.Pandola Tag: XrayFluo-V10-00-03
+- Remove compiler warning which caused the rejection of 
+XrayFluo-V10-00-02
+
+14-04-2014 L.Pandola Tag: XrayFluo-V10-00-02
+- Complete the migration to the g4tools (removed AIDA dependency).
+Method XrayFluoAnalysisManager::LoadGunData() is restored by using the
+new G4AnalysisReader interface.
+
+13-12-2013 L.Pandola Tag: XrayFluo-V10-00-01
+- First partial migration to g4tools (internal tag). Removed AIDA 
+dependency. Output works properly, but the application is presently 
+unable to use the method 
+ XrayFluoAnalysisManager::LoadGunData()
+to open a phase space file and feed data to the primary generator.
+
+13-12-2013 L.Pandola Tag: XrayFluo-V10-00-00
+- Fix shadowed variables and compilation errors due to the #include of 
+G4SystemOfUnits. Do not show up in system testing, but only when AIDA 
+is available.
+
+25-11-2013 G.Folger Tag: XrayFluo-V09-06-02
+- Fix  one more typo in XrayFluoDetectorConstruction.cc: G4cout replaced by G4endl; 
+
+22-11-2013 G.Folger Tag: XrayFluo-V09-06-01
+- Fix typo in XrayFluoDetectorConstruction.cc: G4cout replaced by G4endl; 
+ 
+18-06-2013 A. Dotti Tag: XrayFluo-V09-06-00
+- Fixed compilation warnings with most recent clang compiler
+  (unused private data fields)
+
+28-11-2012 G. Cosmo Tag: XrayFluo-V09-05-06
+- Fixed cases of variable shadowing.
+
+06-11-2012 L. Pandola Tag: XrayFluo-V09-05-05
+- Fix syntax in CMakeLists.txt
+
+26-10-2012 L. Pandola Tag: XrayFluo-V09-05-04
+- Replace CMakeLists.txt to deal with UI/VIS
+
+12-10-2012 G. Cosmo  Tag: XrayFluo-V09-05-03
+- Explicit inclusion of units and constants headers.
+
+13-06-2012 G. Cosmo  Tag: XrayFluo-V09-05-02
+- Fixed compilation warnings for extra parenthesis from MacOSX/clang.
+
+15-12-2011 P. Mato  Tag: XrayFluo-V09-05-01
+- XrayFluoNistMaterials.cc 
+  Fixed the induced memory corruption problem only intermittently visible
+  on MacOSX. The vectors to define materials needed to be cleared properly.
+
+08-12-2011 P. Mato  Tag: XrayFluo-V09-05-00
+- Added CMakeLists.txt file.
+
+25-11-2011 G.Folger  Tag: XrayFluo-V09-04-05
+- Fix compilation error on Windows.
+
+16-11-2011 G.Folger  Tag: XrayFluo-V09-04-04
+- Migrated to new G4Exception.
+
+03-11-2011 A.Mantero Tag: XrayFluo-V09-04-03
+- Update for README file.
+
+03-11-2011 A.Mantero Tag: XrayFluo-V09-04-02
+- Migrated PhysicsList to all pre-built PL generating deexcitation products.
+- Added example for macro (livermore.mac).
+- removed old macros.
+- Removed XrayFluoPhysListEmStandardFLUO.cc.
+
+27-03-2011 A.Mantero Tag: XrayFluo-V09-04-01
+- Re commit of the previous tag.
+
+07-02-2011 A.Mantero Tag: XrayFluo-V09-04-00
+- migrated physicslist to standard EM+Fluo (with PIXE)
+- added several files (XrayFluoPhysListEmStandardFLUO.cc, XrayFluoStepMax.cc
+  XrayFluoStepMaxMessenger.cc and relative headers) 
+  and modified accordingly others.
+
+18-11-2010 G.A.P.Cirrone, Tag: XrayFluo-V09-03-03
+- Corrected bug in the MercuryPrimaryGeneratorAction file on source definition
+
+18-11-2010 John Allison, Tag: XrayFluo-V09-03-02
+- Introduced G4UIExecutive.
+
+03-06-2010 Joseph Perl, Tag: XrayFluo-V09-03-00
+- Updated vis usage
+
+10-11-2009 Alf, Tag: XrayFluo-V09-02-01
+- Physics List  migrated to new Lowenergy physics processes design
+- XrayFluoDataSet  migrated in order to meet new modification of G4VEMDataSet
+
+10-04-2009 G.A.P.Cirrone, Tag: XrayFluo-V09-02-00
+- Tag for release after the GNUmakefile update
+
+6-03-2009 Guy Barrand (in agreement with G.Cosmo)
+- GNUmakefile : remove the G4ANALYSIS_USE logic found in this file
+  since it is handled already in the config/analysis.gmk.
+  This avoids a duplication in the compilation and link commands
+  of the aida-config options.
+
+15-11-2004 Gabriele Cosmo: XrayFluo-V07-01-00
+- Migration to <sstream> from deprecated <strstream>.
+
+3-5-2005  John Allison
+- Replaced vis manager with G4VisExecutive.
+
+10-12-2004 Alfonso Mantero: XrayFluo-V06-02-01
+- Can now be used in batch mode without histograms.
+
+8-12-2004 Alfonso Mantero: XrayFluo-V06-02-00 
+- General update, including migration to <cmath>.
+
+4-12-2003 Susanna Guatelli: XrayFluo-V05-02-08 
+- Removed the compilation warnings, introduction of VRML viewer.
+  This tag referes to the tag  examples-V05-02-07 prepared for
+  Geant4 6.0 release.
+
+4-12-2003 Susanna Guatelli: XrayFluo-V05-02-07
+- Correspond the head found in CVS. It does not compile.
+- Created.

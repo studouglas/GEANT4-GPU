@@ -1,0 +1,48 @@
+# $Id: cms50gev.mac 82278 2014-06-13 14:42:11Z gcosmo $
+#
+# Macro file for TestEm9 
+#
+# CMS PbWO4 model
+#
+/control/verbose 2
+/run/verbose 1
+/tracking/verbose 0
+#
+/testem/det/CalMat     G4_PbWO4
+/testem/det/EcalLength 230 mm
+/testem/det/EcalWidth   22 mm
+#
+#/testem/phys/addPhysics  emstandard
+/testem/phys/addPhysics  emstandard_opt1
+#/testem/phys/addPhysics  emstandard_opt2
+#/testem/phys/addPhysics  standardLPM
+#
+/run/initialize
+#
+/process/em/applyCuts      true
+/process/eLoss/verbose  1
+#
+/run/setCut    1.0  mm
+/run/setCutForRegion VertexDetector 0.01 mm
+/run/setCutForRegion MuonDetector 10 mm
+#
+#/testem/tracking/stepMax 1 mum
+#
+/gun/particle e-
+/gun/energy 50 GeV
+#
+#/random/setSavingFlag true
+#/random/resetEngineFrom first.rndm
+#
+/run/printProgress 1000
+#
+/testem/histo/fileName cms50gev
+/testem/histo/setHisto 0  250 0.60 0.85 
+/testem/histo/setHisto 1  200 0.80 1.00 
+/testem/histo/setHisto 2  100 0.90 1.00 
+/testem/histo/setHisto 10  80 0.80 0.88 
+/testem/histo/setHisto 11 100 0.75 0.85 
+/testem/histo/setHisto 12  40 0.94 0.98 
+#
+/run/beamOn 10000
+#

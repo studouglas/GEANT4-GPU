@@ -1,0 +1,24 @@
+/control/verbose 1
+/run/verbose 0
+/event/verbose 0
+/source/switch Leipzig
+/control/execute iridium_source_leipzig_primary.mac
+#
+# Scoring mesh is used to calculate
+#  the energy deposition in the phantom
+/score/create/boxMesh boxMesh_3
+#
+/score/mesh/boxSize 15. 15. 15. cm
+/score/mesh/nBin 300 300 300
+#
+/score/quantity/energyDeposit eDep
+#
+/score/close
+#
+/score/list  
+/run/beamOn  100
+#
+# Dump scores to a file
+#
+/score/dumpQuantityToFile boxMesh_3 eDep EnergyDeposition_Leipzig.out
+#

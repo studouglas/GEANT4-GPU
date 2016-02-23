@@ -1,0 +1,36 @@
+     =========================================================
+     Geant4 - an Object-Oriented Toolkit for Simulation in HEP
+     =========================================================
+
+                  Medical/dna Examples History file
+                  ----------------------------------
+This file should be used by G4 developers and category coordinators
+to briefly summarize all major modifications introduced in the code
+and keep track of all category-tags.
+It DOES NOT substitute the  CVS log-message one should put at every
+committal in the CVS repository !
+
+     ----------------------------------------------------------
+     * Reverse chronological order (last date on top), please *
+     ----------------------------------------------------------
+
+15-09-2015 I. Hrivnacova (exdna-V10-01-04)
+- Fixes in Doxygen documentation
+
+21-08-2015 G. Cosmo (exdna-V10-01-03)
+- Re-tagged to include last tags to sub-directories.
+
+18-08-2015 S. Incerti (exdna-V10-01-02)
+- Added new example wvalue
+
+02-04-15 G. Cosmo (exdna-V10-01-01)
+- Corrected main CMakeLists.txt for name of microyz example.
+
+09-03-15 I. Hrivnacova (exdna-V10-01-00)
+- Added new example microyz (by S. Incerti)
+
+24-11-14 M. Karamitros
+- Add back all dna examples
+
+06-11-14 I. Hrivnacova
+- Added all dna examples in CMakeLists.txt

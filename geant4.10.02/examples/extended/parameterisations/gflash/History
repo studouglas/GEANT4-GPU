@@ -1,0 +1,86 @@
+$Id: History 94396 2015-11-13 13:37:16Z gcosmo $
+-------------------------------------------------------------------
+
+     =========================================================
+     Geant4 - an Object-Oriented Toolkit for Simulation in HEP
+     =========================================================
+
+                           History file
+                           ------------
+This file should be used by G4 developers and category coordinators
+to briefly summarize all major modifications introduced in the code
+and keep track of all category-tags.
+It DOES NOT substitute the  CVS log-message one should put at every
+committal in the CVS repository !
+
+     ----------------------------------------------------------
+     * Reverse chronological order (last date on top), please *
+     ----------------------------------------------------------
+
+13-Nov-2015, Ivana Hrivnacova (exgflash-V10-01-01)
+- ExGflashPhysicsList replaced with ExGflashPhysics builder
+- Code clean-up, coding guidelines
+
+06-Mar-2015, Andrea Dotti (exgflash-V10-01-00)
+- Remove unnecessary GPS in master
+
+04-Jun-2014, Andrea Dotti (exgflash-V10-00-00)
+- New GPS MT compliant system
+
+06-Nov-2013, Marc Verderi (exgflash-V09-06-03)
+- Fix event action destructor in case fNevent == 0
+- change /gps/centre 0 0 0 to /gps/pos/centre 0 0 0 to
+  clear gps deprecating command message in test.mac .
+
+30-Jul-2013, Peter Gumplinger (exgflash-V09-06-02)
+- fix MAC/clang32 compilation warnings
+ 
+16-Jul-2013, Marc Verderi (exgflash-V09-06-01)
+- Migration to MT
+
+7-June-2013, Marc Verderi  (exgflash-V09-06-00)
+- Adopt coding guidelines
+- Remove ExGflashMaterialManager class, as using NIST manager
+
+17-November 2012, Ivana Hrivnacova  (exgflash-V09-05-01)
+- Fixed .README file for artefacts from Markdown support
+
+15-November 2012, Ivana Hrivnacova  (exgflash-V09-05-00)
+- Minor fix in .README
+
+24-November 2010, Gunter Folger  (exgflash-V09-04-01)
+-  Fix bug in ExGflashSensitiveDetector::Initialize():
+    create/new Collection before adding it to HCE
+
+26-January 2010, Gunter Folger   (exgflash-V09-04-00)
+-  Finnish correcting namepsace problems on Windows, 
+    removed using namespace, use G4cout,.. and few std::
+     
+03-December 2010, Gunter Folger  (exgflash-V09-03-04)
+-  Correct use of "using namespace std", needed for Windows VC
+
+07-November 2010, John Allison   (exgflash-V09-03-03)
+- Introduced G4UIExecutive.
+
+27-October 2010, Gunter Folger   (exgflash-V09-03-02)
+- Fix gcc4.x compilation warnings
+- Add default production cut to region crystals to shut down warning on stderr
+
+27-October 2010, Gunter Folger   (exgflash-V09-03-01)
+- Migrate to new MultipleScattering classes
+- fix compilation warning in ExGflashHit.hh on unused variable
+
+June 4, 2010, J.Perl (exgflash-V09-03-00)
+- Update vis usage
+
+May 18, 2007, M. Verderi (exgflash-V08-03-00)
+- ExGflashPhysicsList.cc : the fast simulation process is now a discrete process
+
+Dec 1st, 2005 G.Cosmo (exgflash-V07-01-00)
+---------------------
+- Adapted to new gflash redesign. Coworks with "gflash-V07-01-02".
+
+Nov 4th, 2005 J.Weng
+--------------------
+- New example demonstrating usage 'gflash' shower parameterisation.
+

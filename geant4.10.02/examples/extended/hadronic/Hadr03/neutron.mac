@@ -1,0 +1,30 @@
+# $Id$
+#
+# Macro file for "Hadr03.cc"
+# (can be run in batch, without graphic)
+#
+/control/verbose 2
+/run/verbose 2
+#
+/testhadr/det/setIsotopeMat B10 5 10 2.46 g/cm3
+###/testhadr/det/setMat G4_B
+/testhadr/det/setSize 1000 m
+#
+/run/initialize
+#
+/gun/particle neutron
+/gun/energy 1 MeV
+#
+/process/list
+/process/inactivate hadElastic
+#
+/analysis/setFileName neutron
+/analysis/h1/set 2  100  0. 1000 keV	#gamma
+/analysis/h1/set 6  100  0. 3000 keV	#alpha
+/analysis/h1/set 7  100  0. 2000 keV	#nuclei
+/analysis/h1/set 10 100  0. 3000 keV	#Q
+/analysis/h1/set 11 100  0.  100 keV	#Pbalance
+#
+/run/printProgress 10000
+#
+/run/beamOn 100000

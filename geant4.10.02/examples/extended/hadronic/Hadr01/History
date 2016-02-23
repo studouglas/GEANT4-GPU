@@ -1,0 +1,226 @@
+$Id: History 92421 2015-09-01 07:38:57Z gcosmo $
+-------------------------------------------------------------------
+
+     =========================================================
+     Geant4 - an Object-Oriented Toolkit for Simulation in HEP
+     =========================================================
+
+                    Hadr01 History file
+                    --------------------
+This file should be used by the G4 example coordinator to briefly
+summarize all major modifications introduced in the code and keep
+track of all tags.
+
+     ----------------------------------------------------------
+     * Reverse chronological order (last date on top), please *
+     ----------------------------------------------------------
+
+31-08-15  V.Ivanchenko (exhadr01-V10-01-00)
+- PhysicsList - syncronisation with physics_list library
+
+02-12-13  I. Hrivnacova (exhadr01-V09-06-07)
+- Updated .README for changes in README
+
+21-11-13  A. Dotti      (exhadr01-V09-06-06)
+- USe G4RunManager::ReinitializeGeometry() to trigger geometry
+  rebuilds. 
+- Remove ui command /testhadr/Update and corresponding
+  DetectorConstruction::Update method
+- Mark UI command to change detector as ToBeBroadcasted(false)
+- Update README file for change in ui command 
+- Start migration to MT: added CreateSDandField method 
+
+29-07-13  P. Gumplinger (exhadr01-V09-06-05)
+- fix MAC/clang32 compilation warnings
+
+05-06-13  I. Hrivnacova (exhadr01-V09-06-04)
+- Applied coding guidelines (data members names and initialization, 
+  tabulations, separators)
+
+05-04-13  V.Ivanchenko (exhadr01-V09-06-03)
+- Appling code guidelines
+
+31-01-13  V.Ivanchenko (exhadr01-V09-06-02)
+- PhysicsList - migration to new structure of physics_lists
+
+12-12-12  V.Ivanchenko (exhadr01-V09-06-01)
+- PhysicsList - removed unused LHEP builder header
+
+07-12-12  V.Ivanchenko (exhadr01-V09-06-00)
+- PhysicsList - removed CHIPS and LHEP builders
+
+17-11-12  V.Ivanchenko (exhadr01-V09-05-09)
+- PhysicsList - bug fixed (absence of elestic scattering)
+    hadronic HyperNews report #734
+
+15-11-12  I. Hrivnacova (exhadr01-V09-05-08)
+- Synchronized .README with changes in README
+
+13-11-12  V.Ivanchenko (exhadr01-V09-05-07)
+- updated README
+- DetectorConstruction - fixed bug in volume name
+
+17-10-12  A. Ribon (exhadr01-V09-05-06)
+- Retagged after that the previous tag was rejected.
+
+16-10-12  A. Ribon (exhadr01-V09-05-05)
+- Renamed default stopping and ion physics classes.
+
+13-10-12  A. Dotti (exhadr01-V09-05-04)
+- Adding explicit use of system of units
+
+12-07-12  V.Ivant (exhadr01-V09-05-03)
+- Upgraded README
+
+12-07-12  V.Ivant (exhadr01-V09-05-02)
+- Added G4EmUserPhysics builder, default Physics List - FTFP_BERT
+
+23-05-12  V.Ivant (exhadr01-V09-05-01)
+- Applied code convension
+
+06-01-12  V.Ivant (exhadr01-V09-05-00)
+- DetectorMessenger - fixed deletion of objects 
+
+21-04-11  V.Ivant (exhadr01-V09-04-01)
+- Added new builders for ions
+
+17-03-11  V.Ivant (exhadr01-V09-04-00)
+- Fixed typo in printout
+
+19-11-10  V.Ivant (exhadr01-V09-03-10)
+- PhysicsList - update according to Physics List library
+
+25-10-10  V.Ivant (exhadr01-V09-03-09)
+- PhysicsList - removed unused headers and double definition of 
+                QGSP_BIC_EMY 
+
+11-10-10  V.Ivant (exhadr01-V09-03-08)
+- PhysicsList - removed TRV physics lists and cleanup elastic 
+- Histo - use default options for AIDA
+
+17-08-10  V.Ivant (exhadr01-V09-03-07)
+- PhysicsList - use deafault elastic builder in majority of cases
+
+11-06-10  V.Ivant (exhadr01-V09-03-06)
+- Fixed memory leak at destruction
+- Cleanup PhysList according to update of physics_list library
+
+06-06-10 J.Perl (exhadr01-V09-03-05)
+- Remove unused variable in EventAction 
+
+04-06-10 J.Perl (exhadr01-V09-03-04)
+- Updated vis usage 
+
+26-05-10 J.Allsion (exhadr01-V09-03-03)
+- Introduced G4UIExecutive.
+
+26-05-10 J.Allsion (exhadr01-V09-03-02)
+- Tag name spoiled by finger trouble in tags database..
+
+13-01-10  V.Ivant (exhadr01-V09-03-01)
+- Fixed problem of counting of particles leaked from the target
+
+29-12-09  V.Ivant (exhadr01-V09-03-00)
+- When PhysList defined via PHYSLIST environment variable still
+  make local PhysList messenger available to avoid crash in old macro
+
+25-09-09  V.Ivant (exhadr01-V09-02-03)
+- Update Physics List choices according to 9.3 configurations
+
+02-09-09  V.Ivant (exhadr01-V09-02-02)
+- Added histograms on energy depositions: total, electromagnetic,
+  pion, proton
+
+23-06-09  V.Ivant (exhadr01-V09-02-01)
+- FB68 substituted by FTFP_BERT_TRV
+
+15-05-09  V.Ivant (exhadr01-V09-02-00)
+- update to physics_lists lists
+
+20-11-08  V.Ivant (exhadr01-V09-01-04)
+- added charge exchange
+
+17-09-08  V.Ivant (exhadr01-V09-01-03)
+- improved Physics List output
+
+25-06-08  V.Ivant (exhadr01-V09-01-02)
+
+13-06-08  V.Ivant (exhadr01-V09-01-01)
+- remove usage of AIDA in GNUmakefile
+- added FTF_BIC Physics Lists
+
+19-05-08  V.Ivant (exhadr01-V09-01-00)
+- remove usage of obsolete G4HadronProcessStore
+
+12-12-07  V.Ivant (exhadr01-V09-00-03)
+- remove experimental PhysLists: QGS_BIC, QGSP_CASC
+
+07-12-07  V.Ivant (exhadr01-V09-00-02)
+- If type of histograms "root" then added "h" in front of histograms id
+
+16-11-07  V.Ivant (exhadr01-V09-00-01)
+- Added QGSC_BERT PhysList
+
+14-11-07  V.Ivant (exhadr01-V09-00-00)
+- Physics List updated according to recent changes in hadronics and
+  physics_lists packages
+
+01-06-07  V.Ivant (exhadr01-V08-03-03)
+- Physics List updated according to recent changes in hadronics and
+  physics_lists packages
+
+24-05-07  V.Ivant (exhadr01-V08-03-02)
+- substitute autoptr by normal pointers in Histo to avoid crash
+
+21-05-07 V.Ivant (exhadr01-V08-03-01)
+- Fix filling histogram on total energy deposit in the target
+
+16-05-07 V.Ivant (exhadr01-V08-03-00)
+- Added histogram on total energy deposit in the target
+- Use renamed EM builders G4EmStandardPhysics_option1 and 
+  G4EmStandardPhysics_option2
+
+26-04-07 V.Ivant (exhadr01-V08-02-01)
+- PhysicsList update according to physics_lists modification
+
+18-04-07 V.Ivant (exhadr01-V08-02-00)
+- PhysicsList update according to QBBC modification
+- Fix QGSP_BIC_HP PhysicsList (bug report #937)
+
+24-11-06 V.Ivant (exhadr01-V08-01-03)
+- Include tracking cut for neutrons
+- Make changings according to physics_list package update
+
+16-11-06 V.Ivant (exhadr01-V08-01-02)
+- Add option to defaine beam position by user
+
+31-10-06 V.Ivant (exhadr01-V08-01-01)
+- Use physics_list subdirectory from source tree
+
+11-08-06 V.Ivant (exhadr01-V08-01-00)
+- Add PhysList and directory for histograms definition via environment
+  variable
+- Fix link of AIDA
+
+23-06-06 V.Ivant (exhadr01-V08-00-06)
+- Fix compilation problem for CLHEP 2.0..; use correct em builders for EMV, EMX
+  physics lists
+
+20-06-06 V.Ivant (exhadr01-V08-00-05)
+- Modify PhysicsList according to the PhysicsList phys-lists-V08-00-10
+
+15-06-06 V.Ivant (exhadr01-V08-00-04)
+- Modify PhysicsList according to the PhysicsList phys-lists-V08-00-06
+
+13-06-06 V.Ivant (exhadr01-V08-00-03)
+- Modify PhysicsList according to the PhysicsList phys-lists-V08-00-03
+
+08-06-06 V.Ivant (exhadr01-V08-00-02)
+- Fix compilation error at SUN
+
+07-06-06 V.Ivant (exhadr01-V08-00-01)
+- cleanup output, README, visulisation, and histograms
+     
+06-06-06 V.Ivant (exhadr01-V08-00-00)
+- first release
+     

@@ -1,0 +1,33 @@
+# $Id: TestEm2.in 85267 2014-10-27 09:03:32Z gcosmo $
+#
+# Macro file for "TestEm2.cc"
+# (can be run in batch, without graphic)
+#
+# PbWO4 L = 20 radl  R = 5 radl; electron 5 GeV
+#
+/control/verbose 1
+/control/cout/ignoreThreadsExcept 0
+/run/numberOfThreads 2
+/run/verbose 1
+#
+/testem/det/setMat G4_PbWO4
+/testem/det/setLbin 40 0.5
+/testem/det/setRbin 50 0.1
+#
+# Acceptance printout is activated
+/testem/run/acceptance  0.949 0.0082 3.0
+#
+/testem/phys/addPhysics  emstandard_opt0
+#
+/run/setCut 1.0 mm
+#
+/run/initialize
+/process/em/verbose 1
+/process/em/workerVerbose 0
+#
+/gun/particle e-
+/gun/energy 5 GeV
+#
+/run/printProgress 20
+#
+/run/beamOn 100

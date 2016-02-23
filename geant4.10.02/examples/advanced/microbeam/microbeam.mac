@@ -1,0 +1,10 @@
+/tracking/storeTrajectory 1
+
+/run/initialize
+
+/process/inactivate nuclearStopping
+
+/tracking/verbose 0
+/run/verbose 0
+
+/run/beamOn 10

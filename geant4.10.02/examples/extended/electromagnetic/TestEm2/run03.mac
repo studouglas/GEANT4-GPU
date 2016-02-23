@@ -1,0 +1,34 @@
+# $Id: run03.mac 81771 2014-06-05 08:32:57Z gcosmo $
+#
+# Macro file for "TestEm2.cc" 
+# (can be run in batch, without graphic)
+#
+# H2O L = 9.97 radl  R = 0.665 radl; electron 1 GeV
+#
+#  Experimental results: Electron-induced cascade showers
+#                        J&H Crannel - Phys. Rev. 184-2 - August69
+#
+/control/cout/ignoreThreadsExcept 0
+/control/verbose 2
+/run/verbose 2
+#
+/testem/det/setMat Water
+/testem/det/setLbin 9 1.11
+/testem/det/setRbin 6 0.111
+#
+/testem/phys/addPhysics  emstandard_opt0
+#
+/run/setCut 5.0 mm
+#
+/run/initialize
+/process/em/verbose 1
+/process/em/workerVerbose 0
+#
+/gun/particle e-
+/gun/energy 1 GeV
+#
+/run/printProgress 10
+#
+/run/beamOn 500
+
+

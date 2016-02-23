@@ -1,0 +1,202 @@
+$Id: History 89264 2015-03-30 08:18:11Z gcosmo $
+-------------------------------------------------------------------
+
+     =========================================================
+     Geant4 - an Object-Oriented Toolkit for Simulation in HEP
+     =========================================================
+
+                      Category History file
+                      ---------------------
+This file should be used by G4 developers and category coordinators
+to briefly summarize all major modifications introduced in the code
+and keep track of all category-tags.
+It DOES NOT substitute the  CVS log-message one should put at every
+committal in the CVS repository !
+
+     ----------------------------------------------------------
+     * Reverse chronological order (last date on top), please *
+     ----------------------------------------------------------
+
+March 30th, 2014 Gabriele Cosmo G01-V10-01-01
+- Activate flag in parser for enabling export of geometrical regions.
+
+March 27th, 2014 Witold Pokorski G01-V10-01-00
+- Added example code showing how to import and export auxiliary information.
+
+July 18th, 2014 Gabriele Cosmo G01-V10-00-04
+- Added multiUnion.gdml sample demonstrating import and export of a
+  Multi-Union structure.
+
+June 11th, 2014 Witek Pokorski G01-V10-00-03
+- Changes to comply with coding conventions.
+
+April 23rd, 2014 Gabriele Cosmo G01-V10-00-02, G01-V10-00-01
+- Added GDML sample mat_nist.gdml showing how to load a NIST material,
+  although format is not part of the GDML schema yet (i.e. expected
+  warning in schema validation).
+
+April 14th, 2014 Tatiana Nikitina G01-V10-00-00
+- Correction to solids.gdml for 'para' solid, where angle unit was missing.
+
+November 22nd, 2013 Tatiana Nikitina G01-V09-06-00
+- Added test case for 'genericPolycone' and 'genericPolyhedra'.
+  Requires update to GDML schema 3.1.0 to avoid validation errors.
+
+October 19th, 2012 Ben Morgan
+- Simplify CMake syntax to find Geant4 with gdml support
+
+July 25th, 2012 Witek Pokorski G01-V09-05-02
+- a few more cosmetic changes to comply to coding convetions
+
+July 25th, 2012 Witek Pokorski G01-V09-05-01
+- making a number of cosmetic changes to comply to coding conventions 
+
+April 4th, 2012 Witek Pokorski G01-V09-05-00
+- Added missing unit in opticalsurfaces.gdml 
+
+November 17th, 2010  Gabriele Cosmo  G01-V09-03-07
+- Added commented command for de-activating names stripping while reading.
+
+October 18th, 2010  Witold Pokorski  G01-V09-03-06
+- Use world volume for tracking to dump to GDML file.
+
+October 16th, 2010  John Allison  G01-V09-03-05
+- Introduced G4UIExecutive.
+- Reverted to OGL in vis.mac.
+
+October 13th, 2010  Gabriele Cosmo G01-V09-03-04
+- Use OGLIX in vis.mac to restore visualization, not working with OGL ...
+
+October 13th, 2010  Witold Pokorski
+- Use string as second item in auxiliary-value in main().
+
+June 4th, 2010  Joseph Perl G01-V09-03-03
+- Updated vis usage.
+
+June 3rd, 2010  Tatiana Nikitina - G01-V09-03-02
+- Added G4GenericTrap to the solids.gdml sample.
+
+January 19th, 2010  Gabriele Cosmo - G01-V09-03-01
+- Corrected typo in replicated.gdml file.
+
+January 8th, 2010  Gabriele Cosmo - G01-V09-03-00
+- Added printout of associated auxiliary information value.
+
+October 14th, 2009  Gabriele Cosmo - G01-V09-02-05
+- Added usage of 'expression' and 'quantity' in solids.gdml.
+
+September 24th, 2009  Gabriele Cosmo - G01-V09-02-04
+- Added assembly.gdml to demonstrate support for 'assembly' tags.
+
+May 12th, 2009  Gabriele Cosmo - G01-V09-02-03
+- Modified loop.gdml and matricesandloops.gdml to only demonstrate multiple
+  placements through the loop statement.
+
+May 11th, 2009  Gabriele Cosmo - G01-V09-02-02
+- Added possibility to run application in batch mode giving a macro
+  as input:  load_gdml solids.gdml g01.gdml g01.in
+  Option to be used by system testing for batch test.
+
+April 24th, 2009  Gabriele Cosmo - G01-V09-02-01
+- Added missing inclusion of headers in main() translation unit.
+
+April 24th, 2009  Gabriele Cosmo - G01-V09-02-00
+- Added new GDML samples for matrices+loops and optical-surfaces.
+
+December 4th, 2008  Gabriele Cosmo - G01-V09-01-04
+- Updated GDML file samples to point to new GDML schema location.
+
+November 21st, 2008  Tatiana Nikitina - G01-V09-01-03
+- Updated loop.gdml and solids.gdml descriptions fix schema validation
+  warnings.
+- Added example in main() how to retrieve auxiliary information.
+- Updated README.
+
+November 20th, 2008  Gabriele Cosmo - G01-V09-01-02
+- Removed obsolete gdml files paramvol.gdml and replicavol.gdml.
+
+November 13th, 2008  Gabriele Cosmo - G01-V09-01-01
+- Added pTube.gdml, example of parameterisation in Phi for a G4Tubs.
+- Corrected name for 'Air' material in solids.gdml.
+- Some code cleanup.
+
+August 27th, 2008  Gabriele Cosmo - G01-V09-01-00
+- Imported from original extended example "gdml".
+
+August 22nd, 2008  Tatiana Nikitina - exgdml-V09-01-03
+- Updated gdml files to be fully compliant with Schema.
+- Added tess.gdml including simple tessellated geoemtry.
+- Added solids.gdml including simple examples for all kind of solids.
+
+July 1st, 2008  Zoltan Torzsok - exgdml-V09-01-02
+- Removed no longer needed toy gdml files: matrix.gdml, modular.gdml,
+  diamond.gdml. Updated files: axes.gdml, entity.gdml, scale.gdml.
+
+April 1st, 2008  Zoltan Torzsok - exgdml-V09-01-01
+- Fixed function calls in main() to follow convention of using first
+  capital letter.
+
+February 15th, 2008  Z. Torzsok
+- Added gdml files featuring replicas and division volumes.
+
+February 12th, 2008  Z.Torzsok
+- Example files are cleaned up.
+- Added gdml file featuring matrices.
+
+January 21st, 2008  Z.Torzsok
+- The GDML example is nicely polished now:
+
+     load_gdml <input_gdml_file> <output_gdml file>
+
+  The input file is mandatory, the output file is optional.
+  Displays usage instructions and complains in case of unnecessary arguments.
+
+January 16th, 2008  Z.Torszok - exgdml-V09-01-00
+- Added entity.gdml and materials.xml to demonstrate the ability of the parser
+  of resolving entities.
+- Fixed axes.gdml and diamond.gdml according to tessellated-solid specifications.
+
+December 11th, 2007  G.Cosmo - exgdml-V09-00-02
+- Protected usage of G4UItcsh in main().
+
+December 5th, 2007  Z.Torzsok - exgdml-V09-00-01
+- Corrected call to parser in main.
+- Use OGLX instead of OGLXm.
+- Fixed gun position.
+
+November 19th, 2007  Z.Torzsok - exgdml-V09-00-00
+- Updated to co-work with built-in GDML plugin module GDML-3.
+- Showing loading of modular GDML files.
+
+December 1st, 2006  W.Pokorski - exgdml-V08-01-00
+- Set schema location to LCG release area in test.gdml.
+- Updated README and GNUmakefile.
+
+June 19th, 2006  W.Pokorski - exgdml-V08-00-00
+- Added G4Evaluator for new version of GDML.
+- Updated GNUmakefile.
+
+May 3rd, 2005  J.Allison
+- Replaced vis manager with G4VisExecutive.
+
+Dec 7th, 2004  R.Chytracek, W.Pokorski - exgdml-V06-02-00
+- Archived old example and setup. New example based on GDML-2.0.0
+  demonstrating the abilities of import/export of GDML descriptions.
+
+Nov 13th, 2003  John Allison - exgdml-V05-02-01
+- Removed OPACS from Vis Manager.
+
+Oct 27th, 2003  R.Chytracek
+- Brought up-to-date the makefiles with the latest Geant4 tags.
+- Updated to adopt XercesC 2.x family.
+- XERCESCROOT default now points to gcc-3.2 installation only.
+
+July 4th, 2003  G.Cosmo - exgdml-V05-02-00
+- Fixed trivial compilation errors originated by last g4std migration.
+- Fixed pedantic compilation warnings on Linux-g++.
+
+June 3rd, 2002  R.Chytracek - exgdml-V04-00-00
+- First implementation of GDML example for detector description persistency.
+
+June 3rd, 2002  G.Cosmo
+- Created.

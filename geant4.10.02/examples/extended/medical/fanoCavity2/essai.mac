@@ -1,0 +1,14 @@
+# $Id: essai.mac 93259 2015-10-14 08:35:22Z gcosmo $
+#
+/control/verbose 2
+/run/verbose 2
+#
+/testem/phys/addPhysics standard_WVI
+#
+/run/initialize
+#
+/gun/energy 1 MeV
+#
+/run/printProgress 10000
+#
+/run/beamOn 100000

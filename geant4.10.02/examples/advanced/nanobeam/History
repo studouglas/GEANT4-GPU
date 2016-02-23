@@ -1,0 +1,150 @@
+-------------------------------------------------------------------
+$Id: History 93477 2015-10-23 07:40:20Z gcosmo $
+-------------------------------------------------------------------
+
+     =========================================================
+ 		      Geant4 - Nanobeam example
+     =========================================================
+
+                       Package History file
+                       --------------------
+
+22 Oct 2015 - tag nanobeam-V10-01-00 - S. Incerti
+- upgraded plot.C to ROOT 6
+
+25 Oct 2014 - tag nanobeam-V10-00-06 - L. Garnier
+- Fix CMakeLists.txt error
+
+24 Oct 2014 - tag nanobeam-V10-00-04/nanobeam-V10-00-05 - L. Garnier
+- Fix CMakeLists.txt to not crash compilation when Geant4_builtin_clhep FOUND
+
+10 Jul 2014 - tag nanobeam-V10-00-03 - S. Incerti, A, Dotti, B. Wendt
+- updated CMakeLists.txt
+
+03 Jul 2014 - tag nanobeam-V10-00-02 - S. Incerti, A. Dotti, B. Wendt
+- updated CMakeLists.txt
+
+28 Jui 2014 - tag nanobeam-V10-00-01 - B. Wendt
+- try to fix CMakeLists.txt in case of built-in CLHEP is used
+
+17 Dec 2013 - tag nanobeam-V10-00-00  - A. Dotti, S. Incerti
+- Made the code thread safe because of unsafe CLHEP matrix inversion
+(in RunAction.cc)
+
+28 Nov 2013 - tag nanobeam-V09-06-13  - S. Incerti
+- Changed selection of volumes in SteppingAction using names
+
+04 Nov 2013 - tag nanobeam-V09-06-12  - S. Incerti
+- Removed unused variables (thanks to Gabriele)
+
+03 Oct 2013 - tag nanobeam-V09-06-11  - S. Incerti
+- Updated CMakeLists.txt
+
+30 Sep 2013 - tag nanobeam-V09-06-10  - I. Hrivnacova
+- Updated for changes in analysis:
+  (removal of G4AnalysisManager::Create(isMaster))
+
+28 Aug 2013 - tag nanobeam-V09-06-09  - S. Incerti
+- Changed default field model
+
+28 Aug 2013 - tag nanobeam-V09-06-08  - S. Incerti
+- Changed initialisation of fields & variables
+
+27 Aug 2013 - tag nanobeam-V09-06-07  - S. Incerti
+- Removed visualisation
+
+25 Aug 2013 - tag nanobeam-V09-06-06  - S. Incerti
+- MT migration (cont.)
+
+24 Aug 2013 - tag nanobeam-V09-06-05  - S. Incerti
+- MT migration
+
+23 Aug 2013 - tag nanobeam-V09-06-04  - S. Incerti
+- Coding style cleaning
+
+29 May 2013 - tag nanobeam-V09-06-03  -L. Pandola
+- Migrate analysis from AIDA (in a singleton class) to the 
+g4analysis tools. AIDA dependency is removed. Output file is 
+unchanged (still a ROOT file named nanobeam.root)
+
+7 May 2013 - tag nanobeam-V09-06-02 - S. Incerti, B. Morgan
+- Updated CMakeLists.txt thanks to Ben (example requires external CLHEP)
+
+8 March 2013 - tag nanobeam-V09-06-01 - A. Dotti
+- Adding protection in case Geant4 is build with internal CLHEP 
+  (example requires external CLHEP)
+
+4 December 2012 - tag nanobeam-V09-06-00 - G. Cosmo
+- Corrected order and format of inclusion of CLHEP headers.
+
+14 November 2012 - tag nanobeam-V09-05-06 - P. Mato
+- Fixed compilation warning and corrected CMakeLists.txt
+
+3 November 2012 - tag nanobeam-V09-05-05 - S. Incerti
+- Removed shadowing in SteppingAction and TabulatedField3D 
+
+1 November 2012 - tag nanobeam-V09-05-04 - S. Incerti
+- Switched to touchables 
+
+26 October 2012 - tag nanobeam-V09-05-03 - L. Pandola
+- Changed CMakeLists.txt to deal with UI and AIDA
+
+26 October 2012 - tag nanobeam-V09-05-02 - S. Incerti
+- Changed executable name.
+
+25 October 2012 - tag nanobeam-V09-05-01 - S. Incerti
+- Switch to usage of G4UIExecutive.
+
+12 October 2012 - tag nanobeam-V09-05-00 - G. Cosmo
+- Explicit inclusion of units and constants headers.
+
+05 November 2011- tag nanobeam-V09-04-06 - S. Incerti  
+- removed export=root option in HistoManager.cc
+
+03 October 2011- tag nanobeam-V09-04-05 - G. Folger  
+- fix compilation warnings from gcc46 in TabulatedField3D.cc
+
+19 August 2011- tag nanobeam-V09-04-04 - S. Incerti
+- Removed usage of G4Exception
+
+18 August 2011- tag nanobeam-V09-04-03 - S. Incerti
+- Removed usage of water material and cleanup
+
+16 August 2011- tag nanobeam-V09-04-02 - S. Incerti
+- Removed usage of system command
+
+03 July 2011 - tag nanobeam-V09-04-01 - S. Incerti
+- Updated README for use with full version of CLHEP
+
+27 May 2011 - tag nanobeam-V09-04-00 - S. Incerti
+- Created new tag
+
+20 May 2011 - tag nanobeam-V09-03-05 - S. Incerti
+- Switched to non-numbered physics list
+
+09 November 2010 - tag nanobeam-V09-03-04 - M. Asai
+- Fix AIDA file option.
+
+09 October 2010 - tag nanobeam-V09-03-03 - S. Incerti
+- corrected removal of ROOT file in Nanobeam.cc
+
+06 October 2010 - tag nanobeam-V09-03-02 - S. Incerti
+- added post step point information to SteppingAction
+
+06 October 2010 - tag nanobeam-V09-03-01 - S. Incerti
+- major update using AIDA
+
+18 March 2010 - tag nanobeam-V09-03-00 - S. Incerti
+- updated multiple scattering class for e+- and mu
+
+2-March 2009 - tag nanobeam-V09-02-01 - G.Folger
+- correct for gcc4.3/slc5 warning 
+
+26 February 2009 - tag nanobeam-V09-02-00 - G.Folger
+- Correct TabulatedField3D.cc to use logical AND (&&) in few if()
+ 
+21 June 2008 - tag nanobeam-V09-01-11 - S. Incerti
+- several tags to try to resolve conflict with system testing
+
+25 January 2008 - tag nanobeam-V09-01-01 - S. Incerti
+- first version of nanobeam example committed

@@ -1,0 +1,162 @@
+$Id: History 88767 2015-03-09 12:33:44Z gcosmo $
+-------------------------------------------------------------------
+
+     =========================================================
+     Geant4 - an Object-Oriented Toolkit for Simulation in HEP
+     =========================================================
+
+                      Category History file
+                      ---------------------
+This file should be used by G4 developers and category coordinators
+to briefly summarize all major modifications introduced in the code
+and keep track of all category-tags.
+It DOES NOT substitute the  CVS log-message one should put at every
+committal in the CVS repository !
+
+     ----------------------------------------------------------
+     * Reverse chronological order (last date on top), please *
+     ----------------------------------------------------------
+
+06.03.2015   Andrea Dotti, tag xraytel-V10-01-00
+             Removing unnecessary GPS in master
+
+04.06.2014   Andrea Dotti, tag xraytel-V10-00-03
+	     Migration to new MT compliant GPS
+
+23.05.2014   Luciano Pandola, tag xraytel-V10-00-02
+	     Fix compiler warning which caused the rejection 
+	     of tag xraytel-V10-00-01
+
+22.05.2014   Luciano Pandola, tag xraytel-V10-00-01
+	     Added definition of muons and short-lived
+	     Revise method book() of analysis singleton
+	     Actual MT migration, G4MTRunManager is used
+	     Added new macro geantino.mac and updated CMakeLists.txt
+
+21.05.2014   Luciano Pandola, tag xraytel-V10-00-00
+	     Added ActionInitialization class
+	     Move the method Update() from RunAction (thread-local) to 
+	      Analysis (global) 
+	     Protect analysis singleton by Mutex
+	     Changed named scheme of output objects
+
+19.03.2013   Luciano Pandola, tag xraytel-V09-06-00
+	     Migrated analysis to g4tools (removed AIDA dependency) 
+             and other small cosmetics. CMakeLists.txt, GNUmakefile 
+             and README updated accordingly
+
+26.10.2012   Luciano Pandola, tag xraytel-V09-05-01
+	     Edit main(): added #ifdef to protect G4VisExecutive and 
+             G4UIExecutive. 
+             Create CMakeLists.txt file
+
+12.10.2012   Gabriele Cosmo, Tag xraytel-V09-05-00
+             Explicit inclusion of units and constants headers.
+
+18.11.2010   John Allison, Tag xraytel-V09-03-01
+             Introduced G4UIExecutve.
+
+03.06.2010   Joseph Perl, Tag xraytel-V09-03-00
+             Update vis usage
+
+20.11.2009 - G.Santin, tag xraytel-V09-02-00
+             Updated and simplified physics list
+
+16.06.2008 - G.A.P.Cirrone, tag xraytel-V09-01-00
+             Removed AIDA from GNUmakefiles
+
+07.12.2005 - S. Guatelli, tag xraytel-V07-01-03
+             warning deleted; it concerned stream.
+
+30.11.2005 - G.Santin, tag xraytel-V07-01-02
+             general update of macros and documentation
+             ASCII output enabled also without AIDA
+
+27.09.2005 - G.Santin, tag xraytel-V07-01-01
+             compilation protection for non AIDA users,
+             obsolete GPS commands updated
+
+3rd May 2005  John Allison  (examples-V07-00-03)
+- Replaced vis manager with G4VisExecutive.
+
+15.07.2004 - J.Allison, tag xraytel-V06-02-00
+             Changed /vis/viewer/viewpointThetaPhi ->
+             /vis/viewer/set/viewpointThetaPhi.
+
+28.05.2004 - S. Guatelli, tag xraytel-V06-01-00
+             Migartion to AIDA 3.2.1, PI 1.2.1
+
+13.11.2003 - J.Allison, tag xraytel-V05-02-02
+             Removed OPACS from Vis Manager.
+
+19.02.2003 - G.Cosmo, tag xraytel-V05-00-00
+             Removed redundant inclusion of SystemOfUnits.h.
+             Should use CLHEP headers instead.
+
+05.12.2001 - RN, tag xraytel-V03-02-01
+             Try again
+
+05.12.2001 - RN, tag xraytel-V03-02-00
+             Adopted new analysis design by AP as in LowEnTest
+             Small design iteration by MGP implemented
+
+07.11.2001 - RN, tag xraytel-V02-00-13
+             Cleaned up code to avoid compilation warnings arising 
+             from "ANSI" and "pedantic" options
+             Implemented new "/vis" commands in macro files
+
+07.11.2001 - RN, tag xraytel-V02-00-12
+             Error tag, same as 11  
+
+18.06.2001 - RN, tag xraytel-V02-00-11
+             tested with latest global tag geant4-03-01-ref-02
+
+06.12.2000 - RN, tag xraytel-V02-00-10
+             Removed old XrayTelPrimaryGeneratorMessenger.cc and .hh
+             files from cvs
+
+30.11.2000 - RN, tag xraytel-V02-00-09
+             Removed longsection.macro file from cvs
+
+30.11.2000 - RN, tag xraytel-V02-00-08
+             Implemented AnalysisManager class and related histograming 
+             code.  Analysis is limited to the Lizard package for now.
+
+16.11.2000 - RN, tag xraytel-V02-00-07
+             Removed analysis directory
+
+16.11.2000 - RN, tag xraytel-V02-00-06 
+             Replace standard gun with General Particle Source
+             Remove all code related to old Histogram implementation
+             Modified all macros to work with GPS
+             Cleaned GNUmakefile
+             Started drafting README file
+
+08.11.2000 - RN, tag xraytel-V02-00-05 
+             Tydied up macros
+             Small bug fixes to compile on Linux, SUN and DEC platforms
+
+06.11.2000 - RN, tag xraytel-V02-00-04 
+             Tydied up code added headers
+
+18.10.2000 - RN, tag xraytel-V02-00-03
+	     Modified geometry and PrimaryGenerator to speed up events
+	     Modified SteppingAction.cc to call histoManager analyser
+	     Modified Histogram.cc to do all the histo work
+
+17.10.2000 - RN, tag xraytel-V02-00-02
+             Added histograming capability
+	     Added XrayTelHistogram.hh, XrayTelHistogram.cc
+	     Modified: GNUmakefile
+		       XrayTel.cc
+		       XrayTelSteppingAction.hh
+		       XrayTelSteppingAction.cc
+
+17.10.2000 - RN, tag xraytel-V02-00-01
+             Tydied up geometry
+             Add all physics processes to XrayTelPhysicsList.cc
+             Modified *.hh accordingly
+
+06.10.2000 - RN, tag xraytel-V02-00-00
+             First submission of XrayTel advanced example.
+

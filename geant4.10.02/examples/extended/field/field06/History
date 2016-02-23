@@ -1,0 +1,78 @@
+// $Id: History 91270 2015-06-29 07:07:49Z gcosmo $
+// ------------------------------------------------------------------
+
+     =========================================================
+     Geant4 - an Object-Oriented Toolkit for Simulation in HEP
+     =========================================================
+
+                    field06 History file
+                    --------------------
+This file should be used by the G4 example coordinator to briefly
+summarize all major modifications introduced in the code and keep
+track of all tags.
+
+     ----------------------------------------------------------
+     * Reverse chronological order (last date on top), please *
+     ----------------------------------------------------------
+
+June 26, 2015 P. Gumplinger - fieldex06-V10-01-01/02/03
+- remove AddBetaDecay method
+
+January 23, 2015 I. Hrivnacova - fieldex06-V10-01-00
+- Updated README, .README
+
+December 04, 2013 I. Hrivnacova, P. Gumplinger - fieldex06-V10-00-00
+- Fixes in gui.mac:
+  Let execute vis.mac first to make the command in added menus available;
+  Corrected wireframe parameter;
+  Commented out command specific to B2 example);
+- updated CMakeLists.txt
+
+Nov 4nd,  2013 P. Gumplinger - fieldex06-V09-06-09 and 10
+                               retagged as fieldex06-V09-06-11
+- place G4Random::setTheSeed(myseed) so that it is executed for both
+  sequential and MT mode
+
+Nov 1st,  2013 P. Gumplinger - fieldex06-V09-06-08
+- fix new G4ChordFinder((G4MagneticField*)this ->
+      new G4ChordFinder((G4MagneticField*)fField
+
+Nov 1st,  2013 P. Gumplinger - fieldex06-V09-06-07
+- use G4RepleteEofM instead of G4EqGravityField
+
+Oct 31st, 2013 P. Gumplinger - fieldex06-V09-06-06
+- to work with ctests-V09-06-19
+
+Oct 29th, 2013 P. Gumplinger - fieldex06-V09-06-05
+- remove all reference to WorkerInitialization and remove SetNumberOfThreads
+
+Oct 25th, 2013 P. Gumplinger - fieldex06-V09-06-04
+- migration to MT
+
+May 13th, 2013 P. Gumplinger - fieldex06-V09-06-03
+- use all initialized variables in F06PrimaryGeneratorAction.cc
+
+May 06th, 2013 P. Gumplinger - fieldex06-V09-06-02
+------------------------------------
+- Apply all Examples Coding Guidelines
+
+April 1st, 2013 Andrea Dotti - fieldex06-V09-06-01
+------------------------------------
+- Update to new G4VUserPhysicsList interface 
+
+December 2nd, 2012 John Allison - fieldex06-V09-06-00
+------------------------------------
+- Migration to DrawTrajectory() (i_mode argument is no longer available):
+  o F06EventAction.cc: Removed argument from DrawTrajectory().
+
+November 15th, 2012 Ivana Hrivnacova - fieldex06-V09-05-02
+------------------------------------
+- Synchronized .README with changes in README
+
+November 14th, 2012 Ivana Hrivnacova - fieldex06-V09-05-01
+------------------------------------
+- In vis.mac: replaced OGLIX with OGL
+
+November 6th, 2012 Peter Gumplinger - fieldex06-V09-05-00
+------------------------------------
+- own Tag and History.

@@ -1,0 +1,135 @@
+Hi-------------------------------------------------------------------
+$Id: History 89572 2015-04-20 07:18:15Z gcosmo $
+-------------------------------------------------------------------
+
+     =========================================================
+                  Geant4 - ATLAS lAr calorimeter
+     =========================================================
+
+                      Category History file
+                      ---------------------
+
+20.04.2015 - V.Ivanhenko Tag (lAr_calorimeter-V10-01-00)
+             Fixed internal array overflow in FCALTestSetupSD, which
+             provides crashes in MT mode, which are  difficult to explain
+
+31.10.2014 - L.Pandola Tag (lAr_calorimeter-V10-00-04)
+             Changed interface of FCALMaterialConsultant to avoid multiple 
+              definition of materials
+	     Fix casting warning in FCALSteppingVerbose.cc (seen on Win)
+
+16.10.2014 - A.Dotti Tag (lAr_calorimeter-V10-00-02, lAr_calorimeter-V10-00-03)
+             Bug fixing for clang warnings	     
+
+15.10.2014 - A.Dotti Tag (lAr_calorimeter-V10-00-01)
+             Removing output to txt file (non thread safe)
+             and redundant with cout
+
+13.10.2014 - A.Dotti Tag (lAr_calorimeter-V10-00-00)
+	     Migration to MT
+
+30.07.2013 - A.Dotti Tag (lAr_calorimeter-V09-06-05)
+             Bug fixing for clang32 compilation warnings
+
+21.03.2013 - L.Pandola Tag (lAr_calorimeter-V09-06-04)
+	     Remove other compiler warnings (showing up only for 
+	     some systems/compilers)
+
+19.03.2013 - L.Pandola Tag (lAr_calorimeter-V09-06-03)
+	     Remove compiler warning (shadowing a class member by 
+	     a local variable).
+
+14.03.2013 - A.Dotti and L.Pandola Tag (lAr_calorimeter-V09-06-02)
+             Changed CMakeLists.txt to copy the content of the directories 
+	     data-tracks and geom_data (used at run time). Modified macros.
+             Cleaning in FCALPrimaryGeneratorAction
+
+12.03.2013 - L.Pandola Tag (lAr_calorimeter-V09-06-01)
+	     Migrated analysis to g4tools (removed AIDA dependency) and other small 
+             cosmetics. CMakeLists.txt and README updated accordingly
+
+12.03.2013 - L.Pandola Tag (lAr_calorimeter-V09-06-00)
+	     Fix bug in the primary generator, which caused the abort 
+	     of all events in the run (run1.mac)
+
+02.11.2012 - L.Garnier Tag (lAr_calorimeter-V09-05-03)
+             Fix CMakeFile.txt, gui.mac and icons.mac. Now ok for cmake
+
+02.11.2012 - L.Garnier Tag (lAr_calorimeter-V09-05-02)
+             Add icons.mac
+
+12.10.2012 - G.Cosmo (lAr_calorimeter-V09-05-01)
+             Explicit inclusion of units and constants headers.
+
+11.10.2012   Andrea Dotti (lAr_calorimeter-V09-05-00)
+	     Use of PhyListFactory instead of explicit instantiaion of 
+	     physics lists.
+	     Adding CMakeList.txt file
+
+17.01.2011   G.A.P.Cirrone (lAr_calorimeter-V09-04-00)
+	     Fixed compilation errors and physics models updated
+
+16.11.2010   John Allison (lAr_calorimeter-V09-03-01)
+             Introduced G4UIExecutive.
+
+04.06.2010   Joseph Perl (lAr_calorimeter-V09-03-00)
+             Updated vis usage
+
+12.11.2009 - A.Ribon (lAr_calorimeter-V09-02-01)
+             Fixed mistake in GNUmakefile, and use QGSP_BIC_EMY
+	     as default Physics List (so that it tests the
+	     low-energy electromagnetic).
+
+06.04.2009 - G.A.P.Cirrone (lAr_calorimeter-V09-02-00)
+	     GNUmakefile updated
+
+12.06.2008 - G.A.P.Cirrone (lAr_calorimeter-V09-01-00)
+             Fixed a compilation error in the Analysis manager
+
+14.11.2006 - A.Ribon (lAr_calorimeter-V08-01-01)
+             Removed hadronic_lists.gmk after the inclusion of
+             Physics Lists in the Geant4 kernel.
+
+21.07.2006 - A.Ribon (lAr_calorimeter-V08-01-00)
+             New hadronic_lists.gmk, consistent with composite_calorimeter.
+	     Fixed some uninitialization problems.
+
+08.12.2005 - A.Ribon (lAr_calorimeter-V07-01-00)
+             Migration to CLHEP namespace. 
+	     Removed also old header files.
+
+3rd May 2005  John Allison  (examples-V07-00-03)
+- Replaced vis manager with G4VisExecutive.
+
+13.12.04 - G.Cosmo (lAr_calorimeter-V06-02-02)
+           Use new phys-lists structure.
+
+29.11.04 - A.Ribon (lAr_calorimeter-V06-02-01)
+           Migration to cmath.
+
+14.07.04 - G.Cosmo (lAr_calorimeter-V06-02-00)
+           Corrected hadronic_lists.gmk, removed unnecessary addition
+           of kernel libraries to EXTRALIBS.
+
+28.05.04 - A.Ribon (lAr_calorimeter-V06-01-01)
+           Now PI light is used.
+
+18.05.04 - A.Ribon (lAr_calorimeter-V06-01-00)
+           Ported to PI. Only the setup is changed, no changes in the code.
+
+28.01.2004 - A.Ribon (lAr_calorimeter-V06-00-01)
+             Clean up. Fixes for g++ 3.2 . New Physics Lists.
+
+02.12.2003 - G.Cosmo (lAr_calorimeter-V05-02-01)
+             Fixed compilation errors if histograms disabled.
+             Fixed compilation warnings ...
+
+12.11.2003 - J.Allison
+             Updated Vis Manager.
+
+26.05.2003 - P.M.Lorenzo
+             Updated for release 5.1.
+
+30.09.2002 - A.Howard
+             Created. First version.
+

@@ -1,0 +1,22 @@
+# $Id: proton.mac 82463 2014-06-23 10:46:36Z gcosmo $
+#
+# Macro file for "TestEm13.cc"
+# (can be run in batch, without graphic)
+#
+/control/verbose 2
+/run/verbose 2
+#
+/testem/det/setMat Water
+/testem/det/setSize 1 cm
+#
+/run/initialize
+#
+/run/setCut 200 um
+#
+/gun/particle proton
+/gun/energy 1 GeV
+#
+##/tracking/verbose 2
+##/run/beamOn 1
+#
+/run/beamOn 100000

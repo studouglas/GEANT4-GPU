@@ -1,0 +1,31 @@
+# $Id: vincour.mac 81528 2014-06-02 16:21:24Z vnivanch $
+#
+# macro file for TestEm5.cc    
+#
+# angle distribution of  6.56 MeV protons
+# transmitted through thin silicon targets.
+# J.Vincour,P.Bem NIM 148 (1978) page 396. 
+#     		    
+/control/cout/ignoreThreadsExcept 0
+/control/verbose 2
+/run/verbose 2
+#
+/testem/det/setAbsMat   Silicon      
+/testem/det/setAbsThick 50 um
+###/testem/det/setAbsThick 92.6 um  
+/testem/det/setAbsYZ    1 cm
+#
+/run/setCut 7 um
+/run/setCutForAGivenParticle gamma 2.13 mm
+/run/initialize
+#
+/testem/gun/setDefault
+/gun/particle proton 
+/gun/energy 6.56 MeV
+#
+/analysis/setFileName vincour
+/analysis/h1/set 12  60 0. 6. deg		#space angle  
+#
+/testem/stack/killSecondaries
+#
+/run/beamOn 100000

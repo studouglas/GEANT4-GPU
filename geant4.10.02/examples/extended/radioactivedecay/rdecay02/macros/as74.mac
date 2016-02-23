@@ -1,0 +1,48 @@
+# $Id$
+# 									
+# Decays of As74 in analog and vr modes
+#
+#  In this simulation daughter nuclei are not decayed 
+#  As74 has a rather complicated decay scheme in beta-, beta+ and EC   
+#
+#                                                                         
+/control/verbose 2
+/run/verbose 1
+#
+# set the target/detector geometry
+/rdecay02/det/setTargetRadius 10 um
+/rdecay02/det/setTargetLength 10 um
+/rdecay02/det/setDetectorThickness 20 cm
+/rdecay02/det/setDetectorLength 40 cm
+#
+/run/initialize
+#
+/process/list
+#
+# rdm is applied only to the target volume
+/grdm/noVolumes
+/grdm/selectVolume Target
+#
+# place the isotopes in the middle of the target, at rest.
+/gun/particle ion
+/gun/ion 33 74
+#
+# limit the decay chain
+/grdm/nucleusLimits 74 74 33 33  
+# 
+#  Analogue MC
+/analysis/setFileName as74
+/analysis/h1/set 6 100 0. 5. MeV
+/tracking/verbose 2
+/run/beamOn 10
+#
+#  VR MC
+/analysis/setFileName as74-b
+/grdm/analogueMC 0
+/run/beamOn 10
+
+
+
+
+
+

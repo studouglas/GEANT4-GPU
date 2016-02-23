@@ -1,0 +1,63 @@
+//
+// ********************************************************************
+// * DISCLAIMER                                                       *
+// *                                                                  *
+// * The following disclaimer summarizes all the specific disclaimers *
+// * of contributors to this software. The specific disclaimers,which *
+// * govern, are listed with their locations in:                      *
+// *   http://cern.ch/geant4/license                                  *
+// *                                                                  *
+// * Neither the authors of this software system, nor their employing *
+// * institutes,nor the agencies providing financial support for this *
+// * work  make  any representation or  warranty, express or implied, *
+// * regarding  this  software system or assume any liability for its *
+// * use.                                                             *
+// *                                                                  *
+// * This  code  implementation is the  intellectual property  of the *
+// * GEANT4 collaboration.                                            *
+// * By copying,  distributing  or modifying the Program (or any work *
+// * based  on  the Program)  you indicate  your  acceptance of  this *
+// * statement, and all its terms.                                    *
+// ********************************************************************
+//
+//
+// --------------------------------------------------------------
+//   GEANT 4 - Underground Dark Matter Detector Advanced Example
+//
+//      For information related to this code contact: Alex Howard
+//      e-mail: alexander.howard@cern.ch
+// --------------------------------------------------------------
+// Comments
+//
+//                  Underground Advanced
+//               by A. Howard and H. Araujo 
+//                    (29th August 2002)
+//
+// Materials include header
+// --------------------------------------------------------------
+
+  G4Material*     world_mat;            // materials used
+  G4Material*       lab_mat;
+  G4Material*  cupboard_mat;
+  G4Material*      door_mat;
+  G4Material*      desk_mat;
+  G4Material*     crate_mat;
+  G4Material*     glass_mat;
+  G4Material*     panel_mat;
+  G4Material* LN2jacket_mat;
+  G4Material*       LN2_mat;
+  G4Material*    jacket_mat;
+  G4Material* jacketflange_mat;
+  G4Material*    vacuum_mat;
+  G4Material*    copper_mat;
+  G4Material*    vessel_mat;
+  G4Material*       GXe_mat;   
+  G4Material*       LXe_mat;
+  G4Material*  CuShield_mat;
+  G4Material*     alpha_mat;
+  G4Material* americium_mat;
+  G4Material*      ring_mat;
+  G4Material*    mirror_mat;
+  G4Material*      grid_mat;
+  G4Material*       pmt_mat;
+  G4Material*    phcath_mat;

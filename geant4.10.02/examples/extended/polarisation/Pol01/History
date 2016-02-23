@@ -1,0 +1,83 @@
+$Id: History 86443 2014-11-12 09:40:56Z gcosmo $
+-------------------------------------------------------------------
+
+     =========================================================
+     Geant4 - an Object-Oriented Toolkit for Simulation in HEP
+     =========================================================
+
+                    Pol01 History file
+                    ------------------
+
+This file should be used by the G4 example coordinator to briefly
+summarize all major modifications introduced in the code and keep
+track of all tags.
+
+     ----------------------------------------------------------
+     * Reverse chronological order (last date on top), please *
+     ----------------------------------------------------------
+
+12-11-14 V.Ivanchenko (expol01-V10-00-02)
+- RunAction - fixed compillation at gcc 4.1
+
+11-11-14 V.Ivanchenko (expol01-V10-00-01)
+- Several updates for the unification of the example: use standard 
+  physics builder from physics_list sub-package; removed local 
+  SetCuts() method; removed AIDA histograms
+
+16-10-14 I.Hrivnacova (expol01-V10-00-00)
+- Fixed coding guidelines (long lines) in DetectorConstruction.cc
+
+02-11-13 V.Ivanchenko (expol01-V09-06-02)
+- tag resubmitted
+
+30-10-13 V.Ivanchenko (expol01-V09-06-01)
+- Removed AIDA from cmake and gmake
+
+30-07-13 P.Gumplinger (expol01-V09-06-00)
+- fix MAC/clang32 compilation warnings
+
+09-11-10 M.Asai (expol01-V09-03-03)
+- Fix AIDA file option.
+
+08-11-10 J.Perl (expol01-V09-03-02)
+- Introduced G4UIExecutive.
+
+06-06-10 J.Perl (expol01-V09-03-01)
+- Remove unused variable in EventAction 
+
+04-06-10 J.Perl (expol01-V09-03-00)
+- Updated vis usage 
+
+20-11-09 V.Ivanchenko (expol01-V09-02-00)
+- Update msc processes according to 9.3 scheme
+
+11-06-08 A.Schaelicke (expol01-V09-01-00)
+- removed obsolete aida-setup in GNUmakefile
+
+04-12-07 A.Schaelicke (expol01-V09-00-01)
+- README and pol01.out, to include polarized photo electric effect
+
+05-11-07: A.Schaelicke (expol01-V09-00-00)
+01-11-07: A.Schaelicke
+  use new polarized photo electric effect, this is important for
+  polarisation transfer from photon to electron in certain regions of
+  the phasespace (see E166 experiment)
+
+17-11-06 V.Ivanchenko (expol01-V08-01-02)
+- RunAction and HistoManager classes: double -> G4double,
+  it -> G4int, add destructor for RunAction::ParticleStatistics
+
+17-11-06 V.Ivanchenko (expol01-V08-01-01)
+- Add macro files, README, minor cleanup (A. Schaelicke)
+
+02-10-06 V.Ivanchenko (expol01-V08-01-00)
+- first tag
+          
+11-08-06 Andreas Schaelicke
+- created from TestEm15
+
+25-08-06 Andreas Schaelicke
+- include polarized processes in physics list option "polarized"
+- include polarized processes in default macrofile file
+- updated the AIDA interface
+- add simple plot tool (based on JAIDA)

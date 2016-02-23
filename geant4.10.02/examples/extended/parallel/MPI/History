@@ -1,0 +1,181 @@
+     =========================================================
+     Geant4 - an Object-Oriented Toolkit for Simulation in HEP
+     =========================================================
+
+                      Category History file
+                      ---------------------
+
+     ----------------------------------------------------------
+     * Reverse chronological order (last date on top), please *
+     ----------------------------------------------------------
+
+18 Nov 2015 A.Dotti (MPI-V10-01-23) 
+- Support for both static and shared at the same time
+
+17 Nov 2015 A.Dotti (MPI-V10-01-22)
+- New cmake files cleaned up
+
+2 Nov 2015 A.Dotti (MPI-V10-01-21)
+- Tagging for release
+
+17 Sep 2015 A.Dotti
+- Check existance of exMPI02 when configuring both library and 
+  examples together
+
+2 Sep 2015 A.Dotti 
+- Implementing G4 convention on lib[64] for output
+- Adding advanced option G4MPI_OLD_MPI to set old MPI 
+  back-compatible flag for old MPI signatures 
+
+2 Sep 2015 A.Dotti (MPI-V10-01-20)
+- Fixing previus tag for ctest usage
+
+1 Sep 2015 A.Dotti (MPI-V10-01-19)
+- New optimized merging for G4Run and scorer
+
+31 Aug 2015 A. Dotti (MPI-V10-01-18)
+- Improving CMakeLists.txt for standalone use: allow for library
+  and examples to be built together
+
+28 Aug 2015 A. Dotti (MPI-V10-01-17)
+- Correcting CMakeLists.txt for standalone use
+
+20 Aug 2015 A. Dotti (MPI-V10-01-16)
+- Code cleanup
+
+20 Aug 2015 A. DOtti (MPI-V10-01-15)
+- Fixing race condition in exMPI03 for merging 
+
+19 Aug 2015 A. Dotti (MPI-V10-01-14)
+- Functionalities shown in exMPI03:
+  - New merging of command line scorers via MPI::Pack
+  - New merging of user data associated to Run
+
+25 July 2015 A. Dotti (MPI-V10-01-13)
+- Fix compilation error 
+
+24 July 2015 A. Dotti (MPI-V10-01-12)
+- Increasing verbosity during cmake phase to print out
+  location of mpi library and headers
+
+21 July 2015 A. Dotti (MPI-V10-01-10, -11)
+- Changing path for exacutables to new standard
+- Fixing check for examples to be built
+
+09 July 2015 A. Dotti (MPI-V10-01-08, -09)
+- Fixing macro names for ctests
+
+08 July 2015 A. Dotti (MPI-V10-01-07)
+- Added TOOLS_USE_NATIVE_MPI compilation flag into source/sources.cmake
+  for use with ctest
+
+04 July 2015 I. Hrivnacova (MPI-V10-01-06)
+- Added implementation of histo merger with use of g4analysis
+  and with use of g4tools; kept temporarily old merger class
+- Fixed exMPI03 Analysis class: separated Close() from Save() to
+  avoid resetting histogram before performing Merge.  
+
+17 Feb 2015 A.Dotti (MPI-V10-01-05)
+- Adding MPI examples for ctest/cdash
+
+16 Feb 2015 A.Dotti (MPI-V10-01-04)
+- Improving CMakeLists for integration with ctest
+
+10 Feb 2015 A.Dotti (MPI-V10-01-01,02,03)
+- Fix for sequential mode
+- Simplify cmake 
+- Fix for possible issues with allocation of axis
+
+6 Feb 2015 A.Dotti (MPI-V10-01-00)
+- Fix bug in exMPI02 using wrong RNG calls to generate primaries
+- Introduced new functionality in G4mpi library to merge
+  G4Run, scorerers and g4tools histograms/profiles across
+  MPI ranks
+- Introduced new example exMPI03, based on same geometry and
+  physics of exMPI02 to demonstrate merging capabilities
+
+21 July 2014 A. Dotti (MPI-V10-00-02)
+- Fixing bug for RNG seed distribution in MT compilations
+  (Bug #1653)
+
+13 June 2014 A. Dotti (MPI-V10-00-01)
+- Adding first version of G4RunMerger and 
+  G4ScorerMerger
+
+10 June 2014 A. Dotti (MPI-V10-00-00)
+- New CMake receipe: increase portability of the code
+ 
+10 Novembeer 2013 K. Murakami (MPI-V09-06-00)
+[source]
+- new coding guide line
+- CMakeLists.txt, add BUILD_SHARED_LIBS flag for creating static lib
+                  add check IntelMPI, mpiicpc
+- MT migration : beamOn thread stacked to main for MT
+                 use /run/beamOn command, instead of direct call of RM.BeamOn()
+[examples]
+- change coding guideling to the example guide 
+- MT migration
+- PhysicsList is changed to FTFP_BERT
+- add run.mac
+
+20 November 2012, I. Hrivnacova (MPI-V09-05-06)
+- Fixed .README files
+
+20 November 2012, I. Hrivnacova (MPI-V09-05-05)
+- Fixed CmakeLists.txt in the top directory
+
+16 November 2012, K. Murakami (MPI-V09-05-04)
+- Updated CmakeLists.txt for examples. Fixed link errors.
+- Updated README document.
+
+16 November 2012, I. Hrivnacova (MPI-V09-05-03)
+- Update of CMake files:
+  - Added CMakeLists.txt in for processing MPI from upper directories
+  - Removed exMPI02/FindROOT.cmake (available with Geant4 distribution)
+  - Minor changes in exMPI01, exMPI02 CMake build in order to be able
+    to build examples from the upper directories
+  - Added comment lines 
+  - Added copying macros in the build area
+  - Install targets under CMAKE_INSTALL_PREFIX/bin and not in source
+
+15 November 2012, K. Murakami (MPI-V09-05-02)
+ - typos in documents are fixed.
+
+8 November 2012, K. Murakami (MPI-V09-05-01)
+ - explicit inclusion of G4SystemOfUnits.hh and G4PhysicalConstants.hh
+ - updated documentations
+
+1 November 2012, K. Murakami (MPI-V09-05-00)
+ - Migrated to CMake build with change of directory structure.
+ - G4Exception is replaced with new one.
+ - Fixed infinite-loop of slaves when a macro does not exists.
+ - Added support for execution of maro with /control/macroPath.
+ - Added best guess of selection of a UI shell.
+ - Added Doxygen-style docs.
+
+3 December 2010 K. Murakami (MPI-V09-03-02)
+ - /mpi/wait command is removed. It is automatically called
+   at the end of macro(batch) execution.
+
+4 June 2010 J.Perl (MPI-V09-03-01)
+ - Updated vis usage.
+
+18 May 2010 K.Murakami (MPI-V09-03-00)
+ == code review was performed. ==
+ << mpi_ineterface >>
+ - OpenMPI as default MPI library instead of LAM/MPI
+ - improve /mpi/status command. (waste of CPU, time measurement)
+ - /mpi/wait command is introduced for waiting until beamOn ends.
+ - improve macro file parser
+    * same parser as G4UIbatch
+    * fixed unexpected behavior at the end of batch mode
+ - changed "beamOn" behavior for better performance
+    * thread-out for interactive, on-thread for batch
+ << exMPI01 >>
+ - use G4UIcsh instead of G4UItcsh because OpenMPI is now default. 
+ - use G4eMultipleScattering instead of obsolete G4MultipleScattering.
+ << exMPI02 >>
+ - use G4UIcsh instead of G4UItcsh because OpenMPI is now default.
+
+16 Nov. 2007 K.Murakami
+ - commited to G4 CVS.
