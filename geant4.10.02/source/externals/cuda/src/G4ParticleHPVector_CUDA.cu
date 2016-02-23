@@ -96,35 +96,35 @@ void G4ParticleHPVector_CUDA::PerformInitialization(G4int n) {
 G4ParticleHPVector_CUDA::~G4ParticleHPVector_CUDA() {
   	if (d_singleIntResult) {
   		cudaFree(d_singleIntResult);
-  		d_singleIntResult = nullptr;
+  		d_singleIntResult = NULL;
   	}
   	if (h_singleIntResult) {
   		cudaFreeHost(h_singleIntResult);
-  		h_singleIntResult = nullptr;
+  		h_singleIntResult = NULL;
   	}
   	if (d_singleDoubleResult) {
         cudaFree(d_singleDoubleResult);
-        d_singleDoubleResult = nullptr;
+        d_singleDoubleResult = NULL;
     }
     if (h_singleDoubleResult) {
 		cudaFreeHost(h_singleDoubleResult);
-  		h_singleDoubleResult = nullptr;
+  		h_singleDoubleResult = NULL;
     }
     if (d_res) {
         cudaFree(d_res);
-        d_res = nullptr;
+        d_res = NULL;
     }
     if (h_res) {
 		cudaFreeHost(h_res);
-  		h_res = nullptr;
+  		h_res = NULL;
     }
     if (d_theData) {
         cudaFree(d_theData);
-        d_theData = nullptr;
+        d_theData = NULL;
     }
     if (d_theIntegral) {
        cudaFree(d_theIntegral);
-       d_theIntegral = nullptr;
+       d_theIntegral = NULL;
     }
     isFreed = 1;
 }
@@ -263,7 +263,7 @@ void G4ParticleHPVector_CUDA::CleanUp() {
     maxValue = -DBL_MAX;
     if (d_theIntegral) {
         cudaFree(d_theIntegral);
-        d_theIntegral = nullptr;
+        d_theIntegral = NULL;
     }
 }
 
