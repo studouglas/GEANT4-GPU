@@ -490,24 +490,15 @@ void G4ParticleHPVector_CUDA::Times(G4double factor) {
 /******************************************
 * Functions from .cc
 ******************************************/
-__global__ void GetXSecFirstIndexLooped_CUDA(G4ParticleHPDataPoint * theData, G4double e,
-    int * resultIndex, int elementsPerThread, int nEntries) {
-    int tidx = blockDim.x * blockIdx.x + threadIdx.x;
-    int start = elementsPerThread * tidx;
-    int end = (start + elementsPerThread < nEntries) ? start + elementsPerThread : nEntries - 1;
-    for (int i = start; i < end; i++) {
-        if (i < *(resultIndex) && theData[i].energy >= e) {
+__global__ void GetXSecFirstIndex_CUDA(G4ParticleHPDataPoint * theData, G4double e,
+    int * resultIndex, int numThreads, int nEntries) {
+    int start = (blockDim.x * blockIdx.x + threadIdx.x);
+    int end = nEntries - (numThreads - (start-1));
+    for (int i = start; i < end; i += numThreads) {
+        if (theData[i].energy >= e) {
             atomicMin(resultIndex, i);
             return;
         }
-    }
-}
-
-__global__ void GetXSecFirstIndexSingle_CUDA(G4ParticleHPDataPoint * theData, G4double e,
-    int * resultIndex, int nEntries) {
-    int tidx = blockDim.x * blockIdx.x + threadIdx.x;
-    if (tidx < nEntries && tidx < *(resultIndex) && theData[i].energy >= e) {
-        atomicMin(resultIndex, tidx);
     }
 }
 
@@ -548,13 +539,10 @@ G4double G4ParticleHPVector_CUDA::GetXsec(G4double e) {
     // look at StorkNeutronHPCSData - line 295
 
 	SetValueTo_CUDA<<<1,1>>> (d_singleIntResult, nEntries);
-    //int nBlocks = GetNumBlocks(nEntries);
-    //GetXSecFirstIndexSingle_CUDA<<<nBlocks, THREADS_PER_BLOCK>>>
-    //    (d_theData, e, d_singleIntResult, nEntries);
-    int elementsPerThread = 2;
-    int nBlocks = GetNumBlocks(nEntries/elementsPerThread); 
-    GetXSecFirstIndexLooped_CUDA<<<nBlocks, THREADS_PER_BLOCK>>>
-       (d_theData, e, d_singleIntResult, elementsPerThread, nEntries);
+    int elementsPerThread = 4;
+    int nBlocks = GetNumBlocks(nEntries/elementsPerThread);
+    GetXSecFirstIndex_CUDA<<<nBlocks, THREADS_PER_BLOCK>>>
+        (d_theData, e, d_singleIntResult, nEntries/elementsPerThread, nEntries);
     GetYForXSec_CUDA<<<1, 1>>> (d_theData, e, d_singleIntResult, d_res, nEntries);
 
     cudaMemcpy(h_res, d_res, sizeof(GetXsecResultStruct), cudaMemcpyDeviceToHost);

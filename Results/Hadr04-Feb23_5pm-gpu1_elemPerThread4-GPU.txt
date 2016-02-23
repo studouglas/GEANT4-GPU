@@ -1,0 +1,228 @@
+*************************************************************
+ Geant4 version Name: geant4-10-02    (4-December-2015)
+                      Copyright : Geant4 Collaboration
+                      Reference : NIM A 506 (2003), 250-303
+                            WWW : http://cern.ch/geant4
+*************************************************************
+
+/run/verbose 2
+#
+/testhadr/det/setMat Water_ts
+/testhadr/det/setSize 1 m
+/run/reinitializeGeometry
+#
+/testhadr/phys/thermalScattering true
+/random/setSeeds 9876 54321
+#
+/run/initialize
+userDetector->Construct() start.
+
+ The Box is 1 m   of Water_ts
+ 
+ Material: Water_ts    density:  1.000 g/cm3   RadL:  36.084 cm   Nucl.Int.Length:  75.376 cm 
+                       Imean:  78.000 eV 
+
+   --->  Element: TS_H_of_Water (H)   Z =  1.0   N =     1   A =  1.008 g/mole
+         --->  Isotope:    H1   Z =  1   N =   1   A =   1.01 g/mole   abundance: 99.989 %
+         --->  Isotope:    H2   Z =  1   N =   2   A =   2.01 g/mole   abundance:  0.011 %
+          ElmMassFraction:  11.19 %  ElmAbundance  66.67 % 
+
+   --->  Element: Oxygen (O)   Z =  8.0   N =    16   A = 16.000 g/mole
+         --->  Isotope:   O16   Z =  8   N =  16   A =  15.99 g/mole   abundance: 99.757 %
+         --->  Isotope:   O17   Z =  8   N =  17   A =  17.00 g/mole   abundance:  0.038 %
+         --->  Isotope:   O18   Z =  8   N =  18   A =  18.00 g/mole   abundance:  0.205 %
+          ElmMassFraction:  88.81 %  ElmAbundance  33.33 % 
+
+Water_ts is registered to the default region.
+physicsList->Construct() start.
+@@@ G4ParticleHPInelasticData instantiated for particle neutron data directory variable is G4NEUTRONHPDATA pointing to /u50/dougls2/GEANT4-GPU/geant4.10.02-install/share/Geant4-10.2.0/data/G4NDL4.5
+NeutronHP: /Capture file for Z = 8, A = 18 is not found and NeutronHP will use /u50/dougls2/GEANT4-GPU/geant4.10.02-install/share/Geant4-10.2.0/data/G4NDL4.5/Capture/CrossSection/8_17_Oxygen
+NeutronHP: /Elastic file for Z = 8, A = 18 is not found and NeutronHP will use /u50/dougls2/GEANT4-GPU/geant4.10.02-install/share/Geant4-10.2.0/data/G4NDL4.5/Elastic/CrossSection/8_17_Oxygen
+NeutronHP: /Inelastic file for Z = 8, A = 18 is not found and NeutronHP will use /u50/dougls2/GEANT4-GPU/geant4.10.02-install/share/Geant4-10.2.0/data/G4NDL4.5/Inelastic/CrossSection/8_17_Oxygen
+NeutronHP: /Capture file for Z = 6, A = 12 is not found and NeutronHP will use /u50/dougls2/GEANT4-GPU/geant4.10.02-install/share/Geant4-10.2.0/data/G4NDL4.5/Capture/CrossSection/6_nat_Carbon
+NeutronHP: /Elastic file for Z = 6, A = 12 is not found and NeutronHP will use /u50/dougls2/GEANT4-GPU/geant4.10.02-install/share/Geant4-10.2.0/data/G4NDL4.5/Elastic/CrossSection/6_nat_Carbon
+NeutronHP: /Inelastic file for Z = 6, A = 12 is not found and NeutronHP will use /u50/dougls2/GEANT4-GPU/geant4.10.02-install/share/Geant4-10.2.0/data/G4NDL4.5/Inelastic/CrossSection/6_nat_Carbon
+/u50/dougls2/GEANT4-GPU/geant4.10.02-install/share/Geant4-10.2.0/data/G4NDL4.5
+@@@ G4ParticleHPInelastic instantiated for particle neutron data directory variable is G4NEUTRONHPDATA pointing to /u50/dougls2/GEANT4-GPU/geant4.10.02-install/share/Geant4-10.2.0/data/G4NDL4.5/Inelastic
+physicsList->CheckParticleList() start.
+physicsList->setCut() start.
+#
+/process/list
+     Transportation,         hadElastic,   neutronInelastic,           nCapture
+           nFission
+#
+/gun/particle neutron
+/gun/energy 2 MeV
+#
+/analysis/setFileName Water_thermal_44
+Set file name: Water_thermal_44
+/analysis/h1/set 1 100 0. 100. none
+/analysis/h1/set 2 100 0. 100. cm
+/analysis/h1/set 3 100 0. 5. mus
+/analysis/h1/set 4 100 0. 1000. none
+/analysis/h1/set 5 100 0. 500. cm
+/analysis/h1/set 6 100 0. 1000. mus
+/analysis/h1/set 7 100 0. 500. meV
+#
+/run/printProgress 100
+#
+/run/beamOn 500
+NeutronHP: /Capture file for Z = 8, A = 18 is not found and NeutronHP will use /u50/dougls2/GEANT4-GPU/geant4.10.02-install/share/Geant4-10.2.0/data/G4NDL4.5/Capture/CrossSection/8_17_Oxygen
+NeutronHP: /Elastic file for Z = 8, A = 18 is not found and NeutronHP will use /u50/dougls2/GEANT4-GPU/geant4.10.02-install/share/Geant4-10.2.0/data/G4NDL4.5/Elastic/CrossSection/8_17_Oxygen
+NeutronHP: /Inelastic file for Z = 8, A = 18 is not found and NeutronHP will use /u50/dougls2/GEANT4-GPU/geant4.10.02-install/share/Geant4-10.2.0/data/G4NDL4.5/Inelastic/CrossSection/8_17_Oxygen
+NeutronHP: /Capture file for Z = 6, A = 12 is not found and NeutronHP will use /u50/dougls2/GEANT4-GPU/geant4.10.02-install/share/Geant4-10.2.0/data/G4NDL4.5/Capture/CrossSection/6_nat_Carbon
+NeutronHP: /Elastic file for Z = 6, A = 12 is not found and NeutronHP will use /u50/dougls2/GEANT4-GPU/geant4.10.02-install/share/Geant4-10.2.0/data/G4NDL4.5/Elastic/CrossSection/6_nat_Carbon
+NeutronHP: /Inelastic file for Z = 6, A = 12 is not found and NeutronHP will use /u50/dougls2/GEANT4-GPU/geant4.10.02-install/share/Geant4-10.2.0/data/G4NDL4.5/Inelastic/CrossSection/6_nat_Carbon
+
+Neutron HP Thermal Scattering Data: Following material-element pairs and/or elements are registered.
+Element TS_H_of_Water,  internal thermal scattering id 0
+Element TS_C_of_Graphite,  internal thermal scattering id 1
+
+NeutronHP: /Elastic file for Z = 8, A = 18 is not found and NeutronHP will use /u50/dougls2/GEANT4-GPU/geant4.10.02-install/share/Geant4-10.2.0/data/G4NDL4.5/Elastic/CrossSection/8_17_Oxygen
+NeutronHP: /Elastic file for Z = 6, A = 12 is not found and NeutronHP will use /u50/dougls2/GEANT4-GPU/geant4.10.02-install/share/Geant4-10.2.0/data/G4NDL4.5/Elastic/CrossSection/6_nat_Carbon
+
+Neutron HP Thermal Scattering: Following material-element pairs or elements are registered.
+Element TS_H_of_Water,  internal thermal scattering id 0
+Element TS_C_of_Graphite,  internal thermal scattering id 1
+
+
+Neutron HP Thermal Scattering Data: Following material-element pairs and/or elements are registered.
+Element TS_H_of_Water,  internal thermal scattering id 0
+Element TS_C_of_Graphite,  internal thermal scattering id 1
+
+
+====================================================================
+                  HADRONIC PROCESSES SUMMARY (verbose level 1)
+
+---------------------------------------------------
+                           Hadronic Processes for neutron
+
+  Process: hadElastic
+        Model:          NeutronHPElastic: 4 eV  ---> 20 MeV
+        Model: NeutronHPThermalScattering: 0 meV ---> 4 eV 
+     Cr_sctns: NeutronHPThermalScatteringData: 0 meV ---> 4 eV 
+     Cr_sctns:        NeutronHPElasticXS: 0 meV ---> 20 MeV
+     Cr_sctns:            GheishaElastic: 0 meV ---> 100 TeV
+
+  Process: neutronInelastic
+        Model:        NeutronHPInelastic: 0 meV ---> 20 MeV
+     Cr_sctns:      NeutronHPInelasticXS: 0 meV ---> 20 MeV
+     Cr_sctns:          GheishaInelastic: 0 meV ---> 100 TeV
+
+  Process: nCapture
+        Model:          NeutronHPCapture: 0 meV ---> 20 MeV
+     Cr_sctns:        NeutronHPCaptureXS: 0 meV ---> 20 MeV
+     Cr_sctns:          GheishaCaptureXS: 0 meV ---> 100 TeV
+
+  Process: nFission
+        Model:          NeutronHPFission: 0 meV ---> 20 MeV
+     Cr_sctns:        NeutronHPFissionXS: 0 meV ---> 20 MeV
+     Cr_sctns:          GheishaFissionXS: 0 meV ---> 100 TeV
+
+================================================================
+/u50/dougls2/GEANT4-GPU/geant4.10.02-install/share/Geant4-10.2.0/data/G4NDL4.5
+@@@ G4ParticleHPInelastic instantiated for particle neutron data directory variable is G4NEUTRONHPDATA pointing to /u50/dougls2/GEANT4-GPU/geant4.10.02-install/share/Geant4-10.2.0/data/G4NDL4.5/Inelastic
+NeutronHP: /Capture file for Z = 8, A = 18 is not found and NeutronHP will use /u50/dougls2/GEANT4-GPU/geant4.10.02-install/share/Geant4-10.2.0/data/G4NDL4.5/Capture/CrossSection/8_17_Oxygen
+NeutronHP: /Capture file for Z = 6, A = 12 is not found and NeutronHP will use /u50/dougls2/GEANT4-GPU/geant4.10.02-install/share/Geant4-10.2.0/data/G4NDL4.5/Capture/CrossSection/6_nat_Carbon
+
+Region <DefaultRegionForTheWorld> --  -- appears in <Water_ts> world volume
+ This region is in the mass world.
+ Root logical volume(s) : Water_ts 
+ Pointers : G4VUserRegionInformation[0], G4UserLimits[0], G4FastSimulationManager[0], G4UserSteppingAction[0]
+ Materials : Water_ts 
+ Production cuts :   gamma 1 mm      e- 1 mm      e+ 1 mm  proton 0 fm 
+
+Region <DefaultRegionForParallelWorld> --  -- is not associated to any world.
+ Root logical volume(s) : 
+ Pointers : G4VUserRegionInformation[0], G4UserLimits[0], G4FastSimulationManager[0], G4UserSteppingAction[0]
+ Materials : 
+ Production cuts :   gamma 1 mm      e- 1 mm      e+ 1 mm  proton 0 fm 
+
+========= Table of registered couples ==============================
+
+Index : 0     used in the geometry : Yes
+ Material : Water_ts
+ Range cuts        :  gamma  1 mm     e-  1 mm     e+  1 mm  proton 0 fm 
+ Energy thresholds :  gamma  2.94056 keV    e-  351.877 keV    e+  342.545 keV proton 0 meV
+ Region(s) which use this couple : 
+    DefaultRegionForTheWorld
+
+====================================================================
+
+Start closing geometry.
+G4GeometryManager::ReportVoxelStats -- Voxel Statistics
+
+    Total memory consumed for geometry optimisation:   0 kByte
+    Total CPU time elapsed for geometry optimisation: 0 seconds
+### Run 0 starts.
+
+--------- Ranecu engine status ---------
+ Initial seed (index) = 0
+ Current couple of seeds = 9876, 54321
+----------------------------------------
+... open Root analysis file : Water_thermal_44.root - done
+--> Event 0 starts.
+--> Event 100 starts.
+--> Event 200 starts.
+--> Event 300 starts.
+--> Event 400 starts.
+ Run terminated.
+Run Summary
+  Number of events processed : 500
+  User=16.82s Real=18.94s Sys=2.12s
+
+ The run is 500 neutron of 2 MeV through 50 cm  of Water_ts (density: 1 g/cm3 )
+
+ Process calls frequency :
+	Transportation= 24	hadElastic= 41535	nCapture= 474	neutronInelastic= 2
+
+ Nb of incident particles surviving after 50 cm  of Water_ts : 24
+
+ Parcours of incident neutron:
+   nb of collisions    E>1*eV= 33.744      E<1*eV= 50.326       total= 84.07
+   track length        E>1*eV= 58.954 cm   E<1*eV= 83.734 cm    total= 1.4269 m  
+   time of flight      E>1*eV= 1.7143 mus  E<1*eV= 190.11 mus   total= 191.83 mus
+
+ List of generated particles:
+            C15:       2  Emean =  44.095 keV	( 25.496 keV --> 62.695 keV)
+            O16:   11110  Emean =  79.849 keV	( 0.86038 meV --> 446.55 keV)
+            O17:       2  Emean =   23.72 eV 	( 497.42 meV --> 46.943 eV )
+            O18:       8  Emean =  1.0772 keV	( 26.736 meV --> 5.3852 keV)
+          alpha:       2  Emean =  11.757 keV	( 6.8014 keV --> 16.713 keV)
+       deuteron:     474  Emean =  1.3194 keV	( 1.2851 keV --> 1.3858 keV)
+          gamma:     476  Emean =   2.215 MeV	( 2.2437 keV --> 2.2244 MeV)
+         proton:   11001  Emean =  9.9326 keV	( 0.30059 meV --> 248.02 keV)
+... write Root file : Water_thermal_44.root - done
+
+--------- Ranecu engine status ---------
+ Initial seed (index) = 0
+ Current couple of seeds = 1466150658, 1477415748
+----------------------------------------
+G4 kernel has come to Quit state.
+UserDetectorConstruction deleted.
+UserPhysicsList deleted.
+UserActionInitialization deleted.
+UserRunAction deleted.
+UserPrimaryGenerator deleted.
+RunManager is deleting RunManagerKernel.
+EventManager deleted.
+Units table cleared.
+Total navigation history collections cleaned: 5
+================== Deleting memory pools ===================
+Pool ID '20G4NavigationLevelRep', size : 0.00577 MB
+Pool ID '24G4ReferenceCountedHandleIvE', size : 0.000961 MB
+Pool ID '7G4Event', size : 0.000961 MB
+Pool ID '15G4PrimaryVertex', size : 0.000961 MB
+Pool ID '17G4PrimaryParticle', size : 0.000961 MB
+Pool ID '17G4DynamicParticle', size : 0.0144 MB
+Pool ID '7G4Track', size : 0.0279 MB
+Pool ID '18G4TouchableHistory', size : 0.000961 MB
+Pool ID '15G4CountedObjectIvE', size : 0.000961 MB
+Pool ID '17G4ReactionProduct', size : 0.000961 MB
+Number of memory pools allocated: 10; of which, static: 0
+Dynamic pools deleted: 10 / Total memory freed: 0.055 MB
+============================================================
+G4Allocator objects are deleted.
+UImanager deleted.
+StateManager deleted.
+RunManagerKernel is deleted. Good bye :)
