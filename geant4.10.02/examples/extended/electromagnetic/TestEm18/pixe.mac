@@ -1,0 +1,26 @@
+# $Id: pixe.mac 82401 2014-06-18 14:43:54Z gcosmo $
+#
+# macro file for TestEm18.cc
+#
+/control/verbose 2
+/run/verbose 2
+#
+/testem/det/setMat Tungsten
+/testem/det/setSize 100 um
+#
+/run/setCut 1 um
+#
+/run/initialize
+#
+/process/em/pixe true
+#
+/gun/particle proton 
+/gun/energy 10 MeV
+#
+/analysis/setFileName pixe 
+/analysis/h1/set 3 100 0 10 MeV	    #total eLoss
+/analysis/h1/set 5 100 0 100 keV    #gamma energy spectrum
+#
+/run/printProgress 100000
+#
+/run/beamOn 1000000

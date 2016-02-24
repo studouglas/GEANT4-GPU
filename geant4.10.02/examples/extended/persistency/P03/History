@@ -1,0 +1,116 @@
+-------------------------------------------------------------------
+
+     =========================================================
+     Geant4 - an Object-Oriented Toolkit for Simulation in HEP
+     =========================================================
+
+                    Example P03 History file
+                    ------------------------
+This file should be used by the G4 example coordinator to briefly
+summarize all major modifications introduced in the code and keep
+track of all tags.
+
+     ----------------------------------------------------------
+     * Reverse chronological order (last date on top), please *
+     ----------------------------------------------------------
+
+17 September 2015 P. Arce (exampleP03-V10-01-01)
+-------------------------- 
+- Remove ExTGPhysicsList
+
+29 July 2014 P. Arce (exampleP03-V10-00-03)
+-------------------------- 
+- Remove ExTGPhysicsList
+
+25 July 2014 P. Arce (exampleP03-V10-00-02)
+-------------------------- 
+- Using G4GenericPhysicsList
+
+18 November 2013 I. Hrivnacova (exampleP03-V09-06-01)
+-------------------------- 
+- Fixed files description  (only comment lines modified)
+
+8 November 2013 P. Arce (exampleP03-V09-06-00)
+-------------------------- 
+- Porting to MT
+
+17 July 2012 I. Hrivnacova (exampleP03-V09-05-02)
+--------------------------
+- Restored file descriptions in .hh and moved class description
+  at the right place
+
+17 July 2012 I. Hrivnacova (exampleP03-V09-05-01)
+--------------------------
+- Improved .README file
+
+6 July 2012 P. Arce (exampleP03-V09-05-00)
+--------------------------
+- Reviewed examples according to coding guidelines
+
+25 January 2011  G.Folger  (exampleP03-V09-04-00)
+--------------------------
+- re-tag, as tag was not included in geant4-09-04
+
+9 November 2010  G.Folger  (exampleP03-V09-03-04)
+--------------------------
+- add batch.mac as copy of run.mac, replacing use of OGL vis driver by ASCII
+
+8 November 2010  J.Allison (exampleP03-V09-03-03)
+--------------------------
+- Introduced G4UIExecutive.
+
+7 November 2010  G.Cosmo (exampleP03-V09-03-02)
+--------------------------
+- Synchronized files on the HEAD and restored original version.
+- Corrected README.
+
+7 June 2010  G.Cosmo (exampleP03-V09-03-01)
+----------------------
+- Do NOT tag the HEAD...
+
+4 June 2010  J.Perl (exampleP03-V09-03-00)
+---------------------
+- Updated vis usage.
+
+19 November 2009 - P Arce (exampleP03-V09-02-02)
+--------------------------
+- use G4XMultipleScattering in ExTGPhysicsList.cc
+
+20 May 2009  P.Arce (exampleP03-V09-02-01)
+--------------------------
+- Small corrections in g4geom_paramPhantom.txt and g4geom_replicas.txt
+
+15 May 2009  P.Arce (exampleP03-V09-02-00)
+--------------------------
+- Added example of parallel world
+- Added example of circle parameterisation
+- Added example of phantom parameterisation
+- textGeom.cc renamed to exTextGeom.cc
+
+9 December 2008 - P Arce (exampleP03-V09-01-04)
+--------------------------
+- SUBS -> SUBTRACTION, INTERS -> INTERSECTION
+     
+21 November 2008 - G.Cosmo (exampleP03-V09-01-03)
+--------------------------
+- Replaced VRML with OGLIX as default visualization.
+- Corrected README.
+
+20 November 2008 - P.Arce (exampleP03-V09-01-02)
+-------------------------
+- Extended to match developments in "ascii-V09-01-02".
+
+18 November 2008 - P.Arce (exampleP03-V09-01-01)
+-------------------------
+- Fixed run-time errors.
+
+03 November 2008 - G.Cosmo (exampleP03-V09-01-00)
+--------------------------
+- First version from original code by P.Arce.
+
+03 November 2008 - G.Cosmo (exampleP03-V09-01-01)
+--------------------------
+- Correction of compilation warning in ExTGRCDetectorBuilder constructor
+
+
+

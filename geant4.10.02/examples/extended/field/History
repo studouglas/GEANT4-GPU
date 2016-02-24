@@ -1,0 +1,91 @@
+$Id: History 78053 2013-12-03 08:25:13Z gcosmo $
+-------------------------------------------------------------------
+
+     =========================================================
+     Geant4 - an Object-Oriented Toolkit for Simulation in HEP
+     =========================================================
+
+                    extended/field History file
+                    ---------------------------
+This file should be used by the G4 example coordinator to briefly
+summarize all major modifications introduced in the code and keep
+track of all tags.
+
+     ----------------------------------------------------------
+     * Reverse chronological order (last date on top), please *
+     ----------------------------------------------------------
+
+02nd Dec 2013 Ivana Hrivnacova (fieldex-V09-06-02)
+- Fixed gui.mac macros in field01-06
+
+1st Apr 2013 A.Dotti (fieldex-V09-06-01)
+- Grouping single ex tags for new API of PhysicsList needed for MT
+
+14th Feb 2013 Ivana Hrivnacova (fieldex-V09-06-00)
+- Applied coding guidelines in field01, 02, 03 
+  (data members initialization, separators)
+
+17th Nov 2012 Ivana Hrivnacova (fieldex-V09-05-03)
+- Updated documentation:
+  - Fixed .README files for artefacts from Markdown support
+  - Removed obsolete instructions (how to compile & link)
+
+18th Sep 2012 Ivana Hrivnacova (fieldex-V09-05-02)
+- Adding explicit includes of G4SystemOfUnits.hh and G4PhysicalConstants.hh
+  where needed
+- Replaced tabulators with space characters  
+
+17th Sep 2012 Peter Gumplinger (fieldex-V09-05-01)
+- remove G4TRACKING_ALLOC_EXPORT, G4DLLEXPORT and G4DLLIMPORT from
+  F04Trajectory and F04TrajectoryPoint.
+
+4th Sep 2012 Ivana Hrivnacova (fieldex-V09-05-00)
+- Updated CMakeLists.txt:
+  adding visualization, copying macros, install target and comment lines
+- Added .README files   
+
+23rd Nov 2011 Peter Gumplinger (fieldex-V09-04-01)
+- Add README file to the new field example field06 and correct a small
+  mistake in F06ExtraPhysics.cc
+
+7th Nov 2011 Peter Gumplinger (fieldex-V09-04-00)
+-------------------------------------------------
+- Add new field example field06. This example excercises the gravity field.
+
+19th Nov 2009 Peter Gumplinger (fieldex-V09-02-00)
+--------------------------------------------------
+- Add new field example field05. This example checks the so-called 
+  "spin-frozen" condition. There is a good article hep-ph/0012087v1.
+  This article discusses about how to cancel the muon g-2 precession by
+  applying an electric field.
+  "Spin-frozen" happens when spin rotation cycle and muon rotation cycle
+  are the same. The example will through a G4Exception if this is not the
+  case.
+  Thanks to Hiromi Iinuma from KEK
+  See also: http://research.kek.jp/people/hiromi/
+
+29th Oct 2007 Peter Gumplinger (fieldex-V09-00-00)
+--------------------------------------------------
+- Add new field example field04 to exhibit the way
+  overlapping fields may be handled in Geant4.
+  Thanks to Tom Roberts and Muons Inc.
+  G4BEAMLINE release 1.12 
+  http://g4beamline.muonsinc.com
+
+3rd May 2005  John Allison  (fieldex-V07-00-03)
+------------------------------------------------
+- Replaced vis manager with G4VisExecutive.
+
+Dec 3rd, 2004 Gabriele Cosmo (fieldex-V06-02-00)
+------------------------------------------------
+- Implemented migration to <cmath>.
+- Removed dependency on old PAI and XTR models in PhysicsList of
+  field01/02/03 examples.
+
+Mar 23rd, 2004 John Apostolakis (fieldex-V06-00-00)
+---------------------------------------------------
+- Group together fixes in: 
+    field01    fieldex01-V06-00-00  and  
+    field03    fieldex03-V06-00-00
+  which fix common problem in SetField methods.
+- Created.

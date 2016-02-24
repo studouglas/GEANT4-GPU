@@ -1,0 +1,100 @@
+-------------------------------------------------------------------
+$Id: History 84477 2014-10-16 08:44:04Z gcosmo $
+-------------------------------------------------------------------
+
+     =========================================================
+                      Geant4 - Purging Magnet example
+     =========================================================
+
+                      Category History file
+                      ---------------------
+
+16.10.2014 - Luciano Pandola (purmag-V10-00-02)
+- Prevent the threads to read the B-map file at the same time
+- Clean-up the analysis singleton.
+- Actual MT migration: use G4MTRunManager, if applicable
+
+15.10.2014 - Luciano Pandola (purmag-V10-00-01)
+- Added ConstructSDandField() and registered magnetic field in a 
+ G4Cache
+- Added a protection in the case the input field file is not found
+- Registered RunAction in master and workers
+
+14.10.2014 - Luciano Pandola (purmag-V10-00-00)
+- Added ActionInitialization class (first step for MT migration)
+- Add const qualifiers for methods of DetectorConstruction
+- Changed signature of SteppingAction, to get a const pointer to 
+ geometry
+
+30.07.2013 - Andrea Dotti   (purmag-V09-06-02)
+- Bug fixing for unused variables (compilation warning clang32)
+
+17.07.2013 - Gabriele Cosmo (purmag-V09-06-01)
+- Explicitly use G4CsvAnalysisManager to be compliant with restructure of
+  analysis module.
+
+17.04.2013 - Luciano Pandola (purmag-V09-06-00)
+- Migrate analysis from AIDA to g4analysis (remove the 
+  external AIDA dependency). Some clean-up in other 
+  classe (RunAction, EventAction, StepAction)
+
+06.11.2012 - Luciano Pandola (purmag-V09-05-03)
+- Fix syntax in CMakeLists.txt
+
+26.10.2012 - Luciano Pandola (purmag-V09-05-02)
+- Replace CMakeLists.txt to deal with UI/VIS
+
+12.10.2012 - Gabriele Cosmo (purmag-V09-05-01)
+- Explicit inclusion of units and constants headers.
+
+08.12.2011 - Pere Mato (purtag-V09-05-00)
+- Added CMakeLists.txt file
+
+16.11.2011 - Gunter Folger (purtag-V09-04-01)
+- PurgMagSteppingAction.cc: fix compilation warning; occurs only when G4ANALYSIS_USE not set
+
+31.10.2011 - Luciano Pandola (purtag-V09-04-00)
+- Migrated G4Exception to the new scheme
+
+18.11.2010 - John Allison (purtag-V09-03-02)
+- PurgMag.cc: Introduced G4UIExecutive.
+- PurgMagPhysicsList.cc: Fixed G4MultipleScattering.
+
+03.06.2010 - Joseph Perl (purtag-V09-03-01)
+- Remove unused variable in EventAction
+
+03.06.2010 - Joseph Perl (purtag-V09-03-00)
+- Updated vis usage
+
+06.04.2009 G.A.P.Cirrone (purtag-V09-02-00)
+- GNUmakefile updated
+
+07.12.2005  Susanna Guatelli  (purtag-V07-01-00)
+- The example compiles with CLHEP 2.0.2.2
+- The method SetCutForOthers() is deleted because obsolete
+
+3rd May 2005  John Allison  (examples-V07-00-03)
+- Replaced vis manager with G4VisExecutive.
+
+29.11.2004 - S. Guatelli     purtag-V06-02-00
+  Compilation warnings concelead
+  Migration to <cmath>
+
+10.06.2004 - G. Cosmo        purtag-V06-01-02
+  Leave out the field-map file, now provided through web in compressed format:
+    http://cern.ch/geant4/source/source/PurgMag3D.TABLE.gz
+  Updated README and tagged.
+
+27.05.2004 . S. Larsson      purtag-V06-01-01
+  Migration to PI - Setup in README updated
+  Tagged				
+
+25.05.2004 - J. Apostolakis   purtag-V06-01-00
+  Tagged 
+
+24.05.2004 - J. Apostolakis
+  Modified README file
+
+09.12.2003 - S. Larsson
+  Example commited
+

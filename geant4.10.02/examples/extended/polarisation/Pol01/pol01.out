@@ -1,0 +1,212 @@
+
+        ############################################
+        !!! WARNING - FPE detection is activated !!!
+        ############################################
+
+*************************************************************
+ Geant4 version Name: geant4-10-02-ref-00    (4-December-2015)
+                      Copyright : Geant4 Collaboration
+                      Reference : NIM A 506 (2003), 250-303
+                            WWW : http://cern.ch/geant4
+*************************************************************
+
+... open Root analysis file : pol01.root - done
+/run/verbose 2
+#
+/testem/det/setMat G4_Fe
+/testem/det/setSizeZ 1.75 mm
+/testem/phys/addPhysics polarized
+PhysicsList::AddPhysicsList: <polarized>
+#/testem/phys/addPhysics standard
+/run/printProgress 5000
+#
+/run/initialize
+userDetector->Construct() start.
+
+ The Box is 5 cm  x 5 cm  x 1.75 mm  of G4_Fe
+World is registered to the default region.
+physicsList->Construct() start.
+physicsList->CheckParticleList() start.
+physicsList->setCut() start.
+/run/setCut 0.1 mm
+#
+/polarization/manager/verbose 1
+/polarization/volume/set theBox 0. 0. 0.08
+ SetVolumePolarization theBox (0,0,0.08)
+/polarization/volume/list
+ Polarization for 1 registered volume(s) : 
+theBox : (0,0,0.08)
+#
+/gun/polarization 0. 0. -1.
+/gun/particle gamma
+#
+/gun/energy 10 MeV
+#
+##/tracking/verbose 1
+/run/beamOn 10000
+ buildBhabha cross section 0
+ buildBhabha cross section 0
+G4PolarizedPEEffectCrossSection() init
+
+pol-phot:   for  gamma    SubType= 12  BuildTable= 0
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+Polarized-PhotoElectric :  Emin=        0 eV    Emax=       10 TeV   AngularGenSauterGavrila
+
+pol-compt:   for  gamma    SubType= 13  BuildTable= 1
+      Lambda table from 100 eV  to 1 MeV, 7 bins per decade, spline: 1
+      LambdaPrime table from 1 MeV to 10 TeV in 49 bins 
+ Total cross sections has a good parametrisation from 10 KeV to (100/Z) GeV
+      Sampling according Polarized-Compton model
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+   Polarized-Compton :  Emin=        0 eV    Emax=       10 TeV
+
+pol-conv:   for  gamma    SubType= 14  BuildTable= 1
+      Lambda table from 1.022 MeV to 10 TeV, 20 bins per decade, spline: 1
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+             polConv :  Emin=        0 eV    Emax=       10 TeV
+
+msc:   for e-    SubType= 10
+      RangeFactor= 0.04, stepLimitType: 1, latDisplacement: 1
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+            UrbanMsc :  Emin=        0 eV    Emax=       10 TeV  Table with 77 bins Emin=    100 eV    Emax=     10 TeV
+
+pol-eIoni:   for  e-    SubType= 2
+      dE/dx and range tables from 100 eV  to 10 TeV in 77 bins
+      Lambda tables from threshold to 10 TeV, 7 bins per decade, spline: 1
+      finalRange(mm)= 1, dRoverRange= 0.2, integral: 1, fluct: 1, linLossLimit= 0.01
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+PolarizedMollerBhabha :  Emin=        0 eV    Emax=       10 TeV
+
+pol-eBrem:   for  e-    SubType= 3
+      dE/dx and range tables from 100 eV  to 10 TeV in 77 bins
+      Lambda tables from threshold to 10 TeV, 7 bins per decade, spline: 1
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+             PolBrem :  Emin=        0 eV    Emax=       10 TeV   DipBustGen
+
+msc:   for e+    SubType= 10
+      RangeFactor= 0.04, stepLimitType: 1, latDisplacement: 1
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+            UrbanMsc :  Emin=        0 eV    Emax=       10 TeV  Table with 77 bins Emin=    100 eV    Emax=     10 TeV
+
+pol-eIoni:   for  e+    SubType= 2
+      dE/dx and range tables from 100 eV  to 10 TeV in 77 bins
+      Lambda tables from threshold to 10 TeV, 7 bins per decade, spline: 1
+      finalRange(mm)= 1, dRoverRange= 0.2, integral: 1, fluct: 1, linLossLimit= 0.01
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+PolarizedMollerBhabha :  Emin=        0 eV    Emax=       10 TeV
+
+pol-eBrem:   for  e+    SubType= 3
+      dE/dx and range tables from 100 eV  to 10 TeV in 77 bins
+      Lambda tables from threshold to 10 TeV, 7 bins per decade, spline: 1
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+             PolBrem :  Emin=        0 eV    Emax=       10 TeV   DipBustGen
+
+pol-annihil:   for  e+, integral: 1     SubType= 5  BuildTable= 0
+      Polarized model for annihilation into 2 photons
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+Polarized-Annihilation :  Emin=        0 eV    Emax=       10 TeV
+
+Region <DefaultRegionForTheWorld> --  -- appears in <World> world volume
+ This region is in the mass world.
+ Root logical volume(s) : World 
+ Pointers : G4VUserRegionInformation[0], G4UserLimits[0], G4FastSimulationManager[0], G4UserSteppingAction[0]
+ Materials : G4_Galactic G4_Fe 
+ Production cuts :   gamma 100 um      e- 100 um      e+ 100 um  proton 100 um 
+
+Region <DefaultRegionForParallelWorld> --  -- is not associated to any world.
+ Root logical volume(s) : 
+ Pointers : G4VUserRegionInformation[0], G4UserLimits[0], G4FastSimulationManager[0], G4UserSteppingAction[0]
+ Materials : 
+ Production cuts :   gamma 100 um      e- 100 um      e+ 100 um  proton 100 um 
+
+========= Table of registered couples ==============================
+
+Index : 0     used in the geometry : Yes
+ Material : G4_Galactic
+ Range cuts        :  gamma  100 um     e-  100 um     e+  100 um  proton 100 um 
+ Energy thresholds :  gamma  990 eV     e-  990 eV     e+  990 eV  proton -1 MeV
+ Region(s) which use this couple : 
+    DefaultRegionForTheWorld
+
+Index : 1     used in the geometry : Yes
+ Material : G4_Fe
+ Range cuts        :  gamma  100 um     e-  100 um     e+  100 um  proton 100 um 
+ Energy thresholds :  gamma  6.28375 keV    e-  235.116 keV    e+  228.88 keV proton -1 MeV
+ Region(s) which use this couple : 
+    DefaultRegionForTheWorld
+
+====================================================================
+
+Start closing geometry.
+G4GeometryManager::ReportVoxelStats -- Voxel Statistics
+
+    Total memory consumed for geometry optimisation:   0 kByte
+    Total CPU time elapsed for geometry optimisation: 0 seconds
+### Run 0 starts.
+### Run 0 start.
+--> Event 0 starts.
+--> Event 5000 starts.
+ Run terminated.
+Run Summary
+  Number of events processed : 10000
+  User=1.78s Real=1.79s Sys=0s
+
+ The run consists of 10000 gamma of 10 MeV through 1.75 mm  of G4_Fe (density: 7.874 g/cm3 )
+
+ Process calls frequency --->
+	Transportation = 57532
+	pol-compt = 11819
+	msc = 46504
+	pol-eBrem = 10451
+	pol-phot = 4857
+	pol-eIoni = 16845
+	pol-conv = 62
+	pol-annihil = 32
+ Gamma: 
+Mean Number per Event :1.5441
+Mean Energy :2.2701 MeV +- 2.6731 MeV
+Mean Polarization :-0.42845 +- 0.4935
+ Electron: 
+Mean Number per Event :0.8294
+Mean Energy :4.8634 MeV +- 2.3614 MeV
+Mean Polarization :-0.82222 +- 0.25063
+ Positron: 
+Mean Number per Event :0.0031
+Mean Energy :3.2484 MeV +- 1.8025 MeV
+Mean Polarization :-0.70748 +- 0.27491
+... write Root file : pol01.root - done
+
+--------- Ranlux engine status ---------
+ Initial seed = 9876
+ float_seed_table[] = 0.175692 0.385647 0.861036 0.507748 0.269676 0.314197 0.610989 0.106925 0.553456 0.136075 0.80907 0.772456 0.556632 0.525917 0.667838 0.656322 0.0480373 0.802785 0.581367 0.841234 0.00786269 0.865653 0.343942 0.702005 
+ i_lag = 17, j_lag = 3
+ carry = 5.96046e-08, count24 = 10
+ luxury = 3 nskip = 199
+----------------------------------------
+#
+G4 kernel has come to Quit state.
+UserDetectorConstruction deleted.
+UserPhysicsList deleted.
+UserRunAction deleted.
+UserPrimaryGenerator deleted.
+RunManager is deleting RunManagerKernel.
+EventManager deleted.
+Units table cleared.
+Total navigation history collections cleaned: 7
+================== Deleting memory pools ===================
+Pool ID '20G4NavigationLevelRep', size : 0.00769 MB
+Pool ID '24G4ReferenceCountedHandleIvE', size : 0.000961 MB
+Pool ID '7G4Event', size : 0.000961 MB
+Pool ID '15G4PrimaryVertex', size : 0.000961 MB
+Pool ID '17G4PrimaryParticle', size : 0.000961 MB
+Pool ID '17G4DynamicParticle', size : 0.00192 MB
+Pool ID '7G4Track', size : 0.00385 MB
+Pool ID '18G4TouchableHistory', size : 0.000961 MB
+Pool ID '15G4CountedObjectIvE', size : 0.000961 MB
+Number of memory pools allocated: 9 of which, static: 0
+Dynamic pools deleted: 9 / Total memory freed: 0.019 MB
+============================================================
+G4Allocator objects are deleted.
+UImanager deleted.
+StateManager deleted.
+RunManagerKernel is deleted. Good bye :)

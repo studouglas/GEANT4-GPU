@@ -1,0 +1,142 @@
+$Id: History 93734 2015-10-30 10:59:21Z gcosmo $
+-------------------------------------------------------------------
+
+     =========================================================
+     Geant4 - an Object-Oriented Toolkit for Simulation in HEP
+     =========================================================
+
+                    Example ElectronScattering2 History file
+                    ------------------------
+This file should be used by the G4 example coordinator to briefly
+summarize all major modifications introduced in the code and keep
+track of all tags.
+
+     ----------------------------------------------------------
+     * Reverse chronological order (last date on top), please *
+     ----------------------------------------------------------
+
+28 October 2015 Daren Sawkey       (exampleES2-V10-01-05)
+- Remove local physics lists
+- only instantiate VisManager if no macro file specified on command line
+
+19 October 2015 Daren Sawkey       (exampleES2-V10-01-04)
+- Modify primary foil parameters by setting class variables and calling
+  G4RunManager [Physics/Geometry]HasBeenModified. 
+
+21 July 2015 Daren Sawkey          (exampleES2-V10-01-03)
+- add physics list G4EmStandardGS to PhysicsList.cc
+- set verbosity of physics lists to 1
+
+06 March 2015 Andrea Dotti         (exampleES2-V10-01-02)
+- Removing from master unnecessary instance of GPS
+
+17 February 2015 Daren Sawkey      (exampleES2-V10-01-01)
+- updated History file from previous tag
+
+13 February 2015 Daren Sawkey      (exampleES2-V10-01-00)
+- Add macro commands to use more physics list constructors in Geant4 source
+- Rename local physics lists 
+- Add G4LossTableManager 
+  
+06 June 2014   Daren Sawkey        (exampleES2-V10-00-02)
+- extended example coding guidelines:
+  - set cuts using G4UserPhysicsListMessenger command
+  - print status using G4RunMessenger command (and remove EventAction)
+  - G4Exception rather than std::exit
+- add G4EmLowEPPhysics
+
+04 June 2014   Andrea Dotti        (exampleES2-V10-00-01)
+- Porting to new GPS for MT
+
+12 March 2014  Daren Sawkey        (exampleES2-V10-00-00)
+- Fixed memcheck error: foil thickness now defined in Detector constructor
+- Allow selection of physics list option4
+
+26 November 2013  Andrea Dotti     (exampleES2-V09-06-12)
+- Bug fixing for MT:
+	- Moving DefineMaterials in constructor of detector construction
+	- Adding SetToBeBroadcasted(false) explicitly to UI commands when needed
+        - Using G4RunManager::ReinitializeGeometry() to trigger geometry-rebuild
+          when changing geometry
+
+20 November 2013  Ivana Hrivnacova (exampleES2-V09-06-11)
+- Fixed typo in previous commit
+
+18 November 2013  Ivana Hrivnacova (exampleES2-V09-06-10)
+- Propagated changes from README in .README
+- In ElectronRun::RecordEvent: call base class to increment numberOfEvent
+
+17 November 2013  Joseph Perl (exampleES2-V09-06-09)
+- Improve README.
+
+12 November 2013  Joseph Perl (exampleES2-V09-06-08)
+- Adjust creation of scorers to fix problem in sequential mode.
+- Also apply some general cleanup.
+
+6 November 2013  Ivana Hrivnacova (exampleES2-V09-06-07)
+- Updated CMake file for added macro.
+
+4 November 2013  Joseph Perl (exampleES2-V09-06-06)
+- Remove spurious directory called "tags". not sure how this got added
+
+4 November 2013  Joseph Perl (exampleES2-V09-06-05)
+- Support multi-threading
+- Add electronScattering2.in for ctest
+
+21 August 2013  V.Ivanchenko (exampleES2-V09-06-04)
+- PhysListEmStandard - removed G4UrbanMscModel95 - use default
+    model
+
+05 June 2013  Ivana Hrivnacova (exampleES2-V09-06-03)
+- Apply coding guidelines (initialization of data members)
+
+28 May 2013  Joseph Perl (exampleES2-V09-06-02)
+- Apply coding guidelines
+
+01 April 2013, Andrea Dotti (exampleES2-V09-06-01)
+- new API for G4MT physics list
+
+19 February 2012, Ivana Hrivnacova (exampleES2-V09-06-00)
+- Used SetEmModel method in physics builders
+
+4 September 2012, Ivana Hrivnacova (exampleES2-V09-05-05)
+ - Added CMakeLists.txt:
+ - Added .README  
+   
+20 April 2012, Joseph Perl
+- Apply coding guideline 2.1
+     
+19 April 2012, Joseph Perl
+- Correct area calculation in ElectronRun
+- Apply new examples coding guidelines
+
+09-02-12 V.Ivanchenko (exampleES2-V09-05-04)
+- PhysListEmStandardSS, PhysListEmStandardWVI - more correct order
+    and fixed initialisation        
+     
+29 October 2011, Joseph Perl (exampleES2-V09-04-03)
+- Updated PhysListEmStandard.cc to match version in electronScattering
+
+28 October 2011, Joseph Perl (exampleES2-V09-04-02)
+- Correct physics list setting in macros
+
+08 June 2011, Joseph Perl (exampleES2-V09-04-01)
+- Correct README comments on opt2 and opt3
+
+05 January 2011, V.Ivanchenko (exampleES2-V09-04-00)
+- Added all physics builders from electronScattering example
+
+02 November 2010, John Allison  (exampleES2-V09-03-02)
+- Introduced G4UIexecutive.
+
+28 October 2010, Gunter Folger   (exampleES2-V09-03-01)
+- fix compilation warning in ElectronBenchmarkDetector.cc
+
+4th June 2010, Joseph Perl (exampleES2-V09-03-00)
+- Updated vis usage.
+ 
+9th December 2009, Joseph Perl (exampleES2-V09-02-01)
+- Correct density for C, Cu and Au.
+ 
+3rd December 2009, Joseph Perl (exampleES2-V09-02-00)
+- Introducing this example.

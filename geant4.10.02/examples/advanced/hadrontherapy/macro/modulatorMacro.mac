@@ -1,0 +1,104 @@
+
+# ---------------------------------------------------------
+# THIS MACRO PERMIT TO RECONSTRUCT THE SPREAD OUT BRAGG PEAK
+# MODULATING THE PROTON BEAM ENERGY BY MEANS OF A ROTATING
+# MODULATOR WHEEL.
+# HERE THE WHEEL IS ROTATED OF 1 DEGREE AT EACH RUN AND 
+# ONE THOUSAND PROTON HYSTORIES ARE SIMULATED IN EACH 
+# RUN
+# IN ORDER TO INCREASE THE RESOLUTION MORE EVENT CAN ADDED
+# OR A SMALLER ANGLE CAN BE CHOSEN.
+# 
+# NOTE THAT THE MODULATOR MATERIAL IS AIR FOR DEFAULT.
+# IF ONE WANT CARRY OUT A SIMULATION WITH
+# THE MODULATOR HE/SHE MUST MODIFY  "HadrontherapyModulator.cc"
+# AND SET the <<ModMater>> TO "PMMA".
+#
+# USERS SHOULD GIVE A LOOK TO THE HELP OF THE IDLE TO KNOW
+# THE ACTIVATED MESSSENGERS FOR THE GEOMETRY
+#
+# 
+# ANYWAY SEND ME AN E-MAIL FOR ANY QUESTION: cirrone@lns.infn.it.   
+# --------------------------------------------------------------------------------  
+#########################
+# Set of the verboses 
+#
+/control/verbose 1
+/tracking/verbose 0
+/run/verbose 0
+/event/verbose 0
+
+##########################
+# Set of the physic models
+#
+/Physics/addPhysics QGSP_BIC_EMY
+ 
+##########################
+# Initialisation procedure
+#
+/run/initialize
+
+##########################
+# Visualisation 
+#
+/vis/scene/create
+/vis/open OGL
+/vis/viewer/flush
+/vis/viewer/set/viewpointThetaPhi 50 130 deg
+/vis/viewer/zoom 3.5
+/vis/viewer/pan -60  40 cm
+/vis/scene/add/trajectories
+/vis/viewer/update
+/vis/scene/add/trajectories
+/vis/scene/endOfEventAction accumulate
+#########################
+# Set the primary particle type,
+# energy and position along the X direction
+#
+
+#---------------------------gps-----------------
+/gps/pos/shape Circle
+/gps/pos/centre -310. 0. 0. cm ##-270
+/gps/pos/radius 0. mm
+/gps/pos/sigma_r 2. mm ##3
+/gps/particle proton
+/gps/pos/type Beam
+
+# the incident surface is in the y-z plane
+
+/gps/pos/rot1 0 1 0
+/gps/pos/rot2 0 0 1
+
+
+# the beam energy is in gaussian profile
+#
+/gps/ene/type Gauss
+/gps/energy 62 MeV
+/gps/ene/sigma 300 keV
+/gps/direction 1 0 0
+
+
+##########################
+# Set here the cut and the step max for the tracking. 
+# Suggested values of cut and step:
+/run/setCut 0.1 mm
+/Step/waterPhantomStepMax 0.01 mm 
+
+
+# IF YOU WANT A RANGE SHIFTER PLEASE CHANGE
+# THE FOLLOWIG PARAMETERS
+# SETTING FOR THE RANGE SHIFTER
+
+/beamLine/RangeShifter/RSMat G4_AIR
+/beamLine/RangeShifter/thickness 1 cm
+
+
+# START OF THE MODULATOR ROTATION
+# IT CONSISTS IN A COMPLETE ROTATION 
+# OF THE WHEEL (360 DEG)
+
+# Running in loop 
+/control/alias initialValue 0
+/control/alias   finalValue 359
+/control/alias     stepSize 1
+/control/loop macro/modulator.loop counterName {initialValue} {finalValue} {stepSize}

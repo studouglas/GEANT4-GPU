@@ -1,0 +1,55 @@
+$Id: History 69567 2013-05-08 12:43:15Z gcosmo $
+-------------------------------------------------------------------
+
+     =========================================================
+     Geant4 - an Object-Oriented Toolkit for Simulation in HEP
+     =========================================================
+
+                    Example RE03 History file
+                    ------------------------
+This file should be used by the G4 example coordinator to briefly
+summarize all major modifications introduced in the code and keep
+track of all tags.
+
+     ----------------------------------------------------------
+     * Reverse chronological order (last date on top), please *
+     ----------------------------------------------------------
+
+May 02, 2013 M. Asai (exampleRE03-V09-06-03)
+- Migrate to G4VUserActionInitalization so that it works
+  for both sequential and multi-threaded modes.
+
+May 01, 2013 M. Asai (exampleRE03-V09-06-02)
+- Fully migrated to the latest API.
+
+Apr 17, 2013 M. Asai (exampleRE03-V09-06-01)
+- Preparation for ref-04 API
+
+Mar 27, 2013 M. Asai (exampleRE03-V09-06-00)
+- Migrated to multi-threaded version. For internal use only
+
+Feb 15, 2013 I. Hrivnacova
+- Applied coding guidelines (data members initialization)
+
+Oct 15, 2012 I.Hrivnacova (exampleRE03-V09-05-01)
+- Replaced tabulators with space characters
+
+Oct 14, 2012 T.Aso 
+- revised all codes according to the coding guideline for extended examples
+ 
+May. 25, 2012 G.Cosmo (exampleRE03-V09-05-00)
+- Corrected signature of RE03UserScoreWriter::DumpQuantityToFile() to adopt
+  'const G4String&' according to changes done in digits_hits module.
+
+Nov. 07, 2010 J.Allison (exampleRE03-V09-03-01)
+- Introduced G4UIExecutive.
+
+Apr. 06, 2010 M.Asai (exampleRE03-V09-03-00)
+- Replace G4MultipleScattering with G4eMultipleScattering, G4MuMultipleScattering and G4hMultipleScattring.
+
+Nov. 23, 08 M.Asai (exampleRE03-V09-01-00)
+- Add "run4.mac" with cylindrical scoring mesh.
+
+Nov. 14, 07 M.Asai (exampleRE03-V09-00-00)
+- Introducing this example.
+

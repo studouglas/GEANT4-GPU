@@ -1,0 +1,87 @@
+#----------------------------------------------------------------------------
+# Setup the project
+cmake_minimum_required(VERSION 2.6 FATAL_ERROR)
+project(AnaEx01)
+
+#----------------------------------------------------------------------------
+# Find Geant4 package, activating all available UI and Vis drivers by default
+# You can set WITH_GEANT4_UIVIS to OFF via the command line or ccmake/cmake-gui
+# to build a batch mode only executable
+#
+option(WITH_GEANT4_UIVIS "Build example with Geant4 UI and Vis drivers" ON)
+if(WITH_GEANT4_UIVIS)
+  find_package(Geant4 REQUIRED ui_all vis_all)
+else()
+  find_package(Geant4 REQUIRED)
+endif()
+
+#----------------------------------------------------------------------------
+# Setup Geant4 include directories and compile definitions
+#
+include(${Geant4_USE_FILE})
+
+#----------------------------------------------------------------------------
+# Locate sources and headers for this project
+#
+include_directories(${PROJECT_SOURCE_DIR}/include 
+                    ${PROJECT_SOURCE_DIR}/shared/include 
+                    ${Geant4_INCLUDE_DIR})
+file(GLOB sources ${PROJECT_SOURCE_DIR}/src/*.cc
+                  ${PROJECT_SOURCE_DIR}/shared/src/*.cc)
+file(GLOB headers ${PROJECT_SOURCE_DIR}/include/*.hh
+                  ${PROJECT_SOURCE_DIR}/shared/include/*.hh)
+
+#----------------------------------------------------------------------------
+# Find HBOOK (optional package)
+#
+set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/hbook/cmake ${CMAKE_MODULE_PATH})
+find_package(HBOOK QUIET)
+if(NOT HBOOK_FOUND)
+  message(STATUS "G4 Examples: HBOOK package not found. --> g4tools/hbook analysis disabled")  
+else()
+  message(STATUS "G4 Examples: HBOOK package found. --> g4tools/hbook analysis enabled")  
+  add_definitions(-DG4_USE_HBOOK)  
+endif()
+
+#----------------------------------------------------------------------------
+# Add g4tools/hbook sources
+#
+
+if (HBOOK_FOUND)
+  enable_language(Fortran)
+  include_directories(${PROJECT_SOURCE_DIR}/hbook/include)
+  file(GLOB add_sources ${PROJECT_SOURCE_DIR}/hbook/src/*.cc)
+  file(GLOB fortran_sources ${PROJECT_SOURCE_DIR}/hbook/src/*.f)
+  file(GLOB add_headers ${PROJECT_SOURCE_DIR}/hbook/include/*.hh)
+endif()       
+
+#----------------------------------------------------------------------------
+# Add the executable, and link it to the Geant4 libraries
+#
+add_executable(AnaEx01 AnaEx01.cc 
+               ${sources} ${add_sources} ${fortran_sources} 
+               ${headers} ${add_headers})
+target_link_libraries(AnaEx01 ${Geant4_LIBRARIES} ${HBOOK_LIBRARIES})
+
+#----------------------------------------------------------------------------
+# Copy all scripts to the build directory, i.e. the directory in which we
+# build AnaEx01. This is so that we can run the executable directly because it
+# relies on these scripts being in the current working directory.
+#
+set(AnaEx01_SCRIPTS
+    AnaEx01.in run.mac vis.mac
+  )
+
+foreach(_script ${AnaEx01_SCRIPTS})
+  configure_file(
+    ${PROJECT_SOURCE_DIR}/${_script}
+    ${PROJECT_BINARY_DIR}/${_script}
+    COPYONLY
+    )
+endforeach()
+
+#----------------------------------------------------------------------------
+# Install the executable to 'bin' directory under CMAKE_INSTALL_PREFIX
+#
+install(TARGETS AnaEx01 DESTINATION bin)
+

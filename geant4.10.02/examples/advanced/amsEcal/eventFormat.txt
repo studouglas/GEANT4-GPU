@@ -1,0 +1,11 @@
+   loop on Events
+   --------------
+   - EventNb
+   - beam_Energy (MeV)   Direction   Position (mm)
+   - nb_of_fibers_fired
+   
+   - loop on fibers
+     --------------
+     - kFiber (coded)   EvisFiber (MeV)   
+
+     coding convention : kFiber = kLayer*1000 + iFiber

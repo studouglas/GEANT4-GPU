@@ -1,0 +1,51 @@
+$Id: History 70477 2013-05-31 08:35:08Z ahoward $
+-------------------------------------------------------------------
+
+     =========================================================
+     Geant4 - an Object-Oriented Toolkit for Simulation in HEP
+     =========================================================
+
+                      Category History file
+                      ---------------------
+This file should be used by G4 developers and category coordinators
+to briefly summarize all major modifications introduced in the code
+and keep track of all category-tags.
+It DOES NOT substitute the  CVS log-message one should put at every
+committal in the CVS repository !
+
+     ----------------------------------------------------------
+     * Reverse chronological order (last date on top), please *
+     ----------------------------------------------------------
+
+Nov 6, 2015, M. Verderi
+- some clean up
+- requires proc-biasmng-V10-01-00 and proc-biasgen-V10-01-01
+- tag : GB02-V10-01-01
+
+Nov 6, 2015, M. Verderi
+- Biasing scheme evolved using G4VAuxiliaryTrackInformation
+  which implies some rewritting of G4BOptrForceCollision class.
+  GB02 example adapted to these changes: mainly : seconnd
+  OpperationApplied(..) method implemented in
+  GB02BOptrMultiParticleForceCollision
+- requires proc-biasmng-V10-01-00 and proc-biasgen-V10-01-00
+- tag : GB02-V10-01-00
+
+Oct 14, 2014, M. Verderi
+- Adapt to evolved biasing generic scheme
+- requires proc-biasgen-V10-00-00 and proc-biasmng-V10-00-00
+- tag : GB02-V10-00-00
+
+Nov 29, 2013, I. Hrivnacova
+- Added GNUmakefile, .README
+
+Nov 28, 2013, M. Verderi -  biasingGB02-V09-06-03
+- remove gui
+- add README
+
+Nov 28, 2013, M. Verderi -  biasingGB02-V09-06-02
+- Code cleanup and introduction of test files.
+
+Nov 8, 2013 M. Verderi - biasingGB02-V09-06-00
+- Creation
+

@@ -1,0 +1,18 @@
+/run/verbose 1
+/tracking/storeTrajectory 1
+/gps/particle proton
+/gps/pos/type Plane
+/gps/pos/shape Annulus
+/gps/pos/rot1 0. 0. 1.
+/gps/pos/rot2 0. 1. 0.
+/gps/pos/radius 35.5 cm
+/gps/pos/inner_radius 30.5 cm
+/gps/pos/centre 780.1 0. 0. cm
+/gps/ang/type cos
+/gps/ang/maxtheta 1. deg
+/gps/ene/type Mono
+/gps/ene/mono 0.5 MeV
+
+#/control/execute vis.mac
+
+/run/beamOn 1000

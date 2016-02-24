@@ -1,0 +1,129 @@
+
+     =========================================================
+ 		      Geant4 - Brachytherapy example
+     =========================================================
+
+                             README
+                      ---------------------
+
+
+The brachytherapy example is currently maintained and upgraded by Susanna Guatelli (1), with the support of
+Pablo Cirrone(2), Luciano Pandola (3), Dean Cutajar (1) and Stuart P. George (1)
+
+1. Centre For Medical Radiation Physics (CMRP), University of Wollongong, NSW, Australia.
+2. LNS, INFN, Catania, Italy.
+3. LNGS, INFN, Gran Sasso, Italy
+------------------------------------------------------------------------
+
+Contact: susanna@uow.edu.au
+         geant4-advanced-examples@cern.ch
+        
+------------------------------------------------------------------------
+
+List of authors: 
+S. Agostinelli, F. Foppiano, S. Garelli, S. Guatelli, M. G. Pia, M. Tropeano
+
+-----------------------------------------------------------------
+----> Introduction.                                                     
+                                                                       
+Brachytherapy example simulates  the energy deposit in a water phantom, produced by: 
+1) Iridium source (endocavitary brachytherapy).                         
+2) Iodium  source (interstitial brachytherapy).                         
+3) Leipzig Applicator (superficial brachytherapy).   
+
+In particular in this example it is shown how to:
+- model a radioactive source  in terms of radiation field and geometry
+- model the radiation field with the General Particle Source   
+- calculate the energy deposition in a phantom by means of the G4 scoring mesh
+- define the physics by means of a Geant4 Modular Physics List
+- switch different physics approaches to model electromagnetic physics
+- save results in an analysis ROOT file using the Geant4 analysis component.               
+
+The example can be executed in multithreading mode
+
+------------------------------------------------------------------------
+----> 1.Experimental set-up.                                            
+
+The default source is an Ir-131 source set in the center of the phantom.
+The phantom is a box with size 30 cm. The phantom is set in the World volume filled 
+with air.
+
+
+
+The primary radiation field is defined by means of the GeneralParticleSource                           
+-------------------------------------------------------------------------
+----> 2.SET-UP 
+                                          
+A standard Geant4 example CMakeLists.txt is provided.                   
+
+Setup for analysis:
+By default, the example has no analysis component. 
+
+To compile and use the application with the analysis on, build the example with the following command:
+cmake -DWITH_ANALYSIS_USE=ON -DGeant4_DIR=/path/to/Geant4_installation /path/to/brachytherapy_example                                                     
+          
+The installation of ROOT is required (http://root.cern.ch/drupal/).
+
+macro.C and plot_primary.C are provided to plot the results of the simulation, contained
+in the brachytherapy.root file. 
+
+------------------------------------------------------------------------
+----> 3.How to run the example.                                         
+
+- Batch mode:
+  $G4WORKDIR/bin/Linux-g++/Brachy IridiumSourceMacro.mac                
+  $G4WORKDIR/bin/Linux-g++/Brachy IodiumSourceMacro.mac       
+  $G4WORKDIR/bin/Linux-g++/Brachy LeipzigSourceMacro.mac  
+                                                                        
+- Interative mode:                                                      
+  3) $G4WORKDIR/bin/Linux-g++/Brachy
+     VisualisationMacro.mac is loaded automatically.         
+                                                                         
+* How to change the absorber material of the phantom:                                                                 
+idle>/phantom/selectMaterial  materialName
+
+---------------------------------------------------------------------------------
+----> 4. Primary radiation Field
+
+The radiation field is defined with the General Particle Source.
+
+Two alternative options are offered:
+1) Define gamma as primary radiation field. The gamma are originated from the radioactive core.
+This radiation field is defined in:
+iodine_source_primary.mac and iridium_source_primary.mac
+
+2) Model the radioactive Decay. The primary particle is the radionuclide.
+This option is modelled in iodine_decay.mac and iridium_decay.mac
+
+The GPS macros are executed in IridiumSourceMacro.mac, IodiumSourceMacro.mac, LeipzigSourceMacro.mac
+------------------------------------------------------------------------
+----> 5. Scoring mesh
+
+The scoring mesh is used to calculate the energy deposition in the voxels of the phantom,
+integrated over the whole run. The scoring mesh is defined in the input macro file (see IridiumSourceMacro.mac for example).
+The user can change the default output format of the scoring in the class BrachyUserScoreWriter.
+                                                                         
+------------------------------------------------------------------------
+----> 6. Simulation output                                               
+
+The output is:
+
+- ASCII file EnergyDeposition.out, with xx (mm), yy(mm), zz(mm), and energy deposition (keV), in the phantom.
+  By default:
+  EnergyDeposition_iodine.out contains the Edep when Iodine source is selected
+  EnergyDeposition_iridium.out contains the Edep when Iridium source is selected
+  EnergyDeposition_Leipzig.out contains the Edep when the Iridium source with Leipzig applicator is selected
+
+- brachytherapy.root, containing 
+  - an ntuple with the 3D energy deposition in the phantom. The macro macro.C is provided as example 
+    to open brachytherapy.root in ROOT interactive session and to plot the results of the simulation. 
+    The ROOT file will be created if the example is built with the WITH_ANALYSIS_USE=ON option (see section 2).                   
+  - 1D histogram withe the plot of energy spectrum of gamma emitted by the radioactive decay when the Ir or I decay is modelled
+   (see section 4). plot_primary.C is provided as example to open brachytherapy.root and to plot the energy    spectra                                                                
+
+-------------------------------------------------------------------------------
+----> 7.Visualisation                                                     
+
+a macro is provided ad example of visualisation:  VisualisationMacro.mac 
+
+

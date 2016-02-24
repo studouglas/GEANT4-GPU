@@ -1,0 +1,57 @@
+#!/usr/bin/perl
+
+use Getopt::Std;
+
+our  $PreinitMacroDef = "preinit.mac";
+our  $InitMacroDef = "init.mac";
+our  $OverrideOpt = "";
+
+sub  PrintUsage
+{
+    print "Usage: [-p preinit_macro] [-m init_macro] [-r suffix] [-y] job_id\n";
+    print "\tThis program will create a job script for starting a new ";
+    print "project\n\t\t<job_id>; the job script name will be prepended by ";
+    print "'cexmc_'\n\t\tand appended by '_<suffix>' if '-r' is specified\n";
+    print "\tDefault preinit_macro is '$PreinitMacroDef', default init_macro ";
+    print "is '$InitMacroDef'\n";
+    print "\tIf '-r' is specified then a project <job_id> will be read and a ";
+    print "new\n\t\tproject <job_id>_<suffix> will be started; preinit_macro\n";
+    print "\t\tin this case will be ignored\n";
+    print "\tUse '-y' to override existing project\n";
+}
+
+sub VERSION_MESSAGE
+{
+    PrintUsage;
+    exit 0;
+}
+
+getopts( "m:p:r:y" );
+
+unless ( $ARGV[ 0 ] )
+{
+    PrintUsage;
+    exit 1;
+}
+
+$opt_p ||= $PreinitMacroDef;
+$opt_m ||= $InitMacroDef;
+$opt_r &&= "_$opt_r";
+$OverrideOpt = "-y" if $opt_y;
+
+open ( JOBFILE, "> cexmc_$ARGV[ 0 ]$opt_r.job" ) or die $!;
+print JOBFILE "#!/bin/sh\n";
+print JOBFILE "CEXMC_PROJECTS_DIR=" . $ENV{ 'CEXMC_PROJECTS_DIR' } . "\n";
+print JOBFILE "PATH=" . $ENV{ 'PATH' } . "\n";
+print JOBFILE "LD_LIBRARY_PATH=" . $ENV{ 'LD_LIBRARY_PATH' } . "\n";
+if ( $opt_r )
+{
+    print JOBFILE "cexmc -m$opt_m $OverrideOpt -r$ARGV[ 0 ] ";
+    print JOBFILE "-w$ARGV[ 0 ]$opt_r\n";
+}
+else
+{
+    print JOBFILE "cexmc -p$opt_p -m$opt_m $OverrideOpt -w$ARGV[ 0 ]\n";
+}
+
+close ( JOBFILE ) or die $!;

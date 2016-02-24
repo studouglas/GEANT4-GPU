@@ -1,0 +1,202 @@
+$Id: History 87259 2014-11-28 08:09:17Z gcosmo $
+-------------------------------------------------------------------
+
+     =========================================================
+     Geant4 - an Object-Oriented Toolkit for Simulation in HEP
+     =========================================================
+
+                      Category History file
+                      ---------------------
+This file should be used by G4 developers and category coordinators
+to briefly summarize all major modifications introduced in the code
+and keep track of all category-tags.
+It DOES NOT substitute the  CVS log-message one should put at every
+committal in the CVS repository !
+
+     ----------------------------------------------------------
+     * Reverse chronological order (last date on top), please *
+     ----------------------------------------------------------
+
+Nov 27, 2014 I.Hrivnacova - exbiasing-V10-00-03
+- Fixed top README, .README
+
+Nov 12, 2014 M. Verderi - exbiasing-V10-00-02
+- Creation of GB04
+
+Nov 08, 2014 I.Hrivnacova - exbiasing-V10-00-01
+- Updated README files for adding GB03
+
+Nov 07, 2014 M. Verderi - exbiasing-V10-00-00
+- Creation of GB03
+
+Dec 03, 2013 I.Hrivnacova - exbiasing-V09-06-06
+- Fixed files description (for Doxygen)
+
+Nov 29, 2013 I.Hrivnacova - exbiasing-V09-06-05
+- Fixed documentation for Doxygen,
+  added missing GNUmakefile in GB01, GB02
+
+Nov 23, 2013 A. Howard - exbiasing-V09-06-04
+- Fixed single threaded problem with B03 (double bias process)
+
+Nov 22, 2013 A. Howard - exbiasing-V09-06-03
+- Combined tag of B01, B02 and B03 with last accepted of GB01, GB02, ReverseMC01
+
+Nov 22, 2013 A. Howard - exbiasing-V09-06-02 (internal)
+- Changed README and .README to reflect B02 correctly. Added B03
+  directory. Added GB01, GB02 and B03 to CMakeLists.txt and GNUmakefile
+
+Nov 15, 2012 A. Howard - exbiasing-V09-06-01
+- Changed README and .README to reflect the B02 correctly.
+
+Nov 15, 2012 I.Hrivnacova - exbiasing-V09-05-04
+- Minor fixes in .README
+
+Oct 13, 2012 A. Dotti - exbiasing-V09-05-03
+- Adding explicit use of system of units
+
+Sep 24, 2012 I.Hrivnacova - exbiasing-V09-05-02
+- New tag for synchronizing with ctest
+
+Sep 19, 2012 I.Hrivnacova - exbiasing-V09-05-01
+- Added explicit includes of G4SystemOfUnits.hh and G4PhysicalConstants.hh
+  where needed
+- Fixed compiler warnings in B02PSScoringDetectorConstruction.cc  
+- Replaced tabulators with space characters  
+
+Sep 4, 2012 I.Hrivnacova - exbiasing-V09-05-00
+- Updated CMakeLists.txt:
+  adding visualization (if used), copying macros, install target 
+  and comment lines 
+
+Nov 14th, 2011 G.Cosmo - exbiasing-V09-04-01
+- Archived obsolete example B03 laying on the trunk.
+
+Nov 14th, 2011 A.Howard - exbiasing-V09-04-00
+- migrated B01 example (B01DetectorConstruction.cc) to new G4Exception
+
+November 20, 2009  L. Desorgher - exbiasing-V09-02-00
+- Added new example ReverseMC01 demonstrating the Reverse MonteCarlo technique.
+
+June 22, 2007  A. Howard - exbiasing-V08-03-02
+- Cleaned up B01 and B02 code to be more example-like for release
+
+June 5, 2007  A. Howard - exbiasing-V08-03-01
+- Removed B03 from GNUmakefile
+- Included "B02-V08-03-00" - migration of B02 to new biasing/scoring scheme:
+  test version
+
+June 5, 2007  A. Howard - exbiasing-V08-03-00
+- Migrated example B01 to new biasing/scoring scheme - test version 
+  (needs clean up before public release)
+- Removed B03 (redundant/obsolete use of python)
+
+Dec 6, 2005  G. Cosmo
+- Trivial changes for support of CLHEP-2.0.X series.
+
+Nov 15th, 2005  G. Cosmo - exbiasing-V07-01-00
+- migration to <sstream> from deprecated <strstream>.
+
+May 3rd, 2005  J. Allison
+- replaced vis manager with G4VisExecutive.
+
+Dec 8th, 2004  G. Daquino - exbiasing-V06-02-00
+- B01, B02 and B03 migrated to <cmath>.
+
+Jun 21st, 2004  G. Daquino - exbiasing-V06-01-00
+- Ported B02 and B03 to AIDA 3.2.1 and PI 1.2.1.
+
+Jul 31th, 2003  M. Dressel - exbiasing-V05-02-02
+- added weight window example to B01
+
+Jul 31th, 2003  M. Dressel - exbiasing-V05-02-01
+- removed some unused arguments in fucntion calls
+
+Jun 30th, 2003  M. Dressel - exbiasing-V05-02-00
+- simplified building of B03 and removed files created by swig,
+  these files are created during gmake now
+
+Jun 25th, 2003  G. Cosmo - exbiasing-V05-01-00
+- Added disclaimer of liability where needed.
+
+Mar 11th, 2003  M. Dressel - exbiasing-V05-00-01
+- changed the replica number of the world volume from -1 to 0
+- Initialze() of the G4RunManager is now called after all Materials
+  and volumes (also in the parallel geometry) are built.
+
+
+Feb 19th, 2003  G.Cosmo - exbiasing-V05-00-00
+- removed redundant inclusion of PhysicalConstants.h.
+  Now using CLHEP headers.
+
+Nov 25th, 2002 M.Dressel -  exbiasing-V04-01-01
+- change README
+
+Nov 22th, 2002 M.Dressel 
+- changed geometry for scoring. Cells must not coinside with
+  wolrd boundary since tracks would be killed before
+  scoring is called in the case a track exits a cell into
+  "out of world".
+
+Nov   8th, 2002 M.Dressel - exbiasing-V04-01-00
+  reduce and change examples. Only B01 B02 B03 will
+  remain but with different content. 
+
+July 11th, 2002 M.Dressel - internal-3-exbiasing-V04-01-01
+- resolved B09 into geometry/biasing and run.
+- coworks with: internal-1-run-V04-01-01
+                internal-2-transport-V04-01-01
+                internal-2-geombias-V04-01-01
+
+July 10th, 2002 M.Dressel 
+- using G4StandardScorer and G4StandardScoreTable instead of
+  B06Scorer and B06ScorePRinter in B06
+
+July 10th, 2002 M.Dressel - internal-2-exbiasing-V04-01-01
+- adopt to the new G4Sigma version in internal-1-geombias-V04-01-01
+
+
+July 10th, 2002 M.Dressel - internal-1-exbiasing-V04-01-01
+- temporarily created directory B09. Messangers and classes using them
+  are put into B09 because the G4UImessanger is not known in 
+  geometry and processes.
+  
+
+Jun  4th, 2002 M.Dressel - exbiasing-V04-00-07
+- update of exampleBXX.out files.
+- addition of example B08
+
+May 31th, 2002 M.Dressel - exbiasing-V04-00-06
+- change ...Manager to ...Sampler to be conform to transport-V04-00-06
+
+May 23th, 2002 M.Dressel - internal-1-exbiasing-V04-00-05
+- Update of README and ouput files after changes in G4ProcessPlacer in 
+  transportation
+
+May 15th, 2002 M.Asai - exbiasing-V04-00-05
+- Eliminated all UI commands from generator actions
+
+April 19th, 2002 G.Cosmo - exbiasing-V04-00-04
+- Added disclaimer of liability and minor cosmetics...
+
+April 12th, 2002 M.Dressel
+- Change class B06ImportanceDetectorConstruction.hh and exampleB06.cc.
+  B06ImportanceDetectorConstruction does not derive from 
+  G4UserDetectorConstruction, function Construct made private
+  and called in Constructor.
+
+April 8th, 2002  G.Cosmo - exbiasing-V04-00-03
+- Fixed usage of 'first'/'second' in iterators for porting
+  on DEC-cxx non-ISO.
+
+April 8th, 2002  M.Dressel - exbiasing-V04-00-02
+- Resolved compilation problems on HP-aCC.
+
+April 4th, 2002  M.Dressel - exbiasing-V04-00-01
+- Resolved compilation problems on SUN-CC and Linux-egcs.
+
+March 28th, 2002  M.Dressel - exbiasing-V04-00-00
+- First implementation of importance biasing and scoring user examples.
+
+March 25th, 2002  G.Cosmo
+- Created.

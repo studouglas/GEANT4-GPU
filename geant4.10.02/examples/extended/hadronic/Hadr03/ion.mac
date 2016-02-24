@@ -1,0 +1,23 @@
+#
+# Macro file for "Hadr03.cc"
+# (can be run in batch, without graphic)
+#
+#
+/control/verbose 2
+/run/verbose 2
+#
+/testhadr/det/setIsotopeMat Be9 4 9 1.85 g/cm3
+/testhadr/det/setSize 10 m 
+#
+/run/initialize
+#
+/process/list
+###/process/inactivate ionInelastic
+#
+/gun/particle ion
+/gun/ion 3 7
+/gun/energy 140 MeV
+#
+/run/printProgress 10000
+#
+/run/beamOn 100000

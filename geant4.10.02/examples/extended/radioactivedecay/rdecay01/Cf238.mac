@@ -1,0 +1,10 @@
+# to read user's data file
+#
+/grdm/setRadioactiveDecayFile 98 238 UserData/UserRadData_z98.a238
+#
+/gun/particle ion
+/gun/ion 98 238 
+#
+/tracking/verbose 2
+#   
+/run/beamOn 1

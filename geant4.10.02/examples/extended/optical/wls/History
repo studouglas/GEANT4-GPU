@@ -1,0 +1,171 @@
+$Id: History 90240 2015-05-21 09:08:13Z gcosmo $
+-------------------------------------------------------------------
+
+     =========================================================
+     Geant4 - an Object-Oriented Toolkit for Simulation in HEP
+     =========================================================
+
+                    WLS History file
+                    ----------------
+This file should be used by the G4 example coordinator to briefly
+summarize all major modifications introduced in the code and keep
+track of all tags.
+
+     ----------------------------------------------------------
+     * Reverse chronological order (last date on top), please *
+ 
+     ----------------------------------------------------------
+
+May 14, 2015 P. Gumplinger (WLS-V10-01-03)
+- remove obsolete /event/drawTrack and /event/printModulo
+
+March 8, 2015 A. Dotti (WLS-V10-01-02)
+- introducing global mutex for primary generation
+  because examples modifies GPS polarization/time
+
+
+March 6, 2015 A. Dotti (WLS-V10-01-00, -01)
+- removing unnecessary GPS from master
+
+October 17, 2014 P. Gumplinger (WLS-V10-00-04)
+- remove double blank lines in WLSDetectorConstruction.cc and
+  WLSPrimaryGeneratorAction.cc
+
+October 16, 2014 P. Gumplinger (WLS-V10-00-03)
+- fix coding guideline 1.4 in WLSDetectorMessenger
+
+July 11, 2014 P. Gumplinger (WLS-V10-00-02)
+- Use implicit dimensioning for all arrays and assert that they are the
+  same (thanks to M. Kelsey for suggesting this)
+
+June 06, 2014 A. Dotti (WLS-V10-00-01)
+- Migration to new GPS for MT
+
+December 04, 2013 P. Gumplinger (WLS-V10-00-00)
+- Fixes in gui.mac:
+  Commented out command specific to B2 example
+  Let execute vis.mac first to make the command in added menus available;
+  Corrected wireframe parameter
+
+December 02, 2013 G. Folger     (WLS-V09-06-15)
+- corrected avoiding re-use of pointer into temporary in
+  WLSDetectorConstruction.cc
+
+December 02, 2013 G. Folger     (WLS-V09-06-14)
+- avoid re-use of pointer into temporary in WLSDetectorConstruction.cc
+
+November 29, 2013 P. Gumplinger (WLS-V09-06-13)
+- do not user G4PhysListFactory, remove B2 stuff from gui.mac
+
+November 28, 2013 P. Gumplinger (WLS-V09-06-12)
+- add gui.mac, icons.mac and run.png
+
+November 27, 2013 P. Gumplinger (WLS-V09-06-11)
+- Fixed ConstructSDandField():
+  Moved setting the SD and field manager to logical volume outside the tests
+- Put back cleaning volumes and solid stores in Construct()
+- add gui.mac
+
+November 22, 2013 P. Gumplinger (WLS-V09-06-10)
+- replace UpdateGeometry with ReinitializeGeometry
+
+October 29, 2013 P. Gumplinger (WLS-V09-06-09)
+- make sure only one SteppingVerbose is activated, remove SetNumberOfThreads
+
+October 09, 2013 I. Hrivnacova (WLS-V09-06-08)
+- Instantiate SteppingVerbose in a new method in WLSActionInitialization
+  and removed WLSWorkerInitialization (not needed anymore)
+
+July 04, 2013 M. Asai (WLS-V09-06-07)
+  fix the use of G4Allocator in WLSTrajectory and WLSTrajectoryPoint
+  classes for multi-threaded mode
+
+June 05, 2013 P. Gumplinger (WLS-V09-06-05) and (WLS-V09-06-06)
+  fix compilation error when G4MULTITHREADED
+
+June 02, 2013 P. Gumplinger (WLS-V09-06-04)
+  migration to MultiThread (MT) capable
+
+May 06, 2013 P. Gumplinger (WLS-V09-06-03)
+  Apply all Examples Coding Guidelines
+
+Apr 05, 2013 A.Dotti (WLS-V09-06-02)
+  Fix compilation errors for the use of G4VModularPhysicsList::physicsVector
+  data member (now part of split-class mechanism).
+
+Apr 01, 2013 A.Dotti (WLS-V09-06-01)
+  Mew interface in G4VUserPhysicsList needed for MT
+
+Dec 02, 2012 J.Allison (WLS-V09-06-00)
+  Migration to DrawTrajectory() (i_mode argument is no longer available):
+  o WLSTrajectory.cc: Removed DrawTrajectory(G4int i_mode).
+  o WLSEventAction.cc: Removed argument from DrawTrajectory().
+
+Nov 28th, 2012 Gabriele Cosmo (WLS-V09-05-04)
+- Fixed cases of variable shadowing.
+
+Nov 17th, 2012 Ivana Hrivnacova (WLS-V09-05-03)
+- Updated documentation.
+- Removed obsolete instructions (how to compile & link).
+
+Nov 14th, 2012 Ivana Hrivnacova (WLS-V09-05-02)
+- In vis.mac: OGLIX replaced with OGL.
+
+Sep 17th, 2012 Peter Gumplinger (WLS-V09-05-01)
+    remove G4TRACKING_ALLOC_EXPORT, G4DLLEXPORT and G4DLLIMPORT from
+    WLSTrajectory and WLSTrajectoryPoint.
+
+Jun 20th, 2012 Peter Gumplinger (WLS-V09-05-00)
+    remove SetModel from  WLSOpticalPhysics.cc to work with op-V09-05-04
+
+Nov 18th, 2011 Gunter Folger    (WLS-V09-04-03)
+-----------------------------------------------
+    migrate to new G4Exception
+
+Oct 14th, 2011 Peter Gumpinger  (WLS-V09-04-02)
+-----------------------------------------------
+    modify to work with materials-V09-04-15
+
+Oct 10th, 2011 Gunter Folger    (WLS-V09-04-01)
+-----------------------------------------------
+    Fix compilation gcc46 compilation warning in WLSMaterials.cc and
+      WLSPrimaryGeneratorAction.cc
+    
+Feb 3rd, 2011 Gunter Folger     (WLS-V09-04-00)
+-----------------------------------------------
+    add missing #include <ctime> in  src/WLSRunAction.cc (Windows)
+
+Nov 20th, 2010 Peter Gumplinger (WLS-V09-03-04)
+-----------------------------------------------
+   do not make a new Sensitive Detector at every UpdateGeometry()
+
+Oct 24th, 2010 Peter Gumplinger (WLS-V09-03-03)
+-----------------------------------------------
+   include Mie scattering process and update usage of G4PhysListFactory
+
+Jun 3rd, 2010 Peter Gumplinger    (WLS-V09-03-02)
+--------------------------------------------------
+   modify WLSTrajectory class to compile without warnings against
+   tracking-V09-03-03 by implementing a DrawTrajectory() method.
+
+Mar 25th, 2010 Gunter Folger    (WLS-V09-03-01)
+-----------------------------------------------
+   replace use of 2*M_PI by twopi. M_PI is defind in math.h in Linux, but 
+   not in Windows; pi/twopi is defined in CLHEP.
+
+Jan 11th, 2010 Peter Gumplinger (WLS-V09-03-00)
+-----------------------------------------------
+   add initialization macro init.in as per README
+
+Dec 8th,  2009 Gunter Folger    (WLS-V09-02-02)
+-----------------------------------------------
+- make gcc4.3 really happy:
+   WLSDetectorConstruction.cc modified to avoid wrong error messages ( gcc bug?)
+   WLSUserTrackInformation.cc add brackets to avoid warnings.
+   
+Dec 7th,  2009 Peter Gumplinger (WLS-V09-02-01)
+- keep gcc 4.3 compiler on SLC5 happy (modified WLSDetectorConstruction.cc)
+
+Nov 24th, 2009 Siu Pak Mok / Peter Gumplinger (WLS-V09-02-00)
+-------------------------------------------------------------
+- First release of WLS setup for optical processes.

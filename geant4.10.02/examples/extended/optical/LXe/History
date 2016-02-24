@@ -1,0 +1,187 @@
+$Id: History 90338 2015-05-26 08:35:43Z gcosmo $
+-------------------------------------------------------------------
+
+     =========================================================
+     Geant4 - an Object-Oriented Toolkit for Simulation in HEP
+     =========================================================
+
+                    LXe History file
+                    ----------------
+This file should be used by the G4 example coordinator to briefly
+summarize all major modifications introduced in the code and keep
+track of all tags.
+
+     ----------------------------------------------------------
+     * Reverse chronological order (last date on top), please *
+     ----------------------------------------------------------
+
+May 22, 2015 P. Gumplinger (LXe-V10-01-00)
+- apply coding guideline 3.3
+
+November 4, 2014 A. Dotti  (LXe-V10-00-08)
+- Add Proton and Neutron and pions to local Mu physics list
+  needed for mu- capture at rest process
+
+October 30, 2014 A. Dotti  (LXe-V10-00-07)
+- Use correct mu- stopping process
+
+October 28, 2014 A. Dotti  (LXe-V10-00-06)
+- Retagging.
+
+October 27, 2014 A. Dotti  (LXe-V10-00-05)
+- New UI commands structure. Requires 
+  xrays-V10-00-06, op-V10-00-09, phys-ctor-em-V10-00-17
+
+July 11, 2014 P. Gumplinger (LXe-V10-00-04)
+- Use implicit dimensioning for all arrays and assert that they are the
+  same (thanks to M. Kelsey for suggesting this)
+
+June 2, 2014 A. Dotti (LXe-V10-00-03)
+- Remove shared process pointers between threads.
+
+January 7, 2014 P. Gumplinger (LXe-V10-00-02)
+- reduce the size of the output file
+
+December 18, 2013 P. Gumplinger (LXe-V10-00-01)
+- rearrange /optics_engine commands in LXe.in according to what
+  is allowed when with phys-ctor-em-V10-00-01 (G4OpticalPhysics)
+
+December 04, 2013 P. Gumplinger (LXe-V10-00-00)
+- Fixes in gui.mac:
+  Commented out command specific to B2 example
+  Let execute vis.mac first to make the command in added menus available;
+  Corrected wireframe parameter
+
+November 28, 2013 P. Gumplinger (LXe-V09-06-17)
+- add icons.mac run.png
+
+November 27, 2013 P. Gumplinger (LXe-V09-06-15 and 16)
+- Fixed ConstructSDandField():
+  Moved setting the SD and field manager to logical volume outside the tests
+- Put back cleaning volumes and solid stores in Construct()
+- add gui.mac
+
+November 25, 2013 P. Gumplinger (LXe-V09-06-14)
+- Fixed compilation warnings for data not used in LXeWLSFiber.hh and
+  LXeWLSSlab.hh.
+
+November 25, 2013 P. Gumplinger (LXe-V09-06-13)
+- bug fix a divided by zero
+
+November 22, 2013 P. Gumplinger (LXe-V09-06-12)
+- replace Update method and commands with ReinitializeGeometry
+
+October 29, 2013 P. Gumplinger (LXe-V09-06-11)
+- remove all reference to LXeWorkerInitialization and SetNumberOfThreads
+
+October 25, 2013 P. Gumplinger (LXe-V09-06-10)
+- Instantiate SteppingVerbose in a new method in LXeActionInitialization
+  and removed LXeWorkerInitialization (not needed anymore)
+
+September 20, 2013 Ivana Hrivnacova (LXe-V09-06-09)
+- Fixed setting of sensitive detectors to logical volumes
+
+September 13, 2013 Peter Gumplinger (LXe-V09-06-08)
+- apply all of Ivana's modifications to make the code MT ready
+
+July 16, 2013 Ivana Hrivnacova (LXe-V09-06-07)
+- Make LXeTrajectoryAllocator thread local (required for MT)
+
+July 11, 2013 Ivana Hrivnacova (LXe-V09-06-06)
+- Added missing G4ThreadLocal keyword for the *HitAllocator definition
+  in LXePMTHit.cc, LXeScintHit.cc
+
+May 27, 2013 P. Gumplinger (LXe-V09-06-05)
+- coding guideline - line length < 80 for LXeSteppingMessenger
+  and LXeEventMessenger
+
+Apr 05, 2013 P. Gumplinger (LXe-V09-06-04)
+- properly initialize fExpectedNextStatus at the first step
+
+Apr 05, 2013 P. Gumplinger (LXe-V09-06-03)
+- rename to aParticleIterator as per A. Dotti
+
+Apr 05, 2013 P. Gumplinger (LXe-V09-06-02)
+- fix geometry overlap
+
+Apr 01, 2013 A. Dotti (LXe-V09-06-01)
+- Migrate to new G4VUserPhysicsList interface needed for MT
+
+Dec 02, 2012 J.Allison (LXe-V09-06-00)
+  Migration to DrawTrajectory() (i_mode argument is no longer available):
+  o LXeTrajectory.cc: Removed DrawTrajectory(G4int i_mode).
+  o LXeEventAction.cc: Removed argument from DrawTrajectory().
+
+16 November 2012 Gunter Folger    (LXe-V09-05-02)
+- reduce size of LXe.out, and remove tracking/verbose 1, responsible for the 
+   size of the output
+
+14 November 2012 Ivana Hrivnacova (LXe-V09-05-01)
+- In vis.mac: OGLIX replaced with OGL
+
+18 September 2012 Ivana Hrivnacova
+- RecorderBase renamed to LXeRecorderBase (by P. Gumplinger)
+  See also ../History for general changes
+
+20 June 2012 Peter Gumplinger (LXe-V09-05-00)
+- add debugging which will help spot when a wrong normal may have been returned
+
+08 November 2011 Peter Gumplinger (LXe-V09-04-00)
+- exercise the optics_engine in LXe.in
+
+03 June 2010 Peter Gumplinger    (LXe-V09-03-01)
+-  in LXeEventAction.cc fix initialisation of G4ThreeVector required by 
+   CLHEP 2.1.x.
+   
+03 June 2010 Peter Gumplinger    (LXe-V09-03-00)
+-  modify LXeTrajectory class to compile without warnings against
+   tracking-V09-03-03 by implementing a DrawTrajectory() method.
+
+09 November 2009 Peter Gumplinger (LXe-V09-02-01)
+- exhibit the usage of a complex index of refraction for the photo cathode
+  show usage of G4OpticalPhysics builder/messenger (instead of LXeOpticalPhysics)
+
+30 October 2009 John Allison (LXe-V09-02-00)
+- Introduced G4UIExecutive.
+
+20 November 2008 Peter Gumplinger (LXe-V09-01-01)
+- update code in LXeOpticalPhysics.cc
+
+16 July 2008 Peter Gumplinger (LXe-V09-01-00)
+- add Birks Constant for the LXe scintillator, Polystyrene scintillator
+  modified: LXeDetectorConstruction.cc, LXeOpticalPhysics.cc
+
+30 Sept 2007 Peter Gumplinger (LXe-V09-00-00)
+- adjust to the G4Cerenkov process now being a G4VDiscreteProcess
+
+14 Sept 2006 Peter Gumplinger (LXe-V08-01-00)
+- bug fix (889): set the pointers to G4MaterialPropertiesTable LXe_mt
+  and MPTPStyrene to NULL in the class constructor of LXeDetectorConstruction.
+
+11 May 2006 Peter Gumplinger (LXe-V08-00-01)
+- thanks to Andreia Trindade and Pedro Rodrigues, the WLS time delay
+  can now be a delta function or exponential.
+
+15 March 2006 Peter Gumplinger (LXe-V08-00-00)
+- reinstate the logic between scintillator and fiber: scintillate at
+  short wavelength and WLS to long wavelength. This fixes log. error
+  introduced with LXe-V07-00-00
+
+27 June 2005 Peter Gumplinger (LXe-V07-00-00)
+- Fix material dependent input for AbsFiber
+
+3rd May 2005  John Allison  (examples-V07-00-03)
+- Replaced vis manager with G4VisExecutive.
+
+December 3rd, 2004 Gabriele Cosmo (LXe-V06-02-01)
+---------------------------------
+- Implemented migration to <cmath>.
+
+August 25th, 2004 Trevor MacPhail (LXe-V06-02-00)
+---------------------------------
+- fixed compilation error in LXeSteppingVerbose.cc
+- fixed compilation warnings in LXePMTSD.cc, LXeScintHit.cc, LXeScintSD.cc
+
+May 31st, 2004 Trevor MacPhail (LXe-V06-01-00)
+------------------------------
+- First release of LXe setup for optical processes.

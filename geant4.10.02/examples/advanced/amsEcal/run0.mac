@@ -1,0 +1,19 @@
+# $Id: run0.mac 83010 2014-07-24 14:53:07Z gcosmo $
+#
+# Macro file for "amsEcal.cc" 
+#
+/control/verbose 2
+/run/verbose 2
+#
+/run/setCut 1 km
+#
+/run/initialize
+#
+/ams/gun/setDefault
+/gun/particle geantino
+/gun/energy 1 GeV
+/ams/gun/beam 3 mm
+#
+/control/execute vis.mac
+#
+/run/beamOn 10

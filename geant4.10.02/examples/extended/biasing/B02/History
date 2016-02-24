@@ -1,0 +1,88 @@
+$Id: History 77475 2013-11-25 09:38:51Z gcosmo $
+-------------------------------------------------------------------
+
+     =========================================================
+     Geant4 - an Object-Oriented Toolkit for Simulation in HEP
+     =========================================================
+
+                      Category History file
+                      ---------------------
+This file should be used by G4 developers and category coordinators
+to briefly summarize all major modifications introduced in the code
+and keep track of all category-tags.
+It DOES NOT substitute the  CVS log-message one should put at every
+committal in the CVS repository !
+
+     ----------------------------------------------------------
+     * Reverse chronological order (last date on top), please *
+     ----------------------------------------------------------
+
+Nov 22nd, 2013 A.Howard - B02-V09-06-10
+- Removed non-english variable names!
+
+Nov 22nd, 2013 A.Howard - B02-V09-06-09
+- Migrated to new MT compliant interface with modular physicslist
+- co-working with 
+  	     	  geombias-V09-06-05
+  	     	  phys-ctor-limiters-V09-06-012
+  	     	  procbiasing-V09-06-09
+
+Oct 25th, 2013 D.H. Wright - B02-V09-06-08
+- B02PhysicsList: replace LEP models with newer ones
+
+Sep 16th, 2013 I.Hrivnacova - B02-V09-06-07
+- CMake and GNUmake files clean-up (removed AIDA related stuff)
+
+Aug 5th, 2013 A.Howard - B02-V09-06-06
+- Removed redundant fFieldName datamember from B02RunAction
+
+May 30th, 2013 A.Howard - B02-V09-06-05
+- Removed redundant setupPI.csh script (remnant of old analysis)
+
+May 30th, 2013 A.Howard - B02-V09-06-04
+- Removed redundant analysis code from exampleB02.cc. Cleaned up line-lenghts,
+  tabs and changed local name of b02Run object.
+
+May 27th, 2013 I.Hrivnacova - B02-V09-06-03
+- Applied coding guidelines (virtual keyword, base class initialization)
+
+May 22nd, 2013 A.Howard - B02-V09-06-02
+- Applied coding guidelines for extended examples
+
+Dec 17th, 2012 A.Howard - B02-V09-06-01
+- Correctly removed reference to obsolete G4CellScorer classes
+
+Dec 17th, 2012 A.Howard - B02-V09-06-00
+- Temporary tag - incorrectly removed reference to obsolete G4CellScorer classes
+
+8 November 2012 Ivana Hrivnacova - B02-V09-05-00
+- Adding explicit use of system of units (missing in B02PhysicsList)
+- Fixed the order of deleting AIDA factories
+- Removed FindAIDA.cmake (now provided in Geant4 modules)
+
+30 November 2010 Ivana Hrivnacova - B02-V09-03-00
+- Migrated to use particle-based multiple-scattering.
+
+6 March 2009 Guy Barrand - B02-V09-02-00
+- GNUmakefile: removed logic for setting AIDA with G4ANALYSIS_USE.
+  since it already handled in the internal configuration scripts.
+
+June 13th, 2007 A.Howard - B02-V08-03-01
+- Code clean-up for the release
+
+June 13th, 2007 A.Howard - B02-V08-03-00
+- Migrated example to NEW biasing and scoring schemes.
+
+3rd May 2005  John Allison  (examples-V07-00-03)
+- Replaced vis manager with G4VisExecutive.
+
+March 17th, 2005 G.Daquino - B02-V07-00-00
+- porting B02 from PI working with rh73 to PI working with slc3
+
+Jun 18th, 2004  G.Daquino - B02-V06-01-00
+- porting B02 from Anaphe (Lizard) to PI. Actually, PI 1.2.1 still DOES NOT
+  allow the plotting in the same way, previously set in Anaphe. Therefore the
+  HBOOk file produced at the end of the example still needs other packages to 
+  be displayed. However, future PI releases could contain python modules with
+  this property.
+  README file has been updated accordingly.

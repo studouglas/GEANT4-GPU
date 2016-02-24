@@ -1,0 +1,21 @@
+#
+# Sets some default verbose
+/control/verbose 2
+#
+#
+#
+# Initialize New Phantom
+#
+# Choose model: MIRDHead, ORNLHead
+#
+/phantom/setPhantomModel MIRDHead
+#
+# Choose Sex of Phantom: Male or Female
+#
+/phantom/setPhantomSex Male
+#
+# Construct your Phantom
+#
+/phantom/buildNewPhantom
+/run/initialize
+

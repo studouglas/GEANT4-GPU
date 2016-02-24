@@ -1,0 +1,35 @@
+# $Id: TestEm16.in 85257 2014-10-27 08:50:30Z gcosmo $
+#
+# Macro file for "TestEm16.cc"
+# (can be run in batch, without graphic)
+#
+#
+/control/verbose 2
+/control/cout/ignoreThreadsExcept 0
+/run/numberOfThreads 2
+/run/verbose 1
+#
+/testem/det/setMat Vacuum
+#
+/run/initialize
+#
+# inactivate other processes to make SynchrotronRadiation more visible
+/process/inactivate msc
+/process/inactivate eIoni
+/process/inactivate eBrem
+/process/inactivate annihil
+/process/inactivate phot
+/process/inactivate compt
+/process/inactivate conv
+/process/inactivate Rayl
+#
+/globalField/setValue 0 0 1 tesla
+#
+/gun/particle e-
+/gun/energy 9.9994890009 GeV
+#
+# expected results is:
+# Emean = 20.48 keV
+# E_rms = 37.18 keV
+#
+/run/beamOn 100

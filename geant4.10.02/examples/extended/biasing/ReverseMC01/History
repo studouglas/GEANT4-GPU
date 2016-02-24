@@ -1,0 +1,124 @@
+$Id: History 90260 2015-05-22 08:59:31Z gcosmo $
+-------------------------------------------------------------------
+
+     =========================================================
+     Geant4 - an Object-Oriented Toolkit for Simulation in HEP
+     =========================================================
+
+                      Category History file
+                      ---------------------
+This file should be used by G4 developers and category coordinators
+to briefly summarize all major modifications introduced in the code
+and keep track of all category-tags.
+It DOES NOT substitute the  CVS log-message one should put at every
+committal in the CVS repository !
+
+     ----------------------------------------------------------
+     * Reverse chronological order (last date on top), please *
+     ----------------------------------------------------------
+
+21-May, 2015  V.Ivanchenko         (ReverseMC01-V10-01-00)
+- RMC01AnalysisManager - a variable fNentry is added in order correctly
+    compute mean and error of energy deposition
+
+29-November, 2013  L.Hrivnacova  
+- Updated .README
+
+11-November, 2013  L.Desorgher     (ReverseMC01-V09-06-05)
+- Change in RMC01AnalysisManager to avoid compilation error on some platforms.
+  The histogramming was modified following the histrogramming used in the 
+  example AnaEx01.
+
+07-November, 2013  L.Desorgher     (ReverseMC01-V09-06-04)
+- Migration to the use of G4histos
+- Remove old histogram classes 
+- Slight modifications into the main in order to migrate to the new RMC tracking schema
+  where reverse tracking and forward tracking of adjoint and forward 
+  equivalent particles are processed  in the same events.This for preparing for 
+  the migration to the G4MT mode of the ReverseMC
+
+29-July, 2013  P.Gumplinger    (ReverseMC01-V09-06-03)
+- fix clang32 compilation warnings
+
+12-June, 2013  I.Hrivnacova    (ReverseMC01-V09-06-02)
+- Applied coding guidelines (virtual keyword, data members initialization)
+- Code clean-up: indention, redundant public/protected/private keywords
+
+07-June, 2013  L.Desorgher     (ReverseMC01-V09-06-01)
+- Finish modification for coding guide lines.
+
+24-January, 2013 V.Ivanchenko (ReverseMC01-V09-06-00)
+- G4AdjointPhysicsList - removed unused obsolete headers
+
+28-November, 2012 G.Cosmo (ReverseMC01-V09-05-06)
+- Fixed cases of variable shadowing.
+
+16-November, 2012 I.Hrivnacova  (ReverseMC01-V09-05-05)
+- Fixed .README file for artefacts from Markdown support
+
+04-September, 2012 I.Hrivnacova  (ReverseMC01-V09-05-04)
+- Renamed macros to have an extension .mac (was .g4mac)
+- Updated CMakeLists.txt:
+  adding visualization, copying macros, install target and comment lines 
+
+14-June, 2012  L.Desorgher     (ReverseMC01-V09-05-03)
+- Add .README for doxygen documentation
+
+13-June, 2012  L.Desorgher     (ReverseMC01-V09-05-02)
+- Update/Review of the code according to coding guide lines 2.2-3.3
+
+05-April, 2012  L.Desorgher     (ReverseMC01-V09-05-01)
+- Update/Review of the code according to coding guide line 2.1
+
+04-April, 2012  L.Desorgher     (ReverseMC01-V09-05-00)
+- Update/Review of the code according to coding guide line 1.3,1.4, and 1.5
+
+
+03-October, 2011  G.Folger     (ReverseMC01-V09-04-01)
+- Fix gcc46 compilation warning in  RMC01AnalysisManager.cc
+
+25-January, 2011  G.Folger     (ReverseMC01-V09-04-00)
+- Add protection for unitialised mean&error in RMC01AnalysisManager::ComputeMeanEdepAndError()
+
+11-November, 2010 L. Desorgher (ReverseMC01-V09-03-04)
+- Add initialisation of thepIonisation in G4AdjointPhysicsList constructor.
+- Modify some test on nb_event in  RMC01AnalysisManager::ComputeMeanEdepAndError
+  and inRMC01AnalysisManager::EndOfEvent.
+- Correct the density of Si in RMC01DetectorConstruction
+  and correct the position of the lower Ta plate.
+  
+
+21-October-2010, Gunter Folger (ReverseMC01-V09-03-03)
+-  fix compilation error on ambigous std::sqrt on Windows 
+
+19-October-2010, Gunter Folger (ReverseMC01-V09-03-02)
+- src/RMC01AnalysisManager.cc: explicit conversion to G4int, to avoid compiler
+  warning
+
+June 4th, 2010 J.Perl (ReverseMC01-V09-03-01)
+- Updated vis usage.
+
+May 12th, 2010 J.Allison (ReverseMC01-V09-03-00)
+- Introduced G4Executive.
+
+December 10th, 2009 L.Desorgher (ReverseMC01-V09-02-02)
+ -Update of the README file
+
+November 27th, 2009 L.Desorgher (ReverseMC01-V09-02-01)
+ -Update of the analysis code:
+	 -for registering in  Conv* ASCII files every 5000 events the computed edep with  precision.
+	 -Correction of the adjoint computed current and answer matrices by a factor n_asked/n_processed for the case 
+	  where a run is aborted because the user expected precision on e_dep has been reached. 
+ -Important update of the README file
+ -Rename g4mac files run_*_simulation.g4mac files by   run_*_simulation_electron.g4mac 
+ -Add g4mac files run_*_simulation_proton.g4mac
+
+
+November 20th, 2009 L.Desorgher (ReverseMC01-V09-02-00)
+ -Slight update of the code for unit of answer matrices.
+ -Adding draft of README file
+
+
+November 19th, 2009 L.Desorgher (no tag)
+ -First commit to the Geant4 repository
+

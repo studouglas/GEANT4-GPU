@@ -1,0 +1,73 @@
+$Id: History 92201 2015-08-21 10:04:19Z gcosmo $
+-------------------------------------------------------------------
+
+     =========================================================
+     Geant4 - an Object-Oriented Toolkit for Simulation in HEP
+     =========================================================
+
+                      Category History file
+                      ---------------------
+This file should be used by G4 developers and category coordinators
+to briefly summarize all major modifications introduced in the code
+and keep track of all category-tags.
+It DOES NOT substitute the  CVS log-message one should put at every
+committal in the CVS repository !
+
+     ----------------------------------------------------------
+     * Reverse chronological order (last date on top), please *
+     ----------------------------------------------------------
+
+August 20th, 2015  John Allison G02-V10-01-00
+- CMakeLists.txt: Added mbb.geom mbb.tree to G02_SCRIPTS.
+
+August 27th, 2013  Gabriele Cosmo G02-V09-06-00
+- Added G4Ellipsoid among solids for parameterisation.
+
+July 27th, 2011  Witek Pokorski G02-V09-05-00
+- Cosmetic changes to comply to coding conventions.
+
+November 10th, 2011  Gabriele Cosmo G02-V09-04-01
+- Changed from no longer supported physics-list QGSP-BERT-EMV to QGSP-BERT.
+
+September 27th, 2011  Anton Pytel G02-V09-04-00
+- Updated test.gdml to add example of ionisation potential to materials.
+  Requires upgrade of the schema to GDML-3.0.1.
+
+November 30th, 2010  Ivana Hrivnacova G02-V09-03-04
+- Moved inclusion of vis headers as last in main().
+
+November 17th, 2010  Gabriele Cosmo G02-V09-03-03
+- Restored generic OGL viewer in macros.
+
+November 7th, 2010  John Allison G02-V09-03-02
+- Introduced G4UiExecutive.
+
+October 20th, 2010  Gabriele Cosmo G02-V09-03-01
+- Fixed use of obsolete physics-list.
+- Temporarly restored OGLIX in macros until migration to G4UIExecutive will
+  be applied.
+
+June 4th, 2010  Joseph Perl G02-V09-03-00
+- Updated vis usage.
+
+April 24th, 2009  Gabriele Cosmo - G02-V09-02-02
+- Added missing inclusion of headers after cleanup.
+
+February 5th, 2009  Gabriele Cosmo - G02-V09-02-01
+- Guarded usage of G4UITCSH with G4UI_USE_TCSH flag, to allow for compilation
+  on Windows.
+- Added visualization properties for world volume in DetectorConstruction to
+  avoid run-time warning.
+
+January 23rd, 2009  Gabriele Cosmo - G02-V09-02-00
+- Corrected loading of default geometry with assembly, resolving some
+  overlaps introduced by mistake.
+
+December 4th, 2008  Gabriele Cosmo - G02-V09-01-02
+- Updated GDML file sample to point to new GDML schema location.
+
+November 13th, 2008  Gabriele Cosmo - G02-V09-01-01
+- Use "test.gdml" as default GDML file to load.
+
+August 22nd, 2008  Tatiana Nikitina - G02-V09-01-00
+- Created.

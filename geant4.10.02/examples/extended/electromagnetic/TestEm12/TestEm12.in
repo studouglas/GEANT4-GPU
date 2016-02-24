@@ -1,0 +1,33 @@
+# $Id: TestEm12.in 85260 2014-10-27 08:53:35Z gcosmo $
+#
+# limit the step size from histos 1 and 8
+#
+/control/verbose 2
+/control/cout/ignoreThreadsExcept 0
+/run/numberOfThreads 2
+/run/verbose 2
+#
+/testem/det/setMat G4_WATER
+/testem/det/setRadius  3 cm
+/testem/det/setNbOfLayers 1
+#
+/testem/phys/addPhysics  emstandard_opt0	# em physics
+#
+/run/initialize
+#
+/run/setCut 10 um
+#
+/gun/particle e-
+/gun/energy 4 MeV
+#
+###/analysis/setFileName testem12
+###/analysis/h1/set 1 120  0.   2.4 cm	#edep profile
+###/analysis/h1/set 2 180  0.   4.5 MeV	#total Edep
+###/analysis/h1/set 3 100  0.    3. cm	#true track length
+###/analysis/h1/set 4 100  0.  500. um	#true step length
+###/analysis/h1/set 5 200 -3.    3. cm	#proj range
+###/analysis/h1/set 8 120  0.   1.2 none	#normalized edep profile
+#
+/run/printProgress 1000
+#
+/run/beamOn 10000

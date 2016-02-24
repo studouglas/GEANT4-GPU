@@ -1,0 +1,35 @@
+# $Id: cms_cal.mac 82278 2014-06-13 14:42:11Z gcosmo $
+#
+# Macro file for "TestEm9.cc" 
+#
+# CMS PbWO4 model
+#
+/control/verbose 2
+/run/verbose 1
+/tracking/verbose 0
+#
+/testem/det/CalMat     G4_PbWO4
+/testem/det/EcalLength 230 mm
+/testem/det/EcalWidth   22 mm
+#
+/testem/phys/addPhysics  emstandard_opt1
+#
+/run/initialize
+#
+/run/setCut      0.1 mm
+/run/setCutForRegion VertexDetector 0.01 mm
+/run/setCutForRegion MuonDetector     10 mm
+/testem/stepMax   10 mm
+#
+#/random/setSavingFlag true
+#/random/resetEngineFrom first.rndm
+#
+/process/em/applyCuts      true
+#
+/gun/particle e-
+/gun/energy 10 GeV
+#
+/run/printProgress 100
+#
+/run/beamOn 1000
+#

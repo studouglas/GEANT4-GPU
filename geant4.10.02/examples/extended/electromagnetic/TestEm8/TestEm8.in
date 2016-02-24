@@ -1,0 +1,39 @@
+#
+# Macro file for the initialization phase of "TestEm8.cc"
+#
+# It creates the default geometry (simple absorber cylinder )        
+#
+/control/verbose 2
+/control/cout/ignoreThreadsExcept 0
+/run/verbose 1
+#/tracking/verbose 2
+#
+#  select EM PhysicsList
+#
+/testem/phys/addPhysics  emstandard_opt0
+/process/em/AddPAIRegion all GasDetector pai
+#/process/em/AddPAIRegion all GasDetector PAIphoton
+#
+#/testem/stepMax         10 mm
+#
+/testem/phys/setNbinsE 20
+/testem/phys/setMaxE 0.060  MeV  
+#
+/run/initialize
+#
+/run/setCut  0.5 mm
+/run/setCutForRegion GasDetector 1.8 mm
+/process/em/verbose 1
+#/run/particle/dumpCutValues
+#
+#/process/eLoss/fluct false
+#/gun/particle e-
+#
+/gun/particle proton
+#
+#/gun/particle mu-
+# 
+/gun/energy 200000.00 MeV
+#
+/run/beamOn 1000
+#

@@ -1,0 +1,269 @@
+$Id: History 92227 2015-08-24 10:43:08Z gcosmo $
+-------------------------------------------------------------------
+
+     =========================================================
+     Geant4 - an Object-Oriented Toolkit for Simulation in HEP
+     =========================================================
+
+                    rdecay02 History file
+                    ---------------------
+This file should be used by the G4 example coordinator to briefly
+summarize all major modifications introduced in the code and keep
+track of all tags.
+
+     ----------------------------------------------------------
+     * Reverse chronological order (last date on top), please *
+     ----------------------------------------------------------
+	 
+24-08-2015  mma  (rdecay02-V10-01-03)
+- update Readme
+     
+10-05-2015  mma  (rdecay02-V10-01-02)
+- HistoManager: SetNtupleActivation(false)
+     
+02-03-2015  mma  (rdecay02-V10-01-01)
+- modify rdecay02.in
+      
+27-02-2015  Michel Maire  (rdecay02-V10-01-00)
+- Rewritten.
+- use analysis g4tools
+- migration to MT 
+
+16 October 2014  Ivana Hrivnacova  (rdecay02-V10-00-03)
+------------------------------------------------
+- Fixed coding guidelines (long lines) in exrdmDetectorConstruction.cc
+
+1 July 2014  Dennis Wright  (rdecay02-V10-00-02)
+------------------------------------------------
+- fix bug 1461: no elastic cross section found for generic ions
+  Assigned model G4NuclNuclDiffuseElastic and cross section G4GGNuclNuclCrossSection
+  to generic ions in exrdmPhysListHadron 
+     
+18/02/2014 mma     (rdecay02-V10-00-01)
+- exrdmAnalysisManager::EndOfEvent(), 217 : do not force 'second' 
+     
+07/01/2014 Gunter Folger     (rdecay02-V10-00-00)
+- Fix problem identified in boudary chack mode. In exrdmHisto.cc::AddRow(), 
+   using root, float ar[4] was used to take 6 elements. 
+	Fix is to new ar with proper size.
+	
+18/11/2013  Ivana Hrivnacova (rdecay02-V09-06-06)
+- Fixed .README
+
+04/11/2013  Dennis Wright (rdecay02-V09-06-05)
+- exrdmPhysicsList - replace G4LElastic and G4LCapture with G4HadronElastic
+  and G4NeutronRadCapture
+
+23/08/2013  Vladimir Ivanchenko (rdecay02-V09-06-04)
+- exrdmPhysicsList - use standard constructors for EM physics, removed
+    local low-energy EM physics
+
+23/08/2013  Vladimir Ivanchenko (rdecay02-V09-06-03)
+- exrdmPhysicsList - use standard constructors for hadronic builders
+    instead of obsolete
+
+22/08/2013  Vladimir Ivanchenko (rdecay02-V09-06-02)
+- Removed unused include of G4UrbanMscModel93.hh 
+
+01/04/2013 A.Dotti (rdecay02-V09-06-01)
+- New API for phsyics list
+
+19/02/2013 I. Hrivnacova 
+- Applied coding guidelines (data members initialization)    
+
+01/02/2013  Vladimir Ivanchenko (rdecay02-V09-06-00)
+- Migration to new physics_lists directory structure
+
+28/11/2012  Gabriele Cosmo (rdecay02-V09-05-05)
+- Fixed cases of variable shadowing.
+
+14/11/2012  Ivana Hrivnacova (rdecay02-V09-05-04)
+- Minor fix in CMake build
+
+24/10/2012  Alberto Ribon  (rdecay02-V09-05-03)
+- Migrated to the new stopping physics.
+
+25/09/2012  Ivana Hrivnacova
+- Fixed AIDA dependent code 
+
+13/06/2012  Laurent Desorgher  (rdecay02-V09-05-02)
+ - Update/Review of the code according to coding guide lines 2.1-3.1 
+
+01/05/2012  Laurent Desorgher  (rdecay02-V09-05-01)     
+- Adding of tuple RDecayProducts registering Z,A,time,energy, PID,weight of each radioactive decay product
+- Changes in  UserRadDataCf238Test.mac and UserRadData_z82.a210 to check  
+  that the mean life time given in  UserRadData_z82.a210 is properly taken into account in the code. 
+- Merge the modification  of Fan Lei for the activation computation in the new tag 
+
+04/04/2012  Laurent Desorgher  (rdecay02-V09-05-00)
+- Update/Review of the code according to coding guide lines 1.3, 1.4, and 1.5
+
+23/11/2011 - L.Desorgher    (rdecay02-V09-04-04)
+
+-Add the commands "/process/em/fluo true" "/process/em/auger true"
+in all macro files to have the atomic relaxation taking place, with the new EM interface
+for atomic relaxation. 
+-Update of the README file to warn on the need of these commands.
+
+
+
+23/11/2011 - L.Desorgher    (rdecay02-V09-04-03)
+- Create this intermediate tag as copy  of   exradioactive-V09-04-00 for what concern
+rdecay02.   The exradioactive-V09-04-00 tag was created in the parent directory, 
+but it contains only change in  rdecay02.So its cirrect place would have been here.
+For changes from  rdecay02-V09-04-02 to rdecay02-V09-04-03 see the History file in the parent 
+directory.
+
+
+29/04/2011 - S. Incerti    (rdecay02-V09-04-02)
+- Updated obsolete low energy EM physics list
+
+31/03/2011 - G. Folger    (rdecay02-V09-04-01)
+-  Add missing include of StatMF in physics list. This was previously
+    included indirectly via G4ExcitationHandler.
+
+04/03/2011 - L. Desorgher (rdecay02-V09-04-00)
+-Correct prepocessor lines 316-320 in exrdmHisto.cc to get the code 
+ also compiled with ROOT (G4ANALYSIS_USE_ROOT switch on)
+
+17/11/2010 - F.Lei (rdecay02-V09-03-04)
+- The radioactivity data is output in file ".activity" with the same file name as the .aida or .root files
+- Added more macros macros/u238-b.mac macros/u238.mac  macros/po201m.mac
+- rename vrml.mac to vrml.g4mac
+
+11/11/2010 - F.Lei (rdecay02-V09-03-03)
+- Updated exrdmAnalysisManager.cc to output the accumulated radioactivities in the file
+  "activities.data" at the end of a run, in VR mode.
+- Added macros/proton-beam.mac
+
+09/11/2010 - M.Asai (rdecay02-V09-03-02)
+- Fix AIDA file option.
+
+08/11/2010 - J.Allison (rdecay02-V09-03-01)
+- Introduced G4UIExecutive. 
+
+16/10/2010 - G.Cosmo (rdecay02-V09-03-00)
+- Migrated from "exrdm".
+
+06/06/2010 - J.Perl (exrdm-V09-03-02)
+- Remove unused variable in EventAction 
+
+02/06/2010 - J.Perl (exrdm-V09-03-01)
+- Updated vis usage
+
+10/05/2010 V.Ivanchenko (exrdm-V09-03-00)
+- substitute G4MultipleScattering by specialized processes per particle type
+
+22/09/2009 G.Folger (exrdm-V09-02-00)
+-  remove trivial compilation warning when compiled without G4ANALYSIS_USE in 
+   src/src/exrdmHisto.cc
+
+05/12/2008 F.Lei (exrdm-V09-01-04)
+- exrdmAnalysisManager.cc, exrdmSteppingAction.cc
+   - better G4ANALYSIS_USE and G4ANALYSIS_USE_ROOT logic 
+- GNUMakefile
+
+04/12/2008 F.Lei (exrdm-V09-01-03)
+- exrdmHisto: delete hfileROOT in save();
+- exrdmAnalysisManager.cc, exrdmSteppingAction.cc
+   - used || login between G4ANALYSIS_USE and G4ANALYSIS_USE_ROOT
+- Updated README, macro/f24.mac
+
+04/12/2008 G.Barrand
+- exrdmAnalyisManager : dispose() : cstor, dstor private.
+- exrdmHisto : revisit the AIDA sector, mainly creation/deletion of things.
+  Now the program holds in case of multiple /run/beamOn.
+  NOTE : someone should do the same with the ROOT sector...
+  I have let a //FIXME in exrdmHisto::~exrdmHisto and ~exrdmAnalysisManager().
+- EventAction, RunAction : have some #ifdef G4VIS_USE to be able to
+  disconnect properly the G4/vis.
+
+02/12/2008 F.Lei (exrdm-V09-01-02)
+- exrdmHisto,exrdmHistoMessenger & exrdmAnalysisManager: updated the usage 
+  of AIDA analysis package.
+  
+August 10th, 2008 V.Ivanchenko (exrdm-V09-01-01)
+--------------------------------------------------
+- exdrmMatarialMessenger - fix units of density
+- exdrmPhysicsList - fix definition of cuts; simplify logic
+                     of setting of hadronic physics;
+                     remove double instantiation of radioactive decay
+- removed compillation warnings in several places
+- replace flag G4ANALYSIS_USE_AIDA by G4ANALYSIS_USE
+- remove AIDA setup from GNUmakefile (use one from central scripts)
+
+01 May 2008, Fan Lei (exrdm-V09-01-00)
+--------------------------------------------------
+- Removed "," from the Ntuple header definition
+- All energy depositions are collected, apart from that of the primary track.  
+
+November 15th, 2007 V.Ivanchenko (exrdm-V09-00-02)
+--------------------------------------------------
+- A minor fix of low-energy EM physics builder
+
+November 14th, 2007 V.Ivanchenko (exrdm-V09-00-01)
+--------------------------------------------------
+- Use decay and radiactive decay builders from physics)lists library
+- Added elastic, stopping, ion and extraEm physics
+
+July 3th, 2007 V.Ivanchenko (exrdm-V09-00-00)
+---------------------------------------------
+- Remove obsolete hadronic builders and use only QGSP_BIC, QGSP_BIC_HP,
+  QGSP_BERT, QGSP_BERT_HP
+
+February 14th, 2006 V.Ivanchenko (exrdm-V08-02-01)
+-------------------------------
+- Use standard EM builder from physics_list subdirectory
+
+21/12/2006 F.Lei (exrdm-V08-02-00)
+- Added ROOT format option for outputting results. It is the default format now. 
+
+February 16th, 2006 V.Ivanchenko (exrdm-V08-00-00)
+-------------------------------
+- Update Physics Lists
+
+December 6th, 2005 Gabriele Cosmo
+---------------------------------
+- Trivial changes for support of CLHEP-2.0.X series.
+
+December 2nd, 2005 V.Ivanchenko (exrdm-V07-01-02)
+-------------------------------
+- Fix crash connected with non-static hadrons
+
+November 15th, 2005 Gabriele Cosmo (exrdm-V07-01-01)
+----------------------------------
+- Migration to <sstream> from deprecated <strstream>.
+
+July 19th, 2005 Fan Lei (exrdm-V07-01-00)
+-----------------------
+- Changed in GNUmakefile 
+     LOADLIBS += `aida-config --lib`
+       with:
+     LDLIBS += `aida-config --lib`
+  fixing AIDA link problem for WIN32-VC.
+- Corrected a typo in exRDMHistoMessenger.cc.
+ 
+June 3rd, 2005 Fan Lei (exrdm-V07-00-01)
+----------------------
+- updates to physics list
+- added macros/test.mac for testing the physics list
+
+May 3rd, 2005 John Allison
+--------------------------
+- Replaced vis manager with G4VisExecutive.
+
+March 3rd, 2005 Fan Lei (exrdm-V07-00-00)
+-----------------------
+- Update to exrdmPhysicsList.cc
+
+December 3rd, 2004 Gabriele Cosmo (exrdm-V06-02-02)
+---------------------------------
+- Use new phys-lists structure.
+
+December 3rd, 2004 Gabriele Cosmo (exrdm-V06-02-01)
+---------------------------------
+- Implemented migration to <cmath>.
+
+November 11th, 2004 Fan lei (exrdm-V06-02-00)
+---------------------------
+- First release 

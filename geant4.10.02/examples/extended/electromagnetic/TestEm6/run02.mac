@@ -1,0 +1,19 @@
+# $Id: run02.mac 83428 2014-08-21 15:46:01Z gcosmo $
+#
+# Macro file for "TestEm6.cc"
+# (can be run in batch, without graphic)
+#
+#
+/control/verbose 2
+/run/verbose 2
+#
+/testem/det/setMat G4_Be
+/testem/det/setSize 10 km
+#
+/run/initialize
+#
+/gun/particle gamma
+/gun/energy 100 TeV
+/testem/gun/rndm  0.8
+#
+/run/beamOn 50000

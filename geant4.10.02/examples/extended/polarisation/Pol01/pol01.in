@@ -1,0 +1,29 @@
+# $Id: pol01.in 86418 2014-11-11 10:39:38Z gcosmo $
+#
+# Macro file for "Pol01.cc"
+# (can be run in batch, without graphic, without analysis)
+#
+/control/verbose 2
+/run/verbose 2
+#
+/testem/det/setMat G4_Fe
+/testem/det/setSizeZ 1.75 mm
+/testem/phys/addPhysics polarized
+#/testem/phys/addPhysics standard
+/run/printProgress 5000
+#
+/run/initialize
+/run/setCut 0.1 mm
+#
+/polarization/manager/verbose 1
+/polarization/volume/set theBox 0. 0. 0.08
+/polarization/volume/list
+#
+/gun/polarization 0. 0. -1.
+/gun/particle gamma
+#
+/gun/energy 10 MeV
+#
+##/tracking/verbose 1
+/run/beamOn 10000
+#

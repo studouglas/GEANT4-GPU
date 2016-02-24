@@ -1,0 +1,107 @@
+$Id: History 92500 2015-09-02 07:26:32Z gcosmo $
+-------------------------------------------------------------------
+
+     =========================================================
+     Geant4 - an Object-Oriented Toolkit for Simulation in HEP
+     =========================================================
+
+                    Monopole Example History file
+                    -----------------------------
+This file should be used by the G4 example coordinator to briefly
+summarize all major modifications introduced in the code and keep
+track of all tags.
+
+     ----------------------------------------------------------
+     * Reverse chronological order (last date on top), please *
+     ----------------------------------------------------------
+
+01 September 15: I. Hrivnacova (monopole-V10-01-00)
+- Removed EventAction and EventActionMessenger classes, now obsolete, and 
+  replaced /testex/event/printModulo commands in macros with 
+  /run/printProgress
+
+16 October 14: I. Hrivnacova (monopole-V10-00-00)
+- Fixed coding guidelines (long lines) in G4MonopoleTransportation.cc  
+
+03 December 13: I. Hrivnacova (monopole-V09-06-06)
+- Updated README for removing AIDA
+
+10 May 13: J.Apostolakis (monopole-V09-06-05)
+- G4MonopoleTransportation and G4MonopoleEquation: 
+      Adapted to use G4ChargeState to pass Magnetic & Electric Charge, 
+          and to changed signature of SetChargeMomentumMass. 
+
+19 February 13: V.Ivantchenko (monopole-V09-06-04)
+- G4MonopoleTransportation - removed local variable fVerboseLevel
+    and Get/Set methods; use instead verboseLevel variable from 
+    the base class
+
+13 February 13: I.Hrivnacova (monopole-V09-06-03)
+- Applied coding guidelines 
+  (virtual keyword, data members names and initialization)
+
+01 February 13: V.Ivant (monopole-V09-06-02)
+- G4MonopolePhysics - fixed warning at initialisation 
+
+31 January 13: V.Ivant (monopole-V09-06-01)
+- fixed initialisation after MT was introduced
+
+10 January 13: V.Ivant (monopole-V09-06-00)
+- fixed computation of monopole range
+
+20 September 12: I.Hrivnacova (monopole-V09-05-03)
+- Adding explicit includes of G4SystemOfUnits.hh and G4PhysicalConstants.hh
+  where needed
+- Replaced tabulators with space characters  
+
+19 September 12: V.Ivant (monopole-V09-05-02)
+- remove not needed file
+
+4 September 12: I.Hrivnacova (monopole-V09-05-01)
+- Updated CMakeLists.txt:
+  adding visualization, copying macros, install target and comment lines 
+- Adding .README  
+
+28 May 12: V.Ivant (monopole-V09-05-00)
+- applied code convention
+
+08 December 10: V.Ivant (monopole-V09-03-08)
+- added forgotten files
+
+29 November 10: V.Ivant (monopole-V09-03-07)
+- Use the most recent version of monopole transportation,
+  delta-electron production enabled, non-integer monopole charge allowed
+
+9 November 10: M.Asai (monopole-V09-03-06)
+- Fix AIDA file option.
+
+6 June 10: J.Perl (monopole-V09-03-05)
+- Remove unused variable in EventAction 
+
+4 June 10: J.Perl (monopole-V09-03-04)
+- Updated vis usage 
+
+04 June 10: V.Ivant (monopole-V09-03-03)
+- Substituted QGSP by QGSP_BERT
+- (J. Apostolakis, B. Bozsogi)  Added new classes for monopole
+  G4MonopoleEquation, G4MonopoleFieldSetup, G4MonopoleTransportation
+
+12 May 10: J.Allison (monopole-V09-03-02)
+- Introduced GUIExecutive.
+
+31 March 10: V.Ivant (monopole-V09-03-01)
+- Removed obsolete header G4MultipleScattering.hh
+
+23 March 10: V.Ivant (monopole-V09-03-00)
+- Cleanup and add test on ionisation of heavy highly charged particle
+
+14 July 09: V.Ivant (monopole-V09-02-00)
+- Added messenger to define mass and change of the monopole
+
+11 June 08: V.Ivant (monopole-V09-01-00)
+- Remove AIDA from GNUmakefile
+- Fixed compillation warnings 
+
+16 August 07: V.Ivant (monopole-V09-00-00)
+- First release
+

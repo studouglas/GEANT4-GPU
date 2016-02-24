@@ -1,0 +1,20 @@
+# $Id: stepfunction.mac 93259 2015-10-14 08:35:22Z gcosmo $
+#
+/control/verbose 2
+/run/verbose 2
+#
+/testem/phys/addPhysics standard_opt3
+#
+/run/initialize
+#
+/process/inactivate msc
+/process/eLoss/fluct false
+#
+/process/eLoss/StepFunction 1 10 um
+#
+/analysis/setFileName nothing_dr100
+/analysis/h1/set 9 100  0  5 mm	#step size in wall
+#
+/run/printProgress 200000
+#
+/run/beamOn 2000000

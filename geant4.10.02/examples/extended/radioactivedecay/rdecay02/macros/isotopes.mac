@@ -1,0 +1,60 @@
+# $Id$
+# 									
+# Decays of Na24, Na24m, Ne24, Al24, Cr46, Po215 in analog mode
+# Daughters are not decayed   
+#
+#                                                                         
+/control/verbose 2
+/run/verbose 1
+#
+# set the target/detector geometry
+/rdecay02/det/setTargetRadius 10 um
+/rdecay02/det/setTargetLength 10 um
+/rdecay02/det/setDetectorThickness 20 cm
+/rdecay02/det/setDetectorLength 40 cm
+#
+/run/initialize
+#
+/process/list
+#
+# rdm is applied only to the target volume
+/grdm/noVolumes
+/grdm/selectVolume Target
+#
+/analysis/h1/set 6 100 0. 15. MeV
+#
+/gun/particle ion 
+/gun/ion 11 24
+/analysis/setFileName na24
+/run/printProgress 1000
+/run/beamOn 10000
+#
+/gun/particle ion 
+/gun/ion 11 24 0 472. keV
+/analysis/setFileName na24m
+/run/beamOn 10000
+#
+/gun/particle ion 
+/gun/ion 10 24
+/grdm/nucleusLimits 24 24 10 10
+/analysis/setFileName ne24
+/run/beamOn 10000
+#
+# No daughter decays 
+/gun/particle ion 
+/gun/ion 13 24
+/grdm/nucleusLimits 24 24 13 13
+/analysis/setFileName al24
+/run/beamOn 10000
+#
+/gun/particle ion 
+/gun/ion 24 46
+/grdm/nucleusLimits 46 46 24 24
+/analysis/setFileName cr46
+/run/beamOn 10000
+#
+/gun/particle ion 
+/gun/ion 84 215
+/grdm/nucleusLimits 215 215 84 84
+/analysis/setFileName po215
+/run/beamOn 10000

@@ -1,0 +1,111 @@
+$Id: History 88154 2015-02-02 12:25:20Z gcosmo $
+-------------------------------------------------------------------
+
+     =========================================================
+     Geant4 - an Object-Oriented Toolkit for Simulation in HEP
+     =========================================================
+
+                    Hadr02 History file
+                    --------------------
+This file should be used by the G4 example coordinator to briefly
+summarize all major modifications introduced in the code and keep
+track of all tags.
+
+     ----------------------------------------------------------
+     * Reverse chronological order (last date on top), please *
+     ----------------------------------------------------------
+
+30-01-15  V.Ivanchenko (exhadr02-V10-01-00)
+- DPMJET interface is dropped according to decision of the
+  Hadronic working group January,28 2015
+
+06-06-14  I.Hrivnacova  (exhadr02-V10-00-01)
+- Coding guidelines, code clean-up
+- Removed obsolete commands from EventMessenger
+- Replaced call to exit with G4Exception in Histo.cc
+
+04-03-14  A. Dotti  (exhadr02-V10-00-00)
+- Fixing use of XML format for output file
+
+27-11-13  G. Cosmo  (exhadr02-V09-06-09)
+- Fixed compilation warning for unused data in IonDPMJETPhysics class
+  when DPMJet is not used.
+
+04-11-13  D.H. Wright  (exhadr02-V09-06-08)
+- retag with correct tag format
+
+30-10-13  D.H. Wright  (exhadr02-09-06-08)
+- replace LEP capture with G4NeutronRadCapture
+- remove LEP builders
+
+26-08-13  A.Dotti      (exhadr02-09-06-07)
+- Protect for builds w/o HIJING support
+
+22-08-13  A.Dotti      (exhadr02-V09-06-06)
+- Removing builders for PiK and Anti-Baryons
+  for HIJING
+
+22-08-13  A.Dotti      (exhadr02-V09-06-05)
+- Adding code from Khaled as is only migrated to new
+  G4 interfaces
+
+------ exhadr02-V09-06-04 exising but no notes available
+
+14-04-13  V.Ivanchenko (exhadr02-V09-06-03)
+- Disable energy/momentum check
+
+05-04-13  V.Ivanchenko (exhadr02-V09-06-02)
+- Appling code guidelines
+
+13-12-12 W.Pokorski (exhadr02-V09-06-01)
+- Migrated to cross-sections extracted from CHIPS
+
+10-12-12  V.Ivant (exhadr02-V09-06-00)
+- Migration of DPMJET x-section to updated interface
+
+24-10-12  A. Ribon (exhadr02-V09-05-05)
+- Migrated to the new stopping physics.
+
+17-10-12  A. Ribon (exhadr02-V09-05-04)
+- Retagged after that the previous tag was rejected.
+
+16-10-12  A. Ribon (exhadr02-V09-05-03)
+- Renamed default ion physics class
+
+30-05-12  V.Ivant (exhadr02-V09-05-02)
+- Applied code convention
+
+02-05-12  A. Dotti (exhadr02-V09-05-01)
+- Adding first implementation of UrQMD interface. See README file
+
+06-03-12  V.Ivant (exhadr02-V09-05-00)
+- G4DPMJET2_5CrossSection - return back lost line to fix compillation
+
+09-06-11  V.Ivant (exhadr02-V09-04-07)
+- IonDPMJETPhysics - fixed compillation when DPMJET is not enabled
+
+08-06-11  V.Ivant (exhadr02-V09-04-06)
+- IonDPMJETPhysics - use the same style as FTFP/Binary ion builder
+
+07-06-11  V.Ivant (exhadr02-V09-04-05)
+- Use Replace interface to the G4VModularPhysicsList to substitute
+  ion builders, Use FTFP/Binary ion builder from physics_list library
+- Cleanup printout
+
+17-05-11  G.Folger (exhadr02-V09-04-04)
+-  Allow to build without reference to DPMJET;
+    all .cc files linking to DPMJet are pretected by #ifdef G4_USE_DPMJET
+    
+21-04-11  V.Ivant (exhadr02-V09-04-03)
+- Fixed problems of energy intervals for models for ions
+  allowing to work with different reference Physics Lists
+
+21-03-11  V.Ivant (exhadr02-V09-04-02)
+- HistoManager - improved histograms
+
+16-03-11  V.Ivant (exhadr02-V09-04-01)
+- Simplified GNUmakefiles and directory structure
+
+15-03-11  V.Ivant (exhadr02-V09-04-00)
+- First tag
+

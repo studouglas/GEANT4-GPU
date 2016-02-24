@@ -1,0 +1,55 @@
+$Id:$
+-------------------------------------------------------------------
+
+     =========================================================
+     Geant4 - an Object-Oriented Toolkit for Simulation in HEP
+     =========================================================
+
+                    Transforms  History file
+                    -------------------------
+This file should be used by the G4 example coordinator to briefly
+summarize all major modifications introduced in the code and keep
+track of all tags.
+
+     ----------------------------------------------------------
+     * Reverse chronological order (last date on top), please *
+     ----------------------------------------------------------
+     
+24-07-15 mma (exTransforms-V10-01-00)
+- vis.mac: draw axis.
+
+08-06-13 mma (exTransforms-V09-06-04)
+- Cosmetic in SteppingAction.
+     
+24/03/2013 mma (exTransforms-V09-06-03)
+ - polish coding conventions
+      
+17/03/2013 mma (exTransforms-V09-06-02)
+ - G4 coding conventions
+ 
+28/02/13 I. Hrivnacova (exTransforms-V09-06-01) 
+- When building materials with NistManager
+  do not set fromIsotopes argument (which was set to false), 
+  as since 9.6 all materials have to be built from isotopes.
+  (Thanks to V. Ivantchenko for pointing at this.)
+
+14/02/2013 I. Hrivnacova (exTransforms-V09-06-00)
+- Applied coding guidelines (data members initialization)
+
+06/09/2012 I. Hrivnacova (exTransforms-V09-05-03)
+- Fixed warning on windows from DetectorConstruction
+
+04/09/2012 I. Hrivnacova (exTransforms-V09-05-02)
+- Updated CMakeLists.txt:
+  adding visualization, copying macros, install target and comment lines 
+- Minor fixes in .README  
+     
+25/06/2012 mma (exTransforms-V09-05-01)
+ - update readme and .readme
+      
+12/03/2012 mma (exTransforms-V09-05-00)
+ - simplified version, limited to geometry functionalities
+ 
+15/11/2011 I. Hrivnacova (exTransforms-V09-04-00)
+ First version of Transforms examples implemented by M.Maire;
+ the reflection option added by I. Hrivnacova. 

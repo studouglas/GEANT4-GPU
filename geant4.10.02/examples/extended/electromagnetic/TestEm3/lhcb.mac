@@ -1,0 +1,68 @@
+# $Id: lhcb.mac 92914 2015-09-21 15:00:48Z gcosmo $
+#
+# Macro file for "TestEm3.cc" 
+#
+# LHCB ECAL model
+#
+/control/verbose 2
+/control/cout/ignoreThreadsExcept 0
+/run/verbose 2
+#
+/testem/det/setNbOfLayers 66
+/testem/det/setNbOfAbsor  2
+/testem/det/setAbsor 1 Lead         2 mm
+/testem/det/setAbsor 2 Scintillator 4 mm
+/testem/det/setSizeYZ 20 cm
+#
+/testem/phys/addPhysics  emstandard_opt0
+#
+/run/initialize
+#
+/gun/particle e-
+/gun/energy 10 GeV
+#
+/run/printProgress 1000
+#
+/run/setCut 10 mm
+/run/initialize
+/run/beamOn 10000
+#
+/run/setCut 3 mm
+/run/initialize
+/run/beamOn 10000
+#
+/run/setCut 1 mm
+/run/initialize
+/run/beamOn 10000
+#
+/run/setCut 0.7 mm
+/run/initialize
+/run/beamOn 10000
+#
+/run/setCut 0.3 mm
+/run/initialize
+/run/beamOn 10000
+#
+/run/setCut 0.1 mm
+/run/initialize
+/run/beamOn 10000
+#
+/run/setCut 0.07 mm
+/run/initialize
+/run/beamOn 10000
+#
+/run/setCut 0.03 mm
+/run/initialize
+/run/beamOn 10000
+#
+/run/setCut 0.01 mm
+/run/initialize
+/run/beamOn 10000
+#
+/run/setCut 0.007 mm
+/run/initialize
+/run/beamOn 10000
+#
+/run/setCut 0.003 mm
+/run/initialize
+/run/beamOn 10000

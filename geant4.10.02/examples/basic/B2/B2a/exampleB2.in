@@ -1,0 +1,29 @@
+# Macro file for example B2 test
+
+/tracking/verbose 1
+
+/run/initialize
+
+# e+ 200MeV
+/gun/energy 200 MeV
+/gun/particle e+
+/run/beamOn 1
+
+# mu+ 1TeV
+/gun/energy 1 TeV
+/gun/particle mu+
+/run/beamOn 1
+
+/tracking/verbose 0
+
+# e+ 200MeV
+/gun/energy 200 MeV
+/gun/particle e+
+/run/beamOn 100
+
+# mu+ 1TeV
+/gun/energy 1 TeV
+/gun/particle mu+
+/run/beamOn 100
+
+exit

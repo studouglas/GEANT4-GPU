@@ -1,0 +1,191 @@
+-------------------------------------------------------------------
+$Id: History 93898 2015-11-03 08:39:38Z gcosmo $
+-------------------------------------------------------------------
+
+     =========================================================
+ 		      Geant4 - Composite calorimeter example
+     =========================================================
+
+                      Example History file
+                      ---------------------
+
+02.11.2015 - A. Ribon (ccal-V10-01-00)
+- Migrated to ParticleHP.
+
+15.10.2014 - L.Pandola Tag (ccal-V10-00-02)
+- Explicitly delete G4analysis object at the end of the job
+
+14.10.2014 - L.Pandola Tag (ccal-V10-00-01)
+- Updated README
+- Get rid of compiler warnings which caused rejection of ccal-V10-00-00
+- Remove #ifdef debug in the analysis class
+
+13.10.2014 - L.Pandola Tag (ccal-V10-00-00)
+- Migrated to G4analysis tools (get rid of the AIDA dependency)
+- Remove exit() and make consistent use of G4Exception()
+
+17.07.2013 - A.Dotti Tag (ccal-V09-06-01)
+- Fixed correct search of AIDA
+
+23.05.2013 - G.Cosmo Tag (ccal-V09-06-00)
+- Fixed compilation error in main() for missing inclusion of of G4UImanager
+  header. Fixed compilation warnings for variables/parameters shadowing.
+
+02.11.2012 - L.Garnier Tag (ccal-V09-05-05)
+- Fix CMakeFile.txt, gui.mac and icons.mac. Now ok for cmake
+
+02.11.2012 - L.Garnier Tag (ccal-V09-05-04)
+- Add icons.mac
+
+12.10.2012 - A. Dotti (ccal-V09-05-03)
+- Adding use of AIDA in CMake
+- Removing unused variable (compilation warning)
+
+11.10.2012 - G. Cosmo (ccal-V09-05-02)
+- Explicit inclusion of units and constants headers.
+
+11.10.2012 - A. Dotti (ccal-V09-05-01)
+- Fixed compilation error due to inclusion of deprecated/to-be-removed physics
+  lists: QGSP.hh; use PhysListFactory to set physics list.
+- Adding CMakeLists.txt file.
+
+07.08.2012 - A.Ribon (ccal-V09-05-00)
+- Fixed crashes due to high global times converted to integers values.
+  (bug #1337).
+
+17.01.2011 - G.A.P.Cirrone (ccal-V09-04-00)
+- Physics lists updated.
+
+18.11.2010 - J.Allison (ccal-V09-03-02)
+- Improve comment line about GUI menu bar.
+
+09.11.2010 - J.Allison (ccal-V09-03-01)
+- Inroduced G4UIExecutive.
+
+04.06.2010 - J.Perl (ccal-V09-03-00)
+- Updated vis usage.
+
+12.11.2009 - A.Ribon (ccal-V09-02-01)
+- Use QGSP_BIC_EMY as default Physics List to test the 
+  low-energy electromagnetic.
+
+22.02.2009
+ -  G.Folger;     Tag: ccal-V09-02-00
+    Fix compilation warnings in CCalRunAction.cc and CCalEndOfEventAction.cc
+
+15.06.2008 
+ - G.A.P.Cirrone; Tag: ccal-V09-01-00
+    Removed no more necessary AIDA commands from GNUmakefile
+
+14.11.2006 - A.Ribon (ccal-V08-01-01)
+- Removed hadronic_lists.gmk after the inclusion of 
+  Physics Lists in the Geant4 kernel.
+
+21.07.2006 - A.Ribon (ccal-V08-01-00)
+- New hadronic_lists.gmk, consistent with lAr_calorimeter.
+
+08.12.2005 - A.Ribon (ccal-V07-01-01)
+- Migration to CLHEP namespace.
+
+13.12.04 - G.Cosmo (ccal-V07-01-00)
+- Migration to <sstream> from deprecated <strstream>.
+- Updated hadronic physics list (commented QGSP_Model by A.Ribon).
+
+03.05.2005 - J.Allison
+- Replaced vis manager with G4VisExecutive.
+
+13.12.04 - G.Cosmo (ccal-V06-02-02)
+- Use new phys-lists structure.
+
+29.11.04 - A.Ribon (ccal-V06-02-01)
+- Migration to cmath.
+
+14.07.04 - G.Cosmo (ccal-V06-02-00)
+- Corrected hadronic_lists.gmk, removed unnecessary list of kernel
+  libraries from EXTRALIBS.
+
+27.05.04 - A.Ribon (ccal-V06-01-01)
+- Changed use of the ntuple. Now it is simpler and the ntuple
+  is always correctly filled.
+
+18.05.04 - A.Ribon (ccal-V06-01-00)
+- Ported to PI. Only the setup is changed, no changes in the code.
+
+05.12.03 - G.Cosmo (ccal-V05-02-07)
+- Changed LISTS_BASE to G4LISTS_BASE for hadronic physics lists path.
+  Cowork with "ghad-lists-V05-02-01".
+
+04.12.03 - A.Ribon (ccal-V05-02-06)
+- Added some recent modifications and improvements from Sunanda.
+
+04.12.03 - G.Cosmo (ccal-V05-02-05)
+- Corrected GNUmakefile and updated scripts to Anaphe 5.0.6.
+
+03.12.03 - H.P.Wellisch
+- Removed physics-lists, now using default setup provided in
+  $G4INSTALL/hadronic_lists.
+
+25.11.03 - A.Ribon (ccal-V05-02-04)
+- Changes in the Physics Lists to be compatible with the latest
+  hadronic changes in geant4-06-00-cand-02.
+
+13.11.03 - John Allison
+- Brought Vis Manager up to date.
+
+05.11.03 - A.Ribon (ccal-V05-02-03)
+- Add some modifications from Sunanda on how to handle "GetReplicaNumber()".
+
+03.11.03 - A.Ribon (ccal-V05-02-02)
+- Removed "GetCopyNo()" and replaced it with "GetReplicaNumber()"
+  using G4TouchableHistory.
+
+31.10.03 - A.Ribon (ccal-V05-02-01)
+- Enables possibility of running the simulation in HCal alone or 
+  HCal+ECal mode with the correct B-field + a few small bug corrections.
+  Changed also the default stepper (in magnetic field).
+
+18.09.03 V.Ivanchenko (ccal-V05-02-00)
+- Complete migration to model EM physics
+
+12.06.2003 - A.Ribon (ccal-V05-01-02)
+- Updated the LHEP, QGSP, and QGSC Physics Lists. 
+  Done also some clean up.
+
+23.05.2003 - A.Ribon (ccal-V05-01-01)
+- Removed some compilation warnings, after the introduction of
+  tighter compilation options.
+
+25.04.2003 - A.Ribon (ccal-V05-01-00)
+- Replaced cout with G4cout and endl with G4endl, and removed some
+  compilation warning about unused variables.
+
+19.02.2003 - G.Cosmo (ccal-V05-00-00)
+- Removed redundant inclusion of PhysicalConstants.h and SystemOfUnits.h.
+  Now using CLHEP headers.
+
+11.12.2002 - A.Ribon (ccal-V04-01-04)
+- Some clean up and fixes, but unfortunately not yet fixed
+  the problem of reading the material in the Sun platform
+  (it looks like a problem with file stream).
+
+06.12.2002 - G.Cosmo (ccal-V04-01-03)
+- Migrated messenger to new G4ApplicationState.
+
+15.11.2002 - A.Ribon (ccal-V04-01-02)
+- Fixed problem of Anaphe with c-shell, and tested with
+  geant4-04-01-ref-04
+
+24.10.2002 - A.Ribon (ccal-V04-01-01)
+- Changed default physics list to QGSC, with the possibility
+  of easily switching to either LHEP or QGSP.
+
+24.10.2002 - A.Ribon (ccal-V04-01-00)
+- Replaced physics list with ufficial LHEP one;
+  added visualization and GUI; written README file.
+
+9.10.2002 - S.Banerjee
+- Put the various classes in place, and rename them.
+
+30.09.2002 - M.G.Pia
+- Created directory
+             

@@ -12,7 +12,7 @@
 #include "G4Types_CUDA.hh"
 #include "G4Pow_CUDA.hh"
 
-#define THREADS_PER_BLOCK 64 // test this number for optimal performance
+#define THREADS_PER_BLOCK 32 // must be multiple of 32
 
 typedef struct GetXsecResultStruct {
     G4double y; // if -1, other 3 are non-null
@@ -26,7 +26,7 @@ class G4ParticleHPVector_CUDA {
     /******************************************
     * CONSTRUCTORS / DECONSTRUCTORS
     *******************************************/
-    public:    
+    public:
     G4ParticleHPVector_CUDA();
     G4ParticleHPVector_CUDA(G4int);
     void PerformInitialization(G4int);
@@ -39,7 +39,7 @@ class G4ParticleHPVector_CUDA {
     G4double Sample();
     G4double Get15percentBorder();
     G4double Get50percentBorder();
-    
+
     void OperatorEquals (G4ParticleHPVector_CUDA* right);
 
     void Check(G4int i);
@@ -49,32 +49,32 @@ class G4ParticleHPVector_CUDA {
     * Getters from .hh
     *******************************************/
     G4ParticleHPDataPoint & GetPoint(G4int i);
-    
+
     inline G4int GetVectorLength() const {
         return nEntries;
     }
-    
+
     G4double GetX(G4int i);
     G4double GetXsec(G4double e, G4int min);
     G4double GetY(G4double x);
     G4double GetY(G4int i);
     G4double GetMeanX();
-    
+
     inline G4double GetLabel() {
         return label;
     }
-    
+
     inline G4double GetIntegral() {
         if (totalIntegral < -0.5) {
             Integrate();
         }
         return totalIntegral;
     }
-    
+
     inline const G4InterpolationManager & GetInterpolationManager() const {
         return theManager;
     }
-    
+
     inline G4InterpolationScheme GetScheme(G4int anIndex) {
         return theManager.GetScheme(anIndex);
     }
@@ -86,31 +86,31 @@ class G4ParticleHPVector_CUDA {
     inline void SetVerbose(G4int ff) {
         Verbose = ff;
     }
-    
+
     inline void SetPoint(G4int i, const G4ParticleHPDataPoint & it) {
         G4double x = it.GetX();
         G4double y = it.GetY();
         SetData(i,x,y);
     }
-    
+
     void SetData(G4int i, G4double x, G4double y);
     void SetX(G4int i, G4double e);
     void SetEnergy(G4int i, G4double e);
     void SetY(G4int i, G4double x);
     void SetXsec(G4int i, G4double x);
-    
+
     inline void SetLabel(G4double aLabel) {
         label = aLabel;
     }
-    
+
     inline void SetInterpolationManager(const G4InterpolationManager & aManager) {
         theManager = aManager;
     }
-    
+
     inline void SetInterpolationManager(G4InterpolationManager & aMan) {
         theManager = aMan;
     }
-    
+
     inline void SetScheme(G4int aPoint, const G4InterpolationScheme & aScheme) {
         theManager.AppendScheme(aPoint, aScheme);
     }
@@ -129,15 +129,15 @@ class G4ParticleHPVector_CUDA {
             SetData(i,x,y);
         }
     }
-    
+
     void Init(std::istream & aDataFile,G4double ux=1., G4double uy=1.);
-    
+
     inline void InitInterpolation(std::istream & aDataFile) {
         theManager.Init(aDataFile);
     }
-    
+
     void CleanUp();
-    
+
     inline void Merge(G4ParticleHPVector_CUDA * active, G4ParticleHPVector_CUDA * passive) {
         printf("\nMERGE CALLED");
         CleanUp();
@@ -164,9 +164,9 @@ class G4ParticleHPVector_CUDA {
                     p++;
                 }
             } else {
-                tmp = active; 
+                tmp = active;
                 t = a;
-                active = passive; 
+                active = passive;
                 a = p;
                 passive = tmp;
                 p = t;
@@ -185,9 +185,9 @@ class G4ParticleHPVector_CUDA {
                 m_tmp++;
             }
             p++;
-        } 
+        }
     }
-    
+
     G4double SampleLin();
     G4double * Debug();
     void Integrate();
@@ -195,7 +195,7 @@ class G4ParticleHPVector_CUDA {
     void Times(G4double factor);
 
     /******************************************
-    * PRIVATE                                 
+    * PRIVATE
     *******************************************/
     private:
     G4double GetUniformRand();
@@ -215,18 +215,18 @@ class G4ParticleHPVector_CUDA {
     G4int *d_singleIntResult;
     G4double *h_singleDoubleResult;
     G4double *d_singleDoubleResult;
-    
+
     G4ParticleHPDataPoint * d_theData;
     G4double * d_theIntegral;
     G4InterpolationManager theManager;
     G4int nEntries;
     G4int nPoints;
     G4double label;
-    
+
     G4ParticleHPInterpolator theInt;
     G4int Verbose;
     G4int isFreed;
-    
+
     G4double maxValue;
 
     G4double the15percentBorderCash;
