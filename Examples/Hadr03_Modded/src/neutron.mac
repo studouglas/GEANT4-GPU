@@ -7,10 +7,10 @@
 /run/verbose 2
 #
 /testhadr/det/setMat Uranium_a
-/testhadr/det/setMat Uranium_b
-/testhadr/det/setIsotopeMat U235 92 235 19.05 g/cm3
+###/testhadr/det/setMat Uranium_b
+###/testhadr/det/setIsotopeMat U235 92 235 19.05 g/cm3
 ###/testhadr/det/setMat G4_B
-/testhadr/det/setSize 1 km
+/testhadr/det/setSize 100 m
 #
 /run/initialize
 #

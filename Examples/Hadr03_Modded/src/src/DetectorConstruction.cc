@@ -64,7 +64,7 @@ DetectorConstruction::DetectorConstruction()
   fBoxSize = 10*m;
   DefineMaterials();
   SetMaterial("Uranium_a");
-	SetMaterial("Uranium_b");  
+	//SetMaterial("Uranium_b");  
   fDetectorMessenger = new DetectorMessenger(this);
 }
 
@@ -108,20 +108,20 @@ void DetectorConstruction::DefineMaterials()
 	Uela->AddIsotope(U4,abundance=0.01 *perCent);
 	Uela->AddIsotope(U5,abundance=0.72 *perCent);
 	Uela->AddIsotope(U8,abundance=99.27*perCent);
-
+/*
 	G4Element*  Uelb=new G4Element(name="Uranium_element_b",symbol="Uelb",ncomponents=3);
 	Uelb->AddIsotope(U4,abundance=0.01 *perCent);
 	Uelb->AddIsotope(U4,abundance=99.27 *perCent);
-	Uelb->AddIsotope(U4,abundance=0.72 *perCent);
+	Uelb->AddIsotope(U4,abundance=0.72 *perCent);*/
 
 	Uranium_a=new G4Material("Uranium_a",18.95*g/cm3,1);
 	Uranium_a->AddElement(Uela,fractionmass=1.0);
 
-	Uranium_b=new G4Material("Uranium_b",18.95*g/cm3,1);
-	Uranium_b->AddElement(Uelb,fractionmass=1.0);
+/*	Uranium_b=new G4Material("Uranium_b",18.95*g/cm3,1);
+	Uranium_b->AddElement(Uelb,fractionmass=1.0);*/
 
 	G4cout<<" Uranium_a is  "<<G4endl<<    Uranium_a   <<G4endl;
-	G4cout<<" Uranium_b is  "<<G4endl<<    Uranium_b   <<G4endl;
+	/*G4cout<<" Uranium_b is  "<<G4endl<<    Uranium_b   <<G4endl;*/
 	G4cout<<" Uranium_Nist is  "<<G4endl<<    Uranium_Nist   <<G4endl;
 
  ///G4cout << *(G4Material::GetMaterialTable()) << G4endl;
