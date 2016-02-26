@@ -99,6 +99,14 @@ void G4ParticleHPVector_CUDA::PerformInitialization(G4int n) {
 }
 
 G4ParticleHPVector_CUDA::~G4ParticleHPVector_CUDA() {
+    if (d_theData) {
+        cudaFree(d_theData);
+        d_theData = NULL;
+    }
+    if (h_theData) {
+        free(h_theData);
+        h_theData = NULL;
+    }
     if (d_singleIntResult) {
         cudaFree(d_singleIntResult);
         d_singleIntResult = NULL;
@@ -123,14 +131,7 @@ G4ParticleHPVector_CUDA::~G4ParticleHPVector_CUDA() {
         cudaFreeHost(h_res);
         h_res = NULL;
     }
-    if (d_theData) {
-        cudaFree(d_theData);
-        d_theData = NULL;
-    }
-    if (h_theData) {
-        free(h_theData);
-        h_theData = NULL;
-    }
+
     if (d_theIntegral) {
        cudaFree(d_theIntegral);
        d_theIntegral = NULL;
@@ -278,6 +279,13 @@ void G4ParticleHPVector_CUDA::SetXsec(G4int i, G4double x) {
 ******************************************/
 void G4ParticleHPVector_CUDA::Init(std::istream & aDataFile, G4int total, G4double ux, G4double uy) {
     G4double x, y;
+    
+    // TODO: MEMORY LEAK, we malloc'd h_theData in init, but if we do realloc then program does event
+    // loop imediately, and gets wrong answer
+    // h_theData = (G4ParticleHPDataPoint*)realloc(h_theData, total * sizeof(G4ParticleHPDataPoint));
+    if (!h_theData) {
+        printf("Warning: h_theData null in Init\n");
+    }
     h_theData = (G4ParticleHPDataPoint*)malloc(total * sizeof(G4ParticleHPDataPoint));
 
     for (G4int i = 0; i < total; i++) {
@@ -290,6 +298,10 @@ void G4ParticleHPVector_CUDA::Init(std::istream & aDataFile, G4int total, G4doub
     nEntries = total;
     nEntriesHost = total;
 
+    // Memory leak? Seems to cause troubles when uncommented (not 100% sure it's culprit though)
+    // if (d_theData) {
+    //     cudaFree(d_theData);
+    // }
     cudaMalloc(&d_theData, nPoints * sizeof(G4ParticleHPDataPoint));
     cudaMemcpy(d_theData, h_theData, nEntries * sizeof(G4ParticleHPDataPoint), cudaMemcpyHostToDevice);
 
