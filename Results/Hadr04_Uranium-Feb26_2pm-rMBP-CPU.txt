@@ -1,0 +1,236 @@
+*************************************************************
+ Geant4 version Name: geant4-10-02    (4-December-2015)
+                      Copyright : Geant4 Collaboration
+                      Reference : NIM A 506 (2003), 250-303
+                            WWW : http://cern.ch/geant4
+*************************************************************
+
+ Uranium_a is  
+ Material: Uranium_a    density: 18.950 g/cm3   RadL:   3.166 mm   Nucl.Int.Length:  11.446 cm 
+                       Imean: 890.000 eV 
+
+   --->  Element: Uranium_element_a (Uela)   Z = 92.0   N =   238   A = 238.028 g/mole
+         --->  Isotope:  U234   Z = 92   N = 234   A = 234.04 g/mole   abundance:  0.010 %
+         --->  Isotope:  U235   Z = 92   N = 235   A = 235.04 g/mole   abundance:  0.720 %
+         --->  Isotope:  U238   Z = 92   N = 238   A = 238.05 g/mole   abundance: 99.270 %
+          ElmMassFraction: 100.00 %  ElmAbundance 100.00 % 
+
+ Uranium_b is  
+ Material: Uranium_b    density: 18.950 g/cm3   RadL:   3.113 mm   Nucl.Int.Length:  11.382 cm 
+                       Imean: 890.000 eV 
+
+   --->  Element: Uranium_element_b (Uelb)   Z = 92.0   N =   234   A = 234.040 g/mole
+         --->  Isotope:  U234   Z = 92   N = 234   A = 234.04 g/mole   abundance:  0.010 %
+         --->  Isotope:  U234   Z = 92   N = 234   A = 234.04 g/mole   abundance: 99.270 %
+         --->  Isotope:  U234   Z = 92   N = 234   A = 234.04 g/mole   abundance:  0.720 %
+          ElmMassFraction: 100.00 %  ElmAbundance 100.00 % 
+
+ Uranium_Nist is  
+ Material:     G4_U    density: 18.950 g/cm3   RadL:   3.166 mm   Nucl.Int.Length:  11.446 cm 
+                       Imean: 890.000 eV 
+
+   --->  Element: U (U)   Z = 92.0   N =   238   A = 238.029 g/mole
+         --->  Isotope:  U234   Z = 92   N = 234   A = 234.04 g/mole   abundance:  0.005 %
+         --->  Isotope:  U235   Z = 92   N = 235   A = 235.04 g/mole   abundance:  0.720 %
+         --->  Isotope:  U238   Z = 92   N = 238   A = 238.05 g/mole   abundance: 99.275 %
+          ElmMassFraction: 100.00 %  ElmAbundance 100.00 % 
+
+/run/verbose 2
+#
+/testhadr/det/setMat Uranium_a
+/testhadr/det/setSize 1 m
+/run/reinitializeGeometry
+#
+/testhadr/phys/thermalScattering false
+#
+/run/initialize
+userDetector->Construct() start.
+
+ The Box is 1 m   of Uranium_a
+ 
+ Material: Uranium_a    density: 18.950 g/cm3   RadL:   3.166 mm   Nucl.Int.Length:  11.446 cm 
+                       Imean: 890.000 eV 
+
+   --->  Element: Uranium_element_a (Uela)   Z = 92.0   N =   238   A = 238.028 g/mole
+         --->  Isotope:  U234   Z = 92   N = 234   A = 234.04 g/mole   abundance:  0.010 %
+         --->  Isotope:  U235   Z = 92   N = 235   A = 235.04 g/mole   abundance:  0.720 %
+         --->  Isotope:  U238   Z = 92   N = 238   A = 238.05 g/mole   abundance: 99.270 %
+          ElmMassFraction: 100.00 %  ElmAbundance 100.00 % 
+
+Uranium_a is registered to the default region.
+physicsList->Construct() start.
+@@@ G4ParticleHPInelasticData instantiated for particle neutron data directory variable is G4NEUTRONHPDATA pointing to /Users/stuart/Documents/4th_Year/CS_4ZP6/GEANT4-GPU/geant4.10.02-install/share/Geant4-10.2.0/data/G4NDL4.5
+NeutronHP: /Capture file for Z = 8, A = 18 is not found and NeutronHP will use /Users/stuart/Documents/4th_Year/CS_4ZP6/GEANT4-GPU/geant4.10.02-install/share/Geant4-10.2.0/data/G4NDL4.5/Capture/CrossSection/8_17_Oxygen
+NeutronHP: /Elastic file for Z = 8, A = 18 is not found and NeutronHP will use /Users/stuart/Documents/4th_Year/CS_4ZP6/GEANT4-GPU/geant4.10.02-install/share/Geant4-10.2.0/data/G4NDL4.5/Elastic/CrossSection/8_17_Oxygen
+NeutronHP: /Inelastic file for Z = 8, A = 18 is not found and NeutronHP will use /Users/stuart/Documents/4th_Year/CS_4ZP6/GEANT4-GPU/geant4.10.02-install/share/Geant4-10.2.0/data/G4NDL4.5/Inelastic/CrossSection/8_17_Oxygen
+NeutronHP: /Capture file for Z = 6, A = 12 is not found and NeutronHP will use /Users/stuart/Documents/4th_Year/CS_4ZP6/GEANT4-GPU/geant4.10.02-install/share/Geant4-10.2.0/data/G4NDL4.5/Capture/CrossSection/6_nat_Carbon
+NeutronHP: /Elastic file for Z = 6, A = 12 is not found and NeutronHP will use /Users/stuart/Documents/4th_Year/CS_4ZP6/GEANT4-GPU/geant4.10.02-install/share/Geant4-10.2.0/data/G4NDL4.5/Elastic/CrossSection/6_nat_Carbon
+NeutronHP: /Inelastic file for Z = 6, A = 12 is not found and NeutronHP will use /Users/stuart/Documents/4th_Year/CS_4ZP6/GEANT4-GPU/geant4.10.02-install/share/Geant4-10.2.0/data/G4NDL4.5/Inelastic/CrossSection/6_nat_Carbon
+/Users/stuart/Documents/4th_Year/CS_4ZP6/GEANT4-GPU/geant4.10.02-install/share/Geant4-10.2.0/data/G4NDL4.5
+@@@ G4ParticleHPInelastic instantiated for particle neutron data directory variable is G4NEUTRONHPDATA pointing to /Users/stuart/Documents/4th_Year/CS_4ZP6/GEANT4-GPU/geant4.10.02-install/share/Geant4-10.2.0/data/G4NDL4.5/Inelastic
+physicsList->CheckParticleList() start.
+physicsList->setCut() start.
+#
+/process/list
+     Transportation,         hadElastic,   neutronInelastic,           nCapture
+           nFission
+#
+/particle/createAllIsomer
+/gun/particle neutron
+/gun/energy 2 MeV
+#
+/analysis/setFileName Water_nothermal
+Set file name: Water_nothermal
+/analysis/h1/set 1 100 0. 100. none
+/analysis/h1/set 2 100 0. 100. cm
+/analysis/h1/set 3 100 0. 5. mus
+/analysis/h1/set 4 100 0. 1000. none
+/analysis/h1/set 5 100 0. 500. cm
+/analysis/h1/set 6 100 0. 1000. mus
+/analysis/h1/set 7 100 0. 500. meV
+#
+/run/printProgress 200
+#
+/run/beamOn 2000
+NeutronHP: /Capture file for Z = 8, A = 18 is not found and NeutronHP will use /Users/stuart/Documents/4th_Year/CS_4ZP6/GEANT4-GPU/geant4.10.02-install/share/Geant4-10.2.0/data/G4NDL4.5/Capture/CrossSection/8_17_Oxygen
+NeutronHP: /Elastic file for Z = 8, A = 18 is not found and NeutronHP will use /Users/stuart/Documents/4th_Year/CS_4ZP6/GEANT4-GPU/geant4.10.02-install/share/Geant4-10.2.0/data/G4NDL4.5/Elastic/CrossSection/8_17_Oxygen
+NeutronHP: /Inelastic file for Z = 8, A = 18 is not found and NeutronHP will use /Users/stuart/Documents/4th_Year/CS_4ZP6/GEANT4-GPU/geant4.10.02-install/share/Geant4-10.2.0/data/G4NDL4.5/Inelastic/CrossSection/8_17_Oxygen
+NeutronHP: /Capture file for Z = 6, A = 12 is not found and NeutronHP will use /Users/stuart/Documents/4th_Year/CS_4ZP6/GEANT4-GPU/geant4.10.02-install/share/Geant4-10.2.0/data/G4NDL4.5/Capture/CrossSection/6_nat_Carbon
+NeutronHP: /Elastic file for Z = 6, A = 12 is not found and NeutronHP will use /Users/stuart/Documents/4th_Year/CS_4ZP6/GEANT4-GPU/geant4.10.02-install/share/Geant4-10.2.0/data/G4NDL4.5/Elastic/CrossSection/6_nat_Carbon
+NeutronHP: /Inelastic file for Z = 6, A = 12 is not found and NeutronHP will use /Users/stuart/Documents/4th_Year/CS_4ZP6/GEANT4-GPU/geant4.10.02-install/share/Geant4-10.2.0/data/G4NDL4.5/Inelastic/CrossSection/6_nat_Carbon
+NeutronHP: /Elastic file for Z = 8, A = 18 is not found and NeutronHP will use /Users/stuart/Documents/4th_Year/CS_4ZP6/GEANT4-GPU/geant4.10.02-install/share/Geant4-10.2.0/data/G4NDL4.5/Elastic/CrossSection/8_17_Oxygen
+NeutronHP: /Elastic file for Z = 6, A = 12 is not found and NeutronHP will use /Users/stuart/Documents/4th_Year/CS_4ZP6/GEANT4-GPU/geant4.10.02-install/share/Geant4-10.2.0/data/G4NDL4.5/Elastic/CrossSection/6_nat_Carbon
+
+====================================================================
+                  HADRONIC PROCESSES SUMMARY (verbose level 1)
+
+---------------------------------------------------
+                           Hadronic Processes for neutron
+
+  Process: hadElastic
+        Model:          NeutronHPElastic: 0 meV ---> 20 MeV
+     Cr_sctns:        NeutronHPElasticXS: 0 meV ---> 20 MeV
+     Cr_sctns:            GheishaElastic: 0 meV ---> 100 TeV
+
+  Process: neutronInelastic
+        Model:        NeutronHPInelastic: 0 meV ---> 20 MeV
+     Cr_sctns:      NeutronHPInelasticXS: 0 meV ---> 20 MeV
+     Cr_sctns:          GheishaInelastic: 0 meV ---> 100 TeV
+
+  Process: nCapture
+        Model:          NeutronHPCapture: 0 meV ---> 20 MeV
+     Cr_sctns:        NeutronHPCaptureXS: 0 meV ---> 20 MeV
+     Cr_sctns:          GheishaCaptureXS: 0 meV ---> 100 TeV
+
+  Process: nFission
+        Model:          NeutronHPFission: 0 meV ---> 20 MeV
+     Cr_sctns:        NeutronHPFissionXS: 0 meV ---> 20 MeV
+     Cr_sctns:          GheishaFissionXS: 0 meV ---> 100 TeV
+
+================================================================
+/Users/stuart/Documents/4th_Year/CS_4ZP6/GEANT4-GPU/geant4.10.02-install/share/Geant4-10.2.0/data/G4NDL4.5
+@@@ G4ParticleHPInelastic instantiated for particle neutron data directory variable is G4NEUTRONHPDATA pointing to /Users/stuart/Documents/4th_Year/CS_4ZP6/GEANT4-GPU/geant4.10.02-install/share/Geant4-10.2.0/data/G4NDL4.5/Inelastic
+NeutronHP: /Capture file for Z = 8, A = 18 is not found and NeutronHP will use /Users/stuart/Documents/4th_Year/CS_4ZP6/GEANT4-GPU/geant4.10.02-install/share/Geant4-10.2.0/data/G4NDL4.5/Capture/CrossSection/8_17_Oxygen
+NeutronHP: /Capture file for Z = 6, A = 12 is not found and NeutronHP will use /Users/stuart/Documents/4th_Year/CS_4ZP6/GEANT4-GPU/geant4.10.02-install/share/Geant4-10.2.0/data/G4NDL4.5/Capture/CrossSection/6_nat_Carbon
+
+Region <DefaultRegionForTheWorld> --  -- appears in <Uranium_a> world volume
+ This region is in the mass world.
+ Root logical volume(s) : Uranium_a 
+ Pointers : G4VUserRegionInformation[0x0], G4UserLimits[0x0], G4FastSimulationManager[0x0], G4UserSteppingAction[0x0]
+ Materials : Uranium_a 
+ Production cuts :   gamma 1 mm      e- 1 mm      e+ 1 mm  proton 0 fm 
+
+Region <DefaultRegionForParallelWorld> --  -- is not associated to any world.
+ Root logical volume(s) : 
+ Pointers : G4VUserRegionInformation[0x0], G4UserLimits[0x0], G4FastSimulationManager[0x0], G4UserSteppingAction[0x0]
+ Materials : 
+ Production cuts :   gamma 1 mm      e- 1 mm      e+ 1 mm  proton 0 fm 
+
+========= Table of registered couples ==============================
+
+Index : 0     used in the geometry : Yes
+ Material : Uranium_a
+ Range cuts        :  gamma  1 mm     e-  1 mm     e+  1 mm  proton 0 fm 
+ Energy thresholds :  gamma  125.431 keV    e-  2.13081 MeV    e+  1.99233 MeV proton 0 meV
+ Region(s) which use this couple : 
+    DefaultRegionForTheWorld
+
+====================================================================
+
+Start closing geometry.
+G4GeometryManager::ReportVoxelStats -- Voxel Statistics
+
+    Total memory consumed for geometry optimisation:   0 kByte
+    Total CPU time elapsed for geometry optimisation: 0 seconds
+### Run 0 starts.
+
+--------- Ranecu engine status ---------
+ Initial seed (index) = 0
+ Current couple of seeds = 9876, 54321
+----------------------------------------
+... open Root analysis file : Water_nothermal.root - done
+--> Event 0 starts.
+--> Event 200 starts.
+--> Event 400 starts.
+--> Event 600 starts.
+--> Event 800 starts.
+--> Event 1000 starts.
+--> Event 1200 starts.
+--> Event 1400 starts.
+--> Event 1600 starts.
+--> Event 1800 starts.
+ Run terminated.
+Run Summary
+  Number of events processed : 2000
+  User=0.57s Real=0.57s Sys=0s
+
+ The run is 2000 neutron of 2 MeV through 50 cm  of Uranium_a (density: 18.95 g/cm3 )
+
+ Process calls frequency :
+	hadElastic= 1931	nCapture= 29	nFission= 281	neutronInelastic= 1690
+
+ Parcours of incident neutron:
+   nb of collisions    E>1*eV= 0.9655      E<1*eV= 1       total= 1.9655
+   track length        E>1*eV= 2.8297 cm   E<1*eV= 2.8187 cm    total= 5.6484 cm 
+   time of flight      E>1*eV= 1.4508 ns   E<1*eV= 1.4452 ns    total= 2.896 ns 
+
+ List of generated particles:
+           U235:      29  Emean =  6.5841 keV	( 8.3866 eV  --> 20.866 keV)
+           U238:    3592  Emean =  8.8059 keV	( 75.845 meV --> 33.62 keV)
+           U239:      29  Emean =  8.3978 keV	( 7.6981 keV --> 9.1286 keV)
+          gamma:    4319  Emean =  496.96 keV	( 1.0314 keV --> 5.9535 MeV)
+        neutron:    2449  Emean =  1.2746 MeV	( 15.915 keV --> 8.0172 MeV)
+... write Root file : Water_nothermal.root - done
+
+--------- Ranecu engine status ---------
+ Initial seed (index) = 0
+ Current couple of seeds = 1103915480, 1528401316
+----------------------------------------
+G4 kernel has come to Quit state.
+UserDetectorConstruction deleted.
+UserPhysicsList deleted.
+UserActionInitialization deleted.
+UserRunAction deleted.
+UserPrimaryGenerator deleted.
+RunManager is deleting RunManagerKernel.
+EventManager deleted.
+Units table cleared.
+Total navigation history collections cleaned: 4
+================== Deleting memory pools ===================
+Pool ID '20G4NavigationLevelRep', size : 0.00385 MB
+Pool ID '24G4ReferenceCountedHandleIvE', size : 0.000961 MB
+Pool ID '7G4Event', size : 0.000961 MB
+Pool ID '15G4PrimaryVertex', size : 0.000961 MB
+Pool ID '17G4PrimaryParticle', size : 0.000961 MB
+Pool ID '17G4DynamicParticle', size : 0.00385 MB
+Pool ID '7G4Track', size : 0.00769 MB
+Pool ID '18G4TouchableHistory', size : 0.000961 MB
+Pool ID '15G4CountedObjectIvE', size : 0.000961 MB
+Pool ID '17G4ReactionProduct', size : 0.00192 MB
+Number of memory pools allocated: 10; of which, static: 0
+Dynamic pools deleted: 10 / Total memory freed: 0.023 MB
+============================================================
+G4Allocator objects are deleted.
+UImanager deleted.
+StateManager deleted.
+RunManagerKernel is deleted. Good bye :)
