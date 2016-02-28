@@ -120,18 +120,8 @@ class G4ParticleHPVector_CUDA {
     /******************************************
     * Computations from .hh
     ******************************************/
-    void Init(std::istream & aDataFile, G4int total, G4double ux=1., G4double uy=1.) {
-        G4double x, y;
-        for (G4int i = 0; i < total; i++) {
-            aDataFile >> x >> y;
-            // TODO: Optimize with one cuda function
-            x *= ux;
-            y *= uy;
-            SetData(i,x,y);
-        }
-    }
-
-    void Init(std::istream & aDataFile,G4double ux=1., G4double uy=1.);
+    void Init(std::istream & aDataFile, G4int total, G4double ux=1., G4double uy=1.);
+    void Init(std::istream & aDataFile, G4double ux=1., G4double uy=1.);
 
     inline void InitInterpolation(std::istream & aDataFile) {
         theManager.Init(aDataFile);
@@ -200,6 +190,7 @@ class G4ParticleHPVector_CUDA {
     *******************************************/
     private:
     G4double GetUniformRand();
+    void CopyToCpuIfDirty();
     inline int GetNumBlocks(int totalNumThreads) {
         if (totalNumThreads == 0) {
             return 0;
@@ -218,6 +209,10 @@ class G4ParticleHPVector_CUDA {
     G4double *d_singleDoubleResult;
 
     G4ParticleHPDataPoint * d_theData;
+    G4ParticleHPDataPoint * h_theData;
+    G4bool isDataDirtyHost;
+    G4int nEntriesHost;
+
     G4double * d_theIntegral;
     G4InterpolationManager theManager;
     G4int nEntries;
