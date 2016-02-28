@@ -33,6 +33,7 @@ class G4ParticleHPVector_CUDA {
     ~G4ParticleHPVector_CUDA();
 
     G4double GetXsec(G4double e);
+	void GetXsecBuffer(G4double * queryList, G4int length);
     void Dump();
     void ThinOut(G4double precision);
     void Merge(G4InterpolationScheme aScheme, G4double aValue, G4ParticleHPVector_CUDA * active, G4ParticleHPVector_CUDA * passive);

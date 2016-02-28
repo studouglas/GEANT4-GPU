@@ -211,7 +211,8 @@ G4double G4ParticleHPVector::GetXsec(G4double e)
     else if(i==nEntries)
     {
       low = nEntries-2;
-      high = nEntries-1;
+      //low = -1;
+	  high = nEntries-1;
     }
     G4double y;
     if(e<theData[nEntries-1].GetX()) 
