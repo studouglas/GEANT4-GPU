@@ -241,6 +241,16 @@ G4double G4ParticleHPVector::GetXsec(G4double e)
   #endif
 }
 
+void G4ParticleHPVector::GetXsecBuffer(G4double * queryList, G4int length){
+	#if GEANT$_ENABLE_CUDA
+		cudaVector->GetXsecBuffer(queryList, length);
+	#else
+	for(int i = 0; i < length; i++){ 			// go through every Item in the buffer of xSec queries
+		queryList[i] = GetXsec(queryList[i]);	// overwrite the value with the returned Xsec
+	}
+	#endif
+}
+
 void G4ParticleHPVector::Dump()
 {
 	#if GEANT4_ENABLE_CUDA
