@@ -211,7 +211,8 @@ G4double G4ParticleHPVector::GetXsec(G4double e)
     else if(i==nEntries)
     {
       low = nEntries-2;
-      high = nEntries-1;
+      //low = -1;
+	  high = nEntries-1;
     }
     G4double y;
     if(e<theData[nEntries-1].GetX()) 
@@ -238,6 +239,16 @@ G4double G4ParticleHPVector::GetXsec(G4double e)
     }
     return y;
   #endif
+}
+
+void G4ParticleHPVector::GetXsecBuffer(G4double * queryList, G4int length){
+	#if GEANT$_ENABLE_CUDA
+		cudaVector->GetXsecBuffer(queryList, length);
+	#else
+	for(int i = 0; i < length; i++){ 			// go through every Item in the buffer of xSec queries
+		queryList[i] = GetXsec(queryList[i]);	// overwrite the value with the returned Xsec
+	}
+	#endif
 }
 
 void G4ParticleHPVector::Dump()

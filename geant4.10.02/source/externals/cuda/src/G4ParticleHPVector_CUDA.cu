@@ -586,6 +586,86 @@ __global__ void GetYForXSec_CUDA(G4ParticleHPDataPoint * theData, G4double e,
         resultsStruct->y = theData[nEntries - 1].xSec;
     }
 }
+__global__ void getXsecBuffer_CUDA(G4ParticleHPDataPoint * theData, int nEntries, G4double * d_queryList, GetXsecResultStruct * d_resArray, G4int querySize){
+	int idx = blockDim.x*blockIdx.x + threadIdx.x;	// determine thread ID
+	if(idx < querySize){
+		G4double e = d_queryList[idx];
+		int i;
+		for(i = 0; i < nEntries; i++){ // find the first DataPoint whose energy is greater
+			if(theData[i].energy >= e){
+				break;
+			}
+		}
+		
+		// get the index before 
+		G4int low = i - 1;
+		G4int high = i;
+		if(i == 0){// first dataPoint doesn't have an index before
+			low = 0;
+			high = 1;
+		} 
+		else if(i == nEntries){// if no dataPoint was good, just use the last datapoint
+			d_resArray[idx].y = theData[nEntries-1].xSec;
+			return;
+		}
+		if ((theData[high].energy != 0) && (abs((theData[high].energy - theData[low].energy) / theData[high].energy) < 0.000001)) {
+			d_resArray[idx].y = theData[low].xSec;
+		}
+		else { // can't interpolate on device -- need cpu to do this
+			d_resArray[idx].y = -1;
+			d_resArray[idx].pointLow.energy = theData[low].energy;
+			d_resArray[idx].pointLow.xSec = theData[low].xSec;
+			d_resArray[idx].pointHigh.energy = theData[high].energy;
+			d_resArray[idx].pointHigh.xSec = theData[high].xSec;
+			d_resArray[idx].indexHigh = high;
+		}
+	}
+}
+void G4ParticleHPVector_CUDA::GetXsecBuffer(G4double * queryList, G4int length){
+	GetXsecResultStruct * h_resArray;	// Array of result for host
+	GetXsecResultStruct * d_resArray;	// Array for where the results are placed on the GPU
+	G4double * d_queryList;				// device copy of the queryList
+	
+	// Allocate memory for everything
+	cudaMallocHost(&h_resArray, sizeof(GetXsecResultStruct) * length);
+	cudaMalloc(&d_resArray, sizeof(GetXsecResultStruct) * length);
+	cudaMalloc(&d_queryList, sizeof(G4double) * length);
+
+	// Copy the queryList to the device
+	cudaMemcpy(d_queryList, queryList, sizeof(G4double)*length, cudaMemcpyHostToDevice);
+	
+	// Determine how many blocks we need to allocate 
+	int block_size =  32;
+	int queryBlocks = length/block_size + (length%block_size == 0 ? 0:1);
+	
+	// Get GPU to do its thing
+	getXsecBuffer_CUDA <<< queryBlocks, block_size >>> (d_theData, nEntries, d_queryList, d_resArray, length);
+	
+	// Copy the computed results back to the Host
+	cudaMemcpy(h_resArray, d_resArray, sizeof(GetXsecResultStruct)*length, cudaMemcpyDeviceToHost);
+	
+	// need to interpolate the xSecs using CPU, for now
+	for(int i = 0; i < length; i++){
+	    GetXsecResultStruct res = h_res[i];
+		if (res.y != -1) {
+			queryList[i] = res.y;
+		}
+		else {
+			G4double y = theInt.Interpolate(theManager.GetScheme(res.indexHigh), queryList[i],
+            res.pointLow.energy, res.pointHigh.energy,
+            res.pointLow.xSec, res.pointHigh.xSec);
+			if (nEntries == 1) {
+				queryList[i] = 0.0;
+			}
+			queryList[i] = y;
+		}
+	}
+
+	// Free the temporary data to avoid memory leaks
+	 cudaFree(d_resArray);
+	 cudaFree(d_queryList);
+	 cudaFree(h_resArray);
+}
 
 G4double G4ParticleHPVector_CUDA::GetXsec(G4double e) {
     if (nEntries == 0) {
