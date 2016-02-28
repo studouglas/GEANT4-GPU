@@ -27,6 +27,8 @@ class G4ParticleHPVector_CUDA {
     * CONSTRUCTORS / DECONSTRUCTORS
     *******************************************/
     public:
+	
+	G4int nEntries;
     G4ParticleHPVector_CUDA();
     G4ParticleHPVector_CUDA(G4int);
     void PerformInitialization(G4int);
@@ -215,7 +217,7 @@ class G4ParticleHPVector_CUDA {
 
     G4double * d_theIntegral;
     G4InterpolationManager theManager;
-    G4int nEntries;
+
     G4int nPoints;
     G4double label;
 
