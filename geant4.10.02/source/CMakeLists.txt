@@ -22,6 +22,8 @@ if(GEANT4_USE_G3TOG4)
     add_subdirectory(g3tog4)
 endif()
 
+option (GEANT4_ENABLE_CUDA "Use CUDA to run simulations in parallel on the GPU" ON)
+
 add_subdirectory(geometry)
 add_subdirectory(global)
 add_subdirectory(graphics_reps)

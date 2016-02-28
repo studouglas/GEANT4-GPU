@@ -49,9 +49,9 @@
 #include <cmath>
 #include <vector>
 
-#define GEANT4_ENABLE_CUDA 0
+#define GEANT4_ENABLE_CUDA 1
 #if GEANT4_ENABLE_CUDA
-#include "/Users/stuart/Documents/4th_Year/CS_4ZP6/GEANT4-GPU/geant4.10.02/source/externals/cuda/include/G4ParticleHPVector_CUDA.hh"
+  #include "/Users/stuart/Documents/4th_Year/CS_4ZP6/GEANT4-GPU/geant4.10.02/source/externals/cuda/include/G4ParticleHPVector_CUDA.hh"
 #endif
 
 #if defined WIN32-VC
@@ -622,7 +622,7 @@ class G4ParticleHPVector
         return;
       }
       G4double sum = 0;
-      G4InterpolationScheme scheme1 = theManager.GetScheme(1);
+      // G4InterpolationScheme scheme1 = theManager.GetScheme(1);
       for(i=1;i<GetVectorLength();i++)
       {
         if(std::abs((theData[i].GetX()-theData[i-1].GetX())/theData[i].GetX())>0.0000001)
