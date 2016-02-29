@@ -34,7 +34,6 @@ if(NOT GEANT4_USE_SYSTEM_ZLIB)
     add_subdirectory(zlib)
 endif()
 
-option (GEANT4_ENABLE_CUDA "Use CUDA to run simulations in parallel on the GPU" ON)
 if(GEANT4_ENABLE_CUDA)
     add_subdirectory(cuda)
 endif()
