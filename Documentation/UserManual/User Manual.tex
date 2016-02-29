@@ -119,9 +119,25 @@ in case you run into any problems installing or running GEANT4-GPU.
 \section{Legal Information}	% Victor
 
 \section{Installation} % Victor
+
+\subsection{Supported Operating Systems} % Victor
+Currently, the only operating systems GEANT4-GPU has been tested on are OS X 10.11 and  Red Hat Enterprise Linux Server release 6.7 (Santiago). Other versions of these operating systems are likely to work, but compatibility is not guaranteed.\\
+To check what version of OS X you have, perform the following actions:
+\begin{enumerate}
+\item Click on the blue apple icon in the top left-hand corner of your screen.
+\item Click on About This Mac.
+\item Check to ensure that the version of your OS is 10.11 (El Capitan) (earlier versions may work, but are not guaranteed).
+\end{enumerate}
+To check your version of RHEl, perform the following actions:
+\begin{enumerate}
+\item Open a shell.
+\item Type in the following command "cat /etc/redhat-release" or "uname -m \&\& cat /etc/*release"
+\item Check to ensure that the version of RHEL installed is 6.7 (Santiago) (earlier versions may work, but are not guaranteed).
+\end{enumerate}
+
 \subsection{Required Hardware} % Victor
 In order to successfully install and run GEANT4 with GPU parallelism, you must first check that the workstation that you are installing on has a NVIDIA GPU with Compute Capability 3.0 or higher.\\
-To check if the GPU on your current workstation supports CUDA with a Compute Capability of 3.0 or higher, perform the following actions:\\ \\
+To check if the GPU on your current workstation supports CUDA with a Compute Capability of 3.0 or higher, perform the following actions:\\
 %Commented out pending a successful windows installation
 %Windows:\\
 %\begin{enumerate}
@@ -139,11 +155,11 @@ Redhat:
 \begin{enumerate}
 \item Determine the graphics card that is currently installed.
 \begin{enumerate}
-\item Open a shell
-\item Enter the following command lspci | grep -i nvidia
+\item Open a shell.
+\item Enter the following command "lspci | grep -i nvidia".
 \item You should see output similar to the following:\\
 01:00.0 VGA compatible controller: NVIDIA Corporation GK104GL [Quadro K5000] (rev a1)
-\item Where [Quadro K5000] is the name of your NVIDIA Graphics Card
+\item Where [Quadro K5000] is the name of your NVIDIA Graphics Card.
 \end{enumerate}
 \item Visit \href{https://developer.nvidia.com/cuda-gpus}{NVIDIA} and find your GPU to determine the Compute Capability of your card.
 \item Check to ensure that you have a NVIDIA GPU with a  Compute Capability of at least 3.0.
@@ -167,24 +183,69 @@ OS X 10.11 (El Capitan):
 \end{enumerate}
 
 \subsection{Required Software} % Victor
-
-
-\subsection{Supported Operating Systems} % Victor
-Currently, the only operating systems GEANT4-GPU has been tested on are OS X 10.11 and  Red Hat Enterprise Linux Server release 6.7 (Santiago). Other versions of these operating systems are likely to work, but compatibility is not guaranteed.\\
-To check what version of OS X you have, perform the following actions:
-\begin{enumerate}
-\item Click on the blue apple icon in the top left-hand corner of your screen.
-\item Click on About This Mac.
-\item Check to ensure that the version of your OS is 10.11 (El Capitan) (earlier versions may work, but are not guaranteed).
-\end{enumerate}
-To check your version of RHEl, perform the following actions:
+In order to install GEANT4-GPU you must have the following software installed:
+\begin{itemize}
+\item GCC version 4.8 or 4.9
+\item CUDA Toolkit v6.5 (the only version of the CUDA Toolkit tested and working)
+\item cmake 3.3 or higher
+\end{itemize}
+\textbf{GCC}\\
+\textbf{Check GCC RHEL 6.7:}\\
+To check which version of the GCC you have installed on your system, perform the following actions:
 \begin{enumerate}
 \item Open a shell.
-\item Type in the following command "cat /etc/redhat-release" or "uname -m \&\& cat /etc/*release"
-\item Check to ensure that the version of RHEL installed is 6.7 (Santiago) (earlier versions may work, but are not guaranteed).
+\item Enter "gcc -v" into the command line.
+\item You will see output that looks like:\\
+gcc version 4.9.2 20150212 (Red Hat 4.9.2-6) (GCC)
+\item Ensure that the version is 4.8 or 4.9
 \end{enumerate}
-\subsection{Installation Instructions} % Victor
 
+\textbf{Check GCC (or Clang packaged with Xcode 6)}
+\begin{enumerate}
+\item Open a shell.
+\item Enter "clang --version" into the command line.
+\item You will see output similar to: \\
+Apple LLVM version 6.0 (clang-600.0.51) (based on LLVM 3.5svn) \\
+Target: x86\_64-apple-darwin13.3.0 \\
+Thread model: posix
+\item Ensure that your version of Clang is clang-600.x.xx
+\end{enumerate}
+\textbf{CUDA Toolkit}\\
+
+If you don't already have the CUDA Toolkit installed, visit \href{https://developer.nvidia.com/cuda-toolkit-65}{NVIDIA CUDA Toolkit v6.5} and follow the installation instructions for your OS.\\
+
+After installing, check to see that CUDA is up and running. For either RHEL 6.7 or OS X 10.11:
+\begin{enumerate}
+\item Open a shell.
+\item Enter the following command "nvcc --version"
+\item Output should be similar to:\\
+nvcc: NVIDIA (R) Cuda compiler driver\\
+Copyright (c) 2005-2014 NVIDIA Corporation\\
+Built on Thu\_Jul\_17\_21:41:27\_CDT\_2014\\
+Cuda compilation tools, release 6.5, V6.5.12\\
+\end{enumerate}
+
+\textbf{CMake}
+If you don't already have cmake (version 3.3 or higher) you can install it from: \href{https://cmake.org/download/}{CMake}
+
+After installing cmake, check to see that it is up and running. For either RHEL 6.7 or OS X 10.11:
+\begin{enumerate}
+\item Open a shell.
+\item Enter the following command "cmake --version".
+\item Output should be similar to:\\
+cmake version 3.4.0\\
+\\
+CMake suite maintained and supported by Kitware (kitware.com/cmake).
+\end{enumerate}
+
+\subsection{Installation Instructions} % Victor
+Included in the repository, there is a README.md that breaks down the installation steps, including special instructions on how to install this on McMaster's servers. That document is also covered in this section of the user guide. \\
+\begin{enumerate}
+%NOTE: The repo is private at the moment, so obtaining th source files would be difficult.
+\item Either clone the repository or download it from \href{https://github.com/studouglas/GEANT4-GPU}{Github GEANT4-GPU}
+\item A few quick edits will be necessary in order
+\item mkdir /path/to/GEANT4-GPU/geant4.10.00.p02-build /path/to/GEANT4-GPU/
+\end{enumerate}
 \section{Execution} % Stuart
 \subsection{Creating a Simulation} % Stuart
 \subsection{Running the Simulation} % Stuart
