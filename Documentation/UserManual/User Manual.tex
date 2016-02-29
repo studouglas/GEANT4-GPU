@@ -86,6 +86,24 @@ Initial draft of document & Matt & 2016-02-26\\
 \end{center}
 
 \section{Definitions and Acronyms} % Matt
+\begin{table}[h]
+\centering
+\caption{Definitions and Acronyms}
+\begin{tabularx}{\textwidth}{l|X}
+\Xhline{2\arrayrulewidth}
+\bf Term & \bf Description\\
+\hline
+GEANT-4 & open-source software toolkit used to simulate the passage of particles through matter\\\hline
+GEANT4-GPU & GEANT-4 with computations running on the GPU.\\\hline
+G4-STORK & (Geant-4 STOchastic Reactor Kinetics), fork of GEANT-4 developed by McMaster's Engineering Physics department to simulate McMaster's nuclear reactor\\\hline
+GPU & graphics processing unit, well-suited to parallel computing tasks\\\hline
+CPU & computer processing unit, general computer processor well-suited to serial tasks\\\hline
+CUDA & parallel computing architecture for general purpose programming on GPU, developed by NVIDIA\\\hline
+FAQ & Frequently Asked Questions \\\hline
+\Xhline{2\arrayrulewidth}
+\end{tabularx}
+\end{table}
+
 
 % =============================== Section =============================== %
 \section{Introduction} % Rob
@@ -93,6 +111,9 @@ Initial draft of document & Matt & 2016-02-26\\
 \subsection{Scope} % Rob	
 \subsection{Background} % Rob
 \subsection{Document Overview} % Matt
+This Document goes over how to install and run GEANT4-GPU. As well as software and hardware required for GEANT4-GPU to be installed and run. Instructions on how to install the required software 
+are also included in this document. Following the installation section, is a section on creating and running simulations using GEANT4-GPU.  There is a troubleshooting section as well as a FAQ 
+in case you run into any problems installing or running GEANT4-GPU.
 
 \section{Legal Information}	% Victor
 
@@ -114,8 +135,32 @@ Initial draft of document & Matt & 2016-02-26\\
 
 \section{Troubleshooting} % Matt
 \subsection{Installation} % Matt
-\subsection{Running the Simulation} % Matt
+\begin{itemize}
+\item Ensure path names are correct, check for spaces in pathnames
+\item The DCMAKE\_INSTALL\_PREFIX in step 4 of installing GEANT-4  has two paths. Make sure they are separated by a space.
+\item make sure your operating system is supported 
+\item Newer versions of Clang (included with Xcode 7) have been know to cause problems. Download Xcode 6 and uninstall Xcode 7 if this is the case.
+\end{itemize}
+\subsection{Running the Simulation} % Matt 
+\begin{itemize}
+\item Ensure that your graphics card is a NVidia card with Compute Capability 3.0.
+\end{itemize}
 \subsection{FAQ} % Matt
+\textbf{What is GEANT-4?}\\
+Many physics researchers use GEANT-4 to learn about how particles interact with a specific environment. It is a toolkit (i.e. library) that uses the Monte Carlo model, meaning each particle's properties are calculated independently according to certain probabilities. It runs all those calculations, and provides output\\
+
+\textbf{Why will running the simulations on a GPU improve the performance?}\\
+GPU's contain a large amount of cores that can perform calculations much more quickly than a CPU if the problem is well-suited to parallelization. GEANT-4 runs relatively simple calculations on millions of particles, and each particle is completely independent of the others. This is exactly that sort of well-suited problem, and stands to see large performance gains.\\
+
+\textbf{Where can I find more information about GEANT-4?}\\
+Cern has an entire website full of information for GEANT-4.\\ geant4.web.cern.ch/geant4/index.shtml\\
+
+\textbf{Helpful Pages:}
+\begin{itemize}
+\item Download page for Geant4 source code as well as Data files\\ geant4.web.cern.ch/geant4/support/download.shtml
+\item Getting Started\\ geant4.web.cern.ch/geant4/support/gettingstarted.shtml
+\item Installation Guide for geant4 (does not include CUDA)\\ geant4.web.cern.ch/geant4/UserDocumentation/UsersGuides/InstallationGuide/html/index.html
+\end{itemize}
 
 \section{Appendix} % Rob
 \subsection{Recommendations for Integration of Geant4 and CUDA}
