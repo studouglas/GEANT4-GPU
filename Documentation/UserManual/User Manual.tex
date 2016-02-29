@@ -29,6 +29,14 @@
 \setlength\parindent{0pt} % Cleaner look
 
 
+\usepackage{xcolor}
+\hypersetup{
+    colorlinks,
+    linkcolor={red!50!black},
+    citecolor={blue!50!black},
+    urlcolor={blue!80!black}
+}
+
 % Title Page -----------------------------------------------------------------
 \title{
 \LARGE GEANT4 GPU Port:
@@ -371,7 +379,7 @@ It is important to use naming conventions to ensure clarity within a project tha
 \section{Troubleshooting}\label{SecTroubleshooting} % Matt
 \subsection{Installation} % Matt
 \begin{itemize}
-\item Ensure path names are correct in step \ref{StepCmake} of installation
+\item Ensure path names are correct in step \ref{StepCMake} of installation
 \item The paths in step \ref{StepCMake} of installing GEANT4 paths must be absolute
 \item Spaces in path names may cause issues on some systems
 \end{itemize}
