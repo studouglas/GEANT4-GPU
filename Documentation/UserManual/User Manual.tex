@@ -78,13 +78,14 @@ Initial draft of document & Matt & 2016-02-26\\
 
 % =============================== Section =============================== %
 \section{List of Figures}
-\begin{center}
-\begin{tabular}{cl}
-\toprule
-\bf Table \# & \bf Title\\\midrule
-\bottomrule
-\end{tabular}
-\end{center}
+Geant4-GPU is a command-line driven document, and as such no figures are included. Instead, commands and results from running are kept inline within the text, formatted using a \texttt{monospace} typeface.
+%\begin{center}
+%\begin{tabular}{cl}
+%\toprule
+%\bf Figure \# & \bf Title\\\midrule
+%\bottomrule
+%\end{tabular}
+%\end{center}
 
 \section{Definitions and Acronyms} % Matt
 \begin{table}[h]
@@ -96,7 +97,6 @@ Initial draft of document & Matt & 2016-02-26\\
 \hline
 Geant4 & open-source software toolkit used to simulate the passage of particles through matter\\\hline
 Geant4-GPU & Geant4 with some computations running on the GPU\\\hline
-G4-STORK & (Geant4 STOchastic Reactor Kinetics), fork of Geant4 developed by McMaster's Engineering Physics department to simulate McMaster's nuclear reactor\\\hline
 GPU & graphics processing unit, well-suited to parallel computing tasks\\\hline
 CPU & computer processing unit, general computer processor well-suited to serial tasks\\\hline
 CUDA & parallel computing architecture for general purpose programming on GPU, developed by NVIDIA\\\hline
@@ -123,11 +123,47 @@ Refer to \ref{SecBackground}.
 This document goes over how to install and run Geant4-GPU. As well as software and hardware required for Geant4-GPU to be installed and run. Following this are detailed step-by-step instructions on how to install the software. Following details on installation is a section on creating and running simulations using the CUDA functionality introduced in Geant4-GPU. A section detailing high level details about how the CUDA code was developed and integrated follows, guiding future developers and users on how to integrate CUDA into other parts of Geant4. A troubleshooting section is included as well as a FAQ section covering many common questions related to the project.
 
 \section{Legal Information}	% Victor
-
+\textbf{License}\\
+Geant4 Software License \\
+Version 1.0,  28 June 2006\\
+ 
+Copyright (c) Copyright Holders of the Geant4 Collaboration, 1994-2006.\\
+See http://cern.ch/geant4/license for details on the copyright holders. All rights not expressly granted under this license are reserved.\\
+ \\
+This software includes voluntary contributions made to Geant4. See http://cern.ch/geant4 for more information on Geant4.\\
+ \\
+Installation, use, reproduction, display, modification and redistribution of this software, with or without modification, in source and binary forms, are permitted on a non- exclusive basis. Any exercise of rights by you under this license is subject to the following conditions:\\
+ \\
+1. Redistributions of this software, in whole or in part, with or without modification, must reproduce the above copyright notice and these license conditions in this software, the user documentation and any other materials provided with the redistributed software.\\
+ \\
+2. The user documentation, if any, included with a redistribution, must include the following notice:\\
+"This product includes software developed by Members of the Geant4 Collaboration ( http://cern.ch/geant4 )."\\
+ \\
+If that is where third-party acknowledgments normally appear, this acknowledgment must be reproduced in the modified version of this software itself.\\
+ \\
+3. The names "Geant4" and "The Geant4 toolkit" may not be used to endorse or promote software, or products derived therefrom, except with prior written permission by license@geant4.org. If this software is redistributed in modified form, the name and reference of the modified version must be clearly distinguishable from that of this software.\\
+ \\
+4. You are under no obligation to provide anyone with any modifications of this software that you may develop, including but not limited to bug fixes, patches, upgrades or other enhancements or derivatives of the features, functionality or performance of this software. However, if you publish or distribute your modifications without contemporaneously requiring users to enter into a separate written license agreement, then you are deemed to have granted all Members and all Copyright Holders of the Geant4 Collaboration a license to your modifications, including modifications protected by any patent owned by you, under the conditions of this license.\\
+ \\
+5. You may not include this software in whole or in part in any patent or patent application in respect of any modification of this software developed by you.\\
+ \\
+ 
+ 
+6. DISCLAIMER\\
+ \\
+THIS SOFTWARE IS PROVIDED BY THE MEMBERS AND COPYRIGHT HOLDERS OF THE GEANT4 COLLABORATION AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, IMPLIED WARRANTIES OF MERCHANTABILITY, OF SATISFACTORY QUALITY, AND FITNESS FOR A PARTICULAR PURPOSE OR USE ARE DISCLAIMED. THE MEMBERS OF THE GEANT4 COLLABORATION AND CONTRIBUTORS MAKE NO REPRESENTATION THAT THE SOFTWARE AND MODIFICATIONS THEREOF, WILL NOT INFRINGE ANY PATENT, COPYRIGHT, TRADE SECRET OR OTHER PROPRIETARY RIGHT.\\
+ \\
+7. LIMITATION OF LIABILITY\\
+ \\
+THE MEMBERS AND COPYRIGHT HOLDERS OF THE GEANT4 COLLABORATION AND CONTRIBUTORS SHALL HAVE NO LIABILITY FOR DIRECT, INDIRECT, SPECIAL, INCIDENTAL, CONSEQUENTIAL, EXEMPLARY, OR PUNITIVE DAMAGES OF ANY CHARACTER INCLUDING, WITHOUT LIMITATION, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES, LOSS OF USE, DATA OR PROFITS, OR BUSINESS INTERRUPTION, HOWEVER CAUSED AND ON ANY THEORY OF CONTRACT, WARRANTY, TORT (INCLUDING NEGLIGENCE), PRODUCT LIABILITY OR OTHERWISE, ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.\\
+ \\
+8. This license shall terminate with immediate effect and without notice if you fail to comply with any of the terms of this license, or if you institute litigation against any Member or Copyright Holder of the Geant4 Collaboration with regard to this software.\\
+ \\
+ 
 \section{Installation} % Victor
 
 \subsection{Supported Operating Systems} % Victor
-Geant4-GPU has been tested on OS X 10.11 and Red Hat Enterprise Linux Server release 6.7 (Santiago). Other versions of these operating systems are likely to work, but compatibility is not guaranteed.\\
+Geant4-GPU has been tested on OS X 10.11 and Red Hat Enterprise Linux Server release 6.7 (Santiago), henceforth called RHEL. Other versions of these operating systems are likely to work, but compatibility is not guaranteed.\\
 
 To check what version of OS X you have, perform the following actions:
 
@@ -197,7 +233,7 @@ To check if the GPU on your current workstation supports CUDA with a Compute Cap
 \end{enumerate}
 
 \subsection{Required Software} % Victor
-In order to install GEANT4-GPU you must have the following software installed:
+In order to install Geant4-GPU you must have the following software installed:
 \begin{itemize}
 \item GCC version 4.8 (RHEL) or Clang version 6.0 (OS X). Note that McMaster's servers have GCC version 4.9, and an extra command is required to compile, as documented in section \ref{SecMac}.
 \item CUDA Toolkit v6.5 (other versions may work, however 6.5 is the only one that is tested)
@@ -240,13 +276,13 @@ After installing, check to see that CUDA is up and running. For either RHEL or O
 
 
 \subsubsection{CMake}
-If you don't already have CMake (version 2.8 or higher) you can install it from: \url{https://cmake.org/download/}. After installing cmake, check to see that it is up and running. For either RHEL or OS X 10.11:
+If you don't already have CMake (version 2.8 or higher) you can install it from: \url{https://CMake.org/download/}. After installing CMake, check to see that it is up and running. For either RHEL or OS X 10.11:
 \begin{enumerate}
 \item Open a shell.
-\item Enter the following command: \texttt{cmake --version}.
+\item Enter the following command: \texttt{CMake --version}.
 \item Output should be similar to:\\
-\texttt{cmake version 3.4.0}\\
-\texttt{CMake suite maintained and supported by Kitware (kitware.com/cmake).}
+\texttt{CMake version 3.4.0}\\
+\texttt{CMake suite maintained and supported by Kitware (kitware.com/CMake).}
 \end{enumerate}
 
 \subsection{Installation Instructions} % Victor
@@ -259,18 +295,18 @@ Included in the repository, there is a README.md file that breaks down the insta
 \item Open a shell
 \item \label{StepMkdir} Navigate in the shell to the downloaded directory, and run the following command: \texttt{mkdir geant4.10.02-build geant4.10.02-install}
 \item Navigate to the \texttt{geant4.10.02-build} directory you just created.
-\item \label{StepCmake} Run the following command to start the build process:\\
+\item \label{StepCMake} Run the following command to start the build process:\\
 \texttt{cmake -DGEANT4\_INSTALL\_DATA=ON -DGEANT4\_ENABLE\_CUDA=ON\\
  -DGEANT4\_USE\_SYSTEM\_EXPAT=OFF -DCMAKE\_INSTALL\_PREFIX=\\
  /path/to/GEANT4-GPU/geant4.10.02-install \\
  /path/to/GEANT4-GPU/geant4.10.02}
 \begin{itemize}
-\item \texttt{-DGEANT4\_INSTALL\_DATA=ON} -- downloads and installs the datasets required by Geant4. This is only done once, and the argument may be ommited in subsequent Cmake commands.
+\item \texttt{-DGEANT4\_INSTALL\_DATA=ON} -- downloads and installs the datasets required by Geant4. This is only done once, and the argument may be omitted in subsequent CMake commands.
 \item \texttt{-DGEANT4\_ENABLE\_CUDA=ON} -- setting this to \texttt{ON} will use your CUDA compiler to compile the CUDA code from the project and link it to the existing C++ code. Setting it to \texttt{OFF} (the default) will build Geant4 without any GPU functionality, and without requiring the CUDA compiler or a NVIDIA graphics card.
 \item \texttt{-DGEANT4\_USE\_SYSTEM\_EXPAT=OFF} -- this simplifies the installation by using a version of the Expat library that is bundled with Geant4, rather than one that may or may not already be installed on the system. 
-\item \texttt{-DCMAKE\_INSTALL\_PREFIX=...} -- sets the directory to install all the compiled Geant4 libraries, datasets, and examples.
+\item \texttt{-DCMake\_INSTALL\_PREFIX=...} -- sets the directory to install all the compiled Geant4 libraries, datasets, and examples.
 \end{itemize}
-Note that running the above command for the first tame can take several hours depending on your internet connection, as it must download large datasets required by Geant4.\\
+Note that running the above command for the first time can take several hours depending on your internet connection, as it must download large datasets required by Geant4.\\
 
 \item Once the previous step is completed, all the makefiles required to build Geant4-GPU are generated, all dependencies are installed, and all that remains is to actually compile Geant4.\\
 
@@ -286,7 +322,7 @@ If installing Geant4-GPU on McMaster's GPU servers, the instructions above can b
 \begin{itemize}
 \item The default gcc compiler on the servers is too old to build Geant4, so add the following command to your \texttt{.bash\_profile} to use a newer version:\\
 \texttt{. /opt/rh/devtoolset-3/enable}
-\item In step \ref{StepCmake}, add the following flag to the CMake command:\\
+\item In step \ref{StepCMake}, add the following flag to the CMake command:\\
 \texttt{-DCUDA\_HOST\_COMPILER=/usr/bin/g++}. This compiles CUDA with the older version of gcc that's installed on the server, as the latest version is not supported.
 \end{itemize}
 
@@ -296,12 +332,12 @@ Geant4 is not an executable program in the traditional sense. It is instead a la
 This section will instead outline how one would go about using (or not using) CUDA computations with an existing simulation. The \texttt{Hadr04} example that comes with Geant4 will be used as the simulation to demonstrate this.
 
 \subsection{Enabling/Disabling CUDA} % Stuart
-The installation guide details how to build the Geant4 libraries that will be used by your simulation. The Cmake command from step \ref{StepCmake} includes a flag that determines whether or not CUDA will be used -- \texttt{-DGEANT4\_ENABLE\_CUDA=ON}. Changing this value to \texttt{OFF} will cause Geant4 to build without any CUDA features, and without requiring \texttt{nvcc}, the CUDA compiler. After step \ref{StepCmake} finishes, users will have to rebuild Geant4 by executing the \texttt{make install} command from their \texttt{geant4.10.02-build} directory. To re-enable CUDA, simply change the value to \texttt{ON} and rebuild again.
+The installation guide details how to build the Geant4 libraries that will be used by your simulation. The CMake command from step \ref{StepCMake} includes a flag that determines whether or not CUDA will be used -- \texttt{-DGEANT4\_ENABLE\_CUDA=ON}. Changing this value to \texttt{OFF} will cause Geant4 to build without any CUDA features, and without requiring \texttt{nvcc}, the CUDA compiler. After step \ref{StepCMake} finishes, users will have to rebuild Geant4 by executing the \texttt{make install} command from their \texttt{geant4.10.02-build} directory. To re-enable CUDA, simply change the value to \texttt{ON} and rebuild again.
 
 \subsection{Building the Simulation}\label{SecSimulations} % Stuart
 After Geant4 has been built, building the simulation is very straightforward. First, navigate to your simulation's root folder (\texttt{geant4.10.02/examples/hadronic/Hadr04} in our case) in your terminal. Then, create a new directory \texttt{bin}, so your Hadr04 folder now has two folders, \texttt{bin} and \texttt{src}. Go into the \texttt{bin} folder and run \texttt{cmake ../src} followed by \texttt{make}. That's it!
 
-\subsection{Running the Simulation} % Stuart
+\subsection{Running the Simulation}\label{SecRedirect} % Stuart
 There are two main methods of running a Geant4 simulation. The first is to simply run the executable, in our case by running \texttt{./Hadr04} in the Hadr04 directory. This launches an interactive Geant4 command prompt, and you can manipulate all aspects of the simulation from within it, including the types of particles, their number, and their energies. This also allows you to visualize the simulation using the \texttt{vis} commands.\\
 
 The alternative is to create a macro file that contains a sequence of commands that would be manually given to the interactive prompt, making it much easier to run a given simulation more than once and without requiring user interaction. Both methods print the results of the simulation out to the terminal window, as well as the running time of the simulation. If you wish to save the results to a file, that can easily be done via redirection in Unix. For example, if you wish to save the results of your simulation using \texttt{myMacro.mac} to \texttt{results.txt}, simply run \texttt{./Hadr04 myMacro.mac > results.txt}.
@@ -312,10 +348,10 @@ There is currently one class in Geant4-GPU that uses CUDA -- G4ParticleHPVector.
 There is indeed the possibility that there are other classes within Geant4 that are better suited to parallelism. This section will outline the general methodology we used to port G4ParticleHPVector with the hopes that it may be of use to future developers or users.
 
 \subsection{Layout of Source Files} % Stuart
-An important consideration during development was to keep the CUDA code separate from the main Geant4 codebase as much as possible. We created a folder named \texttt{cuda} in \texttt{geant4.10.02/source/externals} to contain all CUDA source code. The \texttt{cuda} folder contains two folders, \texttt{include} and \texttt{src}. All header files are in \texttt{include}, and the CUDA source files are in \texttt{src}.
+An important consideration during development was to keep the CUDA code separate from the main Geant4 codebase as much as possible. A directory was created named \texttt{cuda} in \texttt{geant4.10.02/source/externals} to contain all CUDA source code. The \texttt{cuda} folder contains two folders, \texttt{include} and \texttt{src}, as well as the CMakeLists.txt file with the CUDA compilation directives. All header files are in \texttt{include}, and the CUDA source files are in \texttt{src}.
 
 \subsection{CMake Changes} % Stuart
-Geant4 uses CMake as its build system, and minor modifications need to be made to integrate with CUDA. This consists of adding a variable at the top level CMakeLists file to enable or disable CUDA, and creating a {Geant4\_Add\_Library\_Cuda} macro to Geant4MacroLibraryTargets. This uses \texttt{cuda\_add\_library} function included in Cmake. More details can be found in the project's detailed design document.
+Geant4 uses CMake as its build system, and minor modifications need to be made to integrate with CUDA. This consists of adding a variable at the top level CMakeLists file to enable or disable CUDA, and creating a {Geant4\_Add\_Library\_Cuda} macro to Geant4MacroLibraryTargets. This makes use of the \texttt{cuda\_add\_library} function included in CMake. More details can be found in the project's detailed design document.
 
 \subsection{Interfacing with Existing Code} % Stuart
 We used compiler directives within the default G4ParticleHPVector.cc file to make use of the CUDA code or to use the original implementation based on the flag passed to Geant4 during the build phase. If the flag is true, an object of type \\G4ParticleHPVector\_CUDA is initialized and all function calls become one line calls to the corresponding function on the G4ParticleHPVector\_CUDA object. For example, the \texttt{GetY} function looks like the following:
@@ -329,17 +365,15 @@ G4double GetY(int i) {
 }
 \end{lstlisting}
 
-
 \subsection{Naming Conventions} % Stuart
-It is important to use naming conventions to ensure clarity within a project that contains many possible ambiguities. The two main conventions we used were adding a ``\_CUDA" suffix to all source files within the \texttt{cuda} directory as well as to the class name of any classes implemented in CUDA. In addition to this, within all CUDA files there are two main types of pointer -- those to GPU memory and those to CPU memory. To distinguish between these, all pointers to main memory are prepended with ``h\_'' and pointers to GPU memory with a ``d\_''.
+It is important to use naming conventions to ensure clarity within a project that contains many possible ambiguities. The two main conventions used were adding a ``\_CUDA" suffix to all source files within the \texttt{cuda} directory as well as to the class name of any classes implemented in CUDA. In addition to this, within all CUDA files there are two main types of pointer -- those to GPU memory and those to CPU memory. To distinguish between these, all pointers to main memory are prepended with ``h\_'' and pointers to GPU memory with a ``d\_''.
 
 \section{Troubleshooting}\label{SecTroubleshooting} % Matt
 \subsection{Installation} % Matt
 \begin{itemize}
-\item Ensure path names are correct in Cmake command
+\item Ensure path names are correct in step \ref{StepCmake} of installation
+\item The paths in step \ref{StepCMake} of installing Geant4 paths must be absolute
 \item Spaces in path names may cause issues on some systems
-\item The paths in step \ref{StepCmake} of installing Geant4 paths must be absolute
-\item Newer versions of Clang (included with Xcode 7) have been know to cause problems. Download Xcode 6 and uninstall Xcode 7 if this is the case.
 \end{itemize}
 
 \subsection{Running the Simulation} % Matt 
@@ -355,17 +389,16 @@ Many physics researchers use Geant4 to learn about how particles interact with a
 GPU's contain a large amount of cores that can perform calculations much more quickly than a CPU if the problem is well-suited to parallelization. Geant4 runs relatively simple calculations on millions of particles, and each particle is completely independent of the others. This is exactly that sort of well-suited problem, and stands to see large performance gains.
 
 \subsubsection{Where can I find more information about Geant4?}
-For more information, check out the official website at \url{http://www.geant4.web.cern.ch/geant4/index.shtml}
+For more information, check out the official website at \url{http://www.geant4.web.cern.ch/geant4/index.shtml}.
 
-\subsubsection{Helpful Pages:}
+\subsubsection{Helpful Pages}
 \begin{itemize}
 \item Download page for Geant4 source code: \url{http://www.geant4.web.cern.ch/geant4/support/download.shtml}
 \item Getting Started guide: \url{http://www.geant4.web.cern.ch/geant4/support/gettingstarted.shtml}
 \item Installation Guide for Geant4 (does not include CUDA): \url{http://www.geant4.web.cern.ch/geant4/UserDocumentation/UsersGuides/InstallationGuide/html/index.html}
 \end{itemize}
 
-\section{Appendix} % Rob
-\subsection{Recommendations for Integration of Geant4 and CUDA}
-\subsection{Future of Geant4-GPU}
+\section{Precautions and Warnings}
+By default when running a simulation all output is displayed in the Terminal window. This means that closing the terminal window after a simulation completes will lose all the results. To prevent this, it is recommended to redirect the output to a file, as described in section \ref{SecRedirect}.
 
 \end{document}
