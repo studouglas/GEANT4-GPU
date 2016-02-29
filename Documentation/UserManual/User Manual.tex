@@ -99,8 +99,69 @@ Initial draft of document & Matt & 2016-02-26\\
 
 \section{Installation} % Victor
 \subsection{Required Hardware} % Victor
+In order to successfully install and run GEANT4 with GPU parallelism, you must first check that the workstation that you are installing on has a NVIDIA GPU with Compute Capability 3.0 or higher.\\
+To check if the GPU on your current workstation supports CUDA with a Compute Capability of 3.0 or higher, perform the following actions:\\ \\
+%Commented out pending a successful windows installation
+%Windows:\\
+%\begin{enumerate}
+%\item Determine the graphics card that is currently installed.
+%\begin{enumerate}
+%\item Simply right-click on your desktop.
+%\item Look for any item in the drop down that says "NVIDIA Control Panel" or "NVIDIA Display" 
+%\item Click whichever of the two options you see in order to check the name of your card.
+%\end{enumerate}
+%\item Visit https://developer.nvidia.com/cuda-gpus and find your GPU to determine the Compute Capability of your card. 
+%\item Ensure that the Compute Capability is 3.0 or higher.
+%\end{enumerate}
+
+Redhat:
+\begin{enumerate}
+\item Determine the graphics card that is currently installed.
+\begin{enumerate}
+\item Open a shell
+\item Enter the following command lspci | grep -i nvidia
+\item You should see output similar to the following:\\
+01:00.0 VGA compatible controller: NVIDIA Corporation GK104GL [Quadro K5000] (rev a1)
+\item Where [Quadro K5000] is the name of your NVIDIA Graphics Card
+\end{enumerate}
+\item Visit \href{https://developer.nvidia.com/cuda-gpus}{NVIDIA} and find your GPU to determine the Compute Capability of your card.
+\item Check to ensure that you have a NVIDIA GPU with a  Compute Capability of at least 3.0.
+\item If you can't find the currently installed GPU on the list, it is not CUDA compatible.
+\end{enumerate}
+
+OS X 10.11 (El Capitan):
+\begin{enumerate}
+\item Determine the graphics card that is currently installed.
+\begin{enumerate}
+\item Click on the blue apple icon in the top left-hand corner of your screen.
+\item Click on About This Mac.
+\item Click on More Info...
+\item Under Contents click Hardware to view it's options.
+\item Click on Graphics/Displays.
+\item You should see the name of your card at the top of the right view-pane.
+\end{enumerate}
+\item Visit \href{https://developer.nvidia.com/cuda-gpus}{NVIDIA} and find your GPU to determine the Compute Capability of your card.
+\item Check to ensure that you have a NVIDIA GPU with a  Compute Capability of at least 3.0.
+\item If you can't find the currently installed GPU on the list, it is not CUDA compatible.
+\end{enumerate}
+
 \subsection{Required Software} % Victor
+
+
 \subsection{Supported Operating Systems} % Victor
+Currently, the only operating systems GEANT4-GPU has been tested on are OS X 10.11 and  Red Hat Enterprise Linux Server release 6.7 (Santiago). Other versions of these operating systems are likely to work, but compatibility is not guaranteed.\\
+To check what version of OS X you have, perform the following actions:
+\begin{enumerate}
+\item Click on the blue apple icon in the top left-hand corner of your screen.
+\item Click on About This Mac.
+\item Check to ensure that the version of your OS is 10.11 (El Capitan) (earlier versions may work, but are not guaranteed).
+\end{enumerate}
+To check your version of RHEl, perform the following actions:
+\begin{enumerate}
+\item Open a shell.
+\item Type in the following command "cat /etc/redhat-release" or "uname -m \&\& cat /etc/*release"
+\item Check to ensure that the version of RHEL installed is 6.7 (Santiago) (earlier versions may work, but are not guaranteed).
+\end{enumerate}
 \subsection{Installation Instructions} % Victor
 
 \section{Execution} % Stuart
