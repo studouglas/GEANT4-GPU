@@ -13,6 +13,7 @@
 \usepackage{makecell}
 \usepackage{caption}
 \usepackage{array}
+\lstset{basicstyle=\small\ttfamily,xleftmargin=18pt}
 \captionsetup[table]{skip=2pt}
 % Comments --------------------------------------------------------------------
 \usepackage{xcolor}
@@ -97,20 +98,54 @@ Initial draft of document & Matt & 2016-02-26\\
 \section{Legal Information}	% Victor
 
 \section{Installation} % Victor
+\subsection{section about that they should know how to use a command line etc., couldn't think of the right word for the sectiontitle} % Victor
 \subsection{Required Hardware} % Victor
 \subsection{Required Software} % Victor
 \subsection{Supported Operating Systems} % Victor
 \subsection{Installation Instructions} % Victor
 
 \section{Execution} % Stuart
-\subsection{Creating a Simulation} % Stuart
+Geant4 is not an executable program in the traditional sense. It is instead a large set of libraries, designed to work together and that give you, the user, a framework to develop simulations for your work. The development of such simulations is not within the scope of this manual, but it is well-documented with a thorough guide available at \url{http://geant4.web.cern.ch/geant4/UserDocumentation/UsersGuides/ ForApplicationDeveloper/html/index.html}.\\
+
+This section will instead outline how one would go about using (or not using) CUDA computations with an existing simulation. The \texttt{Hadr04} example that comes with Geant4 will be used as the simulation to demonstrate this.
+
+\subsection{Enabling/Disabling CUDA} % Stuart
+The installation guide details how to build the Geant4 libraries that will be used by your simulation. The Cmake command from step \ref{StepCmake} includes a flag that determines whether or not CUDA will be used -- \texttt{-DGEANT4\_ENABLE\_CUDA=ON}. Changing this value to \texttt{OFF} will cause Geant4 to build without any CUDA features, and without requiring \texttt{nvcc}, the CUDA compiler. After step \ref{StepCmake} finishes, users will have to rebuild Geant4 by executing the \texttt{make install} command from their \texttt{geant4.10.02-build} directory. To re-enable CUDA, simply change the value to \texttt{ON} and rebuild again.
+
+\subsection{Building the Simulation} % Stuart
+After Geant4 has been built, building the simulation is very straightforward. First, navigate to your simulation's root folder (\texttt{geant4.10.02/examples/hadronic/Hadr04} in our case) in your terminal. Then, create a new directory \texttt{bin}, so your Hadr04 folder now has two folders, \texttt{bin} and \texttt{src}. Go into the \texttt{bin} folder and run \texttt{cmake ../src} followed by \texttt{make}. That's it!
+
 \subsection{Running the Simulation} % Stuart
+There are two main methods of running a Geant4 simulation. The first is to simply run the executable, in our case by running \texttt{./Hadr04} in the Hadr04 directory. This launches an interactive Geant4 command prompt, and you can manipulate all aspects of the simulation from within it, including the types of particles, their number, and their energies. This also allows you to visualize the simulation using the \texttt{vis} commands.\\
+
+The alternative is to create a macro file that contains a sequence of commands that would be manually given to the interactive prompt, making it much easier to run a given simulation more than once and without requiring user interaction. Both methods print the results of the simulation out to the terminal window, as well as the running time of the simulation. If you wish to save the results to a file, that can easily be done via redirection in Unix. For example, if you wish to save the results of your simulation using \texttt{myMacro.mac} to \texttt{results.txt}, simply run \texttt{./Hadr04 myMacro.mac > results.txt}.
 
 \section{Porting Other Geant4 Modules to CUDA} % Stuart
+There is currently one class in Geant4-GPU that uses CUDA -- G4ParticleHPVector. This class was originally chosen as it was thought to be well-suited to parallelism. Although certain functions within the class are, the majority of the time spent within the class is not in these functions, the main reason for the performance degradations when CUDA is enabled.\\
+
+There is indeed the possibility that there are other classes within Geant4 that are better suited to parallelism. This section will outline the general methodology we used to port G4ParticleHPVector with the hopes that it may be of use to future developers or users.
+
 \subsection{Layout of Source Files} % Stuart
+An important consideration during development was to keep the CUDA code separate from the main Geant4 codebase as much as possible. We created a folder named \texttt{cuda} in \texttt{geant4.10.02/source/externals} to contain all CUDA source code. The \texttt{cuda} folder contains two folders, \texttt{include} and \texttt{src}. All header files are in \texttt{include}, and the CUDA source files are in \texttt{src}.
+
 \subsection{CMake Changes} % Stuart
+Geant4 uses CMake as its build system, and minor modifications need to be made to integrate with CUDA. This consists of adding a variable at the top level CMakeLists file to enable or disable CUDA, and creating a {Geant4\_Add\_Library\_Cuda} macro to Geant4MacroLibraryTargets. This uses \texttt{cuda\_add\_library} function included in Cmake. More details can be found in the project's detailed design document.
+
 \subsection{Interfacing with Existing Code} % Stuart
-\subsection{Lessons Learned} % Stuart
+We used compiler directives within the default G4ParticleHPVector.cc file to make use of the CUDA code or to use the original implementation based on the flag passed to Geant4 during the build phase. If the flag is true, an object of type G4ParticleHPVector\_CUDA is initialized and all function calls become one line calls to the corresponding function on the G4ParticleHPVector\_CUDA object. For example, the \texttt{GetY} function looks like the following:
+\begin{lstlisting}
+G4double GetY(int i) {
+	#if GEANT4_ENABLE_CUDA
+		return cudaVector->GetY();
+	#else
+		< existing code from G4ParticleHPVector.cc >
+	#endif
+}
+\end{lstlisting}
+
+
+\subsection{Naming Conventions} % Stuart
+It is important to use naming conventions to ensure clarity within a project that contains many possible ambiguities. The two main conventions we used were adding a ``\_CUDA" suffix to all source files within the \texttt{cuda} directory as well as to the class name of any classes implemented in CUDA. In addition to this, within all CUDA files there are two main types of pointer -- those to GPU memory and those to CPU memory. To distinguish between these, all pointers to main memory are prepended with ``h\_'' and pointers to GPU memory with a ``d\_''.
 
 \section{Troubleshooting} % Matt
 \subsection{Installation} % Matt
