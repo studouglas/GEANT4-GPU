@@ -31,7 +31,7 @@
 
 % Title Page -----------------------------------------------------------------
 \title{
-\LARGE GEANT-4 GPU Port:
+\LARGE Geant4 GPU Port:
 \\\vspace{10mm}
 \large \textbf{User Manual}
 \vspace{40mm}
@@ -94,12 +94,14 @@ Initial draft of document & Matt & 2016-02-26\\
 \Xhline{2\arrayrulewidth}
 \bf Term & \bf Description\\
 \hline
-Geant-4 & open-source software toolkit used to simulate the passage of particles through matter\\\hline
-Geant-GPU & Geant-4 with some computations running on the GPU\\\hline
-G4-STORK & (Geant-4 STOchastic Reactor Kinetics), fork of Geant-4 developed by McMaster's Engineering Physics department to simulate McMaster's nuclear reactor\\\hline
+Geant4 & open-source software toolkit used to simulate the passage of particles through matter\\\hline
+Geant4-GPU & Geant4 with some computations running on the GPU\\\hline
+G4-STORK & (Geant4 STOchastic Reactor Kinetics), fork of Geant4 developed by McMaster's Engineering Physics department to simulate McMaster's nuclear reactor\\\hline
 GPU & graphics processing unit, well-suited to parallel computing tasks\\\hline
 CPU & computer processing unit, general computer processor well-suited to serial tasks\\\hline
 CUDA & parallel computing architecture for general purpose programming on GPU, developed by NVIDIA\\\hline
+RHEL & Red Hat Enterprise Linux Server\\\hline
+OS X & Operating system developed by Apple\\
 \Xhline{2\arrayrulewidth}
 \end{tabularx}
 \end{table}
@@ -119,13 +121,15 @@ This document goes over how to install and run Geant4-GPU. As well as software a
 \section{Installation} % Victor
 
 \subsection{Supported Operating Systems} % Victor
-Currently, the only operating systems GEANT4-GPU has been tested on are OS X 10.11 and  Red Hat Enterprise Linux Server release 6.7 (Santiago). Other versions of these operating systems are likely to work, but compatibility is not guaranteed.\\
+Geant4-GPU has been tested on OS X 10.11 and Red Hat Enterprise Linux Server release 6.7 (Santiago). Other versions of these operating systems are likely to work, but compatibility is not guaranteed.\\
 To check what version of OS X you have, perform the following actions:
+
 \begin{enumerate}
-\item Click on the blue apple icon in the top left-hand corner of your screen.
+\item Click on the apple icon in the top left-hand corner of your screen.
 \item Click on About This Mac.
 \item Check to ensure that the version of your OS is 10.11 (El Capitan) (earlier versions may work, but are not guaranteed).
 \end{enumerate}
+
 To check your version of RHEl, perform the following actions:
 \begin{enumerate}
 \item Open a shell.
@@ -134,10 +138,18 @@ To check your version of RHEl, perform the following actions:
 \end{enumerate}
 
 \subsection{Recommended Knowledge} % Victor
+Geant4-GPU is a scientific product for use in research. There is a large learning curve to using Geant4, and it is recommended that the user has familiarity with the following.
+\begin{itemize}
+\item Comfortable with the Unix command line. This includes navigating the file system, executing make files, and installing software through the command line.
+\item Some knowledge of programming concepts and C++. Users develop their own simulations in C++ based off of the Geant4 toolkit, and as such some programming experience is recommended.
+\item Understanding of physics concepts. The user is expected to be knowledgeable in their domain, as Geant4 requires an understanding of the physics processes in the simulation.
+\end{itemize}
 
 \subsection{Required Hardware} % Victor
-In order to successfully install and run GEANT4 with GPU parallelism, you must first check that the workstation that you are installing on has a NVIDIA GPU with Compute Capability 3.0 or higher.\\
+In order to successfully install and run Geant4 with GPU parallelism, you must first check that the workstation that you are installing on has a NVIDIA GPU with Compute Capability 3.0 or higher.\\
+
 To check if the GPU on your current workstation supports CUDA with a Compute Capability of 3.0 or higher, perform the following actions:\\
+
 %Commented out pending a successful windows installation
 %Windows:\\
 %\begin{enumerate}
@@ -151,33 +163,28 @@ To check if the GPU on your current workstation supports CUDA with a Compute Cap
 %\item Ensure that the Compute Capability is 3.0 or higher.
 %\end{enumerate}
 
-Redhat:
 \begin{enumerate}
-\item Determine the graphics card that is currently installed.
+\item Determine the graphics card that is currently installed (RHEL)
 \begin{enumerate}
 \item Open a shell.
-\item Enter the following command "lspci | grep -i nvidia".
+\item Enter the following command: \texttt{lspci | grep -i nvidia}
 \item You should see output similar to the following:\\
-01:00.0 VGA compatible controller: NVIDIA Corporation GK104GL [Quadro K5000] (rev a1)
-\item Where [Quadro K5000] is the name of your NVIDIA Graphics Card.
-\end{enumerate}
-\item Visit \href{https://developer.nvidia.com/cuda-gpus}{NVIDIA} and find your GPU to determine the Compute Capability of your card.
-\item Check to ensure that you have a NVIDIA GPU with a  Compute Capability of at least 3.0.
-\item If you can't find the currently installed GPU on the list, it is not CUDA compatible.
+\texttt{01:00.0 VGA compatible controller: NVIDIA Corporation GK104GL}\\
+\texttt{[Quadro K5000] (rev a1)}
+\item Where [\texttt{Quadro K5000}] is the name of your NVIDIA Graphics Card.
 \end{enumerate}
 
-OS X 10.11 (El Capitan):
+\item Determine the graphics card that is currently installed (OS X)
 \begin{enumerate}
-\item Determine the graphics card that is currently installed.
-\begin{enumerate}
-\item Click on the blue apple icon in the top left-hand corner of your screen.
+\item Click on the apple icon in the top left-hand corner of your screen.
 \item Click on About This Mac.
 \item Click on More Info...
 \item Under Contents click Hardware to view it's options.
 \item Click on Graphics/Displays.
 \item You should see the name of your card at the top of the right view-pane.
 \end{enumerate}
-\item Visit \href{https://developer.nvidia.com/cuda-gpus}{NVIDIA} and find your GPU to determine the Compute Capability of your card.
+
+\item Visit \url{https://developer.nvidia.com/cuda-gpus} and find your GPU to determine the Compute Capability of your card.
 \item Check to ensure that you have a NVIDIA GPU with a  Compute Capability of at least 3.0.
 \item If you can't find the currently installed GPU on the list, it is not CUDA compatible.
 \end{enumerate}
@@ -185,76 +192,106 @@ OS X 10.11 (El Capitan):
 \subsection{Required Software} % Victor
 In order to install GEANT4-GPU you must have the following software installed:
 \begin{itemize}
-\item GCC version 4.8 or 4.9
-\item CUDA Toolkit v6.5 (the only version of the CUDA Toolkit tested and working)
-\item cmake 3.3 or higher
+\item GCC version 4.8 (RHEL) or Clang version 6.0 (OS X). Note that McMaster's servers have GCC version 4.9, and an extra command is required to compile, as documented in section \ref{SecMac}.
+\item CUDA Toolkit v6.5 (other versions may work, however 6.5 is the only one that is tested)
+\item CMake 2.8 or higher
 \end{itemize}
-\textbf{GCC}\\
-\textbf{Check GCC RHEL 6.7:}\\
-To check which version of the GCC you have installed on your system, perform the following actions:
+
+\subsubsection{Checking GCC Version (RHEL)}
 \begin{enumerate}
 \item Open a shell.
-\item Enter "gcc -v" into the command line.
-\item You will see output that looks like:\\
-gcc version 4.9.2 20150212 (Red Hat 4.9.2-6) (GCC)
-\item Ensure that the version is 4.8 or 4.9
+\item Enter \texttt{gcc -v} into the command line.
+\item You will see output that looks like:
+\texttt{gcc version 4.9.2 20150212 (Red Hat 4.9.2-6) (GCC)}
+\item Ensure that the version number is 4.8
 \end{enumerate}
 
-\textbf{Check GCC (or Clang packaged with Xcode 6)}
+\subsubsection{Checking Clang Version (OS X)}
 \begin{enumerate}
 \item Open a shell.
-\item Enter "clang --version" into the command line.
+\item Enter \texttt{clang --version} into the command line.
 \item You will see output similar to: \\
-Apple LLVM version 6.0 (clang-600.0.51) (based on LLVM 3.5svn) \\
-Target: x86\_64-apple-darwin13.3.0 \\
-Thread model: posix
-\item Ensure that your version of Clang is clang-600.x.xx
+\texttt{Apple LLVM version 6.0 (clang-600.0.51) (based on LLVM 3.5svn)}\\
+\texttt{Target: x86\_64-apple-darwin13.3.0}\\
+\texttt{Thread model: posix}
+\item Ensure that your version of Clang is \texttt{clang-600.x.xx}
 \end{enumerate}
-\textbf{CUDA Toolkit}\\
 
-If you don't already have the CUDA Toolkit installed, visit \href{https://developer.nvidia.com/cuda-toolkit-65}{NVIDIA CUDA Toolkit v6.5} and follow the installation instructions for your OS.\\
+\subsubsection{CUDA Toolkit}
+If you don't already have the CUDA Toolkit installed, visit \url{https://developer.nvidia.com/cuda-toolkit-65} and follow the installation instructions for your OS.\\
 
-After installing, check to see that CUDA is up and running. For either RHEL 6.7 or OS X 10.11:
+After installing, check to see that CUDA is up and running. For either RHEL or OS X:
 \begin{enumerate}
 \item Open a shell.
 \item Enter the following command "nvcc --version"
 \item Output should be similar to:\\
-nvcc: NVIDIA (R) Cuda compiler driver\\
-Copyright (c) 2005-2014 NVIDIA Corporation\\
-Built on Thu\_Jul\_17\_21:41:27\_CDT\_2014\\
-Cuda compilation tools, release 6.5, V6.5.12\\
+\texttt{nvcc: NVIDIA (R) Cuda compiler driver}\\
+\texttt{Copyright (c) 2005-2014 NVIDIA Corporation}\\
+\texttt{Built on Thu\_Jul\_17\_21:41:27\_CDT\_2014}\\
+\texttt{Cuda compilation tools, release 6.5, V6.5.12}\\
 \end{enumerate}
 
-\textbf{CMake}
-If you don't already have cmake (version 3.3 or higher) you can install it from: \href{https://cmake.org/download/}{CMake}
 
-After installing cmake, check to see that it is up and running. For either RHEL 6.7 or OS X 10.11:
+\subsubsection{CMake}
+If you don't already have CMake (version 2.8 or higher) you can install it from: \url{https://cmake.org/download/}. After installing cmake, check to see that it is up and running. For either RHEL or OS X 10.11:
 \begin{enumerate}
 \item Open a shell.
-\item Enter the following command "cmake --version".
+\item Enter the following command: \texttt{cmake --version}.
 \item Output should be similar to:\\
-cmake version 3.4.0\\
-\\
-CMake suite maintained and supported by Kitware (kitware.com/cmake).
+\texttt{cmake version 3.4.0}\\
+\texttt{CMake suite maintained and supported by Kitware (kitware.com/cmake).}
 \end{enumerate}
 
 \subsection{Installation Instructions} % Victor
-Included in the repository, there is a README.md that breaks down the installation steps, including special instructions on how to install this on McMaster's servers. That document is also covered in this section of the user guide. \\
+Included in the repository, there is a README.md file that breaks down the installation steps, including special instructions on how to install this on McMaster's servers. That document is also covered in this section of the user guide.
+
+\subsubsection{Installing Geant4-GPU}
 \begin{enumerate}
 %NOTE: The repo is private at the moment, so obtaining th source files would be difficult.
-\item Either clone the repository or download it from \href{https://github.com/studouglas/GEANT4-GPU}{Github GEANT4-GPU}
-\item A few quick edits will be necessary in order
-\item mkdir /path/to/GEANT4-GPU/geant4.10.00.p02-build /path/to/GEANT4-GPU/
+\item Either clone the repository or download it from \url{https://github.com/studouglas/GEANT4-GPU}
+\item Open a shell
+\item \label{StepMkdir} Navigate in the shell to the downloaded directory, and run the following command: \texttt{mkdir geant4.10.02-build geant4.10.02-install}
+\item Navigate to the \texttt{geant4.10.02-build} directory you just created.
+\item \label{StepCmake} Run the following command to start the build process:\\
+\texttt{cmake -DGEANT4\_INSTALL\_DATA=ON -DGEANT4\_ENABLE\_CUDA=ON\\
+ -DGEANT4\_USE\_SYSTEM\_EXPAT=OFF -DCMAKE\_INSTALL\_PREFIX=\\
+ /path/to/GEANT4-GPU/geant4.10.02-install \\
+ /path/to/GEANT4-GPU/geant4.10.02}
+\begin{itemize}
+\item \texttt{-DGEANT4\_INSTALL\_DATA=ON} -- downloads and installs the datasets required by Geant4. This is only done once, and the argument may be ommited in subsequent Cmake commands.
+\item \texttt{-DGEANT4\_ENABLE\_CUDA=ON} -- setting this to \texttt{ON} will use your CUDA compiler to compile the CUDA code from the project and link it to the existing C++ code. Setting it to \texttt{OFF} (the default) will build Geant4 without any GPU functionality, and without requiring the CUDA compiler or a NVIDIA graphics card.
+\item \texttt{-DGEANT4\_USE\_SYSTEM\_EXPAT=OFF} -- this simplifies the installation by using a version of the Expat library that is bundled with Geant4, rather than one that may or may not already be installed on the system. 
+\item \texttt{-DCMAKE\_INSTALL\_PREFIX=...} -- sets the directory to install all the compiled Geant4 libraries, datasets, and examples.
+\end{itemize}
+Note that running the above command for the first tame can take several hours depending on your internet connection, as it must download large datasets required by Geant4.\\
+
+\item Once the previous step is completed, all the makefiles required to build Geant4-GPU are generated, all dependencies are installed, and all that remains is to actually compile Geant4.\\
+
+In your shell navigate to the \texttt{geant4.10.02-build} directory created in step \ref{StepMkdir} and run the following command:
+\texttt{make install}\\
+
+This step can take several hours depending on the speed of your computer.
+\item Geant4-GPU is now installed and ready to be used with your simulations. For more information on creating simulations, see section \ref{SecSimulations}. If you encountered any errors, please see section \ref{SecTroubleshooting}.
 \end{enumerate}
+
+\subsubsection{Installing on McMaster's GPU Servers}\label{SecMac}
+If installing Geant4-GPU on McMaster's GPU servers, the instructions above can be followed with minor differences:
+\begin{itemize}
+\item The default gcc compiler on the servers is too old to build Geant4, so add the following command to your \texttt{.bash\_profile} to use a newer version:\\
+\texttt{. /opt/rh/devtoolset-3/enable}
+\item In step \ref{StepCmake}, add the following flag to the CMake command:\\
+\texttt{-DCUDA\_HOST\_COMPILER=/usr/bin/g++}. This compiles CUDA with the older version of gcc that's installed on the server, as the latest version is not supported.
+\end{itemize}
+
 \section{Execution} % Stuart
-Geant4 is not an executable program in the traditional sense. It is instead a large set of libraries, designed to work together and that give you, the user, a framework to develop simulations for your work. The development of such simulations is not within the scope of this manual, but it is well-documented with a thorough guide available at \url{http://geant4.web.cern.ch/geant4/UserDocumentation/UsersGuides/ ForApplicationDeveloper/html/index.html}.\\
+Geant4 is not an executable program in the traditional sense. It is instead a large set of libraries, designed to work together and that give you, the user, a framework to develop simulations for your work. The development of such simulations is not within the scope of this manual, but it is well-documented with a thorough guide available at \url{http://geant4.web.cern.ch/geant4/UserDocumentation/UsersGuides/ForApplicationDeveloper/html/index.html}.\\
 
 This section will instead outline how one would go about using (or not using) CUDA computations with an existing simulation. The \texttt{Hadr04} example that comes with Geant4 will be used as the simulation to demonstrate this.
 
 \subsection{Enabling/Disabling CUDA} % Stuart
 The installation guide details how to build the Geant4 libraries that will be used by your simulation. The Cmake command from step \ref{StepCmake} includes a flag that determines whether or not CUDA will be used -- \texttt{-DGEANT4\_ENABLE\_CUDA=ON}. Changing this value to \texttt{OFF} will cause Geant4 to build without any CUDA features, and without requiring \texttt{nvcc}, the CUDA compiler. After step \ref{StepCmake} finishes, users will have to rebuild Geant4 by executing the \texttt{make install} command from their \texttt{geant4.10.02-build} directory. To re-enable CUDA, simply change the value to \texttt{ON} and rebuild again.
 
-\subsection{Building the Simulation} % Stuart
+\subsection{Building the Simulation}\label{SecSimulations} % Stuart
 After Geant4 has been built, building the simulation is very straightforward. First, navigate to your simulation's root folder (\texttt{geant4.10.02/examples/hadronic/Hadr04} in our case) in your terminal. Then, create a new directory \texttt{bin}, so your Hadr04 folder now has two folders, \texttt{bin} and \texttt{src}. Go into the \texttt{bin} folder and run \texttt{cmake ../src} followed by \texttt{make}. That's it!
 
 \subsection{Running the Simulation} % Stuart
@@ -274,7 +311,7 @@ An important consideration during development was to keep the CUDA code separate
 Geant4 uses CMake as its build system, and minor modifications need to be made to integrate with CUDA. This consists of adding a variable at the top level CMakeLists file to enable or disable CUDA, and creating a {Geant4\_Add\_Library\_Cuda} macro to Geant4MacroLibraryTargets. This uses \texttt{cuda\_add\_library} function included in Cmake. More details can be found in the project's detailed design document.
 
 \subsection{Interfacing with Existing Code} % Stuart
-We used compiler directives within the default G4ParticleHPVector.cc file to make use of the CUDA code or to use the original implementation based on the flag passed to Geant4 during the build phase. If the flag is true, an object of type G4ParticleHPVector\_CUDA is initialized and all function calls become one line calls to the corresponding function on the G4ParticleHPVector\_CUDA object. For example, the \texttt{GetY} function looks like the following:
+We used compiler directives within the default G4ParticleHPVector.cc file to make use of the CUDA code or to use the original implementation based on the flag passed to Geant4 during the build phase. If the flag is true, an object of type \\G4ParticleHPVector\_CUDA is initialized and all function calls become one line calls to the corresponding function on the G4ParticleHPVector\_CUDA object. For example, the \texttt{GetY} function looks like the following:
 \begin{lstlisting}
 G4double GetY(int i) {
 	#if GEANT4_ENABLE_CUDA
@@ -289,12 +326,12 @@ G4double GetY(int i) {
 \subsection{Naming Conventions} % Stuart
 It is important to use naming conventions to ensure clarity within a project that contains many possible ambiguities. The two main conventions we used were adding a ``\_CUDA" suffix to all source files within the \texttt{cuda} directory as well as to the class name of any classes implemented in CUDA. In addition to this, within all CUDA files there are two main types of pointer -- those to GPU memory and those to CPU memory. To distinguish between these, all pointers to main memory are prepended with ``h\_'' and pointers to GPU memory with a ``d\_''.
 
-\section{Troubleshooting} % Matt
+\section{Troubleshooting}\label{SecTroubleshooting} % Matt
 \subsection{Installation} % Matt
 \begin{itemize}
 \item Ensure path names are correct in Cmake command
 \item Spaces in path names may cause issues on some systems
-\item The paths in step \ref{StepCmake} of installing Geant-4 paths must be absolute
+\item The paths in step \ref{StepCmake} of installing Geant4 paths must be absolute
 \item Newer versions of Clang (included with Xcode 7) have been know to cause problems. Download Xcode 6 and uninstall Xcode 7 if this is the case.
 \end{itemize}
 
@@ -304,14 +341,14 @@ It is important to use naming conventions to ensure clarity within a project tha
 \end{itemize}
 
 \subsection{FAQ} % Matt
-\subsubsection{What is Geant-4?}
-Many physics researchers use Geant-4 to learn about how particles interact with a specific environment. It is a toolkit (i.e. set of libraries) that uses the Monte Carlo model, meaning each particle's properties are calculated independently according to certain probabilities. Users develop simulations based on these libraries.
+\subsubsection{What is Geant4?}
+Many physics researchers use Geant4 to learn about how particles interact with a specific environment. It is a toolkit (i.e. set of libraries) that uses the Monte Carlo model, meaning each particle's properties are calculated independently according to certain probabilities. Users develop simulations based on these libraries.
 
 \subsubsection{Why will a GPU improve the performance?}
-GPU's contain a large amount of cores that can perform calculations much more quickly than a CPU if the problem is well-suited to parallelization. Geant-4 runs relatively simple calculations on millions of particles, and each particle is completely independent of the others. This is exactly that sort of well-suited problem, and stands to see large performance gains.
+GPU's contain a large amount of cores that can perform calculations much more quickly than a CPU if the problem is well-suited to parallelization. Geant4 runs relatively simple calculations on millions of particles, and each particle is completely independent of the others. This is exactly that sort of well-suited problem, and stands to see large performance gains.
 
-\subsubsection{Where can I find more information about Geant-4?}
-For more information, checkout the official website at \url{http://www.geant4.web.cern.ch/geant4/index.shtml}
+\subsubsection{Where can I find more information about Geant4?}
+For more information, check out the official website at \url{http://www.geant4.web.cern.ch/geant4/index.shtml}
 
 \subsubsection{Helpful Pages:}
 \begin{itemize}
