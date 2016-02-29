@@ -13,6 +13,7 @@
 \usepackage{makecell}
 \usepackage{caption}
 \usepackage{array}
+\lstset{basicstyle=\small\ttfamily,xleftmargin=18pt}
 \captionsetup[table]{skip=2pt}
 % Comments --------------------------------------------------------------------
 \usepackage{xcolor}
@@ -93,13 +94,12 @@ Initial draft of document & Matt & 2016-02-26\\
 \Xhline{2\arrayrulewidth}
 \bf Term & \bf Description\\
 \hline
-GEANT-4 & open-source software toolkit used to simulate the passage of particles through matter\\\hline
-GEANT4-GPU & GEANT-4 with computations running on the GPU.\\\hline
-G4-STORK & (Geant-4 STOchastic Reactor Kinetics), fork of GEANT-4 developed by McMaster's Engineering Physics department to simulate McMaster's nuclear reactor\\\hline
+Geant-4 & open-source software toolkit used to simulate the passage of particles through matter\\\hline
+Geant-GPU & Geant-4 with some computations running on the GPU\\\hline
+G4-STORK & (Geant-4 STOchastic Reactor Kinetics), fork of Geant-4 developed by McMaster's Engineering Physics department to simulate McMaster's nuclear reactor\\\hline
 GPU & graphics processing unit, well-suited to parallel computing tasks\\\hline
 CPU & computer processing unit, general computer processor well-suited to serial tasks\\\hline
 CUDA & parallel computing architecture for general purpose programming on GPU, developed by NVIDIA\\\hline
-FAQ & Frequently Asked Questions \\\hline
 \Xhline{2\arrayrulewidth}
 \end{tabularx}
 \end{table}
@@ -112,9 +112,7 @@ FAQ & Frequently Asked Questions \\\hline
 \subsection{Scope} % Rob	
 \subsection{Background} % Rob
 \subsection{Document Overview} % Matt
-This Document goes over how to install and run GEANT4-GPU. As well as software and hardware required for GEANT4-GPU to be installed and run. Instructions on how to install the required software 
-are also included in this document. Following the installation section, is a section on creating and running simulations using GEANT4-GPU.  There is a troubleshooting section as well as a FAQ 
-in case you run into any problems installing or running GEANT4-GPU.
+This document goes over how to install and run Geant4-GPU. As well as software and hardware required for Geant4-GPU to be installed and run. Following this are detailed step-by-step instructions on how to install the software. Following details on installation is a section on creating and running simulations using the CUDA functionality introduced in Geant4-GPU. A section detailing high level details about how the CUDA code was developed and integrated follows, guiding future developers and users on how to integrate CUDA into other parts of Geant4. A troubleshooting section is included as well as a FAQ section covering many common questions related to the project. Finally, the appendix includes conclusions about the state of the project and a brief description of the future of the project.
 
 \section{Legal Information}	% Victor
 
@@ -134,6 +132,8 @@ To check your version of RHEl, perform the following actions:
 \item Type in the following command "cat /etc/redhat-release" or "uname -m \&\& cat /etc/*release"
 \item Check to ensure that the version of RHEL installed is 6.7 (Santiago) (earlier versions may work, but are not guaranteed).
 \end{enumerate}
+
+\subsection{Recommended Knowledge} % Victor
 
 \subsection{Required Hardware} % Victor
 In order to successfully install and run GEANT4 with GPU parallelism, you must first check that the workstation that you are installing on has a NVIDIA GPU with Compute Capability 3.0 or higher.\\
@@ -247,42 +247,77 @@ Included in the repository, there is a README.md that breaks down the installati
 \item mkdir /path/to/GEANT4-GPU/geant4.10.00.p02-build /path/to/GEANT4-GPU/
 \end{enumerate}
 \section{Execution} % Stuart
-\subsection{Creating a Simulation} % Stuart
+Geant4 is not an executable program in the traditional sense. It is instead a large set of libraries, designed to work together and that give you, the user, a framework to develop simulations for your work. The development of such simulations is not within the scope of this manual, but it is well-documented with a thorough guide available at \url{http://geant4.web.cern.ch/geant4/UserDocumentation/UsersGuides/ ForApplicationDeveloper/html/index.html}.\\
+
+This section will instead outline how one would go about using (or not using) CUDA computations with an existing simulation. The \texttt{Hadr04} example that comes with Geant4 will be used as the simulation to demonstrate this.
+
+\subsection{Enabling/Disabling CUDA} % Stuart
+The installation guide details how to build the Geant4 libraries that will be used by your simulation. The Cmake command from step \ref{StepCmake} includes a flag that determines whether or not CUDA will be used -- \texttt{-DGEANT4\_ENABLE\_CUDA=ON}. Changing this value to \texttt{OFF} will cause Geant4 to build without any CUDA features, and without requiring \texttt{nvcc}, the CUDA compiler. After step \ref{StepCmake} finishes, users will have to rebuild Geant4 by executing the \texttt{make install} command from their \texttt{geant4.10.02-build} directory. To re-enable CUDA, simply change the value to \texttt{ON} and rebuild again.
+
+\subsection{Building the Simulation} % Stuart
+After Geant4 has been built, building the simulation is very straightforward. First, navigate to your simulation's root folder (\texttt{geant4.10.02/examples/hadronic/Hadr04} in our case) in your terminal. Then, create a new directory \texttt{bin}, so your Hadr04 folder now has two folders, \texttt{bin} and \texttt{src}. Go into the \texttt{bin} folder and run \texttt{cmake ../src} followed by \texttt{make}. That's it!
+
 \subsection{Running the Simulation} % Stuart
+There are two main methods of running a Geant4 simulation. The first is to simply run the executable, in our case by running \texttt{./Hadr04} in the Hadr04 directory. This launches an interactive Geant4 command prompt, and you can manipulate all aspects of the simulation from within it, including the types of particles, their number, and their energies. This also allows you to visualize the simulation using the \texttt{vis} commands.\\
+
+The alternative is to create a macro file that contains a sequence of commands that would be manually given to the interactive prompt, making it much easier to run a given simulation more than once and without requiring user interaction. Both methods print the results of the simulation out to the terminal window, as well as the running time of the simulation. If you wish to save the results to a file, that can easily be done via redirection in Unix. For example, if you wish to save the results of your simulation using \texttt{myMacro.mac} to \texttt{results.txt}, simply run \texttt{./Hadr04 myMacro.mac > results.txt}.
 
 \section{Porting Other Geant4 Modules to CUDA} % Stuart
+There is currently one class in Geant4-GPU that uses CUDA -- G4ParticleHPVector. This class was originally chosen as it was thought to be well-suited to parallelism. Although certain functions within the class are, the majority of the time spent within the class is not in these functions, the main reason for the performance degradations when CUDA is enabled.\\
+
+There is indeed the possibility that there are other classes within Geant4 that are better suited to parallelism. This section will outline the general methodology we used to port G4ParticleHPVector with the hopes that it may be of use to future developers or users.
+
 \subsection{Layout of Source Files} % Stuart
+An important consideration during development was to keep the CUDA code separate from the main Geant4 codebase as much as possible. We created a folder named \texttt{cuda} in \texttt{geant4.10.02/source/externals} to contain all CUDA source code. The \texttt{cuda} folder contains two folders, \texttt{include} and \texttt{src}. All header files are in \texttt{include}, and the CUDA source files are in \texttt{src}.
+
 \subsection{CMake Changes} % Stuart
+Geant4 uses CMake as its build system, and minor modifications need to be made to integrate with CUDA. This consists of adding a variable at the top level CMakeLists file to enable or disable CUDA, and creating a {Geant4\_Add\_Library\_Cuda} macro to Geant4MacroLibraryTargets. This uses \texttt{cuda\_add\_library} function included in Cmake. More details can be found in the project's detailed design document.
+
 \subsection{Interfacing with Existing Code} % Stuart
-\subsection{Lessons Learned} % Stuart
+We used compiler directives within the default G4ParticleHPVector.cc file to make use of the CUDA code or to use the original implementation based on the flag passed to Geant4 during the build phase. If the flag is true, an object of type G4ParticleHPVector\_CUDA is initialized and all function calls become one line calls to the corresponding function on the G4ParticleHPVector\_CUDA object. For example, the \texttt{GetY} function looks like the following:
+\begin{lstlisting}
+G4double GetY(int i) {
+	#if GEANT4_ENABLE_CUDA
+		return cudaVector->GetY();
+	#else
+		< existing code from G4ParticleHPVector.cc >
+	#endif
+}
+\end{lstlisting}
+
+
+\subsection{Naming Conventions} % Stuart
+It is important to use naming conventions to ensure clarity within a project that contains many possible ambiguities. The two main conventions we used were adding a ``\_CUDA" suffix to all source files within the \texttt{cuda} directory as well as to the class name of any classes implemented in CUDA. In addition to this, within all CUDA files there are two main types of pointer -- those to GPU memory and those to CPU memory. To distinguish between these, all pointers to main memory are prepended with ``h\_'' and pointers to GPU memory with a ``d\_''.
 
 \section{Troubleshooting} % Matt
 \subsection{Installation} % Matt
 \begin{itemize}
-\item Ensure path names are correct, check for spaces in pathnames
-\item The DCMAKE\_INSTALL\_PREFIX in step 4 of installing GEANT-4  has two paths. Make sure they are separated by a space.
-\item make sure your operating system is supported 
+\item Ensure path names are correct in Cmake command
+\item Spaces in path names may cause issues on some systems
+\item The paths in step \ref{StepCmake} of installing Geant-4 paths must be absolute
 \item Newer versions of Clang (included with Xcode 7) have been know to cause problems. Download Xcode 6 and uninstall Xcode 7 if this is the case.
 \end{itemize}
+
 \subsection{Running the Simulation} % Matt 
 \begin{itemize}
-\item Ensure that your graphics card is a NVidia card with Compute Capability 3.0.
+\item Ensure that your graphics card meets the requirements detailed in section \ref{SecCardReqs}
 \end{itemize}
+
 \subsection{FAQ} % Matt
-\textbf{What is GEANT-4?}\\
-Many physics researchers use GEANT-4 to learn about how particles interact with a specific environment. It is a toolkit (i.e. library) that uses the Monte Carlo model, meaning each particle's properties are calculated independently according to certain probabilities. It runs all those calculations, and provides output\\
+\subsubsection{What is Geant-4?}
+Many physics researchers use Geant-4 to learn about how particles interact with a specific environment. It is a toolkit (i.e. set of libraries) that uses the Monte Carlo model, meaning each particle's properties are calculated independently according to certain probabilities. Users develop simulations based on these libraries.
 
-\textbf{Why will running the simulations on a GPU improve the performance?}\\
-GPU's contain a large amount of cores that can perform calculations much more quickly than a CPU if the problem is well-suited to parallelization. GEANT-4 runs relatively simple calculations on millions of particles, and each particle is completely independent of the others. This is exactly that sort of well-suited problem, and stands to see large performance gains.\\
+\subsubsection{Why will a GPU improve the performance?}
+GPU's contain a large amount of cores that can perform calculations much more quickly than a CPU if the problem is well-suited to parallelization. Geant-4 runs relatively simple calculations on millions of particles, and each particle is completely independent of the others. This is exactly that sort of well-suited problem, and stands to see large performance gains.
 
-\textbf{Where can I find more information about GEANT-4?}\\
-Cern has an entire website full of information for GEANT-4.\\ geant4.web.cern.ch/geant4/index.shtml\\
+\subsubsection{Where can I find more information about Geant-4?}
+For more information, checkout the official website at \url{http://www.geant4.web.cern.ch/geant4/index.shtml}
 
-\textbf{Helpful Pages:}
+\subsubsection{Helpful Pages:}
 \begin{itemize}
-\item Download page for Geant4 source code as well as Data files\\ geant4.web.cern.ch/geant4/support/download.shtml
-\item Getting Started\\ geant4.web.cern.ch/geant4/support/gettingstarted.shtml
-\item Installation Guide for geant4 (does not include CUDA)\\ geant4.web.cern.ch/geant4/UserDocumentation/UsersGuides/InstallationGuide/html/index.html
+\item Download page for Geant4 source code: \url{http://www.geant4.web.cern.ch/geant4/support/download.shtml}
+\item Getting Started guide: \url{http://www.geant4.web.cern.ch/geant4/support/gettingstarted.shtml}
+\item Installation Guide for Geant4 (does not include CUDA): \url{http://www.geant4.web.cern.ch/geant4/UserDocumentation/UsersGuides/InstallationGuide/html/index.html}
 \end{itemize}
 
 \section{Appendix} % Rob
