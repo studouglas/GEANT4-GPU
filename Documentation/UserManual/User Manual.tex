@@ -13,7 +13,7 @@
 \usepackage{makecell}
 \usepackage{caption}
 \usepackage{array}
-\lstset{basicstyle=\small\ttfamily,xleftmargin=18pt}
+\lstset{basicstyle=\small\ttfamily,xleftmargin=18pt,breaklines=true}
 \captionsetup[table]{skip=2pt}
 % Comments --------------------------------------------------------------------
 \usepackage{xcolor}
@@ -79,13 +79,6 @@ Initial draft of document & Matt & 2016-02-26\\
 % =============================== Section =============================== %
 \section{List of Figures}
 Geant4-GPU is a command-line driven document, and as such no figures are included. Instead, commands and results from running are kept inline within the text, formatted using a \texttt{monospace} typeface.
-%\begin{center}
-%\begin{tabular}{cl}
-%\toprule
-%\bf Figure \# & \bf Title\\\midrule
-%\bottomrule
-%\end{tabular}
-%\end{center}
 
 \section{Definitions and Acronyms} % Matt
 \begin{table}[h]
@@ -110,57 +103,62 @@ OS X & Operating system developed by Apple\\
 % =============================== Section =============================== %
 
 \section{Introduction} % Rob
-The following user manual corresponds to the McMaster Geant4-GPU project. The project, under the supervision of Dr. Emile Sekerinski and Dr.  Adriaan Buijs, is a modification of the Geant4 codebase to enable GPU functionality with respect to certain Geant4 modules. Underlying the modified portions of the codebase is a general design schema for approaching GPU programming with Geant4.\\
-\subsection{Purpose} % Rob
-Enabling ease of use is the main priority of this document. As such, technical guides and information with regards to installation, execution, and troubleshooting have been included.\\
-A section to ease the development process has been included for those who wish to contribute to the project (see \ref{SecDev}.)\\ 
-Furthermore, legal information with regards to licensing has been included for those of whom such might be useful.
-\subsection{Scope} % Rob
-The manual is intended to give basic insight and rigorous instructions into all the components necessary for using the project as a User.  
+\subsection{Purpose of Document} % Rob
+The following user manual corresponds to the McMaster Geant4-GPU project. The project, under the supervision of Dr. Emil Sekerinski and Dr. Adriaan Buijs, is a modification of the existing Geant4 codebase to leverage GPU computing in certain Geant4 modules. Geant4 is a software toolkit for developing particle simulations.\\
+
+The main priority of this document is to provide all users with all the information needed to install, run, and understand at a high level the Geant4-GPU project. This includes the license, installation instructions, execution instructions, high-level overview of how CUDA was integrated, and a troubleshooting section.\\
+
 \subsection{Background} % Rob
 There have been several documented attempts in approaching the Geant4 GPU problem prior to this project. None of these instances approach or discuss the problem in the same modularized fashion.\\ 
 Alongside niche implementations specifically for medical applications (Bert J, Perez-Ponce H, Lemaréchal Y, Gaens M, amongst others) there have also been documented GPU ports of more general Geant4 components (Otto Seiskarim Jukka Kommerim Tapio Niemi).\\
 For background information regarding Geant4, refer to \ref{SecBackground}.
+
+\subsection{Scope of Document} % Rob
+The manual is intended to give basic insight into the nature of Geant4-GPU and rigorous instructions on how to install and run the project. This document also includes a section for users who wish to integrate CUDA with other aspects of Geant4 in section \ref{SecDev}.\\
+
+This document does not include information on how to use Geant4, or how to develop Geant4 simulations for particular problem domains.\\
+
+A basic knowledge of programming concepts and command-line tools is assumed, as well as familiarity with Geant4.
 \subsection{Document Overview} % Matt
-This document goes over how to install and run Geant4-GPU. As well as software and hardware required for Geant4-GPU to be installed and run. Following this are detailed step-by-step instructions on how to install the software. Following details on installation is a section on creating and running simulations using the CUDA functionality introduced in Geant4-GPU. A section detailing high level details about how the CUDA code was developed and integrated follows, guiding future developers and users on how to integrate CUDA into other parts of Geant4. A troubleshooting section is included as well as a FAQ section covering many common questions related to the project.
+This document first declares the legal information related to the use of the project. Following this are detailed step-by-step instructions on how to install the software. A section on creating and running simulations using the CUDA functionality introduced in Geant4-GPU is then included. Following that is a section detailing high level details about how the CUDA code was developed and integrated, guiding future developers on how to integrate CUDA into other parts of Geant4. A troubleshooting section is included as well as a FAQ section covering many common questions related to the project.
 
 \section{Legal Information}	% Victor
-\textbf{License}\\
-Geant4 Software License \\
-Version 1.0,  28 June 2006\\
+\emph{This product includes software developed by Members of the Geant4 Collaboration ( http://cern.ch/geant4 ).}
+
+\subsection{Geant4 Software License}
+\begin{lstlisting}
+Geant4 Software License
+Version 1.0,  28 June 2006
  
-Copyright (c) Copyright Holders of the Geant4 Collaboration, 1994-2006.\\
-See http://cern.ch/geant4/license for details on the copyright holders. All rights not expressly granted under this license are reserved.\\
- \\
-This software includes voluntary contributions made to Geant4. See http://cern.ch/geant4 for more information on Geant4.\\
- \\
-Installation, use, reproduction, display, modification and redistribution of this software, with or without modification, in source and binary forms, are permitted on a non- exclusive basis. Any exercise of rights by you under this license is subject to the following conditions:\\
- \\
-1. Redistributions of this software, in whole or in part, with or without modification, must reproduce the above copyright notice and these license conditions in this software, the user documentation and any other materials provided with the redistributed software.\\
- \\
-2. The user documentation, if any, included with a redistribution, must include the following notice:\\
-"This product includes software developed by Members of the Geant4 Collaboration ( http://cern.ch/geant4 )."\\
- \\
-If that is where third-party acknowledgments normally appear, this acknowledgment must be reproduced in the modified version of this software itself.\\
- \\
-3. The names "Geant4" and "The Geant4 toolkit" may not be used to endorse or promote software, or products derived therefrom, except with prior written permission by license@geant4.org. If this software is redistributed in modified form, the name and reference of the modified version must be clearly distinguishable from that of this software.\\
- \\
-4. You are under no obligation to provide anyone with any modifications of this software that you may develop, including but not limited to bug fixes, patches, upgrades or other enhancements or derivatives of the features, functionality or performance of this software. However, if you publish or distribute your modifications without contemporaneously requiring users to enter into a separate written license agreement, then you are deemed to have granted all Members and all Copyright Holders of the Geant4 Collaboration a license to your modifications, including modifications protected by any patent owned by you, under the conditions of this license.\\
- \\
-5. You may not include this software in whole or in part in any patent or patent application in respect of any modification of this software developed by you.\\
- \\
- 
- 
-6. DISCLAIMER\\
- \\
-THIS SOFTWARE IS PROVIDED BY THE MEMBERS AND COPYRIGHT HOLDERS OF THE GEANT4 COLLABORATION AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, IMPLIED WARRANTIES OF MERCHANTABILITY, OF SATISFACTORY QUALITY, AND FITNESS FOR A PARTICULAR PURPOSE OR USE ARE DISCLAIMED. THE MEMBERS OF THE GEANT4 COLLABORATION AND CONTRIBUTORS MAKE NO REPRESENTATION THAT THE SOFTWARE AND MODIFICATIONS THEREOF, WILL NOT INFRINGE ANY PATENT, COPYRIGHT, TRADE SECRET OR OTHER PROPRIETARY RIGHT.\\
- \\
-7. LIMITATION OF LIABILITY\\
- \\
-THE MEMBERS AND COPYRIGHT HOLDERS OF THE GEANT4 COLLABORATION AND CONTRIBUTORS SHALL HAVE NO LIABILITY FOR DIRECT, INDIRECT, SPECIAL, INCIDENTAL, CONSEQUENTIAL, EXEMPLARY, OR PUNITIVE DAMAGES OF ANY CHARACTER INCLUDING, WITHOUT LIMITATION, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES, LOSS OF USE, DATA OR PROFITS, OR BUSINESS INTERRUPTION, HOWEVER CAUSED AND ON ANY THEORY OF CONTRACT, WARRANTY, TORT (INCLUDING NEGLIGENCE), PRODUCT LIABILITY OR OTHERWISE, ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.\\
- \\
-8. This license shall terminate with immediate effect and without notice if you fail to comply with any of the terms of this license, or if you institute litigation against any Member or Copyright Holder of the Geant4 Collaboration with regard to this software.\\
- \\
+Copyright (c) Copyright Holders of the Geant4 Collaboration, 1994-2006.
+See http://cern.ch/geant4/license for details on the copyright holders. All rights not expressly granted under this license are reserved.
+
+This software includes voluntary contributions made to Geant4. See http://cern.ch/geant4 for more information on Geant4.
+
+Installation, use, reproduction, display, modification and redistribution of this software, with or without modification, in source and binary forms, are permitted on a non- exclusive basis. Any exercise of rights by you under this license is subject to the following conditions:
+
+1. Redistributions of this software, in whole or in part, with or without modification, must reproduce the above copyright notice and these license conditions in this software, the user documentation and any other materials provided with the redistributed software.
+
+2. The user documentation, if any, included with a redistribution, must include the following notice:
+"This product includes software developed by Members of the Geant4 Collaboration ( http://cern.ch/geant4 )."
+
+If that is where third-party acknowledgments normally appear, this acknowledgment must be reproduced in the modified version of this software itself.
+
+3. The names "Geant4" and "The Geant4 toolkit" may not be used to endorse or promote software, or products derived therefrom, except with prior written permission by license@geant4.org. If this software is redistributed in modified form, the name and reference of the modified version must be clearly distinguishable from that of this software.
+
+4. You are under no obligation to provide anyone with any modifications of this software that you may develop, including but not limited to bug fixes, patches, upgrades or other enhancements or derivatives of the features, functionality or performance of this software. However, if you publish or distribute your modifications without contemporaneously requiring users to enter into a separate written license agreement, then you are deemed to have granted all Members and all Copyright Holders of the Geant4 Collaboration a license to your modifications, including modifications protected by any patent owned by you, under the conditions of this license.
+
+5. You may not include this software in whole or in part in any patent or patent application in respect of any modification of this software developed by you.
+
+6. DISCLAIMER
+THIS SOFTWARE IS PROVIDED BY THE MEMBERS AND COPYRIGHT HOLDERS OF THE GEANT4 COLLABORATION AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, IMPLIED WARRANTIES OF MERCHANTABILITY, OF SATISFACTORY QUALITY, AND FITNESS FOR A PARTICULAR PURPOSE OR USE ARE DISCLAIMED. THE MEMBERS OF THE GEANT4 COLLABORATION AND CONTRIBUTORS MAKE NO REPRESENTATION THAT THE SOFTWARE AND MODIFICATIONS THEREOF, WILL NOT INFRINGE ANY PATENT, COPYRIGHT, TRADE SECRET OR OTHER PROPRIETARY RIGHT.
+
+7. LIMITATION OF LIABILITY
+
+THE MEMBERS AND COPYRIGHT HOLDERS OF THE GEANT4 COLLABORATION AND CONTRIBUTORS SHALL HAVE NO LIABILITY FOR DIRECT, INDIRECT, SPECIAL, INCIDENTAL, CONSEQUENTIAL, EXEMPLARY, OR PUNITIVE DAMAGES OF ANY CHARACTER INCLUDING, WITHOUT LIMITATION, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES, LOSS OF USE, DATA OR PROFITS, OR BUSINESS INTERRUPTION, HOWEVER CAUSED AND ON ANY THEORY OF CONTRACT, WARRANTY, TORT (INCLUDING NEGLIGENCE), PRODUCT LIABILITY OR OTHERWISE, ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+
+8. This license shall terminate with immediate effect and without notice if you fail to comply with any of the terms of this license, or if you institute litigation against any Member or Copyright Holder of the Geant4 Collaboration with regard to this software.
+\end{lstlisting}
  
 \section{Installation} % Victor
 
