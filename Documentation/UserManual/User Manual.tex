@@ -243,7 +243,13 @@ Included in the repository, there is a README.md that breaks down the installati
 \begin{enumerate}
 %NOTE: The repo is private at the moment, so obtaining th source files would be difficult.
 \item Either clone the repository or download it from \href{https://github.com/studouglas/GEANT4-GPU}{Github GEANT4-GPU}
-\item A few quick edits will be necessary in order
+\item A few quick edits to the source will be necessary in order to install.
+\item Edit the file to:   /GEANT4-GPU/geant4.10.02/source/externals/cuda/include/G4ParticleHPVector_CUDA.hh \\
+So that this line:
+#include "/Users/stuart/Documents/4th_Year/CS_4ZP6/GEANT4-GPU/geant4.10.02/source/externals/cuda/include/G4ParticleHPVector_CUDA.hh"\\
+ Points to the actual path of the file:\\
+#include "/Users/You/Downloads/GEANT4-GPU/geant4.10.02/source/externals/cuda/include/G4ParticleHPVector_CUDA.hh"
+\item 
 \item mkdir /path/to/GEANT4-GPU/geant4.10.00.p02-build /path/to/GEANT4-GPU/
 \end{enumerate}
 \section{Execution} % Stuart
