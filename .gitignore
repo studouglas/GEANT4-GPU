@@ -14,7 +14,7 @@ Documentation/*/*.out
 G4STORK/Build-xcode
 G4STORK/Build-xcode-serial
 *.sublime-workspace
-
+**/*-xcode
 
 # Geant / G4STORK build files
 G4STORK/Build/*

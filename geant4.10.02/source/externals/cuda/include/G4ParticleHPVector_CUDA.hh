@@ -213,7 +213,7 @@ class G4ParticleHPVector_CUDA {
     G4ParticleHPDataPoint * d_theData;
     G4ParticleHPDataPoint * h_theData;
     G4bool isDataDirtyHost;
-    G4int nEntriesHost;
+    G4int nPointsHost;
 
     G4double * d_theIntegral;
     G4InterpolationManager theManager;

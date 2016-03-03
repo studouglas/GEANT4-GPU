@@ -79,6 +79,7 @@ G4ParticleHPVector_CUDA::G4ParticleHPVector_CUDA(G4int n) {
 void G4ParticleHPVector_CUDA::PerformInitialization(G4int n) {
     nPoints = n;
     isDataDirtyHost = true;
+    nPointsHost = nPoints;
     h_theData = (G4ParticleHPDataPoint*)malloc(nPoints * sizeof(G4ParticleHPDataPoint));
     if (!h_theData) {
         printf("\nMALLOC FAILED IN PERFORM INITIALIZATION");
@@ -172,14 +173,10 @@ void G4ParticleHPVector_CUDA::OperatorEquals(G4ParticleHPVector_CUDA * right) {
 
 void G4ParticleHPVector_CUDA::CopyToCpuIfDirty() {
     if (isDataDirtyHost) {
-        // re-malloc memory only if size changed
-        if (nEntriesHost != nEntries) {
-            // TODO: free old theData?
-            h_theData = (G4ParticleHPDataPoint*)realloc(h_theData, nEntries * sizeof(G4ParticleHPDataPoint));
-            if (!h_theData) {
-               printf("\nMALLOC FAILED IN COPY TO CPU");
-            }
-            nEntriesHost = nEntries;
+        if (nPointsHost != nPoints) {
+            h_theData = (G4ParticleHPDataPoint*)realloc(h_theData, nPoints * sizeof(G4ParticleHPDataPoint));
+            if (!h_theData) { printf("\nMALLOC FAILED IN COPY TO CPU"); }
+            nPointsHost = nPoints;
         }
 
         cudaMemcpy(h_theData, d_theData, nEntries * sizeof(G4ParticleHPDataPoint), cudaMemcpyDeviceToHost);
@@ -206,9 +203,9 @@ G4double G4ParticleHPVector_CUDA::GetX(G4int i) {
         i = GetVectorLength() - 1;
     }
 
-    // if (!isDataDirtyHost) {
-    //     return h_theData[i].GetX();
-    // }
+    if (!isDataDirtyHost) {
+        return h_theData[i].GetX();
+    }
     cudaMemcpy(h_singleDoubleResult, &d_theData[i].energy, sizeof(G4double), cudaMemcpyDeviceToHost);
     if (*(h_singleDoubleResult) != *(h_singleDoubleResult)) { printf("\nGetEnergy(%d) = %f, nEntries=%d", i, *h_singleDoubleResult, nEntries); }
     return *(h_singleDoubleResult);
@@ -222,9 +219,9 @@ G4double G4ParticleHPVector_CUDA::GetY(G4int i) {
         i = GetVectorLength() - 1;
     }
     
-    // if (!isDataDirtyHost) {
-    //     return h_theData[i].GetY();
-    // }
+    if (!isDataDirtyHost) {
+        return h_theData[i].GetY();
+    }
     cudaMemcpy(h_singleDoubleResult, &d_theData[i].xSec, sizeof(G4double), cudaMemcpyDeviceToHost);
     return *(h_singleDoubleResult);
 }
@@ -285,15 +282,11 @@ void G4ParticleHPVector_CUDA::SetXsec(G4int i, G4double x) {
 void G4ParticleHPVector_CUDA::Init(std::istream & aDataFile, G4int total, G4double ux, G4double uy) {
     G4double x, y;
     
-    // TODO: MEMORY LEAK, we malloc'd h_theData in init, but if we do realloc then program does event
-    // loop imediately, and gets wrong answer
-
-    // h_theData = (G4ParticleHPDataPoint*)realloc(h_theData, total * sizeof(G4ParticleHPDataPoint));
+    // TODO: change to realloc, had some problems when it was realloc before
+    //h_theData = (G4ParticleHPDataPoint*)realloc(h_theData, total * sizeof(G4ParticleHPDataPoint));
     free(h_theData);
     h_theData = (G4ParticleHPDataPoint*)malloc(total * sizeof(G4ParticleHPDataPoint));
-    if (!h_theData) {
-        printf("MALLOC FAILURE - 296");
-    }
+    if (!h_theData) { printf("MALLOC FAILURE - 296"); }
     
     for (G4int i = 0; i < total; i++) {
         aDataFile >> x >> y;
@@ -303,17 +296,15 @@ void G4ParticleHPVector_CUDA::Init(std::istream & aDataFile, G4int total, G4doub
     }
     nPoints = total;
     nEntries = total;
-    nEntriesHost = total;
+    nPointsHost = total;
 
-    // Memory leak? Seems to cause troubles when uncommented (not 100% sure it's culprit though)
     if (d_theData) {
         cudaFree(d_theData);
     }
     cudaMalloc(&d_theData, nPoints * sizeof(G4ParticleHPDataPoint));
     cudaMemcpy(d_theData, h_theData, nEntries * sizeof(G4ParticleHPDataPoint), cudaMemcpyHostToDevice);
 
-    // if false (which makes logical sense) then get wrong answer and computes everything in 0.01s
-    isDataDirtyHost = true;
+    isDataDirtyHost = false;
 }
 
 void G4ParticleHPVector_CUDA::Init(std::istream & aDataFile, G4double ux, G4double uy) {
@@ -681,8 +672,11 @@ G4double G4ParticleHPVector_CUDA::GetXsec(G4double e) {
     if (nEntries == 0) {
         return 0;
     }
-    CopyToCpuIfDirty();
 
+    // Note: this was causing some crashing / finishing in 0.01s pre-Mar-3 commit, if it crops up
+    // again try copying d_theData to a new local array and using that (every GetXSec call)
+    CopyToCpuIfDirty();
+      
     G4int min = 0;
     G4int i;
     for (i = min; i < nEntries; i++) {
@@ -717,8 +711,8 @@ G4double G4ParticleHPVector_CUDA::GetXsec(G4double e) {
     else {
         y = h_theData[nEntries-1].GetY();
     }
-    return y;
 
+    return y;
 
     /* ===== Run GetXSec using CUDA ===========================================
     SetValueTo_CUDA<<<1,1>>> (d_singleIntResult, nEntries);
@@ -926,7 +920,8 @@ void G4ParticleHPVector_CUDA::Check(G4int i) {
     if (i == nEntries) {
         nEntries = i + 1;
     }
-    isDataDirtyHost = true;
+
+    // don't set data dirty as we haven't changed anything
 }
 
 // Geant4 doesn't ever assign private variable theBlocked,
