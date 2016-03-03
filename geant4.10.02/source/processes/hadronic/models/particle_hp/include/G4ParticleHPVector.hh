@@ -52,7 +52,7 @@
 #define GEANT4_ENABLE_CUDA 1
 #if GEANT4_ENABLE_CUDA
 
-  #include "/Users/stuart/Documents/4th_Year/CS_4ZP6/GEANT4-GPU/geant4.10.02/source/externals/cuda/include/G4ParticleHPVector_CUDA.hh"
+  #include "/u50/pagnanmm/GEANT4-GPU/geant4.10.02/source/externals/cuda/include/G4ParticleHPVector_CUDA.hh"
 
 #endif
 
@@ -430,23 +430,8 @@ class G4ParticleHPVector
 
   void Init(std::istream & aDataFile,G4double ux=1., G4double uy=1.)
   {
-	G4int querySize =  1000;
-	G4double *queryList;
-	queryList = (G4double *)malloc(querySize*sizeof(G4double));
-	for(int i = 0; i < querySize; i++){
-		queryList[i] = (G4double)i/1000;
-	}
-  
     #if GEANT4_ENABLE_CUDA
       cudaVector->Init(aDataFile, ux, uy);
-	  if(cudaVector->nEntries > querySize){
-		// cudaVector->GetXsecBuffer(queryList, querySize);
-		// for(int i = 0; i < querySize; i++){
-			// G4double GPUres = queryList[i];
-			// G4double CPUres = GetXsec(queryList[i]);
-			// printf("GPU: %0.5e CPU: %0.5e \n", GPUres, CPUres);
-		// }
-	  }
     #else
       G4int total;
       aDataFile >> total;
