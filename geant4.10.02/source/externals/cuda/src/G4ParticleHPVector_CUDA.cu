@@ -590,9 +590,12 @@ __global__ void getXsecBuffer_CUDA(G4ParticleHPDataPoint * theData, int nEntries
 	int idx = blockDim.x*blockIdx.x + threadIdx.x;	// determine thread ID
 	if(idx < querySize){
 		G4double e = d_queryList[idx];
+		//printf("Looking for %f\n", e);
 		int i;
 		for(i = 0; i < nEntries; i++){ // find the first DataPoint whose energy is greater
+			//printf("energy: %f\n",theData[i].energy);
 			if(theData[i].energy >= e){
+				//printf("found xSec %f for %f\n", theData[i].energy, e);
 				break;
 			}
 		}
@@ -622,11 +625,11 @@ __global__ void getXsecBuffer_CUDA(G4ParticleHPDataPoint * theData, int nEntries
 	}
 }
 
-void G4ParticleHPVector_CUDA::GetXsecBuffer(G4double * queryList, G4int length){
+void G4ParticleHPVector_CUDA::GetXsecBuffer(G4double * queryList, G4int length){	
 	GetXsecResultStruct * h_resArray;	// Array of result for host
 	GetXsecResultStruct * d_resArray;	// Array for where the results are placed on the GPU
 	G4double * d_queryList;				// device copy of the queryList
-	
+
 	// Allocate memory for everything
 	cudaMallocHost(&h_resArray, sizeof(GetXsecResultStruct) * length);
 	cudaMalloc(&d_resArray, sizeof(GetXsecResultStruct) * length);
@@ -638,7 +641,6 @@ void G4ParticleHPVector_CUDA::GetXsecBuffer(G4double * queryList, G4int length){
 	// Determine how many blocks we need to allocate 
 	int block_size =  32;
 	int queryBlocks = length/block_size + (length%block_size == 0 ? 0:1);
-	
 	// Get GPU to do its thing
 	getXsecBuffer_CUDA <<< queryBlocks, block_size >>> (d_theData, nEntries, d_queryList, d_resArray, length);
 	
@@ -647,7 +649,7 @@ void G4ParticleHPVector_CUDA::GetXsecBuffer(G4double * queryList, G4int length){
 	
 	// need to interpolate the xSecs using CPU, for now
 	for(int i = 0; i < length; i++){
-	    GetXsecResultStruct res = h_res[i];
+	    GetXsecResultStruct res = h_resArray[i];
 		if (res.y != -1) {
 			queryList[i] = res.y;
 		}
@@ -661,7 +663,6 @@ void G4ParticleHPVector_CUDA::GetXsecBuffer(G4double * queryList, G4int length){
 			queryList[i] = y;
 		}
 	}
-
 	// Free the temporary data to avoid memory leaks
 	 cudaFree(d_resArray);
 	 cudaFree(d_queryList);
