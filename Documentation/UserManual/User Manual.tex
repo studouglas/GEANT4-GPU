@@ -79,7 +79,8 @@ All major edits to this document will be recorded in the table below.
 \begin{tabular}{lll}
 \toprule
 \bf Description of Changes & \bf Author & \bf Date\\\midrule
-Initial draft of document & Matt & 2016-02-26\\
+Fixed links & Matt & 2016-03-07\\
+Initial draft of document & Matt, Stuart, Rob, Victor  & 2016-02-26\\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -335,7 +336,7 @@ If installing GEANT4-GPU on McMaster's GPU servers, the instructions above can b
 \end{itemize}
 
 \section{Execution} % Stuart
-GEANT4 is not an executable program in the traditional sense. It is instead a large set of libraries, designed to work together and that give you, the user, a framework to develop simulations for your work. The development of such simulations is not within the scope of this manual, but it is well-documented with a thorough guide available at \url{http://GEANT4.web.cern.ch/GEANT4/UserDocumentation/UsersGuides/ForApplicationDeveloper/html/index.html}.\\
+GEANT4 is not an executable program in the traditional sense. It is instead a large set of libraries, designed to work together and that give you, the user, a framework to develop simulations for your work. The development of such simulations is not within the scope of this manual, but it is well-documented with a thorough guide available at \url{http://geant4.web.cern.ch/geant4/UserDocumentation/UsersGuides/ForApplicationDeveloper/html/index.html}.\\
 
 This section will instead outline how one would go about using (or not using) CUDA computations with an existing simulation. The \texttt{Hadr04} example that comes with GEANT4 will be used as the simulation to demonstrate this.
 
@@ -397,13 +398,13 @@ Many physics researchers use GEANT4 to learn about how particles interact with a
 GPU's contain a large amount of cores that can perform calculations much more quickly than a CPU if the problem is well-suited to parallelization. GEANT4 runs relatively simple calculations on millions of particles, and each particle is completely independent of the others. This is exactly that sort of well-suited problem, and stands to see large performance gains.
 
 \subsubsection{Where can I find more information about GEANT4?}
-For more information, check out the official website at \url{http://www.GEANT4.web.cern.ch/GEANT4/index.shtml}.
+For more information, check out the official website at \url{http://geant4.web.cern.ch/geant4/}.
 
 \subsubsection{Helpful Pages}
 \begin{itemize}
-\item Download page for GEANT4 source code: \url{http://www.GEANT4.web.cern.ch/GEANT4/support/download.shtml}
-\item Getting Started guide: \url{http://www.GEANT4.web.cern.ch/GEANT4/support/gettingstarted.shtml}
-\item Installation Guide for GEANT4 (does not include CUDA): \url{http://www.GEANT4.web.cern.ch/GEANT4/UserDocumentation/UsersGuides/InstallationGuide/html/index.html}
+\item Download page for GEANT4 source code: \url{http://geant4.web.cern.ch/geant4/support/download.shtml}
+\item Getting Started guide: \url{http://geant4.web.cern.ch/geant4/support/gettingstarted.shtml}
+\item Installation Guide for GEANT4 (does not include CUDA): \url{http://geant4.web.cern.ch/geant4/UserDocumentation/UsersGuides/InstallationGuide/html/index.html}
 \end{itemize}
 
 \section{Precautions and Warnings}
