@@ -330,106 +330,67 @@ MACRO(GEANT4_LIBRARY_TARGET_CUDA)
     "NAME" "SOURCES;GEANT4_LINK_LIBRARIES;LINK_LIBRARIES"
     ${ARGN}
     )
+  
+  LIST(APPEND CUDA_NVCC_FLAGS --compiler-options -fno-strict-aliasing -lineinfo -use_fast_math -Xptxas -dlcm=cg)
+  LIST(APPEND CUDA_NVCC_FLAGS -gencode arch=compute_30,code=sm_30)
+
   if(BUILD_SHARED_LIBS)
     # Add the shared library target and link its dependencies
     # WIN32 first
     if(WIN32)
-      # We have to generate the def export file from an archive library.
-      # This is a temporary separate from a real archive library, and
-      # even though it's static, we need to mark that it will have
-      # DLL symbols via the G4LIB_BUILD_DLL macro
-      # CHANGED - STUART
       cuda_add_library(_${G4LIBTARGET_NAME}-archive STATIC EXCLUDE_FROM_ALL ${G4LIBTARGET_SOURCES})
       set(_archive _${G4LIBTARGET_NAME}-archive)
       target_compile_features(${_archive} PUBLIC ${GEANT4_TARGET_COMPILE_FEATURES})
       target_compile_definitions(${_archive} PUBLIC -DG4LIB_BUILD_DLL)
 
-      # - Add the config specific compile definitions
       geant4_compile_definitions_config(${_archive})
 
-      # - Create the .def file for this library
-      # Use generator expressions to get path to per-mode lib and
-      # older CMAKE_CFG_INTDIR variable to set name of per-mode def
-      # file (Needed as generator expressions cannot be used in argument
-      # to OUTPUT...
       add_custom_command(OUTPUT _${G4LIBTARGET_NAME}-${CMAKE_CFG_INTDIR}.def
         COMMAND genwindef -o _${G4LIBTARGET_NAME}-${CMAKE_CFG_INTDIR}.def -l ${G4LIBTARGET_NAME} $<TARGET_FILE:${_archive}>
         DEPENDS ${_archive} genwindef)
 
-      # - Now we can build the DLL
-      # We create it from a dummy empty C++ file plus the def file.
-      # Also set the public compile definition on it so that clients
-      # will set correct macro automatically.
       file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/_${G4LIBTARGET_NAME}.cpp
         "// empty _${G4LIBTARGET_NAME}.cpp\n")
 
-      # CHANGED - STUART
       cuda_add_library(${G4LIBTARGET_NAME} SHARED _${G4LIBTARGET_NAME}.cpp
         _${G4LIBTARGET_NAME}-${CMAKE_CFG_INTDIR}.def)
       target_compile_definitions(${G4LIBTARGET_NAME} PUBLIC -DG4LIB_BUILD_DLL)
       target_compile_features(${G4LIBTARGET_NAME} PUBLIC ${GEANT4_TARGET_COMPILE_FEATURES})
 
-      # - Link the DLL.
-      # We link it to the archive, and the supplied libraries,
-      # but then remove the archive from the LINK_INTERFACE.
       target_link_libraries(${G4LIBTARGET_NAME}
         ${_archive}
         ${G4LIBTARGET_GEANT4_LINK_LIBRARIES}
         ${G4LIBTARGET_LINK_LIBRARIES})
-      LIST(APPEND CUDA_NVCC_FLAGS --compiler-options -fno-strict-aliasing -lineinfo -use_fast_math -Xptxas -dlcm=cg -Wno-unused-function -Wno-language-extension-token)
-      LIST(APPEND CUDA_NVCC_FLAGS -gencode arch=compute_30,code=sm_30)
       set_target_properties(${G4LIBTARGET_NAME}
         PROPERTIES INTERFACE_LINK_LIBRARIES "${G4LIBTARGET_GEANT4_LINK_LIBRARIES};${G4LIBTARGET_LINK_LIBRARIES}")
 
     else()
-      # - We build a Shared library in the usual fashion...
-      # CHANGED - STUART
       cuda_add_library(${G4LIBTARGET_NAME} SHARED ${G4LIBTARGET_SOURCES})
+      
       geant4_compile_definitions_config(${G4LIBTARGET_NAME})
       target_compile_features(${G4LIBTARGET_NAME} PUBLIC ${GEANT4_TARGET_COMPILE_FEATURES})
       target_link_libraries(${G4LIBTARGET_NAME}
         ${G4LIBTARGET_GEANT4_LINK_LIBRARIES}
         ${G4LIBTARGET_LINK_LIBRARIES})
-      LIST(APPEND CUDA_NVCC_FLAGS --compiler-options -fno-strict-aliasing -lineinfo -use_fast_math -Xptxas -dlcm=cg -Wno-unused-function -Wno-language-extension-token)
-      LIST(APPEND CUDA_NVCC_FLAGS -gencode arch=compute_30,code=sm_30)
     endif()
 
-    # This property is set to prevent concurrent builds of static and
-    # shared libs removing each others files.
     set_target_properties(${G4LIBTARGET_NAME}
       PROPERTIES CLEAN_DIRECT_OUTPUT 1)
 
-    # Always use '@rpath' in install names of libraries. This is the
-    # most flexible mechanism for
     set_target_properties(${G4LIBTARGET_NAME}
-      PROPERTIES MACOSX_RPATH 1
-      )
+      PROPERTIES MACOSX_RPATH 1)
 
-    # Install the library - note the use of RUNTIME, LIBRARY and ARCHIVE
-    # this helps with later DLL builds.
-    # Export to standard depends file for later install
-    # NEEDS WORK TO REMOVE HARDCODED LIB/BIN DIR
     install(TARGETS ${G4LIBTARGET_NAME}
       EXPORT Geant4LibraryDepends
       RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR} COMPONENT Runtime
       LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR} COMPONENT Runtime
       ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR} COMPONENT Development)
 
-    # Append the library target to a global property so that build tree
-    # export of library dependencies can pick up all targets
     set_property(GLOBAL APPEND
       PROPERTY GEANT4_EXPORTED_TARGETS ${G4LIBTARGET_NAME})
   endif()
 
-  #
-  # As above, but for static rather than shared library
   if(BUILD_STATIC_LIBS)
-    # We have to distinguish the static from shared lib, so use -static in
-    # name. Link its dependencies, and ensure we actually link to the
-    # -static targets (We should strictly do this for the external
-    # libraries as well if we want a pure static build).
-    
-    # CHANGED - STUART
     cuda_add_library(${G4LIBTARGET_NAME}-static STATIC ${G4LIBTARGET_SOURCES})
     geant4_compile_definitions_config(${G4LIBTARGET_NAME}-static)
     target_compile_features(${G4LIBTARGET_NAME}-static PUBLIC ${GEANT4_TARGET_COMPILE_FEATURES})
@@ -439,10 +400,6 @@ MACRO(GEANT4_LIBRARY_TARGET_CUDA)
       list(APPEND G4LIBTARGET_GEANT4_LINK_LIBRARIES_STATIC ${_tgt}-static)
     endforeach()
 
-    # If we are building both types of library and builtin clhep etc,
-    # we want to link shared->shared and static->static.
-    # Because externals like clhep appear in G4LIBTARGET_LINK_LIBRARIES,
-    # filter this list to replace shared builtins with their static variant
     string(REGEX REPLACE
       "(G4clhep|G4expat|G4zlib|G4geomUSolids)(;|$)" "\\1-static\\2"
       G4LIBTARGET_LINK_LIBRARIES_STATIC
@@ -453,10 +410,6 @@ MACRO(GEANT4_LIBRARY_TARGET_CUDA)
       ${G4LIBTARGET_GEANT4_LINK_LIBRARIES_STATIC}
       ${G4LIBTARGET_LINK_LIBRARIES_STATIC})
 
-    # But we can rename the output library to the correct name
-    # On WIN32 we *retain* the -static postfix because otherwise
-    # we'll conflict with the .lib from the DLL build...
-    # We could also install differently...
     if(NOT WIN32)
       set_target_properties(${G4LIBTARGET_NAME}-static
         PROPERTIES OUTPUT_NAME ${G4LIBTARGET_NAME})
