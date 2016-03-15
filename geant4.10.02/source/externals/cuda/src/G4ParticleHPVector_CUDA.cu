@@ -281,6 +281,7 @@ void G4ParticleHPVector_CUDA::SetXsec(G4int i, G4double x) {
 ******************************************/
 void G4ParticleHPVector_CUDA::Init(std::istream & aDataFile, G4int total, G4double ux, G4double uy) {
     G4double x, y;
+    printf("Init!: total: %d\n", total);
     
     // TODO: change to realloc, had some problems when it was realloc before
     //h_theData = (G4ParticleHPDataPoint*)realloc(h_theData, total * sizeof(G4ParticleHPDataPoint));

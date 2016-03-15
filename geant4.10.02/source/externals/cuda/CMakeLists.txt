@@ -23,8 +23,8 @@ set(G4cuda_HEADERS
 )
 
 set(G4cuda_SOURCES
+	include/G4DataVector_CUDA.icc
 	src/G4DataVector_CUDA.cc
-	src/G4DataVector_CUDA.icc
 	src/G4InterpolationManager_CUDA.cc
 	src/G4ParticleHPInterpolator_CUDA.cu
 	src/G4ParticleHPVector_CUDA.cu
