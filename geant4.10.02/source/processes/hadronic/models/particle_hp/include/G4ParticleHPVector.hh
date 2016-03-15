@@ -51,7 +51,7 @@
 
 #define GEANT4_ENABLE_CUDA 1
 #if GEANT4_ENABLE_CUDA
-  #include "/Users/stuart/Documents/4th_Year/CS_4ZP6/GEANT4-GPU/geant4.10.02/source/externals/cuda/include/G4ParticleHPVector_CUDA.hh"
+  #include "/u50/pagnanmm/GEANT4-GPU/geant4.10.02/source/externals/cuda/include/G4ParticleHPVector_CUDA.hh"
 #endif
 
 #if defined WIN32-VC
@@ -410,6 +410,19 @@ class G4ParticleHPVector
   {
     #if GEANT4_ENABLE_CUDA
       cudaVector->Init(aDataFile, total, ux, uy);
+	  /*if(total > 500){
+		printf("\nNext Init\n");
+		G4double *queryArray = (G4double *)malloc(20*sizeof(G4double));
+		for(int i = 0; i < 20; i++){
+			queryArray[i] = i/100.0;
+		}
+		printf("Starting bufferFunction\n");
+		GetXsecBuffer(queryArray, 20);
+		printf("bufferFunction done\n");
+		for(int i = 0; i < 20; i++){
+			printf("queryEnergy: %f, resultXsec: %f CPUresult: %f\n", i/100.0 , queryArray[i], GetXsec(i/100.0));
+		}
+	  }*/
     #else
       G4double x,y;
       for (G4int i=0;i<total;i++)
