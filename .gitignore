@@ -23,6 +23,10 @@ G4STORK/include/*.msh
 G4STORK/OutputFiles
 G4STORK/SourceFiles
 
+# Executables
+*/**/AnalyzeTestResults
+*/**/GenerateTestResults
+
 Examples/**/bin/
 
 geant4.10.02/tmp

@@ -1,6 +1,7 @@
 #include <stdio.h>
+#include <unistd.h>
 #include <iostream>
-#include <stdlib.h>
+#include <string>
 #include <fstream>
 #include <time.h>
 #include "G4ParticleHPVector.hh"
@@ -8,10 +9,6 @@
 G4ParticleHPVector** vectors;
 std::ofstream resultsFile;
 std::ofstream timesFile;
-
-typedef char Bytef;
-typedef unsigned long uLongf;
-typedef unsigned long uLong;
 
 void printArrayToFile(double* arr, int count, std::ofstream & file) {
 	// empty array
@@ -28,12 +25,12 @@ void printArrayToFile(double* arr, int count, std::ofstream & file) {
 	file << arr[count-1] << "]";
 }
 
-void writeOutTestName(const char* testName, int caseNum) {
-	// printf("Testing '%s'...\n", testName);
-	// printf("here");
+void writeOutTestName(std::string testName, int caseNum) {
+	std::cout << "Testing '" << testName << "'...\n";
 
 	char testNameToPrint[128];
-	sprintf(testNameToPrint, "Test#%s\n", testName);
+	sprintf(testNameToPrint, "Test#%s\n", testName.c_str());
+	
 	resultsFile << testNameToPrint;
 	timesFile << testNameToPrint;
 }
@@ -46,27 +43,33 @@ void writeOutTheData(int caseNum) {
 		xVals[i] = vectors[caseNum]->GetX(i);
 		yVals[i] = vectors[caseNum]->GetY(i);
 	}
+	
 	printArrayToFile(xVals, nEntries, resultsFile);
 	resultsFile << "\n";
 	printArrayToFile(yVals, nEntries, resultsFile);
 	resultsFile << "\n";
 }
 
+void writeOutTime(clock_t diff) {
+	double secondsElapsed = diff;
+	timesFile << secondsElapsed << " cycles\n";
+}
+
 void testInitializeVector(int caseNum) {
 	writeOutTestName("Init", caseNum);
 
-	*(vectors[caseNum]) = G4ParticleHPVector();
+	vectors[caseNum] = new G4ParticleHPVector();
 	std::filebuf fileBuffer;
 
 	G4String *data = NULL;
-	G4String dataFileName;
+	std::string dataFileName;
 
 	switch (caseNum) {
 		case 0:
-			dataFileName = "/Users/stuart/Desktop/test.txt";
+			dataFileName = "Lead_66.txt";
 			break;
 		default:
-			dataFileName = "/Users/stuart/Desktop/test.txt";
+			dataFileName = "Lead_66.txt";
 	}
 	if (fileBuffer.open(dataFileName, std::ios::in)) {
 		std::istream dataStream(&fileBuffer);
@@ -74,44 +77,36 @@ void testInitializeVector(int caseNum) {
 		int n;
 		dataStream >> n;
 
+		clock_t t1 = clock();
 		vectors[caseNum]->Init(dataStream, n, 1, 1);
+		clock_t t2 = clock();
+		writeOutTime(t2-t1);
+
 		fileBuffer.close();
 	} else {
-		printf("\n\n***ERROR READING FILE***\n\n");
+		std::cout << "\n\n***ERROR READING FILE***\n\n";
 	}
 
 	writeOutTheData(caseNum);
 }
 
 void testSetters(int caseNum) {
-	printf("Testing setters...\n");
-	resultsFile << "Setters\n";
-	timesFile << "Setters\n";
-
-
+	writeOutTestName("Setters", caseNum);
 }
 
 void testGetters(int caseNum) {
-	printf("Testing getters...\n");
-	resultsFile << "Getters\n";
-	timesFile << "Getters\n";
-
-
+	writeOutTestName("Getters", caseNum);
 }
 
 void testIntegration(int caseNum) {
-	printf("Testing integration...\n");
-	resultsFile << "Integration\n";
-	timesFile << "Integration\n";
-
-
+	writeOutTestName("Integration", caseNum);
 }
 
 // usage: ./GenerateTestResults 0
 int main(int argc, char** argv) {
-	printf("\n\n");
+	std::cout << "\n\n";
 	if (argc < 2) {
-		printf("Usage: './GenerateTestResults N' where N is 1 if Geant4 compiled with CUDA, 0 otherwise.\n");
+		std::cout << "Usage: './GenerateTestResults N' where N is 1 if Geant4 compiled with CUDA, 0 otherwise.\n";
 		return 1;
 	}
 	int cudaEnabled = atoi(argv[1]);
@@ -121,7 +116,20 @@ int main(int argc, char** argv) {
 	sprintf(resultsFileName, "UnitTest_Results_%s.txt", ((cudaEnabled) ? "GPU" : "CPU"));
 	sprintf(timesFileName, "UnitTest_Times_%s.txt", ((cudaEnabled) ? "GPU" : "CPU"));
 	
-	printf("Geant4 compiled with CUDA: %s\n\n", ((cudaEnabled) ? "ON" : "OFF"));
+	std::cout << "Geant4 compiled with CUDA: " << ((cudaEnabled) ? "ON" : "OFF") << "\n\n";
+
+	// check if file exists, confirm overwrite
+	if (access(resultsFileName, F_OK) != -1) {
+		char userResponse;
+		do {
+			std::cout << "'" << resultsFileName << "' already exists, do you want to overwrite it [y/n]?\n> ";
+			std::cin >> userResponse;
+		} while (!std::cin.fail() && userResponse != 'y' && userResponse != 'n');
+		std::cout << "\n";
+		if (userResponse == 'n') {
+			return 1;
+		}
+	}
 
 	resultsFile.open(resultsFileName);
 	timesFile.open(timesFileName);
@@ -137,7 +145,7 @@ int main(int argc, char** argv) {
 		testIntegration(i);
 	}
 
-	printf("\nAll tests complete.\n\n");
+	std::cout << "\nAll tests complete.\n\n";
 
 	// close our file
 	resultsFile.close();
