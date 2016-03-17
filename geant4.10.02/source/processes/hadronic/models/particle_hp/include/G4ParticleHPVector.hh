@@ -82,7 +82,6 @@ class G4ParticleHPVector
   G4double Get15percentBorder();
   G4double Get50percentBorder();
 
-
   /******************************************
    * Getters
    ******************************************/
