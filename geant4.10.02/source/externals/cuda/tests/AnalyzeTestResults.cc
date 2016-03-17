@@ -69,17 +69,21 @@ void compareTestResults() {
 	std::cout << "-------------------------------\n\n";
 }
 
+void generateTimesCsv() {
+	std::ofstream timesOutput;
+}
+
 int main(int argc, char** argv) {
 	char cpuResultsFilename[128] = "UnitTest_Results_CPU.txt";
 	char gpuResultsFilename[128] = "UnitTest_Results_GPU.txt";
 	
 	// check files exist
 	if (access(cpuResultsFilename, F_OK) == -1) {
-		std::cout << "\nError. File '" << cpuResultsFilename << "' not found. Refer to README.md for usage instructions.\n";
+		std::cout << "\nError. File '" << cpuResultsFilename << "' not found. Refer to README.txt for usage instructions.\n";
 		return 1;
 	}
 	if (access(gpuResultsFilename, F_OK) == -1) {
-		std::cout << "\nError. File '" << gpuResultsFilename << "' not found. Refer to README.md for usage instructions.\n";
+		std::cout << "\nError. File '" << gpuResultsFilename << "' not found. Refer to README.txt for usage instructions.\n";
 		return 1;
 	}
 
@@ -92,7 +96,8 @@ int main(int argc, char** argv) {
 
 	std::cout << "\nAnalyzing test results...\n";	
 	compareTestResults();
-	
+	generateTimesCsv();
+
 	cpuResults.close();
 	gpuResults.close();
 	
