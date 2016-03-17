@@ -34,7 +34,7 @@
 #include <cuda.h>
 #include <cuda_runtime.h>
 
-  __host__ __device__ G4double G4ParticleHPInterpolator::GetBinIntegral(const G4InterpolationScheme & aScheme, const G4double x1,const G4double x2,const G4double y1,const G4double y2) {
+G4double G4ParticleHPInterpolator::GetBinIntegral(const G4InterpolationScheme & aScheme, const G4double x1,const G4double x2,const G4double y1,const G4double y2) {
     G4double result = 0;
     if(aScheme==HISTO||aScheme==CHISTO||aScheme==UHISTO) {
       result = y1*(x2-x1);
@@ -89,13 +89,13 @@
     
     else
     {
-      // throw G4HadronicException(__FILE__, __LINE__, "Unknown interpolation scheme in G4ParticleHPVector::Integrate");
+      throw G4HadronicException(__FILE__, __LINE__, "Unknown interpolation scheme in G4ParticleHPVector::Integrate");
     }
     
     return result;
   }
   
-  __host__ __device__ G4double G4ParticleHPInterpolator::GetWeightedBinIntegral(const G4InterpolationScheme & aScheme, const G4double x1,const G4double x2,const G4double y1,const G4double y2) {
+G4double G4ParticleHPInterpolator::GetWeightedBinIntegral(const G4InterpolationScheme & aScheme, const G4double x1,const G4double x2,const G4double y1,const G4double y2) {
     G4double result = 0;
     
     if(aScheme==HISTO||aScheme==CHISTO||aScheme==UHISTO) {
@@ -144,7 +144,7 @@
     }
     else
     {
-      // throw G4HadronicException(__FILE__, __LINE__, "Unknown interpolation scheme in G4ParticleHPVector::Integrate");
+      throw G4HadronicException(__FILE__, __LINE__, "Unknown interpolation scheme in G4ParticleHPVector::Integrate");
     }
     return result;
   }

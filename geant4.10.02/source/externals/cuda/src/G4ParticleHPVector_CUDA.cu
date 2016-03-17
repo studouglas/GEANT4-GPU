@@ -1015,7 +1015,7 @@ G4double G4ParticleHPVector_CUDA::Get50percentBorder() {
 
 void G4ParticleHPVector_CUDA::Check(G4int i) {
     if (i > nEntries) {
-        printf("ERROR - skipped some index numbers in Cuda::CHECK\n\n");
+  		throw G4HadronicException(__FILE__, __LINE__, "Skipped some index numbers in G4ParticleHPVector");
         return;
     }
     if (i == nPoints) {
