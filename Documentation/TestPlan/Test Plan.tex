@@ -101,8 +101,8 @@ Initial draft of document & Stuart, Matthew, Rob, Victor & 2015-10-26\\
 \ref{Table_Acronyms} & Definitions and Acronyms\\
 \ref{Table_References} & References\\
 \ref{Table_SystemTests} & System Tests\\
-\ref{Table_UnitTestsTimes} & Unit Tests - \emph{Times} function\\
-\ref{Table_UnitTestsPlus} & Unit Tests - $+$ function\\
+%\ref{Table_UnitTestsTimes} & Unit Tests - \emph{Times} function\\
+%\ref{Table_UnitTestsPlus} & Unit Tests - $+$ function\\
 \ref{Table_RequirementsTests} & Requirements Tests\\
 \ref{Table_TestFactors} & Test Factors\\
 \ref{Table_Schedule} & Testing Schedule\\
@@ -289,129 +289,469 @@ Material = Uranium
 \mmp{Not using G4-STORK for system tests - therefore had to change system tests}
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Unit Testing}  
-Unit tests will be created throughout development as functions and classes are ported to the GPU. Before porting a specific function of a class, a variety of inputs covering edge cases for the function as well as several ``normal'' cases will be created. The results of the function for each of the inputs will be recorded from the CPU version, and a test case will be added to test whether the outputs are the same with GPU computation enabled (once it's implemented). Due to the nature of this testing strategy, most explicit unit tests are not currently known, as no functions have yet been ported to the GPU. The following functions have been identified that are likely to be ported first to the GPU, and the tests to be created for them have been noted as well.\\
+Unit tests will be created throughout development as functions and classes are ported to the GPU. Before porting a specific function of a class, a variety of inputs covering edge cases for the function as well as several ``normal'' cases will be created. The results of the function for each of the inputs will be recorded from the CPU version, and a test case will be added to test whether the outputs are the same with GPU computation enabled. GEANT4 is not able to be reliably built in IDEs. Therefore we are going to create our own testing framework specifically for GEANT4-GPU. 
 
-\ds{What unit testing framework are you planning to use?}
-
-\begin{center}
-\begin{longtable}{p{0.15in}>{\raggedright\arraybackslash}p{1in}>{\raggedright\arraybackslash}p{0.6in}>{\raggedright\arraybackslash}p{1.5in}>{\raggedright\arraybackslash}p{2in}}
-\caption{Unit Testing -- \emph{G4NeutronHPVector.hh::Times(G4double factor)}}\label{Table_UnitTestsTimes}\\\toprule
-
-\bf \# & \bf Initial State & \bf Inputs & \bf Outputs & \bf Description\\\midrule
-\stepcounter{TestCounter}\arabic{TestCounter}
-& object represents vector (1,2,...,512) 
-& factor: 0 
-& no output, vector object now represents vector (0,0,...,0) of length 512 
-& multiplying non-zero vector object by 0 should change the object's state to a zero-vector of the same length\\\midrule
-
-\stepcounter{TestCounter}\arabic{TestCounter} 
-& object represents vector (1,2,...,512) 
-& factor: -1 
-& no output, vector object now represents vector (-1,-2,...,-512)
-& multiplying non-zero vector object by -1 should change the sign of all elements\\\midrule
-
-\stepcounter{TestCounter}\arabic{TestCounter} 
-& object represents vector (1,2,...,512) 
-& factor: 1 
-& no output, vector object still represents vector (1,2,...,512)
-& multiplying non-zero vector object by 1 should not change the object's state\\\midrule
-
-\stepcounter{TestCounter}\arabic{TestCounter} 
-& object represents vector (1,2,...,512) 
-& factor: 4 
-& no output, vector object still represents vector (4,8,...,2048)
-& multiplying non-zero vector object by 4 should multiply each element by 4\\\midrule
-
-\stepcounter{TestCounter}\arabic{TestCounter} 
-& object represents vector (0,0,...,0) 
-& factor: 0 
-& no output, vector object still represents vector (0,0,...,0)
-& multiplying zero vector object by 0 should not change the object's state\\\midrule
-
-\stepcounter{TestCounter}\arabic{TestCounter} 
-& object represents vector (0,0,...,0) 
-& factor: -1 
-& no output, vector object still represents vector (0,0,...,0)
-& multiplying zero vector object by -1 should not change the object's state\\\midrule
-
-\stepcounter{TestCounter}\arabic{TestCounter} 
-& object represents vector (0,0,...,0) 
-& factor: 1 
-& no output, vector object still represents vector (0,0,...,0)
-& multiplying zero vector object by 1 should not change the object's state\\\midrule
-
-\stepcounter{TestCounter}\arabic{TestCounter} 
-& object represents vector (0,0,...,0) 
-& factor: 4 
-& no output, vector object still represents vector (0,0,...,0)
-& multiplying zero vector object by 4 should not change the object's state\\
-
-\stepcounter{TestCounter}\arabic{TestCounter} 
-& object represents empty vector
-& factor: 4 
-& exception raised 
-& multiplying an empty vector is an exception\\
+\ds{What unit testing framework are you planning to use?} \mmp{Mentioned that we will be making our own unit testing framework}
 
 
-\bottomrule
-\end{longtable}
-\end{center}
+\subsection{PerformInitialization}
+		\begin{table}[!htbp]
+		\centering
+		\caption{Unit Tests}\label{_unit}
+		\begin{tabular}{lll}
+		\toprule
+		\bf Test \# & Code & \bf Description\\\midrule
+		\stepcounter{TestCounter}\arabic{TestCounter} & Code goes here & Description goes here\\
+		\bottomrule
+		\end{tabular}
+		\end{table}
+
+\subsection{OperatorEquals}
+		\begin{table}[!htbp]
+		\centering
+		\caption{Unit Tests}\label{_unit}
+		\begin{tabular}{lll}
+		\toprule
+		\bf Test \# & Code & \bf Description\\\midrule
+		\stepcounter{TestCounter}\arabic{TestCounter} & Code goes here & Description goes here\\
+		\bottomrule
+		\end{tabular}
+		\end{table}
+
+\subsection{GetPoint}
+		\begin{table}[!htbp]
+		\centering
+		\caption{Unit Tests}\label{_unit}
+		\begin{tabular}{lll}
+		\toprule
+		\bf Test \# & Code & \bf Description\\\midrule
+		\stepcounter{TestCounter}\arabic{TestCounter} & Code goes here & Description goes here\\
+		\bottomrule
+		\end{tabular}
+		\end{table}
+
+\subsection{GetX}
+		\begin{table}[!htbp]
+		\centering
+		\caption{Unit Tests}\label{_unit}
+		\begin{tabular}{lll}
+		\toprule
+		\bf Test \# & Code & \bf Description\\\midrule
+		\stepcounter{TestCounter}\arabic{TestCounter} & Code goes here & Description goes here\\
+		\bottomrule
+		\end{tabular}
+		\end{table}
+
+\subsection{GetY}
+		\begin{table}[!htbp]
+		\centering
+		\caption{Unit Tests}\label{_unit}
+		\begin{tabular}{lll}
+		\toprule
+		\bf Test \# & Code & \bf Description\\\midrule
+		\stepcounter{TestCounter}\arabic{TestCounter} & Code goes here & Description goes here\\
+		\bottomrule
+		\end{tabular}
+		\end{table}
+
+\subsection{GetXsec}
+		\begin{table}[!htbp]
+		\centering
+		\caption{Unit Tests}\label{_unit}
+		\begin{tabular}{lll}
+		\toprule
+		\bf Test \# & Code & \bf Description\\\midrule
+		\stepcounter{TestCounter}\arabic{TestCounter} & Code goes here & Description goes here\\
+		\bottomrule
+		\end{tabular}
+		\end{table}
+
+\subsection{SetData}
+		\begin{table}[!htbp]
+		\centering
+		\caption{Unit Tests}\label{_unit}
+		\begin{tabular}{lll}
+		\toprule
+		\bf Test \# & Code & \bf Description\\\midrule
+		\stepcounter{TestCounter}\arabic{TestCounter} & Code goes here & Description goes here\\
+		\bottomrule
+		\end{tabular}
+		\end{table}
+
+\subsection{SetX}
+		\begin{table}[!htbp]
+		\centering
+		\caption{Unit Tests}\label{_unit}
+		\begin{tabular}{lll}
+		\toprule
+		\bf Test \# & Code & \bf Description\\\midrule
+		\stepcounter{TestCounter}\arabic{TestCounter} & Code goes here & Description goes here\\
+		\bottomrule
+		\end{tabular}
+		\end{table}
+
+\subsection{SetY}
+		\begin{table}[!htbp]
+		\centering
+		\caption{Unit Tests}\label{_unit}
+		\begin{tabular}{lll}
+		\toprule
+		\bf Test \# & Code & \bf Description\\\midrule
+		\stepcounter{TestCounter}\arabic{TestCounter} & Code goes here & Description goes here\\
+		\bottomrule
+		\end{tabular}
+		\end{table}
+
+\subsection{Init}
+		\begin{table}[!htbp]
+		\centering
+		\caption{Unit Tests}\label{_unit}
+		\begin{tabular}{lll}
+		\toprule
+		\bf Test \# & Code & \bf Description\\\midrule
+		\stepcounter{TestCounter}\arabic{TestCounter} & Code goes here & Description goes here\\
+		\bottomrule
+		\end{tabular}
+		\end{table}
+
+\subsection{CleanUp}
+		\begin{table}[!htbp]
+		\centering
+		\caption{Unit Tests}\label{_unit}
+		\begin{tabular}{lll}
+		\toprule
+		\bf Test \# & Code & \bf Description\\\midrule
+		\stepcounter{TestCounter}\arabic{TestCounter} & Code goes here & Description goes here\\
+		\bottomrule
+		\end{tabular}
+		\end{table}
+
+\subsection{SampleLin}
+		\begin{table}[!htbp]
+		\centering
+		\caption{Unit Tests}\label{_unit}
+		\begin{tabular}{lll}
+		\toprule
+		\bf Test \# & Code & \bf Description\\\midrule
+		\stepcounter{TestCounter}\arabic{TestCounter} & Code goes here & Description goes here\\
+		\bottomrule
+		\end{tabular}
+		\end{table}
+
+\subsection{Integrate}
+		\begin{table}[!htbp]
+		\centering
+		\caption{Unit Tests}\label{_unit}
+		\begin{tabular}{lll}
+		\toprule
+		\bf Test \# & Code & \bf Description\\\midrule
+		\stepcounter{TestCounter}\arabic{TestCounter} & Code goes here & Description goes here\\
+		\bottomrule
+		\end{tabular}
+		\end{table}
+
+\subsection{IntegrateAndNormalise}
+		\begin{table}[!htbp]
+		\centering
+		\caption{Unit Tests}\label{_unit}
+		\begin{tabular}{lll}
+		\toprule
+		\bf Test \# & Code & \bf Description\\\midrule
+		\stepcounter{TestCounter}\arabic{TestCounter} & Code goes here & Description goes here\\
+		\bottomrule
+		\end{tabular}
+		\end{table}
+
+\subsection{Times}
+		\begin{table}[!htbp]
+		\centering
+		\caption{Unit Tests}\label{_unit}
+		\begin{tabular}{lll}
+		\toprule
+		\bf Test \# & Code & \bf Description\\\midrule
+		\stepcounter{TestCounter}\arabic{TestCounter} & Code goes here & Description goes here\\
+		\bottomrule
+		\end{tabular}
+		\end{table}
+
+\subsection{GetXsecBuffer}
+		\begin{table}[!htbp]
+		\centering
+		\caption{Unit Tests}\label{_unit}
+		\begin{tabular}{lll}
+		\toprule
+		\bf Test \# & Code & \bf Description\\\midrule
+		\stepcounter{TestCounter}\arabic{TestCounter} & Code goes here & Description goes here\\
+		\bottomrule
+		\end{tabular}
+		\end{table}
+
+\subsection{Dump}
+		\begin{table}[!htbp]
+		\centering
+		\caption{Unit Tests}\label{_unit}
+		\begin{tabular}{lll}
+		\toprule
+		\bf Test \# & Code & \bf Description\\\midrule
+		\stepcounter{TestCounter}\arabic{TestCounter} & Code goes here & Description goes here\\
+		\bottomrule
+		\end{tabular}
+		\end{table}
+
+\subsection{ThinOut}
+		\begin{table}[!htbp]
+		\centering
+		\caption{Unit Tests}\label{_unit}
+		\begin{tabular}{lll}
+		\toprule
+		\bf Test \# & Code & \bf Description\\\midrule
+		\stepcounter{TestCounter}\arabic{TestCounter} & Code goes here & Description goes here\\
+		\bottomrule
+		\end{tabular}
+		\end{table}
+
+\subsection{Sample}
+		\begin{table}[!htbp]
+		\centering
+		\caption{Unit Tests}\label{_unit}
+		\begin{tabular}{lll}
+		\toprule
+		\bf Test \# & Code & \bf Description\\\midrule
+		\stepcounter{TestCounter}\arabic{TestCounter} & Code goes here & Description goes here\\
+		\bottomrule
+		\end{tabular}
+		\end{table}
+
+\subsection{Check}
+		\begin{table}[!htbp]
+		\centering
+		\caption{Unit Tests}\label{_unit}
+		\begin{tabular}{lll}
+		\toprule
+		\bf Test \# & Code & \bf Description\\\midrule
+		\stepcounter{TestCounter}\arabic{TestCounter} & Code goes here & Description goes here\\
+		\bottomrule
+		\end{tabular}
+		\end{table}
+
+%from .hh
+
+\subsection{GetVectorLength}
+		\begin{table}[!htbp]
+		\centering
+		\caption{Unit Tests}\label{_unit}
+		\begin{tabular}{lll}
+		\toprule
+		\bf Test \# & Code & \bf Description\\\midrule
+		\stepcounter{TestCounter}\arabic{TestCounter} & Code goes here & Description goes here\\
+		\bottomrule
+		\end{tabular}
+		\end{table}
+
+\subsection{GetLabel}
+		\begin{table}[!htbp]
+		\centering
+		\caption{Unit Tests}\label{_unit}
+		\begin{tabular}{lll}
+		\toprule
+		\bf Test \# & Code & \bf Description\\\midrule
+		\stepcounter{TestCounter}\arabic{TestCounter} & Code goes here & Description goes here\\
+		\bottomrule
+		\end{tabular}
+		\end{table}
+
+\subsection{GetIntegral}
+		\begin{table}[!htbp]
+		\centering
+		\caption{Unit Tests}\label{_unit}
+		\begin{tabular}{lll}
+		\toprule
+		\bf Test \# & Code & \bf Description\\\midrule
+		\stepcounter{TestCounter}\arabic{TestCounter} & Code goes here & Description goes here\\
+		\bottomrule
+		\end{tabular}
+		\end{table}
+
+\subsection{SetPoint}
+		\begin{table}[!htbp]
+		\centering
+		\caption{Unit Tests}\label{_unit}
+		\begin{tabular}{lll}
+		\toprule
+		\bf Test \# & Code & \bf Description\\\midrule
+		\stepcounter{TestCounter}\arabic{TestCounter} & Code goes here & Description goes here\\
+		\bottomrule
+		\end{tabular}
+		\end{table}
+
+%\subsection{SetLabel}
+%		\begin{table}[!htbp]
+%		\centering
+%		\caption{Unit Tests}\label{_unit}
+%		\begin{tabular}{lll}
+%		\toprule
+%		\bf Test \# & Code & \bf Description\\\midrule
+%		\stepcounter{TestCounter}\arabic{TestCounter} & Code goes here & Description goes here\\
+%		\bottomrule
+%		\end{tabular}
+%		\end{table}
+
+\subsection{SetInterpolationManager}
+		\begin{table}[!htbp]
+		\centering
+		\caption{Unit Tests}\label{_unit}
+		\begin{tabular}{lll}
+		\toprule
+		\bf Test \# & Code & \bf Description\\\midrule
+		\stepcounter{TestCounter}\arabic{TestCounter} & Code goes here & Description goes here\\
+		\bottomrule
+		\end{tabular}
+		\end{table}
+
+\subsection{SetScheme}
+		\begin{table}[!htbp]
+		\centering
+		\caption{Unit Tests}\label{_unit}
+		\begin{tabular}{lll}
+		\toprule
+		\bf Test \# & Code & \bf Description\\\midrule
+		\stepcounter{TestCounter}\arabic{TestCounter} & Code goes here & Description goes here\\
+		\bottomrule
+		\end{tabular}
+		\end{table}
+
+\subsection{Merge}
+		\begin{table}[!htbp]
+		\centering
+		\caption{Unit Tests}\label{_unit}
+		\begin{tabular}{lll}
+		\toprule
+		\bf Test \# & Code & \bf Description\\\midrule
+		\stepcounter{TestCounter}\arabic{TestCounter} & Code goes here & Description goes here\\
+		\bottomrule
+		\end{tabular}
+		\end{table}
 
 
-\begin{center}
-\begin{longtable}{p{0.15in}>{\raggedright\arraybackslash}p{1in}>{\raggedright\arraybackslash}p{1.1in}>{\raggedright\arraybackslash}p{1.5in}>{\raggedright\arraybackslash}p{1.5in}}
-\caption{Unit Testing -- \emph{G4NeutronHPVector.cc:: G4NeutronHPVector\& operator + (G4NeutronHPVector *left, G4NeutronHPVector *right)}}\label{Table_UnitTestsPlus}\\
-
-\toprule
-\bf \# & \bf Initial State & \bf Inputs & \bf Outputs & \bf Description\\\midrule
-
-\stepcounter{TestCounter}\arabic{TestCounter} 
-& NA (vectors passed as arguments)
-& left: (1,2,...,512), right: (2,4,6,...,1048)
-& vector object representing (3,6,...,1560) 
-& adding two non-zero vectors should output the correct vector\\\midrule
-
-\stepcounter{TestCounter}\arabic{TestCounter} 
-& NA (vectors passed as arguments)
-& left: (2,4,6,...,1048), right: (1,2,...,512)
-& vector object representing (3,6,...,1560) 
-& adding two non-zero vectors should output the correct vector\\\midrule
-
-\stepcounter{TestCounter}\arabic{TestCounter} 
-& NA (vectors passed as arguments)
-& left: (1,2,...,512), right: (0,0,0,...,0) of length 512
-& vector object representing (1,2,...,512) 
-& adding a zero-vector to a non-zero vector should output the non-zero vector\\\midrule
-
-\stepcounter{TestCounter}\arabic{TestCounter} 
-& NA (vectors passed as arguments)
-& left: (0,0,...,0) of length 512, right: (1,2,...,512)
-& vector object representing (1,2,...,512) 
-& adding a zero-vector to a non-zero vector should output the non-zero vector\\\midrule
-
-\stepcounter{TestCounter}\arabic{TestCounter} 
-& NA (vectors passed as arguments)
-& left: (-1,-2,...,-512), right: (1,2,...,512)
-& vector object representing (0,0,...,0) of length 512 
-& adding a vector to its inverse should output the zero vector\\\midrule
-
-\stepcounter{TestCounter}\arabic{TestCounter} 
-& NA (vectors passed as arguments)
-& left: (1,2,3), right: (1,2,...,512)
-& vector object representing (2,4,6,...,512) of length 512 
-& adding a vector to a smaller vector outputs the larger vector with the addition applied to what elements it can \\\midrule
-
-\stepcounter{TestCounter}\arabic{TestCounter} 
-& NA (vectors passed as arguments)
-& left: (-1,-2,...,-512), right: empty vector
-& (-1,-2,...-512)
-& new vector will be the same at the left vector in this case \\
-
-\bottomrule
-\end{longtable}
-\end{center}
-
-The unit tests as described in tables \ref{Table_UnitTestsTimes} and \ref{Table_UnitTestsPlus} are not complete -- as the project progresses the number of tests will increase. Since functions are being ported one-at-a-time to the GPU, having full (or near-full) coverage is relatively straightforward. To accomplish this, every ported function must have a series of associated unit tests that cover a variety of edge and normal cases. Combined with system tests to test how all the parts work together, test coverage will be exhaustive.
+%\begin{center}
+%\begin{longtable}{p{0.15in}>{\raggedright\arraybackslash}p{1in}>{\raggedright\arraybackslash}p{0.6in}>{\raggedright\arraybackslash}p{1.5in}>{\raggedright\arraybackslash}p{2in}}
+%\caption{Unit Testing -- \emph{G4NeutronHPVector.hh::Times(G4double factor)}}\label{Table_UnitTestsTimes}\\\toprule
+%
+%\bf \# & \bf Initial State & \bf Inputs & \bf Outputs & \bf Description\\\midrule
+%\stepcounter{TestCounter}\arabic{TestCounter}
+%& object represents vector (1,2,...,512) 
+%& factor: 0 
+%& no output, vector object now represents vector (0,0,...,0) of length 512 
+%& multiplying non-zero vector object by 0 should change the object's state to a zero-vector of the same length\\\midrule
+%
+%\stepcounter{TestCounter}\arabic{TestCounter} 
+%& object represents vector (1,2,...,512) 
+%& factor: -1 
+%& no output, vector object now represents vector (-1,-2,...,-512)
+%& multiplying non-zero vector object by -1 should change the sign of all elements\\\midrule
+%
+%\stepcounter{TestCounter}\arabic{TestCounter} 
+%& object represents vector (1,2,...,512) 
+%& factor: 1 
+%& no output, vector object still represents vector (1,2,...,512)
+%& multiplying non-zero vector object by 1 should not change the object's state\\\midrule
+%
+%\stepcounter{TestCounter}\arabic{TestCounter} 
+%& object represents vector (1,2,...,512) 
+%& factor: 4 
+%& no output, vector object still represents vector (4,8,...,2048)
+%& multiplying non-zero vector object by 4 should multiply each element by 4\\\midrule
+%
+%\stepcounter{TestCounter}\arabic{TestCounter} 
+%& object represents vector (0,0,...,0) 
+%& factor: 0 
+%& no output, vector object still represents vector (0,0,...,0)
+%& multiplying zero vector object by 0 should not change the object's state\\\midrule
+%
+%\stepcounter{TestCounter}\arabic{TestCounter} 
+%& object represents vector (0,0,...,0) 
+%& factor: -1 
+%& no output, vector object still represents vector (0,0,...,0)
+%& multiplying zero vector object by -1 should not change the object's state\\\midrule
+%
+%\stepcounter{TestCounter}\arabic{TestCounter} 
+%& object represents vector (0,0,...,0) 
+%& factor: 1 
+%& no output, vector object still represents vector (0,0,...,0)
+%& multiplying zero vector object by 1 should not change the object's state\\\midrule
+%
+%\stepcounter{TestCounter}\arabic{TestCounter} 
+%& object represents vector (0,0,...,0) 
+%& factor: 4 
+%& no output, vector object still represents vector (0,0,...,0)
+%& multiplying zero vector object by 4 should not change the object's state\\
+%
+%\stepcounter{TestCounter}\arabic{TestCounter} 
+%& object represents empty vector
+%& factor: 4 
+%& exception raised 
+%& multiplying an empty vector is an exception\\
+%
+%
+%\bottomrule
+%\end{longtable}
+%\end{center}
+%
+%
+%\begin{center}
+%\begin{longtable}{p{0.15in}>{\raggedright\arraybackslash}p{1in}>{\raggedright\arraybackslash}p{1.1in}>{\raggedright\arraybackslash}p{1.5in}>{\raggedright\arraybackslash}p{1.5in}}
+%\caption{Unit Testing -- \emph{G4NeutronHPVector.cc:: G4NeutronHPVector\& operator + (G4NeutronHPVector *left, G4NeutronHPVector *right)}}\label{Table_UnitTestsPlus}\\
+%
+%\toprule
+%\bf \# & \bf Initial State & \bf Inputs & \bf Outputs & \bf Description\\\midrule
+%
+%\stepcounter{TestCounter}\arabic{TestCounter} 
+%& NA (vectors passed as arguments)
+%& left: (1,2,...,512), right: (2,4,6,...,1048)
+%& vector object representing (3,6,...,1560) 
+%& adding two non-zero vectors should output the correct vector\\\midrule
+%
+%\stepcounter{TestCounter}\arabic{TestCounter} 
+%& NA (vectors passed as arguments)
+%& left: (2,4,6,...,1048), right: (1,2,...,512)
+%& vector object representing (3,6,...,1560) 
+%& adding two non-zero vectors should output the correct vector\\\midrule
+%
+%\stepcounter{TestCounter}\arabic{TestCounter} 
+%& NA (vectors passed as arguments)
+%& left: (1,2,...,512), right: (0,0,0,...,0) of length 512
+%& vector object representing (1,2,...,512) 
+%& adding a zero-vector to a non-zero vector should output the non-zero vector\\\midrule
+%
+%\stepcounter{TestCounter}\arabic{TestCounter} 
+%& NA (vectors passed as arguments)
+%& left: (0,0,...,0) of length 512, right: (1,2,...,512)
+%& vector object representing (1,2,...,512) 
+%& adding a zero-vector to a non-zero vector should output the non-zero vector\\\midrule
+%
+%\stepcounter{TestCounter}\arabic{TestCounter} 
+%& NA (vectors passed as arguments)
+%& left: (-1,-2,...,-512), right: (1,2,...,512)
+%& vector object representing (0,0,...,0) of length 512 
+%& adding a vector to its inverse should output the zero vector\\\midrule
+%
+%\stepcounter{TestCounter}\arabic{TestCounter} 
+%& NA (vectors passed as arguments)
+%& left: (1,2,3), right: (1,2,...,512)
+%& vector object representing (2,4,6,...,512) of length 512 
+%& adding a vector to a smaller vector outputs the larger vector with the addition applied to what elements it can \\\midrule
+%
+%\stepcounter{TestCounter}\arabic{TestCounter} 
+%& NA (vectors passed as arguments)
+%& left: (-1,-2,...,-512), right: empty vector
+%& (-1,-2,...-512)
+%& new vector will be the same at the left vector in this case \\
+%
+%\bottomrule
+%\end{longtable}
+%\end{center}
+%
+%The unit tests as described in tables \ref{Table_UnitTestsTimes} and \ref{Table_UnitTestsPlus} are not complete -- as the project progresses the number of tests will increase. Since functions are being ported one-at-a-time to the GPU, having full (or near-full) coverage is relatively straightforward. To accomplish this, every ported function must have a series of associated unit tests that cover a variety of edge and normal cases. Combined with system tests to test how all the parts work together, test coverage will be exhaustive.
 
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Code Testing} % Victor
