@@ -1,4 +1,5 @@
 #void Init(std::istream & aDataFile, G4int total, G4double ux=1., G4double uy=1.)_0
+!0!0
 #void SetPoint(G4int i, const G4ParticleHPDataPoint & it)_0
 @i=-1
 @i=0
@@ -127,7 +128,7 @@
 14 cycles
 #void Init(std::istream & aDataFile, G4int total, G4double ux=1., G4double uy=1.)_1
 197 cycles
-!Case_1:nEntries=66
+!1!66
 #void SetPoint(G4int i, const G4ParticleHPDataPoint & it)_1
 @i=-1
 @i=0

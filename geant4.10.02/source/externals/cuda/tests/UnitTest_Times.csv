@@ -1,0 +1,39 @@
+Method Signature,Case Number,nEntries,Input,CPU Time,GPU Time
+G4double GetXsec(G4double e),0,0,e=0,2 cycles,2 cycles
+G4double GetXsec(G4double e),0,0,e=0.00051234,1 cycles,1 cycles
+G4double GetXsec(G4double e),0,0,e=1.58923,2 cycles,2 cycles
+G4double GetXsec(G4double e),0,0,e=513.187,1 cycles,1 cycles
+G4double GetXsec(G4double e. G4int min),0,0,min=-1,1 cycles,1 cycles
+G4double GetXsec(G4double e. G4int min),0,0,min=0,1 cycles,1 cycles
+G4double GetXsec(G4double e. G4int min),0,0,min=0,2 cycles,2 cycles
+G4double GetXsec(G4double e. G4int min),0,0,min=0,1 cycles,1 cycles
+G4double GetXsec(G4double e. G4int min),0,0,min=1,1 cycles,1 cycles
+void Merge(G4ParticleHPVector * active. G4ParticleHPVector * passive),0,0,passive_caseNum=1,2 cycles,2 cycles
+void Merge(G4InterpolationScheme aScheme. G4double aValue. G4ParticleHPVector * active. G4ParticleHPVector * passive),0,0,passive_caseNum=1,1 cycles,1 cycles
+void Integrate(),0,0,,0 cycles,0 cycles
+void IntegrateAndNormalise(),0,0,,1 cycles,1 cycles
+void Times(G4double factor),0,0,factor=-4.67,1 cycles,1 cycles
+void Times(G4double factor),0,0,factor=-1.525e-05,1 cycles,1 cycles
+void Times(G4double factor),0,0,factor=0.00090982,0 cycles,0 cycles
+void Times(G4double factor),0,0,factor=1.54333e+07,1 cycles,1 cycles
+G4ParticleHPVector & operator = (const G4ParticleHPVector & right),0,0,,14 cycles,14 cycles
+void Init(std::istream & aDataFile. G4int total. G4double ux=1.. G4double uy=1.),1,,,197 cycles,197 cycles
+G4double GetXsec(G4double e),1,66,e=-1,7 cycles,7 cycles
+G4double GetXsec(G4double e),1,66,e=0,2 cycles,2 cycles
+G4double GetXsec(G4double e),1,66,e=0.00051234,1 cycles,1 cycles
+G4double GetXsec(G4double e),1,66,e=1.58923,1 cycles,1 cycles
+G4double GetXsec(G4double e),1,66,e=513.187,1 cycles,1 cycles
+G4double GetXsec(G4double e. G4int min),1,66,min=-1,2 cycles,2 cycles
+G4double GetXsec(G4double e. G4int min),1,66,min=0,1 cycles,1 cycles
+G4double GetXsec(G4double e. G4int min),1,66,min=33,2 cycles,2 cycles
+G4double GetXsec(G4double e. G4int min),1,66,min=66,1 cycles,1 cycles
+G4double GetXsec(G4double e. G4int min),1,66,min=67,1 cycles,1 cycles
+void Merge(G4ParticleHPVector * active. G4ParticleHPVector * passive),1,66,passive_caseNum=0,0 cycles,0 cycles
+void Merge(G4InterpolationScheme aScheme. G4double aValue. G4ParticleHPVector * active. G4ParticleHPVector * passive),1,66,passive_caseNum=0,1 cycles,1 cycles
+void Integrate(),1,66,,4 cycles,4 cycles
+void IntegrateAndNormalise(),1,66,,2 cycles,2 cycles
+void Times(G4double factor),1,66,factor=-4.67,3 cycles,3 cycles
+void Times(G4double factor),1,66,factor=-1.525e-05,1 cycles,1 cycles
+void Times(G4double factor),1,66,factor=0.00090982,2 cycles,2 cycles
+void Times(G4double factor),1,66,factor=1.54333e+07,2 cycles,2 cycles
+G4ParticleHPVector & operator = (const G4ParticleHPVector & right),1,66,,4 cycles,4 cycles

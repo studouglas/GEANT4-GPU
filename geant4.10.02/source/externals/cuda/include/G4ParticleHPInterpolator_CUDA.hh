@@ -39,7 +39,7 @@
 #include "G4Types_CUDA.hh"
 #include "G4Exp_CUDA.hh"
 #include "G4Log_CUDA.hh"
-#include "G4HadronicException_CUDA.hh"
+// #include "G4HadronicException_CUDA.hh"
 
 
 class G4ParticleHPInterpolator
@@ -121,7 +121,7 @@ Interpolate(G4InterpolationScheme aScheme,
       break;
     default:
       G4cout << "theScheme = "<<theScheme<<G4endl;
-      throw G4HadronicException(__FILE__, __LINE__, "G4ParticleHPInterpolator::Carthesian Invalid InterpolationScheme");
+      // throw G4HadronicException(__FILE__, __LINE__, "G4ParticleHPInterpolator::Carthesian Invalid InterpolationScheme");
       break;
   }
   return result;
@@ -156,7 +156,7 @@ Interpolate2(G4InterpolationScheme aScheme,
       break;
     default:
       G4cout << "theScheme = "<<theScheme<<G4endl;
-      throw G4HadronicException(__FILE__, __LINE__, "G4ParticleHPInterpolator::Carthesian Invalid InterpolationScheme");
+      // throw G4HadronicException(__FILE__, __LINE__, "G4ParticleHPInterpolator::Carthesian Invalid InterpolationScheme");
       break;
   }
   return result;

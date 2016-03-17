@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <algorithm>
 #include <stdbool.h>
 #include <unistd.h>
 #include <fstream>
@@ -8,12 +9,13 @@
 std::ifstream cpuResults;
 std::ifstream gpuResults;
 
+const char variableId = '@';
+const char methodId = '#';
+const char nEntriesId = '!';
+
 void compareTestResults() {
 	int testsPassed = 0;
 	int testsFailed = 0;
-
-	char variableId = '@';
-	char methodId = '#';
 
 	std::string cpuLine;
 	std::string gpuLine;
@@ -22,15 +24,7 @@ void compareTestResults() {
 	std::string currentCaseNum = "";
 	std::string currentVariableName = "";
 	
-	while (true) {
-		// read the next line
-		if (!std::getline(cpuResults, cpuLine)) {
-			break; 
-		}
-		if (!std::getline(gpuResults, gpuLine)) {
-			break;
-		}
-		
+	while (std::getline(cpuResults, cpuLine) && std::getline(gpuResults, gpuLine)) {
 		// method name identifier
 		if (cpuLine.at(0) == methodId) {
 			int caseNumSeparatorIndex = cpuLine.find_last_of("_");
@@ -45,7 +39,7 @@ void compareTestResults() {
 		} 
 
 		// result (i.e. array of theData, returned double, etc)
-		else {
+		else if (cpuLine.at(0) != nEntriesId) {
 			if (cpuLine.compare(gpuLine) != 0) {
 				std::cout << "FAILED: ";
 				testsFailed++;
@@ -64,13 +58,57 @@ void compareTestResults() {
 
 	// print aggregated results
 	std::cout << "\n-------------------------------\n";
-	std::cout << (double)(testsPassed/(testsPassed+testsFailed))*100.0 << "\% passed\n"; 
+	std::cout << (double)(testsPassed*100.0/(double)(testsPassed+testsFailed)) << "\% passed\n"; 
 	std::cout << testsPassed << " tests passed out of " << testsFailed+testsPassed << "\n";
 	std::cout << "-------------------------------\n\n";
 }
 
+std::string replaceCommas(std::string str) {
+	std::string res = "";
+	for (int i = 0; i < str.length(); i++) {
+		if (str.at(i) == ',') {
+			res.append(".");
+		} else {
+			res.append(std::string(1, str.at(i)));
+		}
+	}
+	return res;
+}
 void generateTimesCsv() {
-	std::ofstream timesOutput;
+	std::ifstream cpuTimes("UnitTest_Times_CPU.txt");
+	std::ifstream gpuTimes("UnitTest_Times_CPU.txt");
+	std::ofstream timesOutput("UnitTest_Times.csv");
+	
+	std::string cpuLine = "";
+	std::string gpuLine = "";
+	
+	std::string currentMethod = "";
+	std::string currentCaseNum = "";
+	std::string currentVariableName = "";
+	std::string nEntriesPerCase[128]; // won't have more than 128 cases !
+
+	timesOutput << "Method Signature,Case Number,nEntries,Input,CPU Time,GPU Time\n";
+	while (std::getline(cpuTimes, cpuLine) && std::getline(gpuTimes, gpuLine)) {
+		if (cpuLine.at(0) == methodId) {
+			int caseNumSeparatorIndex = cpuLine.find_last_of("_");
+			currentCaseNum = cpuLine.substr(caseNumSeparatorIndex+1, cpuLine.length());
+			currentMethod = cpuLine.substr(1, caseNumSeparatorIndex-1);
+			currentMethod = replaceCommas(currentMethod);
+			currentVariableName = "";
+		} else if (cpuLine.at(0) == variableId) {
+			currentVariableName = cpuLine.substr(1);
+		} else if (cpuLine.at(0) == nEntriesId) {
+			std::string caseNum = cpuLine.substr(1, cpuLine.find_last_of("!")-1);
+			std::string nEntries = cpuLine.substr(cpuLine.find_last_of("!") + 1, cpuLine.length());
+			nEntriesPerCase[stoi(caseNum)] = nEntries;
+		} else {
+			timesOutput << currentMethod << "," << currentCaseNum << "," << nEntriesPerCase[stoi(currentCaseNum)] << "," << currentVariableName << "," << cpuLine << "," << gpuLine << "\n";
+		}
+	}
+
+	cpuTimes.close();
+	gpuTimes.close();
+	timesOutput.close();
 }
 
 int main(int argc, char** argv) {

@@ -315,7 +315,6 @@ G4double G4ParticleHPVector_CUDA::GetXsec(G4double e, G4int min) {
         }
         return y;
     } ===================================================================== */
-    return 0;
 }
 
 // TODO: Port Me (requires interpolation)
@@ -1015,7 +1014,7 @@ G4double G4ParticleHPVector_CUDA::Get50percentBorder() {
 
 void G4ParticleHPVector_CUDA::Check(G4int i) {
     if (i > nEntries) {
-  		throw G4HadronicException(__FILE__, __LINE__, "Skipped some index numbers in G4ParticleHPVector");
+  		// throw G4HadronicException(__FILE__, __LINE__, "Skipped some index numbers in G4ParticleHPVector");
         return;
     }
     if (i == nPoints) {
