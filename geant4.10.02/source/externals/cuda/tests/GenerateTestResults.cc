@@ -19,7 +19,7 @@ std::ofstream timesFile;
 /***********************************************
 * Write out to files
 ***********************************************/
-void printArrayToFile(double* arr, int count) {
+void writeOutArray(double* arr, int count) {
 	// empty array
 	if (count == 0) {
 		resultsFile << "[]";
@@ -71,18 +71,18 @@ void writeOutTheData(int caseNum) {
 		yVals[i] = vectors[caseNum]->GetY(i);
 	}
 	
-	printArrayToFile(xVals, nEntries);
+	writeOutArray(xVals, nEntries);
 	resultsFile << "\n";
-	printArrayToFile(yVals, nEntries);
+	writeOutArray(yVals, nEntries);
 	resultsFile << "\n";
 }
 void writeOutTheIntegral(int caseNum) {
 	double *integral = vectors[caseNum]->Debug();
 	if (integral == NULL) {
-		printArrayToFile(integral, 0);
+		writeOutArray(integral, 0);
 		resultsFile << "\n";
 	} else {
-		printArrayToFile(integral, vectors[caseNum]->GetVectorLength());
+		writeOutArray(integral, vectors[caseNum]->GetVectorLength());
 		resultsFile << "\n";
 	}
 }
@@ -387,7 +387,7 @@ void testAssignment(int caseNum) {
 		yVals[i] = vec.GetY(i);
 	}
 	
-	printArrayToFile(xVals, nEntries);
+	writeOutArray(xVals, nEntries);
 	resultsFile << "\n";
 	writeOutTime(t2-t1);
 }
