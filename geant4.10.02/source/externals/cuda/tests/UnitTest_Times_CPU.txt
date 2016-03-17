@@ -1,5 +1,49 @@
-Test#Init
-214 cycles
-Test#Setters
-Test#Getters
-Test#Integration
+#void Init(std::istream & aDataFile, G4int total, G4double ux=1., G4double uy=1.)_0
+#void SetPoint(G4int i, const G4ParticleHPDataPoint & it)_0
+#void SetData(G4int i, G4double x, G4double y)_0
+#void SetX(G4int i, G4double e)_0
+#void SetEnergy(G4int i, G4double e)_0
+#void SetY(G4int i, G4double x)_0
+#void SetXsec(G4int i, G4double x)_0
+#const G4ParticleHPDataPoint GetPoint(G4int i)_0
+#G4double GetEnergy(G4int i)_0
+#G4double GetX(G4int i)_0
+#G4double GetXsec(G4int i)_0
+#G4double GetY(G4int i)_0
+#G4double GetXsec(G4double e)_0
+#G4double GetXsec(G4double e, G4int min)_0
+#void ThinOut(G4double precision)_0
+#void Merge(G4ParticleHPVector * active, G4ParticleHPVector * passive)_0
+#void Merge(G4InterpolationScheme aScheme, G4double aValue, G4ParticleHPVector * active, G4ParticleHPVector * passive)_0
+#G4double SampleLin()_0
+#G4double Sample()_0
+#G4double Get15PercentBorder_0
+#G4double Get50PercentBorder_0
+#void Integrate()_0
+#void IntegrateAndNormalise()_0
+#void Times(G4double factor)_0
+#void Init(std::istream & aDataFile, G4int total, G4double ux=1., G4double uy=1.)_1
+144 cycles
+#void SetPoint(G4int i, const G4ParticleHPDataPoint & it)_1
+#void SetData(G4int i, G4double x, G4double y)_1
+#void SetX(G4int i, G4double e)_1
+#void SetEnergy(G4int i, G4double e)_1
+#void SetY(G4int i, G4double x)_1
+#void SetXsec(G4int i, G4double x)_1
+#const G4ParticleHPDataPoint GetPoint(G4int i)_1
+#G4double GetEnergy(G4int i)_1
+#G4double GetX(G4int i)_1
+#G4double GetXsec(G4int i)_1
+#G4double GetY(G4int i)_1
+#G4double GetXsec(G4double e)_1
+#G4double GetXsec(G4double e, G4int min)_1
+#void ThinOut(G4double precision)_1
+#void Merge(G4ParticleHPVector * active, G4ParticleHPVector * passive)_1
+#void Merge(G4InterpolationScheme aScheme, G4double aValue, G4ParticleHPVector * active, G4ParticleHPVector * passive)_1
+#G4double SampleLin()_1
+#G4double Sample()_1
+#G4double Get15PercentBorder_1
+#G4double Get50PercentBorder_1
+#void Integrate()_1
+#void IntegrateAndNormalise()_1
+#void Times(G4double factor)_1
