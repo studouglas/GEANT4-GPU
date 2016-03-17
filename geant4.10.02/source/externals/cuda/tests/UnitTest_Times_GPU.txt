@@ -70,31 +70,31 @@
 @e=0
 2 cycles
 @e=0.00051234
-1 cycles
-@e=1.58923
 2 cycles
+@e=1.58923
+1 cycles
 @e=513.187
 1 cycles
 #G4double GetXsec(G4double e, G4int min)_0
 @e=-1
 @min=-1
-1 cycles
+2 cycles
 @e=0
 @min=0
 1 cycles
 @e=0.00051234
 @min=0
-2 cycles
+1 cycles
 @e=1.58923
 @min=0
-1 cycles
+0 cycles
 @e=513.187
 @min=1
-1 cycles
+2 cycles
 #void Merge(G4ParticleHPVector * active, G4ParticleHPVector * passive)_0
 @active_caseNum=1
 @passive_caseNum=1
-2 cycles
+0 cycles
 #void Merge(G4InterpolationScheme aScheme, G4double aValue, G4ParticleHPVector * active, G4ParticleHPVector * passive)_0
 @aValue=0
 @active_caseNum=1
@@ -107,16 +107,16 @@
 #void Integrate()_0
 0 cycles
 #void IntegrateAndNormalise()_0
-1 cycles
+0 cycles
 #void Times(G4double factor)_0
 @factor=-4.67
-1 cycles
+2 cycles
 @factor=-1.525e-05
-1 cycles
+0 cycles
 @factor=0.00090982
 0 cycles
 @factor=1.54333e+07
-1 cycles
+0 cycles
 #void ThinOut(G4double precision)_0
 @precision=-1
 @precision=0
@@ -124,9 +124,9 @@
 @precision=1.58923
 @precision=513.187
 #G4ParticleHPVector & operator = (const G4ParticleHPVector & right)_0
-14 cycles
+15 cycles
 #void Init(std::istream & aDataFile, G4int total, G4double ux=1., G4double uy=1.)_1
-197 cycles
+499 cycles
 !Case_1:nEntries=66
 #void SetPoint(G4int i, const G4ParticleHPDataPoint & it)_1
 @i=-1
@@ -204,17 +204,17 @@
 @e=1.58923
 1 cycles
 @e=513.187
-1 cycles
+2 cycles
 #G4double GetXsec(G4double e, G4int min)_1
 @e=-1
 @min=-1
-2 cycles
+1 cycles
 @e=0
 @min=0
 1 cycles
 @e=0.00051234
 @min=33
-2 cycles
+0 cycles
 @e=1.58923
 @min=66
 1 cycles
@@ -224,12 +224,12 @@
 #void Merge(G4ParticleHPVector * active, G4ParticleHPVector * passive)_1
 @active_caseNum=0
 @passive_caseNum=0
-0 cycles
+1 cycles
 #void Merge(G4InterpolationScheme aScheme, G4double aValue, G4ParticleHPVector * active, G4ParticleHPVector * passive)_1
 @aValue=0
 @active_caseNum=0
 @passive_caseNum=0
-1 cycles
+0 cycles
 #G4double SampleLin()_1
 #G4double Sample()_1
 #G4double Get15PercentBorder()_1
@@ -237,14 +237,14 @@
 #void Integrate()_1
 4 cycles
 #void IntegrateAndNormalise()_1
-2 cycles
+1 cycles
 #void Times(G4double factor)_1
 @factor=-4.67
-3 cycles
+2 cycles
 @factor=-1.525e-05
 1 cycles
 @factor=0.00090982
-2 cycles
+1 cycles
 @factor=1.54333e+07
 2 cycles
 #void ThinOut(G4double precision)_1
@@ -254,4 +254,4 @@
 @precision=1.58923
 @precision=513.187
 #G4ParticleHPVector & operator = (const G4ParticleHPVector & right)_1
-4 cycles
+5 cycles
