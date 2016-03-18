@@ -20,15 +20,27 @@ set(G4cuda_HEADERS
 	include/G4ParticleHPVector_CUDA.hh
 	include/G4Pow_CUDA.hh
 	include/G4Types_CUDA.hh
+	include/G4HadronicException_CUDA.hh
+	include/G4String_CUDA.hh
+	include/templates_CUDA.hh
+	include/G4ExceptionSeverity_CUDA.hh
+	include/globals_CUDA.hh
+	include/G4ios_CUDA.hh
+	include/G4coutDestination_CUDA.hh
+	include/G4strstreambuf_CUDA.hh
 )
 
 set(G4cuda_SOURCES
 	include/G4DataVector_CUDA.icc
+	include/G4String_CUDA.icc
+	include/G4strstreambuf_CUDA.icc
 	src/G4DataVector_CUDA.cc
 	src/G4InterpolationManager_CUDA.cc
 	src/G4ParticleHPInterpolator_CUDA.cu
 	src/G4ParticleHPVector_CUDA.cu
 	src/G4Pow_CUDA.cc
+	src/G4coutDestination_CUDA.cc
+	src/G4ios_CUDA.cc
 )
 
 include(Geant4MacroLibraryTargets)

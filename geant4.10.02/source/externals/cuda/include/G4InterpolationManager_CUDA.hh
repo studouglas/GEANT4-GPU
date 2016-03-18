@@ -35,7 +35,7 @@
 #include <fstream>
 #include <cuda.h>
 #include <cuda_runtime.h>
-// #include "G4HadronicException.hh"
+#include "G4HadronicException_CUDA.hh"
 
 class G4InterpolationManager
 {

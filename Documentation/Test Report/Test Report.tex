@@ -278,24 +278,33 @@ Our testing is semi-automated. Due to the nature of this implementation we need 
 
 \subsection{SetData}
 	\subsubsection{Unit Tests}
+		For all unit tests ``r1" and ``r2" will be random doubles. ``n" is the length of the G4ParticleHPVector 
 		\begin{table}[!htbp]
 		\centering
-		\caption{Unit Tests}\label{_unit}
+		\caption{Unit Tests}\label{SetData_unit}
 		\begin{tabular}{lll}
 		\toprule
 		\bf Test \# & Code & \bf Description\\\midrule
-		\stepcounter{TestCounter}\arabic{TestCounter} & Code goes here & Description goes here\\
+		\stepcounter{TestCounter}\arabic{TestCounter}\label{SetData_0} & SetData(-1, r1, r2) & Try to set a point at a negative index\\
+		\stepcounter{TestCounter}\arabic{TestCounter}\label{SetData_1} & SetData(0, r1. r2) & Try to set a point at a the first index\\
+		\stepcounter{TestCounter}\arabic{TestCounter}\label{SetData_2} & SetData(n/2, r1, r2) & Try to set a point at an index within the vector\\
+		\stepcounter{TestCounter}\arabic{TestCounter}\label{SetData_3} & SetData(n-1, r1, r2) & Try to set a point at the last index\\
+		\stepcounter{TestCounter}\arabic{TestCounter}\label{SetData_4} & SetData(n, r1, r2) & Try to set a point at an index our of bounds\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
 	\subsubsection{Accuracy}
 		\begin{table}[!htbp]
 		\centering
-		\caption{Accuracy}\label{_acc}
+		\caption{Accuracy}\label{SetData_acc}
 		\begin{tabular}{lll}
 		\toprule
 		\bf Test \# & CPU & GPU \\\midrule
-		\arabic{TestCounter} & CPU time & GPU time\\
+		\ref{SetData_0} & CPU time & GPU time\\
+		\ref{SetData_1} & CPU time & GPU time\\
+		\ref{SetData_2} & CPU time & GPU time\\
+		\ref{SetData_3} & CPU time & GPU time\\
+		\ref{SetData_4} & CPU time & GPU time\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
@@ -303,24 +312,33 @@ Our testing is semi-automated. Due to the nature of this implementation we need 
 
 \subsection{SetX}
 	\subsubsection{Unit Tests}
+		For all unit tests ``r1" will be a random double. ``n" is the length of the G4ParticleHPVector 
 		\begin{table}[!htbp]
 		\centering
-		\caption{Unit Tests}\label{_unit}
+		\caption{Unit Tests}\label{SetX_unit}
 		\begin{tabular}{lll}
 		\toprule
 		\bf Test \# & Code & \bf Description\\\midrule
-		\stepcounter{TestCounter}\arabic{TestCounter} & Code goes here & Description goes here\\
+		\stepcounter{TestCounter}\arabic{TestCounter}\label{SetX_0} & SetX(-1, r1, r2) & Try to set a point at a negative index\\
+		\stepcounter{TestCounter}\arabic{TestCounter}\label{SetX_1} & SetX(0, r1. r2) & Try to set a point at a the first index\\
+		\stepcounter{TestCounter}\arabic{TestCounter}\label{SetX_2} & SetX(n/2, r1, r2) & Try to set a point at an index within the vector\\
+		\stepcounter{TestCounter}\arabic{TestCounter}\label{SetX_3} & SetX(n-1, r1, r2) & Try to set a point at the last index\\
+		\stepcounter{TestCounter}\arabic{TestCounter}\label{SetX_4} & SetX(n, r1, r2) & Try to set a point at an index our of bounds\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
 	\subsubsection{Accuracy}
 		\begin{table}[!htbp]
 		\centering
-		\caption{Accuracy}\label{_acc}
+		\caption{Accuracy}\label{SetX_acc}
 		\begin{tabular}{lll}
 		\toprule
 		\bf Test \# & CPU & GPU \\\midrule
-		\arabic{TestCounter} & CPU time & GPU time\\
+		\ref{SetX_0} & CPU time & GPU time\\
+		\ref{SetX_1} & CPU time & GPU time\\
+		\ref{SetX_2} & CPU time & GPU time\\
+		\ref{SetX_3} & CPU time & GPU time\\
+		\ref{SetX_4} & CPU time & GPU time\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
@@ -705,24 +723,33 @@ Our testing is semi-automated. Due to the nature of this implementation we need 
 
 \subsection{SetPoint}
 	\subsubsection{Unit Tests}
+		For all unit tests ``point" will be a random G4ParticleHPDataPoint. ``n" is the length of the G4ParticleHPVector 
 		\begin{table}[!htbp]
 		\centering
-		\caption{Unit Tests}\label{_unit}
+		\caption{Unit Tests}\label{SetPoint_unit}
 		\begin{tabular}{lll}
 		\toprule
 		\bf Test \# & Code & \bf Description\\\midrule
-		\stepcounter{TestCounter}\arabic{TestCounter} & Code goes here & Description goes here\\
+		\stepcounter{TestCounter}\arabic{TestCounter}\label{SetPoint_0} & SetPoint(-1, point) & Try to set a point at a negative index\\
+		\stepcounter{TestCounter}\arabic{TestCounter}\label{SetPoint_1} & SetPoint(0, point) & Try to set a point at a the first index\\
+		\stepcounter{TestCounter}\arabic{TestCounter}\label{SetPoint_2} & SetPoint(n/2, point) & Try to set a point at an index within the vector\\
+		\stepcounter{TestCounter}\arabic{TestCounter}\label{SetPoint_3} & SetPoint(n-1, point) & Try to set a point at the last index\\
+		\stepcounter{TestCounter}\arabic{TestCounter}\label{SetPoint_4} & SetPoint(n, point) & Try to set a point at an index our of bounds\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
 	\subsubsection{Accuracy}
 		\begin{table}[!htbp]
 		\centering
-		\caption{Accuracy}\label{_acc}
+		\caption{Accuracy}\label{SetPoint_acc}
 		\begin{tabular}{lll}
 		\toprule
 		\bf Test \# & CPU & GPU \\\midrule
-		\arabic{TestCounter} & CPU time & GPU time\\
+		\ref{SetPoint_0} & CPU time & GPU time\\
+		\ref{SetPoint_1} & CPU time & GPU time\\
+		\ref{SetPoint_2} & CPU time & GPU time\\
+		\ref{SetPoint_3} & CPU time & GPU time\\
+		\ref{SetPoint_4} & CPU time & GPU time\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
