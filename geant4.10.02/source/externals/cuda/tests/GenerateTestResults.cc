@@ -411,17 +411,17 @@ int main(int argc, char** argv) {
 	std::cout << "Geant4 compiled with CUDA: " << ((cudaEnabled) ? "ON" : "OFF") << "\n\n";
 
 	// check if file exists, confirm overwrite
-	// if (access(resultsFileName, F_OK) != -1) {
-	// 	char userResponse;
-	// 	do {
-	// 		std::cout << "'" << resultsFileName << "' already exists, do you want to overwrite it [y/n]?\n> ";
-	// 		std::cin >> userResponse;
-	// 	} while (!std::cin.fail() && userResponse != 'y' && userResponse != 'n');
-	// 	std::cout << "\n";
-	// 	if (userResponse == 'n') {
-	// 		return 1;
-	// 	}
-	// }
+	if (access(resultsFileName, F_OK) != -1) {
+		char userResponse;
+		do {
+			std::cout << "'" << resultsFileName << "' already exists, do you want to overwrite it [y/n]?\n> ";
+			std::cin >> userResponse;
+		} while (!std::cin.fail() && userResponse != 'y' && userResponse != 'n');
+		std::cout << "\n";
+		if (userResponse == 'n') {
+			return 1;
+		}
+	}
 
 	resultsFile.open(resultsFileName);
 	timesFile.open(timesFileName);
