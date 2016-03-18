@@ -32,10 +32,10 @@
 #ifndef G4ParticleHPInterpolator_h
 #define G4ParticleHPInterpolator_h 1
 
-// #include "globals.hh"
+#include "globals_CUDA.hh"
 #include "G4InterpolationScheme_CUDA.hh"
 // #include "Randomize.hh"
-// #include "G4ios.hh"
+#include "G4ios_CUDA.hh"
 #include "G4Types_CUDA.hh"
 #include "G4Exp_CUDA.hh"
 #include "G4Log_CUDA.hh"
@@ -64,33 +64,33 @@ class G4ParticleHPInterpolator
     return y;
   }
   
-  __host__ __device__ inline G4double Interpolate(G4InterpolationScheme aScheme,
+  inline G4double Interpolate(G4InterpolationScheme aScheme,
                               G4double x, G4double x1, G4double x2,
                                           G4double y1, G4double y2) const;       
-  __host__ __device__ inline G4double Interpolate2(G4InterpolationScheme aScheme,
+  inline G4double Interpolate2(G4InterpolationScheme aScheme,
                               G4double x, G4double x1, G4double x2,
                                           G4double y1, G4double y2) const;      
   
-  __host__ __device__ G4double 
+  G4double 
   GetBinIntegral(const G4InterpolationScheme & aScheme, 
                 const G4double x1,const G4double x2,const G4double y1,const G4double y2);
 
-  __host__ __device__ G4double 
+  G4double 
   GetWeightedBinIntegral(const G4InterpolationScheme & aScheme, 
                 const G4double x1,const G4double x2,const G4double y1,const G4double y2);
 
   private:
   
-  __host__ __device__ inline G4double Histogram(G4double x, G4double x1, G4double x2, G4double y1, G4double y2) const;
-  __host__ __device__ inline G4double LinearLinear(G4double x, G4double x1, G4double x2, G4double y1, G4double y2) const;
-  __host__ __device__ inline G4double LinearLogarithmic(G4double x, G4double x1, G4double x2, G4double y1, G4double y2) const;
-  __host__ __device__ inline G4double LogarithmicLinear(G4double x, G4double x1, G4double x2, G4double y1, G4double y2) const;
-  __host__ __device__ inline G4double LogarithmicLogarithmic(G4double x, G4double x1, G4double x2, G4double y1, G4double y2) const;
-  __host__ __device__ inline G4double Random(G4double x, G4double x1, G4double x2, G4double y1, G4double y2) const;
+  inline G4double Histogram(G4double x, G4double x1, G4double x2, G4double y1, G4double y2) const;
+  inline G4double LinearLinear(G4double x, G4double x1, G4double x2, G4double y1, G4double y2) const;
+  inline G4double LinearLogarithmic(G4double x, G4double x1, G4double x2, G4double y1, G4double y2) const;
+  inline G4double LogarithmicLinear(G4double x, G4double x1, G4double x2, G4double y1, G4double y2) const;
+  inline G4double LogarithmicLogarithmic(G4double x, G4double x1, G4double x2, G4double y1, G4double y2) const;
+  inline G4double Random(G4double x, G4double x1, G4double x2, G4double y1, G4double y2) const;
 
 };
 
-__host__ __device__ inline G4double G4ParticleHPInterpolator::
+inline G4double G4ParticleHPInterpolator::
 Interpolate(G4InterpolationScheme aScheme,
             G4double x, G4double x1, G4double x2, G4double y1, G4double y2) const
 {
@@ -120,14 +120,14 @@ Interpolate(G4InterpolationScheme aScheme,
       result = Random(x, x1, x2, y1, y2);
       break;
     default:
-      // G4cout << "theScheme = "<<theScheme<<G4endl;
-      // throw G4HadronicException(__FILE__, __LINE__, "G4ParticleHPInterpolator::Carthesian Invalid InterpolationScheme");
+      G4cout << "theScheme = "<<theScheme<<G4endl;
+      throw G4HadronicException(__FILE__, __LINE__, "G4ParticleHPInterpolator::Carthesian Invalid InterpolationScheme");
       break;
   }
   return result;
 }
 
-__host__ __device__ inline G4double G4ParticleHPInterpolator::
+inline G4double G4ParticleHPInterpolator::
 Interpolate2(G4InterpolationScheme aScheme,
             G4double x, G4double x1, G4double x2, G4double y1, G4double y2) const
 {
@@ -155,8 +155,8 @@ Interpolate2(G4InterpolationScheme aScheme,
       result = Random(x, x1, x2, y1, y2);
       break;
     default:
-      // G4cout << "theScheme = "<<theScheme<<G4endl;
-      // throw G4HadronicException(__FILE__, __LINE__, "G4ParticleHPInterpolator::Carthesian Invalid InterpolationScheme");
+      G4cout << "theScheme = "<<theScheme<<G4endl;
+      throw G4HadronicException(__FILE__, __LINE__, "G4ParticleHPInterpolator::Carthesian Invalid InterpolationScheme");
       break;
   }
   return result;
@@ -181,7 +181,7 @@ LinearLinear(G4double x, G4double x1, G4double x2, G4double y1, G4double y2) con
   return y;
 }
 
-__host__ __device__ inline G4double G4ParticleHPInterpolator::
+inline G4double G4ParticleHPInterpolator::
 LinearLogarithmic(G4double x, G4double x1, G4double x2, G4double y1, G4double y2) const
 {
   G4double result;
@@ -192,7 +192,7 @@ LinearLogarithmic(G4double x, G4double x1, G4double x2, G4double y1, G4double y2
   return result;
 }
   
-__host__ __device__ inline G4double G4ParticleHPInterpolator::
+inline G4double G4ParticleHPInterpolator::
 LogarithmicLinear(G4double x, G4double x1, G4double x2, G4double y1, G4double y2) const
 {
   G4double result;
@@ -205,7 +205,7 @@ LogarithmicLinear(G4double x, G4double x1, G4double x2, G4double y1, G4double y2
   return result;
 }
   
-__host__ __device__ inline G4double G4ParticleHPInterpolator::
+inline G4double G4ParticleHPInterpolator::
 LogarithmicLogarithmic(G4double x, G4double x1, G4double x2, G4double y1, G4double y2) const
 {
   if(x==0) return y1+y2/2.;
