@@ -11,7 +11,7 @@
 #include "G4InterpolationManager_CUDA.hh"
 #include "G4Types_CUDA.hh"
 #include "G4Pow_CUDA.hh"
-// #include "G4HadronicException_CUDA.hh"
+#include "G4HadronicException_CUDA.hh"
 
 
 #define THREADS_PER_BLOCK 32 // must be multiple of 32
@@ -65,6 +65,14 @@ class G4ParticleHPVector_CUDA {
     G4double GetY(G4int i);
     G4double GetMeanX();
 
+    inline G4double GetEnergy(G4int i) {
+        return GetX(i);
+    }
+    
+    inline G4double GetXsec(G4int i) {
+        return GetY(i);
+    }
+
     inline G4double GetLabel() {
         return label;
     }
@@ -95,6 +103,7 @@ class G4ParticleHPVector_CUDA {
     inline void SetPoint(G4int i, const G4ParticleHPDataPoint & it) {
         G4double x = it.GetX();
         G4double y = it.GetY();
+        std::cout << "about to call set data... (" << i << "," << x << "," << y << ")\n";
         SetData(i,x,y);
     }
 

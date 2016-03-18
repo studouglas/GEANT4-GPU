@@ -39,7 +39,7 @@
 #include "G4Types_CUDA.hh"
 #include "G4Exp_CUDA.hh"
 #include "G4Log_CUDA.hh"
-// #include "G4HadronicException_CUDA.hh"
+#include "G4HadronicException_CUDA.hh"
 
 
 class G4ParticleHPInterpolator

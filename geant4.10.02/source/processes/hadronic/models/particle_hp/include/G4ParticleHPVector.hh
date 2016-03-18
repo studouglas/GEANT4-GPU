@@ -90,6 +90,11 @@ class G4ParticleHPVector
     #if GEANT4_ENABLE_CUDA
       return cudaVector->GetPoint(i);
     #else
+      if (i < 0) {
+        i=0;
+      } else if(i >= GetVectorLength()) {
+        i=GetVectorLength()-1;
+      }
       return theData[i];
     #endif
   }
@@ -108,6 +113,12 @@ class G4ParticleHPVector
     #if GEANT4_ENABLE_CUDA
       return cudaVector->GetX(i);
     #else
+      if (i<0) {
+        i=0;
+      }
+      if(i>=GetVectorLength()) {
+        i=GetVectorLength()-1;
+      }
       return theData[i].GetX();
     #endif
   }
@@ -132,6 +143,12 @@ class G4ParticleHPVector
     #if GEANT4_ENABLE_CUDA
       return cudaVector->GetY(i);
     #else
+      if (i<0) {
+        i=0;
+      }
+      if(i>=GetVectorLength()) {
+        i=GetVectorLength()-1;
+      }
       return theData[i].GetY();
     #endif
   }
@@ -142,6 +159,11 @@ class G4ParticleHPVector
     #if GEANT4_ENABLE_CUDA
       return cudaVector->GetXsec(e, min);
     #else
+      if (min >= nEntries) {
+        return theData[0].GetY();
+      }
+
+      min = (min >= 0) ? min : 0;
       G4int i;
       for(i=min ; i<nEntries; i++)
       {
@@ -733,6 +755,7 @@ class G4ParticleHPVector
       if(theIntegral!=0) {
         theIntegral[i] *= factor;
       }
+      
     #endif
   }
 

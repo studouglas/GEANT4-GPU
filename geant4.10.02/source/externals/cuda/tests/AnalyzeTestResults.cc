@@ -22,37 +22,55 @@ void compareTestResults() {
 
 	std::string currentMethod = "";
 	std::string currentCaseNum = "";
-	std::string currentVariableName = "";
+	std::string currentVariables = "";
 	
+	std::string cpuResult = "";	
+	std::string gpuResult = "";
+	bool testFailed = false;
+
 	while (std::getline(cpuResults, cpuLine) && std::getline(gpuResults, gpuLine)) {
 		// method name identifier
 		if (cpuLine.at(0) == methodId) {
 			int caseNumSeparatorIndex = cpuLine.find_last_of("_");
 			currentCaseNum = cpuLine.substr(caseNumSeparatorIndex+1, cpuLine.length());
 			currentMethod = cpuLine.substr(1, caseNumSeparatorIndex-1);
-			currentVariableName = "";
+			currentVariables = "";
 		} 
 
 		// variable identifier
 		else if (cpuLine.at(0) == variableId) {
-			currentVariableName = cpuLine.substr(1);
+			if (currentVariables == "") {
+				currentVariables = cpuLine.substr(1);
+			} else {
+				currentVariables += ", " + cpuLine.substr(1);
+			}
 		} 
 
 		// result (i.e. array of theData, returned double, etc)
 		else if (cpuLine.at(0) != nEntriesId) {
+			testFailed = false;
 			if (cpuLine.compare(gpuLine) != 0) {
 				std::cout << "FAILED: ";
+				cpuResult = cpuLine.at(0) == '[' ? "theData (see results file for details)" : cpuLine;
+				gpuResult = gpuLine.at(0) == '[' ? "theData (see results file for details)" : gpuLine;
 				testsFailed++;
+				testFailed = true;
 			} else {
 				std::cout << "PASSED: ";
 				testsPassed++;
 			}
 			
 			std::cout << "case " << currentCaseNum << ", ";
-			if (currentVariableName != "") {
-				std::cout << currentVariableName << ", ";
+			if (currentVariables != "") {
+				std::cout << currentVariables << ", ";
 			}
 			std::cout << "'" << currentMethod << "'\n";
+
+			if (testFailed) {
+				std::cout << "    CPU: " << cpuResult << "\n";
+				std::cout << "    GPU: " << gpuResult << "\n";
+			}
+			currentVariables = "";
 		}
 	}
 

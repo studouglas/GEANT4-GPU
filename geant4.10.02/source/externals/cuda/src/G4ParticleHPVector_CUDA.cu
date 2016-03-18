@@ -82,9 +82,11 @@ void G4ParticleHPVector_CUDA::PerformInitialization(G4int n) {
     isIntegralDirtyHost = true;
     nPointsHost = nPoints;
     h_theData = (G4ParticleHPDataPoint*)malloc(nPoints * sizeof(G4ParticleHPDataPoint));
-    if (!h_theData) {
+    h_theIntegral = (G4double*)malloc(nPoints * sizeof(G4double));
+    if (!h_theData || !h_theIntegral) {
         printf("\nMALLOC FAILED IN PERFORM INITIALIZATION");
     }
+
     cudaMalloc(&d_theData, nPoints * sizeof(G4ParticleHPDataPoint));
     cudaMalloc(&d_singleIntResult, sizeof(G4int));
     cudaMallocHost(&h_singleIntResult, sizeof(G4int));
@@ -176,6 +178,7 @@ void G4ParticleHPVector_CUDA::OperatorEquals(G4ParticleHPVector_CUDA * right) {
 void G4ParticleHPVector_CUDA::CopyToCpuIfDirty() {
     int nPointsIntegral = nPointsHost;
     if (isDataDirtyHost) {
+        std::cout << "CopyToCpuIfDirty recopying theData\n";
         if (nPointsHost != nPoints) {
             h_theData = (G4ParticleHPDataPoint*)realloc(h_theData, nPoints * sizeof(G4ParticleHPDataPoint));
             if (!h_theData) { printf("\nMALLOC FAILED IN COPY TO CPU"); }
@@ -186,6 +189,7 @@ void G4ParticleHPVector_CUDA::CopyToCpuIfDirty() {
         isDataDirtyHost = false;
     }
     if (isIntegralDirtyHost) {
+        std::cout << "CopyToCpuIfDirty recopying theIntegral\n";
         if (nPointsIntegral != nPoints) {
             h_theIntegral = (G4double*)realloc(h_theIntegral, nPoints * sizeof(G4double));
         }
@@ -199,6 +203,11 @@ void G4ParticleHPVector_CUDA::CopyToCpuIfDirty() {
 * Getters from .hh that use CUDA
 ******************************************/
 G4ParticleHPDataPoint & G4ParticleHPVector_CUDA::GetPoint(G4int i) {
+    if (i < 0) {
+        i = 0;
+    } else if (i >= GetVectorLength()) {
+        i = GetVectorLength() - 1;
+    }
     G4ParticleHPDataPoint point;
     cudaMemcpy(&point, &d_theData[i], sizeof(G4ParticleHPDataPoint), cudaMemcpyDeviceToHost);
     G4ParticleHPDataPoint *res  = new G4ParticleHPDataPoint(point.energy, point.xSec);
@@ -214,9 +223,12 @@ G4double G4ParticleHPVector_CUDA::GetX(G4int i) {
     }
 
     if (!isDataDirtyHost) {
+        // std::cout << "returning x from host\n";
         return h_theData[i].GetX();
     }
+    // std::cout << "returning x from cudaMemcpy\n";
     cudaMemcpy(h_singleDoubleResult, &d_theData[i].energy, sizeof(G4double), cudaMemcpyDeviceToHost);
+    
     if (*(h_singleDoubleResult) != *(h_singleDoubleResult)) { printf("\nGetEnergy(%d) = %f, nEntries=%d", i, *h_singleDoubleResult, nEntries); }
     return *(h_singleDoubleResult);
 }
@@ -248,8 +260,12 @@ G4double G4ParticleHPVector_CUDA::GetXsec(G4double e, G4int min) {
     // Note: this was causing some crashing / finishing in 0.01s pre-Mar-3 commit, if it crops up
     // again try copying d_theData to a new local array and using that (every GetXSec call)
     CopyToCpuIfDirty();
-      
+    if (nEntries == 1 || min >= nEntries) {
+        return h_theData[0].GetY();
+    }
+
     G4int i;
+    min = (min >= 0) ? min : 0;
     for (i = min; i < nEntries; i++) {
         if (h_theData[i].GetX() >= e) {
             break;
@@ -266,7 +282,9 @@ G4double G4ParticleHPVector_CUDA::GetXsec(G4double e, G4int min) {
         low = nEntries - 2;
         high = nEntries - 1;
     }
-
+    // if (min == nEntries) {
+        // std::cout << "MIN = " << min << ", E = " << e << ", low = " << low << "(" << h_theData[low].GetX() << "," << h_theData[low].GetY() << ") high = " << high << "(" << h_theData[high].GetX() << "," << h_theData[high].GetY() << ")\n";
+    // }
     G4double y;
     if (e < h_theData[nEntries-1].GetX()) {
         if (h_theData[high].GetX() != 0
@@ -274,6 +292,7 @@ G4double G4ParticleHPVector_CUDA::GetXsec(G4double e, G4int min) {
             y = h_theData[low].GetY();
         }
         else {
+            std::cout << "Interpolating..\n";
             y = theInt.Interpolate(theManager.GetScheme(high), e,
                                    h_theData[low].GetX(), h_theData[high].GetX(),
                                    h_theData[low].GetY(), h_theData[high].GetY());
@@ -328,6 +347,9 @@ G4double G4ParticleHPVector_CUDA::GetMeanX() {
 * Setters from .hh that use CUDA
 ******************************************/
 void G4ParticleHPVector_CUDA::SetData(G4int i, G4double x, G4double y) {
+    if (i < 0) {
+        return;
+    }
     Check(i);
     SetValueTo_CUDA<<<1,1>>> (&d_theData[i], x, y);
     if (x != x || y != y) { printf("\nSetData got passed NAN!, SetData(%d, %0.5e, %0.5e)", i, x, y); }
@@ -335,6 +357,9 @@ void G4ParticleHPVector_CUDA::SetData(G4int i, G4double x, G4double y) {
 }
 
 void G4ParticleHPVector_CUDA::SetX(G4int i, G4double e) {
+    if (i < 0) {
+        return;
+    }
     Check(i);
     SetValueTo_CUDA<<<1,1>>> (&d_theData[i].energy, e);
     if (e != e) { printf("\nSetX(%d) got passed NAN!!!", i); }
@@ -342,6 +367,9 @@ void G4ParticleHPVector_CUDA::SetX(G4int i, G4double e) {
 }
 
 void G4ParticleHPVector_CUDA::SetY(G4int i, G4double x) {
+    if (i < 0) {
+        return;
+    }
     Check(i);
     SetValueTo_CUDA<<<1,1>>> (&d_theData[i].xSec, x);
     if (x != x) { printf("\nSety(%d) got passed NAN!!!", i); }
@@ -445,53 +473,97 @@ __global__ void SampleLinGetValues(G4ParticleHPDataPoint * theData, G4double * t
 }
 
 G4double G4ParticleHPVector_CUDA::SampleLin() {
-    G4double result;
-    if (!d_theIntegral) {
+    // G4double result;
+    // if (!d_theIntegral) {
+    //     IntegrateAndNormalise();
+    // }
+
+    // if (GetVectorLength() == 1) {
+    //     cudaMemcpy(&result, &d_theData[0].energy, sizeof(G4double), cudaMemcpyDeviceToHost);
+    // }
+    // else {
+    //     G4double randNum = GetUniformRand();
+
+    //     int *d_resultIndex;
+    //     cudaMalloc(&d_resultIndex, sizeof(int));
+    //     SetValueTo_CUDA<<<1,1>>> (d_resultIndex, INT_MAX);
+
+    //     int nBlocks = GetNumBlocks(nEntries);
+    //     SampleLinFindLastIndex_CUDA<<<nBlocks, THREADS_PER_BLOCK>>> (d_theIntegral, randNum, d_resultIndex, nEntries);
+
+    //     G4int i = 0;
+    //     cudaMemcpy(&i, d_resultIndex, sizeof(G4int), cudaMemcpyDeviceToHost);
+    //     if (i != GetVectorLength() - 1) {
+    //         i++;
+    //     }
+
+    //     // vals = [x1, x2, y1, y2]
+    //     G4double* d_vals;
+    //     cudaMalloc(&d_vals, 4*sizeof(G4double));
+    //     SampleLinGetValues<<<1, 4>>>(d_theData, d_theIntegral, d_vals, i);
+
+    //     G4double vals[4];
+    //     cudaMemcpy(vals, d_vals, 4*sizeof(G4double), cudaMemcpyDeviceToHost);
+
+    //     result = theLin.Lin(randNum, vals[0], vals[1], vals[2], vals[3]);
+
+    //     cudaFree(d_resultIndex);
+    //     cudaFree(d_vals);
+    // }
+    // isIntegralDirtyHost = true;
+    // return result;
+        CopyToCpuIfDirty();
+        G4double result;
+      if(d_theIntegral==0) {
         IntegrateAndNormalise();
-    }
+      }
+      if(GetVectorLength()==1)
+      {
+        result = h_theData[0].GetX();
+      }
+      else
+      {
+        G4int i;
+        G4double rand = GetUniformRand();
 
-    if (GetVectorLength() == 1) {
-        cudaMemcpy(&result, &d_theData[0].energy, sizeof(G4double), cudaMemcpyDeviceToHost);
-    }
-    else {
-        G4double randNum = GetUniformRand();
+        // this was replaced
+        // for(i=1;i<GetVectorLength();i++)
+        //      {
+        //  if(rand<theIntegral[i]/theIntegral[GetVectorLength()-1]) break;
+        //      }
 
-        int *d_resultIndex;
-        cudaMalloc(&d_resultIndex, sizeof(int));
-        SetValueTo_CUDA<<<1,1>>> (d_resultIndex, INT_MAX);
-
-        int nBlocks = GetNumBlocks(nEntries);
-        SampleLinFindLastIndex_CUDA<<<nBlocks, THREADS_PER_BLOCK>>> (d_theIntegral, randNum, d_resultIndex, nEntries);
-
-        G4int i = 0;
-        cudaMemcpy(&i, d_resultIndex, sizeof(G4int), cudaMemcpyDeviceToHost);
-        if (i != GetVectorLength() - 1) {
-            i++;
+        // by this (begin)
+        for (i = GetVectorLength()-1; i >= 0 ; i--)
+        {
+            if(rand > h_theIntegral[i]/h_theIntegral[GetVectorLength()-1])
+            break;
         }
+        if(i!=GetVectorLength()-1) {
+          i++;
+        }
+        // until this (end)
 
-        // vals = [x1, x2, y1, y2]
-        G4double* d_vals;
-        cudaMalloc(&d_vals, 4*sizeof(G4double));
-        SampleLinGetValues<<<1, 4>>>(d_theData, d_theIntegral, d_vals, i);
-
-        G4double vals[4];
-        cudaMemcpy(vals, d_vals, 4*sizeof(G4double), cudaMemcpyDeviceToHost);
-
-        result = theLin.Lin(randNum, vals[0], vals[1], vals[2], vals[3]);
-
-        cudaFree(d_resultIndex);
-        cudaFree(d_vals);
-    }
-    isIntegralDirtyHost = true;
-    return result;
+        G4double x1, x2, y1, y2;
+        y1 = h_theData[i-1].GetX();
+        x1 = h_theIntegral[i-1];
+        y2 = h_theData[i].GetX();
+        x2 = h_theIntegral[i];
+        if(std::abs((y2-y1)/y2)<0.0000001) // not really necessary, since the case is excluded by construction
+        {
+            y1 = h_theData[i-2].GetX();
+            x1 = h_theIntegral[i-2];
+        }
+        result = theLin.Lin(rand, x1, x2, y1, y2);
+      }
+      return result;
 }
 
 G4double * G4ParticleHPVector_CUDA::Debug() {
     if (!d_theIntegral) {
         return NULL;
     } else {
-        G4double* h_theIntegral = (G4double*)malloc(nEntries * sizeof(G4double));
-        cudaMemcpy(h_theIntegral, d_theIntegral, nEntries * sizeof(G4double), cudaMemcpyDeviceToHost);
+        CopyToCpuIfDirty();
+        G4cout << "G4ParticleHPVector_CUDA::Debug(), nEntries = " << nEntries << "\n";
         return h_theIntegral;
     }
 }
@@ -613,20 +685,32 @@ void G4ParticleHPVector_CUDA::IntegrateAndNormalise() {
 }
 
 __global__ void Times_CUDA(G4double factor, G4ParticleHPDataPoint* theData, G4double* theIntegral,
-    G4int nEntriesArg) {
+                           G4int nEntriesArg) {
     int tid = blockDim.x * blockIdx.x + threadIdx.x;
-    if (tid >= nEntriesArg) {
-        return;
-    }
-    theData[tid].xSec = theData[tid].xSec * factor;
-    if (theIntegral != 0) {
-        theIntegral[tid] = theIntegral[tid] * factor;
+    // if (tid >= nEntriesArg) {
+    //     if (theIntegral != 0 && tid == nEntriesArg) {
+    //         // theIntegral[tid] = theIntegral[tid] * factor;
+    //     }
+    //     return;
+    // }
+    // printf("tid = %d, nEntriesArg = %d\n", tid, nEntriesArg);
+    if (tid < nEntriesArg) {
+        // printf("theData[%d] = %f", tid, theData[tid].xSec);
+        theData[tid].xSec = theData[tid].xSec * factor;
+        // printf(" | theData[%d] = %f\n", tid, theData[tid].xSec);
     }
 }
 
 void G4ParticleHPVector_CUDA::Times(G4double factor) {
     int nBlocks = GetNumBlocks(nEntries);
+    // std::cout << "Times (nBlocks = " << nBlocks << ", nEntries = " << nEntries << ", factor = " << factor << ")\n";
     Times_CUDA<<<nBlocks, THREADS_PER_BLOCK>>> (factor, d_theData, d_theIntegral, nEntries);
+    {
+        cudaError_t cudaerr = cudaDeviceSynchronize();
+        if (cudaerr != CUDA_SUCCESS)
+            printf("kernel launch failed with error \"%s\".\n", cudaGetErrorString(cudaerr));
+    }
+
     isDataDirtyHost = true;
     isIntegralDirtyHost = true;
 }
@@ -791,7 +875,7 @@ void G4ParticleHPVector_CUDA::GetXsecBuffer(G4double * queryList, G4int length){
 	// Free the temporary data to avoid memory leaks
 	 cudaFree(d_resArray);
 	 cudaFree(d_queryList);
-	 cudaFree(h_resArray);
+	 cudaFreeHost(h_resArray);
 	 //printf("function done\n");
 }
 
@@ -871,7 +955,7 @@ __device__ int SampleGetFirstIndex_CUDA(G4double * theIntegral, G4double myRand,
 }
 
 __global__ void SampleGetResult_CUDA(G4ParticleHPDataPoint * theData, G4double * theIntegral,
-    G4int nEntries, G4double * result) {
+                                     G4int nEntries, G4double * result) {
     G4double myRand;
     G4double value;
     G4double test;
@@ -921,9 +1005,13 @@ G4double G4ParticleHPVector_CUDA::Sample() {
 
     int nBlocks = GetNumBlocks(nEntries);
     SetAllNegativeXsecToZero_CUDA<<<nBlocks,THREADS_PER_BLOCK>>> (d_theData, nEntries);
+    isDataDirtyHost = true;
 
-    if (GetVectorLength() == 1) {
-        cudaMemcpy(&result, &d_theData[0].energy, sizeof(G4double), cudaMemcpyHostToDevice);
+    if (GetVectorLength() == 0) {
+        return 0.0;
+    }
+    else if (GetVectorLength() == 1) {
+        cudaMemcpy(&result, &d_theData[0].energy, sizeof(G4double), cudaMemcpyDeviceToHost);
     }
     else {
         if (d_theIntegral == 0) {
@@ -933,7 +1021,6 @@ G4double G4ParticleHPVector_CUDA::Sample() {
         cudaMemcpy(&result, d_singleDoubleResult, sizeof(G4double), cudaMemcpyDeviceToHost);
     }
 
-    isDataDirtyHost = true;
     return result;
  }
 
