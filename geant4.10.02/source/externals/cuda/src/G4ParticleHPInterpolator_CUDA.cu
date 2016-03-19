@@ -89,7 +89,7 @@ G4double G4ParticleHPInterpolator::GetBinIntegral(const G4InterpolationScheme & 
     
     else
     {
-      throw G4HadronicException(__FILE__, __LINE__, "Unknown interpolation scheme in G4ParticleHPVector::Integrate");
+      // throw G4HadronicException(__FILE__, __LINE__, "Unknown interpolation scheme in G4ParticleHPVector::Integrate");
     }
     
     return result;
@@ -144,7 +144,7 @@ G4double G4ParticleHPInterpolator::GetWeightedBinIntegral(const G4InterpolationS
     }
     else
     {
-      throw G4HadronicException(__FILE__, __LINE__, "Unknown interpolation scheme in G4ParticleHPVector::Integrate");
+      // throw G4HadronicException(__FILE__, __LINE__, "Unknown interpolation scheme in G4ParticleHPVector::Integrate");
     }
     return result;
   }

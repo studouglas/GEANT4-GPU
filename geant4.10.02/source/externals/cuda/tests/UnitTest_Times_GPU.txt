@@ -1,40 +1,194 @@
 #void Init(std::istream & aDataFile, G4int total, G4double ux=1., G4double uy=1.)_0
+!0!0
+#G4double GetXsec(G4double e)_0
+@e=-1
+10
+@e=0
+1
+@e=0.00051234
+0
+@e=1.58923
+2
+@e=513.187
+1
+#G4double GetXsec(G4double e, G4int min)_0
+@e=-1
+@min=-1
+9
+@e=-1
+@min=0
+8
+@e=-1
+@min=0
+7
+@e=-1
+@min=-1
+8
+@e=-1
+@min=0
+7
+@e=0
+@min=-1
+7
+@e=0
+@min=0
+7
+@e=0
+@min=0
+7
+@e=0
+@min=-1
+20
+@e=0
+@min=0
+15
+@e=0.00051234
+@min=-1
+13
+@e=0.00051234
+@min=0
+15
+@e=0.00051234
+@min=0
+26
+@e=0.00051234
+@min=-1
+14
+@e=0.00051234
+@min=0
+28
+@e=1.58923
+@min=-1
+13
+@e=1.58923
+@min=0
+12
+@e=1.58923
+@min=0
+14
+@e=1.58923
+@min=-1
+14
+@e=1.58923
+@min=0
+12
+@e=513.187
+@min=-1
+7
+@e=513.187
+@min=0
+8
+@e=513.187
+@min=0
+7
+@e=513.187
+@min=-1
+8
+@e=513.187
+@min=0
+7
+#G4double SampleLin()_0
+#G4double Sample()_0
+#G4double Get15PercentBorder()_0
+#G4double Get50PercentBorder()_0
+#void Integrate()_0
+1
+#void IntegrateAndNormalise()_0
+0
+#void Times(G4double factor)_0
+@factor=-4.67
+15
+@factor=-1.525e-05
+3
+@factor=0.00090982
+4
+@factor=1.54333e+07
+3
+#void Merge(G4ParticleHPVector * active, G4ParticleHPVector * passive)_0
+@active_caseNum=1
+@passive_caseNum=1
+1
+#void Merge(G4InterpolationScheme aScheme, G4double aValue, G4ParticleHPVector * active, G4ParticleHPVector * passive)_0
+@aValue=0
+@active_caseNum=1
+@passive_caseNum=1
+1
 #void SetPoint(G4int i, const G4ParticleHPDataPoint & it)_0
 @i=-1
+@x=0.755605
+@y=0.45865
 @i=0
+@x=0.532767
+@y=0.218959
 @i=0
+@x=0.0470446
+@y=0.678865
 @i=-1
+@x=0.679296
+@y=0.934693
 @i=0
+@x=0.383502
+@y=0.519416
 #void SetData(G4int i, G4double x, G4double y)_0
 @i=-1
+@x=0.830965
+@y=0.0345721
 @i=0
+@x=0.0534616
+@y=0.5297
 @i=0
+@x=0.671149
+@y=0.00769819
 @i=-1
+@x=0.383416
+@y=0.0668422
 @i=0
+@x=0.417486
+@y=0.686773
 #void SetX(G4int i, G4double e)_0
 @i=-1
+@x=0.588977
 @i=0
+@x=0.846167
 @i=0
+@x=0.0919649
 @i=-1
+@x=0.415999
 @i=0
+@x=0.910321
 #void SetEnergy(G4int i, G4double e)_0
 @i=-1
+@x=0.262453
 @i=0
+@x=0.736082
 @i=0
+@x=0.632639
 @i=-1
+@x=0.991037
 @i=0
+@x=0.247039
 #void SetY(G4int i, G4double x)_0
 @i=-1
+@x=0.72266
 @i=0
+@x=0.651519
 @i=0
+@x=0.631635
 @i=-1
+@x=0.27271
 @i=0
+@x=0.766495
 #void SetXsec(G4int i, G4double x)_0
 @i=-1
+@x=0.237774
 @i=0
+@x=0.359265
 @i=0
+@x=0.486517
 @i=-1
+@x=0.909208
 @i=0
+@x=0.904653
 #const G4ParticleHPDataPoint GetPoint(G4int i)_0
 @i=-1
 @i=0
@@ -65,58 +219,6 @@
 @i=0
 @i=-1
 @i=0
-#G4double GetXsec(G4double e)_0
-@e=-1
-@e=0
-2 cycles
-@e=0.00051234
-2 cycles
-@e=1.58923
-1 cycles
-@e=513.187
-1 cycles
-#G4double GetXsec(G4double e, G4int min)_0
-@e=-1
-@min=-1
-2 cycles
-@e=0
-@min=0
-1 cycles
-@e=0.00051234
-@min=0
-1 cycles
-@e=1.58923
-@min=0
-0 cycles
-@e=513.187
-@min=1
-2 cycles
-#void Merge(G4ParticleHPVector * active, G4ParticleHPVector * passive)_0
-@active_caseNum=1
-@passive_caseNum=1
-0 cycles
-#void Merge(G4InterpolationScheme aScheme, G4double aValue, G4ParticleHPVector * active, G4ParticleHPVector * passive)_0
-@aValue=0
-@active_caseNum=1
-@passive_caseNum=1
-1 cycles
-#G4double SampleLin()_0
-#G4double Sample()_0
-#G4double Get15PercentBorder()_0
-#G4double Get50PercentBorder()_0
-#void Integrate()_0
-0 cycles
-#void IntegrateAndNormalise()_0
-0 cycles
-#void Times(G4double factor)_0
-@factor=-4.67
-2 cycles
-@factor=-1.525e-05
-0 cycles
-@factor=0.00090982
-0 cycles
-@factor=1.54333e+07
-0 cycles
 #void ThinOut(G4double precision)_0
 @precision=-1
 @precision=0
@@ -124,46 +226,199 @@
 @precision=1.58923
 @precision=513.187
 #G4ParticleHPVector & operator = (const G4ParticleHPVector & right)_0
-15 cycles
+3
 #void Init(std::istream & aDataFile, G4int total, G4double ux=1., G4double uy=1.)_1
-499 cycles
-!Case_1:nEntries=66
+226
+!1!66
+#G4double GetXsec(G4double e)_1
+@e=-1
+9
+@e=0
+5
+@e=0.00051234
+4
+@e=1.58923
+2
+@e=513.187
+1
+#G4double GetXsec(G4double e, G4int min)_1
+@e=-1
+@min=-1
+10
+@e=-1
+@min=0
+9
+@e=-1
+@min=33
+10
+@e=-1
+@min=65
+11
+@e=-1
+@min=66
+7
+@e=0
+@min=-1
+9
+@e=0
+@min=0
+10
+@e=0
+@min=33
+9
+@e=0
+@min=65
+9
+@e=0
+@min=66
+7
+@e=0.00051234
+@min=-1
+10
+@e=0.00051234
+@min=0
+10
+@e=0.00051234
+@min=33
+10
+@e=0.00051234
+@min=65
+10
+@e=0.00051234
+@min=66
+8
+@e=1.58923
+@min=-1
+7
+@e=1.58923
+@min=0
+9
+@e=1.58923
+@min=33
+7
+@e=1.58923
+@min=65
+8
+@e=1.58923
+@min=66
+7
+@e=513.187
+@min=-1
+8
+@e=513.187
+@min=0
+7
+@e=513.187
+@min=33
+9
+@e=513.187
+@min=65
+7
+@e=513.187
+@min=66
+8
+#G4double SampleLin()_1
+#G4double Sample()_1
+#G4double Get15PercentBorder()_1
+#G4double Get50PercentBorder()_1
+#void Integrate()_1
+1
+#void IntegrateAndNormalise()_1
+1
+#void Times(G4double factor)_1
+@factor=-4.67
+229
+@factor=-1.525e-05
+214
+@factor=0.00090982
+211
+@factor=1.54333e+07
+217
+#void Merge(G4ParticleHPVector * active, G4ParticleHPVector * passive)_1
+@active_caseNum=0
+@passive_caseNum=0
+1
+#void Merge(G4InterpolationScheme aScheme, G4double aValue, G4ParticleHPVector * active, G4ParticleHPVector * passive)_1
+@aValue=0
+@active_caseNum=0
+@passive_caseNum=0
+0
 #void SetPoint(G4int i, const G4ParticleHPDataPoint & it)_1
 @i=-1
+@x=0.890737
+@y=0.624849
 @i=0
+@x=0.84204
+@y=0.159768
 @i=33
+@x=0.212752
+@y=0.71471
 @i=65
+@x=0.130427
+@y=0.0909903
 @i=66
+@x=0.274588
+@y=0.0029996
 #void SetData(G4int i, G4double x, G4double y)_1
 @i=-1
+@x=0.414293
+@y=0.0268763
 @i=0
+@x=0.70982
+@y=0.937897
 @i=33
+@x=0.239911
+@y=0.180896
 @i=65
+@x=0.31754
+@y=0.886991
 @i=66
+@x=0.652059
+@y=0.150335
 #void SetX(G4int i, G4double e)_1
 @i=-1
+@x=0.681346
 @i=0
+@x=0.387725
 @i=33
+@x=0.147533
 @i=65
+@x=0.845576
 @i=66
+@x=0.955409
 #void SetEnergy(G4int i, G4double e)_1
 @i=-1
+@x=0.148152
 @i=0
+@x=0.408767
 @i=33
+@x=0.564899
 @i=65
+@x=0.488515
 @i=66
+@x=0.961095
 #void SetY(G4int i, G4double x)_1
 @i=-1
+@x=0.199757
 @i=0
+@x=0.629269
 @i=33
+@x=0.651254
 @i=65
+@x=0.803073
 @i=66
+@x=0.476432
 #void SetXsec(G4int i, G4double x)_1
 @i=-1
+@x=0.20325
 @i=0
+@x=0.901673
 @i=33
+@x=0.142021
 @i=65
+@x=0.410313
 @i=66
+@x=0.885648
 #const G4ParticleHPDataPoint GetPoint(G4int i)_1
 @i=-1
 @i=0
@@ -194,59 +449,6 @@
 @i=33
 @i=65
 @i=66
-#G4double GetXsec(G4double e)_1
-@e=-1
-7 cycles
-@e=0
-2 cycles
-@e=0.00051234
-1 cycles
-@e=1.58923
-1 cycles
-@e=513.187
-2 cycles
-#G4double GetXsec(G4double e, G4int min)_1
-@e=-1
-@min=-1
-1 cycles
-@e=0
-@min=0
-1 cycles
-@e=0.00051234
-@min=33
-0 cycles
-@e=1.58923
-@min=66
-1 cycles
-@e=513.187
-@min=67
-1 cycles
-#void Merge(G4ParticleHPVector * active, G4ParticleHPVector * passive)_1
-@active_caseNum=0
-@passive_caseNum=0
-1 cycles
-#void Merge(G4InterpolationScheme aScheme, G4double aValue, G4ParticleHPVector * active, G4ParticleHPVector * passive)_1
-@aValue=0
-@active_caseNum=0
-@passive_caseNum=0
-0 cycles
-#G4double SampleLin()_1
-#G4double Sample()_1
-#G4double Get15PercentBorder()_1
-#G4double Get50PercentBorder()_1
-#void Integrate()_1
-4 cycles
-#void IntegrateAndNormalise()_1
-1 cycles
-#void Times(G4double factor)_1
-@factor=-4.67
-2 cycles
-@factor=-1.525e-05
-1 cycles
-@factor=0.00090982
-1 cycles
-@factor=1.54333e+07
-2 cycles
 #void ThinOut(G4double precision)_1
 @precision=-1
 @precision=0
@@ -254,4 +456,4 @@
 @precision=1.58923
 @precision=513.187
 #G4ParticleHPVector & operator = (const G4ParticleHPVector & right)_1
-5 cycles
+2

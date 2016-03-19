@@ -65,6 +65,14 @@ class G4ParticleHPVector_CUDA {
     G4double GetY(G4int i);
     G4double GetMeanX();
 
+    inline G4double GetEnergy(G4int i) {
+        return GetX(i);
+    }
+    
+    inline G4double GetXsec(G4int i) {
+        return GetY(i);
+    }
+
     inline G4double GetLabel() {
         return label;
     }
@@ -95,6 +103,7 @@ class G4ParticleHPVector_CUDA {
     inline void SetPoint(G4int i, const G4ParticleHPDataPoint & it) {
         G4double x = it.GetX();
         G4double y = it.GetY();
+        std::cout << "about to call set data... (" << i << "," << x << "," << y << ")\n";
         SetData(i,x,y);
     }
 
@@ -215,8 +224,11 @@ class G4ParticleHPVector_CUDA {
     G4ParticleHPDataPoint * d_theData;
     G4ParticleHPDataPoint * h_theData;
     G4bool isDataDirtyHost;
-    G4int nPointsHost;
+    G4bool isIntegralDirtyHost;
+    G4int nPointsDataHost;
+    G4int nPointsIntegralHost;
 
+    G4double * h_theIntegral;
     G4double * d_theIntegral;
     G4InterpolationManager theManager;
 

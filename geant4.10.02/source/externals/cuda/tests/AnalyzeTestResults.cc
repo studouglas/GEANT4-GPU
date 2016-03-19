@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <algorithm>
 #include <stdbool.h>
 #include <unistd.h>
 #include <fstream>
@@ -8,65 +9,124 @@
 std::ifstream cpuResults;
 std::ifstream gpuResults;
 
+const char variableId = '@';
+const char methodId = '#';
+const char nEntriesId = '!';
+
 void compareTestResults() {
 	int testsPassed = 0;
 	int testsFailed = 0;
-
-	char variableId = '@';
-	char methodId = '#';
 
 	std::string cpuLine;
 	std::string gpuLine;
 
 	std::string currentMethod = "";
 	std::string currentCaseNum = "";
-	std::string currentVariableName = "";
+	std::string currentVariables = "";
 	
-	while (true) {
-		// read the next line
-		if (!std::getline(cpuResults, cpuLine)) {
-			break; 
-		}
-		if (!std::getline(gpuResults, gpuLine)) {
-			break;
-		}
-		
+	std::string cpuResult = "";	
+	std::string gpuResult = "";
+	bool testFailed = false;
+
+	while (std::getline(cpuResults, cpuLine) && std::getline(gpuResults, gpuLine)) {
 		// method name identifier
 		if (cpuLine.at(0) == methodId) {
 			int caseNumSeparatorIndex = cpuLine.find_last_of("_");
 			currentCaseNum = cpuLine.substr(caseNumSeparatorIndex+1, cpuLine.length());
 			currentMethod = cpuLine.substr(1, caseNumSeparatorIndex-1);
-			currentVariableName = "";
+			currentVariables = "";
 		} 
 
 		// variable identifier
 		else if (cpuLine.at(0) == variableId) {
-			currentVariableName = cpuLine.substr(1);
+			if (currentVariables == "") {
+				currentVariables = cpuLine.substr(1);
+			} else {
+				currentVariables += ", " + cpuLine.substr(1);
+			}
 		} 
 
 		// result (i.e. array of theData, returned double, etc)
-		else {
+		else if (cpuLine.at(0) != nEntriesId) {
+			testFailed = false;
 			if (cpuLine.compare(gpuLine) != 0) {
 				std::cout << "FAILED: ";
+				cpuResult = cpuLine.at(0) == '[' ? "theData (see results file for details)" : cpuLine;
+				gpuResult = gpuLine.at(0) == '[' ? "theData (see results file for details)" : gpuLine;
 				testsFailed++;
+				testFailed = true;
 			} else {
 				std::cout << "PASSED: ";
 				testsPassed++;
 			}
 			
 			std::cout << "case " << currentCaseNum << ", ";
-			if (currentVariableName != "") {
-				std::cout << currentVariableName << ", ";
+			if (currentVariables != "") {
+				std::cout << currentVariables << ", ";
 			}
 			std::cout << "'" << currentMethod << "'\n";
+
+			if (testFailed) {
+				std::cout << "    CPU: " << cpuResult << "\n";
+				std::cout << "    GPU: " << gpuResult << "\n";
+			}
+			currentVariables = "";
 		}
 	}
 
 	// print aggregated results
 	std::cout << "\n-------------------------------\n";
-	std::cout << (double)(testsPassed/(testsPassed+testsFailed))*100.0 << "\% passed\n"; 
+	std::cout << (double)(testsPassed*100.0/(double)(testsPassed+testsFailed)) << "\% passed\n"; 
 	std::cout << testsPassed << " tests passed out of " << testsFailed+testsPassed << "\n";
 	std::cout << "-------------------------------\n\n";
+}
+
+std::string replaceCommas(std::string str) {
+	std::string res = "";
+	for (int i = 0; i < str.length(); i++) {
+		if (str.at(i) == ',') {
+			res.append(".");
+		} else {
+			res.append(std::string(1, str.at(i)));
+		}
+	}
+	return res;
+}
+void generateTimesCsv() {
+	std::ifstream cpuTimes("UnitTest_Times_CPU.txt");
+	std::ifstream gpuTimes("UnitTest_Times_CPU.txt");
+	std::ofstream timesOutput("UnitTest_Times.csv");
+	
+	std::string cpuLine = "";
+	std::string gpuLine = "";
+	
+	std::string currentMethod = "";
+	std::string currentCaseNum = "";
+	std::string currentVariableName = "";
+	std::string nEntriesPerCase[128]; // won't have more than 128 cases !
+
+	timesOutput << "Method Signature,Case Number,nEntries,Input,CPU Time,GPU Time\n";
+	while (std::getline(cpuTimes, cpuLine) && std::getline(gpuTimes, gpuLine)) {
+		if (cpuLine.at(0) == methodId) {
+			int caseNumSeparatorIndex = cpuLine.find_last_of("_");
+			currentCaseNum = cpuLine.substr(caseNumSeparatorIndex+1, cpuLine.length());
+			currentMethod = cpuLine.substr(1, caseNumSeparatorIndex-1);
+			currentMethod = replaceCommas(currentMethod);
+			currentVariableName = "";
+		} else if (cpuLine.at(0) == variableId) {
+			currentVariableName = cpuLine.substr(1);
+		} else if (cpuLine.at(0) == nEntriesId) {
+			std::string caseNum = cpuLine.substr(1, cpuLine.find_last_of("!")-1);
+			std::string nEntries = cpuLine.substr(cpuLine.find_last_of("!") + 1, cpuLine.length());
+			nEntriesPerCase[stoi(caseNum)] = nEntries;
+		} else {
+			timesOutput << currentMethod << "," << currentCaseNum << "," << nEntriesPerCase[stoi(currentCaseNum)] << "," << currentVariableName << "," << cpuLine << "," << gpuLine << "\n";
+		}
+	}
+
+	cpuTimes.close();
+	gpuTimes.close();
+	timesOutput.close();
 }
 
 int main(int argc, char** argv) {
@@ -75,11 +135,11 @@ int main(int argc, char** argv) {
 	
 	// check files exist
 	if (access(cpuResultsFilename, F_OK) == -1) {
-		std::cout << "\nError. File '" << cpuResultsFilename << "' not found. Refer to README.md for usage instructions.\n";
+		std::cout << "\nError. File '" << cpuResultsFilename << "' not found. Refer to README.txt for usage instructions.\n";
 		return 1;
 	}
 	if (access(gpuResultsFilename, F_OK) == -1) {
-		std::cout << "\nError. File '" << gpuResultsFilename << "' not found. Refer to README.md for usage instructions.\n";
+		std::cout << "\nError. File '" << gpuResultsFilename << "' not found. Refer to README.txt for usage instructions.\n";
 		return 1;
 	}
 
@@ -92,7 +152,8 @@ int main(int argc, char** argv) {
 
 	std::cout << "\nAnalyzing test results...\n";	
 	compareTestResults();
-	
+	generateTimesCsv();
+
 	cpuResults.close();
 	gpuResults.close();
 	

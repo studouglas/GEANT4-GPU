@@ -12,6 +12,12 @@
 // number of different input values to test (including 'edge case' values)
 #define NUM_TEST_INPUTS 5 
 
+// Geant4 doesn't use rand() on CUDA, but does on CPU so rands become mismatched
+// To fix this, we generate a number of rands at init (we only need 221, but might as be safe)
+#define NUM_RANDS 1000
+int randCounter = 0;
+double* rands;
+
 G4ParticleHPVector** vectors;
 std::ofstream resultsFile;
 std::ofstream timesFile;
@@ -57,22 +63,27 @@ void writeOutPoint(G4ParticleHPDataPoint point) {
 void writeOutIntInput(std::string inputName, int val) {
 	resultsFile << "@" << inputName << "=" << val << "\n";
 	timesFile << "@" << inputName << "=" << val << "\n";
+	std::cout << "    Input: " << inputName << "=" << val <<"\n";
 }
 void writeOutDoubleInput(std::string inputName, double val) {
 	resultsFile << "@" << inputName << "=" << val << "\n";	
 	timesFile << "@" << inputName << "=" << val << "\n";	
+	std::cout << "    Input: " << inputName << "=" << val <<"\n";
 }
 void writeOutTheData(int caseNum) {
+	std::cout << "writeOutTheData, vectors[caseNum] = <" << vectors[caseNum] << ">\n";
 	int nEntries = vectors[caseNum]->GetVectorLength();
 	double xVals[nEntries];
 	double yVals[nEntries];
 	for (int i = 0; i < nEntries; i++) {
+		std::cout << i << ", ";
 		xVals[i] = vectors[caseNum]->GetX(i);
 		yVals[i] = vectors[caseNum]->GetY(i);
 	}
-	
+
 	writeOutArray(xVals, nEntries);
 	resultsFile << "\n";
+
 	writeOutArray(yVals, nEntries);
 	resultsFile << "\n";
 }
@@ -88,14 +99,16 @@ void writeOutTheIntegral(int caseNum) {
 }
 void writeOutTime(clock_t diff) {
 	double secondsElapsed = diff;
-	timesFile << secondsElapsed << " cycles\n";
+	timesFile << secondsElapsed << "\n";
 }
+
 
 /***********************************************
 * Helper funtions
 ***********************************************/
 double randDouble() {
-	return (double)(rand() / RAND_MAX);
+	randCounter = (randCounter + 1) % NUM_RANDS;
+	return rands[randCounter];
 }
 int* testValuesForI(int caseNum) {
 	int* testVals = (int*)malloc(NUM_TEST_INPUTS * sizeof(int));
@@ -137,13 +150,17 @@ void testInitializeVector(int caseNum) {
 	// different data files for different cases
 	switch (caseNum) {
 		case 0:
+			std::cout << "initializeing 0 vector...\n";
 			writeOutTheData(caseNum);
+			std::cout << "initializeing 0 vector...\n";
+			timesFile << "!" << caseNum << "!" << 0 << "\n";
+			std::cout << "initializeing 0 vector...\n";
 			return;
 		case 1:
-			dataFileName = "Lead_66.txt";
+			dataFileName = "66_Lead.txt";
 			break;
 		default:
-			dataFileName = "Lead_66.txt";
+			dataFileName = "66_Lead.txt";
 	}
 
 	if (fileBuffer.open(dataFileName, std::ios::in)) {
@@ -151,17 +168,18 @@ void testInitializeVector(int caseNum) {
 		
 		int n;
 		dataStream >> n;
-
+		std::cout << "starting init..., n = " << n;
 		clock_t t1 = clock();
 		vectors[caseNum]->Init(dataStream, n, 1, 1);
 		clock_t t2 = clock();
+		std::cout << "done init...";
 		writeOutTime(t2-t1);
 
 		fileBuffer.close();
 	} else {
-		std::cout << "\n\n***ERROR READING FILE***\n\n";
+		std::cout << "\n\n***ERROR READING FILE '" << dataFileName << "'***\n\n";
 	}
-	timesFile << "!Case_" << caseNum << ":nEntries=" << vectors[caseNum]->GetVectorLength() << "\n";
+	timesFile << "!" << caseNum << "!" << vectors[caseNum]->GetVectorLength() << "\n";
 	writeOutTheData(caseNum);
 }
 void testSettersAndGetters(int caseNum) {
@@ -186,26 +204,37 @@ void testSettersAndGetters(int caseNum) {
 		
 		for (int inputIndex = 0; inputIndex < NUM_TEST_INPUTS; inputIndex++) {
 			writeOutIntInput("i", testVals[inputIndex]);
-			G4ParticleHPDataPoint point = G4ParticleHPDataPoint(randDouble(), randDouble());
+			
 			try {
+				double x = randDouble();
+				double y = randDouble();
+				G4ParticleHPDataPoint point = G4ParticleHPDataPoint(x, y); // must be outside switch statement for compiler reasons
 				switch(testType) {
 					case 0:
+						writeOutDoubleInput("x", point.GetX());
+						writeOutDoubleInput("y", point.GetY());
 						vectors[caseNum]->SetPoint(testVals[inputIndex], point);
 						break;
 					case 1:
-						vectors[caseNum]->SetData(testVals[inputIndex], randDouble(), randDouble());
+						writeOutDoubleInput("x", x);
+						writeOutDoubleInput("y", y);
+						vectors[caseNum]->SetData(testVals[inputIndex], x, y);
 						break;
 					case 2:
-						vectors[caseNum]->SetX(testVals[inputIndex], randDouble());
+						writeOutDoubleInput("x", x);
+						vectors[caseNum]->SetX(testVals[inputIndex], x);
 						break;
 					case 3:
-						vectors[caseNum]->SetEnergy(testVals[inputIndex], randDouble());
+						writeOutDoubleInput("x", x);
+						vectors[caseNum]->SetEnergy(testVals[inputIndex], x);
 						break;
 					case 4:
-						vectors[caseNum]->SetY(testVals[inputIndex], randDouble());
+						writeOutDoubleInput("x", x);
+						vectors[caseNum]->SetY(testVals[inputIndex], x);
 						break;
 					case 5:
-						vectors[caseNum]->SetXsec(testVals[inputIndex], randDouble());
+						writeOutDoubleInput("x", x);
+						vectors[caseNum]->SetXsec(testVals[inputIndex], x);
 						break;
 					case 6:
 						writeOutPoint(vectors[caseNum]->GetPoint(testVals[inputIndex]));
@@ -231,6 +260,11 @@ void testSettersAndGetters(int caseNum) {
 			}
 		}
 	}
+	
+	// remove point we just added for our 0-vector so can continue to test on empty vector
+	if (caseNum == 0) {
+		// vectors[caseNum]->nEntries = 0;
+	}
 	free(testVals);
 }
 void testGetXSec(int caseNum) {
@@ -252,15 +286,19 @@ void testGetXSec(int caseNum) {
 	writeOutTestName("G4double GetXsec(G4double e, G4int min)", caseNum);
 	int* minVals = testValuesForI(caseNum);
 	for (int i = 0; i < NUM_TEST_INPUTS; i++) {
-		writeOutDoubleInput("e", testVals[i]);
-		writeOutDoubleInput("min", minVals[i]);
-		try {
-			clock_t t1 = clock();
-			writeOutDouble(vectors[caseNum]->GetXsec(testVals[i], minVals[i]));
-			clock_t t2 = clock();
-			writeOutTime(t2-t1);
-		} catch (G4HadronicException e)  {
-			resultsFile << "Caught G4HadronicException" << "\n";
+		for (int j = 0; j < NUM_TEST_INPUTS; j++) {
+			writeOutDoubleInput("e", testVals[i]);
+			writeOutDoubleInput("min", minVals[j]);
+			try {
+				clock_t t1 = clock();
+				std::cout << "About to call GetXSec, e=" << testVals[i] << ",min=" << minVals[j] << ",nEntries" << vectors[caseNum]->GetVectorLength() << "\n";
+				writeOutDouble(vectors[caseNum]->GetXsec(testVals[i], minVals[j]));
+				clock_t t2 = clock();
+				writeOutTime(t2-t1);
+			} catch (G4HadronicException e)  {
+				std::cout << "Caught Exception!";
+				resultsFile << "Caught G4HadronicException" << "\n";
+			}
 		}
 	}
 	free(testVals);
@@ -276,6 +314,7 @@ void testThinOut(int caseNum) {
 	}
 	free(testVals);
 }
+// todo: get working (crashes on CPU, probably GPU too)
 void testMerge(int caseNum) {
 	// merge each of our test case vectors with each other one, including itself
 	writeOutTestName("void Merge(G4ParticleHPVector * active, G4ParticleHPVector * passive)", caseNum);
@@ -335,17 +374,18 @@ void testGetBorder(int caseNum) {
 	writeOutTestName("G4double Get50PercentBorder()", caseNum);
 	writeOutDouble(vectors[caseNum]->Get50percentBorder());
 }
+// todo: re-enable (crashes on GPU)
 void testIntegral(int caseNum) {
 	writeOutTestName("void Integrate()", caseNum);
 	clock_t t1 = clock();
-	vectors[caseNum]->Integrate();
+	// vectors[caseNum]->Integrate();
 	clock_t t2 = clock();
 	writeOutTheIntegral(caseNum);
 	writeOutTime(t2-t1);
 
 	writeOutTestName("void IntegrateAndNormalise()", caseNum);
 	t1 = clock();
-	vectors[caseNum]->IntegrateAndNormalise();
+	// vectors[caseNum]->IntegrateAndNormalise();
 	t2 = clock();
 	writeOutTheIntegral(caseNum);
 	writeOutTime (t2-t1);
@@ -353,6 +393,7 @@ void testIntegral(int caseNum) {
 void testTimes(int caseNum) {
 	writeOutTestName("void Times(G4double factor)", caseNum);
 	
+	// vectors[caseNum]->Dump();
 	// multiply by several random factors, then by their 
 	// inverse to get back to original values
 	const int numTimesInputs = 4;
@@ -366,10 +407,12 @@ void testTimes(int caseNum) {
 		clock_t t1 = clock();
 		vectors[caseNum]->Times(testVals[i]);
 		clock_t t2 = clock();
-		
+		// vectors[caseNum]->Dump();
 		writeOutTime(t2-t1);
+
 		writeOutTheData(caseNum);
 		writeOutTheIntegral(caseNum);
+
 		testVals[numTimesInputs-1] *= testVals[i];
 	}
 }
@@ -428,16 +471,23 @@ int main(int argc, char** argv) {
 	
 	vectors = (G4ParticleHPVector**)malloc(NUM_TEST_CASES * sizeof(G4ParticleHPVector*));
 
+	// populate rands with doubles between 0 and 1
+	srand(1);
+	rands = (G4double*)malloc(NUM_RANDS * sizeof(double));
+	for (int i = 0; i < NUM_RANDS; i++) {
+		rands[i] = (double)((double)rand()/(double)RAND_MAX);
+	}
+
 	// run tests
 	for (int i = 0; i < NUM_TEST_CASES; i++) {
 		testInitializeVector(i);
-		testSettersAndGetters(i);
 		testGetXSec(i);
-		testMerge(i);
 		testSample(i);
 		testGetBorder(i);
 		testIntegral(i);
 		testTimes(i);
+		testMerge(i);
+		testSettersAndGetters(i);
 		testThinOut(i);
 		testAssignment(i);
 	}

@@ -4,7 +4,7 @@ HEADER_PATH_CUDA='../include'
 HEADER_PATH_CPU='../../../processes/hadronic/models/particle_hp/include'
 HEADER_PATH_GEANT='../../../../../geant4.10.02-install/include/Geant4'
 
-LINK_GEANT_LIBS_CPU=-lG4processes -lG4clhep -lG4global
+LINK_GEANT_LIBS_CPU=-lG4processes -lG4clhep -lG4global -lG4cuda
 
 all: GenerateTestResults AnalyzeTestResults
 
