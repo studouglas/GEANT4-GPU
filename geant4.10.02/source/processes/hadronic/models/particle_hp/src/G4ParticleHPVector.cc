@@ -460,7 +460,11 @@ G4double G4ParticleHPVector::Sample() // Samples X according to distribution Y
     //     return result;
     //   }
     // }
-    if(GetVectorLength()==1)
+    if (GetVectorLength() == 0) {
+      std::cout << "Vectorlen 0 in Sample()\n";
+      result = 0.0;
+    }
+    else if(GetVectorLength()==1)
     {
       result = theData[0].GetX();
     }
@@ -568,14 +572,13 @@ G4double G4ParticleHPVector::Get15percentBorder()
       return the15percentBorderCash;
     }
     G4double result;
-    if(GetVectorLength()==1)
-    {
+    if (GetVectorLength() == 0) {
+      result = 0.0;
+    } else if(GetVectorLength()==1) {
       result = theData[0].GetX();
       the15percentBorderCash = result;
-    }
-    else
-    {
-      if(theIntegral==0) { 
+    } else {
+      if (theIntegral==0) { 
         IntegrateAndNormalise(); 
       }
       G4int i;
@@ -604,12 +607,12 @@ G4double G4ParticleHPVector::Get50percentBorder()
   		return the50percentBorderCash;
   	}
   	G4double result;
-  	if(GetVectorLength()==1)
-  	{
+    if (GetVectorLength() == 0) {
+      return 0.0;
+    } else if(GetVectorLength()==1) {
   		result = theData[0].GetX();
   		the50percentBorderCash = result;
-  	}
-  	else
+  	} else
   	{
   		if(theIntegral==0) { 
   			IntegrateAndNormalise(); 

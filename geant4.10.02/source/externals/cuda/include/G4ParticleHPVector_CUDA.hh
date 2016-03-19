@@ -225,7 +225,8 @@ class G4ParticleHPVector_CUDA {
     G4ParticleHPDataPoint * h_theData;
     G4bool isDataDirtyHost;
     G4bool isIntegralDirtyHost;
-    G4int nPointsHost;
+    G4int nPointsDataHost;
+    G4int nPointsIntegralHost;
 
     G4double * h_theIntegral;
     G4double * d_theIntegral;

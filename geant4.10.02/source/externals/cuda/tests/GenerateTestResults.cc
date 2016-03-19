@@ -12,6 +12,12 @@
 // number of different input values to test (including 'edge case' values)
 #define NUM_TEST_INPUTS 5 
 
+// Geant4 doesn't use rand() on CUDA, but does on CPU so rands become mismatched
+// To fix this, we generate a number of rands at init (we only need 221, but might as be safe)
+#define NUM_RANDS 1000
+int randCounter = 0;
+double* rands;
+
 G4ParticleHPVector** vectors;
 std::ofstream resultsFile;
 std::ofstream timesFile;
@@ -65,23 +71,21 @@ void writeOutDoubleInput(std::string inputName, double val) {
 	std::cout << "    Input: " << inputName << "=" << val <<"\n";
 }
 void writeOutTheData(int caseNum) {
+	std::cout << "writeOutTheData, vectors[caseNum] = <" << vectors[caseNum] << ">\n";
 	int nEntries = vectors[caseNum]->GetVectorLength();
 	double xVals[nEntries];
 	double yVals[nEntries];
-	// std::cout << "about to read data into arrays...\n";
 	for (int i = 0; i < nEntries; i++) {
-		// std::cout << "i = " << i << "\n";
+		std::cout << i << ", ";
 		xVals[i] = vectors[caseNum]->GetX(i);
-		// std::cout << "i1 = " << i << "\n";
 		yVals[i] = vectors[caseNum]->GetY(i);
 	}
-	// std::cout << "done reading data into arrays...\n";
+
 	writeOutArray(xVals, nEntries);
 	resultsFile << "\n";
-	// std::cout << "about to read data 2into arrays...\n";
+
 	writeOutArray(yVals, nEntries);
 	resultsFile << "\n";
-	// std::cout << "about to read data 1into arrays...\n";
 }
 void writeOutTheIntegral(int caseNum) {
 	double *integral = vectors[caseNum]->Debug();
@@ -98,11 +102,13 @@ void writeOutTime(clock_t diff) {
 	timesFile << secondsElapsed << "\n";
 }
 
+
 /***********************************************
 * Helper funtions
 ***********************************************/
 double randDouble() {
-	return (double)((double)rand() / (double)RAND_MAX);
+	randCounter = (randCounter + 1) % NUM_RANDS;
+	return rands[randCounter];
 }
 int* testValuesForI(int caseNum) {
 	int* testVals = (int*)malloc(NUM_TEST_INPUTS * sizeof(int));
@@ -198,27 +204,37 @@ void testSettersAndGetters(int caseNum) {
 		
 		for (int inputIndex = 0; inputIndex < NUM_TEST_INPUTS; inputIndex++) {
 			writeOutIntInput("i", testVals[inputIndex]);
-			G4ParticleHPDataPoint point = G4ParticleHPDataPoint(randDouble(), randDouble());
+			
 			try {
+				double x = randDouble();
+				double y = randDouble();
+				G4ParticleHPDataPoint point = G4ParticleHPDataPoint(x, y); // must be outside switch statement for compiler reasons
 				switch(testType) {
 					case 0:
-						std::cout << "about to test setting point (" << point.GetX() << "," << point.GetY() << ")\n";
+						writeOutDoubleInput("x", point.GetX());
+						writeOutDoubleInput("y", point.GetY());
 						vectors[caseNum]->SetPoint(testVals[inputIndex], point);
 						break;
 					case 1:
-						vectors[caseNum]->SetData(testVals[inputIndex], randDouble(), randDouble());
+						writeOutDoubleInput("x", x);
+						writeOutDoubleInput("y", y);
+						vectors[caseNum]->SetData(testVals[inputIndex], x, y);
 						break;
 					case 2:
-						vectors[caseNum]->SetX(testVals[inputIndex], randDouble());
+						writeOutDoubleInput("x", x);
+						vectors[caseNum]->SetX(testVals[inputIndex], x);
 						break;
 					case 3:
-						vectors[caseNum]->SetEnergy(testVals[inputIndex], randDouble());
+						writeOutDoubleInput("x", x);
+						vectors[caseNum]->SetEnergy(testVals[inputIndex], x);
 						break;
 					case 4:
-						vectors[caseNum]->SetY(testVals[inputIndex], randDouble());
+						writeOutDoubleInput("x", x);
+						vectors[caseNum]->SetY(testVals[inputIndex], x);
 						break;
 					case 5:
-						vectors[caseNum]->SetXsec(testVals[inputIndex], randDouble());
+						writeOutDoubleInput("x", x);
+						vectors[caseNum]->SetXsec(testVals[inputIndex], x);
 						break;
 					case 6:
 						writeOutPoint(vectors[caseNum]->GetPoint(testVals[inputIndex]));
@@ -455,16 +471,23 @@ int main(int argc, char** argv) {
 	
 	vectors = (G4ParticleHPVector**)malloc(NUM_TEST_CASES * sizeof(G4ParticleHPVector*));
 
+	// populate rands with doubles between 0 and 1
+	srand(1);
+	rands = (G4double*)malloc(NUM_RANDS * sizeof(double));
+	for (int i = 0; i < NUM_RANDS; i++) {
+		rands[i] = (double)((double)rand()/(double)RAND_MAX);
+	}
+
 	// run tests
 	for (int i = 0; i < NUM_TEST_CASES; i++) {
 		testInitializeVector(i);
-		testSettersAndGetters(i);
 		testGetXSec(i);
-		testMerge(i);
 		testSample(i);
 		testGetBorder(i);
 		testIntegral(i);
 		testTimes(i);
+		testMerge(i);
+		testSettersAndGetters(i);
 		testThinOut(i);
 		testAssignment(i);
 	}
