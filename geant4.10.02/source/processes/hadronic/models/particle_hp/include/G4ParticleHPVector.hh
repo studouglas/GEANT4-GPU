@@ -49,7 +49,7 @@
 #include <cmath>
 #include <vector>
 
-#define GEANT4_ENABLE_CUDA 1
+#define GEANT4_ENABLE_CUDA 0
 #if GEANT4_ENABLE_CUDA
   #include "/Users/stuart/Documents/4th_Year/CS_4ZP6/GEANT4-GPU/geant4.10.02/source/externals/cuda/include/G4ParticleHPVector_CUDA.hh"
 #endif
@@ -159,10 +159,10 @@ class G4ParticleHPVector
     #if GEANT4_ENABLE_CUDA
       return cudaVector->GetXsec(e, min);
     #else
-      if (min >= nEntries) {
-        return theData[0].GetY();
-      } else if (GetVectorLength() <= 0) {
+      if (GetVectorLength() <= 0) {
         return 0.0;
+      } else if (min >= nEntries) {
+        return theData[0].GetY();
       }
 
       min = (min >= 0) ? min : 0;

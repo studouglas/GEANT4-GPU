@@ -6,6 +6,7 @@
 \usepackage{enumerate}
 \usepackage{listings}
 \usepackage{titling}
+\usepackage{multirow}
 \usepackage{tabularx}
 \usepackage{longtable}
 \usepackage{booktabs}
@@ -13,6 +14,7 @@
 \usepackage{makecell}
 \usepackage{caption}
 \usepackage{array}
+\usepackage{float}
 \usepackage{placeins}
 \usepackage{float}
 \lstset{basicstyle=\small\ttfamily,xleftmargin=18pt,breaklines=true}
@@ -141,108 +143,124 @@ In Section 4 we provide an introduction to this report. Section 5 describes the 
 \subsection{Usability}
 GEANT4-GPU is a back end implementation of already existing GEANT4 modules. Therefore users will not be interacting with it directly. Since there is no direct user interaction with GEANT4-GPU. There are no usability test. 
 \subsection{Robustness}
-The GEANT4-GPU functions are meant to mimic the already existing GEANT4 functions. Therefore the GEANT4-GPU functions must also mimic the robustness of the GEANT4 functions. The accuracy section for unit tests has several unit tests designed to test the robustness of the functions. 
-% =============================== Section =============================== % -------------------------- Matt does unit tests and accuracy. Victor Does performance graphs
+The GEANT4-GPU functions are meant to mimic the already existing GEANT4 functions. Therefore the GEANT4-GPU functions must also mimic the the robustness of the GEANT4 functions. The accuracy section for unit tests has several unit tests designed to test the robustness of the functions. 
+% =============================== Section =============================== 
+% -------------------------- Matt does unit tests and accuracy. Victor Does performance graphs
 \newpage
 \section{Module Unit Testing}
 \subsection{Use of Automated Testing}
-Our testing is semi-automated. Due to the nature of this implementation we need to recompile GEANT4-GPU from GPU to CPU in order to get the CPU results to compare against the GPU results. We have a unit test file which preforms all our unit tests and writes the results into a file. The user will then have to manually recompile GEANT4-GPU with GPU acceleration off. Once the unit test file is run again another results file is generated. The comparing of the results is automated by feeding them to an application that we created that will compare the test results against each other. The program outputs a summary of any differences between the two results, if there are any.
+\subsubsection{Overview}
+
+\subsubsection{Generating Test Results}
+Our unit testing system is semi-automated. A program (\texttt{GenerateTestResults}) was written which first initializes several G4ParticleHPVector objects from data files included with Geant4 of varying numbers of entries, including the creation of one G4ParticleHPVector with 0 entries. After the vectors have been initialized, the unit-tested methods are tested with a variety of input values. These cover edge cases (i.e. negative index for array, index greater than number of elements etc.) as well as more ``normal'' cases. The result is then written to the results text file foFor methods that are computationally intensive, the runtimes of the method are recorded and output to a separate
+
+\subsubsection{Analyzing Test Results}
+Due to the nature of this implementation we need to recompile GEANT4-GPU from GPU to CPU in order to get the CPU results to compare against the GPU results. We have a unit test file which preforms all our unit tests and writes the results into a file. The user will then have to manually recompile GEANT4-GPU with GPU acceleration off. Once the unit test file is run again another results file is generated. The comparing of the results is automated by feeding them to an application that we created that will compare the test results against each other. The program outputs a summary of any differences between the two results, if there are any.
 \subsection{General variables used for Unit Testing}
 The following are variables that are used for multiple unit tests. Instead of defining them again for each unit test they are defined here only once. Other variables used for specific unit tests will be defined in their respective unit test sections\\
 For all unit tests:
-\begin{table}[!htbp]
+\begin{table}[H]
 \centering
 \caption{General Unit Test Variables}\label{gen_var_table}
 \begin{tabular}{lll}
 \toprule
 	\bf Name \# & Type & \bf Value\\\midrule
-	 n 	& G4double 			& length of the G4ParticleHPVector\\
-	r0 	& G4double 			& 0.000512\\
-	r1	& G4double			& 1.58\\
-	r2 	& G4double 			& 513.18\\
-	Empty & G4ParticleHPVector 	& Empty\\
-	A 	& G4ParticleHPVector	& 66 entries\\
-	B 	& G4ParticleHPVector 	& 1509 entries\\
-	C 	& G4ParticleHPVector 	& 8045 entries\\
-	D 	& G4ParticleHPVector 	& 41854 entries\\
-	E 	& G4ParticleHPVector 	& 98995 entries\\
-	F 	& G4ParticleHPVector 	& 242594 entries\\
+	n 	& G4double 			& number of entries in the G4ParticleHPVector\\
+	r1 	& G4double 			& -1.0\\
+	r2	& G4double			& 0.0\\
+	r3 	& G4double 			& 0.00051234\\
+	r4 	& G4double 			& 1.5892317\\
+	r5 	& G4double 			& 513.18\\
+	vec0 & G4ParticleHPVector 	& 0 entries\\
+	vec1 & G4ParticleHPVector	& 80 entries\\
+	vec2 & G4ParticleHPVector 	& 1509 entries\\
+	vec3 & G4ParticleHPVector 	& 8045 entries\\
+	vec4 & G4ParticleHPVector 	& 41854 entries\\
+	vec5 & G4ParticleHPVector 	& 98995 entries\\
+	vec6 & G4ParticleHPVector 	& 242594 entries\\
 \bottomrule		
 \end{tabular}
 \end{table}
 \subsection{Note about Performance testing}
 Tests on vectors A - F all behave the same. Showing accuracy for vectors A - F does not provide any extra useful information. Therefore only unit tests on vector D will be shown in the Unit Tests and Accuracy sections. Unit test interfaces for the other vectors will be omitted from this document in order to make it more readable. The unit tests were still performed on the other vectors. These unit tests on vectors of different length are done to show how  increasing the size of the vector increases the execution time of some functions
-%from .cu
-\subsection{OperatorEquals}% Test Cases done
-	\subsubsection{Unit Tests}
+
+\subsection{= (overloaded assignment operator)}
+	\subsubsection{Method Signature}
+	\texttt{G4ParticleHPVector \& operator = (const G4ParticleHPVector \& right)}
+	
+	\subsubsection{Test Description}
+	Create a new, temporary G4ParticleHPVector object and assign the current vector to it. Output the data and the integral from the new vector.
+
+	\subsubsection{Test Inputs}
 		\begin{table}[H]
 		\centering
-		\caption{Unit Tests}\label{OperatorEquals_unit}
-		\begin{tabular}{lll}
+		\caption{Unit Tests - \texttt{=} (overloaded assignment operator)}\label{OperatorEquals_unit}
+		\begin{tabular}{cl}
 		\toprule
-		\bf Test \# & Code & \bf Description\\\midrule
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{OperatorEquals_0} & Empty =  Empty2 & Assign an empty vector to another empty vector\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{OperatorEquals_1} & D = Empty & Assign an empty vector to regular vector \\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{OperatorEquals_2} & Empty = D & Assign a vector to an empty vector \\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{OperatorEquals_3} & D = D & Assign a vector to itself \\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{OperatorEquals_4} & D = F & Assign a vector to another vector \\
+		\multirow{2}{*}{\bf Test \#}  & \multicolumn{1}{c}{\bf Inputs}\\
+		& \bf \texttt{right}\\\midrule
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{OperatorEquals_0} & Current vector\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
-	\subsubsection{Accuracy}
-		\begin{table}[H]
+	\subsubsection{Results}
+		\begin{table}[h]
 		\centering
-		\caption{Accuracy}\label{OperatorEquals_acc}
-		\begin{tabular}{lll}
+		\caption{Test results - \texttt{=} (overloaded assignment operator)}\label{OperatorEquals_acc}
+		\begin{tabular}{clllllll}
 		\toprule
-		\bf Test \# & Status \\\midrule
-		\ref{OperatorEquals_0} & Pass\\
-		\ref{OperatorEquals_1} & Pass\\
-		\ref{OperatorEquals_2} & Pass\\
-		\ref{OperatorEquals_3} & Pass\\
-		\ref{OperatorEquals_4} & Pass\\
+		\multirow{2}{*}{\bf Test \#} & \multicolumn{7}{c}{\bf Test Result}\\
+		& vec0 & vec1 & vec2 & vec3 & vec4 & vec5 & vec6\\\midrule
+		\ref{OperatorEquals_0} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
 	\subsubsection{Performance}
+	The following graph was generated from the recorded times from the unit tests.
+	
 
 \subsection{GetPoint} % Test cases finished
-	\subsubsection{Unit Tests}
+	\subsubsection{Method Signature}
+	\texttt{const G4ParticleHPDataPoint GetPoint(G4int i)}
+
+	\subsubsection{Test Description}
+	Returns the G4ParticleHPDataPoint at index \texttt{i} in the current vector. The \texttt{x} 
+	and \texttt{y} values of the point are outputted.
+	
+	\subsubsection{Test Inputs}
 		\begin{table}[H]
 		\centering
-		\caption{Unit Tests}\label{GetPoint_unit}
+		\caption{Unit Tests - \texttt{GetPoint}}\label{GetPoint_unit}
 		\begin{tabular}{lll}
 		\toprule
-		\bf Test \# & Code & \bf Description\\\midrule
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetPoint_0} & Empty.GetPoint(-1) & Get a point at a negative index from an empty vector\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetPoint_1} & Empty.GetPoint(0) & Get a point at a the first index from an empty vector\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetPoint_2} & Empty.GetPoint(1) & Get a point at an index out of bounds from an empty vector\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetPoint_3} & D.GetPoint(-1) & Get a point at a negative index\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetPoint_4} & D.GetPoint(0) & Get a point at a the first index\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetPoint_5} & D.GetPoint(n/2) & Get a point at an index within the vector\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetPoint_6} & D.GetPoint(n-1) & Get a point at the last index\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetPoint_7} & D.GetPoint(n) & Get a point at an index our of bounds\\
+		\multirow{2}{*}{\bf Test \#}  & \multicolumn{1}{c}{\bf Inputs}\\
+		& \bf \texttt{i}\\\midrule
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetPoint_0} & -1\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetPoint_1} & 0\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetPoint_2} & n/2\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetPoint_3} & n-1\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetPoint_4} & n\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
-	\subsubsection{Accuracy}
+	
+	\subsubsection{Test Results}
 		\begin{table}[H]
 		\centering
-		\caption{Accuracy}\label{GetPoint_acc}
-		\begin{tabular}{lll}
+		\caption{Test Results -- GetPoint}\label{GetPoint_acc}
+		\begin{tabular}{clllllll}
 		\toprule
-		\bf Test \# & Status \\\midrule
-		\ref{GetPoint_0} & Pass\\
-		\ref{GetPoint_1} & Pass\\
-		\ref{GetPoint_2} & Pass\\
-		\ref{GetPoint_3} & Pass\\
-		\ref{GetPoint_4} & Pass\\
-		\ref{GetPoint_5} & Pass\\
-		\ref{GetPoint_6} & Pass\\
-		\ref{GetPoint_7} & Pass\\
+		\multirow{2}{*}{\bf Test \#} & \multicolumn{7}{c}{\bf Test Result}\\
+		& vec0 & vec1 & vec2 & vec3 & vec4 & vec5 & vec6\\\midrule
+		\ref{GetPoint_0} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
+		\ref{GetPoint_1} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
+		\ref{GetPoint_2} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
+		\ref{GetPoint_3} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
+		\ref{GetPoint_4} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
+
 	\subsubsection{Performance}
 
 \subsection{GetX} % Test cases finished
@@ -593,7 +611,7 @@ Tests on vectors A - F all behave the same. Showing accuracy for vectors A - F d
 		\end{tabular}
 		\end{table}
 	\subsubsection{Accuracy}
-		\begin{table}[!htbp]
+		\begin{table}[H]
 		\centering
 		\caption{Accuracy}\label{Init_acc}
 		\begin{tabular}{lll}
@@ -608,7 +626,7 @@ Tests on vectors A - F all behave the same. Showing accuracy for vectors A - F d
 
 %\subsection{CleanUp}
 %	\subsubsection{Unit Tests}
-%		\begin{table}[!htbp]
+%		\begin{table}[H]
 %		\centering
 %		\caption{Unit Tests}\label{_unit}
 %		\begin{tabular}{lll}
@@ -619,7 +637,7 @@ Tests on vectors A - F all behave the same. Showing accuracy for vectors A - F d
 %		\end{tabular}
 %		\end{table}
 %	\subsubsection{Accuracy}
-%		\begin{table}[!htbp]
+%		\begin{table}[H]
 %		\centering
 %		\caption{Accuracy}\label{_acc}
 %		\begin{tabular}{lll}
@@ -811,33 +829,6 @@ Tests on vectors A - F all behave the same. Showing accuracy for vectors A - F d
 		\end{table}
 	\subsubsection{Performance}
 
-%\subsection{Dump}% Test Cases done
-%	\subsubsection{Unit Tests}
-%		\begin{table}[!htbp]
-%		\centering
-%		\caption{Unit Tests}\label{Dump_unit}
-%		\begin{tabular}{lll}
-%		\toprule
-%		\bf Test \# & Code & \bf Description\\\midrule
-%		\refstepcounter{TestCounter}\arabic{TestCounter}\label{Dump_0} & Empty.Dump() & Dump an empty Vector\\
-%		\refstepcounter{TestCounter}\arabic{TestCounter}\label{Dump_1} & D.Dump() & Dump a Vector\\
-%		\bottomrule
-%		\end{tabular}
-%		\end{table}
-%	\subsubsection{Accuracy}
-%		\begin{table}[!htbp]
-%		\centering
-%		\caption{Accuracy}\label{Dump_acc}
-%		\begin{tabular}{lll}
-%		\toprule
-%		\bf Test \# & Status \\\midrule
-%		\ref{Dump_0} & Pass\\
-%		\ref{Dump_1} & Pass\\
-%		\bottomrule
-%		\end{tabular}
-%		\end{table}
-%	\subsubsection{Performance}
-
 \subsection{ThinOut}% Test Cases Done
 	\subsubsection{Unit Tests}
 		\begin{table}[H]
@@ -887,7 +878,7 @@ Tests on vectors A - F all behave the same. Showing accuracy for vectors A - F d
 		\end{tabular}
 		\end{table}
 	\subsubsection{Accuracy}
-		\begin{table}[!htbp]
+		\begin{table}[H]
 		\centering
 		\caption{Accuracy}\label{Sample_acc}
 		\begin{tabular}{lll}
@@ -900,63 +891,9 @@ Tests on vectors A - F all behave the same. Showing accuracy for vectors A - F d
 		\end{table}
 	\subsubsection{Performance}
 
-%\subsection{Check}
-%	\subsubsection{Unit Tests}
-%		\begin{table}[!htbp]
-%		\centering
-%		\caption{Unit Tests}\label{_unit}
-%		\begin{tabular}{lll}
-%		\toprule
-%		\bf Test \# & Code & \bf Description\\\midrule
-%		\stepcounter{TestCounter}\arabic{TestCounter} & Code goes here & Description goes here\\
-%		\bottomrule
-%		\end{tabular}
-%		\end{table}
-%	\subsubsection{Accuracy}
-%		\begin{table}[!htbp]
-%		\centering
-%		\caption{Accuracy}\label{_acc}
-%		\begin{tabular}{lll}
-%		\toprule
-%		\bf Test \# & CPU & GPU \\\midrule
-%		\arabic{TestCounter} & CPU time & GPU time\\
-%		\bottomrule
-%		\end{tabular}
-%		\end{table}
-%	\subsubsection{Performance}
-
-%from .hh
-
-%\subsection{GetVectorLength} % Test cases finished
-%	\subsubsection{Unit Tests}		
-%		\begin{table}[!htbp]
-%		\centering
-%		\caption{Unit Tests}\label{GetVectorLength_unit}
-%		\begin{tabular}{lll}
-%		\toprule
-%		\bf Test \# & Code & \bf Description\\\midrule
-%		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetVectorLength_0} & Empty.GetVectorLength() & Get the length of an empty vector\\
-%		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetVectorLength_1} & D.GetVectorLength() & Get the length of a vector\\
-%		\bottomrule
-%		\end{tabular}
-%		\end{table}
-%	\subsubsection{Accuracy}
-%		\begin{table}[!htbp]
-%		\centering
-%		\caption{Accuracy}\label{GetVectorLength_acc}
-%		\begin{tabular}{lll}
-%		\toprule
-%		\bf Test \# & Status \\\midrule		
-%		\ref{GetVectorLength_0} & Pass\\
-%		\ref{GetVectorLength_1} & Pass\\
-%		\bottomrule
-%		\end{tabular}
-%		\end{table}
-%	\subsubsection{Performance}
-
 %\subsection{GetIntegral}
 %	\subsubsection{Unit Tests}
-%		\begin{table}[!htbp]
+%		\begin{table}[H]
 %		\centering
 %		\caption{Unit Tests}\label{_unit}
 %		\begin{tabular}{lll}
@@ -967,7 +904,7 @@ Tests on vectors A - F all behave the same. Showing accuracy for vectors A - F d
 %		\end{tabular}
 %		\end{table}
 %	\subsubsection{Accuracy}
-%		\begin{table}[!htbp]
+%		\begin{table}[H]
 %		\centering
 %		\caption{Accuracy}\label{_acc}
 %		\begin{tabular}{lll}

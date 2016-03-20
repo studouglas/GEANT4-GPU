@@ -4,6 +4,7 @@
 #include <string>
 #include <fstream>
 #include <time.h>
+#include <sys/time.h>
 #include "G4ParticleHPVector.hh"
 
 // test will detect if CPU and GPU result files generated from different versions
@@ -11,7 +12,7 @@
 #define VERSION_NUMBER "1.0"
 
 // number of different G4ParticleHPVectors to create
-#define NUM_TEST_CASES 8
+#define NUM_TEST_CASES 7
 
 // number of different input values to test (including 'edge case' values)
 #define NUM_TEST_INPUTS 5 
@@ -48,7 +49,7 @@ void writeOutArray(double* arr, int count) {
 		resultsFile << "[]";
 		return;
 	}
-
+	std::cout << "print arr\n";
 	// round our doubles within tolerance before calculating hash
 	for (int i = 0; i < count; i++) {
 		arr[i] = round(arr[i]*DOUBLE_PRECISION)/DOUBLE_PRECISION;
@@ -128,9 +129,9 @@ void writeOutTheIntegral(int caseNum) {
 		resultsFile << "\n";
 	}
 }
-void writeOutTime(clock_t diff) {
-	double secondsElapsed = diff;
-	timesFile << secondsElapsed << "\n";
+void writeOutTime(double diff) {
+	// double secondsElapsed = diff;
+	timesFile << diff << "\n";
 }
 
 
@@ -165,6 +166,11 @@ double* testValuesForDoubles() {
 
 	return testVals;
 }
+double getWallTime() {
+	struct timeval time;
+	gettimeofday(&time, NULL);
+	return (double)time.tv_sec + (double)time.tv_usec * 0.000001;
+}
 
 /***********************************************
 * Run unit tests
@@ -185,24 +191,21 @@ void testInitializeVector(int caseNum) {
 			timesFile << nEntriesId << caseNum << nEntriesId << 0 << "\n";
 			return;
 		case 1:
-			dataFileName = "50_112_Tin_69.txt";
-			break;
-		case 2:
 			dataFileName = "58_141_Cerium_80.txt";
 			break;
-		case 3:
+		case 2:
 			dataFileName = "90_228_Thorium_1509.txt";
 			break;
-		case 4:
+		case 3:
 			dataFileName = "92_232_Uranium_8045.txt";
 			break;
-		case 5:
+		case 4:
 			dataFileName = "92_236_Uranium_41854.txt";
 			break;
-		case 6:
+		case 5:
 			dataFileName = "90_232_Thorium_98995.txt";
 			break;
-		case 7:
+		case 6:
 			dataFileName = "92_235_Uranium_242594.txt";
 			break;
 		default:
@@ -215,9 +218,9 @@ void testInitializeVector(int caseNum) {
 		
 		int n;
 		dataStream >> n;
-		clock_t t1 = clock();
+		double t1 = getWallTime();
 		vectors[caseNum]->Init(dataStream, n, 1, 1);
-		clock_t t2 = clock();
+		double t2 = getWallTime();
 		writeOutTime(t2-t1);
 
 		fileBuffer.close();
@@ -319,9 +322,9 @@ void testGetXSec(int caseNum) {
 	for (int i = 0; i < NUM_TEST_INPUTS; i++) {
 		writeOutDoubleInput("e", testVals[i]);
 		try {
-			clock_t t1 = clock();
+			double t1 = getWallTime();
 			writeOutDouble(vectors[caseNum]->GetXsec(testVals[i]));
-			clock_t t2 = clock();
+			double t2 = getWallTime();
 			writeOutTime(t2-t1);
 		} catch (G4HadronicException e)  {
 			resultsFile << "Caught G4HadronicException" << "\n";
@@ -335,9 +338,11 @@ void testGetXSec(int caseNum) {
 			writeOutDoubleInput("e", testVals[i]);
 			writeOutDoubleInput("min", minVals[j]);
 			try {
-				clock_t t1 = clock();
+				double t1 = getWallTime();
+				std::cout << "pre write double\n";
 				writeOutDouble(vectors[caseNum]->GetXsec(testVals[i], minVals[j]));
-				clock_t t2 = clock();
+				std::cout << "post write double\n";
+				double t2 = getWallTime();
 				writeOutTime(t2-t1);
 			} catch (G4HadronicException e)  {
 				resultsFile << "Caught G4HadronicException" << "\n";
@@ -356,52 +361,6 @@ void testThinOut(int caseNum) {
 		writeOutTheData(caseNum);
 	}
 	free(testVals);
-}
-// todo: get working (crashes on CPU, probably GPU too)
-void testMerge(int caseNum) {
-	// merge each of our test case vectors with each other one, including itself
-	writeOutTestName("void Merge(G4ParticleHPVector * active, G4ParticleHPVector * passive)", caseNum);
-	for (int i = 0; i < NUM_TEST_CASES; i++) {
-		for (int j = 0; j < NUM_TEST_CASES; j++) {
-			if (i != caseNum && j != caseNum) {
-				// set up parameters
-				writeOutIntInput("active_caseNum", i);
-				writeOutIntInput("passive_caseNum", j);
-				
-				// perform merge
-				clock_t t1 = clock();
-				// vectors[caseNum]->Merge(new G4ParticleHPVector(vectors[i]), new G4ParticleHPVector(vectors[j]));
-				clock_t t2 = clock();
-				
-				// record results
-				writeOutTime(t2-t1);
-				writeOutTheData(caseNum);
-			}
-		}
-	}
-
-	writeOutTestName("void Merge(G4InterpolationScheme aScheme, G4double aValue, G4ParticleHPVector * active, G4ParticleHPVector * passive)", caseNum);
-	for (int i = 0; i < NUM_TEST_CASES; i++) {
-		for (int j = 0; j < NUM_TEST_CASES; j++) {
-			if (i != caseNum && j != caseNum) {
-				// set up parameters
-				G4InterpolationScheme scheme = G4InterpolationScheme();
-				double val = randDouble();
-				writeOutIntInput("aValue", val);
-				writeOutIntInput("active_caseNum", i);
-				writeOutIntInput("passive_caseNum", j);
-				
-				// perform merge
-				clock_t t1 = clock();
-				// vectors[caseNum]->Merge(vectors[i], vectors[j]);
-				clock_t t2 = clock();
-				
-				// record results
-				writeOutTime(t2-t1);
-				writeOutTheData(caseNum);
-			}
-		}
-	}
 }
 void testSample(int caseNum) {
 	writeOutTestName("G4double SampleLin()", caseNum);
@@ -431,16 +390,16 @@ void testGetBorder(int caseNum) {
 // todo: re-enable (crashes on GPU)
 void testIntegral(int caseNum) {
 	writeOutTestName("void Integrate()", caseNum);
-	clock_t t1 = clock();
-	// vectors[caseNum]->Integrate();
-	clock_t t2 = clock();
+	double t1 = getWallTime();
+	vectors[caseNum]->Integrate();
+	double t2 = getWallTime();
 	writeOutTheIntegral(caseNum);
 	writeOutTime(t2-t1);
 
 	writeOutTestName("void IntegrateAndNormalise()", caseNum);
-	t1 = clock();
-	// vectors[caseNum]->IntegrateAndNormalise();
-	t2 = clock();
+	t1 = getWallTime();
+	vectors[caseNum]->IntegrateAndNormalise();
+	t2 = getWallTime();
 	writeOutTheIntegral(caseNum);
 	writeOutTime (t2-t1);
 }
@@ -458,9 +417,9 @@ void testTimes(int caseNum) {
 		}
 		
 		writeOutDoubleInput("factor", testVals[i]);
-		clock_t t1 = clock();
+		double t1 = getWallTime();
 		vectors[caseNum]->Times(testVals[i]);
-		clock_t t2 = clock();
+		double t2 = getWallTime();
 		// vectors[caseNum]->Dump();
 		writeOutTime(t2-t1);
 
@@ -472,9 +431,9 @@ void testTimes(int caseNum) {
 }
 void testAssignment(int caseNum) {
 	writeOutTestName("G4ParticleHPVector & operator = (const G4ParticleHPVector & right)", caseNum);
-	clock_t t1 = clock();
+	double t1 = getWallTime();
 	G4ParticleHPVector vec = *(vectors[caseNum]);
-	clock_t t2 = clock();
+	double t2 = getWallTime();
 	
 	int nEntries = vec.GetVectorLength();
 	double xVals[nEntries];
@@ -541,9 +500,8 @@ int main(int argc, char** argv) {
 		testGetXSec(i);
 		testSample(i);
 		testGetBorder(i);
-		testIntegral(i);
+		// testIntegral(i);
 		testTimes(i);
-		testMerge(i);
 		testSettersAndGetters(i);
 		testThinOut(i);
 		testAssignment(i);
