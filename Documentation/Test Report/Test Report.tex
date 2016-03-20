@@ -131,12 +131,17 @@ OS X & Operating system developed by Apple\\
 \subsection{Purpose of the Document}
 This document summarizes the testing and test conclusions of GEANT4-GPU. This document uses the implementation outlined in the test plan.
 \subsection{Scope of the Testing}
+The implemented tests are designed to give a general yet rigorous assessment of the components involved.\\
+The tests are segregated into two categories: unit tests \& system tests.
+The unit tests test function components of the G4ParticleVector module, and the system tests compare total system differences between CPU (original GEANT4) and GPU implementations. For both categories, performance and correctness are the key concerns.\\
+Neither the unit tests nor the system tests are concerned with the correctness of original GEANT4 runs, as these runs are used as the baseline for the correctness of GEANT4-GPU modules.\\
+A basic knowledge of programming concepts and command-line tools is assumed, as well as familiarity with GEANT4. 
 \subsection{Organization}
 In Section 4 we provide an introduction to this report. Section 5 describes the test cases which are carried out on each function. Section 6 describes system test cases that were carried out by our team. In section 7 traceability matrices to requirements and modules are documented. Section 8 provides a summary of changes made in response to the testing results.
 \subsection{Usability}
-GEANT4-GPU is a back end implementation of already existing GEANT4 modules. Therefore users will not be interacting with is directly. Since there is no direct user interaction with GEANT4-GPU. There are no usability test. 
+GEANT4-GPU is a back end implementation of already existing GEANT4 modules. Therefore users will not be interacting with it directly. Since there is no direct user interaction with GEANT4-GPU. There are no usability test. 
 \subsection{Robustness}
-The GEANT4-GPU functions are meant to mimic the already existing GEANT4 functions. Therefore the GEANT4-GPU functions must also mimic the the robustness of the GEANT4 functions. The accuracy section for unit tests has several unit tests designed to test the robustness of the functions. 
+The GEANT4-GPU functions are meant to mimic the already existing GEANT4 functions. Therefore the GEANT4-GPU functions must also mimic the robustness of the GEANT4 functions. The accuracy section for unit tests has several unit tests designed to test the robustness of the functions. 
 % =============================== Section =============================== % -------------------------- Matt does unit tests and accuracy. Victor Does performance graphs
 \newpage
 \section{Module Unit Testing}
