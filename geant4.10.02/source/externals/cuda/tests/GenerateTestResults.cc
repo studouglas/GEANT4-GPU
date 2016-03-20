@@ -4,6 +4,7 @@
 #include <string>
 #include <fstream>
 #include <time.h>
+#include <sys/time.h>
 #include "G4ParticleHPVector.hh"
 
 // test will detect if CPU and GPU result files generated from different versions
@@ -128,9 +129,9 @@ void writeOutTheIntegral(int caseNum) {
 		resultsFile << "\n";
 	}
 }
-void writeOutTime(clock_t diff) {
-	double secondsElapsed = diff;
-	timesFile << secondsElapsed << "\n";
+void writeOutTime(double diff) {
+	// double secondsElapsed = diff;
+	timesFile << diff << "\n";
 }
 
 
@@ -164,6 +165,11 @@ double* testValuesForDoubles() {
 	testVals[4] = 513.1869340;
 
 	return testVals;
+}
+double getWallTime() {
+	struct timeval time;
+	gettimeofday(&time, NULL);
+	return (double)time.tv_sec + (double)time.tv_usec * 0.000001;
 }
 
 /***********************************************
@@ -215,9 +221,9 @@ void testInitializeVector(int caseNum) {
 		
 		int n;
 		dataStream >> n;
-		clock_t t1 = clock();
+		double t1 = getWallTime();
 		vectors[caseNum]->Init(dataStream, n, 1, 1);
-		clock_t t2 = clock();
+		double t2 = getWallTime();
 		writeOutTime(t2-t1);
 
 		fileBuffer.close();
@@ -319,9 +325,9 @@ void testGetXSec(int caseNum) {
 	for (int i = 0; i < NUM_TEST_INPUTS; i++) {
 		writeOutDoubleInput("e", testVals[i]);
 		try {
-			clock_t t1 = clock();
+			double t1 = getWallTime();
 			writeOutDouble(vectors[caseNum]->GetXsec(testVals[i]));
-			clock_t t2 = clock();
+			double t2 = getWallTime();
 			writeOutTime(t2-t1);
 		} catch (G4HadronicException e)  {
 			resultsFile << "Caught G4HadronicException" << "\n";
@@ -335,9 +341,9 @@ void testGetXSec(int caseNum) {
 			writeOutDoubleInput("e", testVals[i]);
 			writeOutDoubleInput("min", minVals[j]);
 			try {
-				clock_t t1 = clock();
+				double t1 = getWallTime();
 				writeOutDouble(vectors[caseNum]->GetXsec(testVals[i], minVals[j]));
-				clock_t t2 = clock();
+				double t2 = getWallTime();
 				writeOutTime(t2-t1);
 			} catch (G4HadronicException e)  {
 				resultsFile << "Caught G4HadronicException" << "\n";
@@ -369,9 +375,9 @@ void testMerge(int caseNum) {
 				writeOutIntInput("passive_caseNum", j);
 				
 				// perform merge
-				clock_t t1 = clock();
+				double t1 = getWallTime();
 				// vectors[caseNum]->Merge(new G4ParticleHPVector(vectors[i]), new G4ParticleHPVector(vectors[j]));
-				clock_t t2 = clock();
+				double t2 = getWallTime();
 				
 				// record results
 				writeOutTime(t2-t1);
@@ -392,9 +398,9 @@ void testMerge(int caseNum) {
 				writeOutIntInput("passive_caseNum", j);
 				
 				// perform merge
-				clock_t t1 = clock();
+				double t1 = getWallTime();
 				// vectors[caseNum]->Merge(vectors[i], vectors[j]);
-				clock_t t2 = clock();
+				double t2 = getWallTime();
 				
 				// record results
 				writeOutTime(t2-t1);
@@ -431,16 +437,16 @@ void testGetBorder(int caseNum) {
 // todo: re-enable (crashes on GPU)
 void testIntegral(int caseNum) {
 	writeOutTestName("void Integrate()", caseNum);
-	clock_t t1 = clock();
-	// vectors[caseNum]->Integrate();
-	clock_t t2 = clock();
+	double t1 = getWallTime();
+	vectors[caseNum]->Integrate();
+	double t2 = getWallTime();
 	writeOutTheIntegral(caseNum);
 	writeOutTime(t2-t1);
 
 	writeOutTestName("void IntegrateAndNormalise()", caseNum);
-	t1 = clock();
-	// vectors[caseNum]->IntegrateAndNormalise();
-	t2 = clock();
+	t1 = getWallTime();
+	vectors[caseNum]->IntegrateAndNormalise();
+	t2 = getWallTime();
 	writeOutTheIntegral(caseNum);
 	writeOutTime (t2-t1);
 }
@@ -458,9 +464,9 @@ void testTimes(int caseNum) {
 		}
 		
 		writeOutDoubleInput("factor", testVals[i]);
-		clock_t t1 = clock();
+		double t1 = getWallTime();
 		vectors[caseNum]->Times(testVals[i]);
-		clock_t t2 = clock();
+		double t2 = getWallTime();
 		// vectors[caseNum]->Dump();
 		writeOutTime(t2-t1);
 
@@ -472,9 +478,9 @@ void testTimes(int caseNum) {
 }
 void testAssignment(int caseNum) {
 	writeOutTestName("G4ParticleHPVector & operator = (const G4ParticleHPVector & right)", caseNum);
-	clock_t t1 = clock();
+	double t1 = getWallTime();
 	G4ParticleHPVector vec = *(vectors[caseNum]);
-	clock_t t2 = clock();
+	double t2 = getWallTime();
 	
 	int nEntries = vec.GetVectorLength();
 	double xVals[nEntries];
@@ -541,7 +547,7 @@ int main(int argc, char** argv) {
 		testGetXSec(i);
 		testSample(i);
 		testGetBorder(i);
-		testIntegral(i);
+		// testIntegral(i);
 		testTimes(i);
 		testMerge(i);
 		testSettersAndGetters(i);

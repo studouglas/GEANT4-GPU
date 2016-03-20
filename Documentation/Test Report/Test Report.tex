@@ -132,11 +132,13 @@ This document summarizes the testing and test conclusions of GEANT4-GPU. This do
 \subsection{Scope of the Testing}
 \subsection{Organization}
 In Section 4 we provide an introduction to this report. Section 5 describes the test cases which are carried out on each function. Section 6 describes system test cases that were carried out by our team. In section 7 traceability matrices to requirements and modules are documented. Section 8 provides a summary of changes made in response to the testing results.
-\subsection{Usability}
+\subsection{Usability Testing}
 GEANT4-GPU is a back end implementation of already existing GEANT4 modules. Therefore users will not be interacting with is directly. Since there is no direct user interaction with GEANT4-GPU. There are no usability test. 
 \subsection{Robustness}
 The GEANT4-GPU functions are meant to mimic the already existing GEANT4 functions. Therefore the GEANT4-GPU functions must also mimic the the robustness of the GEANT4 functions. The accuracy section for unit tests has several unit tests designed to test the robustness of the functions. 
-% =============================== Section =============================== % -------------------------- Matt does unit tests and accuracy. Victor Does performance graphs
+% =============================== Section =============================== 
+% -------------------------- Matt does unit tests and accuracy. Victor Does performance graphs
+
 \newpage
 \section{Module Unit Testing}
 \subsection{Use of Automated Testing}
@@ -166,7 +168,8 @@ For all unit tests:
 \subsection{Note about Performance testing}
 Tests on vectors A - F all behave the same. Showing accuracy for vectors A - F does not provide any extra useful information. Therefore only unit tests on vector D will be shown in the Unit Tests and Accuracy sections. Unit test interfaces for the other vectors will be omitted from this document in order to make it more readable. The unit tests were still performed on the other vectors. These unit tests on vectors of different length are done to show how  increasing the size of the vector increases the execution time of some functions
 %from .cu
-\subsection{OperatorEquals}
+
+\subsection{= (overloaded assignment)}
 	\subsubsection{Unit Tests}
 		\begin{table}[!htbp]
 		\centering

@@ -97,10 +97,6 @@ $0
 0
 #G4double Get50PercentBorder()_0
 0
-#void Integrate()_0
-theIntegral []
-#void IntegrateAndNormalise()_0
-theIntegral []
 #void Times(G4double factor)_0
 @factor=-4.67
 theData xVals []
@@ -863,15 +859,11 @@ theData yVals hash: 9345306507238906401
 #G4double SampleLin()_1
 $0.350749
 #G4double Sample()_1
-$0.346548
+$0.361614
 #G4double Get15PercentBorder()_1
 0.517
 #G4double Get50PercentBorder()_1
 0.320867
-#void Integrate()_1
-theIntegral hash: 6113854436586226292
-#void IntegrateAndNormalise()_1
-theIntegral hash: 6113854436586226292
 #void Times(G4double factor)_1
 @factor=-4.67
 theData xVals hash: 3725582875375954288
@@ -1634,15 +1626,11 @@ theData yVals hash: 8558769185984268590
 #G4double SampleLin()_2
 $2.58501e+07
 #G4double Sample()_2
-$2.56603e+07
+$2.42071e+07
 #G4double Get15PercentBorder()_2
 1.05e+07
 #G4double Get50PercentBorder()_2
 1.70503e+07
-#void Integrate()_2
-theIntegral hash: 6428737731256113294
-#void IntegrateAndNormalise()_2
-theIntegral hash: 6428737731256113294
 #void Times(G4double factor)_2
 @factor=-4.67
 theData xVals hash: 1285262205404685270
@@ -2405,15 +2393,11 @@ theData yVals hash: 7454723789077549572
 #G4double SampleLin()_3
 $1.11334e+07
 #G4double Sample()_3
-$1.09819e+07
+$1.0532e+07
 #G4double Get15PercentBorder()_3
 4.3125e+06
 #G4double Get50PercentBorder()_3
 1.0898e+07
-#void Integrate()_3
-theIntegral hash: 6887186259448902067
-#void IntegrateAndNormalise()_3
-theIntegral hash: 6887186259448902067
 #void Times(G4double factor)_3
 @factor=-4.67
 theData xVals hash: 2814258466556012703
@@ -3176,15 +3160,11 @@ theData yVals hash: 17341898202202105047
 #G4double SampleLin()_4
 $1.05982e+07
 #G4double Sample()_4
-$1.06937e+07
+$1.05096e+07
 #G4double Get15PercentBorder()_4
 3.625e+06
 #G4double Get50PercentBorder()_4
 1.06199e+07
-#void Integrate()_4
-theIntegral hash: 15126371128399175743
-#void IntegrateAndNormalise()_4
-theIntegral hash: 15126371128399175743
 #void Times(G4double factor)_4
 @factor=-4.67
 theData xVals hash: 380856461566793921
@@ -3947,15 +3927,11 @@ theData yVals hash: 1230654354166793649
 #G4double SampleLin()_5
 $1.73654e+07
 #G4double Sample()_5
-$1.75966e+07
+$1.74759e+07
 #G4double Get15PercentBorder()_5
 8.2e+06
 #G4double Get50PercentBorder()_5
 1.79658e+07
-#void Integrate()_5
-theIntegral hash: 2938941608009595531
-#void IntegrateAndNormalise()_5
-theIntegral hash: 2938941608009595531
 #void Times(G4double factor)_5
 @factor=-4.67
 theData xVals hash: 54681960905177130
@@ -4718,15 +4694,11 @@ theData yVals hash: 9268461341921925588
 #G4double SampleLin()_6
 $1.23303e+07
 #G4double Sample()_6
-$1.2515e+07
+$1.24679e+07
 #G4double Get15PercentBorder()_6
 7.4e+06
 #G4double Get50PercentBorder()_6
 1.33873e+07
-#void Integrate()_6
-theIntegral hash: 7928541022771315913
-#void IntegrateAndNormalise()_6
-theIntegral hash: 7928541022771315913
 #void Times(G4double factor)_6
 @factor=-4.67
 theData xVals hash: 7171123492023199933
@@ -5489,15 +5461,11 @@ theData yVals hash: 569425363193013609
 #G4double SampleLin()_7
 $1.12675e+07
 #G4double Sample()_7
-$1.09437e+07
+$1.13071e+07
 #G4double Get15PercentBorder()_7
 4.4e+06
 #G4double Get50PercentBorder()_7
 1.17496e+07
-#void Integrate()_7
-theIntegral hash: 15619544932401450365
-#void IntegrateAndNormalise()_7
-theIntegral hash: 15619544932401450365
 #void Times(G4double factor)_7
 @factor=-4.67
 theData xVals hash: 16082830809520917107
