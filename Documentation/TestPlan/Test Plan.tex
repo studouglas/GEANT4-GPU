@@ -216,7 +216,7 @@ There are several examples included with the GEANT4 toolkit as well as some crea
 \stepcounter{TestCounter}\arabic{TestCounter} 
 & Fresh start up 
 & Events = 2000
-Material = water
+Material = Water
 & Same output as non-GPU GEANT4 
 &  HADR04 no changes\\\midrule
 
@@ -230,7 +230,14 @@ Material = Uranium
 \stepcounter{TestCounter}\arabic{TestCounter}
 & Fresh start up 
 & Events = 600
-Material
+Material = Water
+& Same output as non-GPU GEANT4 
+& HADR04 -- Shorter test \\\midrule
+
+\stepcounter{TestCounter}\arabic{TestCounter}
+& Fresh start up 
+& Events = 600
+Material = Uranium
 & Same output as non-GPU GEANT4 
 & HADR04 -- Shorter test \\\midrule
 
@@ -239,7 +246,7 @@ Material
 & Events = 20000
 Material = Uranium
 & Same output as non-GPU GEANT4 
-& HADR04 -- Long simulation stress Test\\
+& HADR04 -- Long simulation stress Test\\\midrule
 
 \stepcounter{TestCounter}\arabic{TestCounter}
 & Fresh start up 
@@ -751,6 +758,7 @@ Unit tests will be created throughout development as functions and classes are p
 %\end{longtable}
 %\end{center}
 %
+
 %The unit tests as described in tables \ref{Table_UnitTestsTimes} and \ref{Table_UnitTestsPlus} are not complete -- as the project progresses the number of tests will increase. Since functions are being ported one-at-a-time to the GPU, having full (or near-full) coverage is relatively straightforward. To accomplish this, every ported function must have a series of associated unit tests that cover a variety of edge and normal cases. Combined with system tests to test how all the parts work together, test coverage will be exhaustive.
 
 % ----------------------------- Sub Section ----------------------------- %
