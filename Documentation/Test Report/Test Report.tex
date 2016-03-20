@@ -260,340 +260,404 @@ Tests on vectors A - F all behave the same. Showing accuracy for vectors A - F d
 	\subsubsection{Performance}
 
 \subsection{GetX} % Test cases finished
-	\subsubsection{Unit Tests}
+	\subsubsection{Method Signature}
+	\texttt{G4double GetX(G4int i)}
+
+	\subsubsection{Test Description}
+	Returns the energy at index \texttt{i} in the current vector. The \texttt{x} 
+	value of the point are outputted.
+	
+	\subsubsection{Test Inputs}
 		\begin{table}[H]
 		\centering
-		\caption{Unit Tests}\label{GetX_unit}
+		\caption{Unit Tests - \texttt{GetX}}\label{GetX_unit}
 		\begin{tabular}{lll}
 		\toprule
-		\bf Test \# & Code & \bf Description\\\midrule
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetX_0} & Empty.GetX(-1) & Set an xSec at a negative index of an empty vector\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetX_1} & Empty.GetX(0) & Set an xSec at a the first index of an empty vector\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetX_2} & Empty.GetX(1) & Set an xSec at an index out of bounds of an empty vector\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetX_3} & D.GetX(-1) & Set an xSec at a negative index\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetX_4} & D.GetX(0) & Set an xSec at a the first index\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetX_5} & D.GetX(n/2) & Set an xSec at an index within the vector\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetX_6} & D.GetX(n-1) & Set an xSec at the last index\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetX_7} & D.GetX(n) & Set an xSec at an index our of bounds\\
+		\multirow{2}{*}{\bf Test \#}  & \multicolumn{1}{c}{\bf Inputs}\\
+		& \bf \texttt{i}\\\midrule
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetX_0} & -1\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetX_1} & 0\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetX_2} & n/2\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetX_3} & n-1\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetX_4} & n\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
-	\subsubsection{Accuracy}
+	
+	\subsubsection{Test Results}
 		\begin{table}[H]
 		\centering
-		\caption{Accuracy}\label{GetX_acc}
-		\begin{tabular}{lll}
+		\caption{Test Results -- GetX}\label{GetX_acc}
+		\begin{tabular}{clllllll}
 		\toprule
-		\bf Test \# & Status\\\midrule
-		\ref{GetX_0} & Pass\\
-		\ref{GetX_1} & Pass\\
-		\ref{GetX_2} & Pass\\
-		\ref{GetX_3} & Pass\\
-		\ref{GetX_4} & Pass\\
-		\ref{GetX_5} & Pass\\
-		\ref{GetX_6} & Pass\\
-		\ref{GetX_7} & Pass\\
+		\multirow{2}{*}{\bf Test \#} & \multicolumn{7}{c}{\bf Test Result}\\
+		& vec0 & vec1 & vec2 & vec3 & vec4 & vec5 & vec6\\\midrule
+		\ref{GetX_0} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
+		\ref{GetX_1} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
+		\ref{GetX_2} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
+		\ref{GetX_3} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
+		\ref{GetX_4} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
+
 	\subsubsection{Performance}
 
 
 \subsection{GetY} % Test cases finished
-	\subsubsection{Unit Tests}
+	\subsubsection{Method Signature}
+	\texttt{G4double GetY(G4int i)}
+
+	\subsubsection{Test Description}
+	Returns the xSec at index \texttt{i} in the current vector. The \texttt{y} 
+	value of the point are outputted.
+	
+	\subsubsection{Test Inputs}
 		\begin{table}[H]
 		\centering
-		\caption{Unit Tests}\label{GetY_unit}
+		\caption{Unit Tests - \texttt{GetY}}\label{GetY_unit}
 		\begin{tabular}{lll}
 		\toprule
-		\bf Test \# & Code & \bf Description\\\midrule
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetY_0} & Empty.GetY(-1) & Get a point at a negative index of an empty vector\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetY_1} & Empty.GetY(0) & Get a point at a the first index of an empty vector\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetY_2} & Empty.GetY(1) & Get a point at an index out of bounds of an empty vector\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetY_3} & D.GetY(-1) & Get a point at a negative index\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetY_4} & D.GetY(0) & Get a point at a the first index\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetY_5} & D.GetY(n/2) & Get a point at an index within the vector\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetY_6} & D.GetY(n-1) & Get a point at the last index\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetY_7} & D.GetY(n) & Get a point at an index our of bounds\\
+		\multirow{2}{*}{\bf Test \#}  & \multicolumn{1}{c}{\bf Inputs}\\
+		& \bf \texttt{i}\\\midrule
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetY_0} & -1\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetY_1} & 0\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetY_2} & n/2\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetY_3} & n-1\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetY_4} & n\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
-	\subsubsection{Accuracy}
+	
+	\subsubsection{Test Results}
 		\begin{table}[H]
 		\centering
-		\caption{Accuracy}\label{GetY_acc}
-		\begin{tabular}{lll}
+		\caption{Test Results -- GetY}\label{GetY_acc}
+		\begin{tabular}{clllllll}
 		\toprule
-		\bf Test \# & Status \\\midrule
-		\ref{GetY_0} & Pass\\
-		\ref{GetY_1} & Pass\\
-		\ref{GetY_2} & Pass\\
-		\ref{GetY_3} & Pass\\
-		\ref{GetY_4} & Pass\\
-		\ref{GetY_5} & Pass\\
-		\ref{GetY_6} & Pass\\
-		\ref{GetY_7} & Pass\\
+		\multirow{2}{*}{\bf Test \#} & \multicolumn{7}{c}{\bf Test Result}\\
+		& vec0 & vec1 & vec2 & vec3 & vec4 & vec5 & vec6\\\midrule
+		\ref{GetY_0} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
+		\ref{GetY_1} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
+		\ref{GetY_2} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
+		\ref{GetY_3} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
+		\ref{GetY_4} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
+
 	\subsubsection{Performance}
 
 \subsection{GetXsec} % Test cases finished
-	\subsubsection{Unit Tests}
-		\begin{table}[H]
-		\centering
-		\caption{Unit Tests}\label{GetXsec_unit}
-		\begin{tabular}{lll}
-		\toprule
-		\bf Test \# & Code & \bf Description\\\midrule
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetXsec_0} & Empty.GetXsec(-1) & Get an xSec with a negative energy from an empty vector\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetXsec_1} & Empty.GetXsec(0) & Get a xSec with an energy of zero from an empty vector\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetXsec_2} & Empty.GetXsec(r1) & Get a xSec with a normal energy from an empty vector\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetXsec_3} & D.GetXsec(-1) & Get a xSec with a negative energy\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetXsec_4} & D.GetXsec(0) & Get a xSec with a zero energy\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetXsec_5} & D.GetXsec(r0) & Get a xSec with a small energy\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetXsec_6} & D.GetXsec(r1) & Get a xSec with a normal energy\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetXsec_7} & D.GetXsec(r2) & Get a xSec with a large energy\\
+	\subsubsection{Method Signature}
+	\texttt{G4double GetXsec(G4int i)}
 
-		\bottomrule
-		\end{tabular}
-		\end{table}
-	\subsubsection{Accuracy}
+	\subsubsection{Test Description}
+	Returns the xSec at index \texttt{i} in the current vector. The \texttt{y} 
+	value of the point are outputted.
+	
+	\subsubsection{Test Inputs}
 		\begin{table}[H]
 		\centering
-		\caption{Accuracy}\label{GetY_acc}
+		\caption{Unit Tests - \texttt{GetXsec}}\label{GetXsec_unit}
 		\begin{tabular}{lll}
 		\toprule
-		\bf Test \# & Status \\\midrule
-		\ref{GetXsec_0} & Pass\\
-		\ref{GetXsec_1} & Pass\\
-		\ref{GetXsec_2} & Pass\\
-		\ref{GetXsec_3} & Pass\\
-		\ref{GetXsec_4} & Pass\\
-		\ref{GetXsec_5} & Pass\\
-		\ref{GetXsec_6} & Pass\\
-		\ref{GetXsec_7} & Pass\\
+		\multirow{2}{*}{\bf Test \#}  & \multicolumn{1}{c}{\bf Inputs}\\
+		& \bf \texttt{i}\\\midrule
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetXsec_0} & -1\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetXsec_1} & 0\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetXsec_2} & n/2\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetXsec_3} & n-1\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetXsec_4} & n\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
+	
+	\subsubsection{Test Results}
+		\begin{table}[H]
+		\centering
+		\caption{Test Results -- GetXsec}\label{GetXsec_acc}
+		\begin{tabular}{clllllll}
+		\toprule
+		\multirow{2}{*}{\bf Test \#} & \multicolumn{7}{c}{\bf Test Result}\\
+		& vec0 & vec1 & vec2 & vec3 & vec4 & vec5 & vec6\\\midrule
+		\ref{GetXsec_0} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
+		\ref{GetXsec_1} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
+		\ref{GetXsec_2} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
+		\ref{GetXsec_3} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
+		\ref{GetXsec_4} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
+		\bottomrule
+		\end{tabular}
+		\end{table}
+
 	\subsubsection{Performance}
 
-\subsection{SetData} % Test cases finished
-	\subsubsection{Unit Tests}
+\subsection{GetEnergy} % Test cases finished
+	\subsubsection{Method Signature}
+	\texttt{G4double GetEnergy(G4int i)}
+
+	\subsubsection{Test Description}
+	Returns the energy at index \texttt{i} in the current vector. The \texttt{x} 
+	value of the point are outputted.
+	
+	\subsubsection{Test Inputs}
 		\begin{table}[H]
 		\centering
-		\caption{Unit Tests}\label{SetData_unit}
+		\caption{Unit Tests - \texttt{GetEnergy}}\label{GetEnergy_unit}
 		\begin{tabular}{lll}
 		\toprule
-		\bf Test \# & Code & \bf Description\\\midrule
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetData_0} & Empty.SetData(-1, r1, r2) & Set a point at a negative index of an empty vector\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetData_1} & Empty.SetData(0, r1, r2) & Set a point at a the first index of an empty vector\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetData_2} & Empty.SetData(1, r1, r2) & Set a point at an index out of bounds of an empty vector\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetData_3} & D.SetData(-1, r1, r2) & Set a point at a negative index\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetData_4} & D.SetData(0, r1, r2) & Set a point at a the first index\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetData_5} & D.SetData(n/2, r1, r2) & Set a point at an index within the vector\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetData_6} & D.SetData(n-1, r1, r2) & Set a point at the last index\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetData_7} & D.SetData(n, r1, r2) & Set a point at an index our of bounds\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetData_8} & D.SetData(0, -1, -1) & Set a point with a negative energy and xSec\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetData_9} & D.SetData(0, 0, 0) & Set a point with a zero energy and xSec\\
+		\multirow{2}{*}{\bf Test \#}  & \multicolumn{1}{c}{\bf Inputs}\\
+		& \bf \texttt{i}\\\midrule
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetEnergy_0} & -1\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetEnergy_1} & 0\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetEnergy_2} & n/2\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetEnergy_3} & n-1\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetEnergy_4} & n\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
-	\subsubsection{Accuracy}
+	
+	\subsubsection{Test Results}
 		\begin{table}[H]
 		\centering
-		\caption{Accuracy}\label{GetY_acc}
-		\begin{tabular}{lll}
+		\caption{Test Results -- GetEnergy}\label{GetEnergy_acc}
+		\begin{tabular}{clllllll}
 		\toprule
-		\bf Test \# & Status \\\midrule
-		\ref{SetData_0} & Pass\\
-		\ref{SetData_1} & Pass\\
-		\ref{SetData_2} & Pass\\
-		\ref{SetData_3} & Pass\\
-		\ref{SetData_4} & Pass\\
-		\ref{SetData_5} & Pass\\
-		\ref{SetData_6} & Pass\\
-		\ref{SetData_7} & Pass\\
-		\ref{SetData_8} & Pass\\
-		\ref{SetData_9} & Pass\\
+		\multirow{2}{*}{\bf Test \#} & \multicolumn{7}{c}{\bf Test Result}\\
+		& vec0 & vec1 & vec2 & vec3 & vec4 & vec5 & vec6\\\midrule
+		\ref{GetEnergy_0} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
+		\ref{GetEnergy_1} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
+		\ref{GetEnergy_2} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
+		\ref{GetEnergy_3} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
+		\ref{GetEnergy_4} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
+
+	\subsubsection{Performance}
+
+\subsection{SetData} % Test Cases Done
+	\subsubsection{Method Signature}
+	\texttt{void SetData(G4int i, G4double x, G4double y)}
+
+	\subsubsection{Test Description}
+	Sets the energy and xSec at index \texttt{i} in the current vector. 
+	
+	\subsubsection{Test Inputs}
+	Commas denote multiple sub test inputs. If one of the sub tests fail then the whole test fails.
+		\begin{table}[H]
+		\centering
+		\caption{Unit Tests - \texttt{SetData}}\label{SetData_unit}
+		\begin{tabular}{lllll}
+		\toprule
+		\multirow{2}{*}{\bf Test \#}  & \multicolumn{3}{c}{\bf Inputs}\\
+		& \bf \texttt{i} & \bf \texttt{x} & \bf \texttt{y}\\\midrule
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetData_0} & -1 & r1, r2, r3, r4, r5 & r1, r2, r3, r4, r5\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetData_1} & 0 & r1, r2, r3, r4, r5 & r1, r2, r3, r4, r5\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetData_2} & n/2 & r1, r2, r3, r4, r5 & r1, r2, r3, r4, r5\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetData_3} & n-1 & r1, r2, r3, r4, r5 & r1, r2, r3, r4, r5\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetData_4} & n & r1, r2, r3, r4, r5 & r1, r2, r3, r4, r5\\
+		\bottomrule
+		\end{tabular}
+		\end{table}
+	
+	\subsubsection{Test Results}
+		\begin{table}[H]
+		\centering
+		\caption{Test Results -- SetData}\label{SetData_acc}
+		\begin{tabular}{clllllll}
+		\toprule
+		\multirow{2}{*}{\bf Test \#} & \multicolumn{7}{c}{\bf Test Result}\\
+		& vec0 & vec1 & vec2 & vec3 & vec4 & vec5 & vec6\\\midrule
+		\ref{SetData_0} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
+		\ref{SetData_1} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
+		\ref{SetData_2} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
+		\ref{SetData_3} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
+		\ref{SetData_4} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
+		\bottomrule
+		\end{tabular}
+		\end{table}
+
 	\subsubsection{Performance}
 
 \subsection{SetEnergy} % Test cases finished
-	\subsubsection{Unit Tests}
+	\subsubsection{Method Signature}
+	\texttt{void SetEnergy(G4int i, G4double e)}
+
+	\subsubsection{Test Description}
+	Sets the energy at index \texttt{i} in the current vector. 
+	
+	\subsubsection{Test Inputs}
+	Commas denote multiple sub test inputs. If one of the sub tests fail then the whole test fails.
 		\begin{table}[H]
 		\centering
-		\caption{Unit Tests}\label{SetEnergy_unit}
-		\begin{tabular}{lll}
+		\caption{Unit Tests - \texttt{SetEnergy}}\label{SetEnergy_unit}
+		\begin{tabular}{llll}
 		\toprule
-		\bf Test \# & Code & \bf Description\\\midrule
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetEnergy_0} & Empty.SetEnergy(-1, r1) & Set an energy at a negative index of an empty vector\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetEnergy_1} & Empty.SetEnergy(0, r1) & Set an energy at a the first index of an empty vector\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetEnergy_2} & Empty.SetEnergy(1, r1) & Set an energy at an index out of bounds of an empty vector\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetEnergy_3} & D.SetEnergy(-1, r1) & Set an energy at a negative index\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetEnergy_4} & D.SetEnergy(0, r1) & Set an energy at a the first index\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetEnergy_5} & D.SetEnergy(n/2, r1) & Set an energy at an index within the vector\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetEnergy_6} & D.SetEnergy(n-1, r1) & Set an energy at the last index\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetEnergy_7} & D.SetEnergy(n, r1) & Set an energy at an index our of bounds\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetEnergy_8} & D.SetEnergy(0, -1) & Set an energy at an index within the vector to a negative value\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetEnergy_9} & D.SetEnergy(0, 0) & Set an energy at an index within the vector to a zero value\\
+		\multirow{2}{*}{\bf Test \#}  & \multicolumn{2}{c}{\bf Inputs}\\
+		& \bf \texttt{i} & \bf \texttt{e}\\\midrule
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetEnergy_0} & -1 & r1, r2, r3, r4, r5\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetEnergy_1} & 0 & r1, r2, r3, r4, r5\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetEnergy_2} & n/2 & r1, r2, r3, r4, r5\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetEnergy_3} & n-1 & r1, r2, r3, r4, r5\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetEnergy_4} & n & r1, r2, r3, r4, r5\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
-	\subsubsection{Accuracy}
+	
+	\subsubsection{Test Results}
 		\begin{table}[H]
 		\centering
-		\caption{Accuracy}\label{GetY_acc}
-		\begin{tabular}{lll}
+		\caption{Test Results -- SetEnergy}\label{SetEnergy_acc}
+		\begin{tabular}{clllllll}
 		\toprule
-		\bf Test \# & Status \\\midrule
-		\ref{SetEnergy_0} & Pass\\
-		\ref{SetEnergy_1} & Pass\\
-		\ref{SetEnergy_2} & Pass\\
-		\ref{SetEnergy_3} & Pass\\
-		\ref{SetEnergy_4} & Pass\\
-		\ref{SetEnergy_5} & Pass\\
-		\ref{SetEnergy_6} & Pass\\
-		\ref{SetEnergy_7} & Pass\\
-		\ref{SetEnergy_8} & Pass\\
-		\ref{SetEnergy_9} & Pass\\
+		\multirow{2}{*}{\bf Test \#} & \multicolumn{7}{c}{\bf Test Result}\\
+		& vec0 & vec1 & vec2 & vec3 & vec4 & vec5 & vec6\\\midrule
+		\ref{SetEnergy_0} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
+		\ref{SetEnergy_1} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
+		\ref{SetEnergy_2} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
+		\ref{SetEnergy_3} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
+		\ref{SetEnergy_4} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
+
 	\subsubsection{Performance}
 
+
 \subsection{SetXsec} % Test cases finished
-	\subsubsection{Unit Tests}
+	\subsubsection{Method Signature}
+	\texttt{void SetXsec(G4int i, G4double e)}
+
+	\subsubsection{Test Description}
+	Sets the xSec at index \texttt{i} in the current vector. 
+	
+	\subsubsection{Test Inputs}
+	Commas denote multiple sub test inputs. If one of the sub tests fail then the whole test fails.
 		\begin{table}[H]
 		\centering
-		\caption{Unit Tests}\label{SetXsec_unit}
-		\begin{tabular}{lll}
+		\caption{Unit Tests - \texttt{SetXsec}}\label{SetXsec_unit}
+		\begin{tabular}{llll}
 		\toprule
-		\bf Test \# & Code & \bf Description\\\midrule
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetXsec_0} & Empty.SetXsec(-1, r1) & Set an xSec at a negative index of an empty vector\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetXsec_1} & Empty.SetXsec(0, r1) & Set an xSec at a the first index of an empty vector\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetXsec_2} & Empty.SetXsec(1, r1) & Set an xSec at an index out of bounds of an empty vector\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetXsec_3} & D.SetXsec(-1, r1) & Set an xSec at a negative index\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetXsec_4} & D.SetXsec(0, r1) & Set an xSec at a the first index\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetXsec_5} & D.SetXsec(n/2, r1) & Set an xSec at an index within the vector\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetXsec_6} & D.SetXsec(n-1, r1) & Set an xSec at the last index\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetXsec_7} & D.SetXsec(n, r1) & Set an xSec at an index our of bounds\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetXsec_8} & D.SetXsec(0, -1) & Try to set a negative xSec\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetXsec_9} & D.SetXsec(0, 0) & Try to set a zero xSec\\
+		\multirow{2}{*}{\bf Test \#}  & \multicolumn{2}{c}{\bf Inputs}\\
+		& \bf \texttt{i} & \bf \texttt{e}\\\midrule
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetXsec_0} & -1 & r1, r2, r3, r4, r5\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetXsec_1} & 0 & r1, r2, r3, r4, r5\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetXsec_2} & n/2 & r1, r2, r3, r4, r5\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetXsec_3} & n-1 & r1, r2, r3, r4, r5\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetXsec_4} & n & r1, r2, r3, r4, r5\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
-	\subsubsection{Accuracy}
+	
+	\subsubsection{Test Results}
 		\begin{table}[H]
 		\centering
-		\caption{Accuracy}\label{GetY_acc}
-		\begin{tabular}{lll}
+		\caption{Test Results -- SetXsec}\label{SetXsec_acc}
+		\begin{tabular}{clllllll}
 		\toprule
-		\bf Test \# & Status \\\midrule
-		\ref{SetXsec_0} & Pass\\
-		\ref{SetXsec_1} & Pass\\
-		\ref{SetXsec_2} & Pass\\
-		\ref{SetXsec_3} & Pass\\
-		\ref{SetXsec_4} & Pass\\
-		\ref{SetXsec_5} & Pass\\
-		\ref{SetXsec_6} & Pass\\
-		\ref{SetXsec_7} & Pass\\
-		\ref{SetXsec_8} & Pass\\
-		\ref{SetXsec_9} & Pass\\
+		\multirow{2}{*}{\bf Test \#} & \multicolumn{7}{c}{\bf Test Result}\\
+		& vec0 & vec1 & vec2 & vec3 & vec4 & vec5 & vec6\\\midrule
+		\ref{SetXsec_0} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
+		\ref{SetXsec_1} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
+		\ref{SetXsec_2} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
+		\ref{SetXsec_3} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
+		\ref{SetXsec_4} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
+
 	\subsubsection{Performance}
 
 \subsection{SetX} % Test cases finished
-	\subsubsection{Unit Tests}
+	\subsubsection{Method Signature}
+	\texttt{void SetX(G4int i, G4double e)}
+
+	\subsubsection{Test Description}
+	Sets the energy at index \texttt{i} in the current vector. 
+	
+	\subsubsection{Test Inputs}
+	Commas denote multiple sub test inputs. If one of the sub tests fail then the whole test fails.
 		\begin{table}[H]
 		\centering
-		\caption{Unit Tests}\label{SetX_unit}
-		\begin{tabular}{lll}
+		\caption{Unit Tests - \texttt{SetX}}\label{SetX_unit}
+		\begin{tabular}{llll}
 		\toprule
-		\bf Test \# & Code & \bf Description\\\midrule
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetX_0} & Empty.SetX(-1, r1) & Set an energy at a negative index of an empty vector\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetX_1} & Empty.SetX(0, r1) & Set an energy at a the first index of an empty vector\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetX_2} & Empty.SetX(1, r1) & Set an energy at an index out of bounds of an empty vector\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetX_3} & D.SetX(-1, r1) & Set an energy at a negative index\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetX_4} & D.SetX(0, r1) & Set an energy at a the first index\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetX_5} & D.SetX(n/2, r1) & Set an energy at an index within the vector\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetX_6} & D.SetX(n-1, r1) & Set an energy at the last index\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetX_7} & D.SetX(n, r1) & Set an energy at an index our of bounds\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetX_8} & D.SetX(0, -1) & Set a negative energy\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetX_9} & D.SetX(0, 0) & Set a zero energy\\
+		\multirow{2}{*}{\bf Test \#}  & \multicolumn{2}{c}{\bf Inputs}\\
+		& \bf \texttt{i} & \bf \texttt{e}\\\midrule
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetX_0} & -1 & r1, r2, r3, r4, r5\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetX_1} & 0 & r1, r2, r3, r4, r5\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetX_2} & n/2 & r1, r2, r3, r4, r5\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetX_3} & n-1 & r1, r2, r3, r4, r5\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetX_4} & n & r1, r2, r3, r4, r5\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
-	\subsubsection{Accuracy}
+	
+	\subsubsection{Test Results}
 		\begin{table}[H]
 		\centering
-		\caption{Accuracy}\label{GetY_acc}
-		\begin{tabular}{lll}
+		\caption{Test Results -- SetX}\label{SetX_acc}
+		\begin{tabular}{clllllll}
 		\toprule
-		\bf Test \# & Status \\\midrule
-		\ref{SetX_0} & Pass\\
-		\ref{SetX_1} & Pass\\
-		\ref{SetX_2} & Pass\\
-		\ref{SetX_3} & Pass\\
-		\ref{SetX_4} & Pass\\
-		\ref{SetX_5} & Pass\\
-		\ref{SetX_6} & Pass\\
-		\ref{SetX_7} & Pass\\
-		\ref{SetX_8} & Pass\\
-		\ref{SetX_9} & Pass\\
+		\multirow{2}{*}{\bf Test \#} & \multicolumn{7}{c}{\bf Test Result}\\
+		& vec0 & vec1 & vec2 & vec3 & vec4 & vec5 & vec6\\\midrule
+		\ref{SetX_0} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
+		\ref{SetX_1} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
+		\ref{SetX_2} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
+		\ref{SetX_3} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
+		\ref{SetX_4} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
+
 	\subsubsection{Performance}
 
 \subsection{SetY} % Test cases finished
-	\subsubsection{Unit Tests}
+	\subsubsection{Method Signature}
+	\texttt{void SetY(G4int i, G4double e)}
+
+	\subsubsection{Test Description}
+	Sets the xSec at index \texttt{i} in the current vector. 
+	
+	\subsubsection{Test Inputs}
+	Commas denote multiple sub test inputs. If one of the sub tests fail then the whole test fails.
 		\begin{table}[H]
 		\centering
-		\caption{Unit Tests}\label{SetY_unit}
-		\begin{tabular}{lll}
+		\caption{Unit Tests - \texttt{SetY}}\label{SetY_unit}
+		\begin{tabular}{llll}
 		\toprule
-		\bf Test \# & Code & \bf Description\\\midrule
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetY_0} & Empty.SetY(-1, r1) & Set an xSec at a negative index of an empty vector\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetY_1} & Empty.SetY(0, r1) & Set an xSec at a the first index of an empty vector\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetY_2} & Empty.SetY(1, r1) & Set an xSec at an index out of bounds of an empty vector\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetY_3} & D.SetY(-1, r1) & Set an xSec at a negative index\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetY_4} & D.SetY(0, r1) & Set an xSec at a the first index\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetY_5} & D.SetY(n/2, r1) & Set an xSec at an index within the vector\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetY_6} & D.SetY(n-1, r1) & Set an xSec at the last index\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetY_7} & D.SetY(n, r1) & Set an xSec at an index our of bounds\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetY_8} & D.SetY(0, -1) & Set a negative xSec\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetY_9} & D.SetY(0, 0) & Set a zero xSec\\
+		\multirow{2}{*}{\bf Test \#}  & \multicolumn{2}{c}{\bf Inputs}\\
+		& \bf \texttt{i} & \bf \texttt{e}\\\midrule
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetY_0} & -1 & r1, r2, r3, r4, r5\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetY_1} & 0 & r1, r2, r3, r4, r5\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetY_2} & n/2 & r1, r2, r3, r4, r5\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetY_3} & n-1 & r1, r2, r3, r4, r5\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetY_4} & n & r1, r2, r3, r4, r5\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
-	\subsubsection{Accuracy}
+	
+	\subsubsection{Test Results}
 		\begin{table}[H]
 		\centering
-		\caption{Accuracy}\label{SetY_acc}
-		\begin{tabular}{lll}
+		\caption{Test Results -- SetY}\label{SetY_acc}
+		\begin{tabular}{clllllll}
 		\toprule
-		\bf Test \# & Status \\\midrule
-		\ref{SetY_0} & Pass\\
-		\ref{SetY_1} & Pass\\
-		\ref{SetY_2} & Pass\\
-		\ref{SetY_3} & Pass\\
-		\ref{SetY_4} & Pass\\
-		\ref{SetY_5} & Pass\\
-		\ref{SetY_6} & Pass\\
-		\ref{SetY_7} & Pass\\
-		\ref{SetY_8} & Pass\\
-		\ref{SetY_9} & Pass\\
+		\multirow{2}{*}{\bf Test \#} & \multicolumn{7}{c}{\bf Test Result}\\
+		& vec0 & vec1 & vec2 & vec3 & vec4 & vec5 & vec6\\\midrule
+		\ref{SetY_0} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
+		\ref{SetY_1} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
+		\ref{SetY_2} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
+		\ref{SetY_3} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
+		\ref{SetY_4} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
+
 	\subsubsection{Performance}
 
-\subsection{Init} % Test Cases done
+\subsection{Init} 
 	\subsubsection{Unit Tests}
 		\begin{table}[H]
 		\centering
@@ -645,127 +709,139 @@ Tests on vectors A - F all behave the same. Showing accuracy for vectors A - F d
 %		\end{table}
 %	\subsubsection{Performance}
 
-\subsection{SampleLin}% Test Cases finished
-	\subsubsection{Unit Tests}
+\subsection{SampleLin}% Test Cases Done
+	\subsubsection{Method Signature}
+	\texttt{G4double SampleLin()}
+
+	\subsubsection{Test Description}
+	 Performs samples of the vector with a linear interpolation scheme.
+	
+	\subsubsection{Test Inputs}
 		\begin{table}[H]
 		\centering
-		\caption{Unit Tests}\label{SampleLin_unit}
+		\caption{Unit Tests - \texttt{SampleLin}}\label{SampleLin_unit}
 		\begin{tabular}{lll}
 		\toprule
-		\bf Test \# & Code & \bf Description\\\midrule
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SampleLin_0} & Empty.SampleLin() & Sample an empty Vector\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SampleLin_1} & D.SampleLin() & Sample a Vector\\
+		\multirow{2}{*}{\bf Test \#}  & \multicolumn{1}{c}{\bf Inputs}\\
+		& \bf \texttt{N/A}\\\midrule
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SampleLin_0} & N/A \\
 		\bottomrule
 		\end{tabular}
 		\end{table}
-	\subsubsection{Accuracy}
+	
+	\subsubsection{Test Results}
 		\begin{table}[H]
 		\centering
-		\caption{Accuracy}\label{SampleLin_acc}
-		\begin{tabular}{lll}
+		\caption{Test Results -- SampleLin}\label{SampleLin_acc}
+		\begin{tabular}{clllllll}
 		\toprule
-		\bf Test \# & CPU & GPU \\\midrule
-		\ref{SampleLin_0} & CPU result & GPU result\\
-		\ref{SampleLin_1} & CPU result & GPU result\\
+		\multirow{2}{*}{\bf Test \#} & \multicolumn{7}{c}{\bf Test Result}\\
+		& vec0 & vec1 & vec2 & vec3 & vec4 & vec5 & vec6\\\midrule
+		\ref{SampleLin_0} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
+
 	\subsubsection{Performance}
 
-\subsection{Integrate}% Test Cases done
-	\subsubsection{Unit Tests}
+%\subsection{Integrate}
+%	\subsubsection{Unit Tests}
+%		\begin{table}[H]
+%		\centering
+%		\caption{Unit Tests}\label{Integrate_unit}
+%		\begin{tabular}{lll}
+%		\toprule
+%		\bf Test \# & Code & \bf Description\\\midrule
+%		\refstepcounter{TestCounter}\arabic{TestCounter}\label{Integrate_0} & Empty.Integrate() & Integrate an empty Vector\\
+%		\refstepcounter{TestCounter}\arabic{TestCounter}\label{Integrate_1} & D.Integrate() & Integrate a Vector\\
+%		\bottomrule
+%		\end{tabular}
+%		\end{table}
+%	\subsubsection{Accuracy}
+%		\begin{table}[H]
+%		\centering
+%		\caption{Accuracy}\label{Integrate_acc}
+%		\begin{tabular}{lll}
+%		\toprule
+%		\bf Test \# & Status \\\midrule
+%		\ref{Integrate_0} & Pass\\
+%		\ref{Integrate_1} & Pass\\
+%		\bottomrule
+%		\end{tabular}
+%		\end{table}
+%	\subsubsection{Performance}
+%
+%\subsection{IntegrateAndNormalise}
+%	\subsubsection{Unit Tests}
+%		\begin{table}[H]
+%		\centering
+%		\caption{Unit Tests}\label{IntAndNorm_unit}
+%		\begin{tabular}{lll}
+%		\toprule
+%		\bf Test \# & Code & \bf Description\\\midrule
+%		\stepcounter{TestCounter}\arabic{TestCounter}\label{IntAndNorm_0} & Empty.IntegrateAndNormalise() & Integrate and normalize an empty Vector\\
+%		\stepcounter{TestCounter}\arabic{TestCounter}\label{IntAndNorm_1} & D.IntegrateAndNormalise() & Integrate normalize a Vector\\
+%		\bottomrule
+%		\end{tabular}
+%		\end{table}
+%	\subsubsection{Accuracy}
+%		\begin{table}[H]
+%		\centering
+%		\caption{Accuracy}\label{IntAndNorm_acc}
+%		\begin{tabular}{lll}
+%		\toprule
+%		\bf Test \# & Status \\\midrule
+%		\ref{IntAndNorm_0} & Pass\\
+%		\ref{IntAndNorm_1} & Pass\\
+%		\bottomrule
+%		\end{tabular}
+%		\end{table}
+%	\subsubsection{Performance}
+
+\subsection{Times} % Test Cases done
+	\subsubsection{Method Signature}
+	\texttt{void Times(G4double factor)}
+
+	\subsubsection{Test Description}
+	Multiplies every element in the vector by \texttt{factor}.
+	
+	\subsubsection{Test Inputs}
 		\begin{table}[H]
 		\centering
-		\caption{Unit Tests}\label{Integrate_unit}
+		\caption{Unit Tests - \texttt{Times}}\label{Times_unit}
 		\begin{tabular}{lll}
 		\toprule
-		\bf Test \# & Code & \bf Description\\\midrule
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{Integrate_0} & Empty.Integrate() & Integrate an empty Vector\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{Integrate_1} & D.Integrate() & Integrate a Vector\\
+		\multirow{2}{*}{\bf Test \#}  & \multicolumn{1}{c}{\bf Inputs}\\
+		& \bf \texttt{factor}\\\midrule
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{Times_0} & r1\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{Times_1} & r2\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{Times_2} & r3\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{Times_3} & r4\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{Times_4} & r5\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
-	\subsubsection{Accuracy}
+	
+	\subsubsection{Test Results}
 		\begin{table}[H]
 		\centering
-		\caption{Accuracy}\label{Integrate_acc}
-		\begin{tabular}{lll}
+		\caption{Test Results -- Times}\label{Times_acc}
+		\begin{tabular}{clllllll}
 		\toprule
-		\bf Test \# & Status \\\midrule
-		\ref{Integrate_0} & Pass\\
-		\ref{Integrate_1} & Pass\\
+		\multirow{2}{*}{\bf Test \#} & \multicolumn{7}{c}{\bf Test Result}\\
+		& vec0 & vec1 & vec2 & vec3 & vec4 & vec5 & vec6\\\midrule
+		\ref{Times_0} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
+		\ref{Times_1} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
+		\ref{Times_2} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
+		\ref{Times_3} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
+		\ref{Times_4} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
+
 	\subsubsection{Performance}
 
-\subsection{IntegrateAndNormalise}% Test Cases done
-	\subsubsection{Unit Tests}
-		\begin{table}[H]
-		\centering
-		\caption{Unit Tests}\label{IntAndNorm_unit}
-		\begin{tabular}{lll}
-		\toprule
-		\bf Test \# & Code & \bf Description\\\midrule
-		\stepcounter{TestCounter}\arabic{TestCounter}\label{IntAndNorm_0} & Empty.IntegrateAndNormalise() & Integrate and normalize an empty Vector\\
-		\stepcounter{TestCounter}\arabic{TestCounter}\label{IntAndNorm_1} & D.IntegrateAndNormalise() & Integrate normalize a Vector\\
-		\bottomrule
-		\end{tabular}
-		\end{table}
-	\subsubsection{Accuracy}
-		\begin{table}[H]
-		\centering
-		\caption{Accuracy}\label{IntAndNorm_acc}
-		\begin{tabular}{lll}
-		\toprule
-		\bf Test \# & Status \\\midrule
-		\ref{IntAndNorm_0} & Pass\\
-		\ref{IntAndNorm_1} & Pass\\
-		\bottomrule
-		\end{tabular}
-		\end{table}
-	\subsubsection{Performance}
-
-\subsection{Times} % Test cases finished
-	\subsubsection{Unit Tests}
-		\begin{table}[H]
-		\centering
-		\caption{Unit Tests}\label{Times_unit}
-		\begin{tabular}{lll}
-		\toprule
-		\bf Test \# & Code & \bf Description\\\midrule
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{Times_0} & Empty.Times(-1) & Times an empty vector by a negative factor\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{Times_1} & Empty.Times(0) & Times an empty vector by zero\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{Times_2} & Empty.Times(1) & Times an empty vector by 1\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{Times_3} & Empty.Times(r1) & Times an empty vector by a random factor\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{Times_4} & D.Times(-1) & Times a vector by a negative factor\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{Times_5} & D.Times(0) & Times a vector by zero\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{Times_6} & D.Times(1) & Times a vector by 1\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{Times_7} & D.Times(r1) & Times a vector by a random factor\\
-		\bottomrule
-		\end{tabular}
-		\end{table}
-	\subsubsection{Accuracy}
-		\begin{table}[H]
-		\centering
-		\caption{Accuracy}\label{Times_acc}
-		\begin{tabular}{lll}
-		\toprule
-		\bf Test \# & Status \\\midrule
-		\ref{Times_0} & Pass\\
-		\ref{Times_1} & Pass\\
-		\ref{Times_2} & Pass\\
-		\ref{Times_3} & Pass\\
-		\ref{Times_4} & Pass\\
-		\ref{Times_5} & Pass\\
-		\ref{Times_6} & Pass\\
-		\ref{Times_7} & Pass\\
-		\bottomrule
-		\end{tabular}
-		\end{table}
-	\subsubsection{Performance}
-
-\subsection{GetXsecBuffer} % test cases finished
+\subsection{GetXsecBuffer} 
 	\begin{table}[H]
 	\centering
 	\caption{General Unit Test Variables}\label{buffer_table}
@@ -825,66 +901,82 @@ Tests on vectors A - F all behave the same. Showing accuracy for vectors A - F d
 		\end{table}
 	\subsubsection{Performance}
 
-\subsection{ThinOut}% Test Cases Done
-	\subsubsection{Unit Tests}
+\subsection{ThinOut} % Test Cases done 
+	\subsubsection{Method Signature}
+	\texttt{void ThinOut(G4double precision)}
+
+	\subsubsection{Test Description}
+	Removes any element from the vector whose neighbor is closer than \texttt{precision}.
+	
+	\subsubsection{Test Inputs}
 		\begin{table}[H]
 		\centering
-		\caption{Unit Tests}\label{ThinOut_unit}
+		\caption{Unit Tests - \texttt{ThinOut}}\label{ThinOut_unit}
 		\begin{tabular}{lll}
 		\toprule
-		\bf Test \# & Code & \bf Description\\\midrule
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{ThinOut_0} & Empty.ThinOut(r1) & ThinOut an empty Vector\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{ThinOut_1} & D.ThinOut(-1) & ThinOut a Vector using a negative value\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{ThinOut_2} & D.ThinOut(0) & ThinOut a Vector using a zero value\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{ThinOut_3} & D.ThinOut(r0) & ThinOut a Vector using a small value\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{ThinOut_4} & D.ThinOut(r1) & ThinOut a Vector using a normal value\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{ThinOut_5} & D.ThinOut(r2) & ThinOut a Vector using a large value\\
+		\multirow{2}{*}{\bf Test \#}  & \multicolumn{1}{c}{\bf Inputs}\\
+		& \bf \texttt{factor}\\\midrule
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{ThinOut_0} & r1\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{ThinOut_1} & r2\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{ThinOut_2} & r3\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{ThinOut_3} & r4\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{ThinOut_4} & r5\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
-	\subsubsection{Accuracy}
+	
+	\subsubsection{Test Results}
 		\begin{table}[H]
 		\centering
-		\caption{Accuracy}\label{ThinOut_acc}
-		\begin{tabular}{lll}
+		\caption{Test Results -- ThinOut}\label{ThinOut_acc}
+		\begin{tabular}{clllllll}
 		\toprule
-		\bf Test \# & Status \\\midrule
-		\ref{ThinOut_0} & Pass\\
-		\ref{ThinOut_1} & Pass\\
-		\ref{ThinOut_2} & Pass\\
-		\ref{ThinOut_3} & Pass\\
-		\ref{ThinOut_4} & Pass\\
-		\ref{ThinOut_5} & Pass\\
+		\multirow{2}{*}{\bf Test \#} & \multicolumn{7}{c}{\bf Test Result}\\
+		& vec0 & vec1 & vec2 & vec3 & vec4 & vec5 & vec6\\\midrule
+		\ref{ThinOut_0} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
+		\ref{ThinOut_1} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
+		\ref{ThinOut_2} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
+		\ref{ThinOut_3} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
+		\ref{ThinOut_4} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
+
 	\subsubsection{Performance}
 
-\subsection{Sample}% Test Cases done
-	\subsubsection{Unit Tests}
+\subsection{Sample}% Test Cases Done
+	\subsubsection{Method Signature}
+	\texttt{G4double Sample()}
+
+	\subsubsection{Test Description}
+	  Performs samples of the vector according to interpolation its interpolation scheme.
+	
+	\subsubsection{Test Inputs}
 		\begin{table}[H]
 		\centering
-		\caption{Unit Tests}\label{Sample_unit}
+		\caption{Unit Tests - \texttt{Sample}}\label{Sample_unit}
 		\begin{tabular}{lll}
 		\toprule
-		\bf Test \# & Code & \bf Description\\\midrule
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{Sample_0} & Empty.Sample() & Sample an empty Vector\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{Sample_1} & D.Sample() & Sample a Vector\\
+		\multirow{2}{*}{\bf Test \#}  & \multicolumn{1}{c}{\bf Inputs}\\
+		& \bf \texttt{N/A}\\\midrule
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{Sample_0} & N/A \\
 		\bottomrule
 		\end{tabular}
 		\end{table}
-	\subsubsection{Accuracy}
+	
+	\subsubsection{Test Results}
 		\begin{table}[H]
 		\centering
-		\caption{Accuracy}\label{Sample_acc}
-		\begin{tabular}{lll}
+		\caption{Test Results -- Sample}\label{Sample_acc}
+		\begin{tabular}{clllllll}
 		\toprule
-		\bf Test \# & CPU & GPU \\\midrule
-		\ref{Sample_0} & CPU result & GPU result\\
-		\ref{Sample_1} & CPU result & GPU result\\
+		\multirow{2}{*}{\bf Test \#} & \multicolumn{7}{c}{\bf Test Result}\\
+		& vec0 & vec1 & vec2 & vec3 & vec4 & vec5 & vec6\\\midrule
+		\ref{Sample_0} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
+
 	\subsubsection{Performance}
 
 %\subsection{GetIntegral}
@@ -912,7 +1004,7 @@ Tests on vectors A - F all behave the same. Showing accuracy for vectors A - F d
 %		\end{table}
 %	\subsubsection{Performance}
 
-\subsection{SetPoint} % Test cases finished
+\subsection{SetPoint} 
 	\subsubsection{Unit Tests}
 		\begin{itemize}
 			\item ``rPoint" is a random G4ParticleHPDataPoint
@@ -985,58 +1077,76 @@ Tests on vectors A - F all behave the same. Showing accuracy for vectors A - F d
 %		\end{table}
 %	\subsubsection{Performance}
 
-\subsection{Get15percentBorder} % Test cases finished
-	\subsubsection{Unit Tests}		
+\subsection{Get15percentBorder} % Test Cases Done
+	\subsubsection{Method Signature}
+	\texttt{G4double Get15percentBorder()}
+
+	\subsubsection{Test Description}
+	 Returns the integral from each data point to the last data point and returns the first one within 
+15\% of the last data point.
+	
+	\subsubsection{Test Inputs}
 		\begin{table}[H]
 		\centering
-		\caption{Unit Tests}\label{Get15percentBorder_unit}
+		\caption{Unit Tests - \texttt{Get15percentBorder}}\label{Get15percentBorder_unit}
 		\begin{tabular}{lll}
 		\toprule
-		\bf Test \# & Code & \bf Description\\\midrule
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{Get15percentBorder_0} & Empty.Get15percentBorder() & Get 15 percent Border of an empty vector\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{Get15percentBorder_1} & D.Get15percentBorder() & Get 15 percent Border of a vector\\
+		\multirow{2}{*}{\bf Test \#}  & \multicolumn{1}{c}{\bf Inputs}\\
+		& \bf \texttt{N/A}\\\midrule
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{Get15percentBorder_0} & N/A \\
 		\bottomrule
 		\end{tabular}
 		\end{table}
-	\subsubsection{Accuracy}
+	
+	\subsubsection{Test Results}
 		\begin{table}[H]
 		\centering
-		\caption{Accuracy}\label{Get15percentBorder_acc}
-		\begin{tabular}{lll}
+		\caption{Test Results -- Get15percentBorder}\label{Get15percentBorder_acc}
+		\begin{tabular}{clllllll}
 		\toprule
-		\bf Test \# & Status \\\midrule		
-		\ref{Get15percentBorder_0} & Pass\\
-		\ref{Get15percentBorder_1} & Pass\\
+		\multirow{2}{*}{\bf Test \#} & \multicolumn{7}{c}{\bf Test Result}\\
+		& vec0 & vec1 & vec2 & vec3 & vec4 & vec5 & vec6\\\midrule
+		\ref{Get15percentBorder_0} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
+
 	\subsubsection{Performance}
 
-\subsection{Get50percentBorder} % Test cases finished
-	\subsubsection{Unit Tests}		
+\subsection{Get50percentBorder}% Test Cases Done
+	\subsubsection{Method Signature}
+	\texttt{G4double Get50percentBorder()}
+
+	\subsubsection{Test Description}
+	 Returns the integral from each data point to the last data point and returns the first one within 
+50\% of the last data point.
+	
+	\subsubsection{Test Inputs}
 		\begin{table}[H]
 		\centering
-		\caption{Unit Tests}\label{Get50percentBorder_unit}
+		\caption{Unit Tests - \texttt{Get50percentBorder}}\label{Get50percentBorder_unit}
 		\begin{tabular}{lll}
 		\toprule
-		\bf Test \# & Code & \bf Description\\\midrule
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{Get50percentBorder_0} & Empty.Get50percentBorder() & Get 50 percent Border of an empty vector\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{Get50percentBorder_1} & D.Get50percentBorder() & Get 50 percent Border of a vector\\
+		\multirow{2}{*}{\bf Test \#}  & \multicolumn{1}{c}{\bf Inputs}\\
+		& \bf \texttt{N/A}\\\midrule
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{Get50percentBorder_0} & N/A \\
 		\bottomrule
 		\end{tabular}
 		\end{table}
-	\subsubsection{Accuracy}
+	
+	\subsubsection{Test Results}
 		\begin{table}[H]
 		\centering
-		\caption{Accuracy}\label{Get50percentBorder_acc}
-		\begin{tabular}{lll}
+		\caption{Test Results -- Get50percentBorder}\label{Get50percentBorder_acc}
+		\begin{tabular}{clllllll}
 		\toprule
-		\bf Test \# & Status \\\midrule		
-		\ref{Get50percentBorder_0} & Pass\\
-		\ref{Get50percentBorder_1} & Pass\\
+		\multirow{2}{*}{\bf Test \#} & \multicolumn{7}{c}{\bf Test Result}\\
+		& vec0 & vec1 & vec2 & vec3 & vec4 & vec5 & vec6\\\midrule
+		\ref{Get50percentBorder_0} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
+
 	\subsubsection{Performance}
 
 % =============================== Section =============================== %
