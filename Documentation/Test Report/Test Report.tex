@@ -1104,9 +1104,240 @@ Tests on vectors A - F all behave the same. Showing accuracy for vectors A - F d
 % =============================== Section =============================== %
 \section{Specific System Tests}
 \subsection{Summary of Tests Performed}
-\subsection{System Tests Results}
+System tests will be performed by running the sample code packaged with the GEANT4 installation. The Hadr04 example will be run with different materials (i.e water, uranium) and number of events. The values and conditions that are changed per test are detailed in the table below.\\ \\
 
-% =============================== Section =============================== % ------------------------ Rob
+\begin{center}
+\begin{longtable}{cc >{\raggedright\arraybackslash}p{2.8cm}>{\raggedright\arraybackslash}p{3cm}>{\raggedright\arraybackslash}p{4.5cm}}
+\caption{System Tests}\label{Table_SystemTests}\\
+\toprule
+
+\bf Test \# & \bf Initial State & \bf Inputs & \bf Outputs & \bf Description\\\midrule
+\stepcounter{TestCounter}\arabic{TestCounter} 
+& Fresh start up 
+& Events = 2000
+Material = Water
+& Same output as non-GPU GEANT4 
+&  HADR04 no changes\\\midrule
+
+\stepcounter{TestCounter}\arabic{TestCounter}
+& Fresh start up 
+& Events = 2000
+Material = Uranium
+& Same output as non-GPU GEANT4 
+& HADR04 -- basic example\\\midrule
+
+\stepcounter{TestCounter}\arabic{TestCounter}
+& Fresh start up 
+& Events = 600
+Material = Water
+& Same output as non-GPU GEANT4 
+& HADR04 -- Shorter test \\\midrule
+
+\stepcounter{TestCounter}\arabic{TestCounter}
+& Fresh start up 
+& Events = 600
+Material = Uranium
+& Same output as non-GPU GEANT4 
+& HADR04 -- Shorter test \\\midrule
+
+\stepcounter{TestCounter}\arabic{TestCounter}
+& Fresh start up 
+& Events = 20000
+Material = Uranium
+& Same output as non-GPU GEANT4 
+& HADR04 -- Long simulation stress Test\\\midrule
+
+\stepcounter{TestCounter}\arabic{TestCounter}
+& Fresh start up 
+& Events = 0
+Material = Uranium
+& Same output as non-GPU GEANT4 
+& HADR04 -- no runs,  Edge case\\
+
+\bottomrule
+\end{longtable}
+\end{center}
+\subsection{System Tests Results}
+This section will summarize all of the results from running tests 39 through 44. Each test has an accuracy section as well as a performance section. The accuracy of the results will be based on how well the values generated on the GPU match up with the values generated on the CPU. The performance metrics used will include user, system and real time required to run each  system test.
+
+\subsection{System test \# 39}
+This test simply runs the Hadr04 example on both the GPU and the CPU without changing the source files. The code for this example is bundled with the GEANT4 installation.\\
+	\subsubsection{Accuracy}
+		\begin{table}[!htbp]
+		\centering
+		\caption{Accuracy Test \#39}\label{_acc}
+		\begin{tabular}{llll}
+		\toprule
+		\bf Data & CPU Values & GPU Values & Difference\\\midrule
+		\bf Process Calls&&&\\
+		hadElastic&NA&NA&NA\\
+		nCapture&NA&NA&NA\\
+		neutronInelastic&NA&NA&NA\\ 
+		\bf Parcours of incident neutron&&&\\
+		collisions&NA&NA&NA\\
+		track length&NA&NA&NA\\
+		time of flight&NA&NA&NA\\
+		\bf Generated particles&&&\\
+		C14&&&\\
+		\# of particles&NA&NA&NA\\
+		Emean&NA&NA&NA\\
+		Range&NA&NA&NA\\
+		O16&&&\\
+		\# of particles&NA&NA&NA\\
+		Emean&NA&NA&NA\\
+		Range&NA&NA&NA\\
+		O17&&&\\
+		\# of particles&NA&NA&NA\\
+		Emean&NA&NA&NA\\
+		Range&NA&NA&NA\\
+		O18&&&\\
+		\# of particles&NA&NA&NA\\
+		Emean&NA&NA&NA\\
+		Range&NA&NA&NA\\
+		Alpha&&&\\
+		\# of particles&NA&NA&NA\\
+		Emean&NA&NA&NA\\
+		Range&NA&NA&NA\\
+		Deuteron&&&\\
+		\# of particles&NA&NA&NA\\
+		Emean&NA&NA&NA\\
+		Range&NA&NA&NA\\
+		Gamma&&&\\
+		\# of particles&NA&NA&NA\\
+		Emean&NA&NA&NA\\
+		Range&NA&NA&NA\\
+		Proton&&&\\
+		\# of particles&NA&NA&NA\\
+		Emean&NA&NA&NA\\
+		Range&NA&NA&NA\\
+		\end{tabular}
+		\end{table}
+		\break
+	\subsubsection{Performance}
+		\begin{table}[!htbp]
+		\centering
+		\caption{Performance Test \#39}\label{_acc}
+		\begin{tabular}{lll}
+		\toprule
+		Type&CPU Time& GPU Time\\\midrule
+		User&NA&NA\\
+		Real&NA&NA\\
+		System&NA&NA\\
+		\end{tabular}
+		\end{table}
+\break
+\subsection{System test \# 40}
+This test simply runs the Hadr04 example on both the GPU and the CPU without changing the source files. The code for this example is bundled with the GEANT4 installation.\\
+	\subsubsection{Accuracy}
+		\begin{table}[!htbp]
+		\centering
+		\caption{Accuracy Test \#40}\label{_acc}
+		\begin{tabular}{llll}
+		\toprule
+		\bf Data & CPU Values & GPU Values & Difference\\\midrule
+		\bf Process Calls&&&\\
+		hadElastic&NA&NA&NA\\
+		nCapture&NA&NA&NA\\
+		neutronInelastic&NA&NA&NA\\ 
+		\bf Parcours of incident neutron&&&\\
+		collisions&NA&NA&NA\\
+		track length&NA&NA&NA\\
+		time of flight&NA&NA&NA\\
+		\bf Generated particles&&&\\
+		U235&&&\\
+		\# of particles&NA&NA&NA\\
+		Emean&NA&NA&NA\\
+		Range&NA&NA&NA\\
+		U238&&&\\
+		\# of particles&NA&NA&NA\\
+		Emean&NA&NA&NA\\
+		Range&NA&NA&NA\\
+		U239&&&\\
+		\# of particles&NA&NA&NA\\
+		Emean&NA&NA&NA\\
+		Range&NA&NA&NA\\
+		Gamma&&&\\
+		\# of particles&NA&NA&NA\\
+		Emean&NA&NA&NA\\
+		Range&NA&NA&NA\\
+		Neutron&&&\\
+		\# of particles&NA&NA&NA\\
+		Emean&NA&NA&NA\\
+		Range&NA&NA&NA\\
+		\end{tabular}
+		\end{table}
+		\break
+	\subsubsection{Performance}
+		\begin{table}[!htbp]
+		\centering
+		\caption{Performance Test \#40}\label{_acc}
+		\begin{tabular}{lll}
+		\toprule
+		Type&CPU Time& GPU Time\\\midrule
+		User&NA&NA\\
+		Real&NA&NA\\
+		System&NA&NA\\
+		\end{tabular}
+		\end{table}
+\subsection{System test \# 41}
+This test simply runs the Hadr04 example on both the GPU and the CPU without changing the source files. The code for this example is bundled with the GEANT4 installation.\\
+\break
+	\subsubsection{Accuracy}
+		\begin{table}[!htbp]
+		\centering
+		\caption{Accuracy Test \#41}\label{_acc}
+		\begin{tabular}{llll}
+		\toprule
+		\bf Data & CPU Values & GPU Values & Difference\\\midrule
+		\bf Process Calls&&&\\
+		hadElastic&NA&NA&NA\\
+		nCapture&NA&NA&NA\\
+		neutronInelastic&NA&NA&NA\\ 
+		\bf Parcours of incident neutron&&&\\
+		collisions&NA&NA&NA\\
+		track length&NA&NA&NA\\
+		time of flight&NA&NA&NA\\
+		\bf Generated particles&&&\\
+		O16&&&\\
+		\# of particles&NA&NA&NA\\
+		Emean&NA&NA&NA\\
+		Range&NA&NA&NA\\
+		O17&&&\\
+		\# of particles&NA&NA&NA\\
+		Emean&NA&NA&NA\\
+		Range&NA&NA&NA\\
+		O18&&&\\
+		\# of particles&NA&NA&NA\\
+		Emean&NA&NA&NA\\
+		Range&NA&NA&NA\\
+		Alpha&&&\\
+		\# of particles&NA&NA&NA\\
+		Emean&NA&NA&NA\\
+		Range&NA&NA&NA\\
+		Gamma&&&\\
+		\# of particles&NA&NA&NA\\
+		Emean&NA&NA&NA\\
+		Range&NA&NA&NA\\
+		Proton&&&\\
+		\# of particles&NA&NA&NA\\
+		Emean&NA&NA&NA\\
+		Range&NA&NA&NA\\
+		\end{tabular}
+		\end{table}
+		\break
+	\subsubsection{Performance}
+		\begin{table}[!htbp]
+		\centering
+		\caption{Performance Test \#41}\label{_acc}
+		\begin{tabular}{lll}
+		\toprule
+		Type&CPU Time& GPU Time\\\midrule
+		User&NA&NA\\
+		Real&NA&NA\\
+		System&NA&NA\\
+		\end{tabular}
+		\end{table}
+% =============================== Section =============================== %
 \section{Traceability}
 The following section is used to highlight the relations of implemented test cases to requirements and modules. In doing so, we hope to draw clear reasoning upon the inclusion of such tests. 
 \subsection{Requirements}
