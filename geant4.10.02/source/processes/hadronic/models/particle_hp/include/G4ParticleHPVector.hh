@@ -49,7 +49,7 @@
 #include <cmath>
 #include <vector>
 
-#define GEANT4_ENABLE_CUDA 0
+#define GEANT4_ENABLE_CUDA 1
 #if GEANT4_ENABLE_CUDA
   #include "/Users/stuart/Documents/4th_Year/CS_4ZP6/GEANT4-GPU/geant4.10.02/source/externals/cuda/include/G4ParticleHPVector_CUDA.hh"
 #endif
@@ -186,10 +186,6 @@ class G4ParticleHPVector
         high = nEntries-1;
       }
       G4double y;
-      std::cout << "    GetXSec(" << e << "," << min << ") starting.\n";
-      std::cout << "      theData[low=" << low << "] = (" << theData[low].GetX() << "," << theData[low].GetY() << ")\n";
-      std::cout << "      theData[hig=" << high << "] = (" << theData[high].GetX() << "," << theData[high].GetY() << ")\n";
-          
       if(e<theData[nEntries-1].GetX())
       {
         // Protect against doubled-up x values
@@ -199,21 +195,17 @@ class G4ParticleHPVector
             && (std::abs((theData[high].GetX()-theData[low].GetX())/theData[high].GetX()) < 0.000001))
         {
           y = theData[low].GetY();
-          std::cout << "    GetXSec, case 1, y = theData[low].GetY() = " << y << "\n";
         }
         else
         {
-          std::cout << "    GetXSec interpolating... and: ";
           y = theInt.Interpolate(theManager.GetScheme(high), e,
                                  theData[low].GetX(), theData[high].GetX(),
                                  theData[low].GetY(), theData[high].GetY());
-          std::cout << "y = " << y << "\n";
         }
       }
       else
       {
         y=theData[nEntries-1].GetY();
-        std::cout << "    GetXSec, case 3, y = theData[nEntries-1].GetY() = " << y << "\n";
       }
       return y;
     #endif
