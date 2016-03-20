@@ -159,10 +159,10 @@ class G4ParticleHPVector
     #if GEANT4_ENABLE_CUDA
       return cudaVector->GetXsec(e, min);
     #else
-      if (min >= nEntries) {
-        return theData[0].GetY();
-      } else if (GetVectorLength() <= 0) {
+      if (GetVectorLength() <= 0) {
         return 0.0;
+      } else if (min >= nEntries) {
+        return theData[0].GetY();
       }
 
       min = (min >= 0) ? min : 0;
@@ -186,10 +186,6 @@ class G4ParticleHPVector
         high = nEntries-1;
       }
       G4double y;
-      std::cout << "    GetXSec(" << e << "," << min << ") starting.\n";
-      std::cout << "      theData[low=" << low << "] = (" << theData[low].GetX() << "," << theData[low].GetY() << ")\n";
-      std::cout << "      theData[hig=" << high << "] = (" << theData[high].GetX() << "," << theData[high].GetY() << ")\n";
-          
       if(e<theData[nEntries-1].GetX())
       {
         // Protect against doubled-up x values
@@ -199,21 +195,17 @@ class G4ParticleHPVector
             && (std::abs((theData[high].GetX()-theData[low].GetX())/theData[high].GetX()) < 0.000001))
         {
           y = theData[low].GetY();
-          std::cout << "    GetXSec, case 1, y = theData[low].GetY() = " << y << "\n";
         }
         else
         {
-          std::cout << "    GetXSec interpolating... and: ";
           y = theInt.Interpolate(theManager.GetScheme(high), e,
                                  theData[low].GetX(), theData[high].GetX(),
                                  theData[low].GetY(), theData[high].GetY());
-          std::cout << "y = " << y << "\n";
         }
       }
       else
       {
         y=theData[nEntries-1].GetY();
-        std::cout << "    GetXSec, case 3, y = theData[nEntries-1].GetY() = " << y << "\n";
       }
       return y;
     #endif

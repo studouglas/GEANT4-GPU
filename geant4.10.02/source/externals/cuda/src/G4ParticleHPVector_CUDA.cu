@@ -246,10 +246,8 @@ G4double G4ParticleHPVector_CUDA::GetX(G4int i) {
     }
 
     if (!isDataDirtyHost) {
-        // std::cout << "returning x from host\n";
         return h_theData[i].GetX();
     }
-    // std::cout << "returning x from cudaMemcpy\n";
     cudaMemcpy(h_singleDoubleResult, &d_theData[i].energy, sizeof(G4double), cudaMemcpyDeviceToHost);
     
     if (*(h_singleDoubleResult) != *(h_singleDoubleResult)) { printf("\nGetEnergy(%d) = %f, nEntries=%d", i, *h_singleDoubleResult, nEntries); }
@@ -277,7 +275,7 @@ G4double G4ParticleHPVector_CUDA::GetY(G4double x) {
 
 G4double G4ParticleHPVector_CUDA::GetXsec(G4double e, G4int min) {
     if (nEntries == 0) {
-        return 0;
+        return 0.0;
     }
 
     // Note: this was causing some crashing / finishing in 0.01s pre-Mar-3 commit, if it crops up
@@ -313,13 +311,9 @@ G4double G4ParticleHPVector_CUDA::GetXsec(G4double e, G4int min) {
             y = h_theData[low].GetY();
         }
         else {
-            std::cout << "    GetXSec(" << e << "," << min << ") interpolating.\n";
-            std::cout << "      theData[low=" << low << "] = (" << h_theData[low].GetX() << "," << h_theData[low].GetY() << ")\n";
-            std::cout << "      theData[hig=" << high << "] = (" << h_theData[high].GetX() << "," << h_theData[high].GetY() << ")\n";
             y = theInt.Interpolate(theManager.GetScheme(high), e,
                                    h_theData[low].GetX(), h_theData[high].GetX(),
                                    h_theData[low].GetY(), h_theData[high].GetY());
-            std::cout << "      y = " << y << "\n";
         }
     }
     else {
@@ -723,23 +717,15 @@ __global__ void Times_CUDA(G4double factor, G4ParticleHPDataPoint* theData, G4do
     //     }
     //     return;
     // }
-    // printf("tid = %d, nEntriesArg = %d\n", tid, nEntriesArg);
+
     if (tid < nEntriesArg) {
-        // printf("theData[%d] = %f", tid, theData[tid].xSec);
         theData[tid].xSec = theData[tid].xSec * factor;
-        // printf(" | theData[%d] = %f\n", tid, theData[tid].xSec);
     }
 }
 
 void G4ParticleHPVector_CUDA::Times(G4double factor) {
     int nBlocks = GetNumBlocks(nEntries);
-    // std::cout << "Times (nBlocks = " << nBlocks << ", nEntries = " << nEntries << ", factor = " << factor << ")\n";
     Times_CUDA<<<nBlocks, THREADS_PER_BLOCK>>> (factor, d_theData, d_theIntegral, nEntries);
-    {
-        cudaError_t cudaerr = cudaDeviceSynchronize();
-        if (cudaerr != CUDA_SUCCESS)
-            printf("kernel launch failed with error \"%s\".\n", cudaGetErrorString(cudaerr));
-    }
 
     isDataDirtyHost = true;
     isIntegralDirtyHost = true;
@@ -805,7 +791,6 @@ __global__ void SetArrayTo(int *array, int arraySize, int setValue)
 
 __global__ void GetXSecFirstIndexArray_CUDA(G4ParticleHPDataPoint *theData_d, G4double *queryArray_d, int *resArray_d, int numThreads, int querySize, int nEntries)
 {
-	//printf("cuda function started\n");
 	int idx = blockDim.x*blockIdx.x + threadIdx.x;	// determine threads ID
 	for (int i = 0; i < querySize; i++){// foreach query in the query List
 		G4double queryEnergy = queryArray_d[i];
