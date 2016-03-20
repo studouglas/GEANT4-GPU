@@ -1081,6 +1081,86 @@ Tests on vectors A - F all behave the same. Showing accuracy for vectors A - F d
 %		\end{table}
 %	\subsubsection{Performance}
 
+
+\subsection{G4double GetXsec(G4double e)} % Test cases finished
+	\subsubsection{Test Description}
+	Returns the first xSec from the current vector whose energy is greater than \texttt{e}. 
+	
+	\subsubsection{Test Inputs}
+	Commas denote multiple sub test inputs. If one of the sub tests fail then the whole test fails.
+		\begin{table}[H]
+		\centering
+		\caption{Unit Tests - \texttt{GetXsec}}\label{GetXsec_e_unit}
+		\begin{tabular}{llll}
+		\toprule
+		\multirow{2}{*}{\bf Test \#}  & \multicolumn{1}{c}{\bf Inputs}\\
+		& \bf \texttt{e}  \\\midrule
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetXsec_e_0} & r1, r2, r3, r4, r5 \\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetXsec_e_1} & r1, r2, r3, r4, r5 \\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetXsec_e_2} & r1, r2, r3, r4, r5 \\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetXsec_e_3} & r1, r2, r3, r4, r5 \\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetXsec_e_4} & r1, r2, r3, r4, r5 \\
+		\bottomrule
+		\end{tabular}
+		\end{table}
+	
+	\subsubsection{Test Results}
+		\begin{table}[H]
+		\centering
+		\caption{Test Results -- GetXsec}\label{GetXsec_e_acc}
+		\begin{tabular}{clllllll}
+		\toprule
+		\multirow{2}{*}{\bf Test \#} & \multicolumn{7}{c}{\bf Test Result}\\
+		& vec0 & vec1 & vec2 & vec3 & vec4 & vec5 & vec6\\\midrule
+		\ref{GetXsec_e_0} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
+		\ref{GetXsec_e_1} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
+		\ref{GetXsec_e_2} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
+		\ref{GetXsec_e_3} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
+		\ref{GetXsec_e_4} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
+		\bottomrule
+		\end{tabular}
+		\end{table}
+
+\subsection{G4double GetXsec(G4double e, G4int min)} % Test cases finished
+	\subsubsection{Test Description}
+	Returns the first xSec from the current vector whose energy is greater than \texttt{e}. 
+	
+	\subsubsection{Test Inputs}
+	Commas denote multiple sub test inputs. If one of the sub tests fail then the whole test fails.
+		\begin{table}[H]
+		\centering
+		\caption{Unit Tests - \texttt{GetXsec}}\label{GetXsec_e_min_unit}
+		\begin{tabular}{llll}
+		\toprule
+		\multirow{2}{*}{\bf Test \#}  & \multicolumn{2}{c}{\bf Inputs}\\
+		& \bf \texttt{e} & \bf \texttt{min} \\\midrule
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetXsec_e_min_0} & r1, r2, r3, r4, r5 & -1\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetXsec_e_min_1} & r1, r2, r3, r4, r5 & 0\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetXsec_e_min_2} & r1, r2, r3, r4, r5 & n/2\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetXsec_e_min_3} & r1, r2, r3, r4, r5 & n-1\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetXsec_e_min_4} & r1, r2, r3, r4, r5 & n\\
+		\bottomrule
+		\end{tabular}
+		\end{table}
+	
+	\subsubsection{Test Results}
+		\begin{table}[H]
+		\centering
+		\caption{Test Results -- GetXsec}\label{GetXsec_e_min_acc}
+		\begin{tabular}{clllllll}
+		\toprule
+		\multirow{2}{*}{\bf Test \#} & \multicolumn{7}{c}{\bf Test Result}\\
+		& vec0 & vec1 & vec2 & vec3 & vec4 & vec5 & vec6\\\midrule
+		\ref{GetXsec_e_min_0} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
+		\ref{GetXsec_e_min_1} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
+		\ref{GetXsec_e_min_2} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
+		\ref{GetXsec_e_min_3} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
+		\ref{GetXsec_e_min_4} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
+		\bottomrule
+		\end{tabular}
+		\end{table}
+
+
 \subsection{Get15percentBorder} % Test Cases Done
 	\subsubsection{Method Signature}
 	\texttt{G4double Get15percentBorder()}
