@@ -151,7 +151,8 @@ For all unit tests:
 \toprule
 	\bf Name \# & Type & \bf Value\\\midrule
 	 n 	& G4double 			& length of the G4ParticleHPVector\\
-	r1 	& G4double 			& 1.58\\
+	r0 	& G4double 			& 0.000512\\
+	r1	& G4double			& 1.58\\
 	r2 	& G4double 			& 513.18\\
 	Empty & G4ParticleHPVector 	& Empty\\
 	A 	& G4ParticleHPVector	& 66 entries\\
@@ -166,26 +167,34 @@ For all unit tests:
 \subsection{Note about Performance testing}
 Tests on vectors A - F all behave the same. Showing accuracy for vectors A - F does not provide any extra useful information. Therefore only unit tests on vector D will be shown in the Unit Tests and Accuracy sections. Unit test interfaces for the other vectors will be omitted from this document in order to make it more readable. The unit tests were still performed on the other vectors. These unit tests on vectors of different length are done to show how  increasing the size of the vector increases the execution time of some functions
 %from .cu
-\subsection{OperatorEquals}
+\subsection{OperatorEquals}% Test Cases done
 	\subsubsection{Unit Tests}
 		\begin{table}[!htbp]
 		\centering
-		\caption{Unit Tests}\label{_unit}
+		\caption{Unit Tests}\label{OperatorEquals_unit}
 		\begin{tabular}{lll}
 		\toprule
 		\bf Test \# & Code & \bf Description\\\midrule
-		\refstepcounter{TestCounter}\arabic{TestCounter} & Code goes here & Description goes here\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{OperatorEquals_0} & Empty =  Empty2 & Assign an empty vector to another empty vector\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{OperatorEquals_1} & D = Empty & Assign an empty vector to regular vector \\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{OperatorEquals_2} & Empty = D & Assign a vector to an empty vector \\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{OperatorEquals_3} & D = D & Assign a vector to itself \\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{OperatorEquals_4} & D = F & Assign a vector to another vector \\
 		\bottomrule
 		\end{tabular}
 		\end{table}
 	\subsubsection{Accuracy}
 		\begin{table}[!htbp]
 		\centering
-		\caption{Accuracy}\label{_acc}
+		\caption{Accuracy}\label{OperatorEquals_acc}
 		\begin{tabular}{lll}
 		\toprule
-		\bf Test \# & CPU & GPU \\\midrule
-		\ref{TestCounter} & CPU time & GPU time\\
+		\bf Test \# & Status \\\midrule
+		\ref{OperatorEquals_0} & Pass\\
+		\ref{OperatorEquals_1} & Pass\\
+		\ref{OperatorEquals_2} & Pass\\
+		\ref{OperatorEquals_3} & Pass\\
+		\ref{OperatorEquals_4} & Pass\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
@@ -216,15 +225,15 @@ Tests on vectors A - F all behave the same. Showing accuracy for vectors A - F d
 		\caption{Accuracy}\label{GetPoint_acc}
 		\begin{tabular}{lll}
 		\toprule
-		\bf Test \# & CPU & GPU \\\midrule
-		\ref{GetPoint_0} & CPU time & GPU time\\
-		\ref{GetPoint_1} & CPU time & GPU time\\
-		\ref{GetPoint_2} & CPU time & GPU time\\
-		\ref{GetPoint_3} & CPU time & GPU time\\
-		\ref{GetPoint_4} & CPU time & GPU time\\
-		\ref{GetPoint_5} & CPU time & GPU time\\
-		\ref{GetPoint_6} & CPU time & GPU time\\
-		\ref{GetPoint_7} & CPU time & GPU time\\
+		\bf Test \# & Status \\\midrule
+		\ref{GetPoint_0} & Pass\\
+		\ref{GetPoint_1} & Pass\\
+		\ref{GetPoint_2} & Pass\\
+		\ref{GetPoint_3} & Pass\\
+		\ref{GetPoint_4} & Pass\\
+		\ref{GetPoint_5} & Pass\\
+		\ref{GetPoint_6} & Pass\\
+		\ref{GetPoint_7} & Pass\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
@@ -255,15 +264,15 @@ Tests on vectors A - F all behave the same. Showing accuracy for vectors A - F d
 		\caption{Accuracy}\label{GetX_acc}
 		\begin{tabular}{lll}
 		\toprule
-		\bf Test \# & CPU & GPU \\\midrule
-		\ref{GetX_0} & CPU result & GPU result\\
-		\ref{GetX_1} & CPU result & GPU result\\
-		\ref{GetX_2} & CPU result & GPU result\\
-		\ref{GetX_3} & CPU result & GPU result\\
-		\ref{GetX_4} & CPU result & GPU result\\
-		\ref{GetX_5} & CPU result & GPU result\\
-		\ref{GetX_6} & CPU result & GPU result\\
-		\ref{GetX_7} & CPU result & GPU result\\
+		\bf Test \# & Status\\\midrule
+		\ref{GetX_0} & Pass\\
+		\ref{GetX_1} & Pass\\
+		\ref{GetX_2} & Pass\\
+		\ref{GetX_3} & Pass\\
+		\ref{GetX_4} & Pass\\
+		\ref{GetX_5} & Pass\\
+		\ref{GetX_6} & Pass\\
+		\ref{GetX_7} & Pass\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
@@ -295,15 +304,15 @@ Tests on vectors A - F all behave the same. Showing accuracy for vectors A - F d
 		\caption{Accuracy}\label{GetY_acc}
 		\begin{tabular}{lll}
 		\toprule
-		\bf Test \# & CPU & GPU \\\midrule
-		\ref{GetY_0} & CPU result & GPU result\\
-		\ref{GetY_1} & CPU result & GPU result\\
-		\ref{GetY_2} & CPU result & GPU result\\
-		\ref{GetY_3} & CPU result & GPU result\\
-		\ref{GetY_4} & CPU result & GPU result\\
-		\ref{GetY_5} & CPU result & GPU result\\
-		\ref{GetY_6} & CPU result & GPU result\\
-		\ref{GetY_7} & CPU result & GPU result\\
+		\bf Test \# & Status \\\midrule
+		\ref{GetY_0} & Pass\\
+		\ref{GetY_1} & Pass\\
+		\ref{GetY_2} & Pass\\
+		\ref{GetY_3} & Pass\\
+		\ref{GetY_4} & Pass\\
+		\ref{GetY_5} & Pass\\
+		\ref{GetY_6} & Pass\\
+		\ref{GetY_7} & Pass\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
@@ -319,10 +328,13 @@ Tests on vectors A - F all behave the same. Showing accuracy for vectors A - F d
 		\bf Test \# & Code & \bf Description\\\midrule
 		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetXsec_0} & Empty.GetXsec(-1) & Get an xSec with a negative energy from an empty vector\\
 		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetXsec_1} & Empty.GetXsec(0) & Get a xSec with an energy of zero from an empty vector\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetXsec_2} & Empty.GetXsec(r1) & Get a xSec with a random energy from an empty vector\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetXsec_2} & Empty.GetXsec(r1) & Get a xSec with a normal energy from an empty vector\\
 		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetXsec_3} & D.GetXsec(-1) & Get a xSec with a negative energy\\
 		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetXsec_4} & D.GetXsec(0) & Get a xSec with a zero energy\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetXsec_5} & D.GetXsec(r1) & Get a xSec with a random energy\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetXsec_5} & D.GetXsec(r0) & Get a xSec with a small energy\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetXsec_6} & D.GetXsec(r1) & Get a xSec with a normal energy\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetXsec_7} & D.GetXsec(r2) & Get a xSec with a large energy\\
+
 		\bottomrule
 		\end{tabular}
 		\end{table}
@@ -332,13 +344,15 @@ Tests on vectors A - F all behave the same. Showing accuracy for vectors A - F d
 		\caption{Accuracy}\label{GetY_acc}
 		\begin{tabular}{lll}
 		\toprule
-		\bf Test \# & CPU & GPU \\\midrule
-		\ref{GetXsec_0} & CPU result & GPU result\\
-		\ref{GetXsec_1} & CPU result & GPU result\\
-		\ref{GetXsec_2} & CPU result & GPU result\\
-		\ref{GetXsec_3} & CPU result & GPU result\\
-		\ref{GetXsec_4} & CPU result & GPU result\\
-		\ref{GetXsec_5} & CPU result & GPU result\\
+		\bf Test \# & Status \\\midrule
+		\ref{GetXsec_0} & Pass\\
+		\ref{GetXsec_1} & Pass\\
+		\ref{GetXsec_2} & Pass\\
+		\ref{GetXsec_3} & Pass\\
+		\ref{GetXsec_4} & Pass\\
+		\ref{GetXsec_5} & Pass\\
+		\ref{GetXsec_6} & Pass\\
+		\ref{GetXsec_7} & Pass\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
@@ -371,17 +385,17 @@ Tests on vectors A - F all behave the same. Showing accuracy for vectors A - F d
 		\caption{Accuracy}\label{GetY_acc}
 		\begin{tabular}{lll}
 		\toprule
-		\bf Test \# & CPU & GPU \\\midrule
-		\ref{SetData_0} & CPU result & GPU result\\
-		\ref{SetData_1} & CPU result & GPU result\\
-		\ref{SetData_2} & CPU result & GPU result\\
-		\ref{SetData_3} & CPU result & GPU result\\
-		\ref{SetData_4} & CPU result & GPU result\\
-		\ref{SetData_5} & CPU result & GPU result\\
-		\ref{SetData_6} & CPU result & GPU result\\
-		\ref{SetData_7} & CPU result & GPU result\\
-		\ref{SetData_8} & CPU result & GPU result\\
-		\ref{SetData_9} & CPU result & GPU result\\
+		\bf Test \# & Status \\\midrule
+		\ref{SetData_0} & Pass\\
+		\ref{SetData_1} & Pass\\
+		\ref{SetData_2} & Pass\\
+		\ref{SetData_3} & Pass\\
+		\ref{SetData_4} & Pass\\
+		\ref{SetData_5} & Pass\\
+		\ref{SetData_6} & Pass\\
+		\ref{SetData_7} & Pass\\
+		\ref{SetData_8} & Pass\\
+		\ref{SetData_9} & Pass\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
@@ -414,17 +428,17 @@ Tests on vectors A - F all behave the same. Showing accuracy for vectors A - F d
 		\caption{Accuracy}\label{GetY_acc}
 		\begin{tabular}{lll}
 		\toprule
-		\bf Test \# & CPU & GPU \\\midrule
-		\ref{SetEnergy_0} & CPU result & GPU result\\
-		\ref{SetEnergy_1} & CPU result & GPU result\\
-		\ref{SetEnergy_2} & CPU result & GPU result\\
-		\ref{SetEnergy_3} & CPU result & GPU result\\
-		\ref{SetEnergy_4} & CPU result & GPU result\\
-		\ref{SetEnergy_5} & CPU result & GPU result\\
-		\ref{SetEnergy_6} & CPU result & GPU result\\
-		\ref{SetEnergy_7} & CPU result & GPU result\\
-		\ref{SetEnergy_8} & CPU result & GPU result\\
-		\ref{SetEnergy_9} & CPU result & GPU result\\
+		\bf Test \# & Status \\\midrule
+		\ref{SetEnergy_0} & Pass\\
+		\ref{SetEnergy_1} & Pass\\
+		\ref{SetEnergy_2} & Pass\\
+		\ref{SetEnergy_3} & Pass\\
+		\ref{SetEnergy_4} & Pass\\
+		\ref{SetEnergy_5} & Pass\\
+		\ref{SetEnergy_6} & Pass\\
+		\ref{SetEnergy_7} & Pass\\
+		\ref{SetEnergy_8} & Pass\\
+		\ref{SetEnergy_9} & Pass\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
@@ -457,17 +471,17 @@ Tests on vectors A - F all behave the same. Showing accuracy for vectors A - F d
 		\caption{Accuracy}\label{GetY_acc}
 		\begin{tabular}{lll}
 		\toprule
-		\bf Test \# & CPU & GPU \\\midrule
-		\ref{SetXsec_0} & CPU result & GPU result\\
-		\ref{SetXsec_1} & CPU result & GPU result\\
-		\ref{SetXsec_2} & CPU result & GPU result\\
-		\ref{SetXsec_3} & CPU result & GPU result\\
-		\ref{SetXsec_4} & CPU result & GPU result\\
-		\ref{SetXsec_5} & CPU result & GPU result\\
-		\ref{SetXsec_6} & CPU result & GPU result\\
-		\ref{SetXsec_7} & CPU result & GPU result\\
-		\ref{SetXsec_8} & CPU result & GPU result\\
-		\ref{SetXsec_9} & CPU result & GPU result\\
+		\bf Test \# & Status \\\midrule
+		\ref{SetXsec_0} & Pass\\
+		\ref{SetXsec_1} & Pass\\
+		\ref{SetXsec_2} & Pass\\
+		\ref{SetXsec_3} & Pass\\
+		\ref{SetXsec_4} & Pass\\
+		\ref{SetXsec_5} & Pass\\
+		\ref{SetXsec_6} & Pass\\
+		\ref{SetXsec_7} & Pass\\
+		\ref{SetXsec_8} & Pass\\
+		\ref{SetXsec_9} & Pass\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
@@ -500,17 +514,17 @@ Tests on vectors A - F all behave the same. Showing accuracy for vectors A - F d
 		\caption{Accuracy}\label{GetY_acc}
 		\begin{tabular}{lll}
 		\toprule
-		\bf Test \# & CPU & GPU \\\midrule
-		\ref{SetX_0} & CPU result & GPU result\\
-		\ref{SetX_1} & CPU result & GPU result\\
-		\ref{SetX_2} & CPU result & GPU result\\
-		\ref{SetX_3} & CPU result & GPU result\\
-		\ref{SetX_4} & CPU result & GPU result\\
-		\ref{SetX_5} & CPU result & GPU result\\
-		\ref{SetX_6} & CPU result & GPU result\\
-		\ref{SetX_7} & CPU result & GPU result\\
-		\ref{SetX_8} & CPU result & GPU result\\
-		\ref{SetX_9} & CPU result & GPU result\\
+		\bf Test \# & Status \\\midrule
+		\ref{SetX_0} & Pass\\
+		\ref{SetX_1} & Pass\\
+		\ref{SetX_2} & Pass\\
+		\ref{SetX_3} & Pass\\
+		\ref{SetX_4} & Pass\\
+		\ref{SetX_5} & Pass\\
+		\ref{SetX_6} & Pass\\
+		\ref{SetX_7} & Pass\\
+		\ref{SetX_8} & Pass\\
+		\ref{SetX_9} & Pass\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
@@ -543,71 +557,73 @@ Tests on vectors A - F all behave the same. Showing accuracy for vectors A - F d
 		\caption{Accuracy}\label{SetY_acc}
 		\begin{tabular}{lll}
 		\toprule
-		\bf Test \# & CPU & GPU \\\midrule
-		\ref{SetY_0} & CPU result & GPU result\\
-		\ref{SetY_1} & CPU result & GPU result\\
-		\ref{SetY_2} & CPU result & GPU result\\
-		\ref{SetY_3} & CPU result & GPU result\\
-		\ref{SetY_4} & CPU result & GPU result\\
-		\ref{SetY_5} & CPU result & GPU result\\
-		\ref{SetY_6} & CPU result & GPU result\\
-		\ref{SetY_7} & CPU result & GPU result\\
-		\ref{SetY_8} & CPU result & GPU result\\
-		\ref{SetY_9} & CPU result & GPU result\\
+		\bf Test \# & Status \\\midrule
+		\ref{SetY_0} & Pass\\
+		\ref{SetY_1} & Pass\\
+		\ref{SetY_2} & Pass\\
+		\ref{SetY_3} & Pass\\
+		\ref{SetY_4} & Pass\\
+		\ref{SetY_5} & Pass\\
+		\ref{SetY_6} & Pass\\
+		\ref{SetY_7} & Pass\\
+		\ref{SetY_8} & Pass\\
+		\ref{SetY_9} & Pass\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
 	\subsubsection{Performance}
 
-\subsection{Init}
+\subsection{Init} % Test Cases done
 	\subsubsection{Unit Tests}
 		\begin{table}[!htbp]
 		\centering
-		\caption{Unit Tests}\label{_unit}
+		\caption{Unit Tests}\label{Init_unit}
 		\begin{tabular}{lll}
 		\toprule
 		\bf Test \# & Code & \bf Description\\\midrule
-		\refstepcounter{TestCounter}\arabic{TestCounter} & Code goes here & Description goes here\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{Init_0} & Empty.Init() & Init an empty Vector\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{Init_1} & D.Init() & Init a Vector\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
 	\subsubsection{Accuracy}
 		\begin{table}[!htbp]
 		\centering
-		\caption{Accuracy}\label{_acc}
+		\caption{Accuracy}\label{Init_acc}
 		\begin{tabular}{lll}
 		\toprule
-		\bf Test \# & CPU & GPU \\\midrule
-		\arabic{TestCounter} & CPU time & GPU time\\
+		\bf Test \# & Status \\\midrule
+		\ref{Init_0} & Pass\\
+		\ref{Init_1} & Pass\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
 	\subsubsection{Performance}
 
-\subsection{CleanUp}
-	\subsubsection{Unit Tests}
-		\begin{table}[!htbp]
-		\centering
-		\caption{Unit Tests}\label{_unit}
-		\begin{tabular}{lll}
-		\toprule
-		\bf Test \# & Code & \bf Description\\\midrule
-		\refstepcounter{TestCounter}\arabic{TestCounter} & Code goes here & Description goes here\\
-		\bottomrule
-		\end{tabular}
-		\end{table}
-	\subsubsection{Accuracy}
-		\begin{table}[!htbp]
-		\centering
-		\caption{Accuracy}\label{_acc}
-		\begin{tabular}{lll}
-		\toprule
-		\bf Test \# & CPU & GPU \\\midrule
-		\arabic{TestCounter} & CPU time & GPU time\\
-		\bottomrule
-		\end{tabular}
-		\end{table}
-	\subsubsection{Performance}
+%\subsection{CleanUp}
+%	\subsubsection{Unit Tests}
+%		\begin{table}[!htbp]
+%		\centering
+%		\caption{Unit Tests}\label{_unit}
+%		\begin{tabular}{lll}
+%		\toprule
+%		\bf Test \# & Code & \bf Description\\\midrule
+%		\refstepcounter{TestCounter}\arabic{TestCounter} & Code goes here & Description goes here\\
+%		\bottomrule
+%		\end{tabular}
+%		\end{table}
+%	\subsubsection{Accuracy}
+%		\begin{table}[!htbp]
+%		\centering
+%		\caption{Accuracy}\label{_acc}
+%		\begin{tabular}{lll}
+%		\toprule
+%		\bf Test \# & CPU & GPU \\\midrule
+%		\arabic{TestCounter} & CPU time & GPU time\\
+%		\bottomrule
+%		\end{tabular}
+%		\end{table}
+%	\subsubsection{Performance}
 
 \subsection{SampleLin}% Test Cases finished
 	\subsubsection{Unit Tests}
@@ -655,9 +671,9 @@ Tests on vectors A - F all behave the same. Showing accuracy for vectors A - F d
 		\caption{Accuracy}\label{Integrate_acc}
 		\begin{tabular}{lll}
 		\toprule
-		\bf Test \# & CPU & GPU \\\midrule
-		\ref{Integrate_0} & CPU result & GPU result\\
-		\ref{Integrate_1} & CPU result & GPU result\\
+		\bf Test \# & Status \\\midrule
+		\ref{Integrate_0} & Pass\\
+		\ref{Integrate_1} & Pass\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
@@ -682,9 +698,9 @@ Tests on vectors A - F all behave the same. Showing accuracy for vectors A - F d
 		\caption{Accuracy}\label{IntAndNorm_acc}
 		\begin{tabular}{lll}
 		\toprule
-		\bf Test \# & CPU & GPU \\\midrule
-		\ref{IntAndNorm_0} & CPU result & GPU result\\
-		\ref{IntAndNorm_1} & CPU result & GPU result\\
+		\bf Test \# & Status \\\midrule
+		\ref{IntAndNorm_0} & Pass\\
+		\ref{IntAndNorm_1} & Pass\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
@@ -715,15 +731,15 @@ Tests on vectors A - F all behave the same. Showing accuracy for vectors A - F d
 		\caption{Accuracy}\label{Times_acc}
 		\begin{tabular}{lll}
 		\toprule
-		\bf Test \# & CPU & GPU \\\midrule
-		\ref{Times_0} & CPU result & GPU result\\
-		\ref{Times_1} & CPU result & GPU result\\
-		\ref{Times_2} & CPU result & GPU result\\
-		\ref{Times_3} & CPU result & GPU result\\
-		\ref{Times_4} & CPU result & GPU result\\
-		\ref{Times_5} & CPU result & GPU result\\
-		\ref{Times_6} & CPU result & GPU result\\
-		\ref{Times_7} & CPU result & GPU result\\
+		\bf Test \# & Status \\\midrule
+		\ref{Times_0} & Pass\\
+		\ref{Times_1} & Pass\\
+		\ref{Times_2} & Pass\\
+		\ref{Times_3} & Pass\\
+		\ref{Times_4} & Pass\\
+		\ref{Times_5} & Pass\\
+		\ref{Times_6} & Pass\\
+		\ref{Times_7} & Pass\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
@@ -773,17 +789,17 @@ Tests on vectors A - F all behave the same. Showing accuracy for vectors A - F d
 		\caption{Accuracy}\label{xSecBuffer_acc}
 		\begin{tabular}{lll}
 		\toprule
-		\bf Test \# & CPU & GPU \\\midrule
-		\ref{xSecBuffer_0} & CPU result & GPU result\\
-		\ref{xSecBuffer_1} & CPU result & GPU result\\
-		\ref{xSecBuffer_2} & CPU result & GPU result\\
-		\ref{xSecBuffer_3} & CPU result & GPU result\\
-		\ref{xSecBuffer_4} & CPU result & GPU result\\
-		\ref{xSecBuffer_5} & CPU result & GPU result\\
-		\ref{xSecBuffer_6} & CPU result & GPU result\\
-		\ref{xSecBuffer_7} & CPU result & GPU result\\
-		\ref{xSecBuffer_8} & CPU result & GPU result\\
-		\ref{xSecBuffer_9} & CPU result & GPU result\\
+		\bf Test \# & Status \\\midrule
+		\ref{xSecBuffer_0} & Pass\\
+		\ref{xSecBuffer_1} & Pass\\
+		\ref{xSecBuffer_2} & Pass\\
+		\ref{xSecBuffer_3} & Pass\\
+		\ref{xSecBuffer_4} & Pass\\
+		\ref{xSecBuffer_5} & Pass\\
+		\ref{xSecBuffer_6} & Pass\\
+		\ref{xSecBuffer_7} & Pass\\
+		\ref{xSecBuffer_8} & Pass\\
+		\ref{xSecBuffer_9} & Pass\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
@@ -808,34 +824,44 @@ Tests on vectors A - F all behave the same. Showing accuracy for vectors A - F d
 		\caption{Accuracy}\label{Dump_acc}
 		\begin{tabular}{lll}
 		\toprule
-		\bf Test \# & CPU & GPU \\\midrule
-		\ref{Dump_0} & CPU result & GPU result\\
-		\ref{Dump_1} & CPU result & GPU result\\
+		\bf Test \# & Status \\\midrule
+		\ref{Dump_0} & Pass\\
+		\ref{Dump_1} & Pass\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
 	\subsubsection{Performance}
 
-\subsection{ThinOut}
+\subsection{ThinOut}% Test Cases Done
 	\subsubsection{Unit Tests}
 		\begin{table}[!htbp]
 		\centering
-		\caption{Unit Tests}\label{_unit}
+		\caption{Unit Tests}\label{ThinOut_unit}
 		\begin{tabular}{lll}
 		\toprule
 		\bf Test \# & Code & \bf Description\\\midrule
-		\refstepcounter{TestCounter}\arabic{TestCounter} & Code goes here & Description goes here\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{ThinOut_0} & Empty.ThinOut(r1) & ThinOut an empty Vector\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{ThinOut_1} & D.ThinOut(-1) & ThinOut a Vector using a negative value\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{ThinOut_2} & D.ThinOut(0) & ThinOut a Vector using a zero value\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{ThinOut_3} & D.ThinOut(r0) & ThinOut a Vector using a small value\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{ThinOut_4} & D.ThinOut(r1) & ThinOut a Vector using a normal value\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{ThinOut_5} & D.ThinOut(r2) & ThinOut a Vector using a large value\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
 	\subsubsection{Accuracy}
 		\begin{table}[!htbp]
 		\centering
-		\caption{Accuracy}\label{_acc}
+		\caption{Accuracy}\label{ThinOut_acc}
 		\begin{tabular}{lll}
 		\toprule
-		\bf Test \# & CPU & GPU \\\midrule
-		\arabic{TestCounter} & CPU time & GPU time\\
+		\bf Test \# & Status \\\midrule
+		\ref{ThinOut_0} & Pass\\
+		\ref{ThinOut_1} & Pass\\
+		\ref{ThinOut_2} & Pass\\
+		\ref{ThinOut_3} & Pass\\
+		\ref{ThinOut_4} & Pass\\
+		\ref{ThinOut_5} & Pass\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
@@ -914,15 +940,15 @@ Tests on vectors A - F all behave the same. Showing accuracy for vectors A - F d
 		\caption{Accuracy}\label{GetVectorLength_acc}
 		\begin{tabular}{lll}
 		\toprule
-		\bf Test \# & CPU & GPU \\\midrule		
-		\ref{GetVectorLength_0} & CPU result & GPU result\\
-		\ref{GetVectorLength_1} & CPU result & GPU result\\
+		\bf Test \# & Status \\\midrule		
+		\ref{GetVectorLength_0} & Pass\\
+		\ref{GetVectorLength_1} & Pass\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
 	\subsubsection{Performance}
 
-%\subsection{GetLabel}
+%\subsection{GetIntegral}
 %	\subsubsection{Unit Tests}
 %		\begin{table}[!htbp]
 %		\centering
@@ -930,7 +956,7 @@ Tests on vectors A - F all behave the same. Showing accuracy for vectors A - F d
 %		\begin{tabular}{lll}
 %		\toprule
 %		\bf Test \# & Code & \bf Description\\\midrule
-%		\stepcounter{TestCounter}\arabic{TestCounter} & Code goes here & Description goes here\\
+%		\refstepcounter{TestCounter}\arabic{TestCounter} & Code goes here & Description goes here\\
 %		\bottomrule
 %		\end{tabular}
 %		\end{table}
@@ -946,31 +972,6 @@ Tests on vectors A - F all behave the same. Showing accuracy for vectors A - F d
 %		\end{tabular}
 %		\end{table}
 %	\subsubsection{Performance}
-
-\subsection{GetIntegral}
-	\subsubsection{Unit Tests}
-		\begin{table}[!htbp]
-		\centering
-		\caption{Unit Tests}\label{_unit}
-		\begin{tabular}{lll}
-		\toprule
-		\bf Test \# & Code & \bf Description\\\midrule
-		\refstepcounter{TestCounter}\arabic{TestCounter} & Code goes here & Description goes here\\
-		\bottomrule
-		\end{tabular}
-		\end{table}
-	\subsubsection{Accuracy}
-		\begin{table}[!htbp]
-		\centering
-		\caption{Accuracy}\label{_acc}
-		\begin{tabular}{lll}
-		\toprule
-		\bf Test \# & CPU & GPU \\\midrule
-		\arabic{TestCounter} & CPU time & GPU time\\
-		\bottomrule
-		\end{tabular}
-		\end{table}
-	\subsubsection{Performance}
 
 \subsection{SetPoint} % Test cases finished
 	\subsubsection{Unit Tests}
@@ -1004,96 +1005,21 @@ Tests on vectors A - F all behave the same. Showing accuracy for vectors A - F d
 		\caption{Accuracy}\label{SetPoint_acc}
 		\begin{tabular}{lll}
 		\toprule
-		\bf Test \# & CPU & GPU \\\midrule
-		\ref{SetPoint_0} & CPU result & GPU result\\
-		\ref{SetPoint_1} & CPU result & GPU result\\
-		\ref{SetPoint_2} & CPU result & GPU result\\
-		\ref{SetPoint_3} & CPU result & GPU result\\
-		\ref{SetPoint_4} & CPU result & GPU result\\
-		\ref{SetPoint_5} & CPU result & GPU result\\
-		\ref{SetPoint_6} & CPU result & GPU result\\
-		\ref{SetPoint_7} & CPU result & GPU result\\
-		\ref{SetPoint_8} & CPU result & GPU result\\
-		\ref{SetPoint_9} & CPU result & GPU result\\
+		\bf Test \# & Status \\\midrule
+		\ref{SetPoint_0} & Pass\\
+		\ref{SetPoint_1} & Pass\\
+		\ref{SetPoint_2} & Pass\\
+		\ref{SetPoint_3} & Pass\\
+		\ref{SetPoint_4} & Pass\\
+		\ref{SetPoint_5} & Pass\\
+		\ref{SetPoint_6} & Pass\\
+		\ref{SetPoint_7} & Pass\\
+		\ref{SetPoint_8} & Pass\\
+		\ref{SetPoint_9} & Pass\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
 	\subsubsection{Performance}
-
-%\subsection{SetLabel}
-%	\subsubsection{Unit Tests}
-%		\begin{table}[!htbp]
-%		\centering
-%		\caption{Unit Tests}\label{_unit}
-%		\begin{tabular}{lll}
-%		\toprule
-%		\bf Test \# & Code & \bf Description\\\midrule
-%		\stepcounter{TestCounter}\arabic{TestCounter} & Code goes here & Description goes here\\
-%		\bottomrule
-%		\end{tabular}
-%		\end{table}
-%	\subsubsection{Accuracy}
-%		\begin{table}[!htbp]
-%		\centering
-%		\caption{Accuracy}\label{_acc}
-%		\begin{tabular}{lll}
-%		\toprule
-%		\bf Test \# & CPU & GPU \\\midrule
-%		\arabic{TestCounter} & CPU time & GPU time\\
-%		\bottomrule
-%		\end{tabular}
-%		\end{table}
-%	\subsubsection{Performance}
-%
-%\subsection{SetInterpolationManager}
-%	\subsubsection{Unit Tests}
-%		\begin{table}[!htbp]
-%		\centering
-%		\caption{Unit Tests}\label{_unit}
-%		\begin{tabular}{lll}
-%		\toprule
-%		\bf Test \# & Code & \bf Description\\\midrule
-%		\stepcounter{TestCounter}\arabic{TestCounter} & Code goes here & Description goes here\\
-%		\bottomrule
-%		\end{tabular}
-%		\end{table}
-%	\subsubsection{Accuracy}
-%		\begin{table}[!htbp]
-%		\centering
-%		\caption{Accuracy}\label{_acc}
-%		\begin{tabular}{lll}
-%		\toprule
-%		\bf Test \# & CPU & GPU \\\midrule
-%		\arabic{TestCounter} & CPU time & GPU time\\
-%		\bottomrule
-%		\end{tabular}
-%		\end{table}
-%	\subsubsection{Performance}
-%
-%\subsection{SetScheme}
-%	\subsubsection{Unit Tests}
-%		\begin{table}[!htbp]
-%		\centering
-%		\caption{Unit Tests}\label{_unit}
-%		\begin{tabular}{lll}
-%		\toprule
-%		\bf Test \# & Code & \bf Description\\\midrule
-%		\stepcounter{TestCounter}\arabic{TestCounter} & Code goes here & Description goes here\\
-%		\bottomrule
-%		\end{tabular}
-%		\end{table}
-%	\subsubsection{Accuracy}
-%		\begin{table}[!htbp]
-%		\centering
-%		\caption{Accuracy}\label{_acc}
-%		\begin{tabular}{lll}
-%		\toprule
-%		\bf Test \# & CPU & GPU \\\midrule
-%		\arabic{TestCounter} & CPU time & GPU time\\
-%		\bottomrule
-%		\end{tabular}
-%		\end{table}
-%	\subsubsection{Performance}
 
 \subsection{Merge}
 	\subsubsection{Unit Tests}
@@ -1115,6 +1041,60 @@ Tests on vectors A - F all behave the same. Showing accuracy for vectors A - F d
 		\toprule
 		\bf Test \# & CPU & GPU \\\midrule
 		\arabic{TestCounter} & CPU time & GPU time\\
+		\bottomrule
+		\end{tabular}
+		\end{table}
+	\subsubsection{Performance}
+
+\subsection{Get15percentBorder} % Test cases finished
+	\subsubsection{Unit Tests}		
+		\begin{table}[!htbp]
+		\centering
+		\caption{Unit Tests}\label{Get15percentBorder_unit}
+		\begin{tabular}{lll}
+		\toprule
+		\bf Test \# & Code & \bf Description\\\midrule
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{Get15percentBorder_0} & Empty.Get15percentBorder() & Get 15 percent Border of an empty vector\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{Get15percentBorder_1} & D.Get15percentBorder() & Get 15 percent Border of a vector\\
+		\bottomrule
+		\end{tabular}
+		\end{table}
+	\subsubsection{Accuracy}
+		\begin{table}[!htbp]
+		\centering
+		\caption{Accuracy}\label{Get15percentBorder_acc}
+		\begin{tabular}{lll}
+		\toprule
+		\bf Test \# & Status \\\midrule		
+		\ref{Get15percentBorder_0} & Pass\\
+		\ref{Get15percentBorder_1} & Pass\\
+		\bottomrule
+		\end{tabular}
+		\end{table}
+	\subsubsection{Performance}
+
+\subsection{Get50percentBorder} % Test cases finished
+	\subsubsection{Unit Tests}		
+		\begin{table}[!htbp]
+		\centering
+		\caption{Unit Tests}\label{Get50percentBorder_unit}
+		\begin{tabular}{lll}
+		\toprule
+		\bf Test \# & Code & \bf Description\\\midrule
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{Get50percentBorder_0} & Empty.Get50percentBorder() & Get 50 percent Border of an empty vector\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{Get50percentBorder_1} & D.Get50percentBorder() & Get 50 percent Border of a vector\\
+		\bottomrule
+		\end{tabular}
+		\end{table}
+	\subsubsection{Accuracy}
+		\begin{table}[!htbp]
+		\centering
+		\caption{Accuracy}\label{Get50percentBorder_acc}
+		\begin{tabular}{lll}
+		\toprule
+		\bf Test \# & Status \\\midrule		
+		\ref{Get50percentBorder_0} & Pass\\
+		\ref{Get50percentBorder_1} & Pass\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
