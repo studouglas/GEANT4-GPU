@@ -14,6 +14,7 @@
 \usepackage{caption}
 \usepackage{array}
 \usepackage{placeins}
+\usepackage{float}
 \lstset{basicstyle=\small\ttfamily,xleftmargin=18pt,breaklines=true}
 \captionsetup[table]{skip=2pt}
 % Comments --------------------------------------------------------------------
@@ -169,7 +170,7 @@ Tests on vectors A - F all behave the same. Showing accuracy for vectors A - F d
 %from .cu
 \subsection{OperatorEquals}% Test Cases done
 	\subsubsection{Unit Tests}
-		\begin{table}[!htbp]
+		\begin{table}[H]
 		\centering
 		\caption{Unit Tests}\label{OperatorEquals_unit}
 		\begin{tabular}{lll}
@@ -184,7 +185,7 @@ Tests on vectors A - F all behave the same. Showing accuracy for vectors A - F d
 		\end{tabular}
 		\end{table}
 	\subsubsection{Accuracy}
-		\begin{table}[!htbp]
+		\begin{table}[H]
 		\centering
 		\caption{Accuracy}\label{OperatorEquals_acc}
 		\begin{tabular}{lll}
@@ -202,7 +203,7 @@ Tests on vectors A - F all behave the same. Showing accuracy for vectors A - F d
 
 \subsection{GetPoint} % Test cases finished
 	\subsubsection{Unit Tests}
-		\begin{table}[!htbp]
+		\begin{table}[H]
 		\centering
 		\caption{Unit Tests}\label{GetPoint_unit}
 		\begin{tabular}{lll}
@@ -220,7 +221,7 @@ Tests on vectors A - F all behave the same. Showing accuracy for vectors A - F d
 		\end{tabular}
 		\end{table}
 	\subsubsection{Accuracy}
-		\begin{table}[!htbp]
+		\begin{table}[H]
 		\centering
 		\caption{Accuracy}\label{GetPoint_acc}
 		\begin{tabular}{lll}
@@ -241,7 +242,7 @@ Tests on vectors A - F all behave the same. Showing accuracy for vectors A - F d
 
 \subsection{GetX} % Test cases finished
 	\subsubsection{Unit Tests}
-		\begin{table}[!htbp]
+		\begin{table}[H]
 		\centering
 		\caption{Unit Tests}\label{GetX_unit}
 		\begin{tabular}{lll}
@@ -259,7 +260,7 @@ Tests on vectors A - F all behave the same. Showing accuracy for vectors A - F d
 		\end{tabular}
 		\end{table}
 	\subsubsection{Accuracy}
-		\begin{table}[!htbp]
+		\begin{table}[H]
 		\centering
 		\caption{Accuracy}\label{GetX_acc}
 		\begin{tabular}{lll}
@@ -281,7 +282,7 @@ Tests on vectors A - F all behave the same. Showing accuracy for vectors A - F d
 
 \subsection{GetY} % Test cases finished
 	\subsubsection{Unit Tests}
-		\begin{table}[!htbp]
+		\begin{table}[H]
 		\centering
 		\caption{Unit Tests}\label{GetY_unit}
 		\begin{tabular}{lll}
@@ -299,7 +300,7 @@ Tests on vectors A - F all behave the same. Showing accuracy for vectors A - F d
 		\end{tabular}
 		\end{table}
 	\subsubsection{Accuracy}
-		\begin{table}[!htbp]
+		\begin{table}[H]
 		\centering
 		\caption{Accuracy}\label{GetY_acc}
 		\begin{tabular}{lll}
@@ -320,7 +321,7 @@ Tests on vectors A - F all behave the same. Showing accuracy for vectors A - F d
 
 \subsection{GetXsec} % Test cases finished
 	\subsubsection{Unit Tests}
-		\begin{table}[!htbp]
+		\begin{table}[H]
 		\centering
 		\caption{Unit Tests}\label{GetXsec_unit}
 		\begin{tabular}{lll}
@@ -339,7 +340,7 @@ Tests on vectors A - F all behave the same. Showing accuracy for vectors A - F d
 		\end{tabular}
 		\end{table}
 	\subsubsection{Accuracy}
-		\begin{table}[!htbp]
+		\begin{table}[H]
 		\centering
 		\caption{Accuracy}\label{GetY_acc}
 		\begin{tabular}{lll}
@@ -360,7 +361,7 @@ Tests on vectors A - F all behave the same. Showing accuracy for vectors A - F d
 
 \subsection{SetData} % Test cases finished
 	\subsubsection{Unit Tests}
-		\begin{table}[!htbp]
+		\begin{table}[H]
 		\centering
 		\caption{Unit Tests}\label{SetData_unit}
 		\begin{tabular}{lll}
@@ -380,7 +381,7 @@ Tests on vectors A - F all behave the same. Showing accuracy for vectors A - F d
 		\end{tabular}
 		\end{table}
 	\subsubsection{Accuracy}
-		\begin{table}[!htbp]
+		\begin{table}[H]
 		\centering
 		\caption{Accuracy}\label{GetY_acc}
 		\begin{tabular}{lll}
@@ -403,7 +404,7 @@ Tests on vectors A - F all behave the same. Showing accuracy for vectors A - F d
 
 \subsection{SetEnergy} % Test cases finished
 	\subsubsection{Unit Tests}
-		\begin{table}[!htbp]
+		\begin{table}[H]
 		\centering
 		\caption{Unit Tests}\label{SetEnergy_unit}
 		\begin{tabular}{lll}
@@ -423,7 +424,7 @@ Tests on vectors A - F all behave the same. Showing accuracy for vectors A - F d
 		\end{tabular}
 		\end{table}
 	\subsubsection{Accuracy}
-		\begin{table}[!htbp]
+		\begin{table}[H]
 		\centering
 		\caption{Accuracy}\label{GetY_acc}
 		\begin{tabular}{lll}
@@ -446,7 +447,7 @@ Tests on vectors A - F all behave the same. Showing accuracy for vectors A - F d
 
 \subsection{SetXsec} % Test cases finished
 	\subsubsection{Unit Tests}
-		\begin{table}[!htbp]
+		\begin{table}[H]
 		\centering
 		\caption{Unit Tests}\label{SetXsec_unit}
 		\begin{tabular}{lll}
@@ -466,7 +467,7 @@ Tests on vectors A - F all behave the same. Showing accuracy for vectors A - F d
 		\end{tabular}
 		\end{table}
 	\subsubsection{Accuracy}
-		\begin{table}[!htbp]
+		\begin{table}[H]
 		\centering
 		\caption{Accuracy}\label{GetY_acc}
 		\begin{tabular}{lll}
@@ -489,7 +490,7 @@ Tests on vectors A - F all behave the same. Showing accuracy for vectors A - F d
 
 \subsection{SetX} % Test cases finished
 	\subsubsection{Unit Tests}
-		\begin{table}[!htbp]
+		\begin{table}[H]
 		\centering
 		\caption{Unit Tests}\label{SetX_unit}
 		\begin{tabular}{lll}
@@ -509,7 +510,7 @@ Tests on vectors A - F all behave the same. Showing accuracy for vectors A - F d
 		\end{tabular}
 		\end{table}
 	\subsubsection{Accuracy}
-		\begin{table}[!htbp]
+		\begin{table}[H]
 		\centering
 		\caption{Accuracy}\label{GetY_acc}
 		\begin{tabular}{lll}
@@ -532,7 +533,7 @@ Tests on vectors A - F all behave the same. Showing accuracy for vectors A - F d
 
 \subsection{SetY} % Test cases finished
 	\subsubsection{Unit Tests}
-		\begin{table}[!htbp]
+		\begin{table}[H]
 		\centering
 		\caption{Unit Tests}\label{SetY_unit}
 		\begin{tabular}{lll}
@@ -552,7 +553,7 @@ Tests on vectors A - F all behave the same. Showing accuracy for vectors A - F d
 		\end{tabular}
 		\end{table}
 	\subsubsection{Accuracy}
-		\begin{table}[!htbp]
+		\begin{table}[H]
 		\centering
 		\caption{Accuracy}\label{SetY_acc}
 		\begin{tabular}{lll}
@@ -575,7 +576,7 @@ Tests on vectors A - F all behave the same. Showing accuracy for vectors A - F d
 
 \subsection{Init} % Test Cases done
 	\subsubsection{Unit Tests}
-		\begin{table}[!htbp]
+		\begin{table}[H]
 		\centering
 		\caption{Unit Tests}\label{Init_unit}
 		\begin{tabular}{lll}
@@ -627,7 +628,7 @@ Tests on vectors A - F all behave the same. Showing accuracy for vectors A - F d
 
 \subsection{SampleLin}% Test Cases finished
 	\subsubsection{Unit Tests}
-		\begin{table}[!htbp]
+		\begin{table}[H]
 		\centering
 		\caption{Unit Tests}\label{SampleLin_unit}
 		\begin{tabular}{lll}
@@ -639,7 +640,7 @@ Tests on vectors A - F all behave the same. Showing accuracy for vectors A - F d
 		\end{tabular}
 		\end{table}
 	\subsubsection{Accuracy}
-		\begin{table}[!htbp]
+		\begin{table}[H]
 		\centering
 		\caption{Accuracy}\label{SampleLin_acc}
 		\begin{tabular}{lll}
@@ -654,7 +655,7 @@ Tests on vectors A - F all behave the same. Showing accuracy for vectors A - F d
 
 \subsection{Integrate}% Test Cases done
 	\subsubsection{Unit Tests}
-		\begin{table}[!htbp]
+		\begin{table}[H]
 		\centering
 		\caption{Unit Tests}\label{Integrate_unit}
 		\begin{tabular}{lll}
@@ -666,7 +667,7 @@ Tests on vectors A - F all behave the same. Showing accuracy for vectors A - F d
 		\end{tabular}
 		\end{table}
 	\subsubsection{Accuracy}
-		\begin{table}[!htbp]
+		\begin{table}[H]
 		\centering
 		\caption{Accuracy}\label{Integrate_acc}
 		\begin{tabular}{lll}
@@ -681,7 +682,7 @@ Tests on vectors A - F all behave the same. Showing accuracy for vectors A - F d
 
 \subsection{IntegrateAndNormalise}% Test Cases done
 	\subsubsection{Unit Tests}
-		\begin{table}[!htbp]
+		\begin{table}[H]
 		\centering
 		\caption{Unit Tests}\label{IntAndNorm_unit}
 		\begin{tabular}{lll}
@@ -693,7 +694,7 @@ Tests on vectors A - F all behave the same. Showing accuracy for vectors A - F d
 		\end{tabular}
 		\end{table}
 	\subsubsection{Accuracy}
-		\begin{table}[!htbp]
+		\begin{table}[H]
 		\centering
 		\caption{Accuracy}\label{IntAndNorm_acc}
 		\begin{tabular}{lll}
@@ -708,7 +709,7 @@ Tests on vectors A - F all behave the same. Showing accuracy for vectors A - F d
 
 \subsection{Times} % Test cases finished
 	\subsubsection{Unit Tests}
-		\begin{table}[!htbp]
+		\begin{table}[H]
 		\centering
 		\caption{Unit Tests}\label{Times_unit}
 		\begin{tabular}{lll}
@@ -726,7 +727,7 @@ Tests on vectors A - F all behave the same. Showing accuracy for vectors A - F d
 		\end{tabular}
 		\end{table}
 	\subsubsection{Accuracy}
-		\begin{table}[!htbp]
+		\begin{table}[H]
 		\centering
 		\caption{Accuracy}\label{Times_acc}
 		\begin{tabular}{lll}
@@ -746,7 +747,7 @@ Tests on vectors A - F all behave the same. Showing accuracy for vectors A - F d
 	\subsubsection{Performance}
 
 \subsection{GetXsecBuffer} % test cases finished
-	\begin{table}[!htbp]
+	\begin{table}[H]
 	\centering
 	\caption{General Unit Test Variables}\label{buffer_table}
 	\begin{tabular}{lll}
@@ -764,7 +765,7 @@ Tests on vectors A - F all behave the same. Showing accuracy for vectors A - F d
 	\end{tabular}
 	\end{table}
 	\subsubsection{Unit Tests}
-		\begin{table}[!htbp]
+		\begin{table}[H]
 		\centering
 		\caption{Unit Tests}\label{xSecBuffer_unit}
 		\begin{tabular}{lll}
@@ -784,7 +785,7 @@ Tests on vectors A - F all behave the same. Showing accuracy for vectors A - F d
 		\end{tabular}
 		\end{table}
 	\subsubsection{Accuracy}
-		\begin{table}[!htbp]
+		\begin{table}[H]
 		\centering
 		\caption{Accuracy}\label{xSecBuffer_acc}
 		\begin{tabular}{lll}
@@ -805,36 +806,36 @@ Tests on vectors A - F all behave the same. Showing accuracy for vectors A - F d
 		\end{table}
 	\subsubsection{Performance}
 
-\subsection{Dump}% Test Cases done
-	\subsubsection{Unit Tests}
-		\begin{table}[!htbp]
-		\centering
-		\caption{Unit Tests}\label{Dump_unit}
-		\begin{tabular}{lll}
-		\toprule
-		\bf Test \# & Code & \bf Description\\\midrule
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{Dump_0} & Empty.Dump() & Dump an empty Vector\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{Dump_1} & D.Dump() & Dump a Vector\\
-		\bottomrule
-		\end{tabular}
-		\end{table}
-	\subsubsection{Accuracy}
-		\begin{table}[!htbp]
-		\centering
-		\caption{Accuracy}\label{Dump_acc}
-		\begin{tabular}{lll}
-		\toprule
-		\bf Test \# & Status \\\midrule
-		\ref{Dump_0} & Pass\\
-		\ref{Dump_1} & Pass\\
-		\bottomrule
-		\end{tabular}
-		\end{table}
-	\subsubsection{Performance}
+%\subsection{Dump}% Test Cases done
+%	\subsubsection{Unit Tests}
+%		\begin{table}[!htbp]
+%		\centering
+%		\caption{Unit Tests}\label{Dump_unit}
+%		\begin{tabular}{lll}
+%		\toprule
+%		\bf Test \# & Code & \bf Description\\\midrule
+%		\refstepcounter{TestCounter}\arabic{TestCounter}\label{Dump_0} & Empty.Dump() & Dump an empty Vector\\
+%		\refstepcounter{TestCounter}\arabic{TestCounter}\label{Dump_1} & D.Dump() & Dump a Vector\\
+%		\bottomrule
+%		\end{tabular}
+%		\end{table}
+%	\subsubsection{Accuracy}
+%		\begin{table}[!htbp]
+%		\centering
+%		\caption{Accuracy}\label{Dump_acc}
+%		\begin{tabular}{lll}
+%		\toprule
+%		\bf Test \# & Status \\\midrule
+%		\ref{Dump_0} & Pass\\
+%		\ref{Dump_1} & Pass\\
+%		\bottomrule
+%		\end{tabular}
+%		\end{table}
+%	\subsubsection{Performance}
 
 \subsection{ThinOut}% Test Cases Done
 	\subsubsection{Unit Tests}
-		\begin{table}[!htbp]
+		\begin{table}[H]
 		\centering
 		\caption{Unit Tests}\label{ThinOut_unit}
 		\begin{tabular}{lll}
@@ -850,7 +851,7 @@ Tests on vectors A - F all behave the same. Showing accuracy for vectors A - F d
 		\end{tabular}
 		\end{table}
 	\subsubsection{Accuracy}
-		\begin{table}[!htbp]
+		\begin{table}[H]
 		\centering
 		\caption{Accuracy}\label{ThinOut_acc}
 		\begin{tabular}{lll}
@@ -869,7 +870,7 @@ Tests on vectors A - F all behave the same. Showing accuracy for vectors A - F d
 
 \subsection{Sample}% Test Cases done
 	\subsubsection{Unit Tests}
-		\begin{table}[!htbp]
+		\begin{table}[H]
 		\centering
 		\caption{Unit Tests}\label{Sample_unit}
 		\begin{tabular}{lll}
@@ -921,32 +922,32 @@ Tests on vectors A - F all behave the same. Showing accuracy for vectors A - F d
 
 %from .hh
 
-\subsection{GetVectorLength} % Test cases finished
-	\subsubsection{Unit Tests}		
-		\begin{table}[!htbp]
-		\centering
-		\caption{Unit Tests}\label{GetVectorLength_unit}
-		\begin{tabular}{lll}
-		\toprule
-		\bf Test \# & Code & \bf Description\\\midrule
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetVectorLength_0} & Empty.GetVectorLength() & Get the length of an empty vector\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetVectorLength_1} & D.GetVectorLength() & Get the length of a vector\\
-		\bottomrule
-		\end{tabular}
-		\end{table}
-	\subsubsection{Accuracy}
-		\begin{table}[!htbp]
-		\centering
-		\caption{Accuracy}\label{GetVectorLength_acc}
-		\begin{tabular}{lll}
-		\toprule
-		\bf Test \# & Status \\\midrule		
-		\ref{GetVectorLength_0} & Pass\\
-		\ref{GetVectorLength_1} & Pass\\
-		\bottomrule
-		\end{tabular}
-		\end{table}
-	\subsubsection{Performance}
+%\subsection{GetVectorLength} % Test cases finished
+%	\subsubsection{Unit Tests}		
+%		\begin{table}[!htbp]
+%		\centering
+%		\caption{Unit Tests}\label{GetVectorLength_unit}
+%		\begin{tabular}{lll}
+%		\toprule
+%		\bf Test \# & Code & \bf Description\\\midrule
+%		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetVectorLength_0} & Empty.GetVectorLength() & Get the length of an empty vector\\
+%		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetVectorLength_1} & D.GetVectorLength() & Get the length of a vector\\
+%		\bottomrule
+%		\end{tabular}
+%		\end{table}
+%	\subsubsection{Accuracy}
+%		\begin{table}[!htbp]
+%		\centering
+%		\caption{Accuracy}\label{GetVectorLength_acc}
+%		\begin{tabular}{lll}
+%		\toprule
+%		\bf Test \# & Status \\\midrule		
+%		\ref{GetVectorLength_0} & Pass\\
+%		\ref{GetVectorLength_1} & Pass\\
+%		\bottomrule
+%		\end{tabular}
+%		\end{table}
+%	\subsubsection{Performance}
 
 %\subsection{GetIntegral}
 %	\subsubsection{Unit Tests}
@@ -980,7 +981,7 @@ Tests on vectors A - F all behave the same. Showing accuracy for vectors A - F d
 			\item ``nPoint" is a negative G4ParticleHPDataPoint
 			\item ``zPoint" is a zero G4ParticleHPDataPoint
 		\end{itemize}
-		\begin{table}[!htbp]
+		\begin{table}[H]
 		\centering
 		\caption{Unit Tests}\label{SetPoint_unit}
 		\begin{tabular}{lll}
@@ -1000,7 +1001,7 @@ Tests on vectors A - F all behave the same. Showing accuracy for vectors A - F d
 		\end{tabular}
 		\end{table}
 	\subsubsection{Accuracy}
-		\begin{table}[!htbp]
+		\begin{table}[H]
 		\centering
 		\caption{Accuracy}\label{SetPoint_acc}
 		\begin{tabular}{lll}
@@ -1021,34 +1022,34 @@ Tests on vectors A - F all behave the same. Showing accuracy for vectors A - F d
 		\end{table}
 	\subsubsection{Performance}
 
-\subsection{Merge}
-	\subsubsection{Unit Tests}
-		\begin{table}[!htbp]
-		\centering
-		\caption{Unit Tests}\label{_unit}
-		\begin{tabular}{lll}
-		\toprule
-		\bf Test \# & Code & \bf Description\\\midrule
-		\refstepcounter{TestCounter}\arabic{TestCounter} & Code goes here & Description goes here\\
-		\bottomrule
-		\end{tabular}
-		\end{table}
-	\subsubsection{Accuracy}
-		\begin{table}[!htbp]
-		\centering
-		\caption{Accuracy}\label{_acc}
-		\begin{tabular}{lll}
-		\toprule
-		\bf Test \# & CPU & GPU \\\midrule
-		\arabic{TestCounter} & CPU time & GPU time\\
-		\bottomrule
-		\end{tabular}
-		\end{table}
-	\subsubsection{Performance}
+%\subsection{Merge}
+%	\subsubsection{Unit Tests}
+%		\begin{table}[!htbp]
+%		\centering
+%		\caption{Unit Tests}\label{Merge_unit}
+%		\begin{tabular}{lll}
+%		\toprule
+%		\bf Test \# & Code & \bf Description\\\midrule
+%		\refstepcounter{TestCounter}\arabic{TestCounter} & Code goes here & Description goes here\\
+%		\bottomrule
+%		\end{tabular}
+%		\end{table}
+%	\subsubsection{Accuracy}
+%		\begin{table}[!htbp]
+%		\centering
+%		\caption{Accuracy}\label{Merge_acc}
+%		\begin{tabular}{lll}
+%		\toprule
+%		\bf Test \# & Status \\\midrule
+%		\arabic{TestCounter} & Pass\\
+%		\bottomrule
+%		\end{tabular}
+%		\end{table}
+%	\subsubsection{Performance}
 
 \subsection{Get15percentBorder} % Test cases finished
 	\subsubsection{Unit Tests}		
-		\begin{table}[!htbp]
+		\begin{table}[H]
 		\centering
 		\caption{Unit Tests}\label{Get15percentBorder_unit}
 		\begin{tabular}{lll}
@@ -1060,7 +1061,7 @@ Tests on vectors A - F all behave the same. Showing accuracy for vectors A - F d
 		\end{tabular}
 		\end{table}
 	\subsubsection{Accuracy}
-		\begin{table}[!htbp]
+		\begin{table}[H]
 		\centering
 		\caption{Accuracy}\label{Get15percentBorder_acc}
 		\begin{tabular}{lll}
@@ -1075,7 +1076,7 @@ Tests on vectors A - F all behave the same. Showing accuracy for vectors A - F d
 
 \subsection{Get50percentBorder} % Test cases finished
 	\subsubsection{Unit Tests}		
-		\begin{table}[!htbp]
+		\begin{table}[H]
 		\centering
 		\caption{Unit Tests}\label{Get50percentBorder_unit}
 		\begin{tabular}{lll}
@@ -1087,7 +1088,7 @@ Tests on vectors A - F all behave the same. Showing accuracy for vectors A - F d
 		\end{tabular}
 		\end{table}
 	\subsubsection{Accuracy}
-		\begin{table}[!htbp]
+		\begin{table}[H]
 		\centering
 		\caption{Accuracy}\label{Get50percentBorder_acc}
 		\begin{tabular}{lll}
