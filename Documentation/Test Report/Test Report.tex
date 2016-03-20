@@ -26,7 +26,6 @@
 \newcommand{\wss}[1]{\authornote{magenta}{SS}{#1}}
 \newcommand{\ds}[1]{\authornote{blue}{DS}{#1}}
 \newcommand{\mmp}[1]{\authornote{green}{MP}{#1}}
-
 \newcounter{TestCounter}
 \setcounter{TestCounter}{0}
 % End Comments ---------------------------------------------------------------
@@ -1112,42 +1111,42 @@ System tests will be performed by running the sample code packaged with the GEAN
 \toprule
 
 \bf Test \# & \bf Initial State & \bf Inputs & \bf Outputs & \bf Description\\\midrule
-\stepcounter{TestCounter}\arabic{TestCounter} 
-& Fresh start up 
+\refstepcounter{TestCounter}\arabic{TestCounter}\label{sys1}
+& Fresh start up
 & Events = 2000
 Material = Water
 & Same output as non-GPU GEANT4 
 &  HADR04 no changes\\\midrule
 
-\stepcounter{TestCounter}\arabic{TestCounter}
+\refstepcounter{TestCounter}\arabic{TestCounter}\label{sys2}
 & Fresh start up 
 & Events = 2000
 Material = Uranium
 & Same output as non-GPU GEANT4 
 & HADR04 -- basic example\\\midrule
 
-\stepcounter{TestCounter}\arabic{TestCounter}
+\refstepcounter{TestCounter}\arabic{TestCounter}\label{sys3}
 & Fresh start up 
 & Events = 600
 Material = Water
 & Same output as non-GPU GEANT4 
 & HADR04 -- Shorter test \\\midrule
 
-\stepcounter{TestCounter}\arabic{TestCounter}
+\refstepcounter{TestCounter}\arabic{TestCounter}\label{sys4}
 & Fresh start up 
 & Events = 600
 Material = Uranium
 & Same output as non-GPU GEANT4 
 & HADR04 -- Shorter test \\\midrule
 
-\stepcounter{TestCounter}\arabic{TestCounter}
+\refstepcounter{TestCounter}\arabic{TestCounter}\label{sys5}
 & Fresh start up 
 & Events = 20000
 Material = Uranium
 & Same output as non-GPU GEANT4 
 & HADR04 -- Long simulation stress Test\\\midrule
 
-\stepcounter{TestCounter}\arabic{TestCounter}
+\refstepcounter{TestCounter}\arabic{TestCounter}\label{sys6}
 & Fresh start up 
 & Events = 0
 Material = Uranium
@@ -1160,12 +1159,78 @@ Material = Uranium
 \subsection{System Tests Results}
 This section will summarize all of the results from running tests 39 through 44. Each test has an accuracy section as well as a performance section. The accuracy of the results will be based on how well the values generated on the GPU match up with the values generated on the CPU. The performance metrics used will include user, system and real time required to run each  system test.
 
-\subsection{System test \# 39}
+\subsection{System test \# \ref{sys1}}
 This test simply runs the Hadr04 example on both the GPU and the CPU without changing the source files. The code for this example is bundled with the GEANT4 installation.\\
 	\subsubsection{Accuracy}
 		\begin{table}[!htbp]
 		\centering
-		\caption{Accuracy Test \#39}\label{_acc}
+		\caption{Accuracy Test \# \ref{sys1}}\label{_acc}
+		\begin{tabular}{llll}
+		\toprule
+		\bf Data & CPU Values & GPU Values & Difference\\\midrule
+		\bf Process Calls&&&\\
+		hadElastic&423181&441475&NA\\
+		nCapture&1998&2000&NA\\
+		neutronInelastic&2&0&NA\\ 
+		\bf Parcours of incident neutron&&&\\
+		collisions&212.59&221.74&NA\\
+		track length&93.387 cm&96.948 cm&NA\\
+		time of flight&202.14 mus&210.93 mus&NA\\
+		\bf Generated particles&&&\\
+		\underline{C14}&&&\\
+		\# of particles&2&NA&NA\\
+		Emean&404.13 keV&NA&NA\\
+		Range&404.02 keV-404.25 keV&NA&NA\\
+		\underline{O16}&&&\\
+		\# of particles&5948&6146&NA\\
+		Emean&39.577 keV&40.32 keV&NA\\
+		Range&0.73669 meV-447.06 keV&1.417 meV-446.59 keV&NA\\
+		\underline{O17}&&&\\
+		\# of particles&4&NA&NA\\
+		Emean&1.4823 keV&NA&NA\\
+		Range&187.15 eV-4.9785 keV&NA&NA\\
+		\underline{O18}&&&\\
+		\# of particles&3&NA&NA\\
+		Emean&52.362&NA&NA\\
+		Range&9.3256 eV-153.04 keV&NA&NA\\
+		\underline{Alpha}&&&\\
+		\# of particles&2&NA&NA\\
+		Emean&1.4146 MeV&NA&NA\\
+		Range&1.4145 MeV-1.4147 MeV&NA&NA\\
+		\underline{Deuteron}&&&\\
+		\# of particles&1996&NA&NA\\
+		Emean&1.3185 keV&NA&NA\\
+		Range&237.52 meV-1.7025 keV&NA&NA\\
+		\underline{Gamma}&&&\\
+		\# of particles&2000&NA&NA\\
+		Emean&2.2239 MeV&NA&NA\\
+		Range&870.8 keV-4.1431 MeV&NA&NA\\
+		\underline{Proton}&&&\\
+		\# of particles&45355&NA&NA\\
+		Emean&83.046 keV&NA&NA\\
+		Range&0.13176 meV-1.9993 MeV&NA&NA\\
+		\end{tabular}
+		\end{table}
+		\break
+	\subsubsection{Performance}
+		\begin{table}[!htbp]
+		\centering
+		\caption{Performance Test \# \ref{sys1}}\label{_acc}
+		\begin{tabular}{lll}
+		\toprule
+		Type&CPU Time& GPU Time\\\midrule
+		User&55.09s&NA\\
+		Real&55.19s&NA\\
+		System&0.05s&NA\\
+		\end{tabular}
+		\end{table}
+\break
+\subsection{System test \#  \ref{sys2}}
+This test simply runs the Hadr04 example on both the GPU and the CPU without changing the source files. The code for this example is bundled with the GEANT4 installation.\\
+	\subsubsection{Accuracy}
+		\begin{table}[!htbp]
+		\centering
+		\caption{Accuracy Test \# \ref{sys2}}\label{_acc}
 		\begin{tabular}{llll}
 		\toprule
 		\bf Data & CPU Values & GPU Values & Difference\\\midrule
@@ -1178,35 +1243,23 @@ This test simply runs the Hadr04 example on both the GPU and the CPU without cha
 		track length&NA&NA&NA\\
 		time of flight&NA&NA&NA\\
 		\bf Generated particles&&&\\
-		C14&&&\\
+		\underline{U23}5&&&\\
 		\# of particles&NA&NA&NA\\
 		Emean&NA&NA&NA\\
 		Range&NA&NA&NA\\
-		O16&&&\\
+		\underline{U238}&&&\\
 		\# of particles&NA&NA&NA\\
 		Emean&NA&NA&NA\\
 		Range&NA&NA&NA\\
-		O17&&&\\
+		\underline{U239}&&&\\
 		\# of particles&NA&NA&NA\\
 		Emean&NA&NA&NA\\
 		Range&NA&NA&NA\\
-		O18&&&\\
+		\underline{Gamma}&&&\\
 		\# of particles&NA&NA&NA\\
 		Emean&NA&NA&NA\\
 		Range&NA&NA&NA\\
-		Alpha&&&\\
-		\# of particles&NA&NA&NA\\
-		Emean&NA&NA&NA\\
-		Range&NA&NA&NA\\
-		Deuteron&&&\\
-		\# of particles&NA&NA&NA\\
-		Emean&NA&NA&NA\\
-		Range&NA&NA&NA\\
-		Gamma&&&\\
-		\# of particles&NA&NA&NA\\
-		Emean&NA&NA&NA\\
-		Range&NA&NA&NA\\
-		Proton&&&\\
+		\underline{Neutron}&&&\\
 		\# of particles&NA&NA&NA\\
 		Emean&NA&NA&NA\\
 		Range&NA&NA&NA\\
@@ -1216,7 +1269,7 @@ This test simply runs the Hadr04 example on both the GPU and the CPU without cha
 	\subsubsection{Performance}
 		\begin{table}[!htbp]
 		\centering
-		\caption{Performance Test \#39}\label{_acc}
+		\caption{Performance Test \# \ref{sys2}}\label{_acc}
 		\begin{tabular}{lll}
 		\toprule
 		Type&CPU Time& GPU Time\\\midrule
@@ -1225,13 +1278,13 @@ This test simply runs the Hadr04 example on both the GPU and the CPU without cha
 		System&NA&NA\\
 		\end{tabular}
 		\end{table}
-\break
-\subsection{System test \# 40}
+\subsection{System test \#  \ref{sys3}}
 This test simply runs the Hadr04 example on both the GPU and the CPU without changing the source files. The code for this example is bundled with the GEANT4 installation.\\
+\break
 	\subsubsection{Accuracy}
 		\begin{table}[!htbp]
 		\centering
-		\caption{Accuracy Test \#40}\label{_acc}
+		\caption{Accuracy Test \# \ref{sys3}}\label{_acc}
 		\begin{tabular}{llll}
 		\toprule
 		\bf Data & CPU Values & GPU Values & Difference\\\midrule
@@ -1244,23 +1297,27 @@ This test simply runs the Hadr04 example on both the GPU and the CPU without cha
 		track length&NA&NA&NA\\
 		time of flight&NA&NA&NA\\
 		\bf Generated particles&&&\\
-		U235&&&\\
+		\underline{O16}&&&\\
 		\# of particles&NA&NA&NA\\
 		Emean&NA&NA&NA\\
 		Range&NA&NA&NA\\
-		U238&&&\\
+		\underline{O17}&&&\\
 		\# of particles&NA&NA&NA\\
 		Emean&NA&NA&NA\\
 		Range&NA&NA&NA\\
-		U239&&&\\
+		\underline{O18}&&&\\
 		\# of particles&NA&NA&NA\\
 		Emean&NA&NA&NA\\
 		Range&NA&NA&NA\\
-		Gamma&&&\\
+		\underline{Deuteron}&&&\\
 		\# of particles&NA&NA&NA\\
 		Emean&NA&NA&NA\\
 		Range&NA&NA&NA\\
-		Neutron&&&\\
+		\underline{Gamma}&&&\\
+		\# of particles&NA&NA&NA\\
+		Emean&NA&NA&NA\\
+		Range&NA&NA&NA\\
+		\underline{Proton}&&&\\
 		\# of particles&NA&NA&NA\\
 		Emean&NA&NA&NA\\
 		Range&NA&NA&NA\\
@@ -1270,7 +1327,7 @@ This test simply runs the Hadr04 example on both the GPU and the CPU without cha
 	\subsubsection{Performance}
 		\begin{table}[!htbp]
 		\centering
-		\caption{Performance Test \#40}\label{_acc}
+		\caption{Performance Test \# \ref{sys3}}\label{_acc}
 		\begin{tabular}{lll}
 		\toprule
 		Type&CPU Time& GPU Time\\\midrule
@@ -1279,13 +1336,14 @@ This test simply runs the Hadr04 example on both the GPU and the CPU without cha
 		System&NA&NA\\
 		\end{tabular}
 		\end{table}
-\subsection{System test \# 41}
+		
+\subsection{System test \#  \ref{sys4}}
 This test simply runs the Hadr04 example on both the GPU and the CPU without changing the source files. The code for this example is bundled with the GEANT4 installation.\\
 \break
 	\subsubsection{Accuracy}
 		\begin{table}[!htbp]
 		\centering
-		\caption{Accuracy Test \#41}\label{_acc}
+		\caption{Accuracy Test \# \ref{sys4}}\label{_acc}
 		\begin{tabular}{llll}
 		\toprule
 		\bf Data & CPU Values & GPU Values & Difference\\\midrule
@@ -1298,27 +1356,27 @@ This test simply runs the Hadr04 example on both the GPU and the CPU without cha
 		track length&NA&NA&NA\\
 		time of flight&NA&NA&NA\\
 		\bf Generated particles&&&\\
-		O16&&&\\
+		\underline{O16}&&&\\
 		\# of particles&NA&NA&NA\\
 		Emean&NA&NA&NA\\
 		Range&NA&NA&NA\\
-		O17&&&\\
+		\underline{O17}&&&\\
 		\# of particles&NA&NA&NA\\
 		Emean&NA&NA&NA\\
 		Range&NA&NA&NA\\
-		O18&&&\\
+		\underline{O18}&&&\\
 		\# of particles&NA&NA&NA\\
 		Emean&NA&NA&NA\\
 		Range&NA&NA&NA\\
-		Alpha&&&\\
+		\underline{Deuteron}&&&\\
 		\# of particles&NA&NA&NA\\
 		Emean&NA&NA&NA\\
 		Range&NA&NA&NA\\
-		Gamma&&&\\
+		\underline{Gamma}&&&\\
 		\# of particles&NA&NA&NA\\
 		Emean&NA&NA&NA\\
 		Range&NA&NA&NA\\
-		Proton&&&\\
+		\underline{Proton}&&&\\
 		\# of particles&NA&NA&NA\\
 		Emean&NA&NA&NA\\
 		Range&NA&NA&NA\\
@@ -1328,7 +1386,125 @@ This test simply runs the Hadr04 example on both the GPU and the CPU without cha
 	\subsubsection{Performance}
 		\begin{table}[!htbp]
 		\centering
-		\caption{Performance Test \#41}\label{_acc}
+		\caption{Performance Test \# \ref{sys4}}\label{_acc}
+		\begin{tabular}{lll}
+		\toprule
+		Type&CPU Time& GPU Time\\\midrule
+		User&NA&NA\\
+		Real&NA&NA\\
+		System&NA&NA\\
+		\end{tabular}
+		\end{table}
+		
+\subsection{System test \#  \ref{sys5}}
+This test simply runs the Hadr04 example on both the GPU and the CPU without changing the source files. The code for this example is bundled with the GEANT4 installation.\\
+\break
+	\subsubsection{Accuracy}
+		\begin{table}[!htbp]
+		\centering
+		\caption{Accuracy Test \# \ref{sys5}}\label{_acc}
+		\begin{tabular}{llll}
+		\toprule
+		\bf Data & CPU Values & GPU Values & Difference\\\midrule
+		\bf Process Calls&&&\\
+		hadElastic&NA&NA&NA\\
+		nCapture&NA&NA&NA\\
+		neutronInelastic&NA&NA&NA\\ 
+		\bf Parcours of incident neutron&&&\\
+		collisions&NA&NA&NA\\
+		track length&NA&NA&NA\\
+		time of flight&NA&NA&NA\\
+		\bf Generated particles&&&\\
+		\underline{O16}&&&\\
+		\# of particles&NA&NA&NA\\
+		Emean&NA&NA&NA\\
+		Range&NA&NA&NA\\
+		\underline{O17}&&&\\
+		\# of particles&NA&NA&NA\\
+		Emean&NA&NA&NA\\
+		Range&NA&NA&NA\\
+		\underline{O18}&&&\\
+		\# of particles&NA&NA&NA\\
+		Emean&NA&NA&NA\\
+		Range&NA&NA&NA\\
+		\underline{Deuteron}&&&\\
+		\# of particles&NA&NA&NA\\
+		Emean&NA&NA&NA\\
+		Range&NA&NA&NA\\
+		\underline{Gamma}&&&\\
+		\# of particles&NA&NA&NA\\
+		Emean&NA&NA&NA\\
+		Range&NA&NA&NA\\
+		\underline{Proton}&&&\\
+		\# of particles&NA&NA&NA\\
+		Emean&NA&NA&NA\\
+		Range&NA&NA&NA\\
+		\end{tabular}
+		\end{table}
+		\break
+	\subsubsection{Performance}
+		\begin{table}[!htbp]
+		\centering
+		\caption{Performance Test \# \ref{sys5}}\label{_acc}
+		\begin{tabular}{lll}
+		\toprule
+		Type&CPU Time& GPU Time\\\midrule
+		User&NA&NA\\
+		Real&NA&NA\\
+		System&NA&NA\\
+		\end{tabular}
+		\end{table}
+		
+\subsection{System test \#  \ref{sys6}}
+This test simply runs the Hadr04 example on both the GPU and the CPU without changing the source files. The code for this example is bundled with the GEANT4 installation.\\
+\break
+	\subsubsection{Accuracy}
+		\begin{table}[!htbp]
+		\centering
+		\caption{Accuracy Test \# \ref{sys6}}\label{_acc}
+		\begin{tabular}{llll}
+		\toprule
+		\bf Data & CPU Values & GPU Values & Difference\\\midrule
+		\bf Process Calls&&&\\
+		hadElastic&NA&NA&NA\\
+		nCapture&NA&NA&NA\\
+		neutronInelastic&NA&NA&NA\\ 
+		\bf Parcours of incident neutron&&&\\
+		collisions&NA&NA&NA\\
+		track length&NA&NA&NA\\
+		time of flight&NA&NA&NA\\
+		\bf Generated particles&&&\\
+		\underline{O16}&&&\\
+		\# of particles&NA&NA&NA\\
+		Emean&NA&NA&NA\\
+		Range&NA&NA&NA\\
+		\underline{O17}&&&\\
+		\# of particles&NA&NA&NA\\
+		Emean&NA&NA&NA\\
+		Range&NA&NA&NA\\
+		\underline{O18}&&&\\
+		\# of particles&NA&NA&NA\\
+		Emean&NA&NA&NA\\
+		Range&NA&NA&NA\\
+		\underline{Deuteron}&&&\\
+		\# of particles&NA&NA&NA\\
+		Emean&NA&NA&NA\\
+		Range&NA&NA&NA\\
+		\underline{Gamma}&&&\\
+		\# of particles&NA&NA&NA\\
+		Emean&NA&NA&NA\\
+		Range&NA&NA&NA\\
+		\underline{Proton}&&&\\
+		\# of particles&NA&NA&NA\\
+		Emean&NA&NA&NA\\
+		Range&NA&NA&NA\\
+		\end{tabular}
+		\end{table}
+		\break
+	\subsubsection{Performance}
+		\begin{table}[!htbp]
+		\centering
+		\caption{Performance Test \# \ref{sys6}}\label{_acc}
 		\begin{tabular}{lll}
 		\toprule
 		Type&CPU Time& GPU Time\\\midrule
