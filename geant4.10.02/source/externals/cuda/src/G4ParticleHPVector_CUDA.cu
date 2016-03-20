@@ -313,10 +313,13 @@ G4double G4ParticleHPVector_CUDA::GetXsec(G4double e, G4int min) {
             y = h_theData[low].GetY();
         }
         else {
-            std::cout << "Interpolating..\n";
+            std::cout << "    GetXSec(" << e << "," << min << ") interpolating.\n";
+            std::cout << "      theData[low=" << low << "] = (" << h_theData[low].GetX() << "," << h_theData[low].GetY() << ")\n";
+            std::cout << "      theData[hig=" << high << "] = (" << h_theData[high].GetX() << "," << h_theData[high].GetY() << ")\n";
             y = theInt.Interpolate(theManager.GetScheme(high), e,
                                    h_theData[low].GetX(), h_theData[high].GetX(),
                                    h_theData[low].GetY(), h_theData[high].GetY());
+            std::cout << "      y = " << y << "\n";
         }
     }
     else {
@@ -411,11 +414,12 @@ void G4ParticleHPVector_CUDA::SetXsec(G4int i, G4double x) {
 ******************************************/
 void G4ParticleHPVector_CUDA::Init(std::istream & aDataFile, G4int total, G4double ux, G4double uy) {
     G4double x, y;
-    printf("Init!: total: %d\n", total);
     
     // TODO: change to realloc, had some problems when it was realloc before
     //h_theData = (G4ParticleHPDataPoint*)realloc(h_theData, total * sizeof(G4ParticleHPDataPoint));
-    free(h_theData);
+    if (h_theData) {
+        free(h_theData);
+    }
     h_theData = (G4ParticleHPDataPoint*)malloc(total * sizeof(G4ParticleHPDataPoint));
     if (!h_theData) { printf("MALLOC FAILURE - 296"); }
     

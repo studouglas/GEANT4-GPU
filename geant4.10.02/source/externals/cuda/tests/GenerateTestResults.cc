@@ -6,21 +6,38 @@
 #include <time.h>
 #include "G4ParticleHPVector.hh"
 
+// test will detect if CPU and GPU result files generated from different versions
+// of the unit test program
+#define VERSION_NUMBER "1.0"
+
 // number of different G4ParticleHPVectors to create
-#define NUM_TEST_CASES 2
+#define NUM_TEST_CASES 8
 
 // number of different input values to test (including 'edge case' values)
 #define NUM_TEST_INPUTS 5 
 
+// 10^n where n is number of digits to keep
+// TODO: try more (17 is to much)
+#define DOUBLE_PRECISION 10000000000
+
+// some tests based on functions that use random values, run these multiple times and take average
+#define REPETITIONS_RAND_TESTS 1000
+
 // Geant4 doesn't use rand() on CUDA, but does on CPU so rands become mismatched
 // To fix this, we generate a number of rands at init (we only need 221, but might as be safe)
-#define NUM_RANDS 1000
+#define NUM_RANDS 5000
 int randCounter = 0;
 double* rands;
 
 G4ParticleHPVector** vectors;
 std::ofstream resultsFile;
 std::ofstream timesFile;
+
+// used by analyzer to see what line in file is
+const char variableId = '@';
+const char methodId = '#';
+const char nEntriesId = '!';
+const char randomResultId = '$';
 
 /***********************************************
 * Write out to files
@@ -32,18 +49,25 @@ void writeOutArray(double* arr, int count) {
 		return;
 	}
 
-	// print each element, comma-separated
-	resultsFile << "[";
-	for (int i = 0; i < count - 1; i++) {
-		resultsFile << arr[i] << ",";
+	// round our doubles within tolerance before calculating hash
+	for (int i = 0; i < count; i++) {
+		arr[i] = round(arr[i]*DOUBLE_PRECISION)/DOUBLE_PRECISION;
 	}
-	resultsFile << arr[count-1] << "]";
+
+	// convert array into string (double* -> char* -> std::string)
+	char* charArr = reinterpret_cast<char*>(arr);
+	std::string arrAsString(reinterpret_cast<char const*>(charArr), count * sizeof(double));
+
+	// use std function to hash the array (don't want to print out each element for big arrays)
+	std::size_t arrayHash = std::hash<std::string>{}(arrAsString);
+
+	resultsFile << "hash: " << arrayHash;
 }
 void writeOutTestName(std::string testName, int caseNum) {
 	std::cout << "Testing '" << testName << "' case " << caseNum << "...\n";
 
 	char testNameToPrint[128];
-	sprintf(testNameToPrint, "#%s_%d\n", testName.c_str(), caseNum);
+	sprintf(testNameToPrint, "%c%s_%d\n", methodId, testName.c_str(), caseNum);
 	
 	resultsFile << testNameToPrint;
 	timesFile << testNameToPrint;
@@ -54,6 +78,9 @@ void writeOutInt(int val) {
 void writeOutDouble(double val) {
 	resultsFile << val << "\n";
 }
+void writeOutRandomDouble(double val) {
+	resultsFile << randomResultId << val << "\n";
+}
 void writeOutString(std::string str) {
 	resultsFile << str << "\n";
 }
@@ -61,38 +88,42 @@ void writeOutPoint(G4ParticleHPDataPoint point) {
 	resultsFile << "(" << point.GetX() << "," << point.GetY() << ")\n";
 }
 void writeOutIntInput(std::string inputName, int val) {
-	resultsFile << "@" << inputName << "=" << val << "\n";
-	timesFile << "@" << inputName << "=" << val << "\n";
+	resultsFile << variableId << inputName << "=" << val << "\n";
+	timesFile << variableId << inputName << "=" << val << "\n";
 	std::cout << "    Input: " << inputName << "=" << val <<"\n";
 }
 void writeOutDoubleInput(std::string inputName, double val) {
-	resultsFile << "@" << inputName << "=" << val << "\n";	
-	timesFile << "@" << inputName << "=" << val << "\n";	
+	resultsFile << variableId << inputName << "=" << val << "\n";	
+	timesFile << variableId << inputName << "=" << val << "\n";	
 	std::cout << "    Input: " << inputName << "=" << val <<"\n";
 }
 void writeOutTheData(int caseNum) {
-	std::cout << "writeOutTheData, vectors[caseNum] = <" << vectors[caseNum] << ">\n";
 	int nEntries = vectors[caseNum]->GetVectorLength();
 	double xVals[nEntries];
 	double yVals[nEntries];
 	for (int i = 0; i < nEntries; i++) {
-		std::cout << i << ", ";
 		xVals[i] = vectors[caseNum]->GetX(i);
 		yVals[i] = vectors[caseNum]->GetY(i);
 	}
 
+	resultsFile << "theData xVals ";
 	writeOutArray(xVals, nEntries);
 	resultsFile << "\n";
 
+	resultsFile << "theData yVals ";
 	writeOutArray(yVals, nEntries);
 	resultsFile << "\n";
 }
 void writeOutTheIntegral(int caseNum) {
 	double *integral = vectors[caseNum]->Debug();
+	resultsFile << "theIntegral ";
 	if (integral == NULL) {
 		writeOutArray(integral, 0);
 		resultsFile << "\n";
 	} else {
+		if (integral[0] == 0.0 || integral[0] == -0.0) {
+			integral[0] = 1.0-1.0;
+		}
 		writeOutArray(integral, vectors[caseNum]->GetVectorLength());
 		resultsFile << "\n";
 	}
@@ -150,17 +181,33 @@ void testInitializeVector(int caseNum) {
 	// different data files for different cases
 	switch (caseNum) {
 		case 0:
-			std::cout << "initializeing 0 vector...\n";
 			writeOutTheData(caseNum);
-			std::cout << "initializeing 0 vector...\n";
-			timesFile << "!" << caseNum << "!" << 0 << "\n";
-			std::cout << "initializeing 0 vector...\n";
+			timesFile << nEntriesId << caseNum << nEntriesId << 0 << "\n";
 			return;
 		case 1:
-			dataFileName = "66_Lead.txt";
+			dataFileName = "50_112_Tin_69.txt";
+			break;
+		case 2:
+			dataFileName = "58_141_Cerium_80.txt";
+			break;
+		case 3:
+			dataFileName = "90_228_Thorium_1509.txt";
+			break;
+		case 4:
+			dataFileName = "92_232_Uranium_8045.txt";
+			break;
+		case 5:
+			dataFileName = "92_236_Uranium_41854.txt";
+			break;
+		case 6:
+			dataFileName = "90_232_Thorium_98995.txt";
+			break;
+		case 7:
+			dataFileName = "92_235_Uranium_242594.txt";
 			break;
 		default:
-			dataFileName = "66_Lead.txt";
+			std::cout << "Error. Filename not set for case " << caseNum << ".\n";
+			exit(1);
 	}
 
 	if (fileBuffer.open(dataFileName, std::ios::in)) {
@@ -168,18 +215,16 @@ void testInitializeVector(int caseNum) {
 		
 		int n;
 		dataStream >> n;
-		std::cout << "starting init..., n = " << n;
 		clock_t t1 = clock();
 		vectors[caseNum]->Init(dataStream, n, 1, 1);
 		clock_t t2 = clock();
-		std::cout << "done init...";
 		writeOutTime(t2-t1);
 
 		fileBuffer.close();
 	} else {
 		std::cout << "\n\n***ERROR READING FILE '" << dataFileName << "'***\n\n";
 	}
-	timesFile << "!" << caseNum << "!" << vectors[caseNum]->GetVectorLength() << "\n";
+	timesFile << nEntriesId << caseNum << nEntriesId << vectors[caseNum]->GetVectorLength() << "\n";
 	writeOutTheData(caseNum);
 }
 void testSettersAndGetters(int caseNum) {
@@ -291,12 +336,10 @@ void testGetXSec(int caseNum) {
 			writeOutDoubleInput("min", minVals[j]);
 			try {
 				clock_t t1 = clock();
-				std::cout << "About to call GetXSec, e=" << testVals[i] << ",min=" << minVals[j] << ",nEntries" << vectors[caseNum]->GetVectorLength() << "\n";
 				writeOutDouble(vectors[caseNum]->GetXsec(testVals[i], minVals[j]));
 				clock_t t2 = clock();
 				writeOutTime(t2-t1);
 			} catch (G4HadronicException e)  {
-				std::cout << "Caught Exception!";
 				resultsFile << "Caught G4HadronicException" << "\n";
 			}
 		}
@@ -362,10 +405,21 @@ void testMerge(int caseNum) {
 }
 void testSample(int caseNum) {
 	writeOutTestName("G4double SampleLin()", caseNum);
-	writeOutDouble(vectors[caseNum]->SampleLin());
+	
+	// includes random numbers, so run multiple times and take average
+	double sum = 0.0;
+	for (int i = 0; i < REPETITIONS_RAND_TESTS; i++) {
+		sum += vectors[caseNum]->SampleLin();
+	}
+	writeOutRandomDouble(sum/REPETITIONS_RAND_TESTS);
 
+	// includes random numbers, so run multiple times and take average
 	writeOutTestName("G4double Sample()", caseNum);
-	writeOutDouble(vectors[caseNum]->Sample());
+	sum = 0.0;
+	for (int i = 0; i < REPETITIONS_RAND_TESTS; i++) {
+		sum += vectors[caseNum]->Sample();
+	}
+	writeOutRandomDouble(sum/REPETITIONS_RAND_TESTS);
 }
 void testGetBorder(int caseNum) {
 	writeOutTestName("G4double Get15PercentBorder()", caseNum);
@@ -440,6 +494,7 @@ void testAssignment(int caseNum) {
 ***********************************************/
 int main(int argc, char** argv) {
 	std::cout << "\n\n";
+	
 	if (argc < 2 || (atoi(argv[1]) != 0 && atoi(argv[1]) != 1)) {
 		std::cout << "Usage: './GenerateTestResults N' where N is 1 if Geant4 compiled with CUDA, 0 otherwise.\n";
 		return 1;
@@ -469,6 +524,8 @@ int main(int argc, char** argv) {
 	resultsFile.open(resultsFileName);
 	timesFile.open(timesFileName);
 	
+	resultsFile << "G4ParticleHPVector_CUDA Unit Test Version: " << VERSION_NUMBER << "\n";
+
 	vectors = (G4ParticleHPVector**)malloc(NUM_TEST_CASES * sizeof(G4ParticleHPVector*));
 
 	// populate rands with doubles between 0 and 1
@@ -497,5 +554,6 @@ int main(int argc, char** argv) {
 	// close our file
 	resultsFile.close();
 	timesFile.close();
+
 	return 0;
 }

@@ -1,6 +1,7 @@
+G4ParticleHPVector_CUDA Unit Test Version: 1.0
 #void Init(std::istream & aDataFile, G4int total, G4double ux=1., G4double uy=1.)_0
-[]
-[]
+theData xVals []
+theData yVals []
 #G4double GetXsec(G4double e)_0
 @e=-1
 0
@@ -89,590 +90,6080 @@
 @min=0
 0
 #G4double SampleLin()_0
-0
+$0
 #G4double Sample()_0
-0
+$0
 #G4double Get15PercentBorder()_0
 0
 #G4double Get50PercentBorder()_0
 0
 #void Integrate()_0
-[]
+theIntegral []
 #void IntegrateAndNormalise()_0
-[]
+theIntegral []
 #void Times(G4double factor)_0
 @factor=-4.67
-[]
-[]
-[]
+theData xVals []
+theData yVals []
+theIntegral []
 @factor=-1.525e-05
-[]
-[]
-[]
+theData xVals []
+theData yVals []
+theIntegral []
 @factor=0.00090982
-[]
-[]
-[]
+theData xVals []
+theData yVals []
+theIntegral []
 @factor=1.54333e+07
-[]
-[]
-[]
+theData xVals []
+theData yVals []
+theIntegral []
 #void Merge(G4ParticleHPVector * active, G4ParticleHPVector * passive)_0
 @active_caseNum=1
 @passive_caseNum=1
-[]
-[]
+theData xVals []
+theData yVals []
+@active_caseNum=1
+@passive_caseNum=2
+theData xVals []
+theData yVals []
+@active_caseNum=1
+@passive_caseNum=3
+theData xVals []
+theData yVals []
+@active_caseNum=1
+@passive_caseNum=4
+theData xVals []
+theData yVals []
+@active_caseNum=1
+@passive_caseNum=5
+theData xVals []
+theData yVals []
+@active_caseNum=1
+@passive_caseNum=6
+theData xVals []
+theData yVals []
+@active_caseNum=1
+@passive_caseNum=7
+theData xVals []
+theData yVals []
+@active_caseNum=2
+@passive_caseNum=1
+theData xVals []
+theData yVals []
+@active_caseNum=2
+@passive_caseNum=2
+theData xVals []
+theData yVals []
+@active_caseNum=2
+@passive_caseNum=3
+theData xVals []
+theData yVals []
+@active_caseNum=2
+@passive_caseNum=4
+theData xVals []
+theData yVals []
+@active_caseNum=2
+@passive_caseNum=5
+theData xVals []
+theData yVals []
+@active_caseNum=2
+@passive_caseNum=6
+theData xVals []
+theData yVals []
+@active_caseNum=2
+@passive_caseNum=7
+theData xVals []
+theData yVals []
+@active_caseNum=3
+@passive_caseNum=1
+theData xVals []
+theData yVals []
+@active_caseNum=3
+@passive_caseNum=2
+theData xVals []
+theData yVals []
+@active_caseNum=3
+@passive_caseNum=3
+theData xVals []
+theData yVals []
+@active_caseNum=3
+@passive_caseNum=4
+theData xVals []
+theData yVals []
+@active_caseNum=3
+@passive_caseNum=5
+theData xVals []
+theData yVals []
+@active_caseNum=3
+@passive_caseNum=6
+theData xVals []
+theData yVals []
+@active_caseNum=3
+@passive_caseNum=7
+theData xVals []
+theData yVals []
+@active_caseNum=4
+@passive_caseNum=1
+theData xVals []
+theData yVals []
+@active_caseNum=4
+@passive_caseNum=2
+theData xVals []
+theData yVals []
+@active_caseNum=4
+@passive_caseNum=3
+theData xVals []
+theData yVals []
+@active_caseNum=4
+@passive_caseNum=4
+theData xVals []
+theData yVals []
+@active_caseNum=4
+@passive_caseNum=5
+theData xVals []
+theData yVals []
+@active_caseNum=4
+@passive_caseNum=6
+theData xVals []
+theData yVals []
+@active_caseNum=4
+@passive_caseNum=7
+theData xVals []
+theData yVals []
+@active_caseNum=5
+@passive_caseNum=1
+theData xVals []
+theData yVals []
+@active_caseNum=5
+@passive_caseNum=2
+theData xVals []
+theData yVals []
+@active_caseNum=5
+@passive_caseNum=3
+theData xVals []
+theData yVals []
+@active_caseNum=5
+@passive_caseNum=4
+theData xVals []
+theData yVals []
+@active_caseNum=5
+@passive_caseNum=5
+theData xVals []
+theData yVals []
+@active_caseNum=5
+@passive_caseNum=6
+theData xVals []
+theData yVals []
+@active_caseNum=5
+@passive_caseNum=7
+theData xVals []
+theData yVals []
+@active_caseNum=6
+@passive_caseNum=1
+theData xVals []
+theData yVals []
+@active_caseNum=6
+@passive_caseNum=2
+theData xVals []
+theData yVals []
+@active_caseNum=6
+@passive_caseNum=3
+theData xVals []
+theData yVals []
+@active_caseNum=6
+@passive_caseNum=4
+theData xVals []
+theData yVals []
+@active_caseNum=6
+@passive_caseNum=5
+theData xVals []
+theData yVals []
+@active_caseNum=6
+@passive_caseNum=6
+theData xVals []
+theData yVals []
+@active_caseNum=6
+@passive_caseNum=7
+theData xVals []
+theData yVals []
+@active_caseNum=7
+@passive_caseNum=1
+theData xVals []
+theData yVals []
+@active_caseNum=7
+@passive_caseNum=2
+theData xVals []
+theData yVals []
+@active_caseNum=7
+@passive_caseNum=3
+theData xVals []
+theData yVals []
+@active_caseNum=7
+@passive_caseNum=4
+theData xVals []
+theData yVals []
+@active_caseNum=7
+@passive_caseNum=5
+theData xVals []
+theData yVals []
+@active_caseNum=7
+@passive_caseNum=6
+theData xVals []
+theData yVals []
+@active_caseNum=7
+@passive_caseNum=7
+theData xVals []
+theData yVals []
 #void Merge(G4InterpolationScheme aScheme, G4double aValue, G4ParticleHPVector * active, G4ParticleHPVector * passive)_0
 @aValue=0
 @active_caseNum=1
 @passive_caseNum=1
-[]
-[]
+theData xVals []
+theData yVals []
+@aValue=0
+@active_caseNum=1
+@passive_caseNum=2
+theData xVals []
+theData yVals []
+@aValue=0
+@active_caseNum=1
+@passive_caseNum=3
+theData xVals []
+theData yVals []
+@aValue=0
+@active_caseNum=1
+@passive_caseNum=4
+theData xVals []
+theData yVals []
+@aValue=0
+@active_caseNum=1
+@passive_caseNum=5
+theData xVals []
+theData yVals []
+@aValue=0
+@active_caseNum=1
+@passive_caseNum=6
+theData xVals []
+theData yVals []
+@aValue=0
+@active_caseNum=1
+@passive_caseNum=7
+theData xVals []
+theData yVals []
+@aValue=0
+@active_caseNum=2
+@passive_caseNum=1
+theData xVals []
+theData yVals []
+@aValue=0
+@active_caseNum=2
+@passive_caseNum=2
+theData xVals []
+theData yVals []
+@aValue=0
+@active_caseNum=2
+@passive_caseNum=3
+theData xVals []
+theData yVals []
+@aValue=0
+@active_caseNum=2
+@passive_caseNum=4
+theData xVals []
+theData yVals []
+@aValue=0
+@active_caseNum=2
+@passive_caseNum=5
+theData xVals []
+theData yVals []
+@aValue=0
+@active_caseNum=2
+@passive_caseNum=6
+theData xVals []
+theData yVals []
+@aValue=0
+@active_caseNum=2
+@passive_caseNum=7
+theData xVals []
+theData yVals []
+@aValue=0
+@active_caseNum=3
+@passive_caseNum=1
+theData xVals []
+theData yVals []
+@aValue=0
+@active_caseNum=3
+@passive_caseNum=2
+theData xVals []
+theData yVals []
+@aValue=0
+@active_caseNum=3
+@passive_caseNum=3
+theData xVals []
+theData yVals []
+@aValue=0
+@active_caseNum=3
+@passive_caseNum=4
+theData xVals []
+theData yVals []
+@aValue=0
+@active_caseNum=3
+@passive_caseNum=5
+theData xVals []
+theData yVals []
+@aValue=0
+@active_caseNum=3
+@passive_caseNum=6
+theData xVals []
+theData yVals []
+@aValue=0
+@active_caseNum=3
+@passive_caseNum=7
+theData xVals []
+theData yVals []
+@aValue=0
+@active_caseNum=4
+@passive_caseNum=1
+theData xVals []
+theData yVals []
+@aValue=0
+@active_caseNum=4
+@passive_caseNum=2
+theData xVals []
+theData yVals []
+@aValue=0
+@active_caseNum=4
+@passive_caseNum=3
+theData xVals []
+theData yVals []
+@aValue=0
+@active_caseNum=4
+@passive_caseNum=4
+theData xVals []
+theData yVals []
+@aValue=0
+@active_caseNum=4
+@passive_caseNum=5
+theData xVals []
+theData yVals []
+@aValue=0
+@active_caseNum=4
+@passive_caseNum=6
+theData xVals []
+theData yVals []
+@aValue=0
+@active_caseNum=4
+@passive_caseNum=7
+theData xVals []
+theData yVals []
+@aValue=0
+@active_caseNum=5
+@passive_caseNum=1
+theData xVals []
+theData yVals []
+@aValue=0
+@active_caseNum=5
+@passive_caseNum=2
+theData xVals []
+theData yVals []
+@aValue=0
+@active_caseNum=5
+@passive_caseNum=3
+theData xVals []
+theData yVals []
+@aValue=0
+@active_caseNum=5
+@passive_caseNum=4
+theData xVals []
+theData yVals []
+@aValue=0
+@active_caseNum=5
+@passive_caseNum=5
+theData xVals []
+theData yVals []
+@aValue=0
+@active_caseNum=5
+@passive_caseNum=6
+theData xVals []
+theData yVals []
+@aValue=0
+@active_caseNum=5
+@passive_caseNum=7
+theData xVals []
+theData yVals []
+@aValue=0
+@active_caseNum=6
+@passive_caseNum=1
+theData xVals []
+theData yVals []
+@aValue=0
+@active_caseNum=6
+@passive_caseNum=2
+theData xVals []
+theData yVals []
+@aValue=0
+@active_caseNum=6
+@passive_caseNum=3
+theData xVals []
+theData yVals []
+@aValue=0
+@active_caseNum=6
+@passive_caseNum=4
+theData xVals []
+theData yVals []
+@aValue=0
+@active_caseNum=6
+@passive_caseNum=5
+theData xVals []
+theData yVals []
+@aValue=0
+@active_caseNum=6
+@passive_caseNum=6
+theData xVals []
+theData yVals []
+@aValue=0
+@active_caseNum=6
+@passive_caseNum=7
+theData xVals []
+theData yVals []
+@aValue=0
+@active_caseNum=7
+@passive_caseNum=1
+theData xVals []
+theData yVals []
+@aValue=0
+@active_caseNum=7
+@passive_caseNum=2
+theData xVals []
+theData yVals []
+@aValue=0
+@active_caseNum=7
+@passive_caseNum=3
+theData xVals []
+theData yVals []
+@aValue=0
+@active_caseNum=7
+@passive_caseNum=4
+theData xVals []
+theData yVals []
+@aValue=0
+@active_caseNum=7
+@passive_caseNum=5
+theData xVals []
+theData yVals []
+@aValue=0
+@active_caseNum=7
+@passive_caseNum=6
+theData xVals []
+theData yVals []
+@aValue=0
+@active_caseNum=7
+@passive_caseNum=7
+theData xVals []
+theData yVals []
 #void SetPoint(G4int i, const G4ParticleHPDataPoint & it)_0
 @i=-1
-@x=0.755605
-@y=0.45865
-[]
-[]
-@i=0
-@x=0.532767
-@y=0.218959
-[0.532767]
-[0.218959]
-@i=0
-@x=0.0470446
-@y=0.678865
-[0.0470446]
-[0.678865]
-@i=-1
-@x=0.679296
-@y=0.934693
-[0.0470446]
-[0.678865]
-@i=0
-@x=0.383502
-@y=0.519416
-[0.383502]
-[0.519416]
-#void SetData(G4int i, G4double x, G4double y)_0
-@i=-1
-@x=0.830965
-@y=0.0345721
-[0.383502]
-[0.519416]
-@i=0
-@x=0.0534616
-@y=0.5297
-[0.0534616]
-[0.5297]
-@i=0
-@x=0.671149
-@y=0.00769819
-[0.671149]
-[0.00769819]
-@i=-1
-@x=0.383416
-@y=0.0668422
-[0.671149]
-[0.00769819]
-@i=0
-@x=0.417486
-@y=0.686773
-[0.417486]
-[0.686773]
-#void SetX(G4int i, G4double e)_0
-@i=-1
-@x=0.588977
-[0.417486]
-[0.686773]
-@i=0
-@x=0.846167
-[0.846167]
-[0.686773]
-@i=0
-@x=0.0919649
-[0.0919649]
-[0.686773]
-@i=-1
-@x=0.415999
-[0.0919649]
-[0.686773]
-@i=0
-@x=0.910321
-[0.910321]
-[0.686773]
-#void SetEnergy(G4int i, G4double e)_0
-@i=-1
-@x=0.262453
-[0.910321]
-[0.686773]
-@i=0
-@x=0.736082
-[0.736082]
-[0.686773]
-@i=0
-@x=0.632639
-[0.632639]
-[0.686773]
-@i=-1
-@x=0.991037
-[0.632639]
-[0.686773]
-@i=0
-@x=0.247039
-[0.247039]
-[0.686773]
-#void SetY(G4int i, G4double x)_0
-@i=-1
-@x=0.72266
-[0.247039]
-[0.686773]
-@i=0
-@x=0.651519
-[0.247039]
-[0.651519]
-@i=0
-@x=0.631635
-[0.247039]
-[0.631635]
-@i=-1
-@x=0.27271
-[0.247039]
-[0.631635]
-@i=0
 @x=0.766495
-[0.247039]
-[0.766495]
-#void SetXsec(G4int i, G4double x)_0
-@i=-1
+@y=0.477732
+theData xVals []
+theData yVals []
+@i=0
 @x=0.237774
-[0.247039]
-[0.766495]
+@y=0.274907
+theData xVals hash: 1011350241871583270
+theData yVals hash: 5414053891373683662
 @i=0
 @x=0.359265
-[0.247039]
-[0.359265]
-@i=0
-@x=0.486517
-[0.247039]
-[0.486517]
+@y=0.166507
+theData xVals hash: 15233507833682031063
+theData yVals hash: 11671999709673450324
 @i=-1
-@x=0.909208
-[0.247039]
-[0.486517]
+@x=0.486517
+@y=0.897656
+theData xVals hash: 15233507833682031063
+theData yVals hash: 11671999709673450324
 @i=0
+@x=0.909208
+@y=0.0605643
+theData xVals hash: 11989470629887961781
+theData yVals hash: 5239459404866113813
+#void SetData(G4int i, G4double x, G4double y)_0
+@i=-1
 @x=0.904653
-[0.247039]
-[0.904653]
+@y=0.504523
+theData xVals hash: 11989470629887961781
+theData yVals hash: 5239459404866113813
+@i=0
+@x=0.516292
+@y=0.319033
+theData xVals hash: 3835572216668131882
+theData yVals hash: 8212405165002804879
+@i=0
+@x=0.986642
+@y=0.493977
+theData xVals hash: 16404900449811303512
+theData yVals hash: 5483126076915568087
+@i=-1
+@x=0.266145
+@y=0.0907329
+theData xVals hash: 16404900449811303512
+theData yVals hash: 5483126076915568087
+@i=0
+@x=0.947764
+@y=0.0737491
+theData xVals hash: 1141834631299707730
+theData yVals hash: 4519496215538966673
+#void SetX(G4int i, G4double e)_0
+@i=-1
+@x=0.500707
+theData xVals hash: 1141834631299707730
+theData yVals hash: 4519496215538966673
+@i=0
+@x=0.277082
+theData xVals hash: 15975739822060781196
+theData yVals hash: 4519496215538966673
+@i=0
+@x=0.529747
+theData xVals hash: 14299295391308640649
+theData yVals hash: 4519496215538966673
+@i=-1
+@x=0.94098
+theData xVals hash: 14299295391308640649
+theData yVals hash: 4519496215538966673
+@i=0
+@x=0.761514
+theData xVals hash: 3173885415907857195
+theData yVals hash: 4519496215538966673
+#void SetEnergy(G4int i, G4double e)_0
+@i=-1
+@x=0.827817
+theData xVals hash: 3173885415907857195
+theData yVals hash: 4519496215538966673
+@i=0
+@x=0.0158677
+theData xVals hash: 17056932859819052074
+theData yVals hash: 4519496215538966673
+@i=0
+@x=0.868247
+theData xVals hash: 3681722622735605142
+theData yVals hash: 4519496215538966673
+@i=-1
+@x=0.736225
+theData xVals hash: 3681722622735605142
+theData yVals hash: 4519496215538966673
+@i=0
+@x=0.999458
+theData xVals hash: 17768681880656027927
+theData yVals hash: 4519496215538966673
+#void SetY(G4int i, G4double x)_0
+@i=-1
+@x=0.233195
+theData xVals hash: 17768681880656027927
+theData yVals hash: 4519496215538966673
+@i=0
+@x=0.351015
+theData xVals hash: 17768681880656027927
+theData yVals hash: 17962609233883673214
+@i=0
+@x=0.591114
+theData xVals hash: 17768681880656027927
+theData yVals hash: 17686477143621688651
+@i=-1
+@x=0.412081
+theData xVals hash: 17768681880656027927
+theData yVals hash: 17686477143621688651
+@i=0
+@x=0.269317
+theData xVals hash: 17768681880656027927
+theData yVals hash: 17852151621070025401
+#void SetXsec(G4int i, G4double x)_0
+@i=-1
+@x=0.537304
+theData xVals hash: 17768681880656027927
+theData yVals hash: 17852151621070025401
+@i=0
+@x=0.287212
+theData xVals hash: 17768681880656027927
+theData yVals hash: 7530659476906604429
+@i=0
+@x=0.15372
+theData xVals hash: 17768681880656027927
+theData yVals hash: 7141457787472333720
+@i=-1
+@x=0.802406
+theData xVals hash: 17768681880656027927
+theData yVals hash: 7141457787472333720
+@i=0
+@x=0.53445
+theData xVals hash: 17768681880656027927
+theData yVals hash: 11284546466841770121
 #const G4ParticleHPDataPoint GetPoint(G4int i)_0
 @i=-1
-(0.247039,0.904653)
+(0.999458,0.53445)
 @i=0
-(0.247039,0.904653)
+(0.999458,0.53445)
 @i=0
-(0.247039,0.904653)
+(0.999458,0.53445)
 @i=-1
-(0.247039,0.904653)
+(0.999458,0.53445)
 @i=0
-(0.247039,0.904653)
+(0.999458,0.53445)
 #G4double GetEnergy(G4int i)_0
 @i=-1
-0.247039
+0.999458
 @i=0
-0.247039
+0.999458
 @i=0
-0.247039
+0.999458
 @i=-1
-0.247039
+0.999458
 @i=0
-0.247039
+0.999458
 #G4double GetX(G4int i)_0
 @i=-1
-0.247039
+0.999458
 @i=0
-0.247039
+0.999458
 @i=0
-0.247039
+0.999458
 @i=-1
-0.247039
+0.999458
 @i=0
-0.247039
+0.999458
 #G4double GetXsec(G4int i)_0
 @i=-1
-0.904653
+0.53445
 @i=0
-0.904653
+0.53445
 @i=0
-0.904653
+0.53445
 @i=-1
-0.904653
+0.53445
 @i=0
-0.904653
+0.53445
 #G4double GetY(G4int i)_0
 @i=-1
-0.904653
+0.53445
 @i=0
-0.904653
+0.53445
 @i=0
-0.904653
+0.53445
 @i=-1
-0.904653
+0.53445
 @i=0
-0.904653
+0.53445
 #void ThinOut(G4double precision)_0
 @precision=-1
-[0.247039,0.247039]
-[0.904653,0.904653]
+theData xVals hash: 12251707491706944044
+theData yVals hash: 10585188841007779166
 @precision=0
-[0.247039,0.247039]
-[0.904653,0.904653]
+theData xVals hash: 12251707491706944044
+theData yVals hash: 10585188841007779166
 @precision=0.00051234
-[0.247039,0.247039]
-[0.904653,0.904653]
+theData xVals hash: 12251707491706944044
+theData yVals hash: 10585188841007779166
 @precision=1.58923
-[0.247039,0.247039]
-[0.904653,0.904653]
+theData xVals hash: 12251707491706944044
+theData yVals hash: 10585188841007779166
 @precision=513.187
-[0.247039,0.247039]
-[0.904653,0.904653]
+theData xVals hash: 12251707491706944044
+theData yVals hash: 10585188841007779166
 #G4ParticleHPVector & operator = (const G4ParticleHPVector & right)_0
-[0.247039,0.247039]
+hash: 12251707491706944044
 #void Init(std::istream & aDataFile, G4int total, G4double ux=1., G4double uy=1.)_1
-[0,0.000319,0.00255,0.00822,0.0122,0.0211,0.0391,0.0472,0.0555,0.0605,0.0627,0.0637,0.0617,0.0559,0.0505,0.0445,0.0398,0.035,0.0305,0.0258,0.0231,0.0206,0.02,0.0175,0.0161,0.015,0.0137,0.0129,0.0122,0.0119,0.0115,0.011,0.0104,0.01,0.00972,0.00952,0.00933,0.00914,0.00889,0.00864,0.00841,0.00802,0.00768,0.00734,0.00691,0.00648,0.00628,0.00615,0.00602,0.00581,0.00562,0.00542,0.00511,0.00494,0.0048,0.00473,0.00466,0.00453,0.00441,0.00428,0.00408,0.00387,0.0038,0.00374,0.00369,0.361]
-[1.27e+07,1.3e+07,1.35e+07,1.4e+07,1.45e+07,1.5e+07,1.6e+07,1.7e+07,1.8e+07,1.9e+07,2e+07,2.1e+07,2.2e+07,2.3e+07,2.4e+07,2.5e+07,2.6e+07,2.7e+07,2.8e+07,2.9e+07,3e+07,3.1e+07,3.2e+07,3.3e+07,3.4e+07,3.5e+07,3.6e+07,3.7e+07,3.8e+07,3.9e+07,4e+07,4.1e+07,4.2e+07,4.3e+07,4.4e+07,4.5e+07,4.6e+07,4.7e+07,4.8e+07,4.9e+07,5e+07,5.2e+07,5.4e+07,5.6e+07,5.8e+07,6e+07,6.2e+07,6.4e+07,6.6e+07,6.8e+07,7e+07,7.2e+07,7.4e+07,7.6e+07,7.8e+07,8e+07,8.2e+07,8.4e+07,8.6e+07,8.8e+07,9e+07,9.2e+07,9.4e+07,9.6e+07,9.8e+07,1e+91]
+theData xVals hash: 3725582875375954288
+theData yVals hash: 9345306507238906401
 #G4double GetXsec(G4double e)_1
 @e=-1
--9.27739e+08
+-3.95202e+07
 @e=0
-1.27e+07
+1.09e+07
 @e=0.00051234
-1.30433e+07
+1.09258e+07
 @e=1.58923
-1e+91
+1e+08
 @e=513.187
-1e+91
+1e+08
 #G4double GetXsec(G4double e, G4int min)_1
 @e=-1
 @min=-1
--9.27739e+08
+-3.95202e+07
 @e=-1
 @min=0
--9.27739e+08
+-3.95202e+07
 @e=-1
-@min=33
-2.568e+09
+@min=34
+4.39667e+08
 @e=-1
-@min=65
--2.80902e+91
+@min=68
+7.69938e+08
 @e=-1
-@min=66
-1.27e+07
+@min=69
+1.09e+07
 @e=0
 @min=-1
-1.27e+07
+1.09e+07
 @e=0
 @min=0
-1.27e+07
+1.09e+07
 @e=0
-@min=33
-6.8e+07
+@min=34
+1.06333e+08
 @e=0
-@min=65
--1.03272e+89
+@min=68
+1.44938e+08
 @e=0
-@min=66
-1.27e+07
+@min=69
+1.09e+07
 @e=0.00051234
 @min=-1
-1.30433e+07
+1.09258e+07
 @e=0.00051234
 @min=0
-1.30433e+07
+1.09258e+07
 @e=0.00051234
-@min=33
-6.67192e+07
+@min=34
+1.06163e+08
 @e=0.00051234
-@min=65
--8.89329e+88
+@min=68
+1.44617e+08
 @e=0.00051234
-@min=66
-1.27e+07
+@min=69
+1.09e+07
 @e=1.58923
 @min=-1
-1e+91
+1e+08
 @e=1.58923
 @min=0
-1e+91
+1e+08
 @e=1.58923
-@min=33
-1e+91
+@min=34
+1e+08
 @e=1.58923
-@min=65
-1e+91
+@min=68
+1e+08
 @e=1.58923
-@min=66
-1.27e+07
+@min=69
+1.09e+07
 @e=513.187
 @min=-1
-1e+91
+1e+08
 @e=513.187
 @min=0
-1e+91
+1e+08
 @e=513.187
-@min=33
-1e+91
+@min=34
+1e+08
 @e=513.187
-@min=65
-1e+91
+@min=68
+1e+08
 @e=513.187
-@min=66
-1.27e+07
+@min=69
+1.09e+07
 #G4double SampleLin()_1
-0.340072
+$0.350749
 #G4double Sample()_1
-0.300933
+$0.346548
 #G4double Get15PercentBorder()_1
-0.361
+0.517
 #G4double Get50PercentBorder()_1
-0.361
+0.320867
 #void Integrate()_1
-[0,2.29445e-87,1.88407e-86,6.24793e-86,9.42248e-86,1.67704e-85,3.23871e-85,3.9868e-85,4.79982e-85,5.31758e-85,5.55771e-85,5.67245e-85,5.43177e-85,4.70131e-85,3.991e-85,3.16819e-85,2.49734e-85,1.78535e-85,1.09268e-85,3.42909e-86,-1.02922e-86,-5.29723e-86,-6.35513e-86,-1.0903e-85,-1.35282e-85,-1.56524e-85,-1.82356e-85,-1.987e-85,-2.13393e-85,-2.19858e-85,-2.28702e-85,-2.40037e-85,-2.53974e-85,-2.6349e-85,-2.70307e-85,-2.75289e-85,-2.80128e-85,-2.85073e-85,-2.9172e-85,-2.98507e-85,-3.0488e-85,-3.16013e-85,-3.26099e-85,-3.36566e-85,-3.50286e-85,-3.64486e-85,-3.71315e-85,-3.75899e-85,-3.80629e-85,-3.88504e-85,-3.95843e-85,-4.03791e-85,-4.16458e-85,-4.23594e-85,-4.29628e-85,-4.32724e-85,-4.35897e-85,-4.41937e-85,-4.47646e-85,-4.53977e-85,-4.6394e-85,-4.74637e-85,-4.78281e-85,-4.81471e-85,-4.84186e-85,1]
+theIntegral hash: 6113854436586226292
 #void IntegrateAndNormalise()_1
-[0,2.29445e-87,1.88407e-86,6.24793e-86,9.42248e-86,1.67704e-85,3.23871e-85,3.9868e-85,4.79982e-85,5.31758e-85,5.55771e-85,5.67245e-85,5.43177e-85,4.70131e-85,3.991e-85,3.16819e-85,2.49734e-85,1.78535e-85,1.09268e-85,3.42909e-86,-1.02922e-86,-5.29723e-86,-6.35513e-86,-1.0903e-85,-1.35282e-85,-1.56524e-85,-1.82356e-85,-1.987e-85,-2.13393e-85,-2.19858e-85,-2.28702e-85,-2.40037e-85,-2.53974e-85,-2.6349e-85,-2.70307e-85,-2.75289e-85,-2.80128e-85,-2.85073e-85,-2.9172e-85,-2.98507e-85,-3.0488e-85,-3.16013e-85,-3.26099e-85,-3.36566e-85,-3.50286e-85,-3.64486e-85,-3.71315e-85,-3.75899e-85,-3.80629e-85,-3.88504e-85,-3.95843e-85,-4.03791e-85,-4.16458e-85,-4.23594e-85,-4.29628e-85,-4.32724e-85,-4.35897e-85,-4.41937e-85,-4.47646e-85,-4.53977e-85,-4.6394e-85,-4.74637e-85,-4.78281e-85,-4.81471e-85,-4.84186e-85,1]
+theIntegral hash: 6113854436586226292
 #void Times(G4double factor)_1
 @factor=-4.67
-[0,0.000319,0.00255,0.00822,0.0122,0.0211,0.0391,0.0472,0.0555,0.0605,0.0627,0.0637,0.0617,0.0559,0.0505,0.0445,0.0398,0.035,0.0305,0.0258,0.0231,0.0206,0.02,0.0175,0.0161,0.015,0.0137,0.0129,0.0122,0.0119,0.0115,0.011,0.0104,0.01,0.00972,0.00952,0.00933,0.00914,0.00889,0.00864,0.00841,0.00802,0.00768,0.00734,0.00691,0.00648,0.00628,0.00615,0.00602,0.00581,0.00562,0.00542,0.00511,0.00494,0.0048,0.00473,0.00466,0.00453,0.00441,0.00428,0.00408,0.00387,0.0038,0.00374,0.00369,0.361]
-[-5.9309e+07,-6.071e+07,-6.3045e+07,-6.538e+07,-6.7715e+07,-7.005e+07,-7.472e+07,-7.939e+07,-8.406e+07,-8.873e+07,-9.34e+07,-9.807e+07,-1.0274e+08,-1.0741e+08,-1.1208e+08,-1.1675e+08,-1.2142e+08,-1.2609e+08,-1.3076e+08,-1.3543e+08,-1.401e+08,-1.4477e+08,-1.4944e+08,-1.5411e+08,-1.5878e+08,-1.6345e+08,-1.6812e+08,-1.7279e+08,-1.7746e+08,-1.8213e+08,-1.868e+08,-1.9147e+08,-1.9614e+08,-2.0081e+08,-2.0548e+08,-2.1015e+08,-2.1482e+08,-2.1949e+08,-2.2416e+08,-2.2883e+08,-2.335e+08,-2.4284e+08,-2.5218e+08,-2.6152e+08,-2.7086e+08,-2.802e+08,-2.8954e+08,-2.9888e+08,-3.0822e+08,-3.1756e+08,-3.269e+08,-3.3624e+08,-3.4558e+08,-3.5492e+08,-3.6426e+08,-3.736e+08,-3.8294e+08,-3.9228e+08,-4.0162e+08,-4.1096e+08,-4.203e+08,-4.2964e+08,-4.3898e+08,-4.4832e+08,-4.5766e+08,-4.67e+91]
-[0,2.29445e-87,1.88407e-86,6.24793e-86,9.42248e-86,1.67704e-85,3.23871e-85,3.9868e-85,4.79982e-85,5.31758e-85,5.55771e-85,5.67245e-85,5.43177e-85,4.70131e-85,3.991e-85,3.16819e-85,2.49734e-85,1.78535e-85,1.09268e-85,3.42909e-86,-1.02922e-86,-5.29723e-86,-6.35513e-86,-1.0903e-85,-1.35282e-85,-1.56524e-85,-1.82356e-85,-1.987e-85,-2.13393e-85,-2.19858e-85,-2.28702e-85,-2.40037e-85,-2.53974e-85,-2.6349e-85,-2.70307e-85,-2.75289e-85,-2.80128e-85,-2.85073e-85,-2.9172e-85,-2.98507e-85,-3.0488e-85,-3.16013e-85,-3.26099e-85,-3.36566e-85,-3.50286e-85,-3.64486e-85,-3.71315e-85,-3.75899e-85,-3.80629e-85,-3.88504e-85,-3.95843e-85,-4.03791e-85,-4.16458e-85,-4.23594e-85,-4.29628e-85,-4.32724e-85,-4.35897e-85,-4.41937e-85,-4.47646e-85,-4.53977e-85,-4.6394e-85,-4.74637e-85,-4.78281e-85,-4.81471e-85,-4.84186e-85,1]
+theData xVals hash: 3725582875375954288
+theData yVals hash: 6202019079997952056
+theIntegral hash: 6113854436586226292
 @factor=-1.525e-05
-[0,0.000319,0.00255,0.00822,0.0122,0.0211,0.0391,0.0472,0.0555,0.0605,0.0627,0.0637,0.0617,0.0559,0.0505,0.0445,0.0398,0.035,0.0305,0.0258,0.0231,0.0206,0.02,0.0175,0.0161,0.015,0.0137,0.0129,0.0122,0.0119,0.0115,0.011,0.0104,0.01,0.00972,0.00952,0.00933,0.00914,0.00889,0.00864,0.00841,0.00802,0.00768,0.00734,0.00691,0.00648,0.00628,0.00615,0.00602,0.00581,0.00562,0.00542,0.00511,0.00494,0.0048,0.00473,0.00466,0.00453,0.00441,0.00428,0.00408,0.00387,0.0038,0.00374,0.00369,0.361]
-[904.462,925.827,961.436,997.045,1032.65,1068.26,1139.48,1210.7,1281.91,1353.13,1424.35,1495.57,1566.78,1638,1709.22,1780.44,1851.65,1922.87,1994.09,2065.31,2136.53,2207.74,2278.96,2350.18,2421.39,2492.61,2563.83,2635.05,2706.26,2777.48,2848.7,2919.92,2991.13,3062.35,3133.57,3204.79,3276.01,3347.22,3418.44,3489.66,3560.88,3703.31,3845.74,3988.18,4130.61,4273.05,4415.48,4557.92,4700.35,4842.79,4985.22,5127.66,5270.1,5412.53,5554.97,5697.4,5839.84,5982.27,6124.7,6267.14,6409.57,6552.01,6694.44,6836.88,6979.31,7.12175e+86]
-[0,2.29445e-87,1.88407e-86,6.24793e-86,9.42248e-86,1.67704e-85,3.23871e-85,3.9868e-85,4.79982e-85,5.31758e-85,5.55771e-85,5.67245e-85,5.43177e-85,4.70131e-85,3.991e-85,3.16819e-85,2.49734e-85,1.78535e-85,1.09268e-85,3.42909e-86,-1.02922e-86,-5.29723e-86,-6.35513e-86,-1.0903e-85,-1.35282e-85,-1.56524e-85,-1.82356e-85,-1.987e-85,-2.13393e-85,-2.19858e-85,-2.28702e-85,-2.40037e-85,-2.53974e-85,-2.6349e-85,-2.70307e-85,-2.75289e-85,-2.80128e-85,-2.85073e-85,-2.9172e-85,-2.98507e-85,-3.0488e-85,-3.16013e-85,-3.26099e-85,-3.36566e-85,-3.50286e-85,-3.64486e-85,-3.71315e-85,-3.75899e-85,-3.80629e-85,-3.88504e-85,-3.95843e-85,-4.03791e-85,-4.16458e-85,-4.23594e-85,-4.29628e-85,-4.32724e-85,-4.35897e-85,-4.41937e-85,-4.47646e-85,-4.53977e-85,-4.6394e-85,-4.74637e-85,-4.78281e-85,-4.81471e-85,-4.84186e-85,1]
+theData xVals hash: 3725582875375954288
+theData yVals hash: 11559464146372669160
+theIntegral hash: 6113854436586226292
 @factor=0.00090982
-[0,0.000319,0.00255,0.00822,0.0122,0.0211,0.0391,0.0472,0.0555,0.0605,0.0627,0.0637,0.0617,0.0559,0.0505,0.0445,0.0398,0.035,0.0305,0.0258,0.0231,0.0206,0.02,0.0175,0.0161,0.015,0.0137,0.0129,0.0122,0.0119,0.0115,0.011,0.0104,0.01,0.00972,0.00952,0.00933,0.00914,0.00889,0.00864,0.00841,0.00802,0.00768,0.00734,0.00691,0.00648,0.00628,0.00615,0.00602,0.00581,0.00562,0.00542,0.00511,0.00494,0.0048,0.00473,0.00466,0.00453,0.00441,0.00428,0.00408,0.00387,0.0038,0.00374,0.00369,0.361]
-[0.822898,0.842336,0.874734,0.907131,0.939529,0.971927,1.03672,1.10152,1.16631,1.23111,1.2959,1.3607,1.42549,1.49029,1.55508,1.61988,1.68467,1.74947,1.81426,1.87906,1.94385,2.00865,2.07344,2.13824,2.20303,2.26783,2.33262,2.39742,2.46221,2.52701,2.5918,2.6566,2.72139,2.78619,2.85098,2.91578,2.98057,3.04537,3.11017,3.17496,3.23976,3.36935,3.49894,3.62853,3.75812,3.88771,4.0173,4.14689,4.27648,4.40607,4.53566,4.66525,4.79484,4.92443,5.05402,5.18361,5.3132,5.44279,5.57238,5.70197,5.83156,5.96115,6.09074,6.22033,6.34992,6.47951e+83]
-[0,2.29445e-87,1.88407e-86,6.24793e-86,9.42248e-86,1.67704e-85,3.23871e-85,3.9868e-85,4.79982e-85,5.31758e-85,5.55771e-85,5.67245e-85,5.43177e-85,4.70131e-85,3.991e-85,3.16819e-85,2.49734e-85,1.78535e-85,1.09268e-85,3.42909e-86,-1.02922e-86,-5.29723e-86,-6.35513e-86,-1.0903e-85,-1.35282e-85,-1.56524e-85,-1.82356e-85,-1.987e-85,-2.13393e-85,-2.19858e-85,-2.28702e-85,-2.40037e-85,-2.53974e-85,-2.6349e-85,-2.70307e-85,-2.75289e-85,-2.80128e-85,-2.85073e-85,-2.9172e-85,-2.98507e-85,-3.0488e-85,-3.16013e-85,-3.26099e-85,-3.36566e-85,-3.50286e-85,-3.64486e-85,-3.71315e-85,-3.75899e-85,-3.80629e-85,-3.88504e-85,-3.95843e-85,-4.03791e-85,-4.16458e-85,-4.23594e-85,-4.29628e-85,-4.32724e-85,-4.35897e-85,-4.41937e-85,-4.47646e-85,-4.53977e-85,-4.6394e-85,-4.74637e-85,-4.78281e-85,-4.81471e-85,-4.84186e-85,1]
+theData xVals hash: 3725582875375954288
+theData yVals hash: 14325546593513382826
+theIntegral hash: 6113854436586226292
 @factor=1.54333e+07
-[0,0.000319,0.00255,0.00822,0.0122,0.0211,0.0391,0.0472,0.0555,0.0605,0.0627,0.0637,0.0617,0.0559,0.0505,0.0445,0.0398,0.035,0.0305,0.0258,0.0231,0.0206,0.02,0.0175,0.0161,0.015,0.0137,0.0129,0.0122,0.0119,0.0115,0.011,0.0104,0.01,0.00972,0.00952,0.00933,0.00914,0.00889,0.00864,0.00841,0.00802,0.00768,0.00734,0.00691,0.00648,0.00628,0.00615,0.00602,0.00581,0.00562,0.00542,0.00511,0.00494,0.0048,0.00473,0.00466,0.00453,0.00441,0.00428,0.00408,0.00387,0.0038,0.00374,0.00369,0.361]
-[1.27e+07,1.3e+07,1.35e+07,1.4e+07,1.45e+07,1.5e+07,1.6e+07,1.7e+07,1.8e+07,1.9e+07,2e+07,2.1e+07,2.2e+07,2.3e+07,2.4e+07,2.5e+07,2.6e+07,2.7e+07,2.8e+07,2.9e+07,3e+07,3.1e+07,3.2e+07,3.3e+07,3.4e+07,3.5e+07,3.6e+07,3.7e+07,3.8e+07,3.9e+07,4e+07,4.1e+07,4.2e+07,4.3e+07,4.4e+07,4.5e+07,4.6e+07,4.7e+07,4.8e+07,4.9e+07,5e+07,5.2e+07,5.4e+07,5.6e+07,5.8e+07,6e+07,6.2e+07,6.4e+07,6.6e+07,6.8e+07,7e+07,7.2e+07,7.4e+07,7.6e+07,7.8e+07,8e+07,8.2e+07,8.4e+07,8.6e+07,8.8e+07,9e+07,9.2e+07,9.4e+07,9.6e+07,9.8e+07,1e+91]
-[0,2.29445e-87,1.88407e-86,6.24793e-86,9.42248e-86,1.67704e-85,3.23871e-85,3.9868e-85,4.79982e-85,5.31758e-85,5.55771e-85,5.67245e-85,5.43177e-85,4.70131e-85,3.991e-85,3.16819e-85,2.49734e-85,1.78535e-85,1.09268e-85,3.42909e-86,-1.02922e-86,-5.29723e-86,-6.35513e-86,-1.0903e-85,-1.35282e-85,-1.56524e-85,-1.82356e-85,-1.987e-85,-2.13393e-85,-2.19858e-85,-2.28702e-85,-2.40037e-85,-2.53974e-85,-2.6349e-85,-2.70307e-85,-2.75289e-85,-2.80128e-85,-2.85073e-85,-2.9172e-85,-2.98507e-85,-3.0488e-85,-3.16013e-85,-3.26099e-85,-3.36566e-85,-3.50286e-85,-3.64486e-85,-3.71315e-85,-3.75899e-85,-3.80629e-85,-3.88504e-85,-3.95843e-85,-4.03791e-85,-4.16458e-85,-4.23594e-85,-4.29628e-85,-4.32724e-85,-4.35897e-85,-4.41937e-85,-4.47646e-85,-4.53977e-85,-4.6394e-85,-4.74637e-85,-4.78281e-85,-4.81471e-85,-4.84186e-85,1]
+theData xVals hash: 3725582875375954288
+theData yVals hash: 9030773083498938759
+theIntegral hash: 6113854436586226292
 #void Merge(G4ParticleHPVector * active, G4ParticleHPVector * passive)_1
 @active_caseNum=0
 @passive_caseNum=0
-[0,0.000319,0.00255,0.00822,0.0122,0.0211,0.0391,0.0472,0.0555,0.0605,0.0627,0.0637,0.0617,0.0559,0.0505,0.0445,0.0398,0.035,0.0305,0.0258,0.0231,0.0206,0.02,0.0175,0.0161,0.015,0.0137,0.0129,0.0122,0.0119,0.0115,0.011,0.0104,0.01,0.00972,0.00952,0.00933,0.00914,0.00889,0.00864,0.00841,0.00802,0.00768,0.00734,0.00691,0.00648,0.00628,0.00615,0.00602,0.00581,0.00562,0.00542,0.00511,0.00494,0.0048,0.00473,0.00466,0.00453,0.00441,0.00428,0.00408,0.00387,0.0038,0.00374,0.00369,0.361]
-[1.27e+07,1.3e+07,1.35e+07,1.4e+07,1.45e+07,1.5e+07,1.6e+07,1.7e+07,1.8e+07,1.9e+07,2e+07,2.1e+07,2.2e+07,2.3e+07,2.4e+07,2.5e+07,2.6e+07,2.7e+07,2.8e+07,2.9e+07,3e+07,3.1e+07,3.2e+07,3.3e+07,3.4e+07,3.5e+07,3.6e+07,3.7e+07,3.8e+07,3.9e+07,4e+07,4.1e+07,4.2e+07,4.3e+07,4.4e+07,4.5e+07,4.6e+07,4.7e+07,4.8e+07,4.9e+07,5e+07,5.2e+07,5.4e+07,5.6e+07,5.8e+07,6e+07,6.2e+07,6.4e+07,6.6e+07,6.8e+07,7e+07,7.2e+07,7.4e+07,7.6e+07,7.8e+07,8e+07,8.2e+07,8.4e+07,8.6e+07,8.8e+07,9e+07,9.2e+07,9.4e+07,9.6e+07,9.8e+07,1e+91]
+theData xVals hash: 3725582875375954288
+theData yVals hash: 9030773083498938759
+@active_caseNum=0
+@passive_caseNum=2
+theData xVals hash: 3725582875375954288
+theData yVals hash: 9030773083498938759
+@active_caseNum=0
+@passive_caseNum=3
+theData xVals hash: 3725582875375954288
+theData yVals hash: 9030773083498938759
+@active_caseNum=0
+@passive_caseNum=4
+theData xVals hash: 3725582875375954288
+theData yVals hash: 9030773083498938759
+@active_caseNum=0
+@passive_caseNum=5
+theData xVals hash: 3725582875375954288
+theData yVals hash: 9030773083498938759
+@active_caseNum=0
+@passive_caseNum=6
+theData xVals hash: 3725582875375954288
+theData yVals hash: 9030773083498938759
+@active_caseNum=0
+@passive_caseNum=7
+theData xVals hash: 3725582875375954288
+theData yVals hash: 9030773083498938759
+@active_caseNum=2
+@passive_caseNum=0
+theData xVals hash: 3725582875375954288
+theData yVals hash: 9030773083498938759
+@active_caseNum=2
+@passive_caseNum=2
+theData xVals hash: 3725582875375954288
+theData yVals hash: 9030773083498938759
+@active_caseNum=2
+@passive_caseNum=3
+theData xVals hash: 3725582875375954288
+theData yVals hash: 9030773083498938759
+@active_caseNum=2
+@passive_caseNum=4
+theData xVals hash: 3725582875375954288
+theData yVals hash: 9030773083498938759
+@active_caseNum=2
+@passive_caseNum=5
+theData xVals hash: 3725582875375954288
+theData yVals hash: 9030773083498938759
+@active_caseNum=2
+@passive_caseNum=6
+theData xVals hash: 3725582875375954288
+theData yVals hash: 9030773083498938759
+@active_caseNum=2
+@passive_caseNum=7
+theData xVals hash: 3725582875375954288
+theData yVals hash: 9030773083498938759
+@active_caseNum=3
+@passive_caseNum=0
+theData xVals hash: 3725582875375954288
+theData yVals hash: 9030773083498938759
+@active_caseNum=3
+@passive_caseNum=2
+theData xVals hash: 3725582875375954288
+theData yVals hash: 9030773083498938759
+@active_caseNum=3
+@passive_caseNum=3
+theData xVals hash: 3725582875375954288
+theData yVals hash: 9030773083498938759
+@active_caseNum=3
+@passive_caseNum=4
+theData xVals hash: 3725582875375954288
+theData yVals hash: 9030773083498938759
+@active_caseNum=3
+@passive_caseNum=5
+theData xVals hash: 3725582875375954288
+theData yVals hash: 9030773083498938759
+@active_caseNum=3
+@passive_caseNum=6
+theData xVals hash: 3725582875375954288
+theData yVals hash: 9030773083498938759
+@active_caseNum=3
+@passive_caseNum=7
+theData xVals hash: 3725582875375954288
+theData yVals hash: 9030773083498938759
+@active_caseNum=4
+@passive_caseNum=0
+theData xVals hash: 3725582875375954288
+theData yVals hash: 9030773083498938759
+@active_caseNum=4
+@passive_caseNum=2
+theData xVals hash: 3725582875375954288
+theData yVals hash: 9030773083498938759
+@active_caseNum=4
+@passive_caseNum=3
+theData xVals hash: 3725582875375954288
+theData yVals hash: 9030773083498938759
+@active_caseNum=4
+@passive_caseNum=4
+theData xVals hash: 3725582875375954288
+theData yVals hash: 9030773083498938759
+@active_caseNum=4
+@passive_caseNum=5
+theData xVals hash: 3725582875375954288
+theData yVals hash: 9030773083498938759
+@active_caseNum=4
+@passive_caseNum=6
+theData xVals hash: 3725582875375954288
+theData yVals hash: 9030773083498938759
+@active_caseNum=4
+@passive_caseNum=7
+theData xVals hash: 3725582875375954288
+theData yVals hash: 9030773083498938759
+@active_caseNum=5
+@passive_caseNum=0
+theData xVals hash: 3725582875375954288
+theData yVals hash: 9030773083498938759
+@active_caseNum=5
+@passive_caseNum=2
+theData xVals hash: 3725582875375954288
+theData yVals hash: 9030773083498938759
+@active_caseNum=5
+@passive_caseNum=3
+theData xVals hash: 3725582875375954288
+theData yVals hash: 9030773083498938759
+@active_caseNum=5
+@passive_caseNum=4
+theData xVals hash: 3725582875375954288
+theData yVals hash: 9030773083498938759
+@active_caseNum=5
+@passive_caseNum=5
+theData xVals hash: 3725582875375954288
+theData yVals hash: 9030773083498938759
+@active_caseNum=5
+@passive_caseNum=6
+theData xVals hash: 3725582875375954288
+theData yVals hash: 9030773083498938759
+@active_caseNum=5
+@passive_caseNum=7
+theData xVals hash: 3725582875375954288
+theData yVals hash: 9030773083498938759
+@active_caseNum=6
+@passive_caseNum=0
+theData xVals hash: 3725582875375954288
+theData yVals hash: 9030773083498938759
+@active_caseNum=6
+@passive_caseNum=2
+theData xVals hash: 3725582875375954288
+theData yVals hash: 9030773083498938759
+@active_caseNum=6
+@passive_caseNum=3
+theData xVals hash: 3725582875375954288
+theData yVals hash: 9030773083498938759
+@active_caseNum=6
+@passive_caseNum=4
+theData xVals hash: 3725582875375954288
+theData yVals hash: 9030773083498938759
+@active_caseNum=6
+@passive_caseNum=5
+theData xVals hash: 3725582875375954288
+theData yVals hash: 9030773083498938759
+@active_caseNum=6
+@passive_caseNum=6
+theData xVals hash: 3725582875375954288
+theData yVals hash: 9030773083498938759
+@active_caseNum=6
+@passive_caseNum=7
+theData xVals hash: 3725582875375954288
+theData yVals hash: 9030773083498938759
+@active_caseNum=7
+@passive_caseNum=0
+theData xVals hash: 3725582875375954288
+theData yVals hash: 9030773083498938759
+@active_caseNum=7
+@passive_caseNum=2
+theData xVals hash: 3725582875375954288
+theData yVals hash: 9030773083498938759
+@active_caseNum=7
+@passive_caseNum=3
+theData xVals hash: 3725582875375954288
+theData yVals hash: 9030773083498938759
+@active_caseNum=7
+@passive_caseNum=4
+theData xVals hash: 3725582875375954288
+theData yVals hash: 9030773083498938759
+@active_caseNum=7
+@passive_caseNum=5
+theData xVals hash: 3725582875375954288
+theData yVals hash: 9030773083498938759
+@active_caseNum=7
+@passive_caseNum=6
+theData xVals hash: 3725582875375954288
+theData yVals hash: 9030773083498938759
+@active_caseNum=7
+@passive_caseNum=7
+theData xVals hash: 3725582875375954288
+theData yVals hash: 9030773083498938759
 #void Merge(G4InterpolationScheme aScheme, G4double aValue, G4ParticleHPVector * active, G4ParticleHPVector * passive)_1
 @aValue=0
 @active_caseNum=0
 @passive_caseNum=0
-[0,0.000319,0.00255,0.00822,0.0122,0.0211,0.0391,0.0472,0.0555,0.0605,0.0627,0.0637,0.0617,0.0559,0.0505,0.0445,0.0398,0.035,0.0305,0.0258,0.0231,0.0206,0.02,0.0175,0.0161,0.015,0.0137,0.0129,0.0122,0.0119,0.0115,0.011,0.0104,0.01,0.00972,0.00952,0.00933,0.00914,0.00889,0.00864,0.00841,0.00802,0.00768,0.00734,0.00691,0.00648,0.00628,0.00615,0.00602,0.00581,0.00562,0.00542,0.00511,0.00494,0.0048,0.00473,0.00466,0.00453,0.00441,0.00428,0.00408,0.00387,0.0038,0.00374,0.00369,0.361]
-[1.27e+07,1.3e+07,1.35e+07,1.4e+07,1.45e+07,1.5e+07,1.6e+07,1.7e+07,1.8e+07,1.9e+07,2e+07,2.1e+07,2.2e+07,2.3e+07,2.4e+07,2.5e+07,2.6e+07,2.7e+07,2.8e+07,2.9e+07,3e+07,3.1e+07,3.2e+07,3.3e+07,3.4e+07,3.5e+07,3.6e+07,3.7e+07,3.8e+07,3.9e+07,4e+07,4.1e+07,4.2e+07,4.3e+07,4.4e+07,4.5e+07,4.6e+07,4.7e+07,4.8e+07,4.9e+07,5e+07,5.2e+07,5.4e+07,5.6e+07,5.8e+07,6e+07,6.2e+07,6.4e+07,6.6e+07,6.8e+07,7e+07,7.2e+07,7.4e+07,7.6e+07,7.8e+07,8e+07,8.2e+07,8.4e+07,8.6e+07,8.8e+07,9e+07,9.2e+07,9.4e+07,9.6e+07,9.8e+07,1e+91]
+theData xVals hash: 3725582875375954288
+theData yVals hash: 9030773083498938759
+@aValue=0
+@active_caseNum=0
+@passive_caseNum=2
+theData xVals hash: 3725582875375954288
+theData yVals hash: 9030773083498938759
+@aValue=0
+@active_caseNum=0
+@passive_caseNum=3
+theData xVals hash: 3725582875375954288
+theData yVals hash: 9030773083498938759
+@aValue=0
+@active_caseNum=0
+@passive_caseNum=4
+theData xVals hash: 3725582875375954288
+theData yVals hash: 9030773083498938759
+@aValue=0
+@active_caseNum=0
+@passive_caseNum=5
+theData xVals hash: 3725582875375954288
+theData yVals hash: 9030773083498938759
+@aValue=0
+@active_caseNum=0
+@passive_caseNum=6
+theData xVals hash: 3725582875375954288
+theData yVals hash: 9030773083498938759
+@aValue=0
+@active_caseNum=0
+@passive_caseNum=7
+theData xVals hash: 3725582875375954288
+theData yVals hash: 9030773083498938759
+@aValue=0
+@active_caseNum=2
+@passive_caseNum=0
+theData xVals hash: 3725582875375954288
+theData yVals hash: 9030773083498938759
+@aValue=0
+@active_caseNum=2
+@passive_caseNum=2
+theData xVals hash: 3725582875375954288
+theData yVals hash: 9030773083498938759
+@aValue=0
+@active_caseNum=2
+@passive_caseNum=3
+theData xVals hash: 3725582875375954288
+theData yVals hash: 9030773083498938759
+@aValue=0
+@active_caseNum=2
+@passive_caseNum=4
+theData xVals hash: 3725582875375954288
+theData yVals hash: 9030773083498938759
+@aValue=0
+@active_caseNum=2
+@passive_caseNum=5
+theData xVals hash: 3725582875375954288
+theData yVals hash: 9030773083498938759
+@aValue=0
+@active_caseNum=2
+@passive_caseNum=6
+theData xVals hash: 3725582875375954288
+theData yVals hash: 9030773083498938759
+@aValue=0
+@active_caseNum=2
+@passive_caseNum=7
+theData xVals hash: 3725582875375954288
+theData yVals hash: 9030773083498938759
+@aValue=0
+@active_caseNum=3
+@passive_caseNum=0
+theData xVals hash: 3725582875375954288
+theData yVals hash: 9030773083498938759
+@aValue=0
+@active_caseNum=3
+@passive_caseNum=2
+theData xVals hash: 3725582875375954288
+theData yVals hash: 9030773083498938759
+@aValue=0
+@active_caseNum=3
+@passive_caseNum=3
+theData xVals hash: 3725582875375954288
+theData yVals hash: 9030773083498938759
+@aValue=0
+@active_caseNum=3
+@passive_caseNum=4
+theData xVals hash: 3725582875375954288
+theData yVals hash: 9030773083498938759
+@aValue=0
+@active_caseNum=3
+@passive_caseNum=5
+theData xVals hash: 3725582875375954288
+theData yVals hash: 9030773083498938759
+@aValue=0
+@active_caseNum=3
+@passive_caseNum=6
+theData xVals hash: 3725582875375954288
+theData yVals hash: 9030773083498938759
+@aValue=0
+@active_caseNum=3
+@passive_caseNum=7
+theData xVals hash: 3725582875375954288
+theData yVals hash: 9030773083498938759
+@aValue=0
+@active_caseNum=4
+@passive_caseNum=0
+theData xVals hash: 3725582875375954288
+theData yVals hash: 9030773083498938759
+@aValue=0
+@active_caseNum=4
+@passive_caseNum=2
+theData xVals hash: 3725582875375954288
+theData yVals hash: 9030773083498938759
+@aValue=0
+@active_caseNum=4
+@passive_caseNum=3
+theData xVals hash: 3725582875375954288
+theData yVals hash: 9030773083498938759
+@aValue=0
+@active_caseNum=4
+@passive_caseNum=4
+theData xVals hash: 3725582875375954288
+theData yVals hash: 9030773083498938759
+@aValue=0
+@active_caseNum=4
+@passive_caseNum=5
+theData xVals hash: 3725582875375954288
+theData yVals hash: 9030773083498938759
+@aValue=0
+@active_caseNum=4
+@passive_caseNum=6
+theData xVals hash: 3725582875375954288
+theData yVals hash: 9030773083498938759
+@aValue=0
+@active_caseNum=4
+@passive_caseNum=7
+theData xVals hash: 3725582875375954288
+theData yVals hash: 9030773083498938759
+@aValue=0
+@active_caseNum=5
+@passive_caseNum=0
+theData xVals hash: 3725582875375954288
+theData yVals hash: 9030773083498938759
+@aValue=0
+@active_caseNum=5
+@passive_caseNum=2
+theData xVals hash: 3725582875375954288
+theData yVals hash: 9030773083498938759
+@aValue=0
+@active_caseNum=5
+@passive_caseNum=3
+theData xVals hash: 3725582875375954288
+theData yVals hash: 9030773083498938759
+@aValue=0
+@active_caseNum=5
+@passive_caseNum=4
+theData xVals hash: 3725582875375954288
+theData yVals hash: 9030773083498938759
+@aValue=0
+@active_caseNum=5
+@passive_caseNum=5
+theData xVals hash: 3725582875375954288
+theData yVals hash: 9030773083498938759
+@aValue=0
+@active_caseNum=5
+@passive_caseNum=6
+theData xVals hash: 3725582875375954288
+theData yVals hash: 9030773083498938759
+@aValue=0
+@active_caseNum=5
+@passive_caseNum=7
+theData xVals hash: 3725582875375954288
+theData yVals hash: 9030773083498938759
+@aValue=0
+@active_caseNum=6
+@passive_caseNum=0
+theData xVals hash: 3725582875375954288
+theData yVals hash: 9030773083498938759
+@aValue=0
+@active_caseNum=6
+@passive_caseNum=2
+theData xVals hash: 3725582875375954288
+theData yVals hash: 9030773083498938759
+@aValue=0
+@active_caseNum=6
+@passive_caseNum=3
+theData xVals hash: 3725582875375954288
+theData yVals hash: 9030773083498938759
+@aValue=0
+@active_caseNum=6
+@passive_caseNum=4
+theData xVals hash: 3725582875375954288
+theData yVals hash: 9030773083498938759
+@aValue=0
+@active_caseNum=6
+@passive_caseNum=5
+theData xVals hash: 3725582875375954288
+theData yVals hash: 9030773083498938759
+@aValue=0
+@active_caseNum=6
+@passive_caseNum=6
+theData xVals hash: 3725582875375954288
+theData yVals hash: 9030773083498938759
+@aValue=0
+@active_caseNum=6
+@passive_caseNum=7
+theData xVals hash: 3725582875375954288
+theData yVals hash: 9030773083498938759
+@aValue=0
+@active_caseNum=7
+@passive_caseNum=0
+theData xVals hash: 3725582875375954288
+theData yVals hash: 9030773083498938759
+@aValue=0
+@active_caseNum=7
+@passive_caseNum=2
+theData xVals hash: 3725582875375954288
+theData yVals hash: 9030773083498938759
+@aValue=0
+@active_caseNum=7
+@passive_caseNum=3
+theData xVals hash: 3725582875375954288
+theData yVals hash: 9030773083498938759
+@aValue=0
+@active_caseNum=7
+@passive_caseNum=4
+theData xVals hash: 3725582875375954288
+theData yVals hash: 9030773083498938759
+@aValue=0
+@active_caseNum=7
+@passive_caseNum=5
+theData xVals hash: 3725582875375954288
+theData yVals hash: 9030773083498938759
+@aValue=0
+@active_caseNum=7
+@passive_caseNum=6
+theData xVals hash: 3725582875375954288
+theData yVals hash: 9030773083498938759
+@aValue=0
+@active_caseNum=7
+@passive_caseNum=7
+theData xVals hash: 3725582875375954288
+theData yVals hash: 9030773083498938759
 #void SetPoint(G4int i, const G4ParticleHPDataPoint & it)_1
 @i=-1
-@x=0.890737
-@y=0.624849
-[0,0.000319,0.00255,0.00822,0.0122,0.0211,0.0391,0.0472,0.0555,0.0605,0.0627,0.0637,0.0617,0.0559,0.0505,0.0445,0.0398,0.035,0.0305,0.0258,0.0231,0.0206,0.02,0.0175,0.0161,0.015,0.0137,0.0129,0.0122,0.0119,0.0115,0.011,0.0104,0.01,0.00972,0.00952,0.00933,0.00914,0.00889,0.00864,0.00841,0.00802,0.00768,0.00734,0.00691,0.00648,0.00628,0.00615,0.00602,0.00581,0.00562,0.00542,0.00511,0.00494,0.0048,0.00473,0.00466,0.00453,0.00441,0.00428,0.00408,0.00387,0.0038,0.00374,0.00369,0.361]
-[1.27e+07,1.3e+07,1.35e+07,1.4e+07,1.45e+07,1.5e+07,1.6e+07,1.7e+07,1.8e+07,1.9e+07,2e+07,2.1e+07,2.2e+07,2.3e+07,2.4e+07,2.5e+07,2.6e+07,2.7e+07,2.8e+07,2.9e+07,3e+07,3.1e+07,3.2e+07,3.3e+07,3.4e+07,3.5e+07,3.6e+07,3.7e+07,3.8e+07,3.9e+07,4e+07,4.1e+07,4.2e+07,4.3e+07,4.4e+07,4.5e+07,4.6e+07,4.7e+07,4.8e+07,4.9e+07,5e+07,5.2e+07,5.4e+07,5.6e+07,5.8e+07,6e+07,6.2e+07,6.4e+07,6.6e+07,6.8e+07,7e+07,7.2e+07,7.4e+07,7.6e+07,7.8e+07,8e+07,8.2e+07,8.4e+07,8.6e+07,8.8e+07,9e+07,9.2e+07,9.4e+07,9.6e+07,9.8e+07,1e+91]
+@x=0.414028
+@y=0.576717
+theData xVals hash: 3725582875375954288
+theData yVals hash: 9030773083498938759
 @i=0
-@x=0.84204
-@y=0.159768
-[0.84204,0.000319,0.00255,0.00822,0.0122,0.0211,0.0391,0.0472,0.0555,0.0605,0.0627,0.0637,0.0617,0.0559,0.0505,0.0445,0.0398,0.035,0.0305,0.0258,0.0231,0.0206,0.02,0.0175,0.0161,0.015,0.0137,0.0129,0.0122,0.0119,0.0115,0.011,0.0104,0.01,0.00972,0.00952,0.00933,0.00914,0.00889,0.00864,0.00841,0.00802,0.00768,0.00734,0.00691,0.00648,0.00628,0.00615,0.00602,0.00581,0.00562,0.00542,0.00511,0.00494,0.0048,0.00473,0.00466,0.00453,0.00441,0.00428,0.00408,0.00387,0.0038,0.00374,0.00369,0.361]
-[0.159768,1.3e+07,1.35e+07,1.4e+07,1.45e+07,1.5e+07,1.6e+07,1.7e+07,1.8e+07,1.9e+07,2e+07,2.1e+07,2.2e+07,2.3e+07,2.4e+07,2.5e+07,2.6e+07,2.7e+07,2.8e+07,2.9e+07,3e+07,3.1e+07,3.2e+07,3.3e+07,3.4e+07,3.5e+07,3.6e+07,3.7e+07,3.8e+07,3.9e+07,4e+07,4.1e+07,4.2e+07,4.3e+07,4.4e+07,4.5e+07,4.6e+07,4.7e+07,4.8e+07,4.9e+07,5e+07,5.2e+07,5.4e+07,5.6e+07,5.8e+07,6e+07,6.2e+07,6.4e+07,6.6e+07,6.8e+07,7e+07,7.2e+07,7.4e+07,7.6e+07,7.8e+07,8e+07,8.2e+07,8.4e+07,8.6e+07,8.8e+07,9e+07,9.2e+07,9.4e+07,9.6e+07,9.8e+07,1e+91]
-@i=33
-@x=0.212752
-@y=0.71471
-[0.84204,0.000319,0.00255,0.00822,0.0122,0.0211,0.0391,0.0472,0.0555,0.0605,0.0627,0.0637,0.0617,0.0559,0.0505,0.0445,0.0398,0.035,0.0305,0.0258,0.0231,0.0206,0.02,0.0175,0.0161,0.015,0.0137,0.0129,0.0122,0.0119,0.0115,0.011,0.0104,0.212752,0.00972,0.00952,0.00933,0.00914,0.00889,0.00864,0.00841,0.00802,0.00768,0.00734,0.00691,0.00648,0.00628,0.00615,0.00602,0.00581,0.00562,0.00542,0.00511,0.00494,0.0048,0.00473,0.00466,0.00453,0.00441,0.00428,0.00408,0.00387,0.0038,0.00374,0.00369,0.361]
-[0.159768,1.3e+07,1.35e+07,1.4e+07,1.45e+07,1.5e+07,1.6e+07,1.7e+07,1.8e+07,1.9e+07,2e+07,2.1e+07,2.2e+07,2.3e+07,2.4e+07,2.5e+07,2.6e+07,2.7e+07,2.8e+07,2.9e+07,3e+07,3.1e+07,3.2e+07,3.3e+07,3.4e+07,3.5e+07,3.6e+07,3.7e+07,3.8e+07,3.9e+07,4e+07,4.1e+07,4.2e+07,0.71471,4.4e+07,4.5e+07,4.6e+07,4.7e+07,4.8e+07,4.9e+07,5e+07,5.2e+07,5.4e+07,5.6e+07,5.8e+07,6e+07,6.2e+07,6.4e+07,6.6e+07,6.8e+07,7e+07,7.2e+07,7.4e+07,7.6e+07,7.8e+07,8e+07,8.2e+07,8.4e+07,8.6e+07,8.8e+07,9e+07,9.2e+07,9.4e+07,9.6e+07,9.8e+07,1e+91]
-@i=65
-@x=0.130427
-@y=0.0909903
-[0.84204,0.000319,0.00255,0.00822,0.0122,0.0211,0.0391,0.0472,0.0555,0.0605,0.0627,0.0637,0.0617,0.0559,0.0505,0.0445,0.0398,0.035,0.0305,0.0258,0.0231,0.0206,0.02,0.0175,0.0161,0.015,0.0137,0.0129,0.0122,0.0119,0.0115,0.011,0.0104,0.212752,0.00972,0.00952,0.00933,0.00914,0.00889,0.00864,0.00841,0.00802,0.00768,0.00734,0.00691,0.00648,0.00628,0.00615,0.00602,0.00581,0.00562,0.00542,0.00511,0.00494,0.0048,0.00473,0.00466,0.00453,0.00441,0.00428,0.00408,0.00387,0.0038,0.00374,0.00369,0.130427]
-[0.159768,1.3e+07,1.35e+07,1.4e+07,1.45e+07,1.5e+07,1.6e+07,1.7e+07,1.8e+07,1.9e+07,2e+07,2.1e+07,2.2e+07,2.3e+07,2.4e+07,2.5e+07,2.6e+07,2.7e+07,2.8e+07,2.9e+07,3e+07,3.1e+07,3.2e+07,3.3e+07,3.4e+07,3.5e+07,3.6e+07,3.7e+07,3.8e+07,3.9e+07,4e+07,4.1e+07,4.2e+07,0.71471,4.4e+07,4.5e+07,4.6e+07,4.7e+07,4.8e+07,4.9e+07,5e+07,5.2e+07,5.4e+07,5.6e+07,5.8e+07,6e+07,6.2e+07,6.4e+07,6.6e+07,6.8e+07,7e+07,7.2e+07,7.4e+07,7.6e+07,7.8e+07,8e+07,8.2e+07,8.4e+07,8.6e+07,8.8e+07,9e+07,9.2e+07,9.4e+07,9.6e+07,9.8e+07,0.0909903]
-@i=66
-@x=0.274588
-@y=0.0029996
-[0.84204,0.000319,0.00255,0.00822,0.0122,0.0211,0.0391,0.0472,0.0555,0.0605,0.0627,0.0637,0.0617,0.0559,0.0505,0.0445,0.0398,0.035,0.0305,0.0258,0.0231,0.0206,0.02,0.0175,0.0161,0.015,0.0137,0.0129,0.0122,0.0119,0.0115,0.011,0.0104,0.212752,0.00972,0.00952,0.00933,0.00914,0.00889,0.00864,0.00841,0.00802,0.00768,0.00734,0.00691,0.00648,0.00628,0.00615,0.00602,0.00581,0.00562,0.00542,0.00511,0.00494,0.0048,0.00473,0.00466,0.00453,0.00441,0.00428,0.00408,0.00387,0.0038,0.00374,0.00369,0.130427,0.274588]
-[0.159768,1.3e+07,1.35e+07,1.4e+07,1.45e+07,1.5e+07,1.6e+07,1.7e+07,1.8e+07,1.9e+07,2e+07,2.1e+07,2.2e+07,2.3e+07,2.4e+07,2.5e+07,2.6e+07,2.7e+07,2.8e+07,2.9e+07,3e+07,3.1e+07,3.2e+07,3.3e+07,3.4e+07,3.5e+07,3.6e+07,3.7e+07,3.8e+07,3.9e+07,4e+07,4.1e+07,4.2e+07,0.71471,4.4e+07,4.5e+07,4.6e+07,4.7e+07,4.8e+07,4.9e+07,5e+07,5.2e+07,5.4e+07,5.6e+07,5.8e+07,6e+07,6.2e+07,6.4e+07,6.6e+07,6.8e+07,7e+07,7.2e+07,7.4e+07,7.6e+07,7.8e+07,8e+07,8.2e+07,8.4e+07,8.6e+07,8.8e+07,9e+07,9.2e+07,9.4e+07,9.6e+07,9.8e+07,0.0909903,0.0029996]
+@x=0.876566
+@y=0.440039
+theData xVals hash: 18204564682412692951
+theData yVals hash: 13752787824740251818
+@i=34
+@x=0.729748
+@y=0.869264
+theData xVals hash: 17832449094589899592
+theData yVals hash: 2350067823896117312
+@i=68
+@x=0.715642
+@y=0.80072
+theData xVals hash: 13503219613862221530
+theData yVals hash: 13375788056604377661
+@i=69
+@x=0.706535
+@y=0.741716
+theData xVals hash: 9352881122237744621
+theData yVals hash: 9901770961980471630
 #void SetData(G4int i, G4double x, G4double y)_1
 @i=-1
-@x=0.414293
-@y=0.0268763
-[0.84204,0.000319,0.00255,0.00822,0.0122,0.0211,0.0391,0.0472,0.0555,0.0605,0.0627,0.0637,0.0617,0.0559,0.0505,0.0445,0.0398,0.035,0.0305,0.0258,0.0231,0.0206,0.02,0.0175,0.0161,0.015,0.0137,0.0129,0.0122,0.0119,0.0115,0.011,0.0104,0.212752,0.00972,0.00952,0.00933,0.00914,0.00889,0.00864,0.00841,0.00802,0.00768,0.00734,0.00691,0.00648,0.00628,0.00615,0.00602,0.00581,0.00562,0.00542,0.00511,0.00494,0.0048,0.00473,0.00466,0.00453,0.00441,0.00428,0.00408,0.00387,0.0038,0.00374,0.00369,0.130427,0.274588]
-[0.159768,1.3e+07,1.35e+07,1.4e+07,1.45e+07,1.5e+07,1.6e+07,1.7e+07,1.8e+07,1.9e+07,2e+07,2.1e+07,2.2e+07,2.3e+07,2.4e+07,2.5e+07,2.6e+07,2.7e+07,2.8e+07,2.9e+07,3e+07,3.1e+07,3.2e+07,3.3e+07,3.4e+07,3.5e+07,3.6e+07,3.7e+07,3.8e+07,3.9e+07,4e+07,4.1e+07,4.2e+07,0.71471,4.4e+07,4.5e+07,4.6e+07,4.7e+07,4.8e+07,4.9e+07,5e+07,5.2e+07,5.4e+07,5.6e+07,5.8e+07,6e+07,6.2e+07,6.4e+07,6.6e+07,6.8e+07,7e+07,7.2e+07,7.4e+07,7.6e+07,7.8e+07,8e+07,8.2e+07,8.4e+07,8.6e+07,8.8e+07,9e+07,9.2e+07,9.4e+07,9.6e+07,9.8e+07,0.0909903,0.0029996]
+@x=0.0190924
+@y=0.886031
+theData xVals hash: 9352881122237744621
+theData yVals hash: 9901770961980471630
 @i=0
-@x=0.70982
-@y=0.937897
-[0.70982,0.000319,0.00255,0.00822,0.0122,0.0211,0.0391,0.0472,0.0555,0.0605,0.0627,0.0637,0.0617,0.0559,0.0505,0.0445,0.0398,0.035,0.0305,0.0258,0.0231,0.0206,0.02,0.0175,0.0161,0.015,0.0137,0.0129,0.0122,0.0119,0.0115,0.011,0.0104,0.212752,0.00972,0.00952,0.00933,0.00914,0.00889,0.00864,0.00841,0.00802,0.00768,0.00734,0.00691,0.00648,0.00628,0.00615,0.00602,0.00581,0.00562,0.00542,0.00511,0.00494,0.0048,0.00473,0.00466,0.00453,0.00441,0.00428,0.00408,0.00387,0.0038,0.00374,0.00369,0.130427,0.274588]
-[0.937897,1.3e+07,1.35e+07,1.4e+07,1.45e+07,1.5e+07,1.6e+07,1.7e+07,1.8e+07,1.9e+07,2e+07,2.1e+07,2.2e+07,2.3e+07,2.4e+07,2.5e+07,2.6e+07,2.7e+07,2.8e+07,2.9e+07,3e+07,3.1e+07,3.2e+07,3.3e+07,3.4e+07,3.5e+07,3.6e+07,3.7e+07,3.8e+07,3.9e+07,4e+07,4.1e+07,4.2e+07,0.71471,4.4e+07,4.5e+07,4.6e+07,4.7e+07,4.8e+07,4.9e+07,5e+07,5.2e+07,5.4e+07,5.6e+07,5.8e+07,6e+07,6.2e+07,6.4e+07,6.6e+07,6.8e+07,7e+07,7.2e+07,7.4e+07,7.6e+07,7.8e+07,8e+07,8.2e+07,8.4e+07,8.6e+07,8.8e+07,9e+07,9.2e+07,9.4e+07,9.6e+07,9.8e+07,0.0909903,0.0029996]
-@i=33
-@x=0.239911
-@y=0.180896
-[0.70982,0.000319,0.00255,0.00822,0.0122,0.0211,0.0391,0.0472,0.0555,0.0605,0.0627,0.0637,0.0617,0.0559,0.0505,0.0445,0.0398,0.035,0.0305,0.0258,0.0231,0.0206,0.02,0.0175,0.0161,0.015,0.0137,0.0129,0.0122,0.0119,0.0115,0.011,0.0104,0.239911,0.00972,0.00952,0.00933,0.00914,0.00889,0.00864,0.00841,0.00802,0.00768,0.00734,0.00691,0.00648,0.00628,0.00615,0.00602,0.00581,0.00562,0.00542,0.00511,0.00494,0.0048,0.00473,0.00466,0.00453,0.00441,0.00428,0.00408,0.00387,0.0038,0.00374,0.00369,0.130427,0.274588]
-[0.937897,1.3e+07,1.35e+07,1.4e+07,1.45e+07,1.5e+07,1.6e+07,1.7e+07,1.8e+07,1.9e+07,2e+07,2.1e+07,2.2e+07,2.3e+07,2.4e+07,2.5e+07,2.6e+07,2.7e+07,2.8e+07,2.9e+07,3e+07,3.1e+07,3.2e+07,3.3e+07,3.4e+07,3.5e+07,3.6e+07,3.7e+07,3.8e+07,3.9e+07,4e+07,4.1e+07,4.2e+07,0.180896,4.4e+07,4.5e+07,4.6e+07,4.7e+07,4.8e+07,4.9e+07,5e+07,5.2e+07,5.4e+07,5.6e+07,5.8e+07,6e+07,6.2e+07,6.4e+07,6.6e+07,6.8e+07,7e+07,7.2e+07,7.4e+07,7.6e+07,7.8e+07,8e+07,8.2e+07,8.4e+07,8.6e+07,8.8e+07,9e+07,9.2e+07,9.4e+07,9.6e+07,9.8e+07,0.0909903,0.0029996]
-@i=65
-@x=0.31754
-@y=0.886991
-[0.70982,0.000319,0.00255,0.00822,0.0122,0.0211,0.0391,0.0472,0.0555,0.0605,0.0627,0.0637,0.0617,0.0559,0.0505,0.0445,0.0398,0.035,0.0305,0.0258,0.0231,0.0206,0.02,0.0175,0.0161,0.015,0.0137,0.0129,0.0122,0.0119,0.0115,0.011,0.0104,0.239911,0.00972,0.00952,0.00933,0.00914,0.00889,0.00864,0.00841,0.00802,0.00768,0.00734,0.00691,0.00648,0.00628,0.00615,0.00602,0.00581,0.00562,0.00542,0.00511,0.00494,0.0048,0.00473,0.00466,0.00453,0.00441,0.00428,0.00408,0.00387,0.0038,0.00374,0.00369,0.31754,0.274588]
-[0.937897,1.3e+07,1.35e+07,1.4e+07,1.45e+07,1.5e+07,1.6e+07,1.7e+07,1.8e+07,1.9e+07,2e+07,2.1e+07,2.2e+07,2.3e+07,2.4e+07,2.5e+07,2.6e+07,2.7e+07,2.8e+07,2.9e+07,3e+07,3.1e+07,3.2e+07,3.3e+07,3.4e+07,3.5e+07,3.6e+07,3.7e+07,3.8e+07,3.9e+07,4e+07,4.1e+07,4.2e+07,0.180896,4.4e+07,4.5e+07,4.6e+07,4.7e+07,4.8e+07,4.9e+07,5e+07,5.2e+07,5.4e+07,5.6e+07,5.8e+07,6e+07,6.2e+07,6.4e+07,6.6e+07,6.8e+07,7e+07,7.2e+07,7.4e+07,7.6e+07,7.8e+07,8e+07,8.2e+07,8.4e+07,8.6e+07,8.8e+07,9e+07,9.2e+07,9.4e+07,9.6e+07,9.8e+07,0.886991,0.0029996]
-@i=66
-@x=0.652059
-@y=0.150335
-[0.70982,0.000319,0.00255,0.00822,0.0122,0.0211,0.0391,0.0472,0.0555,0.0605,0.0627,0.0637,0.0617,0.0559,0.0505,0.0445,0.0398,0.035,0.0305,0.0258,0.0231,0.0206,0.02,0.0175,0.0161,0.015,0.0137,0.0129,0.0122,0.0119,0.0115,0.011,0.0104,0.239911,0.00972,0.00952,0.00933,0.00914,0.00889,0.00864,0.00841,0.00802,0.00768,0.00734,0.00691,0.00648,0.00628,0.00615,0.00602,0.00581,0.00562,0.00542,0.00511,0.00494,0.0048,0.00473,0.00466,0.00453,0.00441,0.00428,0.00408,0.00387,0.0038,0.00374,0.00369,0.31754,0.652059]
-[0.937897,1.3e+07,1.35e+07,1.4e+07,1.45e+07,1.5e+07,1.6e+07,1.7e+07,1.8e+07,1.9e+07,2e+07,2.1e+07,2.2e+07,2.3e+07,2.4e+07,2.5e+07,2.6e+07,2.7e+07,2.8e+07,2.9e+07,3e+07,3.1e+07,3.2e+07,3.3e+07,3.4e+07,3.5e+07,3.6e+07,3.7e+07,3.8e+07,3.9e+07,4e+07,4.1e+07,4.2e+07,0.180896,4.4e+07,4.5e+07,4.6e+07,4.7e+07,4.8e+07,4.9e+07,5e+07,5.2e+07,5.4e+07,5.6e+07,5.8e+07,6e+07,6.2e+07,6.4e+07,6.6e+07,6.8e+07,7e+07,7.2e+07,7.4e+07,7.6e+07,7.8e+07,8e+07,8.2e+07,8.4e+07,8.6e+07,8.8e+07,9e+07,9.2e+07,9.4e+07,9.6e+07,9.8e+07,0.886991,0.150335]
+@x=0.524987
+@y=0.463323
+theData xVals hash: 13573109088190588579
+theData yVals hash: 16433733051939315883
+@i=34
+@x=0.0651939
+@y=0.713422
+theData xVals hash: 10700701177496260615
+theData yVals hash: 14775018175328777402
+@i=68
+@x=0.488943
+@y=0.667679
+theData xVals hash: 6268659530856818222
+theData yVals hash: 15467727462743161026
+@i=69
+@x=0.682049
+@y=0.199555
+theData xVals hash: 10176745702321328397
+theData yVals hash: 9933843326859661498
 #void SetX(G4int i, G4double e)_1
 @i=-1
-@x=0.681346
-[0.70982,0.000319,0.00255,0.00822,0.0122,0.0211,0.0391,0.0472,0.0555,0.0605,0.0627,0.0637,0.0617,0.0559,0.0505,0.0445,0.0398,0.035,0.0305,0.0258,0.0231,0.0206,0.02,0.0175,0.0161,0.015,0.0137,0.0129,0.0122,0.0119,0.0115,0.011,0.0104,0.239911,0.00972,0.00952,0.00933,0.00914,0.00889,0.00864,0.00841,0.00802,0.00768,0.00734,0.00691,0.00648,0.00628,0.00615,0.00602,0.00581,0.00562,0.00542,0.00511,0.00494,0.0048,0.00473,0.00466,0.00453,0.00441,0.00428,0.00408,0.00387,0.0038,0.00374,0.00369,0.31754,0.652059]
-[0.937897,1.3e+07,1.35e+07,1.4e+07,1.45e+07,1.5e+07,1.6e+07,1.7e+07,1.8e+07,1.9e+07,2e+07,2.1e+07,2.2e+07,2.3e+07,2.4e+07,2.5e+07,2.6e+07,2.7e+07,2.8e+07,2.9e+07,3e+07,3.1e+07,3.2e+07,3.3e+07,3.4e+07,3.5e+07,3.6e+07,3.7e+07,3.8e+07,3.9e+07,4e+07,4.1e+07,4.2e+07,0.180896,4.4e+07,4.5e+07,4.6e+07,4.7e+07,4.8e+07,4.9e+07,5e+07,5.2e+07,5.4e+07,5.6e+07,5.8e+07,6e+07,6.2e+07,6.4e+07,6.6e+07,6.8e+07,7e+07,7.2e+07,7.4e+07,7.6e+07,7.8e+07,8e+07,8.2e+07,8.4e+07,8.6e+07,8.8e+07,9e+07,9.2e+07,9.4e+07,9.6e+07,9.8e+07,0.886991,0.150335]
+@x=0.916634
+theData xVals hash: 10176745702321328397
+theData yVals hash: 9933843326859661498
 @i=0
-@x=0.387725
-[0.387725,0.000319,0.00255,0.00822,0.0122,0.0211,0.0391,0.0472,0.0555,0.0605,0.0627,0.0637,0.0617,0.0559,0.0505,0.0445,0.0398,0.035,0.0305,0.0258,0.0231,0.0206,0.02,0.0175,0.0161,0.015,0.0137,0.0129,0.0122,0.0119,0.0115,0.011,0.0104,0.239911,0.00972,0.00952,0.00933,0.00914,0.00889,0.00864,0.00841,0.00802,0.00768,0.00734,0.00691,0.00648,0.00628,0.00615,0.00602,0.00581,0.00562,0.00542,0.00511,0.00494,0.0048,0.00473,0.00466,0.00453,0.00441,0.00428,0.00408,0.00387,0.0038,0.00374,0.00369,0.31754,0.652059]
-[0.937897,1.3e+07,1.35e+07,1.4e+07,1.45e+07,1.5e+07,1.6e+07,1.7e+07,1.8e+07,1.9e+07,2e+07,2.1e+07,2.2e+07,2.3e+07,2.4e+07,2.5e+07,2.6e+07,2.7e+07,2.8e+07,2.9e+07,3e+07,3.1e+07,3.2e+07,3.3e+07,3.4e+07,3.5e+07,3.6e+07,3.7e+07,3.8e+07,3.9e+07,4e+07,4.1e+07,4.2e+07,0.180896,4.4e+07,4.5e+07,4.6e+07,4.7e+07,4.8e+07,4.9e+07,5e+07,5.2e+07,5.4e+07,5.6e+07,5.8e+07,6e+07,6.2e+07,6.4e+07,6.6e+07,6.8e+07,7e+07,7.2e+07,7.4e+07,7.6e+07,7.8e+07,8e+07,8.2e+07,8.4e+07,8.6e+07,8.8e+07,9e+07,9.2e+07,9.4e+07,9.6e+07,9.8e+07,0.886991,0.150335]
-@i=33
-@x=0.147533
-[0.387725,0.000319,0.00255,0.00822,0.0122,0.0211,0.0391,0.0472,0.0555,0.0605,0.0627,0.0637,0.0617,0.0559,0.0505,0.0445,0.0398,0.035,0.0305,0.0258,0.0231,0.0206,0.02,0.0175,0.0161,0.015,0.0137,0.0129,0.0122,0.0119,0.0115,0.011,0.0104,0.147533,0.00972,0.00952,0.00933,0.00914,0.00889,0.00864,0.00841,0.00802,0.00768,0.00734,0.00691,0.00648,0.00628,0.00615,0.00602,0.00581,0.00562,0.00542,0.00511,0.00494,0.0048,0.00473,0.00466,0.00453,0.00441,0.00428,0.00408,0.00387,0.0038,0.00374,0.00369,0.31754,0.652059]
-[0.937897,1.3e+07,1.35e+07,1.4e+07,1.45e+07,1.5e+07,1.6e+07,1.7e+07,1.8e+07,1.9e+07,2e+07,2.1e+07,2.2e+07,2.3e+07,2.4e+07,2.5e+07,2.6e+07,2.7e+07,2.8e+07,2.9e+07,3e+07,3.1e+07,3.2e+07,3.3e+07,3.4e+07,3.5e+07,3.6e+07,3.7e+07,3.8e+07,3.9e+07,4e+07,4.1e+07,4.2e+07,0.180896,4.4e+07,4.5e+07,4.6e+07,4.7e+07,4.8e+07,4.9e+07,5e+07,5.2e+07,5.4e+07,5.6e+07,5.8e+07,6e+07,6.2e+07,6.4e+07,6.6e+07,6.8e+07,7e+07,7.2e+07,7.4e+07,7.6e+07,7.8e+07,8e+07,8.2e+07,8.4e+07,8.6e+07,8.8e+07,9e+07,9.2e+07,9.4e+07,9.6e+07,9.8e+07,0.886991,0.150335]
-@i=65
-@x=0.845576
-[0.387725,0.000319,0.00255,0.00822,0.0122,0.0211,0.0391,0.0472,0.0555,0.0605,0.0627,0.0637,0.0617,0.0559,0.0505,0.0445,0.0398,0.035,0.0305,0.0258,0.0231,0.0206,0.02,0.0175,0.0161,0.015,0.0137,0.0129,0.0122,0.0119,0.0115,0.011,0.0104,0.147533,0.00972,0.00952,0.00933,0.00914,0.00889,0.00864,0.00841,0.00802,0.00768,0.00734,0.00691,0.00648,0.00628,0.00615,0.00602,0.00581,0.00562,0.00542,0.00511,0.00494,0.0048,0.00473,0.00466,0.00453,0.00441,0.00428,0.00408,0.00387,0.0038,0.00374,0.00369,0.845576,0.652059]
-[0.937897,1.3e+07,1.35e+07,1.4e+07,1.45e+07,1.5e+07,1.6e+07,1.7e+07,1.8e+07,1.9e+07,2e+07,2.1e+07,2.2e+07,2.3e+07,2.4e+07,2.5e+07,2.6e+07,2.7e+07,2.8e+07,2.9e+07,3e+07,3.1e+07,3.2e+07,3.3e+07,3.4e+07,3.5e+07,3.6e+07,3.7e+07,3.8e+07,3.9e+07,4e+07,4.1e+07,4.2e+07,0.180896,4.4e+07,4.5e+07,4.6e+07,4.7e+07,4.8e+07,4.9e+07,5e+07,5.2e+07,5.4e+07,5.6e+07,5.8e+07,6e+07,6.2e+07,6.4e+07,6.6e+07,6.8e+07,7e+07,7.2e+07,7.4e+07,7.6e+07,7.8e+07,8e+07,8.2e+07,8.4e+07,8.6e+07,8.8e+07,9e+07,9.2e+07,9.4e+07,9.6e+07,9.8e+07,0.886991,0.150335]
-@i=66
-@x=0.955409
-[0.387725,0.000319,0.00255,0.00822,0.0122,0.0211,0.0391,0.0472,0.0555,0.0605,0.0627,0.0637,0.0617,0.0559,0.0505,0.0445,0.0398,0.035,0.0305,0.0258,0.0231,0.0206,0.02,0.0175,0.0161,0.015,0.0137,0.0129,0.0122,0.0119,0.0115,0.011,0.0104,0.147533,0.00972,0.00952,0.00933,0.00914,0.00889,0.00864,0.00841,0.00802,0.00768,0.00734,0.00691,0.00648,0.00628,0.00615,0.00602,0.00581,0.00562,0.00542,0.00511,0.00494,0.0048,0.00473,0.00466,0.00453,0.00441,0.00428,0.00408,0.00387,0.0038,0.00374,0.00369,0.845576,0.955409]
-[0.937897,1.3e+07,1.35e+07,1.4e+07,1.45e+07,1.5e+07,1.6e+07,1.7e+07,1.8e+07,1.9e+07,2e+07,2.1e+07,2.2e+07,2.3e+07,2.4e+07,2.5e+07,2.6e+07,2.7e+07,2.8e+07,2.9e+07,3e+07,3.1e+07,3.2e+07,3.3e+07,3.4e+07,3.5e+07,3.6e+07,3.7e+07,3.8e+07,3.9e+07,4e+07,4.1e+07,4.2e+07,0.180896,4.4e+07,4.5e+07,4.6e+07,4.7e+07,4.8e+07,4.9e+07,5e+07,5.2e+07,5.4e+07,5.6e+07,5.8e+07,6e+07,6.2e+07,6.4e+07,6.6e+07,6.8e+07,7e+07,7.2e+07,7.4e+07,7.6e+07,7.8e+07,8e+07,8.2e+07,8.4e+07,8.6e+07,8.8e+07,9e+07,9.2e+07,9.4e+07,9.6e+07,9.8e+07,0.886991,0.150335]
+@x=0.890019
+theData xVals hash: 17142547595157533670
+theData yVals hash: 9933843326859661498
+@i=34
+@x=0.139195
+theData xVals hash: 289051129243410755
+theData yVals hash: 9933843326859661498
+@i=68
+@x=0.989362
+theData xVals hash: 12560306411978990582
+theData yVals hash: 9933843326859661498
+@i=69
+@x=0.446023
+theData xVals hash: 4237956045329461553
+theData yVals hash: 9933843326859661498
 #void SetEnergy(G4int i, G4double e)_1
 @i=-1
-@x=0.148152
-[0.387725,0.000319,0.00255,0.00822,0.0122,0.0211,0.0391,0.0472,0.0555,0.0605,0.0627,0.0637,0.0617,0.0559,0.0505,0.0445,0.0398,0.035,0.0305,0.0258,0.0231,0.0206,0.02,0.0175,0.0161,0.015,0.0137,0.0129,0.0122,0.0119,0.0115,0.011,0.0104,0.147533,0.00972,0.00952,0.00933,0.00914,0.00889,0.00864,0.00841,0.00802,0.00768,0.00734,0.00691,0.00648,0.00628,0.00615,0.00602,0.00581,0.00562,0.00542,0.00511,0.00494,0.0048,0.00473,0.00466,0.00453,0.00441,0.00428,0.00408,0.00387,0.0038,0.00374,0.00369,0.845576,0.955409]
-[0.937897,1.3e+07,1.35e+07,1.4e+07,1.45e+07,1.5e+07,1.6e+07,1.7e+07,1.8e+07,1.9e+07,2e+07,2.1e+07,2.2e+07,2.3e+07,2.4e+07,2.5e+07,2.6e+07,2.7e+07,2.8e+07,2.9e+07,3e+07,3.1e+07,3.2e+07,3.3e+07,3.4e+07,3.5e+07,3.6e+07,3.7e+07,3.8e+07,3.9e+07,4e+07,4.1e+07,4.2e+07,0.180896,4.4e+07,4.5e+07,4.6e+07,4.7e+07,4.8e+07,4.9e+07,5e+07,5.2e+07,5.4e+07,5.6e+07,5.8e+07,6e+07,6.2e+07,6.4e+07,6.6e+07,6.8e+07,7e+07,7.2e+07,7.4e+07,7.6e+07,7.8e+07,8e+07,8.2e+07,8.4e+07,8.6e+07,8.8e+07,9e+07,9.2e+07,9.4e+07,9.6e+07,9.8e+07,0.886991,0.150335]
+@x=0.514659
+theData xVals hash: 4237956045329461553
+theData yVals hash: 9933843326859661498
 @i=0
-@x=0.408767
-[0.408767,0.000319,0.00255,0.00822,0.0122,0.0211,0.0391,0.0472,0.0555,0.0605,0.0627,0.0637,0.0617,0.0559,0.0505,0.0445,0.0398,0.035,0.0305,0.0258,0.0231,0.0206,0.02,0.0175,0.0161,0.015,0.0137,0.0129,0.0122,0.0119,0.0115,0.011,0.0104,0.147533,0.00972,0.00952,0.00933,0.00914,0.00889,0.00864,0.00841,0.00802,0.00768,0.00734,0.00691,0.00648,0.00628,0.00615,0.00602,0.00581,0.00562,0.00542,0.00511,0.00494,0.0048,0.00473,0.00466,0.00453,0.00441,0.00428,0.00408,0.00387,0.0038,0.00374,0.00369,0.845576,0.955409]
-[0.937897,1.3e+07,1.35e+07,1.4e+07,1.45e+07,1.5e+07,1.6e+07,1.7e+07,1.8e+07,1.9e+07,2e+07,2.1e+07,2.2e+07,2.3e+07,2.4e+07,2.5e+07,2.6e+07,2.7e+07,2.8e+07,2.9e+07,3e+07,3.1e+07,3.2e+07,3.3e+07,3.4e+07,3.5e+07,3.6e+07,3.7e+07,3.8e+07,3.9e+07,4e+07,4.1e+07,4.2e+07,0.180896,4.4e+07,4.5e+07,4.6e+07,4.7e+07,4.8e+07,4.9e+07,5e+07,5.2e+07,5.4e+07,5.6e+07,5.8e+07,6e+07,6.2e+07,6.4e+07,6.6e+07,6.8e+07,7e+07,7.2e+07,7.4e+07,7.6e+07,7.8e+07,8e+07,8.2e+07,8.4e+07,8.6e+07,8.8e+07,9e+07,9.2e+07,9.4e+07,9.6e+07,9.8e+07,0.886991,0.150335]
-@i=33
-@x=0.564899
-[0.408767,0.000319,0.00255,0.00822,0.0122,0.0211,0.0391,0.0472,0.0555,0.0605,0.0627,0.0637,0.0617,0.0559,0.0505,0.0445,0.0398,0.035,0.0305,0.0258,0.0231,0.0206,0.02,0.0175,0.0161,0.015,0.0137,0.0129,0.0122,0.0119,0.0115,0.011,0.0104,0.564899,0.00972,0.00952,0.00933,0.00914,0.00889,0.00864,0.00841,0.00802,0.00768,0.00734,0.00691,0.00648,0.00628,0.00615,0.00602,0.00581,0.00562,0.00542,0.00511,0.00494,0.0048,0.00473,0.00466,0.00453,0.00441,0.00428,0.00408,0.00387,0.0038,0.00374,0.00369,0.845576,0.955409]
-[0.937897,1.3e+07,1.35e+07,1.4e+07,1.45e+07,1.5e+07,1.6e+07,1.7e+07,1.8e+07,1.9e+07,2e+07,2.1e+07,2.2e+07,2.3e+07,2.4e+07,2.5e+07,2.6e+07,2.7e+07,2.8e+07,2.9e+07,3e+07,3.1e+07,3.2e+07,3.3e+07,3.4e+07,3.5e+07,3.6e+07,3.7e+07,3.8e+07,3.9e+07,4e+07,4.1e+07,4.2e+07,0.180896,4.4e+07,4.5e+07,4.6e+07,4.7e+07,4.8e+07,4.9e+07,5e+07,5.2e+07,5.4e+07,5.6e+07,5.8e+07,6e+07,6.2e+07,6.4e+07,6.6e+07,6.8e+07,7e+07,7.2e+07,7.4e+07,7.6e+07,7.8e+07,8e+07,8.2e+07,8.4e+07,8.6e+07,8.8e+07,9e+07,9.2e+07,9.4e+07,9.6e+07,9.8e+07,0.886991,0.150335]
-@i=65
-@x=0.488515
-[0.408767,0.000319,0.00255,0.00822,0.0122,0.0211,0.0391,0.0472,0.0555,0.0605,0.0627,0.0637,0.0617,0.0559,0.0505,0.0445,0.0398,0.035,0.0305,0.0258,0.0231,0.0206,0.02,0.0175,0.0161,0.015,0.0137,0.0129,0.0122,0.0119,0.0115,0.011,0.0104,0.564899,0.00972,0.00952,0.00933,0.00914,0.00889,0.00864,0.00841,0.00802,0.00768,0.00734,0.00691,0.00648,0.00628,0.00615,0.00602,0.00581,0.00562,0.00542,0.00511,0.00494,0.0048,0.00473,0.00466,0.00453,0.00441,0.00428,0.00408,0.00387,0.0038,0.00374,0.00369,0.488515,0.955409]
-[0.937897,1.3e+07,1.35e+07,1.4e+07,1.45e+07,1.5e+07,1.6e+07,1.7e+07,1.8e+07,1.9e+07,2e+07,2.1e+07,2.2e+07,2.3e+07,2.4e+07,2.5e+07,2.6e+07,2.7e+07,2.8e+07,2.9e+07,3e+07,3.1e+07,3.2e+07,3.3e+07,3.4e+07,3.5e+07,3.6e+07,3.7e+07,3.8e+07,3.9e+07,4e+07,4.1e+07,4.2e+07,0.180896,4.4e+07,4.5e+07,4.6e+07,4.7e+07,4.8e+07,4.9e+07,5e+07,5.2e+07,5.4e+07,5.6e+07,5.8e+07,6e+07,6.2e+07,6.4e+07,6.6e+07,6.8e+07,7e+07,7.2e+07,7.4e+07,7.6e+07,7.8e+07,8e+07,8.2e+07,8.4e+07,8.6e+07,8.8e+07,9e+07,9.2e+07,9.4e+07,9.6e+07,9.8e+07,0.886991,0.150335]
-@i=66
-@x=0.961095
-[0.408767,0.000319,0.00255,0.00822,0.0122,0.0211,0.0391,0.0472,0.0555,0.0605,0.0627,0.0637,0.0617,0.0559,0.0505,0.0445,0.0398,0.035,0.0305,0.0258,0.0231,0.0206,0.02,0.0175,0.0161,0.015,0.0137,0.0129,0.0122,0.0119,0.0115,0.011,0.0104,0.564899,0.00972,0.00952,0.00933,0.00914,0.00889,0.00864,0.00841,0.00802,0.00768,0.00734,0.00691,0.00648,0.00628,0.00615,0.00602,0.00581,0.00562,0.00542,0.00511,0.00494,0.0048,0.00473,0.00466,0.00453,0.00441,0.00428,0.00408,0.00387,0.0038,0.00374,0.00369,0.488515,0.961095]
-[0.937897,1.3e+07,1.35e+07,1.4e+07,1.45e+07,1.5e+07,1.6e+07,1.7e+07,1.8e+07,1.9e+07,2e+07,2.1e+07,2.2e+07,2.3e+07,2.4e+07,2.5e+07,2.6e+07,2.7e+07,2.8e+07,2.9e+07,3e+07,3.1e+07,3.2e+07,3.3e+07,3.4e+07,3.5e+07,3.6e+07,3.7e+07,3.8e+07,3.9e+07,4e+07,4.1e+07,4.2e+07,0.180896,4.4e+07,4.5e+07,4.6e+07,4.7e+07,4.8e+07,4.9e+07,5e+07,5.2e+07,5.4e+07,5.6e+07,5.8e+07,6e+07,6.2e+07,6.4e+07,6.6e+07,6.8e+07,7e+07,7.2e+07,7.4e+07,7.6e+07,7.8e+07,8e+07,8.2e+07,8.4e+07,8.6e+07,8.8e+07,9e+07,9.2e+07,9.4e+07,9.6e+07,9.8e+07,0.886991,0.150335]
+@x=0.439726
+theData xVals hash: 10513576847862057865
+theData yVals hash: 9933843326859661498
+@i=34
+@x=0.80665
+theData xVals hash: 11698735016554255501
+theData yVals hash: 9933843326859661498
+@i=68
+@x=0.211519
+theData xVals hash: 6694411762859636869
+theData yVals hash: 9933843326859661498
+@i=69
+@x=0.153604
+theData xVals hash: 5316521370641635892
+theData yVals hash: 9933843326859661498
 #void SetY(G4int i, G4double x)_1
 @i=-1
-@x=0.199757
-[0.408767,0.000319,0.00255,0.00822,0.0122,0.0211,0.0391,0.0472,0.0555,0.0605,0.0627,0.0637,0.0617,0.0559,0.0505,0.0445,0.0398,0.035,0.0305,0.0258,0.0231,0.0206,0.02,0.0175,0.0161,0.015,0.0137,0.0129,0.0122,0.0119,0.0115,0.011,0.0104,0.564899,0.00972,0.00952,0.00933,0.00914,0.00889,0.00864,0.00841,0.00802,0.00768,0.00734,0.00691,0.00648,0.00628,0.00615,0.00602,0.00581,0.00562,0.00542,0.00511,0.00494,0.0048,0.00473,0.00466,0.00453,0.00441,0.00428,0.00408,0.00387,0.0038,0.00374,0.00369,0.488515,0.961095]
-[0.937897,1.3e+07,1.35e+07,1.4e+07,1.45e+07,1.5e+07,1.6e+07,1.7e+07,1.8e+07,1.9e+07,2e+07,2.1e+07,2.2e+07,2.3e+07,2.4e+07,2.5e+07,2.6e+07,2.7e+07,2.8e+07,2.9e+07,3e+07,3.1e+07,3.2e+07,3.3e+07,3.4e+07,3.5e+07,3.6e+07,3.7e+07,3.8e+07,3.9e+07,4e+07,4.1e+07,4.2e+07,0.180896,4.4e+07,4.5e+07,4.6e+07,4.7e+07,4.8e+07,4.9e+07,5e+07,5.2e+07,5.4e+07,5.6e+07,5.8e+07,6e+07,6.2e+07,6.4e+07,6.6e+07,6.8e+07,7e+07,7.2e+07,7.4e+07,7.6e+07,7.8e+07,8e+07,8.2e+07,8.4e+07,8.6e+07,8.8e+07,9e+07,9.2e+07,9.4e+07,9.6e+07,9.8e+07,0.886991,0.150335]
+@x=0.61635
+theData xVals hash: 5316521370641635892
+theData yVals hash: 9933843326859661498
 @i=0
-@x=0.629269
-[0.408767,0.000319,0.00255,0.00822,0.0122,0.0211,0.0391,0.0472,0.0555,0.0605,0.0627,0.0637,0.0617,0.0559,0.0505,0.0445,0.0398,0.035,0.0305,0.0258,0.0231,0.0206,0.02,0.0175,0.0161,0.015,0.0137,0.0129,0.0122,0.0119,0.0115,0.011,0.0104,0.564899,0.00972,0.00952,0.00933,0.00914,0.00889,0.00864,0.00841,0.00802,0.00768,0.00734,0.00691,0.00648,0.00628,0.00615,0.00602,0.00581,0.00562,0.00542,0.00511,0.00494,0.0048,0.00473,0.00466,0.00453,0.00441,0.00428,0.00408,0.00387,0.0038,0.00374,0.00369,0.488515,0.961095]
-[0.629269,1.3e+07,1.35e+07,1.4e+07,1.45e+07,1.5e+07,1.6e+07,1.7e+07,1.8e+07,1.9e+07,2e+07,2.1e+07,2.2e+07,2.3e+07,2.4e+07,2.5e+07,2.6e+07,2.7e+07,2.8e+07,2.9e+07,3e+07,3.1e+07,3.2e+07,3.3e+07,3.4e+07,3.5e+07,3.6e+07,3.7e+07,3.8e+07,3.9e+07,4e+07,4.1e+07,4.2e+07,0.180896,4.4e+07,4.5e+07,4.6e+07,4.7e+07,4.8e+07,4.9e+07,5e+07,5.2e+07,5.4e+07,5.6e+07,5.8e+07,6e+07,6.2e+07,6.4e+07,6.6e+07,6.8e+07,7e+07,7.2e+07,7.4e+07,7.6e+07,7.8e+07,8e+07,8.2e+07,8.4e+07,8.6e+07,8.8e+07,9e+07,9.2e+07,9.4e+07,9.6e+07,9.8e+07,0.886991,0.150335]
-@i=33
-@x=0.651254
-[0.408767,0.000319,0.00255,0.00822,0.0122,0.0211,0.0391,0.0472,0.0555,0.0605,0.0627,0.0637,0.0617,0.0559,0.0505,0.0445,0.0398,0.035,0.0305,0.0258,0.0231,0.0206,0.02,0.0175,0.0161,0.015,0.0137,0.0129,0.0122,0.0119,0.0115,0.011,0.0104,0.564899,0.00972,0.00952,0.00933,0.00914,0.00889,0.00864,0.00841,0.00802,0.00768,0.00734,0.00691,0.00648,0.00628,0.00615,0.00602,0.00581,0.00562,0.00542,0.00511,0.00494,0.0048,0.00473,0.00466,0.00453,0.00441,0.00428,0.00408,0.00387,0.0038,0.00374,0.00369,0.488515,0.961095]
-[0.629269,1.3e+07,1.35e+07,1.4e+07,1.45e+07,1.5e+07,1.6e+07,1.7e+07,1.8e+07,1.9e+07,2e+07,2.1e+07,2.2e+07,2.3e+07,2.4e+07,2.5e+07,2.6e+07,2.7e+07,2.8e+07,2.9e+07,3e+07,3.1e+07,3.2e+07,3.3e+07,3.4e+07,3.5e+07,3.6e+07,3.7e+07,3.8e+07,3.9e+07,4e+07,4.1e+07,4.2e+07,0.651254,4.4e+07,4.5e+07,4.6e+07,4.7e+07,4.8e+07,4.9e+07,5e+07,5.2e+07,5.4e+07,5.6e+07,5.8e+07,6e+07,6.2e+07,6.4e+07,6.6e+07,6.8e+07,7e+07,7.2e+07,7.4e+07,7.6e+07,7.8e+07,8e+07,8.2e+07,8.4e+07,8.6e+07,8.8e+07,9e+07,9.2e+07,9.4e+07,9.6e+07,9.8e+07,0.886991,0.150335]
-@i=65
-@x=0.803073
-[0.408767,0.000319,0.00255,0.00822,0.0122,0.0211,0.0391,0.0472,0.0555,0.0605,0.0627,0.0637,0.0617,0.0559,0.0505,0.0445,0.0398,0.035,0.0305,0.0258,0.0231,0.0206,0.02,0.0175,0.0161,0.015,0.0137,0.0129,0.0122,0.0119,0.0115,0.011,0.0104,0.564899,0.00972,0.00952,0.00933,0.00914,0.00889,0.00864,0.00841,0.00802,0.00768,0.00734,0.00691,0.00648,0.00628,0.00615,0.00602,0.00581,0.00562,0.00542,0.00511,0.00494,0.0048,0.00473,0.00466,0.00453,0.00441,0.00428,0.00408,0.00387,0.0038,0.00374,0.00369,0.488515,0.961095]
-[0.629269,1.3e+07,1.35e+07,1.4e+07,1.45e+07,1.5e+07,1.6e+07,1.7e+07,1.8e+07,1.9e+07,2e+07,2.1e+07,2.2e+07,2.3e+07,2.4e+07,2.5e+07,2.6e+07,2.7e+07,2.8e+07,2.9e+07,3e+07,3.1e+07,3.2e+07,3.3e+07,3.4e+07,3.5e+07,3.6e+07,3.7e+07,3.8e+07,3.9e+07,4e+07,4.1e+07,4.2e+07,0.651254,4.4e+07,4.5e+07,4.6e+07,4.7e+07,4.8e+07,4.9e+07,5e+07,5.2e+07,5.4e+07,5.6e+07,5.8e+07,6e+07,6.2e+07,6.4e+07,6.6e+07,6.8e+07,7e+07,7.2e+07,7.4e+07,7.6e+07,7.8e+07,8e+07,8.2e+07,8.4e+07,8.6e+07,8.8e+07,9e+07,9.2e+07,9.4e+07,9.6e+07,9.8e+07,0.803073,0.150335]
-@i=66
-@x=0.476432
-[0.408767,0.000319,0.00255,0.00822,0.0122,0.0211,0.0391,0.0472,0.0555,0.0605,0.0627,0.0637,0.0617,0.0559,0.0505,0.0445,0.0398,0.035,0.0305,0.0258,0.0231,0.0206,0.02,0.0175,0.0161,0.015,0.0137,0.0129,0.0122,0.0119,0.0115,0.011,0.0104,0.564899,0.00972,0.00952,0.00933,0.00914,0.00889,0.00864,0.00841,0.00802,0.00768,0.00734,0.00691,0.00648,0.00628,0.00615,0.00602,0.00581,0.00562,0.00542,0.00511,0.00494,0.0048,0.00473,0.00466,0.00453,0.00441,0.00428,0.00408,0.00387,0.0038,0.00374,0.00369,0.488515,0.961095]
-[0.629269,1.3e+07,1.35e+07,1.4e+07,1.45e+07,1.5e+07,1.6e+07,1.7e+07,1.8e+07,1.9e+07,2e+07,2.1e+07,2.2e+07,2.3e+07,2.4e+07,2.5e+07,2.6e+07,2.7e+07,2.8e+07,2.9e+07,3e+07,3.1e+07,3.2e+07,3.3e+07,3.4e+07,3.5e+07,3.6e+07,3.7e+07,3.8e+07,3.9e+07,4e+07,4.1e+07,4.2e+07,0.651254,4.4e+07,4.5e+07,4.6e+07,4.7e+07,4.8e+07,4.9e+07,5e+07,5.2e+07,5.4e+07,5.6e+07,5.8e+07,6e+07,6.2e+07,6.4e+07,6.6e+07,6.8e+07,7e+07,7.2e+07,7.4e+07,7.6e+07,7.8e+07,8e+07,8.2e+07,8.4e+07,8.6e+07,8.8e+07,9e+07,9.2e+07,9.4e+07,9.6e+07,9.8e+07,0.803073,0.476432]
+@x=0.000879
+theData xVals hash: 5316521370641635892
+theData yVals hash: 7583699314914273522
+@i=34
+@x=0.727335
+theData xVals hash: 5316521370641635892
+theData yVals hash: 4994256123044547145
+@i=68
+@x=0.417724
+theData xVals hash: 5316521370641635892
+theData yVals hash: 10713444015227874689
+@i=69
+@x=0.680562
+theData xVals hash: 5316521370641635892
+theData yVals hash: 15726855996403403014
 #void SetXsec(G4int i, G4double x)_1
 @i=-1
-@x=0.20325
-[0.408767,0.000319,0.00255,0.00822,0.0122,0.0211,0.0391,0.0472,0.0555,0.0605,0.0627,0.0637,0.0617,0.0559,0.0505,0.0445,0.0398,0.035,0.0305,0.0258,0.0231,0.0206,0.02,0.0175,0.0161,0.015,0.0137,0.0129,0.0122,0.0119,0.0115,0.011,0.0104,0.564899,0.00972,0.00952,0.00933,0.00914,0.00889,0.00864,0.00841,0.00802,0.00768,0.00734,0.00691,0.00648,0.00628,0.00615,0.00602,0.00581,0.00562,0.00542,0.00511,0.00494,0.0048,0.00473,0.00466,0.00453,0.00441,0.00428,0.00408,0.00387,0.0038,0.00374,0.00369,0.488515,0.961095]
-[0.629269,1.3e+07,1.35e+07,1.4e+07,1.45e+07,1.5e+07,1.6e+07,1.7e+07,1.8e+07,1.9e+07,2e+07,2.1e+07,2.2e+07,2.3e+07,2.4e+07,2.5e+07,2.6e+07,2.7e+07,2.8e+07,2.9e+07,3e+07,3.1e+07,3.2e+07,3.3e+07,3.4e+07,3.5e+07,3.6e+07,3.7e+07,3.8e+07,3.9e+07,4e+07,4.1e+07,4.2e+07,0.651254,4.4e+07,4.5e+07,4.6e+07,4.7e+07,4.8e+07,4.9e+07,5e+07,5.2e+07,5.4e+07,5.6e+07,5.8e+07,6e+07,6.2e+07,6.4e+07,6.6e+07,6.8e+07,7e+07,7.2e+07,7.4e+07,7.6e+07,7.8e+07,8e+07,8.2e+07,8.4e+07,8.6e+07,8.8e+07,9e+07,9.2e+07,9.4e+07,9.6e+07,9.8e+07,0.803073,0.476432]
+@x=0.83642
+theData xVals hash: 5316521370641635892
+theData yVals hash: 15726855996403403014
 @i=0
-@x=0.901673
-[0.408767,0.000319,0.00255,0.00822,0.0122,0.0211,0.0391,0.0472,0.0555,0.0605,0.0627,0.0637,0.0617,0.0559,0.0505,0.0445,0.0398,0.035,0.0305,0.0258,0.0231,0.0206,0.02,0.0175,0.0161,0.015,0.0137,0.0129,0.0122,0.0119,0.0115,0.011,0.0104,0.564899,0.00972,0.00952,0.00933,0.00914,0.00889,0.00864,0.00841,0.00802,0.00768,0.00734,0.00691,0.00648,0.00628,0.00615,0.00602,0.00581,0.00562,0.00542,0.00511,0.00494,0.0048,0.00473,0.00466,0.00453,0.00441,0.00428,0.00408,0.00387,0.0038,0.00374,0.00369,0.488515,0.961095]
-[0.901673,1.3e+07,1.35e+07,1.4e+07,1.45e+07,1.5e+07,1.6e+07,1.7e+07,1.8e+07,1.9e+07,2e+07,2.1e+07,2.2e+07,2.3e+07,2.4e+07,2.5e+07,2.6e+07,2.7e+07,2.8e+07,2.9e+07,3e+07,3.1e+07,3.2e+07,3.3e+07,3.4e+07,3.5e+07,3.6e+07,3.7e+07,3.8e+07,3.9e+07,4e+07,4.1e+07,4.2e+07,0.651254,4.4e+07,4.5e+07,4.6e+07,4.7e+07,4.8e+07,4.9e+07,5e+07,5.2e+07,5.4e+07,5.6e+07,5.8e+07,6e+07,6.2e+07,6.4e+07,6.6e+07,6.8e+07,7e+07,7.2e+07,7.4e+07,7.6e+07,7.8e+07,8e+07,8.2e+07,8.4e+07,8.6e+07,8.8e+07,9e+07,9.2e+07,9.4e+07,9.6e+07,9.8e+07,0.803073,0.476432]
-@i=33
-@x=0.142021
-[0.408767,0.000319,0.00255,0.00822,0.0122,0.0211,0.0391,0.0472,0.0555,0.0605,0.0627,0.0637,0.0617,0.0559,0.0505,0.0445,0.0398,0.035,0.0305,0.0258,0.0231,0.0206,0.02,0.0175,0.0161,0.015,0.0137,0.0129,0.0122,0.0119,0.0115,0.011,0.0104,0.564899,0.00972,0.00952,0.00933,0.00914,0.00889,0.00864,0.00841,0.00802,0.00768,0.00734,0.00691,0.00648,0.00628,0.00615,0.00602,0.00581,0.00562,0.00542,0.00511,0.00494,0.0048,0.00473,0.00466,0.00453,0.00441,0.00428,0.00408,0.00387,0.0038,0.00374,0.00369,0.488515,0.961095]
-[0.901673,1.3e+07,1.35e+07,1.4e+07,1.45e+07,1.5e+07,1.6e+07,1.7e+07,1.8e+07,1.9e+07,2e+07,2.1e+07,2.2e+07,2.3e+07,2.4e+07,2.5e+07,2.6e+07,2.7e+07,2.8e+07,2.9e+07,3e+07,3.1e+07,3.2e+07,3.3e+07,3.4e+07,3.5e+07,3.6e+07,3.7e+07,3.8e+07,3.9e+07,4e+07,4.1e+07,4.2e+07,0.142021,4.4e+07,4.5e+07,4.6e+07,4.7e+07,4.8e+07,4.9e+07,5e+07,5.2e+07,5.4e+07,5.6e+07,5.8e+07,6e+07,6.2e+07,6.4e+07,6.6e+07,6.8e+07,7e+07,7.2e+07,7.4e+07,7.6e+07,7.8e+07,8e+07,8.2e+07,8.4e+07,8.6e+07,8.8e+07,9e+07,9.2e+07,9.4e+07,9.6e+07,9.8e+07,0.803073,0.476432]
-@i=65
-@x=0.410313
-[0.408767,0.000319,0.00255,0.00822,0.0122,0.0211,0.0391,0.0472,0.0555,0.0605,0.0627,0.0637,0.0617,0.0559,0.0505,0.0445,0.0398,0.035,0.0305,0.0258,0.0231,0.0206,0.02,0.0175,0.0161,0.015,0.0137,0.0129,0.0122,0.0119,0.0115,0.011,0.0104,0.564899,0.00972,0.00952,0.00933,0.00914,0.00889,0.00864,0.00841,0.00802,0.00768,0.00734,0.00691,0.00648,0.00628,0.00615,0.00602,0.00581,0.00562,0.00542,0.00511,0.00494,0.0048,0.00473,0.00466,0.00453,0.00441,0.00428,0.00408,0.00387,0.0038,0.00374,0.00369,0.488515,0.961095]
-[0.901673,1.3e+07,1.35e+07,1.4e+07,1.45e+07,1.5e+07,1.6e+07,1.7e+07,1.8e+07,1.9e+07,2e+07,2.1e+07,2.2e+07,2.3e+07,2.4e+07,2.5e+07,2.6e+07,2.7e+07,2.8e+07,2.9e+07,3e+07,3.1e+07,3.2e+07,3.3e+07,3.4e+07,3.5e+07,3.6e+07,3.7e+07,3.8e+07,3.9e+07,4e+07,4.1e+07,4.2e+07,0.142021,4.4e+07,4.5e+07,4.6e+07,4.7e+07,4.8e+07,4.9e+07,5e+07,5.2e+07,5.4e+07,5.6e+07,5.8e+07,6e+07,6.2e+07,6.4e+07,6.6e+07,6.8e+07,7e+07,7.2e+07,7.4e+07,7.6e+07,7.8e+07,8e+07,8.2e+07,8.4e+07,8.6e+07,8.8e+07,9e+07,9.2e+07,9.4e+07,9.6e+07,9.8e+07,0.410313,0.476432]
-@i=66
-@x=0.885648
-[0.408767,0.000319,0.00255,0.00822,0.0122,0.0211,0.0391,0.0472,0.0555,0.0605,0.0627,0.0637,0.0617,0.0559,0.0505,0.0445,0.0398,0.035,0.0305,0.0258,0.0231,0.0206,0.02,0.0175,0.0161,0.015,0.0137,0.0129,0.0122,0.0119,0.0115,0.011,0.0104,0.564899,0.00972,0.00952,0.00933,0.00914,0.00889,0.00864,0.00841,0.00802,0.00768,0.00734,0.00691,0.00648,0.00628,0.00615,0.00602,0.00581,0.00562,0.00542,0.00511,0.00494,0.0048,0.00473,0.00466,0.00453,0.00441,0.00428,0.00408,0.00387,0.0038,0.00374,0.00369,0.488515,0.961095]
-[0.901673,1.3e+07,1.35e+07,1.4e+07,1.45e+07,1.5e+07,1.6e+07,1.7e+07,1.8e+07,1.9e+07,2e+07,2.1e+07,2.2e+07,2.3e+07,2.4e+07,2.5e+07,2.6e+07,2.7e+07,2.8e+07,2.9e+07,3e+07,3.1e+07,3.2e+07,3.3e+07,3.4e+07,3.5e+07,3.6e+07,3.7e+07,3.8e+07,3.9e+07,4e+07,4.1e+07,4.2e+07,0.142021,4.4e+07,4.5e+07,4.6e+07,4.7e+07,4.8e+07,4.9e+07,5e+07,5.2e+07,5.4e+07,5.6e+07,5.8e+07,6e+07,6.2e+07,6.4e+07,6.6e+07,6.8e+07,7e+07,7.2e+07,7.4e+07,7.6e+07,7.8e+07,8e+07,8.2e+07,8.4e+07,8.6e+07,8.8e+07,9e+07,9.2e+07,9.4e+07,9.6e+07,9.8e+07,0.410313,0.885648]
+@x=0.828708
+theData xVals hash: 5316521370641635892
+theData yVals hash: 13853131776001629371
+@i=34
+@x=0.0817376
+theData xVals hash: 5316521370641635892
+theData yVals hash: 1572662632872072967
+@i=68
+@x=0.629572
+theData xVals hash: 5316521370641635892
+theData yVals hash: 16514849164694547491
+@i=69
+@x=0.213547
+theData xVals hash: 5316521370641635892
+theData yVals hash: 8571108790086731707
 #const G4ParticleHPDataPoint GetPoint(G4int i)_1
 @i=-1
-(0.408767,0.901673)
+(0.439726,0.828708)
 @i=0
-(0.408767,0.901673)
-@i=33
-(0.564899,0.142021)
-@i=65
-(0.488515,0.410313)
-@i=66
-(0.961095,0.885648)
+(0.439726,0.828708)
+@i=34
+(0.80665,0.0817376)
+@i=68
+(0.211519,0.629572)
+@i=69
+(0.153604,0.213547)
 #G4double GetEnergy(G4int i)_1
 @i=-1
-0.408767
+0.439726
 @i=0
-0.408767
-@i=33
-0.564899
-@i=65
-0.488515
-@i=66
-0.961095
+0.439726
+@i=34
+0.80665
+@i=68
+0.211519
+@i=69
+0.153604
 #G4double GetX(G4int i)_1
 @i=-1
-0.408767
+0.439726
 @i=0
-0.408767
-@i=33
-0.564899
-@i=65
-0.488515
-@i=66
-0.961095
+0.439726
+@i=34
+0.80665
+@i=68
+0.211519
+@i=69
+0.153604
 #G4double GetXsec(G4int i)_1
 @i=-1
-0.901673
+0.828708
 @i=0
-0.901673
-@i=33
-0.142021
-@i=65
-0.410313
-@i=66
-0.885648
+0.828708
+@i=34
+0.0817376
+@i=68
+0.629572
+@i=69
+0.213547
 #G4double GetY(G4int i)_1
 @i=-1
-0.901673
+0.828708
 @i=0
-0.901673
-@i=33
-0.142021
-@i=65
-0.410313
-@i=66
-0.885648
+0.828708
+@i=34
+0.0817376
+@i=68
+0.629572
+@i=69
+0.213547
 #void ThinOut(G4double precision)_1
 @precision=-1
-[0.408767,0.000319,0.00255,0.00822,0.0122,0.0211,0.0391,0.0472,0.0555,0.0605,0.0627,0.0637,0.0617,0.0559,0.0505,0.0445,0.0398,0.035,0.0305,0.0258,0.0231,0.0206,0.02,0.0175,0.0161,0.015,0.0137,0.0129,0.0122,0.0119,0.0115,0.011,0.0104,0.564899,0.00972,0.00952,0.00933,0.00914,0.00889,0.00864,0.00841,0.00802,0.00768,0.00734,0.00691,0.00648,0.00628,0.00615,0.00602,0.00581,0.00562,0.00542,0.00511,0.00494,0.0048,0.00473,0.00466,0.00453,0.00441,0.00428,0.00408,0.00387,0.0038,0.00374,0.00369,0.488515,0.961095]
-[0.901673,1.3e+07,1.35e+07,1.4e+07,1.45e+07,1.5e+07,1.6e+07,1.7e+07,1.8e+07,1.9e+07,2e+07,2.1e+07,2.2e+07,2.3e+07,2.4e+07,2.5e+07,2.6e+07,2.7e+07,2.8e+07,2.9e+07,3e+07,3.1e+07,3.2e+07,3.3e+07,3.4e+07,3.5e+07,3.6e+07,3.7e+07,3.8e+07,3.9e+07,4e+07,4.1e+07,4.2e+07,0.142021,4.4e+07,4.5e+07,4.6e+07,4.7e+07,4.8e+07,4.9e+07,5e+07,5.2e+07,5.4e+07,5.6e+07,5.8e+07,6e+07,6.2e+07,6.4e+07,6.6e+07,6.8e+07,7e+07,7.2e+07,7.4e+07,7.6e+07,7.8e+07,8e+07,8.2e+07,8.4e+07,8.6e+07,8.8e+07,9e+07,9.2e+07,9.4e+07,9.6e+07,9.8e+07,0.410313,0.885648]
+theData xVals hash: 5316521370641635892
+theData yVals hash: 8571108790086731707
 @precision=0
-[0.408767,0.000319,0.00255,0.00822,0.0122,0.0211,0.0391,0.0472,0.0555,0.0605,0.0627,0.0637,0.0617,0.0559,0.0505,0.0445,0.0398,0.035,0.0305,0.0258,0.0231,0.0206,0.02,0.0175,0.0161,0.015,0.0137,0.0129,0.0122,0.0119,0.0115,0.011,0.0104,0.564899,0.00972,0.00952,0.00933,0.00914,0.00864,0.00841,0.00802,0.00734,0.00648,0.00628,0.00615,0.00602,0.00581,0.00562,0.00542,0.00511,0.00494,0.0048,0.00473,0.00466,0.00453,0.00441,0.00428,0.00408,0.00387,0.0038,0.00374,0.00369,0.488515,0.961095]
-[0.901673,1.3e+07,1.35e+07,1.4e+07,1.45e+07,1.5e+07,1.6e+07,1.7e+07,1.8e+07,1.9e+07,2e+07,2.1e+07,2.2e+07,2.3e+07,2.4e+07,2.5e+07,2.6e+07,2.7e+07,2.8e+07,2.9e+07,3e+07,3.1e+07,3.2e+07,3.3e+07,3.4e+07,3.5e+07,3.6e+07,3.7e+07,3.8e+07,3.9e+07,4e+07,4.1e+07,4.2e+07,0.142021,4.4e+07,4.5e+07,4.6e+07,4.7e+07,4.9e+07,5e+07,5.2e+07,5.6e+07,6e+07,6.2e+07,6.4e+07,6.6e+07,6.8e+07,7e+07,7.2e+07,7.4e+07,7.6e+07,7.8e+07,8e+07,8.2e+07,8.4e+07,8.6e+07,8.8e+07,9e+07,9.2e+07,9.4e+07,9.6e+07,9.8e+07,0.410313,0.885648]
+theData xVals hash: 5797807716630016119
+theData yVals hash: 16757960931502363410
 @precision=0.00051234
-[0.408767,0.000319,0.00255,0.00822,0.0122,0.0391,0.0472,0.0555,0.0605,0.0627,0.0637,0.0617,0.0559,0.0505,0.0445,0.035,0.0305,0.0258,0.0231,0.0206,0.02,0.0175,0.0161,0.015,0.0137,0.0129,0.0122,0.0119,0.0115,0.011,0.0104,0.564899,0.00972,0.00952,0.00914,0.00864,0.00841,0.00802,0.00734,0.00648,0.00628,0.00602,0.00581,0.00562,0.00542,0.00511,0.00494,0.0048,0.00466,0.00453,0.00441,0.00428,0.00408,0.00387,0.0038,0.00374,0.00369,0.488515,0.961095]
-[0.901673,1.3e+07,1.35e+07,1.4e+07,1.45e+07,1.6e+07,1.7e+07,1.8e+07,1.9e+07,2e+07,2.1e+07,2.2e+07,2.3e+07,2.4e+07,2.5e+07,2.7e+07,2.8e+07,2.9e+07,3e+07,3.1e+07,3.2e+07,3.3e+07,3.4e+07,3.5e+07,3.6e+07,3.7e+07,3.8e+07,3.9e+07,4e+07,4.1e+07,4.2e+07,0.142021,4.4e+07,4.5e+07,4.7e+07,4.9e+07,5e+07,5.2e+07,5.6e+07,6e+07,6.2e+07,6.6e+07,6.8e+07,7e+07,7.2e+07,7.4e+07,7.6e+07,7.8e+07,8.2e+07,8.4e+07,8.6e+07,8.8e+07,9e+07,9.2e+07,9.4e+07,9.6e+07,9.8e+07,0.410313,0.885648]
+theData xVals hash: 17753514683147557426
+theData yVals hash: 6306225512548067398
 @precision=1.58923
-[0.408767,0.0104,0.564899,0.00369,0.961095]
-[0.901673,4.2e+07,0.142021,9.8e+07,0.885648]
+theData xVals hash: 14486898733621519451
+theData yVals hash: 16173021700600023560
 @precision=513.187
-[0.408767,0.0104,0.564899,0.00369,0.961095]
-[0.901673,4.2e+07,0.142021,9.8e+07,0.885648]
+theData xVals hash: 8634307847037951653
+theData yVals hash: 13816624479244340288
 #G4ParticleHPVector & operator = (const G4ParticleHPVector & right)_1
-[0.408767,0.0104,0.564899,0.00369,0.961095]
+hash: 8634307847037951653
+#void Init(std::istream & aDataFile, G4int total, G4double ux=1., G4double uy=1.)_2
+theData xVals hash: 1285262205404685270
+theData yVals hash: 8558769185984268590
+#G4double GetXsec(G4double e)_2
+@e=-1
+-2.30153
+@e=0
+-2.30153
+@e=0.00051234
+-2.30153
+@e=1.58923
+-2.30153
+@e=513.187
+-2.30131
+#G4double GetXsec(G4double e, G4int min)_2
+@e=-1
+@min=-1
+-2.30153
+@e=-1
+@min=0
+-2.30153
+@e=-1
+@min=40
+0.576
+@e=-1
+@min=79
+0.1793
+@e=-1
+@min=80
+0
+@e=0
+@min=-1
+-2.30153
+@e=0
+@min=0
+-2.30153
+@e=0
+@min=40
+0.576
+@e=0
+@min=79
+0.1793
+@e=0
+@min=80
+0
+@e=0.00051234
+@min=-1
+-2.30153
+@e=0.00051234
+@min=0
+-2.30153
+@e=0.00051234
+@min=40
+0.576
+@e=0.00051234
+@min=79
+0.1793
+@e=0.00051234
+@min=80
+0
+@e=1.58923
+@min=-1
+-2.30153
+@e=1.58923
+@min=0
+-2.30153
+@e=1.58923
+@min=40
+0.576
+@e=1.58923
+@min=79
+0.1793
+@e=1.58923
+@min=80
+0
+@e=513.187
+@min=-1
+-2.30131
+@e=513.187
+@min=0
+-2.30131
+@e=513.187
+@min=40
+0.575995
+@e=513.187
+@min=79
+0.179299
+@e=513.187
+@min=80
+0
+#G4double SampleLin()_2
+$2.58501e+07
+#G4double Sample()_2
+$2.56603e+07
+#G4double Get15PercentBorder()_2
+1.05e+07
+#G4double Get50PercentBorder()_2
+1.70503e+07
+#void Integrate()_2
+theIntegral hash: 6428737731256113294
+#void IntegrateAndNormalise()_2
+theIntegral hash: 6428737731256113294
+#void Times(G4double factor)_2
+@factor=-4.67
+theData xVals hash: 1285262205404685270
+theData yVals hash: 2663170278787499100
+theIntegral hash: 6428737731256113294
+@factor=-1.525e-05
+theData xVals hash: 1285262205404685270
+theData yVals hash: 2092041358354083927
+theIntegral hash: 6428737731256113294
+@factor=0.00090982
+theData xVals hash: 1285262205404685270
+theData yVals hash: 16011062846489605247
+theIntegral hash: 6428737731256113294
+@factor=1.54333e+07
+theData xVals hash: 1285262205404685270
+theData yVals hash: 8558769185984268590
+theIntegral hash: 6428737731256113294
+#void Merge(G4ParticleHPVector * active, G4ParticleHPVector * passive)_2
+@active_caseNum=0
+@passive_caseNum=0
+theData xVals hash: 1285262205404685270
+theData yVals hash: 8558769185984268590
+@active_caseNum=0
+@passive_caseNum=1
+theData xVals hash: 1285262205404685270
+theData yVals hash: 8558769185984268590
+@active_caseNum=0
+@passive_caseNum=3
+theData xVals hash: 1285262205404685270
+theData yVals hash: 8558769185984268590
+@active_caseNum=0
+@passive_caseNum=4
+theData xVals hash: 1285262205404685270
+theData yVals hash: 8558769185984268590
+@active_caseNum=0
+@passive_caseNum=5
+theData xVals hash: 1285262205404685270
+theData yVals hash: 8558769185984268590
+@active_caseNum=0
+@passive_caseNum=6
+theData xVals hash: 1285262205404685270
+theData yVals hash: 8558769185984268590
+@active_caseNum=0
+@passive_caseNum=7
+theData xVals hash: 1285262205404685270
+theData yVals hash: 8558769185984268590
+@active_caseNum=1
+@passive_caseNum=0
+theData xVals hash: 1285262205404685270
+theData yVals hash: 8558769185984268590
+@active_caseNum=1
+@passive_caseNum=1
+theData xVals hash: 1285262205404685270
+theData yVals hash: 8558769185984268590
+@active_caseNum=1
+@passive_caseNum=3
+theData xVals hash: 1285262205404685270
+theData yVals hash: 8558769185984268590
+@active_caseNum=1
+@passive_caseNum=4
+theData xVals hash: 1285262205404685270
+theData yVals hash: 8558769185984268590
+@active_caseNum=1
+@passive_caseNum=5
+theData xVals hash: 1285262205404685270
+theData yVals hash: 8558769185984268590
+@active_caseNum=1
+@passive_caseNum=6
+theData xVals hash: 1285262205404685270
+theData yVals hash: 8558769185984268590
+@active_caseNum=1
+@passive_caseNum=7
+theData xVals hash: 1285262205404685270
+theData yVals hash: 8558769185984268590
+@active_caseNum=3
+@passive_caseNum=0
+theData xVals hash: 1285262205404685270
+theData yVals hash: 8558769185984268590
+@active_caseNum=3
+@passive_caseNum=1
+theData xVals hash: 1285262205404685270
+theData yVals hash: 8558769185984268590
+@active_caseNum=3
+@passive_caseNum=3
+theData xVals hash: 1285262205404685270
+theData yVals hash: 8558769185984268590
+@active_caseNum=3
+@passive_caseNum=4
+theData xVals hash: 1285262205404685270
+theData yVals hash: 8558769185984268590
+@active_caseNum=3
+@passive_caseNum=5
+theData xVals hash: 1285262205404685270
+theData yVals hash: 8558769185984268590
+@active_caseNum=3
+@passive_caseNum=6
+theData xVals hash: 1285262205404685270
+theData yVals hash: 8558769185984268590
+@active_caseNum=3
+@passive_caseNum=7
+theData xVals hash: 1285262205404685270
+theData yVals hash: 8558769185984268590
+@active_caseNum=4
+@passive_caseNum=0
+theData xVals hash: 1285262205404685270
+theData yVals hash: 8558769185984268590
+@active_caseNum=4
+@passive_caseNum=1
+theData xVals hash: 1285262205404685270
+theData yVals hash: 8558769185984268590
+@active_caseNum=4
+@passive_caseNum=3
+theData xVals hash: 1285262205404685270
+theData yVals hash: 8558769185984268590
+@active_caseNum=4
+@passive_caseNum=4
+theData xVals hash: 1285262205404685270
+theData yVals hash: 8558769185984268590
+@active_caseNum=4
+@passive_caseNum=5
+theData xVals hash: 1285262205404685270
+theData yVals hash: 8558769185984268590
+@active_caseNum=4
+@passive_caseNum=6
+theData xVals hash: 1285262205404685270
+theData yVals hash: 8558769185984268590
+@active_caseNum=4
+@passive_caseNum=7
+theData xVals hash: 1285262205404685270
+theData yVals hash: 8558769185984268590
+@active_caseNum=5
+@passive_caseNum=0
+theData xVals hash: 1285262205404685270
+theData yVals hash: 8558769185984268590
+@active_caseNum=5
+@passive_caseNum=1
+theData xVals hash: 1285262205404685270
+theData yVals hash: 8558769185984268590
+@active_caseNum=5
+@passive_caseNum=3
+theData xVals hash: 1285262205404685270
+theData yVals hash: 8558769185984268590
+@active_caseNum=5
+@passive_caseNum=4
+theData xVals hash: 1285262205404685270
+theData yVals hash: 8558769185984268590
+@active_caseNum=5
+@passive_caseNum=5
+theData xVals hash: 1285262205404685270
+theData yVals hash: 8558769185984268590
+@active_caseNum=5
+@passive_caseNum=6
+theData xVals hash: 1285262205404685270
+theData yVals hash: 8558769185984268590
+@active_caseNum=5
+@passive_caseNum=7
+theData xVals hash: 1285262205404685270
+theData yVals hash: 8558769185984268590
+@active_caseNum=6
+@passive_caseNum=0
+theData xVals hash: 1285262205404685270
+theData yVals hash: 8558769185984268590
+@active_caseNum=6
+@passive_caseNum=1
+theData xVals hash: 1285262205404685270
+theData yVals hash: 8558769185984268590
+@active_caseNum=6
+@passive_caseNum=3
+theData xVals hash: 1285262205404685270
+theData yVals hash: 8558769185984268590
+@active_caseNum=6
+@passive_caseNum=4
+theData xVals hash: 1285262205404685270
+theData yVals hash: 8558769185984268590
+@active_caseNum=6
+@passive_caseNum=5
+theData xVals hash: 1285262205404685270
+theData yVals hash: 8558769185984268590
+@active_caseNum=6
+@passive_caseNum=6
+theData xVals hash: 1285262205404685270
+theData yVals hash: 8558769185984268590
+@active_caseNum=6
+@passive_caseNum=7
+theData xVals hash: 1285262205404685270
+theData yVals hash: 8558769185984268590
+@active_caseNum=7
+@passive_caseNum=0
+theData xVals hash: 1285262205404685270
+theData yVals hash: 8558769185984268590
+@active_caseNum=7
+@passive_caseNum=1
+theData xVals hash: 1285262205404685270
+theData yVals hash: 8558769185984268590
+@active_caseNum=7
+@passive_caseNum=3
+theData xVals hash: 1285262205404685270
+theData yVals hash: 8558769185984268590
+@active_caseNum=7
+@passive_caseNum=4
+theData xVals hash: 1285262205404685270
+theData yVals hash: 8558769185984268590
+@active_caseNum=7
+@passive_caseNum=5
+theData xVals hash: 1285262205404685270
+theData yVals hash: 8558769185984268590
+@active_caseNum=7
+@passive_caseNum=6
+theData xVals hash: 1285262205404685270
+theData yVals hash: 8558769185984268590
+@active_caseNum=7
+@passive_caseNum=7
+theData xVals hash: 1285262205404685270
+theData yVals hash: 8558769185984268590
+#void Merge(G4InterpolationScheme aScheme, G4double aValue, G4ParticleHPVector * active, G4ParticleHPVector * passive)_2
+@aValue=0
+@active_caseNum=0
+@passive_caseNum=0
+theData xVals hash: 1285262205404685270
+theData yVals hash: 8558769185984268590
+@aValue=0
+@active_caseNum=0
+@passive_caseNum=1
+theData xVals hash: 1285262205404685270
+theData yVals hash: 8558769185984268590
+@aValue=0
+@active_caseNum=0
+@passive_caseNum=3
+theData xVals hash: 1285262205404685270
+theData yVals hash: 8558769185984268590
+@aValue=0
+@active_caseNum=0
+@passive_caseNum=4
+theData xVals hash: 1285262205404685270
+theData yVals hash: 8558769185984268590
+@aValue=0
+@active_caseNum=0
+@passive_caseNum=5
+theData xVals hash: 1285262205404685270
+theData yVals hash: 8558769185984268590
+@aValue=0
+@active_caseNum=0
+@passive_caseNum=6
+theData xVals hash: 1285262205404685270
+theData yVals hash: 8558769185984268590
+@aValue=0
+@active_caseNum=0
+@passive_caseNum=7
+theData xVals hash: 1285262205404685270
+theData yVals hash: 8558769185984268590
+@aValue=0
+@active_caseNum=1
+@passive_caseNum=0
+theData xVals hash: 1285262205404685270
+theData yVals hash: 8558769185984268590
+@aValue=0
+@active_caseNum=1
+@passive_caseNum=1
+theData xVals hash: 1285262205404685270
+theData yVals hash: 8558769185984268590
+@aValue=0
+@active_caseNum=1
+@passive_caseNum=3
+theData xVals hash: 1285262205404685270
+theData yVals hash: 8558769185984268590
+@aValue=0
+@active_caseNum=1
+@passive_caseNum=4
+theData xVals hash: 1285262205404685270
+theData yVals hash: 8558769185984268590
+@aValue=0
+@active_caseNum=1
+@passive_caseNum=5
+theData xVals hash: 1285262205404685270
+theData yVals hash: 8558769185984268590
+@aValue=0
+@active_caseNum=1
+@passive_caseNum=6
+theData xVals hash: 1285262205404685270
+theData yVals hash: 8558769185984268590
+@aValue=0
+@active_caseNum=1
+@passive_caseNum=7
+theData xVals hash: 1285262205404685270
+theData yVals hash: 8558769185984268590
+@aValue=0
+@active_caseNum=3
+@passive_caseNum=0
+theData xVals hash: 1285262205404685270
+theData yVals hash: 8558769185984268590
+@aValue=0
+@active_caseNum=3
+@passive_caseNum=1
+theData xVals hash: 1285262205404685270
+theData yVals hash: 8558769185984268590
+@aValue=0
+@active_caseNum=3
+@passive_caseNum=3
+theData xVals hash: 1285262205404685270
+theData yVals hash: 8558769185984268590
+@aValue=0
+@active_caseNum=3
+@passive_caseNum=4
+theData xVals hash: 1285262205404685270
+theData yVals hash: 8558769185984268590
+@aValue=0
+@active_caseNum=3
+@passive_caseNum=5
+theData xVals hash: 1285262205404685270
+theData yVals hash: 8558769185984268590
+@aValue=0
+@active_caseNum=3
+@passive_caseNum=6
+theData xVals hash: 1285262205404685270
+theData yVals hash: 8558769185984268590
+@aValue=0
+@active_caseNum=3
+@passive_caseNum=7
+theData xVals hash: 1285262205404685270
+theData yVals hash: 8558769185984268590
+@aValue=0
+@active_caseNum=4
+@passive_caseNum=0
+theData xVals hash: 1285262205404685270
+theData yVals hash: 8558769185984268590
+@aValue=0
+@active_caseNum=4
+@passive_caseNum=1
+theData xVals hash: 1285262205404685270
+theData yVals hash: 8558769185984268590
+@aValue=0
+@active_caseNum=4
+@passive_caseNum=3
+theData xVals hash: 1285262205404685270
+theData yVals hash: 8558769185984268590
+@aValue=0
+@active_caseNum=4
+@passive_caseNum=4
+theData xVals hash: 1285262205404685270
+theData yVals hash: 8558769185984268590
+@aValue=0
+@active_caseNum=4
+@passive_caseNum=5
+theData xVals hash: 1285262205404685270
+theData yVals hash: 8558769185984268590
+@aValue=0
+@active_caseNum=4
+@passive_caseNum=6
+theData xVals hash: 1285262205404685270
+theData yVals hash: 8558769185984268590
+@aValue=0
+@active_caseNum=4
+@passive_caseNum=7
+theData xVals hash: 1285262205404685270
+theData yVals hash: 8558769185984268590
+@aValue=0
+@active_caseNum=5
+@passive_caseNum=0
+theData xVals hash: 1285262205404685270
+theData yVals hash: 8558769185984268590
+@aValue=0
+@active_caseNum=5
+@passive_caseNum=1
+theData xVals hash: 1285262205404685270
+theData yVals hash: 8558769185984268590
+@aValue=0
+@active_caseNum=5
+@passive_caseNum=3
+theData xVals hash: 1285262205404685270
+theData yVals hash: 8558769185984268590
+@aValue=0
+@active_caseNum=5
+@passive_caseNum=4
+theData xVals hash: 1285262205404685270
+theData yVals hash: 8558769185984268590
+@aValue=0
+@active_caseNum=5
+@passive_caseNum=5
+theData xVals hash: 1285262205404685270
+theData yVals hash: 8558769185984268590
+@aValue=0
+@active_caseNum=5
+@passive_caseNum=6
+theData xVals hash: 1285262205404685270
+theData yVals hash: 8558769185984268590
+@aValue=0
+@active_caseNum=5
+@passive_caseNum=7
+theData xVals hash: 1285262205404685270
+theData yVals hash: 8558769185984268590
+@aValue=0
+@active_caseNum=6
+@passive_caseNum=0
+theData xVals hash: 1285262205404685270
+theData yVals hash: 8558769185984268590
+@aValue=0
+@active_caseNum=6
+@passive_caseNum=1
+theData xVals hash: 1285262205404685270
+theData yVals hash: 8558769185984268590
+@aValue=0
+@active_caseNum=6
+@passive_caseNum=3
+theData xVals hash: 1285262205404685270
+theData yVals hash: 8558769185984268590
+@aValue=0
+@active_caseNum=6
+@passive_caseNum=4
+theData xVals hash: 1285262205404685270
+theData yVals hash: 8558769185984268590
+@aValue=0
+@active_caseNum=6
+@passive_caseNum=5
+theData xVals hash: 1285262205404685270
+theData yVals hash: 8558769185984268590
+@aValue=0
+@active_caseNum=6
+@passive_caseNum=6
+theData xVals hash: 1285262205404685270
+theData yVals hash: 8558769185984268590
+@aValue=0
+@active_caseNum=6
+@passive_caseNum=7
+theData xVals hash: 1285262205404685270
+theData yVals hash: 8558769185984268590
+@aValue=0
+@active_caseNum=7
+@passive_caseNum=0
+theData xVals hash: 1285262205404685270
+theData yVals hash: 8558769185984268590
+@aValue=0
+@active_caseNum=7
+@passive_caseNum=1
+theData xVals hash: 1285262205404685270
+theData yVals hash: 8558769185984268590
+@aValue=0
+@active_caseNum=7
+@passive_caseNum=3
+theData xVals hash: 1285262205404685270
+theData yVals hash: 8558769185984268590
+@aValue=0
+@active_caseNum=7
+@passive_caseNum=4
+theData xVals hash: 1285262205404685270
+theData yVals hash: 8558769185984268590
+@aValue=0
+@active_caseNum=7
+@passive_caseNum=5
+theData xVals hash: 1285262205404685270
+theData yVals hash: 8558769185984268590
+@aValue=0
+@active_caseNum=7
+@passive_caseNum=6
+theData xVals hash: 1285262205404685270
+theData yVals hash: 8558769185984268590
+@aValue=0
+@active_caseNum=7
+@passive_caseNum=7
+theData xVals hash: 1285262205404685270
+theData yVals hash: 8558769185984268590
+#void SetPoint(G4int i, const G4ParticleHPDataPoint & it)_2
+@i=-1
+@x=0.246733
+@y=0.843975
+theData xVals hash: 1285262205404685270
+theData yVals hash: 8558769185984268590
+@i=0
+@x=0.694024
+@y=0.455752
+theData xVals hash: 9194182591487113957
+theData yVals hash: 18268320035324705893
+@i=40
+@x=0.817101
+@y=0.0220837
+theData xVals hash: 8995224247142223526
+theData yVals hash: 3146017168165147975
+@i=79
+@x=0.160749
+@y=0.70695
+theData xVals hash: 9415613075261002385
+theData yVals hash: 146421154533363851
+@i=80
+@x=0.707826
+@y=0.436638
+theData xVals hash: 1372019286307195375
+theData yVals hash: 3350980802532984813
+#void SetData(G4int i, G4double x, G4double y)_2
+@i=-1
+@x=0.582421
+@y=0.75171
+theData xVals hash: 1372019286307195375
+theData yVals hash: 3350980802532984813
+@i=0
+@x=0.991533
+@y=0.695679
+theData xVals hash: 1374176957114310999
+theData yVals hash: 92112694903942212
+@i=40
+@x=0.279512
+@y=0.753863
+theData xVals hash: 9545790654075195611
+theData yVals hash: 4861217371167214179
+@i=79
+@x=0.171179
+@y=0.00425392
+theData xVals hash: 5475934818125045649
+theData yVals hash: 8503428750386887313
+@i=80
+@x=0.495691
+@y=0.0799169
+theData xVals hash: 4811730204073247616
+theData yVals hash: 13482471746184470673
+#void SetX(G4int i, G4double e)_2
+@i=-1
+@x=0.163081
+theData xVals hash: 4811730204073247616
+theData yVals hash: 13482471746184470673
+@i=0
+@x=0.782992
+theData xVals hash: 3631531378053762859
+theData yVals hash: 13482471746184470673
+@i=40
+@x=0.436426
+theData xVals hash: 12086290103983185728
+theData yVals hash: 13482471746184470673
+@i=79
+@x=0.584787
+theData xVals hash: 12535907267802224463
+theData yVals hash: 13482471746184470673
+@i=80
+@x=0.0668498
+theData xVals hash: 5855381444526441853
+theData yVals hash: 13482471746184470673
+#void SetEnergy(G4int i, G4double e)_2
+@i=-1
+@x=0.389731
+theData xVals hash: 5855381444526441853
+theData yVals hash: 13482471746184470673
+@i=0
+@x=0.385769
+theData xVals hash: 1583684706139984142
+theData yVals hash: 13482471746184470673
+@i=40
+@x=0.659053
+theData xVals hash: 13719168736349294624
+theData yVals hash: 13482471746184470673
+@i=79
+@x=0.538661
+theData xVals hash: 10049968820114358171
+theData yVals hash: 13482471746184470673
+@i=80
+@x=0.815932
+theData xVals hash: 11609199198589148998
+theData yVals hash: 13482471746184470673
+#void SetY(G4int i, G4double x)_2
+@i=-1
+@x=0.686102
+theData xVals hash: 11609199198589148998
+theData yVals hash: 13482471746184470673
+@i=0
+@x=0.00934752
+theData xVals hash: 11609199198589148998
+theData yVals hash: 2935484460623267634
+@i=40
+@x=0.52096
+theData xVals hash: 11609199198589148998
+theData yVals hash: 13796482481626012946
+@i=79
+@x=0.220685
+theData xVals hash: 11609199198589148998
+theData yVals hash: 13839077392245931847
+@i=80
+@x=0.0706349
+theData xVals hash: 11609199198589148998
+theData yVals hash: 4012728386831777084
+#void SetXsec(G4int i, G4double x)_2
+@i=-1
+@x=0.723764
+theData xVals hash: 11609199198589148998
+theData yVals hash: 4012728386831777084
+@i=0
+@x=0.0506026
+theData xVals hash: 11609199198589148998
+theData yVals hash: 16365865109251119767
+@i=40
+@x=0.457162
+theData xVals hash: 11609199198589148998
+theData yVals hash: 14035156135067035007
+@i=79
+@x=0.44649
+theData xVals hash: 11609199198589148998
+theData yVals hash: 14072386224778802249
+@i=80
+@x=0.285942
+theData xVals hash: 11609199198589148998
+theData yVals hash: 14373671742186920323
+#const G4ParticleHPDataPoint GetPoint(G4int i)_2
+@i=-1
+(0.385769,0.0506026)
+@i=0
+(0.385769,0.0506026)
+@i=40
+(0.659053,0.457162)
+@i=79
+(0.538661,0.44649)
+@i=80
+(0.815932,0.285942)
+#G4double GetEnergy(G4int i)_2
+@i=-1
+0.385769
+@i=0
+0.385769
+@i=40
+0.659053
+@i=79
+0.538661
+@i=80
+0.815932
+#G4double GetX(G4int i)_2
+@i=-1
+0.385769
+@i=0
+0.385769
+@i=40
+0.659053
+@i=79
+0.538661
+@i=80
+0.815932
+#G4double GetXsec(G4int i)_2
+@i=-1
+0.0506026
+@i=0
+0.0506026
+@i=40
+0.457162
+@i=79
+0.44649
+@i=80
+0.285942
+#G4double GetY(G4int i)_2
+@i=-1
+0.0506026
+@i=0
+0.0506026
+@i=40
+0.457162
+@i=79
+0.44649
+@i=80
+0.285942
+#void ThinOut(G4double precision)_2
+@precision=-1
+theData xVals hash: 11609199198589148998
+theData yVals hash: 14373671742186920323
+@precision=0
+theData xVals hash: 17064378814643561459
+theData yVals hash: 4031036242261500596
+@precision=0.00051234
+theData xVals hash: 5127711583530102387
+theData yVals hash: 527054748219264876
+@precision=1.58923
+theData xVals hash: 3530429096441896796
+theData yVals hash: 7937017703879618976
+@precision=513.187
+theData xVals hash: 8629992844204688688
+theData yVals hash: 16123018215151080309
+#G4ParticleHPVector & operator = (const G4ParticleHPVector & right)_2
+hash: 8629992844204688688
+#void Init(std::istream & aDataFile, G4int total, G4double ux=1., G4double uy=1.)_3
+theData xVals hash: 2814258466556012703
+theData yVals hash: 7454723789077549572
+#G4double GetXsec(G4double e)_3
+@e=-1
+368338
+@e=0
+11.2233
+@e=0.00051234
+1.0538
+@e=1.58923
+0.0189098
+@e=513.187
+0.00101927
+#G4double GetXsec(G4double e, G4int min)_3
+@e=-1
+@min=-1
+368338
+@e=-1
+@min=0
+368338
+@e=-1
+@min=754
+0.0153557
+@e=-1
+@min=1508
+0.472068
+@e=-1
+@min=1509
+7.54
+@e=0
+@min=-1
+11.2233
+@e=0
+@min=0
+11.2233
+@e=0
+@min=754
+0.0145421
+@e=0
+@min=1508
+0.472068
+@e=0
+@min=1509
+7.54
+@e=0.00051234
+@min=-1
+1.0538
+@e=0.00051234
+@min=0
+1.0538
+@e=0.00051234
+@min=754
+0.0145416
+@e=0.00051234
+@min=1508
+0.472068
+@e=0.00051234
+@min=1509
+7.54
+@e=1.58923
+@min=-1
+0.0189098
+@e=1.58923
+@min=0
+0.0189098
+@e=1.58923
+@min=754
+0.0132491
+@e=1.58923
+@min=1508
+0.472068
+@e=1.58923
+@min=1509
+7.54
+@e=513.187
+@min=-1
+0.00101927
+@e=513.187
+@min=0
+0.00101927
+@e=513.187
+@min=754
+0.00101927
+@e=513.187
+@min=1508
+0.472076
+@e=513.187
+@min=1509
+7.54
+#G4double SampleLin()_3
+$1.11334e+07
+#G4double Sample()_3
+$1.09819e+07
+#G4double Get15PercentBorder()_3
+4.3125e+06
+#G4double Get50PercentBorder()_3
+1.0898e+07
+#void Integrate()_3
+theIntegral hash: 6887186259448902067
+#void IntegrateAndNormalise()_3
+theIntegral hash: 6887186259448902067
+#void Times(G4double factor)_3
+@factor=-4.67
+theData xVals hash: 2814258466556012703
+theData yVals hash: 17186371222629392991
+theIntegral hash: 6887186259448902067
+@factor=-1.525e-05
+theData xVals hash: 2814258466556012703
+theData yVals hash: 6068121361641766697
+theIntegral hash: 6887186259448902067
+@factor=0.00090982
+theData xVals hash: 2814258466556012703
+theData yVals hash: 9204834730439857601
+theIntegral hash: 6887186259448902067
+@factor=1.54333e+07
+theData xVals hash: 2814258466556012703
+theData yVals hash: 7454723789077549572
+theIntegral hash: 6887186259448902067
+#void Merge(G4ParticleHPVector * active, G4ParticleHPVector * passive)_3
+@active_caseNum=0
+@passive_caseNum=0
+theData xVals hash: 2814258466556012703
+theData yVals hash: 7454723789077549572
+@active_caseNum=0
+@passive_caseNum=1
+theData xVals hash: 2814258466556012703
+theData yVals hash: 7454723789077549572
+@active_caseNum=0
+@passive_caseNum=2
+theData xVals hash: 2814258466556012703
+theData yVals hash: 7454723789077549572
+@active_caseNum=0
+@passive_caseNum=4
+theData xVals hash: 2814258466556012703
+theData yVals hash: 7454723789077549572
+@active_caseNum=0
+@passive_caseNum=5
+theData xVals hash: 2814258466556012703
+theData yVals hash: 7454723789077549572
+@active_caseNum=0
+@passive_caseNum=6
+theData xVals hash: 2814258466556012703
+theData yVals hash: 7454723789077549572
+@active_caseNum=0
+@passive_caseNum=7
+theData xVals hash: 2814258466556012703
+theData yVals hash: 7454723789077549572
+@active_caseNum=1
+@passive_caseNum=0
+theData xVals hash: 2814258466556012703
+theData yVals hash: 7454723789077549572
+@active_caseNum=1
+@passive_caseNum=1
+theData xVals hash: 2814258466556012703
+theData yVals hash: 7454723789077549572
+@active_caseNum=1
+@passive_caseNum=2
+theData xVals hash: 2814258466556012703
+theData yVals hash: 7454723789077549572
+@active_caseNum=1
+@passive_caseNum=4
+theData xVals hash: 2814258466556012703
+theData yVals hash: 7454723789077549572
+@active_caseNum=1
+@passive_caseNum=5
+theData xVals hash: 2814258466556012703
+theData yVals hash: 7454723789077549572
+@active_caseNum=1
+@passive_caseNum=6
+theData xVals hash: 2814258466556012703
+theData yVals hash: 7454723789077549572
+@active_caseNum=1
+@passive_caseNum=7
+theData xVals hash: 2814258466556012703
+theData yVals hash: 7454723789077549572
+@active_caseNum=2
+@passive_caseNum=0
+theData xVals hash: 2814258466556012703
+theData yVals hash: 7454723789077549572
+@active_caseNum=2
+@passive_caseNum=1
+theData xVals hash: 2814258466556012703
+theData yVals hash: 7454723789077549572
+@active_caseNum=2
+@passive_caseNum=2
+theData xVals hash: 2814258466556012703
+theData yVals hash: 7454723789077549572
+@active_caseNum=2
+@passive_caseNum=4
+theData xVals hash: 2814258466556012703
+theData yVals hash: 7454723789077549572
+@active_caseNum=2
+@passive_caseNum=5
+theData xVals hash: 2814258466556012703
+theData yVals hash: 7454723789077549572
+@active_caseNum=2
+@passive_caseNum=6
+theData xVals hash: 2814258466556012703
+theData yVals hash: 7454723789077549572
+@active_caseNum=2
+@passive_caseNum=7
+theData xVals hash: 2814258466556012703
+theData yVals hash: 7454723789077549572
+@active_caseNum=4
+@passive_caseNum=0
+theData xVals hash: 2814258466556012703
+theData yVals hash: 7454723789077549572
+@active_caseNum=4
+@passive_caseNum=1
+theData xVals hash: 2814258466556012703
+theData yVals hash: 7454723789077549572
+@active_caseNum=4
+@passive_caseNum=2
+theData xVals hash: 2814258466556012703
+theData yVals hash: 7454723789077549572
+@active_caseNum=4
+@passive_caseNum=4
+theData xVals hash: 2814258466556012703
+theData yVals hash: 7454723789077549572
+@active_caseNum=4
+@passive_caseNum=5
+theData xVals hash: 2814258466556012703
+theData yVals hash: 7454723789077549572
+@active_caseNum=4
+@passive_caseNum=6
+theData xVals hash: 2814258466556012703
+theData yVals hash: 7454723789077549572
+@active_caseNum=4
+@passive_caseNum=7
+theData xVals hash: 2814258466556012703
+theData yVals hash: 7454723789077549572
+@active_caseNum=5
+@passive_caseNum=0
+theData xVals hash: 2814258466556012703
+theData yVals hash: 7454723789077549572
+@active_caseNum=5
+@passive_caseNum=1
+theData xVals hash: 2814258466556012703
+theData yVals hash: 7454723789077549572
+@active_caseNum=5
+@passive_caseNum=2
+theData xVals hash: 2814258466556012703
+theData yVals hash: 7454723789077549572
+@active_caseNum=5
+@passive_caseNum=4
+theData xVals hash: 2814258466556012703
+theData yVals hash: 7454723789077549572
+@active_caseNum=5
+@passive_caseNum=5
+theData xVals hash: 2814258466556012703
+theData yVals hash: 7454723789077549572
+@active_caseNum=5
+@passive_caseNum=6
+theData xVals hash: 2814258466556012703
+theData yVals hash: 7454723789077549572
+@active_caseNum=5
+@passive_caseNum=7
+theData xVals hash: 2814258466556012703
+theData yVals hash: 7454723789077549572
+@active_caseNum=6
+@passive_caseNum=0
+theData xVals hash: 2814258466556012703
+theData yVals hash: 7454723789077549572
+@active_caseNum=6
+@passive_caseNum=1
+theData xVals hash: 2814258466556012703
+theData yVals hash: 7454723789077549572
+@active_caseNum=6
+@passive_caseNum=2
+theData xVals hash: 2814258466556012703
+theData yVals hash: 7454723789077549572
+@active_caseNum=6
+@passive_caseNum=4
+theData xVals hash: 2814258466556012703
+theData yVals hash: 7454723789077549572
+@active_caseNum=6
+@passive_caseNum=5
+theData xVals hash: 2814258466556012703
+theData yVals hash: 7454723789077549572
+@active_caseNum=6
+@passive_caseNum=6
+theData xVals hash: 2814258466556012703
+theData yVals hash: 7454723789077549572
+@active_caseNum=6
+@passive_caseNum=7
+theData xVals hash: 2814258466556012703
+theData yVals hash: 7454723789077549572
+@active_caseNum=7
+@passive_caseNum=0
+theData xVals hash: 2814258466556012703
+theData yVals hash: 7454723789077549572
+@active_caseNum=7
+@passive_caseNum=1
+theData xVals hash: 2814258466556012703
+theData yVals hash: 7454723789077549572
+@active_caseNum=7
+@passive_caseNum=2
+theData xVals hash: 2814258466556012703
+theData yVals hash: 7454723789077549572
+@active_caseNum=7
+@passive_caseNum=4
+theData xVals hash: 2814258466556012703
+theData yVals hash: 7454723789077549572
+@active_caseNum=7
+@passive_caseNum=5
+theData xVals hash: 2814258466556012703
+theData yVals hash: 7454723789077549572
+@active_caseNum=7
+@passive_caseNum=6
+theData xVals hash: 2814258466556012703
+theData yVals hash: 7454723789077549572
+@active_caseNum=7
+@passive_caseNum=7
+theData xVals hash: 2814258466556012703
+theData yVals hash: 7454723789077549572
+#void Merge(G4InterpolationScheme aScheme, G4double aValue, G4ParticleHPVector * active, G4ParticleHPVector * passive)_3
+@aValue=0
+@active_caseNum=0
+@passive_caseNum=0
+theData xVals hash: 2814258466556012703
+theData yVals hash: 7454723789077549572
+@aValue=0
+@active_caseNum=0
+@passive_caseNum=1
+theData xVals hash: 2814258466556012703
+theData yVals hash: 7454723789077549572
+@aValue=0
+@active_caseNum=0
+@passive_caseNum=2
+theData xVals hash: 2814258466556012703
+theData yVals hash: 7454723789077549572
+@aValue=0
+@active_caseNum=0
+@passive_caseNum=4
+theData xVals hash: 2814258466556012703
+theData yVals hash: 7454723789077549572
+@aValue=0
+@active_caseNum=0
+@passive_caseNum=5
+theData xVals hash: 2814258466556012703
+theData yVals hash: 7454723789077549572
+@aValue=0
+@active_caseNum=0
+@passive_caseNum=6
+theData xVals hash: 2814258466556012703
+theData yVals hash: 7454723789077549572
+@aValue=0
+@active_caseNum=0
+@passive_caseNum=7
+theData xVals hash: 2814258466556012703
+theData yVals hash: 7454723789077549572
+@aValue=0
+@active_caseNum=1
+@passive_caseNum=0
+theData xVals hash: 2814258466556012703
+theData yVals hash: 7454723789077549572
+@aValue=0
+@active_caseNum=1
+@passive_caseNum=1
+theData xVals hash: 2814258466556012703
+theData yVals hash: 7454723789077549572
+@aValue=0
+@active_caseNum=1
+@passive_caseNum=2
+theData xVals hash: 2814258466556012703
+theData yVals hash: 7454723789077549572
+@aValue=0
+@active_caseNum=1
+@passive_caseNum=4
+theData xVals hash: 2814258466556012703
+theData yVals hash: 7454723789077549572
+@aValue=0
+@active_caseNum=1
+@passive_caseNum=5
+theData xVals hash: 2814258466556012703
+theData yVals hash: 7454723789077549572
+@aValue=0
+@active_caseNum=1
+@passive_caseNum=6
+theData xVals hash: 2814258466556012703
+theData yVals hash: 7454723789077549572
+@aValue=0
+@active_caseNum=1
+@passive_caseNum=7
+theData xVals hash: 2814258466556012703
+theData yVals hash: 7454723789077549572
+@aValue=0
+@active_caseNum=2
+@passive_caseNum=0
+theData xVals hash: 2814258466556012703
+theData yVals hash: 7454723789077549572
+@aValue=0
+@active_caseNum=2
+@passive_caseNum=1
+theData xVals hash: 2814258466556012703
+theData yVals hash: 7454723789077549572
+@aValue=0
+@active_caseNum=2
+@passive_caseNum=2
+theData xVals hash: 2814258466556012703
+theData yVals hash: 7454723789077549572
+@aValue=0
+@active_caseNum=2
+@passive_caseNum=4
+theData xVals hash: 2814258466556012703
+theData yVals hash: 7454723789077549572
+@aValue=0
+@active_caseNum=2
+@passive_caseNum=5
+theData xVals hash: 2814258466556012703
+theData yVals hash: 7454723789077549572
+@aValue=0
+@active_caseNum=2
+@passive_caseNum=6
+theData xVals hash: 2814258466556012703
+theData yVals hash: 7454723789077549572
+@aValue=0
+@active_caseNum=2
+@passive_caseNum=7
+theData xVals hash: 2814258466556012703
+theData yVals hash: 7454723789077549572
+@aValue=0
+@active_caseNum=4
+@passive_caseNum=0
+theData xVals hash: 2814258466556012703
+theData yVals hash: 7454723789077549572
+@aValue=0
+@active_caseNum=4
+@passive_caseNum=1
+theData xVals hash: 2814258466556012703
+theData yVals hash: 7454723789077549572
+@aValue=0
+@active_caseNum=4
+@passive_caseNum=2
+theData xVals hash: 2814258466556012703
+theData yVals hash: 7454723789077549572
+@aValue=0
+@active_caseNum=4
+@passive_caseNum=4
+theData xVals hash: 2814258466556012703
+theData yVals hash: 7454723789077549572
+@aValue=0
+@active_caseNum=4
+@passive_caseNum=5
+theData xVals hash: 2814258466556012703
+theData yVals hash: 7454723789077549572
+@aValue=0
+@active_caseNum=4
+@passive_caseNum=6
+theData xVals hash: 2814258466556012703
+theData yVals hash: 7454723789077549572
+@aValue=0
+@active_caseNum=4
+@passive_caseNum=7
+theData xVals hash: 2814258466556012703
+theData yVals hash: 7454723789077549572
+@aValue=0
+@active_caseNum=5
+@passive_caseNum=0
+theData xVals hash: 2814258466556012703
+theData yVals hash: 7454723789077549572
+@aValue=0
+@active_caseNum=5
+@passive_caseNum=1
+theData xVals hash: 2814258466556012703
+theData yVals hash: 7454723789077549572
+@aValue=0
+@active_caseNum=5
+@passive_caseNum=2
+theData xVals hash: 2814258466556012703
+theData yVals hash: 7454723789077549572
+@aValue=0
+@active_caseNum=5
+@passive_caseNum=4
+theData xVals hash: 2814258466556012703
+theData yVals hash: 7454723789077549572
+@aValue=0
+@active_caseNum=5
+@passive_caseNum=5
+theData xVals hash: 2814258466556012703
+theData yVals hash: 7454723789077549572
+@aValue=0
+@active_caseNum=5
+@passive_caseNum=6
+theData xVals hash: 2814258466556012703
+theData yVals hash: 7454723789077549572
+@aValue=0
+@active_caseNum=5
+@passive_caseNum=7
+theData xVals hash: 2814258466556012703
+theData yVals hash: 7454723789077549572
+@aValue=0
+@active_caseNum=6
+@passive_caseNum=0
+theData xVals hash: 2814258466556012703
+theData yVals hash: 7454723789077549572
+@aValue=0
+@active_caseNum=6
+@passive_caseNum=1
+theData xVals hash: 2814258466556012703
+theData yVals hash: 7454723789077549572
+@aValue=0
+@active_caseNum=6
+@passive_caseNum=2
+theData xVals hash: 2814258466556012703
+theData yVals hash: 7454723789077549572
+@aValue=0
+@active_caseNum=6
+@passive_caseNum=4
+theData xVals hash: 2814258466556012703
+theData yVals hash: 7454723789077549572
+@aValue=0
+@active_caseNum=6
+@passive_caseNum=5
+theData xVals hash: 2814258466556012703
+theData yVals hash: 7454723789077549572
+@aValue=0
+@active_caseNum=6
+@passive_caseNum=6
+theData xVals hash: 2814258466556012703
+theData yVals hash: 7454723789077549572
+@aValue=0
+@active_caseNum=6
+@passive_caseNum=7
+theData xVals hash: 2814258466556012703
+theData yVals hash: 7454723789077549572
+@aValue=0
+@active_caseNum=7
+@passive_caseNum=0
+theData xVals hash: 2814258466556012703
+theData yVals hash: 7454723789077549572
+@aValue=0
+@active_caseNum=7
+@passive_caseNum=1
+theData xVals hash: 2814258466556012703
+theData yVals hash: 7454723789077549572
+@aValue=0
+@active_caseNum=7
+@passive_caseNum=2
+theData xVals hash: 2814258466556012703
+theData yVals hash: 7454723789077549572
+@aValue=0
+@active_caseNum=7
+@passive_caseNum=4
+theData xVals hash: 2814258466556012703
+theData yVals hash: 7454723789077549572
+@aValue=0
+@active_caseNum=7
+@passive_caseNum=5
+theData xVals hash: 2814258466556012703
+theData yVals hash: 7454723789077549572
+@aValue=0
+@active_caseNum=7
+@passive_caseNum=6
+theData xVals hash: 2814258466556012703
+theData yVals hash: 7454723789077549572
+@aValue=0
+@active_caseNum=7
+@passive_caseNum=7
+theData xVals hash: 2814258466556012703
+theData yVals hash: 7454723789077549572
+#void SetPoint(G4int i, const G4ParticleHPDataPoint & it)_3
+@i=-1
+@x=0.329056
+@y=0.44593
+theData xVals hash: 2814258466556012703
+theData yVals hash: 7454723789077549572
+@i=0
+@x=0.743274
+@y=0.205341
+theData xVals hash: 14427217726186185810
+theData yVals hash: 17414189951861971713
+@i=754
+@x=0.171379
+@y=0.37252
+theData xVals hash: 2491269942165496520
+theData yVals hash: 8486715413304293585
+@i=1508
+@x=0.939725
+@y=0.964851
+theData xVals hash: 11567167838261052287
+theData yVals hash: 6579275387623705597
+@i=1509
+@x=0.254957
+@y=0.0703352
+theData xVals hash: 14221085241300737032
+theData yVals hash: 15618842908027164286
+#void SetData(G4int i, G4double x, G4double y)_3
+@i=-1
+@x=0.123849
+@y=0.526338
+theData xVals hash: 14221085241300737032
+theData yVals hash: 15618842908027164286
+@i=0
+@x=0.160083
+@y=0.517707
+theData xVals hash: 6734082379445648810
+theData yVals hash: 16619011157146005840
+@i=754
+@x=0.105185
+@y=0.841576
+theData xVals hash: 13445982815256995090
+theData yVals hash: 11891517223145881816
+@i=1508
+@x=0.368562
+@y=0.42389
+theData xVals hash: 2414276786292763170
+theData yVals hash: 7635752830631393497
+@i=1509
+@x=0.327228
+@y=0.713547
+theData xVals hash: 5816179643743771819
+theData yVals hash: 17444186788994735847
+#void SetX(G4int i, G4double e)_3
+@i=-1
+@x=0.576776
+theData xVals hash: 5816179643743771819
+theData yVals hash: 17444186788994735847
+@i=0
+@x=0.758246
+theData xVals hash: 8359966721697302215
+theData yVals hash: 17444186788994735847
+@i=754
+@x=0.699791
+theData xVals hash: 12446306961504263527
+theData yVals hash: 17444186788994735847
+@i=1508
+@x=0.935242
+theData xVals hash: 12590448387166388543
+theData yVals hash: 17444186788994735847
+@i=1509
+@x=0.362084
+theData xVals hash: 17058488083664213417
+theData yVals hash: 17444186788994735847
+#void SetEnergy(G4int i, G4double e)_3
+@i=-1
+@x=0.455072
+theData xVals hash: 17058488083664213417
+theData yVals hash: 17444186788994735847
+@i=0
+@x=0.24044
+theData xVals hash: 2264402066721336454
+theData yVals hash: 17444186788994735847
+@i=754
+@x=0.421579
+theData xVals hash: 9622565660009423636
+theData yVals hash: 17444186788994735847
+@i=1508
+@x=0.289766
+theData xVals hash: 11246782228671600357
+theData yVals hash: 17444186788994735847
+@i=1509
+@x=0.216386
+theData xVals hash: 9398614403025818895
+theData yVals hash: 17444186788994735847
+#void SetY(G4int i, G4double x)_3
+@i=-1
+@x=0.527439
+theData xVals hash: 9398614403025818895
+theData yVals hash: 17444186788994735847
+@i=0
+@x=0.863643
+theData xVals hash: 9398614403025818895
+theData yVals hash: 16759705781438326237
+@i=754
+@x=0.711564
+theData xVals hash: 9398614403025818895
+theData yVals hash: 11917125181424843677
+@i=1508
+@x=0.382822
+theData xVals hash: 9398614403025818895
+theData yVals hash: 11569028165304023
+@i=1509
+@x=0.459763
+theData xVals hash: 9398614403025818895
+theData yVals hash: 14879555687288523861
+#void SetXsec(G4int i, G4double x)_3
+@i=-1
+@x=0.795353
+theData xVals hash: 9398614403025818895
+theData yVals hash: 14879555687288523861
+@i=0
+@x=0.00322878
+theData xVals hash: 9398614403025818895
+theData yVals hash: 15237007719185005179
+@i=754
+@x=0.664689
+theData xVals hash: 9398614403025818895
+theData yVals hash: 4753257548299885363
+@i=1508
+@x=0.186825
+theData xVals hash: 9398614403025818895
+theData yVals hash: 14130871276285481435
+@i=1509
+@x=0.134039
+theData xVals hash: 9398614403025818895
+theData yVals hash: 13589129365995327927
+#const G4ParticleHPDataPoint GetPoint(G4int i)_3
+@i=-1
+(0.24044,0.00322878)
+@i=0
+(0.24044,0.00322878)
+@i=754
+(0.421579,0.664689)
+@i=1508
+(0.289766,0.186825)
+@i=1509
+(0.216386,0.134039)
+#G4double GetEnergy(G4int i)_3
+@i=-1
+0.24044
+@i=0
+0.24044
+@i=754
+0.421579
+@i=1508
+0.289766
+@i=1509
+0.216386
+#G4double GetX(G4int i)_3
+@i=-1
+0.24044
+@i=0
+0.24044
+@i=754
+0.421579
+@i=1508
+0.289766
+@i=1509
+0.216386
+#G4double GetXsec(G4int i)_3
+@i=-1
+0.00322878
+@i=0
+0.00322878
+@i=754
+0.664689
+@i=1508
+0.186825
+@i=1509
+0.134039
+#G4double GetY(G4int i)_3
+@i=-1
+0.00322878
+@i=0
+0.00322878
+@i=754
+0.664689
+@i=1508
+0.186825
+@i=1509
+0.134039
+#void ThinOut(G4double precision)_3
+@precision=-1
+theData xVals hash: 9398614403025818895
+theData yVals hash: 13589129365995327927
+@precision=0
+theData xVals hash: 11809180429920952297
+theData yVals hash: 8911881919816623016
+@precision=0.00051234
+theData xVals hash: 6008121339809801910
+theData yVals hash: 5461341140109829514
+@precision=1.58923
+theData xVals hash: 14408717527595396939
+theData yVals hash: 3007860182362356118
+@precision=513.187
+theData xVals hash: 5590264141243137605
+theData yVals hash: 6839373031261673069
+#G4ParticleHPVector & operator = (const G4ParticleHPVector & right)_3
+hash: 5590264141243137605
+#void Init(std::istream & aDataFile, G4int total, G4double ux=1., G4double uy=1.)_4
+theData xVals hash: 380856461566793921
+theData yVals hash: 17341898202202105047
+#G4double GetXsec(G4double e)_4
+@e=-1
+1.99238e+08
+@e=0
+6069.89
+@e=0.00051234
+569.027
+@e=1.58923
+4.20396
+@e=513.187
+5.22455
+#G4double GetXsec(G4double e, G4int min)_4
+@e=-1
+@min=-1
+1.99238e+08
+@e=-1
+@min=0
+1.99238e+08
+@e=-1
+@min=4022
+-243259
+@e=-1
+@min=8044
+2.07047
+@e=-1
+@min=8045
+4077.57
+@e=0
+@min=-1
+6069.89
+@e=0
+@min=0
+6069.89
+@e=0
+@min=4022
+-241009
+@e=0
+@min=8044
+2.07047
+@e=0
+@min=8045
+4077.57
+@e=0.00051234
+@min=-1
+569.027
+@e=0.00051234
+@min=0
+569.027
+@e=0.00051234
+@min=4022
+-241008
+@e=0.00051234
+@min=8044
+2.07047
+@e=0.00051234
+@min=8045
+4077.57
+@e=1.58923
+@min=-1
+4.20396
+@e=1.58923
+@min=0
+4.20396
+@e=1.58923
+@min=4022
+-237434
+@e=1.58923
+@min=8044
+2.07047
+@e=1.58923
+@min=8045
+4077.57
+@e=513.187
+@min=-1
+5.22455
+@e=513.187
+@min=0
+5.22455
+@e=513.187
+@min=4022
+5.22455
+@e=513.187
+@min=8044
+2.07049
+@e=513.187
+@min=8045
+4077.57
+#G4double SampleLin()_4
+$1.05982e+07
+#G4double Sample()_4
+$1.06937e+07
+#G4double Get15PercentBorder()_4
+3.625e+06
+#G4double Get50PercentBorder()_4
+1.06199e+07
+#void Integrate()_4
+theIntegral hash: 15126371128399175743
+#void IntegrateAndNormalise()_4
+theIntegral hash: 15126371128399175743
+#void Times(G4double factor)_4
+@factor=-4.67
+theData xVals hash: 380856461566793921
+theData yVals hash: 12246166195605673861
+theIntegral hash: 15126371128399175743
+@factor=-1.525e-05
+theData xVals hash: 380856461566793921
+theData yVals hash: 11222029110224929811
+theIntegral hash: 15126371128399175743
+@factor=0.00090982
+theData xVals hash: 380856461566793921
+theData yVals hash: 4388513184003637633
+theIntegral hash: 15126371128399175743
+@factor=1.54333e+07
+theData xVals hash: 380856461566793921
+theData yVals hash: 17341898202202105047
+theIntegral hash: 15126371128399175743
+#void Merge(G4ParticleHPVector * active, G4ParticleHPVector * passive)_4
+@active_caseNum=0
+@passive_caseNum=0
+theData xVals hash: 380856461566793921
+theData yVals hash: 17341898202202105047
+@active_caseNum=0
+@passive_caseNum=1
+theData xVals hash: 380856461566793921
+theData yVals hash: 17341898202202105047
+@active_caseNum=0
+@passive_caseNum=2
+theData xVals hash: 380856461566793921
+theData yVals hash: 17341898202202105047
+@active_caseNum=0
+@passive_caseNum=3
+theData xVals hash: 380856461566793921
+theData yVals hash: 17341898202202105047
+@active_caseNum=0
+@passive_caseNum=5
+theData xVals hash: 380856461566793921
+theData yVals hash: 17341898202202105047
+@active_caseNum=0
+@passive_caseNum=6
+theData xVals hash: 380856461566793921
+theData yVals hash: 17341898202202105047
+@active_caseNum=0
+@passive_caseNum=7
+theData xVals hash: 380856461566793921
+theData yVals hash: 17341898202202105047
+@active_caseNum=1
+@passive_caseNum=0
+theData xVals hash: 380856461566793921
+theData yVals hash: 17341898202202105047
+@active_caseNum=1
+@passive_caseNum=1
+theData xVals hash: 380856461566793921
+theData yVals hash: 17341898202202105047
+@active_caseNum=1
+@passive_caseNum=2
+theData xVals hash: 380856461566793921
+theData yVals hash: 17341898202202105047
+@active_caseNum=1
+@passive_caseNum=3
+theData xVals hash: 380856461566793921
+theData yVals hash: 17341898202202105047
+@active_caseNum=1
+@passive_caseNum=5
+theData xVals hash: 380856461566793921
+theData yVals hash: 17341898202202105047
+@active_caseNum=1
+@passive_caseNum=6
+theData xVals hash: 380856461566793921
+theData yVals hash: 17341898202202105047
+@active_caseNum=1
+@passive_caseNum=7
+theData xVals hash: 380856461566793921
+theData yVals hash: 17341898202202105047
+@active_caseNum=2
+@passive_caseNum=0
+theData xVals hash: 380856461566793921
+theData yVals hash: 17341898202202105047
+@active_caseNum=2
+@passive_caseNum=1
+theData xVals hash: 380856461566793921
+theData yVals hash: 17341898202202105047
+@active_caseNum=2
+@passive_caseNum=2
+theData xVals hash: 380856461566793921
+theData yVals hash: 17341898202202105047
+@active_caseNum=2
+@passive_caseNum=3
+theData xVals hash: 380856461566793921
+theData yVals hash: 17341898202202105047
+@active_caseNum=2
+@passive_caseNum=5
+theData xVals hash: 380856461566793921
+theData yVals hash: 17341898202202105047
+@active_caseNum=2
+@passive_caseNum=6
+theData xVals hash: 380856461566793921
+theData yVals hash: 17341898202202105047
+@active_caseNum=2
+@passive_caseNum=7
+theData xVals hash: 380856461566793921
+theData yVals hash: 17341898202202105047
+@active_caseNum=3
+@passive_caseNum=0
+theData xVals hash: 380856461566793921
+theData yVals hash: 17341898202202105047
+@active_caseNum=3
+@passive_caseNum=1
+theData xVals hash: 380856461566793921
+theData yVals hash: 17341898202202105047
+@active_caseNum=3
+@passive_caseNum=2
+theData xVals hash: 380856461566793921
+theData yVals hash: 17341898202202105047
+@active_caseNum=3
+@passive_caseNum=3
+theData xVals hash: 380856461566793921
+theData yVals hash: 17341898202202105047
+@active_caseNum=3
+@passive_caseNum=5
+theData xVals hash: 380856461566793921
+theData yVals hash: 17341898202202105047
+@active_caseNum=3
+@passive_caseNum=6
+theData xVals hash: 380856461566793921
+theData yVals hash: 17341898202202105047
+@active_caseNum=3
+@passive_caseNum=7
+theData xVals hash: 380856461566793921
+theData yVals hash: 17341898202202105047
+@active_caseNum=5
+@passive_caseNum=0
+theData xVals hash: 380856461566793921
+theData yVals hash: 17341898202202105047
+@active_caseNum=5
+@passive_caseNum=1
+theData xVals hash: 380856461566793921
+theData yVals hash: 17341898202202105047
+@active_caseNum=5
+@passive_caseNum=2
+theData xVals hash: 380856461566793921
+theData yVals hash: 17341898202202105047
+@active_caseNum=5
+@passive_caseNum=3
+theData xVals hash: 380856461566793921
+theData yVals hash: 17341898202202105047
+@active_caseNum=5
+@passive_caseNum=5
+theData xVals hash: 380856461566793921
+theData yVals hash: 17341898202202105047
+@active_caseNum=5
+@passive_caseNum=6
+theData xVals hash: 380856461566793921
+theData yVals hash: 17341898202202105047
+@active_caseNum=5
+@passive_caseNum=7
+theData xVals hash: 380856461566793921
+theData yVals hash: 17341898202202105047
+@active_caseNum=6
+@passive_caseNum=0
+theData xVals hash: 380856461566793921
+theData yVals hash: 17341898202202105047
+@active_caseNum=6
+@passive_caseNum=1
+theData xVals hash: 380856461566793921
+theData yVals hash: 17341898202202105047
+@active_caseNum=6
+@passive_caseNum=2
+theData xVals hash: 380856461566793921
+theData yVals hash: 17341898202202105047
+@active_caseNum=6
+@passive_caseNum=3
+theData xVals hash: 380856461566793921
+theData yVals hash: 17341898202202105047
+@active_caseNum=6
+@passive_caseNum=5
+theData xVals hash: 380856461566793921
+theData yVals hash: 17341898202202105047
+@active_caseNum=6
+@passive_caseNum=6
+theData xVals hash: 380856461566793921
+theData yVals hash: 17341898202202105047
+@active_caseNum=6
+@passive_caseNum=7
+theData xVals hash: 380856461566793921
+theData yVals hash: 17341898202202105047
+@active_caseNum=7
+@passive_caseNum=0
+theData xVals hash: 380856461566793921
+theData yVals hash: 17341898202202105047
+@active_caseNum=7
+@passive_caseNum=1
+theData xVals hash: 380856461566793921
+theData yVals hash: 17341898202202105047
+@active_caseNum=7
+@passive_caseNum=2
+theData xVals hash: 380856461566793921
+theData yVals hash: 17341898202202105047
+@active_caseNum=7
+@passive_caseNum=3
+theData xVals hash: 380856461566793921
+theData yVals hash: 17341898202202105047
+@active_caseNum=7
+@passive_caseNum=5
+theData xVals hash: 380856461566793921
+theData yVals hash: 17341898202202105047
+@active_caseNum=7
+@passive_caseNum=6
+theData xVals hash: 380856461566793921
+theData yVals hash: 17341898202202105047
+@active_caseNum=7
+@passive_caseNum=7
+theData xVals hash: 380856461566793921
+theData yVals hash: 17341898202202105047
+#void Merge(G4InterpolationScheme aScheme, G4double aValue, G4ParticleHPVector * active, G4ParticleHPVector * passive)_4
+@aValue=0
+@active_caseNum=0
+@passive_caseNum=0
+theData xVals hash: 380856461566793921
+theData yVals hash: 17341898202202105047
+@aValue=0
+@active_caseNum=0
+@passive_caseNum=1
+theData xVals hash: 380856461566793921
+theData yVals hash: 17341898202202105047
+@aValue=0
+@active_caseNum=0
+@passive_caseNum=2
+theData xVals hash: 380856461566793921
+theData yVals hash: 17341898202202105047
+@aValue=0
+@active_caseNum=0
+@passive_caseNum=3
+theData xVals hash: 380856461566793921
+theData yVals hash: 17341898202202105047
+@aValue=0
+@active_caseNum=0
+@passive_caseNum=5
+theData xVals hash: 380856461566793921
+theData yVals hash: 17341898202202105047
+@aValue=0
+@active_caseNum=0
+@passive_caseNum=6
+theData xVals hash: 380856461566793921
+theData yVals hash: 17341898202202105047
+@aValue=0
+@active_caseNum=0
+@passive_caseNum=7
+theData xVals hash: 380856461566793921
+theData yVals hash: 17341898202202105047
+@aValue=0
+@active_caseNum=1
+@passive_caseNum=0
+theData xVals hash: 380856461566793921
+theData yVals hash: 17341898202202105047
+@aValue=0
+@active_caseNum=1
+@passive_caseNum=1
+theData xVals hash: 380856461566793921
+theData yVals hash: 17341898202202105047
+@aValue=0
+@active_caseNum=1
+@passive_caseNum=2
+theData xVals hash: 380856461566793921
+theData yVals hash: 17341898202202105047
+@aValue=0
+@active_caseNum=1
+@passive_caseNum=3
+theData xVals hash: 380856461566793921
+theData yVals hash: 17341898202202105047
+@aValue=0
+@active_caseNum=1
+@passive_caseNum=5
+theData xVals hash: 380856461566793921
+theData yVals hash: 17341898202202105047
+@aValue=0
+@active_caseNum=1
+@passive_caseNum=6
+theData xVals hash: 380856461566793921
+theData yVals hash: 17341898202202105047
+@aValue=0
+@active_caseNum=1
+@passive_caseNum=7
+theData xVals hash: 380856461566793921
+theData yVals hash: 17341898202202105047
+@aValue=0
+@active_caseNum=2
+@passive_caseNum=0
+theData xVals hash: 380856461566793921
+theData yVals hash: 17341898202202105047
+@aValue=0
+@active_caseNum=2
+@passive_caseNum=1
+theData xVals hash: 380856461566793921
+theData yVals hash: 17341898202202105047
+@aValue=0
+@active_caseNum=2
+@passive_caseNum=2
+theData xVals hash: 380856461566793921
+theData yVals hash: 17341898202202105047
+@aValue=0
+@active_caseNum=2
+@passive_caseNum=3
+theData xVals hash: 380856461566793921
+theData yVals hash: 17341898202202105047
+@aValue=0
+@active_caseNum=2
+@passive_caseNum=5
+theData xVals hash: 380856461566793921
+theData yVals hash: 17341898202202105047
+@aValue=0
+@active_caseNum=2
+@passive_caseNum=6
+theData xVals hash: 380856461566793921
+theData yVals hash: 17341898202202105047
+@aValue=0
+@active_caseNum=2
+@passive_caseNum=7
+theData xVals hash: 380856461566793921
+theData yVals hash: 17341898202202105047
+@aValue=0
+@active_caseNum=3
+@passive_caseNum=0
+theData xVals hash: 380856461566793921
+theData yVals hash: 17341898202202105047
+@aValue=0
+@active_caseNum=3
+@passive_caseNum=1
+theData xVals hash: 380856461566793921
+theData yVals hash: 17341898202202105047
+@aValue=0
+@active_caseNum=3
+@passive_caseNum=2
+theData xVals hash: 380856461566793921
+theData yVals hash: 17341898202202105047
+@aValue=0
+@active_caseNum=3
+@passive_caseNum=3
+theData xVals hash: 380856461566793921
+theData yVals hash: 17341898202202105047
+@aValue=0
+@active_caseNum=3
+@passive_caseNum=5
+theData xVals hash: 380856461566793921
+theData yVals hash: 17341898202202105047
+@aValue=0
+@active_caseNum=3
+@passive_caseNum=6
+theData xVals hash: 380856461566793921
+theData yVals hash: 17341898202202105047
+@aValue=0
+@active_caseNum=3
+@passive_caseNum=7
+theData xVals hash: 380856461566793921
+theData yVals hash: 17341898202202105047
+@aValue=0
+@active_caseNum=5
+@passive_caseNum=0
+theData xVals hash: 380856461566793921
+theData yVals hash: 17341898202202105047
+@aValue=0
+@active_caseNum=5
+@passive_caseNum=1
+theData xVals hash: 380856461566793921
+theData yVals hash: 17341898202202105047
+@aValue=0
+@active_caseNum=5
+@passive_caseNum=2
+theData xVals hash: 380856461566793921
+theData yVals hash: 17341898202202105047
+@aValue=0
+@active_caseNum=5
+@passive_caseNum=3
+theData xVals hash: 380856461566793921
+theData yVals hash: 17341898202202105047
+@aValue=0
+@active_caseNum=5
+@passive_caseNum=5
+theData xVals hash: 380856461566793921
+theData yVals hash: 17341898202202105047
+@aValue=0
+@active_caseNum=5
+@passive_caseNum=6
+theData xVals hash: 380856461566793921
+theData yVals hash: 17341898202202105047
+@aValue=0
+@active_caseNum=5
+@passive_caseNum=7
+theData xVals hash: 380856461566793921
+theData yVals hash: 17341898202202105047
+@aValue=0
+@active_caseNum=6
+@passive_caseNum=0
+theData xVals hash: 380856461566793921
+theData yVals hash: 17341898202202105047
+@aValue=0
+@active_caseNum=6
+@passive_caseNum=1
+theData xVals hash: 380856461566793921
+theData yVals hash: 17341898202202105047
+@aValue=0
+@active_caseNum=6
+@passive_caseNum=2
+theData xVals hash: 380856461566793921
+theData yVals hash: 17341898202202105047
+@aValue=0
+@active_caseNum=6
+@passive_caseNum=3
+theData xVals hash: 380856461566793921
+theData yVals hash: 17341898202202105047
+@aValue=0
+@active_caseNum=6
+@passive_caseNum=5
+theData xVals hash: 380856461566793921
+theData yVals hash: 17341898202202105047
+@aValue=0
+@active_caseNum=6
+@passive_caseNum=6
+theData xVals hash: 380856461566793921
+theData yVals hash: 17341898202202105047
+@aValue=0
+@active_caseNum=6
+@passive_caseNum=7
+theData xVals hash: 380856461566793921
+theData yVals hash: 17341898202202105047
+@aValue=0
+@active_caseNum=7
+@passive_caseNum=0
+theData xVals hash: 380856461566793921
+theData yVals hash: 17341898202202105047
+@aValue=0
+@active_caseNum=7
+@passive_caseNum=1
+theData xVals hash: 380856461566793921
+theData yVals hash: 17341898202202105047
+@aValue=0
+@active_caseNum=7
+@passive_caseNum=2
+theData xVals hash: 380856461566793921
+theData yVals hash: 17341898202202105047
+@aValue=0
+@active_caseNum=7
+@passive_caseNum=3
+theData xVals hash: 380856461566793921
+theData yVals hash: 17341898202202105047
+@aValue=0
+@active_caseNum=7
+@passive_caseNum=5
+theData xVals hash: 380856461566793921
+theData yVals hash: 17341898202202105047
+@aValue=0
+@active_caseNum=7
+@passive_caseNum=6
+theData xVals hash: 380856461566793921
+theData yVals hash: 17341898202202105047
+@aValue=0
+@active_caseNum=7
+@passive_caseNum=7
+theData xVals hash: 380856461566793921
+theData yVals hash: 17341898202202105047
+#void SetPoint(G4int i, const G4ParticleHPDataPoint & it)_4
+@i=-1
+@x=0.919236
+@y=0.601638
+theData xVals hash: 380856461566793921
+theData yVals hash: 17341898202202105047
+@i=0
+@x=0.723836
+@y=0.519337
+theData xVals hash: 8776912492622376546
+theData yVals hash: 594494648521314143
+@i=4022
+@x=0.490817
+@y=0.161419
+theData xVals hash: 10495111956666003404
+theData yVals hash: 11937643190790311350
+@i=8044
+@x=0.976116
+@y=0.57436
+theData xVals hash: 3498972730102219869
+theData yVals hash: 6410822760680669677
+@i=8045
+@x=0.273251
+@y=0.531427
+theData xVals hash: 6722085010723423700
+theData yVals hash: 6713689930634233927
+#void SetData(G4int i, G4double x, G4double y)_4
+@i=-1
+@x=0.698558
+@y=0.667049
+theData xVals hash: 6722085010723423700
+theData yVals hash: 6713689930634233927
+@i=0
+@x=0.0974325
+@y=0.548736
+theData xVals hash: 16711000001783565217
+theData yVals hash: 7846716500569575035
+@i=4022
+@x=0.610738
+@y=0.667965
+theData xVals hash: 4824224337025997005
+theData yVals hash: 14189741233305340799
+@i=8044
+@x=0.495125
+@y=0.571583
+theData xVals hash: 528761573814657544
+theData yVals hash: 1279731207551436302
+@i=8045
+@x=0.588888
+@y=0.441313
+theData xVals hash: 4122257671949858612
+theData yVals hash: 5512675802685262341
+#void SetX(G4int i, G4double e)_4
+@i=-1
+@x=0.151217
+theData xVals hash: 4122257671949858612
+theData yVals hash: 5512675802685262341
+@i=0
+@x=0.731364
+theData xVals hash: 5927939002692085359
+theData yVals hash: 5512675802685262341
+@i=4022
+@x=0.0516167
+theData xVals hash: 6310323423823794331
+theData yVals hash: 5512675802685262341
+@i=8044
+@x=0.320642
+theData xVals hash: 17566572138712006988
+theData yVals hash: 5512675802685262341
+@i=8045
+@x=0.245142
+theData xVals hash: 1523650393119285466
+theData yVals hash: 5512675802685262341
+#void SetEnergy(G4int i, G4double e)_4
+@i=-1
+@x=0.382969
+theData xVals hash: 1523650393119285466
+theData yVals hash: 5512675802685262341
+@i=0
+@x=0.597169
+theData xVals hash: 18339512742290818567
+theData yVals hash: 5512675802685262341
+@i=4022
+@x=0.935252
+theData xVals hash: 6014894338576726498
+theData yVals hash: 5512675802685262341
+@i=8044
+@x=0.513148
+theData xVals hash: 4961638897440389644
+theData yVals hash: 5512675802685262341
+@i=8045
+@x=0.650128
+theData xVals hash: 16651447922610998101
+theData yVals hash: 5512675802685262341
+#void SetY(G4int i, G4double x)_4
+@i=-1
+@x=0.407538
+theData xVals hash: 16651447922610998101
+theData yVals hash: 5512675802685262341
+@i=0
+@x=0.479783
+theData xVals hash: 16651447922610998101
+theData yVals hash: 16465135563630095196
+@i=4022
+@x=0.534199
+theData xVals hash: 16651447922610998101
+theData yVals hash: 11365313651136126692
+@i=8044
+@x=0.605538
+theData xVals hash: 16651447922610998101
+theData yVals hash: 184841130087070099
+@i=8045
+@x=0.703369
+theData xVals hash: 16651447922610998101
+theData yVals hash: 1614459161105063590
+#void SetXsec(G4int i, G4double x)_4
+@i=-1
+@x=0.938254
+theData xVals hash: 16651447922610998101
+theData yVals hash: 1614459161105063590
+@i=0
+@x=0.413494
+theData xVals hash: 16651447922610998101
+theData yVals hash: 769033552997890197
+@i=4022
+@x=0.783002
+theData xVals hash: 16651447922610998101
+theData yVals hash: 9140357983399159037
+@i=8044
+@x=0.681491
+theData xVals hash: 16651447922610998101
+theData yVals hash: 17159229741180241596
+@i=8045
+@x=0.527413
+theData xVals hash: 16651447922610998101
+theData yVals hash: 14077757848837254994
+#const G4ParticleHPDataPoint GetPoint(G4int i)_4
+@i=-1
+(0.597169,0.413494)
+@i=0
+(0.597169,0.413494)
+@i=4022
+(0.935252,0.783002)
+@i=8044
+(0.513148,0.681491)
+@i=8045
+(0.650128,0.527413)
+#G4double GetEnergy(G4int i)_4
+@i=-1
+0.597169
+@i=0
+0.597169
+@i=4022
+0.935252
+@i=8044
+0.513148
+@i=8045
+0.650128
+#G4double GetX(G4int i)_4
+@i=-1
+0.597169
+@i=0
+0.597169
+@i=4022
+0.935252
+@i=8044
+0.513148
+@i=8045
+0.650128
+#G4double GetXsec(G4int i)_4
+@i=-1
+0.413494
+@i=0
+0.413494
+@i=4022
+0.783002
+@i=8044
+0.681491
+@i=8045
+0.527413
+#G4double GetY(G4int i)_4
+@i=-1
+0.413494
+@i=0
+0.413494
+@i=4022
+0.783002
+@i=8044
+0.681491
+@i=8045
+0.527413
+#void ThinOut(G4double precision)_4
+@precision=-1
+theData xVals hash: 16651447922610998101
+theData yVals hash: 14077757848837254994
+@precision=0
+theData xVals hash: 16651447922610998101
+theData yVals hash: 14077757848837254994
+@precision=0.00051234
+theData xVals hash: 7311175005907480657
+theData yVals hash: 10358833075416573040
+@precision=1.58923
+theData xVals hash: 6509801247887869042
+theData yVals hash: 8493279427472139340
+@precision=513.187
+theData xVals hash: 11339131273521603836
+theData yVals hash: 8555989708377447630
+#G4ParticleHPVector & operator = (const G4ParticleHPVector & right)_4
+hash: 11339131273521603836
+#void Init(std::istream & aDataFile, G4int total, G4double ux=1., G4double uy=1.)_5
+theData xVals hash: 54681960905177130
+theData yVals hash: 1230654354166793649
+#G4double GetXsec(G4double e)_5
+@e=-1
+114874
+@e=0
+3.49982
+@e=0.00051234
+0.328538
+@e=1.58923
+0.0106582
+@e=513.187
+0.000325115
+#G4double GetXsec(G4double e, G4int min)_5
+@e=-1
+@min=-1
+114874
+@e=-1
+@min=0
+114874
+@e=-1
+@min=20927
+-1408.66
+@e=-1
+@min=41853
+2.27024
+@e=-1
+@min=41854
+2.35112
+@e=0
+@min=-1
+3.49982
+@e=0
+@min=0
+3.49982
+@e=0
+@min=20927
+-1406.66
+@e=0
+@min=41853
+2.27024
+@e=0
+@min=41854
+2.35112
+@e=0.00051234
+@min=-1
+0.328538
+@e=0.00051234
+@min=0
+0.328538
+@e=0.00051234
+@min=20927
+-1406.66
+@e=0.00051234
+@min=41853
+2.27024
+@e=0.00051234
+@min=41854
+2.35112
+@e=1.58923
+@min=-1
+0.0106582
+@e=1.58923
+@min=0
+0.0106582
+@e=1.58923
+@min=20927
+-1403.5
+@e=1.58923
+@min=41853
+2.27024
+@e=1.58923
+@min=41854
+2.35112
+@e=513.187
+@min=-1
+0.000325115
+@e=513.187
+@min=0
+0.000325115
+@e=513.187
+@min=20927
+-383.712
+@e=513.187
+@min=41853
+2.27023
+@e=513.187
+@min=41854
+2.35112
+#G4double SampleLin()_5
+$1.73654e+07
+#G4double Sample()_5
+$1.75966e+07
+#G4double Get15PercentBorder()_5
+8.2e+06
+#G4double Get50PercentBorder()_5
+1.79658e+07
+#void Integrate()_5
+theIntegral hash: 2938941608009595531
+#void IntegrateAndNormalise()_5
+theIntegral hash: 2938941608009595531
+#void Times(G4double factor)_5
+@factor=-4.67
+theData xVals hash: 54681960905177130
+theData yVals hash: 15325741174545806607
+theIntegral hash: 2938941608009595531
+@factor=-1.525e-05
+theData xVals hash: 54681960905177130
+theData yVals hash: 2639458418711613107
+theIntegral hash: 2938941608009595531
+@factor=0.00090982
+theData xVals hash: 54681960905177130
+theData yVals hash: 9338453451443704381
+theIntegral hash: 2938941608009595531
+@factor=1.54333e+07
+theData xVals hash: 54681960905177130
+theData yVals hash: 3089117796153364178
+theIntegral hash: 2938941608009595531
+#void Merge(G4ParticleHPVector * active, G4ParticleHPVector * passive)_5
+@active_caseNum=0
+@passive_caseNum=0
+theData xVals hash: 54681960905177130
+theData yVals hash: 3089117796153364178
+@active_caseNum=0
+@passive_caseNum=1
+theData xVals hash: 54681960905177130
+theData yVals hash: 3089117796153364178
+@active_caseNum=0
+@passive_caseNum=2
+theData xVals hash: 54681960905177130
+theData yVals hash: 3089117796153364178
+@active_caseNum=0
+@passive_caseNum=3
+theData xVals hash: 54681960905177130
+theData yVals hash: 3089117796153364178
+@active_caseNum=0
+@passive_caseNum=4
+theData xVals hash: 54681960905177130
+theData yVals hash: 3089117796153364178
+@active_caseNum=0
+@passive_caseNum=6
+theData xVals hash: 54681960905177130
+theData yVals hash: 3089117796153364178
+@active_caseNum=0
+@passive_caseNum=7
+theData xVals hash: 54681960905177130
+theData yVals hash: 3089117796153364178
+@active_caseNum=1
+@passive_caseNum=0
+theData xVals hash: 54681960905177130
+theData yVals hash: 3089117796153364178
+@active_caseNum=1
+@passive_caseNum=1
+theData xVals hash: 54681960905177130
+theData yVals hash: 3089117796153364178
+@active_caseNum=1
+@passive_caseNum=2
+theData xVals hash: 54681960905177130
+theData yVals hash: 3089117796153364178
+@active_caseNum=1
+@passive_caseNum=3
+theData xVals hash: 54681960905177130
+theData yVals hash: 3089117796153364178
+@active_caseNum=1
+@passive_caseNum=4
+theData xVals hash: 54681960905177130
+theData yVals hash: 3089117796153364178
+@active_caseNum=1
+@passive_caseNum=6
+theData xVals hash: 54681960905177130
+theData yVals hash: 3089117796153364178
+@active_caseNum=1
+@passive_caseNum=7
+theData xVals hash: 54681960905177130
+theData yVals hash: 3089117796153364178
+@active_caseNum=2
+@passive_caseNum=0
+theData xVals hash: 54681960905177130
+theData yVals hash: 3089117796153364178
+@active_caseNum=2
+@passive_caseNum=1
+theData xVals hash: 54681960905177130
+theData yVals hash: 3089117796153364178
+@active_caseNum=2
+@passive_caseNum=2
+theData xVals hash: 54681960905177130
+theData yVals hash: 3089117796153364178
+@active_caseNum=2
+@passive_caseNum=3
+theData xVals hash: 54681960905177130
+theData yVals hash: 3089117796153364178
+@active_caseNum=2
+@passive_caseNum=4
+theData xVals hash: 54681960905177130
+theData yVals hash: 3089117796153364178
+@active_caseNum=2
+@passive_caseNum=6
+theData xVals hash: 54681960905177130
+theData yVals hash: 3089117796153364178
+@active_caseNum=2
+@passive_caseNum=7
+theData xVals hash: 54681960905177130
+theData yVals hash: 3089117796153364178
+@active_caseNum=3
+@passive_caseNum=0
+theData xVals hash: 54681960905177130
+theData yVals hash: 3089117796153364178
+@active_caseNum=3
+@passive_caseNum=1
+theData xVals hash: 54681960905177130
+theData yVals hash: 3089117796153364178
+@active_caseNum=3
+@passive_caseNum=2
+theData xVals hash: 54681960905177130
+theData yVals hash: 3089117796153364178
+@active_caseNum=3
+@passive_caseNum=3
+theData xVals hash: 54681960905177130
+theData yVals hash: 3089117796153364178
+@active_caseNum=3
+@passive_caseNum=4
+theData xVals hash: 54681960905177130
+theData yVals hash: 3089117796153364178
+@active_caseNum=3
+@passive_caseNum=6
+theData xVals hash: 54681960905177130
+theData yVals hash: 3089117796153364178
+@active_caseNum=3
+@passive_caseNum=7
+theData xVals hash: 54681960905177130
+theData yVals hash: 3089117796153364178
+@active_caseNum=4
+@passive_caseNum=0
+theData xVals hash: 54681960905177130
+theData yVals hash: 3089117796153364178
+@active_caseNum=4
+@passive_caseNum=1
+theData xVals hash: 54681960905177130
+theData yVals hash: 3089117796153364178
+@active_caseNum=4
+@passive_caseNum=2
+theData xVals hash: 54681960905177130
+theData yVals hash: 3089117796153364178
+@active_caseNum=4
+@passive_caseNum=3
+theData xVals hash: 54681960905177130
+theData yVals hash: 3089117796153364178
+@active_caseNum=4
+@passive_caseNum=4
+theData xVals hash: 54681960905177130
+theData yVals hash: 3089117796153364178
+@active_caseNum=4
+@passive_caseNum=6
+theData xVals hash: 54681960905177130
+theData yVals hash: 3089117796153364178
+@active_caseNum=4
+@passive_caseNum=7
+theData xVals hash: 54681960905177130
+theData yVals hash: 3089117796153364178
+@active_caseNum=6
+@passive_caseNum=0
+theData xVals hash: 54681960905177130
+theData yVals hash: 3089117796153364178
+@active_caseNum=6
+@passive_caseNum=1
+theData xVals hash: 54681960905177130
+theData yVals hash: 3089117796153364178
+@active_caseNum=6
+@passive_caseNum=2
+theData xVals hash: 54681960905177130
+theData yVals hash: 3089117796153364178
+@active_caseNum=6
+@passive_caseNum=3
+theData xVals hash: 54681960905177130
+theData yVals hash: 3089117796153364178
+@active_caseNum=6
+@passive_caseNum=4
+theData xVals hash: 54681960905177130
+theData yVals hash: 3089117796153364178
+@active_caseNum=6
+@passive_caseNum=6
+theData xVals hash: 54681960905177130
+theData yVals hash: 3089117796153364178
+@active_caseNum=6
+@passive_caseNum=7
+theData xVals hash: 54681960905177130
+theData yVals hash: 3089117796153364178
+@active_caseNum=7
+@passive_caseNum=0
+theData xVals hash: 54681960905177130
+theData yVals hash: 3089117796153364178
+@active_caseNum=7
+@passive_caseNum=1
+theData xVals hash: 54681960905177130
+theData yVals hash: 3089117796153364178
+@active_caseNum=7
+@passive_caseNum=2
+theData xVals hash: 54681960905177130
+theData yVals hash: 3089117796153364178
+@active_caseNum=7
+@passive_caseNum=3
+theData xVals hash: 54681960905177130
+theData yVals hash: 3089117796153364178
+@active_caseNum=7
+@passive_caseNum=4
+theData xVals hash: 54681960905177130
+theData yVals hash: 3089117796153364178
+@active_caseNum=7
+@passive_caseNum=6
+theData xVals hash: 54681960905177130
+theData yVals hash: 3089117796153364178
+@active_caseNum=7
+@passive_caseNum=7
+theData xVals hash: 54681960905177130
+theData yVals hash: 3089117796153364178
+#void Merge(G4InterpolationScheme aScheme, G4double aValue, G4ParticleHPVector * active, G4ParticleHPVector * passive)_5
+@aValue=0
+@active_caseNum=0
+@passive_caseNum=0
+theData xVals hash: 54681960905177130
+theData yVals hash: 3089117796153364178
+@aValue=0
+@active_caseNum=0
+@passive_caseNum=1
+theData xVals hash: 54681960905177130
+theData yVals hash: 3089117796153364178
+@aValue=0
+@active_caseNum=0
+@passive_caseNum=2
+theData xVals hash: 54681960905177130
+theData yVals hash: 3089117796153364178
+@aValue=0
+@active_caseNum=0
+@passive_caseNum=3
+theData xVals hash: 54681960905177130
+theData yVals hash: 3089117796153364178
+@aValue=0
+@active_caseNum=0
+@passive_caseNum=4
+theData xVals hash: 54681960905177130
+theData yVals hash: 3089117796153364178
+@aValue=0
+@active_caseNum=0
+@passive_caseNum=6
+theData xVals hash: 54681960905177130
+theData yVals hash: 3089117796153364178
+@aValue=0
+@active_caseNum=0
+@passive_caseNum=7
+theData xVals hash: 54681960905177130
+theData yVals hash: 3089117796153364178
+@aValue=0
+@active_caseNum=1
+@passive_caseNum=0
+theData xVals hash: 54681960905177130
+theData yVals hash: 3089117796153364178
+@aValue=0
+@active_caseNum=1
+@passive_caseNum=1
+theData xVals hash: 54681960905177130
+theData yVals hash: 3089117796153364178
+@aValue=0
+@active_caseNum=1
+@passive_caseNum=2
+theData xVals hash: 54681960905177130
+theData yVals hash: 3089117796153364178
+@aValue=0
+@active_caseNum=1
+@passive_caseNum=3
+theData xVals hash: 54681960905177130
+theData yVals hash: 3089117796153364178
+@aValue=0
+@active_caseNum=1
+@passive_caseNum=4
+theData xVals hash: 54681960905177130
+theData yVals hash: 3089117796153364178
+@aValue=0
+@active_caseNum=1
+@passive_caseNum=6
+theData xVals hash: 54681960905177130
+theData yVals hash: 3089117796153364178
+@aValue=0
+@active_caseNum=1
+@passive_caseNum=7
+theData xVals hash: 54681960905177130
+theData yVals hash: 3089117796153364178
+@aValue=0
+@active_caseNum=2
+@passive_caseNum=0
+theData xVals hash: 54681960905177130
+theData yVals hash: 3089117796153364178
+@aValue=0
+@active_caseNum=2
+@passive_caseNum=1
+theData xVals hash: 54681960905177130
+theData yVals hash: 3089117796153364178
+@aValue=0
+@active_caseNum=2
+@passive_caseNum=2
+theData xVals hash: 54681960905177130
+theData yVals hash: 3089117796153364178
+@aValue=0
+@active_caseNum=2
+@passive_caseNum=3
+theData xVals hash: 54681960905177130
+theData yVals hash: 3089117796153364178
+@aValue=0
+@active_caseNum=2
+@passive_caseNum=4
+theData xVals hash: 54681960905177130
+theData yVals hash: 3089117796153364178
+@aValue=0
+@active_caseNum=2
+@passive_caseNum=6
+theData xVals hash: 54681960905177130
+theData yVals hash: 3089117796153364178
+@aValue=0
+@active_caseNum=2
+@passive_caseNum=7
+theData xVals hash: 54681960905177130
+theData yVals hash: 3089117796153364178
+@aValue=0
+@active_caseNum=3
+@passive_caseNum=0
+theData xVals hash: 54681960905177130
+theData yVals hash: 3089117796153364178
+@aValue=0
+@active_caseNum=3
+@passive_caseNum=1
+theData xVals hash: 54681960905177130
+theData yVals hash: 3089117796153364178
+@aValue=0
+@active_caseNum=3
+@passive_caseNum=2
+theData xVals hash: 54681960905177130
+theData yVals hash: 3089117796153364178
+@aValue=0
+@active_caseNum=3
+@passive_caseNum=3
+theData xVals hash: 54681960905177130
+theData yVals hash: 3089117796153364178
+@aValue=0
+@active_caseNum=3
+@passive_caseNum=4
+theData xVals hash: 54681960905177130
+theData yVals hash: 3089117796153364178
+@aValue=0
+@active_caseNum=3
+@passive_caseNum=6
+theData xVals hash: 54681960905177130
+theData yVals hash: 3089117796153364178
+@aValue=0
+@active_caseNum=3
+@passive_caseNum=7
+theData xVals hash: 54681960905177130
+theData yVals hash: 3089117796153364178
+@aValue=0
+@active_caseNum=4
+@passive_caseNum=0
+theData xVals hash: 54681960905177130
+theData yVals hash: 3089117796153364178
+@aValue=0
+@active_caseNum=4
+@passive_caseNum=1
+theData xVals hash: 54681960905177130
+theData yVals hash: 3089117796153364178
+@aValue=0
+@active_caseNum=4
+@passive_caseNum=2
+theData xVals hash: 54681960905177130
+theData yVals hash: 3089117796153364178
+@aValue=0
+@active_caseNum=4
+@passive_caseNum=3
+theData xVals hash: 54681960905177130
+theData yVals hash: 3089117796153364178
+@aValue=0
+@active_caseNum=4
+@passive_caseNum=4
+theData xVals hash: 54681960905177130
+theData yVals hash: 3089117796153364178
+@aValue=0
+@active_caseNum=4
+@passive_caseNum=6
+theData xVals hash: 54681960905177130
+theData yVals hash: 3089117796153364178
+@aValue=0
+@active_caseNum=4
+@passive_caseNum=7
+theData xVals hash: 54681960905177130
+theData yVals hash: 3089117796153364178
+@aValue=0
+@active_caseNum=6
+@passive_caseNum=0
+theData xVals hash: 54681960905177130
+theData yVals hash: 3089117796153364178
+@aValue=0
+@active_caseNum=6
+@passive_caseNum=1
+theData xVals hash: 54681960905177130
+theData yVals hash: 3089117796153364178
+@aValue=0
+@active_caseNum=6
+@passive_caseNum=2
+theData xVals hash: 54681960905177130
+theData yVals hash: 3089117796153364178
+@aValue=0
+@active_caseNum=6
+@passive_caseNum=3
+theData xVals hash: 54681960905177130
+theData yVals hash: 3089117796153364178
+@aValue=0
+@active_caseNum=6
+@passive_caseNum=4
+theData xVals hash: 54681960905177130
+theData yVals hash: 3089117796153364178
+@aValue=0
+@active_caseNum=6
+@passive_caseNum=6
+theData xVals hash: 54681960905177130
+theData yVals hash: 3089117796153364178
+@aValue=0
+@active_caseNum=6
+@passive_caseNum=7
+theData xVals hash: 54681960905177130
+theData yVals hash: 3089117796153364178
+@aValue=0
+@active_caseNum=7
+@passive_caseNum=0
+theData xVals hash: 54681960905177130
+theData yVals hash: 3089117796153364178
+@aValue=0
+@active_caseNum=7
+@passive_caseNum=1
+theData xVals hash: 54681960905177130
+theData yVals hash: 3089117796153364178
+@aValue=0
+@active_caseNum=7
+@passive_caseNum=2
+theData xVals hash: 54681960905177130
+theData yVals hash: 3089117796153364178
+@aValue=0
+@active_caseNum=7
+@passive_caseNum=3
+theData xVals hash: 54681960905177130
+theData yVals hash: 3089117796153364178
+@aValue=0
+@active_caseNum=7
+@passive_caseNum=4
+theData xVals hash: 54681960905177130
+theData yVals hash: 3089117796153364178
+@aValue=0
+@active_caseNum=7
+@passive_caseNum=6
+theData xVals hash: 54681960905177130
+theData yVals hash: 3089117796153364178
+@aValue=0
+@active_caseNum=7
+@passive_caseNum=7
+theData xVals hash: 54681960905177130
+theData yVals hash: 3089117796153364178
+#void SetPoint(G4int i, const G4ParticleHPDataPoint & it)_5
+@i=-1
+@x=0.238019
+@y=0.390967
+theData xVals hash: 54681960905177130
+theData yVals hash: 3089117796153364178
+@i=0
+@x=0.975881
+@y=0.628767
+theData xVals hash: 8756888203324909393
+theData yVals hash: 10809262286856293689
+@i=20927
+@x=0.681199
+@y=0.908691
+theData xVals hash: 13115245916680433881
+theData yVals hash: 18161934569221506157
+@i=41853
+@x=0.3624
+@y=0.859213
+theData xVals hash: 5738495531527367140
+theData yVals hash: 3727288782824207038
+@i=41854
+@x=0.794278
+@y=0.428873
+theData xVals hash: 9530503872696409722
+theData yVals hash: 11593169790277841112
+#void SetData(G4int i, G4double x, G4double y)_5
+@i=-1
+@x=0.073511
+@y=0.498631
+theData xVals hash: 9530503872696409722
+theData yVals hash: 11593169790277841112
+@i=0
+@x=0.483873
+@y=0.450735
+theData xVals hash: 1592175772701004737
+theData yVals hash: 8501087127430787710
+@i=20927
+@x=0.499657
+@y=0.740759
+theData xVals hash: 12427124813673000353
+theData yVals hash: 16447205534098733418
+@i=41853
+@x=0.932843
+@y=0.300122
+theData xVals hash: 17184582589232994926
+theData yVals hash: 10074265223428220944
+@i=41854
+@x=0.146196
+@y=0.110018
+theData xVals hash: 2384557544072082665
+theData yVals hash: 7266138952784333713
+#void SetX(G4int i, G4double e)_5
+@i=-1
+@x=0.080322
+theData xVals hash: 2384557544072082665
+theData yVals hash: 7266138952784333713
+@i=0
+@x=0.408177
+theData xVals hash: 13282220935961380316
+theData yVals hash: 7266138952784333713
+@i=20927
+@x=0.96316
+theData xVals hash: 15448655927564394134
+theData yVals hash: 7266138952784333713
+@i=41853
+@x=0.19808
+theData xVals hash: 5468240031918939948
+theData yVals hash: 7266138952784333713
+@i=41854
+@x=0.196307
+theData xVals hash: 5179663865651230728
+theData yVals hash: 7266138952784333713
+#void SetEnergy(G4int i, G4double e)_5
+@i=-1
+@x=0.575679
+theData xVals hash: 5179663865651230728
+theData yVals hash: 7266138952784333713
+@i=0
+@x=0.585675
+theData xVals hash: 10111652409589686852
+theData yVals hash: 7266138952784333713
+@i=20927
+@x=0.368203
+theData xVals hash: 13048690753663082726
+theData yVals hash: 7266138952784333713
+@i=41853
+@x=0.600133
+theData xVals hash: 16632700940056510334
+theData yVals hash: 7266138952784333713
+@i=41854
+@x=0.148787
+theData xVals hash: 4828474924989264191
+theData yVals hash: 7266138952784333713
+#void SetY(G4int i, G4double x)_5
+@i=-1
+@x=0.995401
+theData xVals hash: 4828474924989264191
+theData yVals hash: 7266138952784333713
+@i=0
+@x=0.40274
+theData xVals hash: 4828474924989264191
+theData yVals hash: 15167803725929615390
+@i=20927
+@x=0.819527
+theData xVals hash: 4828474924989264191
+theData yVals hash: 16128467673302970528
+@i=41853
+@x=0.374249
+theData xVals hash: 4828474924989264191
+theData yVals hash: 10152632924817671926
+@i=41854
+@x=0.479779
+theData xVals hash: 4828474924989264191
+theData yVals hash: 2637937373421448340
+#void SetXsec(G4int i, G4double x)_5
+@i=-1
+@x=0.646495
+theData xVals hash: 4828474924989264191
+theData yVals hash: 2637937373421448340
+@i=0
+@x=0.799035
+theData xVals hash: 4828474924989264191
+theData yVals hash: 1428737400884924517
+@i=20927
+@x=0.357672
+theData xVals hash: 4828474924989264191
+theData yVals hash: 16854449314605930800
+@i=41853
+@x=0.334307
+theData xVals hash: 4828474924989264191
+theData yVals hash: 15347770553868521634
+@i=41854
+@x=0.144897
+theData xVals hash: 4828474924989264191
+theData yVals hash: 12793395277697988841
+#const G4ParticleHPDataPoint GetPoint(G4int i)_5
+@i=-1
+(0.585675,0.799035)
+@i=0
+(0.585675,0.799035)
+@i=20927
+(0.368203,0.357672)
+@i=41853
+(0.600133,0.334307)
+@i=41854
+(0.148787,0.144897)
+#G4double GetEnergy(G4int i)_5
+@i=-1
+0.585675
+@i=0
+0.585675
+@i=20927
+0.368203
+@i=41853
+0.600133
+@i=41854
+0.148787
+#G4double GetX(G4int i)_5
+@i=-1
+0.585675
+@i=0
+0.585675
+@i=20927
+0.368203
+@i=41853
+0.600133
+@i=41854
+0.148787
+#G4double GetXsec(G4int i)_5
+@i=-1
+0.799035
+@i=0
+0.799035
+@i=20927
+0.357672
+@i=41853
+0.334307
+@i=41854
+0.144897
+#G4double GetY(G4int i)_5
+@i=-1
+0.799035
+@i=0
+0.799035
+@i=20927
+0.357672
+@i=41853
+0.334307
+@i=41854
+0.144897
+#void ThinOut(G4double precision)_5
+@precision=-1
+theData xVals hash: 4828474924989264191
+theData yVals hash: 12793395277697988841
+@precision=0
+theData xVals hash: 3410646415956779223
+theData yVals hash: 7284451234980988947
+@precision=0.00051234
+theData xVals hash: 4537234178875677939
+theData yVals hash: 17938106341618366271
+@precision=1.58923
+theData xVals hash: 1068689046355312787
+theData yVals hash: 5460557420923009565
+@precision=513.187
+theData xVals hash: 2686076452423462699
+theData yVals hash: 8682438659411247242
+#G4ParticleHPVector & operator = (const G4ParticleHPVector & right)_5
+hash: 2686076452423462699
+#void Init(std::istream & aDataFile, G4int total, G4double ux=1., G4double uy=1.)_6
+theData xVals hash: 7171123492023199933
+theData yVals hash: 9268461341921925588
+#G4double GetXsec(G4double e)_6
+@e=-1
+0
+@e=0
+0
+@e=0.00051234
+0
+@e=1.58923
+0
+@e=513.187
+0
+#G4double GetXsec(G4double e, G4int min)_6
+@e=-1
+@min=-1
+0
+@e=-1
+@min=0
+0
+@e=-1
+@min=49497
+0
+@e=-1
+@min=98994
+-0.054
+@e=-1
+@min=98995
+0
+@e=0
+@min=-1
+0
+@e=0
+@min=0
+0
+@e=0
+@min=49497
+0
+@e=0
+@min=98994
+-0.054
+@e=0
+@min=98995
+0
+@e=0.00051234
+@min=-1
+0
+@e=0.00051234
+@min=0
+0
+@e=0.00051234
+@min=49497
+0
+@e=0.00051234
+@min=98994
+-0.054
+@e=0.00051234
+@min=98995
+0
+@e=1.58923
+@min=-1
+0
+@e=1.58923
+@min=0
+0
+@e=1.58923
+@min=49497
+0
+@e=1.58923
+@min=98994
+-0.054
+@e=1.58923
+@min=98995
+0
+@e=513.187
+@min=-1
+0
+@e=513.187
+@min=0
+0
+@e=513.187
+@min=49497
+0
+@e=513.187
+@min=98994
+-0.0539846
+@e=513.187
+@min=98995
+0
+#G4double SampleLin()_6
+$1.23303e+07
+#G4double Sample()_6
+$1.2515e+07
+#G4double Get15PercentBorder()_6
+7.4e+06
+#G4double Get50PercentBorder()_6
+1.33873e+07
+#void Integrate()_6
+theIntegral hash: 7928541022771315913
+#void IntegrateAndNormalise()_6
+theIntegral hash: 7928541022771315913
+#void Times(G4double factor)_6
+@factor=-4.67
+theData xVals hash: 7171123492023199933
+theData yVals hash: 9365539138291727388
+theIntegral hash: 7928541022771315913
+@factor=-1.525e-05
+theData xVals hash: 7171123492023199933
+theData yVals hash: 17931948134866168131
+theIntegral hash: 7928541022771315913
+@factor=0.00090982
+theData xVals hash: 7171123492023199933
+theData yVals hash: 15754205843458034988
+theIntegral hash: 7928541022771315913
+@factor=1.54333e+07
+theData xVals hash: 7171123492023199933
+theData yVals hash: 9268461341921925588
+theIntegral hash: 7928541022771315913
+#void Merge(G4ParticleHPVector * active, G4ParticleHPVector * passive)_6
+@active_caseNum=0
+@passive_caseNum=0
+theData xVals hash: 7171123492023199933
+theData yVals hash: 9268461341921925588
+@active_caseNum=0
+@passive_caseNum=1
+theData xVals hash: 7171123492023199933
+theData yVals hash: 9268461341921925588
+@active_caseNum=0
+@passive_caseNum=2
+theData xVals hash: 7171123492023199933
+theData yVals hash: 9268461341921925588
+@active_caseNum=0
+@passive_caseNum=3
+theData xVals hash: 7171123492023199933
+theData yVals hash: 9268461341921925588
+@active_caseNum=0
+@passive_caseNum=4
+theData xVals hash: 7171123492023199933
+theData yVals hash: 9268461341921925588
+@active_caseNum=0
+@passive_caseNum=5
+theData xVals hash: 7171123492023199933
+theData yVals hash: 9268461341921925588
+@active_caseNum=0
+@passive_caseNum=7
+theData xVals hash: 7171123492023199933
+theData yVals hash: 9268461341921925588
+@active_caseNum=1
+@passive_caseNum=0
+theData xVals hash: 7171123492023199933
+theData yVals hash: 9268461341921925588
+@active_caseNum=1
+@passive_caseNum=1
+theData xVals hash: 7171123492023199933
+theData yVals hash: 9268461341921925588
+@active_caseNum=1
+@passive_caseNum=2
+theData xVals hash: 7171123492023199933
+theData yVals hash: 9268461341921925588
+@active_caseNum=1
+@passive_caseNum=3
+theData xVals hash: 7171123492023199933
+theData yVals hash: 9268461341921925588
+@active_caseNum=1
+@passive_caseNum=4
+theData xVals hash: 7171123492023199933
+theData yVals hash: 9268461341921925588
+@active_caseNum=1
+@passive_caseNum=5
+theData xVals hash: 7171123492023199933
+theData yVals hash: 9268461341921925588
+@active_caseNum=1
+@passive_caseNum=7
+theData xVals hash: 7171123492023199933
+theData yVals hash: 9268461341921925588
+@active_caseNum=2
+@passive_caseNum=0
+theData xVals hash: 7171123492023199933
+theData yVals hash: 9268461341921925588
+@active_caseNum=2
+@passive_caseNum=1
+theData xVals hash: 7171123492023199933
+theData yVals hash: 9268461341921925588
+@active_caseNum=2
+@passive_caseNum=2
+theData xVals hash: 7171123492023199933
+theData yVals hash: 9268461341921925588
+@active_caseNum=2
+@passive_caseNum=3
+theData xVals hash: 7171123492023199933
+theData yVals hash: 9268461341921925588
+@active_caseNum=2
+@passive_caseNum=4
+theData xVals hash: 7171123492023199933
+theData yVals hash: 9268461341921925588
+@active_caseNum=2
+@passive_caseNum=5
+theData xVals hash: 7171123492023199933
+theData yVals hash: 9268461341921925588
+@active_caseNum=2
+@passive_caseNum=7
+theData xVals hash: 7171123492023199933
+theData yVals hash: 9268461341921925588
+@active_caseNum=3
+@passive_caseNum=0
+theData xVals hash: 7171123492023199933
+theData yVals hash: 9268461341921925588
+@active_caseNum=3
+@passive_caseNum=1
+theData xVals hash: 7171123492023199933
+theData yVals hash: 9268461341921925588
+@active_caseNum=3
+@passive_caseNum=2
+theData xVals hash: 7171123492023199933
+theData yVals hash: 9268461341921925588
+@active_caseNum=3
+@passive_caseNum=3
+theData xVals hash: 7171123492023199933
+theData yVals hash: 9268461341921925588
+@active_caseNum=3
+@passive_caseNum=4
+theData xVals hash: 7171123492023199933
+theData yVals hash: 9268461341921925588
+@active_caseNum=3
+@passive_caseNum=5
+theData xVals hash: 7171123492023199933
+theData yVals hash: 9268461341921925588
+@active_caseNum=3
+@passive_caseNum=7
+theData xVals hash: 7171123492023199933
+theData yVals hash: 9268461341921925588
+@active_caseNum=4
+@passive_caseNum=0
+theData xVals hash: 7171123492023199933
+theData yVals hash: 9268461341921925588
+@active_caseNum=4
+@passive_caseNum=1
+theData xVals hash: 7171123492023199933
+theData yVals hash: 9268461341921925588
+@active_caseNum=4
+@passive_caseNum=2
+theData xVals hash: 7171123492023199933
+theData yVals hash: 9268461341921925588
+@active_caseNum=4
+@passive_caseNum=3
+theData xVals hash: 7171123492023199933
+theData yVals hash: 9268461341921925588
+@active_caseNum=4
+@passive_caseNum=4
+theData xVals hash: 7171123492023199933
+theData yVals hash: 9268461341921925588
+@active_caseNum=4
+@passive_caseNum=5
+theData xVals hash: 7171123492023199933
+theData yVals hash: 9268461341921925588
+@active_caseNum=4
+@passive_caseNum=7
+theData xVals hash: 7171123492023199933
+theData yVals hash: 9268461341921925588
+@active_caseNum=5
+@passive_caseNum=0
+theData xVals hash: 7171123492023199933
+theData yVals hash: 9268461341921925588
+@active_caseNum=5
+@passive_caseNum=1
+theData xVals hash: 7171123492023199933
+theData yVals hash: 9268461341921925588
+@active_caseNum=5
+@passive_caseNum=2
+theData xVals hash: 7171123492023199933
+theData yVals hash: 9268461341921925588
+@active_caseNum=5
+@passive_caseNum=3
+theData xVals hash: 7171123492023199933
+theData yVals hash: 9268461341921925588
+@active_caseNum=5
+@passive_caseNum=4
+theData xVals hash: 7171123492023199933
+theData yVals hash: 9268461341921925588
+@active_caseNum=5
+@passive_caseNum=5
+theData xVals hash: 7171123492023199933
+theData yVals hash: 9268461341921925588
+@active_caseNum=5
+@passive_caseNum=7
+theData xVals hash: 7171123492023199933
+theData yVals hash: 9268461341921925588
+@active_caseNum=7
+@passive_caseNum=0
+theData xVals hash: 7171123492023199933
+theData yVals hash: 9268461341921925588
+@active_caseNum=7
+@passive_caseNum=1
+theData xVals hash: 7171123492023199933
+theData yVals hash: 9268461341921925588
+@active_caseNum=7
+@passive_caseNum=2
+theData xVals hash: 7171123492023199933
+theData yVals hash: 9268461341921925588
+@active_caseNum=7
+@passive_caseNum=3
+theData xVals hash: 7171123492023199933
+theData yVals hash: 9268461341921925588
+@active_caseNum=7
+@passive_caseNum=4
+theData xVals hash: 7171123492023199933
+theData yVals hash: 9268461341921925588
+@active_caseNum=7
+@passive_caseNum=5
+theData xVals hash: 7171123492023199933
+theData yVals hash: 9268461341921925588
+@active_caseNum=7
+@passive_caseNum=7
+theData xVals hash: 7171123492023199933
+theData yVals hash: 9268461341921925588
+#void Merge(G4InterpolationScheme aScheme, G4double aValue, G4ParticleHPVector * active, G4ParticleHPVector * passive)_6
+@aValue=0
+@active_caseNum=0
+@passive_caseNum=0
+theData xVals hash: 7171123492023199933
+theData yVals hash: 9268461341921925588
+@aValue=0
+@active_caseNum=0
+@passive_caseNum=1
+theData xVals hash: 7171123492023199933
+theData yVals hash: 9268461341921925588
+@aValue=0
+@active_caseNum=0
+@passive_caseNum=2
+theData xVals hash: 7171123492023199933
+theData yVals hash: 9268461341921925588
+@aValue=0
+@active_caseNum=0
+@passive_caseNum=3
+theData xVals hash: 7171123492023199933
+theData yVals hash: 9268461341921925588
+@aValue=0
+@active_caseNum=0
+@passive_caseNum=4
+theData xVals hash: 7171123492023199933
+theData yVals hash: 9268461341921925588
+@aValue=0
+@active_caseNum=0
+@passive_caseNum=5
+theData xVals hash: 7171123492023199933
+theData yVals hash: 9268461341921925588
+@aValue=0
+@active_caseNum=0
+@passive_caseNum=7
+theData xVals hash: 7171123492023199933
+theData yVals hash: 9268461341921925588
+@aValue=0
+@active_caseNum=1
+@passive_caseNum=0
+theData xVals hash: 7171123492023199933
+theData yVals hash: 9268461341921925588
+@aValue=0
+@active_caseNum=1
+@passive_caseNum=1
+theData xVals hash: 7171123492023199933
+theData yVals hash: 9268461341921925588
+@aValue=0
+@active_caseNum=1
+@passive_caseNum=2
+theData xVals hash: 7171123492023199933
+theData yVals hash: 9268461341921925588
+@aValue=0
+@active_caseNum=1
+@passive_caseNum=3
+theData xVals hash: 7171123492023199933
+theData yVals hash: 9268461341921925588
+@aValue=0
+@active_caseNum=1
+@passive_caseNum=4
+theData xVals hash: 7171123492023199933
+theData yVals hash: 9268461341921925588
+@aValue=0
+@active_caseNum=1
+@passive_caseNum=5
+theData xVals hash: 7171123492023199933
+theData yVals hash: 9268461341921925588
+@aValue=0
+@active_caseNum=1
+@passive_caseNum=7
+theData xVals hash: 7171123492023199933
+theData yVals hash: 9268461341921925588
+@aValue=0
+@active_caseNum=2
+@passive_caseNum=0
+theData xVals hash: 7171123492023199933
+theData yVals hash: 9268461341921925588
+@aValue=0
+@active_caseNum=2
+@passive_caseNum=1
+theData xVals hash: 7171123492023199933
+theData yVals hash: 9268461341921925588
+@aValue=0
+@active_caseNum=2
+@passive_caseNum=2
+theData xVals hash: 7171123492023199933
+theData yVals hash: 9268461341921925588
+@aValue=0
+@active_caseNum=2
+@passive_caseNum=3
+theData xVals hash: 7171123492023199933
+theData yVals hash: 9268461341921925588
+@aValue=0
+@active_caseNum=2
+@passive_caseNum=4
+theData xVals hash: 7171123492023199933
+theData yVals hash: 9268461341921925588
+@aValue=0
+@active_caseNum=2
+@passive_caseNum=5
+theData xVals hash: 7171123492023199933
+theData yVals hash: 9268461341921925588
+@aValue=0
+@active_caseNum=2
+@passive_caseNum=7
+theData xVals hash: 7171123492023199933
+theData yVals hash: 9268461341921925588
+@aValue=0
+@active_caseNum=3
+@passive_caseNum=0
+theData xVals hash: 7171123492023199933
+theData yVals hash: 9268461341921925588
+@aValue=0
+@active_caseNum=3
+@passive_caseNum=1
+theData xVals hash: 7171123492023199933
+theData yVals hash: 9268461341921925588
+@aValue=0
+@active_caseNum=3
+@passive_caseNum=2
+theData xVals hash: 7171123492023199933
+theData yVals hash: 9268461341921925588
+@aValue=0
+@active_caseNum=3
+@passive_caseNum=3
+theData xVals hash: 7171123492023199933
+theData yVals hash: 9268461341921925588
+@aValue=0
+@active_caseNum=3
+@passive_caseNum=4
+theData xVals hash: 7171123492023199933
+theData yVals hash: 9268461341921925588
+@aValue=0
+@active_caseNum=3
+@passive_caseNum=5
+theData xVals hash: 7171123492023199933
+theData yVals hash: 9268461341921925588
+@aValue=0
+@active_caseNum=3
+@passive_caseNum=7
+theData xVals hash: 7171123492023199933
+theData yVals hash: 9268461341921925588
+@aValue=0
+@active_caseNum=4
+@passive_caseNum=0
+theData xVals hash: 7171123492023199933
+theData yVals hash: 9268461341921925588
+@aValue=0
+@active_caseNum=4
+@passive_caseNum=1
+theData xVals hash: 7171123492023199933
+theData yVals hash: 9268461341921925588
+@aValue=0
+@active_caseNum=4
+@passive_caseNum=2
+theData xVals hash: 7171123492023199933
+theData yVals hash: 9268461341921925588
+@aValue=0
+@active_caseNum=4
+@passive_caseNum=3
+theData xVals hash: 7171123492023199933
+theData yVals hash: 9268461341921925588
+@aValue=0
+@active_caseNum=4
+@passive_caseNum=4
+theData xVals hash: 7171123492023199933
+theData yVals hash: 9268461341921925588
+@aValue=0
+@active_caseNum=4
+@passive_caseNum=5
+theData xVals hash: 7171123492023199933
+theData yVals hash: 9268461341921925588
+@aValue=0
+@active_caseNum=4
+@passive_caseNum=7
+theData xVals hash: 7171123492023199933
+theData yVals hash: 9268461341921925588
+@aValue=0
+@active_caseNum=5
+@passive_caseNum=0
+theData xVals hash: 7171123492023199933
+theData yVals hash: 9268461341921925588
+@aValue=0
+@active_caseNum=5
+@passive_caseNum=1
+theData xVals hash: 7171123492023199933
+theData yVals hash: 9268461341921925588
+@aValue=0
+@active_caseNum=5
+@passive_caseNum=2
+theData xVals hash: 7171123492023199933
+theData yVals hash: 9268461341921925588
+@aValue=0
+@active_caseNum=5
+@passive_caseNum=3
+theData xVals hash: 7171123492023199933
+theData yVals hash: 9268461341921925588
+@aValue=0
+@active_caseNum=5
+@passive_caseNum=4
+theData xVals hash: 7171123492023199933
+theData yVals hash: 9268461341921925588
+@aValue=0
+@active_caseNum=5
+@passive_caseNum=5
+theData xVals hash: 7171123492023199933
+theData yVals hash: 9268461341921925588
+@aValue=0
+@active_caseNum=5
+@passive_caseNum=7
+theData xVals hash: 7171123492023199933
+theData yVals hash: 9268461341921925588
+@aValue=0
+@active_caseNum=7
+@passive_caseNum=0
+theData xVals hash: 7171123492023199933
+theData yVals hash: 9268461341921925588
+@aValue=0
+@active_caseNum=7
+@passive_caseNum=1
+theData xVals hash: 7171123492023199933
+theData yVals hash: 9268461341921925588
+@aValue=0
+@active_caseNum=7
+@passive_caseNum=2
+theData xVals hash: 7171123492023199933
+theData yVals hash: 9268461341921925588
+@aValue=0
+@active_caseNum=7
+@passive_caseNum=3
+theData xVals hash: 7171123492023199933
+theData yVals hash: 9268461341921925588
+@aValue=0
+@active_caseNum=7
+@passive_caseNum=4
+theData xVals hash: 7171123492023199933
+theData yVals hash: 9268461341921925588
+@aValue=0
+@active_caseNum=7
+@passive_caseNum=5
+theData xVals hash: 7171123492023199933
+theData yVals hash: 9268461341921925588
+@aValue=0
+@active_caseNum=7
+@passive_caseNum=7
+theData xVals hash: 7171123492023199933
+theData yVals hash: 9268461341921925588
+#void SetPoint(G4int i, const G4ParticleHPDataPoint & it)_6
+@i=-1
+@x=0.886726
+@y=0.196178
+theData xVals hash: 7171123492023199933
+theData yVals hash: 9268461341921925588
+@i=0
+@x=0.162958
+@y=0.835997
+theData xVals hash: 14771859316984817069
+theData yVals hash: 10289909397705078662
+@i=49497
+@x=0.602405
+@y=0.623243
+theData xVals hash: 10730769518528509148
+theData yVals hash: 7813661156339699522
+@i=98994
+@x=0.838679
+@y=0.671648
+theData xVals hash: 130684891043351349
+theData yVals hash: 14768316220803104247
+@i=98995
+@x=0.391555
+@y=0.871284
+theData xVals hash: 10529580244335687834
+theData yVals hash: 12621477930345558688
+#void SetData(G4int i, G4double x, G4double y)_6
+@i=-1
+@x=0.667348
+@y=0.115607
+theData xVals hash: 10529580244335687834
+theData yVals hash: 12621477930345558688
+@i=0
+@x=4.02252e-05
+@y=0.676065
+theData xVals hash: 14190236723214973365
+theData yVals hash: 9859493506703052711
+@i=49497
+@x=0.628753
+@y=0.454547
+theData xVals hash: 17854340270898792249
+theData yVals hash: 17573496453048036208
+@i=98994
+@x=0.574346
+@y=0.0322694
+theData xVals hash: 2999969618716944846
+theData yVals hash: 5155357441759957157
+@i=98995
+@x=0.351393
+@y=0.855082
+theData xVals hash: 7332933195704606414
+theData yVals hash: 10082411450720340214
+#void SetX(G4int i, G4double e)_6
+@i=-1
+@x=0.370837
+theData xVals hash: 7332933195704606414
+theData yVals hash: 10082411450720340214
+@i=0
+@x=0.57643
+theData xVals hash: 4129724173094804718
+theData yVals hash: 10082411450720340214
+@i=49497
+@x=0.744468
+theData xVals hash: 7828510666455502428
+theData yVals hash: 10082411450720340214
+@i=98994
+@x=0.442624
+theData xVals hash: 1734043937030143710
+theData yVals hash: 10082411450720340214
+@i=98995
+@x=0.0918009
+theData xVals hash: 16096195087459760216
+theData yVals hash: 10082411450720340214
+#void SetEnergy(G4int i, G4double e)_6
+@i=-1
+@x=0.992419
+theData xVals hash: 16096195087459760216
+theData yVals hash: 10082411450720340214
+@i=0
+@x=0.0330036
+theData xVals hash: 6768243894288997894
+theData yVals hash: 10082411450720340214
+@i=49497
+@x=0.487212
+theData xVals hash: 5803335025189265573
+theData yVals hash: 10082411450720340214
+@i=98994
+@x=0.895724
+theData xVals hash: 13027311345070339926
+theData yVals hash: 10082411450720340214
+@i=98995
+@x=0.688594
+theData xVals hash: 9015867262612639840
+theData yVals hash: 10082411450720340214
+#void SetY(G4int i, G4double x)_6
+@i=-1
+@x=0.48172
+theData xVals hash: 9015867262612639840
+theData yVals hash: 10082411450720340214
+@i=0
+@x=0.94712
+theData xVals hash: 9015867262612639840
+theData yVals hash: 6846953669393472641
+@i=49497
+@x=0.953262
+theData xVals hash: 9015867262612639840
+theData yVals hash: 9673448873030793623
+@i=98994
+@x=0.127088
+theData xVals hash: 9015867262612639840
+theData yVals hash: 1727417834220911530
+@i=98995
+@x=0.857156
+theData xVals hash: 9015867262612639840
+theData yVals hash: 2734151193100911337
+#void SetXsec(G4int i, G4double x)_6
+@i=-1
+@x=0.00700794
+theData xVals hash: 9015867262612639840
+theData yVals hash: 2734151193100911337
+@i=0
+@x=0.0503933
+theData xVals hash: 9015867262612639840
+theData yVals hash: 2419041242744422590
+@i=49497
+@x=0.641374
+theData xVals hash: 9015867262612639840
+theData yVals hash: 2127850505840136547
+@i=98994
+@x=0.137093
+theData xVals hash: 9015867262612639840
+theData yVals hash: 6131914018925306465
+@i=98995
+@x=0.824627
+theData xVals hash: 9015867262612639840
+theData yVals hash: 3684471053901434941
+#const G4ParticleHPDataPoint GetPoint(G4int i)_6
+@i=-1
+(0.0330036,0.0503933)
+@i=0
+(0.0330036,0.0503933)
+@i=49497
+(0.487212,0.641374)
+@i=98994
+(0.895724,0.137093)
+@i=98995
+(0.688594,0.824627)
+#G4double GetEnergy(G4int i)_6
+@i=-1
+0.0330036
+@i=0
+0.0330036
+@i=49497
+0.487212
+@i=98994
+0.895724
+@i=98995
+0.688594
+#G4double GetX(G4int i)_6
+@i=-1
+0.0330036
+@i=0
+0.0330036
+@i=49497
+0.487212
+@i=98994
+0.895724
+@i=98995
+0.688594
+#G4double GetXsec(G4int i)_6
+@i=-1
+0.0503933
+@i=0
+0.0503933
+@i=49497
+0.641374
+@i=98994
+0.137093
+@i=98995
+0.824627
+#G4double GetY(G4int i)_6
+@i=-1
+0.0503933
+@i=0
+0.0503933
+@i=49497
+0.641374
+@i=98994
+0.137093
+@i=98995
+0.824627
+#void ThinOut(G4double precision)_6
+@precision=-1
+theData xVals hash: 1742701867924853851
+theData yVals hash: 7095643224680524693
+@precision=0
+theData xVals hash: 6706271929472470177
+theData yVals hash: 6915917805996952609
+@precision=0.00051234
+theData xVals hash: 12650632012151844460
+theData yVals hash: 10048111651190685185
+@precision=1.58923
+theData xVals hash: 1286982657074201956
+theData yVals hash: 15941553135684669238
+@precision=513.187
+theData xVals hash: 18156762521058937446
+theData yVals hash: 3872170401866156845
+#G4ParticleHPVector & operator = (const G4ParticleHPVector & right)_6
+hash: 18156762521058937446
+#void Init(std::istream & aDataFile, G4int total, G4double ux=1., G4double uy=1.)_7
+theData xVals hash: 16082830809520917107
+theData yVals hash: 569425363193013609
+#G4double GetXsec(G4double e)_7
+@e=-1
+1.53489e+09
+@e=0
+46760.3
+@e=0.00051234
+4378.56
+@e=1.58923
+15.1255
+@e=513.187
+84.8337
+#G4double GetXsec(G4double e, G4int min)_7
+@e=-1
+@min=-1
+1.53489e+09
+@e=-1
+@min=0
+1.53489e+09
+@e=-1
+@min=121297
+281687
+@e=-1
+@min=242593
+2.06239
+@e=-1
+@min=242594
+31411.9
+@e=0
+@min=-1
+46760.3
+@e=0
+@min=0
+46760.3
+@e=0
+@min=121297
+281396
+@e=0
+@min=242593
+2.06239
+@e=0
+@min=242594
+31411.9
+@e=0.00051234
+@min=-1
+4378.56
+@e=0.00051234
+@min=0
+4378.56
+@e=0.00051234
+@min=121297
+281396
+@e=0.00051234
+@min=242593
+2.06239
+@e=0.00051234
+@min=242594
+31411.9
+@e=1.58923
+@min=-1
+15.1255
+@e=1.58923
+@min=0
+15.1255
+@e=1.58923
+@min=121297
+280935
+@e=1.58923
+@min=242593
+2.06239
+@e=1.58923
+@min=242594
+31411.9
+@e=513.187
+@min=-1
+84.8337
+@e=513.187
+@min=0
+84.8337
+@e=513.187
+@min=121297
+132407
+@e=513.187
+@min=242593
+2.06239
+@e=513.187
+@min=242594
+31411.9
+#G4double SampleLin()_7
+$1.12675e+07
+#G4double Sample()_7
+$1.09437e+07
+#G4double Get15PercentBorder()_7
+4.4e+06
+#G4double Get50PercentBorder()_7
+1.17496e+07
+#void Integrate()_7
+theIntegral hash: 15619544932401450365
+#void IntegrateAndNormalise()_7
+theIntegral hash: 15619544932401450365
+#void Times(G4double factor)_7
+@factor=-4.67
+theData xVals hash: 16082830809520917107
+theData yVals hash: 4187932830574422470
+theIntegral hash: 15619544932401450365
+@factor=-1.525e-05
+theData xVals hash: 16082830809520917107
+theData yVals hash: 3288109314193836618
+theIntegral hash: 15619544932401450365
+@factor=0.00090982
+theData xVals hash: 16082830809520917107
+theData yVals hash: 12351123038835423430
+theIntegral hash: 15619544932401450365
+@factor=1.54333e+07
+theData xVals hash: 16082830809520917107
+theData yVals hash: 569425363193013609
+theIntegral hash: 15619544932401450365
+#void Merge(G4ParticleHPVector * active, G4ParticleHPVector * passive)_7
+@active_caseNum=0
+@passive_caseNum=0
+theData xVals hash: 16082830809520917107
+theData yVals hash: 569425363193013609
+@active_caseNum=0
+@passive_caseNum=1
+theData xVals hash: 16082830809520917107
+theData yVals hash: 569425363193013609
+@active_caseNum=0
+@passive_caseNum=2
+theData xVals hash: 16082830809520917107
+theData yVals hash: 569425363193013609
+@active_caseNum=0
+@passive_caseNum=3
+theData xVals hash: 16082830809520917107
+theData yVals hash: 569425363193013609
+@active_caseNum=0
+@passive_caseNum=4
+theData xVals hash: 16082830809520917107
+theData yVals hash: 569425363193013609
+@active_caseNum=0
+@passive_caseNum=5
+theData xVals hash: 16082830809520917107
+theData yVals hash: 569425363193013609
+@active_caseNum=0
+@passive_caseNum=6
+theData xVals hash: 16082830809520917107
+theData yVals hash: 569425363193013609
+@active_caseNum=1
+@passive_caseNum=0
+theData xVals hash: 16082830809520917107
+theData yVals hash: 569425363193013609
+@active_caseNum=1
+@passive_caseNum=1
+theData xVals hash: 16082830809520917107
+theData yVals hash: 569425363193013609
+@active_caseNum=1
+@passive_caseNum=2
+theData xVals hash: 16082830809520917107
+theData yVals hash: 569425363193013609
+@active_caseNum=1
+@passive_caseNum=3
+theData xVals hash: 16082830809520917107
+theData yVals hash: 569425363193013609
+@active_caseNum=1
+@passive_caseNum=4
+theData xVals hash: 16082830809520917107
+theData yVals hash: 569425363193013609
+@active_caseNum=1
+@passive_caseNum=5
+theData xVals hash: 16082830809520917107
+theData yVals hash: 569425363193013609
+@active_caseNum=1
+@passive_caseNum=6
+theData xVals hash: 16082830809520917107
+theData yVals hash: 569425363193013609
+@active_caseNum=2
+@passive_caseNum=0
+theData xVals hash: 16082830809520917107
+theData yVals hash: 569425363193013609
+@active_caseNum=2
+@passive_caseNum=1
+theData xVals hash: 16082830809520917107
+theData yVals hash: 569425363193013609
+@active_caseNum=2
+@passive_caseNum=2
+theData xVals hash: 16082830809520917107
+theData yVals hash: 569425363193013609
+@active_caseNum=2
+@passive_caseNum=3
+theData xVals hash: 16082830809520917107
+theData yVals hash: 569425363193013609
+@active_caseNum=2
+@passive_caseNum=4
+theData xVals hash: 16082830809520917107
+theData yVals hash: 569425363193013609
+@active_caseNum=2
+@passive_caseNum=5
+theData xVals hash: 16082830809520917107
+theData yVals hash: 569425363193013609
+@active_caseNum=2
+@passive_caseNum=6
+theData xVals hash: 16082830809520917107
+theData yVals hash: 569425363193013609
+@active_caseNum=3
+@passive_caseNum=0
+theData xVals hash: 16082830809520917107
+theData yVals hash: 569425363193013609
+@active_caseNum=3
+@passive_caseNum=1
+theData xVals hash: 16082830809520917107
+theData yVals hash: 569425363193013609
+@active_caseNum=3
+@passive_caseNum=2
+theData xVals hash: 16082830809520917107
+theData yVals hash: 569425363193013609
+@active_caseNum=3
+@passive_caseNum=3
+theData xVals hash: 16082830809520917107
+theData yVals hash: 569425363193013609
+@active_caseNum=3
+@passive_caseNum=4
+theData xVals hash: 16082830809520917107
+theData yVals hash: 569425363193013609
+@active_caseNum=3
+@passive_caseNum=5
+theData xVals hash: 16082830809520917107
+theData yVals hash: 569425363193013609
+@active_caseNum=3
+@passive_caseNum=6
+theData xVals hash: 16082830809520917107
+theData yVals hash: 569425363193013609
+@active_caseNum=4
+@passive_caseNum=0
+theData xVals hash: 16082830809520917107
+theData yVals hash: 569425363193013609
+@active_caseNum=4
+@passive_caseNum=1
+theData xVals hash: 16082830809520917107
+theData yVals hash: 569425363193013609
+@active_caseNum=4
+@passive_caseNum=2
+theData xVals hash: 16082830809520917107
+theData yVals hash: 569425363193013609
+@active_caseNum=4
+@passive_caseNum=3
+theData xVals hash: 16082830809520917107
+theData yVals hash: 569425363193013609
+@active_caseNum=4
+@passive_caseNum=4
+theData xVals hash: 16082830809520917107
+theData yVals hash: 569425363193013609
+@active_caseNum=4
+@passive_caseNum=5
+theData xVals hash: 16082830809520917107
+theData yVals hash: 569425363193013609
+@active_caseNum=4
+@passive_caseNum=6
+theData xVals hash: 16082830809520917107
+theData yVals hash: 569425363193013609
+@active_caseNum=5
+@passive_caseNum=0
+theData xVals hash: 16082830809520917107
+theData yVals hash: 569425363193013609
+@active_caseNum=5
+@passive_caseNum=1
+theData xVals hash: 16082830809520917107
+theData yVals hash: 569425363193013609
+@active_caseNum=5
+@passive_caseNum=2
+theData xVals hash: 16082830809520917107
+theData yVals hash: 569425363193013609
+@active_caseNum=5
+@passive_caseNum=3
+theData xVals hash: 16082830809520917107
+theData yVals hash: 569425363193013609
+@active_caseNum=5
+@passive_caseNum=4
+theData xVals hash: 16082830809520917107
+theData yVals hash: 569425363193013609
+@active_caseNum=5
+@passive_caseNum=5
+theData xVals hash: 16082830809520917107
+theData yVals hash: 569425363193013609
+@active_caseNum=5
+@passive_caseNum=6
+theData xVals hash: 16082830809520917107
+theData yVals hash: 569425363193013609
+@active_caseNum=6
+@passive_caseNum=0
+theData xVals hash: 16082830809520917107
+theData yVals hash: 569425363193013609
+@active_caseNum=6
+@passive_caseNum=1
+theData xVals hash: 16082830809520917107
+theData yVals hash: 569425363193013609
+@active_caseNum=6
+@passive_caseNum=2
+theData xVals hash: 16082830809520917107
+theData yVals hash: 569425363193013609
+@active_caseNum=6
+@passive_caseNum=3
+theData xVals hash: 16082830809520917107
+theData yVals hash: 569425363193013609
+@active_caseNum=6
+@passive_caseNum=4
+theData xVals hash: 16082830809520917107
+theData yVals hash: 569425363193013609
+@active_caseNum=6
+@passive_caseNum=5
+theData xVals hash: 16082830809520917107
+theData yVals hash: 569425363193013609
+@active_caseNum=6
+@passive_caseNum=6
+theData xVals hash: 16082830809520917107
+theData yVals hash: 569425363193013609
+#void Merge(G4InterpolationScheme aScheme, G4double aValue, G4ParticleHPVector * active, G4ParticleHPVector * passive)_7
+@aValue=0
+@active_caseNum=0
+@passive_caseNum=0
+theData xVals hash: 16082830809520917107
+theData yVals hash: 569425363193013609
+@aValue=0
+@active_caseNum=0
+@passive_caseNum=1
+theData xVals hash: 16082830809520917107
+theData yVals hash: 569425363193013609
+@aValue=0
+@active_caseNum=0
+@passive_caseNum=2
+theData xVals hash: 16082830809520917107
+theData yVals hash: 569425363193013609
+@aValue=0
+@active_caseNum=0
+@passive_caseNum=3
+theData xVals hash: 16082830809520917107
+theData yVals hash: 569425363193013609
+@aValue=0
+@active_caseNum=0
+@passive_caseNum=4
+theData xVals hash: 16082830809520917107
+theData yVals hash: 569425363193013609
+@aValue=0
+@active_caseNum=0
+@passive_caseNum=5
+theData xVals hash: 16082830809520917107
+theData yVals hash: 569425363193013609
+@aValue=0
+@active_caseNum=0
+@passive_caseNum=6
+theData xVals hash: 16082830809520917107
+theData yVals hash: 569425363193013609
+@aValue=0
+@active_caseNum=1
+@passive_caseNum=0
+theData xVals hash: 16082830809520917107
+theData yVals hash: 569425363193013609
+@aValue=0
+@active_caseNum=1
+@passive_caseNum=1
+theData xVals hash: 16082830809520917107
+theData yVals hash: 569425363193013609
+@aValue=0
+@active_caseNum=1
+@passive_caseNum=2
+theData xVals hash: 16082830809520917107
+theData yVals hash: 569425363193013609
+@aValue=0
+@active_caseNum=1
+@passive_caseNum=3
+theData xVals hash: 16082830809520917107
+theData yVals hash: 569425363193013609
+@aValue=0
+@active_caseNum=1
+@passive_caseNum=4
+theData xVals hash: 16082830809520917107
+theData yVals hash: 569425363193013609
+@aValue=0
+@active_caseNum=1
+@passive_caseNum=5
+theData xVals hash: 16082830809520917107
+theData yVals hash: 569425363193013609
+@aValue=0
+@active_caseNum=1
+@passive_caseNum=6
+theData xVals hash: 16082830809520917107
+theData yVals hash: 569425363193013609
+@aValue=0
+@active_caseNum=2
+@passive_caseNum=0
+theData xVals hash: 16082830809520917107
+theData yVals hash: 569425363193013609
+@aValue=0
+@active_caseNum=2
+@passive_caseNum=1
+theData xVals hash: 16082830809520917107
+theData yVals hash: 569425363193013609
+@aValue=0
+@active_caseNum=2
+@passive_caseNum=2
+theData xVals hash: 16082830809520917107
+theData yVals hash: 569425363193013609
+@aValue=0
+@active_caseNum=2
+@passive_caseNum=3
+theData xVals hash: 16082830809520917107
+theData yVals hash: 569425363193013609
+@aValue=0
+@active_caseNum=2
+@passive_caseNum=4
+theData xVals hash: 16082830809520917107
+theData yVals hash: 569425363193013609
+@aValue=0
+@active_caseNum=2
+@passive_caseNum=5
+theData xVals hash: 16082830809520917107
+theData yVals hash: 569425363193013609
+@aValue=0
+@active_caseNum=2
+@passive_caseNum=6
+theData xVals hash: 16082830809520917107
+theData yVals hash: 569425363193013609
+@aValue=0
+@active_caseNum=3
+@passive_caseNum=0
+theData xVals hash: 16082830809520917107
+theData yVals hash: 569425363193013609
+@aValue=0
+@active_caseNum=3
+@passive_caseNum=1
+theData xVals hash: 16082830809520917107
+theData yVals hash: 569425363193013609
+@aValue=0
+@active_caseNum=3
+@passive_caseNum=2
+theData xVals hash: 16082830809520917107
+theData yVals hash: 569425363193013609
+@aValue=0
+@active_caseNum=3
+@passive_caseNum=3
+theData xVals hash: 16082830809520917107
+theData yVals hash: 569425363193013609
+@aValue=0
+@active_caseNum=3
+@passive_caseNum=4
+theData xVals hash: 16082830809520917107
+theData yVals hash: 569425363193013609
+@aValue=0
+@active_caseNum=3
+@passive_caseNum=5
+theData xVals hash: 16082830809520917107
+theData yVals hash: 569425363193013609
+@aValue=0
+@active_caseNum=3
+@passive_caseNum=6
+theData xVals hash: 16082830809520917107
+theData yVals hash: 569425363193013609
+@aValue=0
+@active_caseNum=4
+@passive_caseNum=0
+theData xVals hash: 16082830809520917107
+theData yVals hash: 569425363193013609
+@aValue=0
+@active_caseNum=4
+@passive_caseNum=1
+theData xVals hash: 16082830809520917107
+theData yVals hash: 569425363193013609
+@aValue=0
+@active_caseNum=4
+@passive_caseNum=2
+theData xVals hash: 16082830809520917107
+theData yVals hash: 569425363193013609
+@aValue=0
+@active_caseNum=4
+@passive_caseNum=3
+theData xVals hash: 16082830809520917107
+theData yVals hash: 569425363193013609
+@aValue=0
+@active_caseNum=4
+@passive_caseNum=4
+theData xVals hash: 16082830809520917107
+theData yVals hash: 569425363193013609
+@aValue=0
+@active_caseNum=4
+@passive_caseNum=5
+theData xVals hash: 16082830809520917107
+theData yVals hash: 569425363193013609
+@aValue=0
+@active_caseNum=4
+@passive_caseNum=6
+theData xVals hash: 16082830809520917107
+theData yVals hash: 569425363193013609
+@aValue=0
+@active_caseNum=5
+@passive_caseNum=0
+theData xVals hash: 16082830809520917107
+theData yVals hash: 569425363193013609
+@aValue=0
+@active_caseNum=5
+@passive_caseNum=1
+theData xVals hash: 16082830809520917107
+theData yVals hash: 569425363193013609
+@aValue=0
+@active_caseNum=5
+@passive_caseNum=2
+theData xVals hash: 16082830809520917107
+theData yVals hash: 569425363193013609
+@aValue=0
+@active_caseNum=5
+@passive_caseNum=3
+theData xVals hash: 16082830809520917107
+theData yVals hash: 569425363193013609
+@aValue=0
+@active_caseNum=5
+@passive_caseNum=4
+theData xVals hash: 16082830809520917107
+theData yVals hash: 569425363193013609
+@aValue=0
+@active_caseNum=5
+@passive_caseNum=5
+theData xVals hash: 16082830809520917107
+theData yVals hash: 569425363193013609
+@aValue=0
+@active_caseNum=5
+@passive_caseNum=6
+theData xVals hash: 16082830809520917107
+theData yVals hash: 569425363193013609
+@aValue=0
+@active_caseNum=6
+@passive_caseNum=0
+theData xVals hash: 16082830809520917107
+theData yVals hash: 569425363193013609
+@aValue=0
+@active_caseNum=6
+@passive_caseNum=1
+theData xVals hash: 16082830809520917107
+theData yVals hash: 569425363193013609
+@aValue=0
+@active_caseNum=6
+@passive_caseNum=2
+theData xVals hash: 16082830809520917107
+theData yVals hash: 569425363193013609
+@aValue=0
+@active_caseNum=6
+@passive_caseNum=3
+theData xVals hash: 16082830809520917107
+theData yVals hash: 569425363193013609
+@aValue=0
+@active_caseNum=6
+@passive_caseNum=4
+theData xVals hash: 16082830809520917107
+theData yVals hash: 569425363193013609
+@aValue=0
+@active_caseNum=6
+@passive_caseNum=5
+theData xVals hash: 16082830809520917107
+theData yVals hash: 569425363193013609
+@aValue=0
+@active_caseNum=6
+@passive_caseNum=6
+theData xVals hash: 16082830809520917107
+theData yVals hash: 569425363193013609
+#void SetPoint(G4int i, const G4ParticleHPDataPoint & it)_7
+@i=-1
+@x=0.817317
+@y=0.642734
+theData xVals hash: 16082830809520917107
+theData yVals hash: 569425363193013609
+@i=0
+@x=0.435375
+@y=0.352314
+theData xVals hash: 5431018828179365984
+theData yVals hash: 5567964339009897502
+@i=121297
+@x=0.349157
+@y=0.281545
+theData xVals hash: 5449037180981901081
+theData yVals hash: 6419010087418905798
+@i=242593
+@x=0.919119
+@y=0.626152
+theData xVals hash: 17250420927941556527
+theData yVals hash: 10848169044374949008
+@i=242594
+@x=0.74458
+@y=0.15754
+theData xVals hash: 9610005060433584726
+theData yVals hash: 17254973608360153348
+#void SetData(G4int i, G4double x, G4double y)_7
+@i=-1
+@x=0.776418
+@y=0.251955
+theData xVals hash: 9610005060433584726
+theData yVals hash: 17254973608360153348
+@i=0
+@x=0.612058
+@y=0.854603
+theData xVals hash: 3440535624905699552
+theData yVals hash: 15380199106580366957
+@i=121297
+@x=0.314608
+@y=0.608444
+theData xVals hash: 4354852546682296825
+theData yVals hash: 5368459332899990737
+@i=242593
+@x=0.125922
+@y=0.373662
+theData xVals hash: 4265066352543496221
+theData yVals hash: 13126069698024796549
+@i=242594
+@x=0.133293
+@y=0.261863
+theData xVals hash: 14110335850106111073
+theData yVals hash: 16008270557624025882
+#void SetX(G4int i, G4double e)_7
+@i=-1
+@x=0.126031
+theData xVals hash: 14110335850106111073
+theData yVals hash: 16008270557624025882
+@i=0
+@x=0.750525
+theData xVals hash: 14689420606592267389
+theData yVals hash: 16008270557624025882
+@i=121297
+@x=0.458914
+theData xVals hash: 7955089360613678493
+theData yVals hash: 16008270557624025882
+@i=242593
+@x=0.234676
+theData xVals hash: 12358863780697264659
+theData yVals hash: 16008270557624025882
+@i=242594
+@x=0.683946
+theData xVals hash: 8288863805387532274
+theData yVals hash: 16008270557624025882
+#void SetEnergy(G4int i, G4double e)_7
+@i=-1
+@x=0.854236
+theData xVals hash: 8288863805387532274
+theData yVals hash: 16008270557624025882
+@i=0
+@x=0.120177
+theData xVals hash: 244237540940088597
+theData yVals hash: 16008270557624025882
+@i=121297
+@x=0.944193
+theData xVals hash: 8039683301069421254
+theData yVals hash: 16008270557624025882
+@i=242593
+@x=0.0602624
+theData xVals hash: 9088875046964587001
+theData yVals hash: 16008270557624025882
+@i=242594
+@x=0.141179
+theData xVals hash: 16904182959844922792
+theData yVals hash: 16008270557624025882
+#void SetY(G4int i, G4double x)_7
+@i=-1
+@x=0.227488
+theData xVals hash: 16904182959844922792
+theData yVals hash: 16008270557624025882
+@i=0
+@x=0.599194
+theData xVals hash: 16904182959844922792
+theData yVals hash: 15055712548879301114
+@i=121297
+@x=0.0537268
+theData xVals hash: 16904182959844922792
+theData yVals hash: 11433683609728090673
+@i=242593
+@x=0.812305
+theData xVals hash: 16904182959844922792
+theData yVals hash: 17872530253068205972
+@i=242594
+@x=0.0318384
+theData xVals hash: 16904182959844922792
+theData yVals hash: 6981297995648957027
+#void SetXsec(G4int i, G4double x)_7
+@i=-1
+@x=0.974467
+theData xVals hash: 16904182959844922792
+theData yVals hash: 6981297995648957027
+@i=0
+@x=0.67108
+theData xVals hash: 16904182959844922792
+theData yVals hash: 5285079466279087519
+@i=121297
+@x=0.238217
+theData xVals hash: 16904182959844922792
+theData yVals hash: 6986806160027597085
+@i=242593
+@x=0.589708
+theData xVals hash: 16904182959844922792
+theData yVals hash: 15231731215728632389
+@i=242594
+@x=0.227762
+theData xVals hash: 16904182959844922792
+theData yVals hash: 12228076680434915716
+#const G4ParticleHPDataPoint GetPoint(G4int i)_7
+@i=-1
+(0.120177,0.67108)
+@i=0
+(0.120177,0.67108)
+@i=121297
+(0.944193,0.238217)
+@i=242593
+(0.0602624,0.589708)
+@i=242594
+(0.141179,0.227762)
+#G4double GetEnergy(G4int i)_7
+@i=-1
+0.120177
+@i=0
+0.120177
+@i=121297
+0.944193
+@i=242593
+0.0602624
+@i=242594
+0.141179
+#G4double GetX(G4int i)_7
+@i=-1
+0.120177
+@i=0
+0.120177
+@i=121297
+0.944193
+@i=242593
+0.0602624
+@i=242594
+0.141179
+#G4double GetXsec(G4int i)_7
+@i=-1
+0.67108
+@i=0
+0.67108
+@i=121297
+0.238217
+@i=242593
+0.589708
+@i=242594
+0.227762
+#G4double GetY(G4int i)_7
+@i=-1
+0.67108
+@i=0
+0.67108
+@i=121297
+0.238217
+@i=242593
+0.589708
+@i=242594
+0.227762
+#void ThinOut(G4double precision)_7
+@precision=-1
+theData xVals hash: 16904182959844922792
+theData yVals hash: 12228076680434915716
+@precision=0
+theData xVals hash: 8645904167873538764
+theData yVals hash: 2630175114128795152
+@precision=0.00051234
+theData xVals hash: 16709927116794133463
+theData yVals hash: 7999653503310369479
+@precision=1.58923
+theData xVals hash: 16844059465488843568
+theData yVals hash: 14975778243975666385
+@precision=513.187
+theData xVals hash: 18015312566751879313
+theData yVals hash: 9815867978995616129
+#G4ParticleHPVector & operator = (const G4ParticleHPVector & right)_7
+hash: 18015312566751879313

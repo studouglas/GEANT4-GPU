@@ -14,6 +14,7 @@
 \usepackage{caption}
 \usepackage{array}
 \usepackage{placeins}
+\usepackage{float}
 \lstset{basicstyle=\small\ttfamily,xleftmargin=18pt,breaklines=true}
 \captionsetup[table]{skip=2pt}
 % Comments --------------------------------------------------------------------
@@ -83,18 +84,32 @@ All major edits to this document will be recorded in the table below.
 \begin{tabular}{lll}
 \toprule
 \bf Description of Changes & \bf Author & \bf Date\\\midrule
-Initial draft of document & Matt, Stuart, Rob, Victor  & 2016-03-15\\
+Initial draft of document & Matt, Rob, Victor, Stuart & 2016-03-18\\
+Template of document & Matt  & 2016-03-15\\
 \bottomrule
 \end{tabular}
 \end{table}
 
 % =============================== Section =============================== %
 \section*{List of Figures}
+Tables and figures for specific unit tests have been omitted in order to keep this document readable.
+\begin{center}
+\begin{tabular}{cl}
+\toprule
+\bf Table \# & \bf Title\\\midrule
+\ref{Table_Revision} 			& Revision History\\
+\ref{Table_DefAndAcro} 			& Definitions and Acronyms\\
+\ref{gen_var_table}			& General Unit Test Variables\\
+\ref{Table_TestsAndRequirements}	& Tests and Requirements Relationship\\
+\ref{Table_TestsAndModules}		& Tests and Modules Relationship\\
+\bottomrule
+\end{tabular}
+\end{center}
 
 \section*{Definitions and Acronyms} % Matt
 \begin{table}[h]
 \centering
-\caption{Definitions and Acronyms}
+\caption{Definitions and Acronyms}\label{Table_DefAndAcro}
 \begin{tabularx}{\textwidth}{l|X}
 \Xhline{2\arrayrulewidth}
 \bf Term & \bf Description\\
@@ -111,651 +126,776 @@ OS X & Operating system developed by Apple\\
 \end{table}
 
 
-% =============================== Section =============================== %
+% =============================== Section =============================== % ------------------------- Rob
 \section{Introduction}
 \subsection{Purpose of the Document}
 This document summarizes the testing and test conclusions of GEANT4-GPU. This document uses the implementation outlined in the test plan.
 \subsection{Scope of the Testing}
 \subsection{Organization}
 In Section 4 we provide an introduction to this report. Section 5 describes the test cases which are carried out on each function. Section 6 describes system test cases that were carried out by our team. In section 7 traceability matrices to requirements and modules are documented. Section 8 provides a summary of changes made in response to the testing results.
-\subsection{Note about Usability}
+\subsection{Usability}
 GEANT4-GPU is a back end implementation of already existing GEANT4 modules. Therefore users will not be interacting with is directly. Since there is no direct user interaction with GEANT4-GPU. There are no usability test. 
-
-% =============================== Section =============================== %
+\subsection{Robustness}
+The GEANT4-GPU functions are meant to mimic the already existing GEANT4 functions. Therefore the GEANT4-GPU functions must also mimic the the robustness of the GEANT4 functions. The accuracy section for unit tests has several unit tests designed to test the robustness of the functions. 
+% =============================== Section =============================== % -------------------------- Matt does unit tests and accuracy. Victor Does performance graphs
+\newpage
 \section{Module Unit Testing}
 \subsection{Use of Automated Testing}
 Our testing is semi-automated. Due to the nature of this implementation we need to recompile GEANT4-GPU from GPU to CPU in order to get the CPU results to compare against the GPU results. We have a unit test file which preforms all our unit tests and writes the results into a file. The user will then have to manually recompile GEANT4-GPU with GPU acceleration off. Once the unit test file is run again another results file is generated. The comparing of the results is automated by feeding them to an application that we created that will compare the test results against each other. The program outputs a summary of any differences between the two results, if there are any.
+\subsection{General variables used for Unit Testing}
+The following are variables that are used for multiple unit tests. Instead of defining them again for each unit test they are defined here only once. Other variables used for specific unit tests will be defined in their respective unit test sections\\
+For all unit tests:
+\begin{table}[!htbp]
+\centering
+\caption{General Unit Test Variables}\label{gen_var_table}
+\begin{tabular}{lll}
+\toprule
+	\bf Name \# & Type & \bf Value\\\midrule
+	 n 	& G4double 			& length of the G4ParticleHPVector\\
+	r0 	& G4double 			& 0.000512\\
+	r1	& G4double			& 1.58\\
+	r2 	& G4double 			& 513.18\\
+	Empty & G4ParticleHPVector 	& Empty\\
+	A 	& G4ParticleHPVector	& 66 entries\\
+	B 	& G4ParticleHPVector 	& 1509 entries\\
+	C 	& G4ParticleHPVector 	& 8045 entries\\
+	D 	& G4ParticleHPVector 	& 41854 entries\\
+	E 	& G4ParticleHPVector 	& 98995 entries\\
+	F 	& G4ParticleHPVector 	& 242594 entries\\
+\bottomrule		
+\end{tabular}
+\end{table}
+\subsection{Note about Performance testing}
+Tests on vectors A - F all behave the same. Showing accuracy for vectors A - F does not provide any extra useful information. Therefore only unit tests on vector D will be shown in the Unit Tests and Accuracy sections. Unit test interfaces for the other vectors will be omitted from this document in order to make it more readable. The unit tests were still performed on the other vectors. These unit tests on vectors of different length are done to show how  increasing the size of the vector increases the execution time of some functions
 %from .cu
-\subsection{PerformInitialization}
+\subsection{OperatorEquals}% Test Cases done
 	\subsubsection{Unit Tests}
-		\begin{table}[!htbp]
+		\begin{table}[H]
 		\centering
-		\caption{Unit Tests}\label{_unit}
+		\caption{Unit Tests}\label{OperatorEquals_unit}
 		\begin{tabular}{lll}
 		\toprule
 		\bf Test \# & Code & \bf Description\\\midrule
-		\stepcounter{TestCounter}\arabic{TestCounter} & Code goes here & Description goes here\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{OperatorEquals_0} & Empty =  Empty2 & Assign an empty vector to another empty vector\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{OperatorEquals_1} & D = Empty & Assign an empty vector to regular vector \\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{OperatorEquals_2} & Empty = D & Assign a vector to an empty vector \\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{OperatorEquals_3} & D = D & Assign a vector to itself \\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{OperatorEquals_4} & D = F & Assign a vector to another vector \\
 		\bottomrule
 		\end{tabular}
 		\end{table}
 	\subsubsection{Accuracy}
-		\begin{table}[!htbp]
+		\begin{table}[H]
 		\centering
-		\caption{Accuracy}\label{_acc}
+		\caption{Accuracy}\label{OperatorEquals_acc}
 		\begin{tabular}{lll}
 		\toprule
-		\bf Test \# & CPU & GPU \\\midrule
-		\arabic{TestCounter} & CPU time & GPU time\\
+		\bf Test \# & Status \\\midrule
+		\ref{OperatorEquals_0} & Pass\\
+		\ref{OperatorEquals_1} & Pass\\
+		\ref{OperatorEquals_2} & Pass\\
+		\ref{OperatorEquals_3} & Pass\\
+		\ref{OperatorEquals_4} & Pass\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
 	\subsubsection{Performance}
 
-\subsection{OperatorEquals}
+\subsection{GetPoint} % Test cases finished
 	\subsubsection{Unit Tests}
-		\begin{table}[!htbp]
+		\begin{table}[H]
 		\centering
-		\caption{Unit Tests}\label{_unit}
+		\caption{Unit Tests}\label{GetPoint_unit}
 		\begin{tabular}{lll}
 		\toprule
 		\bf Test \# & Code & \bf Description\\\midrule
-		\stepcounter{TestCounter}\arabic{TestCounter} & Code goes here & Description goes here\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetPoint_0} & Empty.GetPoint(-1) & Get a point at a negative index from an empty vector\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetPoint_1} & Empty.GetPoint(0) & Get a point at a the first index from an empty vector\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetPoint_2} & Empty.GetPoint(1) & Get a point at an index out of bounds from an empty vector\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetPoint_3} & D.GetPoint(-1) & Get a point at a negative index\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetPoint_4} & D.GetPoint(0) & Get a point at a the first index\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetPoint_5} & D.GetPoint(n/2) & Get a point at an index within the vector\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetPoint_6} & D.GetPoint(n-1) & Get a point at the last index\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetPoint_7} & D.GetPoint(n) & Get a point at an index our of bounds\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
 	\subsubsection{Accuracy}
-		\begin{table}[!htbp]
+		\begin{table}[H]
 		\centering
-		\caption{Accuracy}\label{_acc}
+		\caption{Accuracy}\label{GetPoint_acc}
 		\begin{tabular}{lll}
 		\toprule
-		\bf Test \# & CPU & GPU \\\midrule
-		\arabic{TestCounter} & CPU time & GPU time\\
+		\bf Test \# & Status \\\midrule
+		\ref{GetPoint_0} & Pass\\
+		\ref{GetPoint_1} & Pass\\
+		\ref{GetPoint_2} & Pass\\
+		\ref{GetPoint_3} & Pass\\
+		\ref{GetPoint_4} & Pass\\
+		\ref{GetPoint_5} & Pass\\
+		\ref{GetPoint_6} & Pass\\
+		\ref{GetPoint_7} & Pass\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
 	\subsubsection{Performance}
 
-\subsection{GetPoint}
+\subsection{GetX} % Test cases finished
 	\subsubsection{Unit Tests}
-		\begin{table}[!htbp]
+		\begin{table}[H]
 		\centering
-		\caption{Unit Tests}\label{_unit}
+		\caption{Unit Tests}\label{GetX_unit}
 		\begin{tabular}{lll}
 		\toprule
 		\bf Test \# & Code & \bf Description\\\midrule
-		\stepcounter{TestCounter}\arabic{TestCounter} & Code goes here & Description goes here\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetX_0} & Empty.GetX(-1) & Set an xSec at a negative index of an empty vector\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetX_1} & Empty.GetX(0) & Set an xSec at a the first index of an empty vector\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetX_2} & Empty.GetX(1) & Set an xSec at an index out of bounds of an empty vector\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetX_3} & D.GetX(-1) & Set an xSec at a negative index\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetX_4} & D.GetX(0) & Set an xSec at a the first index\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetX_5} & D.GetX(n/2) & Set an xSec at an index within the vector\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetX_6} & D.GetX(n-1) & Set an xSec at the last index\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetX_7} & D.GetX(n) & Set an xSec at an index our of bounds\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
 	\subsubsection{Accuracy}
-		\begin{table}[!htbp]
+		\begin{table}[H]
 		\centering
-		\caption{Accuracy}\label{_acc}
+		\caption{Accuracy}\label{GetX_acc}
 		\begin{tabular}{lll}
 		\toprule
-		\bf Test \# & CPU & GPU \\\midrule
-		\arabic{TestCounter} & CPU time & GPU time\\
+		\bf Test \# & Status\\\midrule
+		\ref{GetX_0} & Pass\\
+		\ref{GetX_1} & Pass\\
+		\ref{GetX_2} & Pass\\
+		\ref{GetX_3} & Pass\\
+		\ref{GetX_4} & Pass\\
+		\ref{GetX_5} & Pass\\
+		\ref{GetX_6} & Pass\\
+		\ref{GetX_7} & Pass\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
 	\subsubsection{Performance}
 
-\subsection{GetX}
+
+\subsection{GetY} % Test cases finished
 	\subsubsection{Unit Tests}
-		\begin{table}[!htbp]
+		\begin{table}[H]
 		\centering
-		\caption{Unit Tests}\label{_unit}
+		\caption{Unit Tests}\label{GetY_unit}
 		\begin{tabular}{lll}
 		\toprule
 		\bf Test \# & Code & \bf Description\\\midrule
-		\stepcounter{TestCounter}\arabic{TestCounter} & Code goes here & Description goes here\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetY_0} & Empty.GetY(-1) & Get a point at a negative index of an empty vector\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetY_1} & Empty.GetY(0) & Get a point at a the first index of an empty vector\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetY_2} & Empty.GetY(1) & Get a point at an index out of bounds of an empty vector\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetY_3} & D.GetY(-1) & Get a point at a negative index\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetY_4} & D.GetY(0) & Get a point at a the first index\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetY_5} & D.GetY(n/2) & Get a point at an index within the vector\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetY_6} & D.GetY(n-1) & Get a point at the last index\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetY_7} & D.GetY(n) & Get a point at an index our of bounds\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
 	\subsubsection{Accuracy}
-		\begin{table}[!htbp]
+		\begin{table}[H]
 		\centering
-		\caption{Accuracy}\label{_acc}
+		\caption{Accuracy}\label{GetY_acc}
 		\begin{tabular}{lll}
 		\toprule
-		\bf Test \# & CPU & GPU \\\midrule
-		\arabic{TestCounter} & CPU time & GPU time\\
+		\bf Test \# & Status \\\midrule
+		\ref{GetY_0} & Pass\\
+		\ref{GetY_1} & Pass\\
+		\ref{GetY_2} & Pass\\
+		\ref{GetY_3} & Pass\\
+		\ref{GetY_4} & Pass\\
+		\ref{GetY_5} & Pass\\
+		\ref{GetY_6} & Pass\\
+		\ref{GetY_7} & Pass\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
 	\subsubsection{Performance}
 
-\subsection{GetY}
+\subsection{GetXsec} % Test cases finished
 	\subsubsection{Unit Tests}
-		\begin{table}[!htbp]
+		\begin{table}[H]
 		\centering
-		\caption{Unit Tests}\label{_unit}
+		\caption{Unit Tests}\label{GetXsec_unit}
 		\begin{tabular}{lll}
 		\toprule
 		\bf Test \# & Code & \bf Description\\\midrule
-		\stepcounter{TestCounter}\arabic{TestCounter} & Code goes here & Description goes here\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetXsec_0} & Empty.GetXsec(-1) & Get an xSec with a negative energy from an empty vector\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetXsec_1} & Empty.GetXsec(0) & Get a xSec with an energy of zero from an empty vector\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetXsec_2} & Empty.GetXsec(r1) & Get a xSec with a normal energy from an empty vector\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetXsec_3} & D.GetXsec(-1) & Get a xSec with a negative energy\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetXsec_4} & D.GetXsec(0) & Get a xSec with a zero energy\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetXsec_5} & D.GetXsec(r0) & Get a xSec with a small energy\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetXsec_6} & D.GetXsec(r1) & Get a xSec with a normal energy\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetXsec_7} & D.GetXsec(r2) & Get a xSec with a large energy\\
+
 		\bottomrule
 		\end{tabular}
 		\end{table}
 	\subsubsection{Accuracy}
-		\begin{table}[!htbp]
+		\begin{table}[H]
 		\centering
-		\caption{Accuracy}\label{_acc}
+		\caption{Accuracy}\label{GetY_acc}
 		\begin{tabular}{lll}
 		\toprule
-		\bf Test \# & CPU & GPU \\\midrule
-		\arabic{TestCounter} & CPU time & GPU time\\
+		\bf Test \# & Status \\\midrule
+		\ref{GetXsec_0} & Pass\\
+		\ref{GetXsec_1} & Pass\\
+		\ref{GetXsec_2} & Pass\\
+		\ref{GetXsec_3} & Pass\\
+		\ref{GetXsec_4} & Pass\\
+		\ref{GetXsec_5} & Pass\\
+		\ref{GetXsec_6} & Pass\\
+		\ref{GetXsec_7} & Pass\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
 	\subsubsection{Performance}
 
-\subsection{GetXsec}
+\subsection{SetData} % Test cases finished
 	\subsubsection{Unit Tests}
-		\begin{table}[!htbp]
-		\centering
-		\caption{Unit Tests}\label{_unit}
-		\begin{tabular}{lll}
-		\toprule
-		\bf Test \# & Code & \bf Description\\\midrule
-		\stepcounter{TestCounter}\arabic{TestCounter} & Code goes here & Description goes here\\
-		\bottomrule
-		\end{tabular}
-		\end{table}
-	\subsubsection{Accuracy}
-		\begin{table}[!htbp]
-		\centering
-		\caption{Accuracy}\label{_acc}
-		\begin{tabular}{lll}
-		\toprule
-		\bf Test \# & CPU & GPU \\\midrule
-		\arabic{TestCounter} & CPU time & GPU time\\
-		\bottomrule
-		\end{tabular}
-		\end{table}
-	\subsubsection{Performance}
-
-\subsection{SetData}
-	\subsubsection{Unit Tests}
-		For all unit tests ``r1" and ``r2" will be random doubles. ``n" is the length of the G4ParticleHPVector 
-		\begin{table}[!htbp]
+		\begin{table}[H]
 		\centering
 		\caption{Unit Tests}\label{SetData_unit}
 		\begin{tabular}{lll}
 		\toprule
 		\bf Test \# & Code & \bf Description\\\midrule
-		\stepcounter{TestCounter}\arabic{TestCounter}\label{SetData_0} & SetData(-1, r1, r2) & Try to set a point at a negative index\\
-		\stepcounter{TestCounter}\arabic{TestCounter}\label{SetData_1} & SetData(0, r1. r2) & Try to set a point at a the first index\\
-		\stepcounter{TestCounter}\arabic{TestCounter}\label{SetData_2} & SetData(n/2, r1, r2) & Try to set a point at an index within the vector\\
-		\stepcounter{TestCounter}\arabic{TestCounter}\label{SetData_3} & SetData(n-1, r1, r2) & Try to set a point at the last index\\
-		\stepcounter{TestCounter}\arabic{TestCounter}\label{SetData_4} & SetData(n, r1, r2) & Try to set a point at an index our of bounds\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetData_0} & Empty.SetData(-1, r1, r2) & Set a point at a negative index of an empty vector\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetData_1} & Empty.SetData(0, r1, r2) & Set a point at a the first index of an empty vector\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetData_2} & Empty.SetData(1, r1, r2) & Set a point at an index out of bounds of an empty vector\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetData_3} & D.SetData(-1, r1, r2) & Set a point at a negative index\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetData_4} & D.SetData(0, r1, r2) & Set a point at a the first index\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetData_5} & D.SetData(n/2, r1, r2) & Set a point at an index within the vector\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetData_6} & D.SetData(n-1, r1, r2) & Set a point at the last index\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetData_7} & D.SetData(n, r1, r2) & Set a point at an index our of bounds\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetData_8} & D.SetData(0, -1, -1) & Set a point with a negative energy and xSec\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetData_9} & D.SetData(0, 0, 0) & Set a point with a zero energy and xSec\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
 	\subsubsection{Accuracy}
-		\begin{table}[!htbp]
+		\begin{table}[H]
 		\centering
-		\caption{Accuracy}\label{SetData_acc}
+		\caption{Accuracy}\label{GetY_acc}
 		\begin{tabular}{lll}
 		\toprule
-		\bf Test \# & CPU & GPU \\\midrule
-		\ref{SetData_0} & CPU time & GPU time\\
-		\ref{SetData_1} & CPU time & GPU time\\
-		\ref{SetData_2} & CPU time & GPU time\\
-		\ref{SetData_3} & CPU time & GPU time\\
-		\ref{SetData_4} & CPU time & GPU time\\
+		\bf Test \# & Status \\\midrule
+		\ref{SetData_0} & Pass\\
+		\ref{SetData_1} & Pass\\
+		\ref{SetData_2} & Pass\\
+		\ref{SetData_3} & Pass\\
+		\ref{SetData_4} & Pass\\
+		\ref{SetData_5} & Pass\\
+		\ref{SetData_6} & Pass\\
+		\ref{SetData_7} & Pass\\
+		\ref{SetData_8} & Pass\\
+		\ref{SetData_9} & Pass\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
 	\subsubsection{Performance}
 
-\subsection{SetX}
+\subsection{SetEnergy} % Test cases finished
 	\subsubsection{Unit Tests}
-		For all unit tests ``r1" will be a random double. ``n" is the length of the G4ParticleHPVector 
-		\begin{table}[!htbp]
+		\begin{table}[H]
+		\centering
+		\caption{Unit Tests}\label{SetEnergy_unit}
+		\begin{tabular}{lll}
+		\toprule
+		\bf Test \# & Code & \bf Description\\\midrule
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetEnergy_0} & Empty.SetEnergy(-1, r1) & Set an energy at a negative index of an empty vector\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetEnergy_1} & Empty.SetEnergy(0, r1) & Set an energy at a the first index of an empty vector\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetEnergy_2} & Empty.SetEnergy(1, r1) & Set an energy at an index out of bounds of an empty vector\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetEnergy_3} & D.SetEnergy(-1, r1) & Set an energy at a negative index\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetEnergy_4} & D.SetEnergy(0, r1) & Set an energy at a the first index\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetEnergy_5} & D.SetEnergy(n/2, r1) & Set an energy at an index within the vector\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetEnergy_6} & D.SetEnergy(n-1, r1) & Set an energy at the last index\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetEnergy_7} & D.SetEnergy(n, r1) & Set an energy at an index our of bounds\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetEnergy_8} & D.SetEnergy(0, -1) & Set an energy at an index within the vector to a negative value\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetEnergy_9} & D.SetEnergy(0, 0) & Set an energy at an index within the vector to a zero value\\
+		\bottomrule
+		\end{tabular}
+		\end{table}
+	\subsubsection{Accuracy}
+		\begin{table}[H]
+		\centering
+		\caption{Accuracy}\label{GetY_acc}
+		\begin{tabular}{lll}
+		\toprule
+		\bf Test \# & Status \\\midrule
+		\ref{SetEnergy_0} & Pass\\
+		\ref{SetEnergy_1} & Pass\\
+		\ref{SetEnergy_2} & Pass\\
+		\ref{SetEnergy_3} & Pass\\
+		\ref{SetEnergy_4} & Pass\\
+		\ref{SetEnergy_5} & Pass\\
+		\ref{SetEnergy_6} & Pass\\
+		\ref{SetEnergy_7} & Pass\\
+		\ref{SetEnergy_8} & Pass\\
+		\ref{SetEnergy_9} & Pass\\
+		\bottomrule
+		\end{tabular}
+		\end{table}
+	\subsubsection{Performance}
+
+\subsection{SetXsec} % Test cases finished
+	\subsubsection{Unit Tests}
+		\begin{table}[H]
+		\centering
+		\caption{Unit Tests}\label{SetXsec_unit}
+		\begin{tabular}{lll}
+		\toprule
+		\bf Test \# & Code & \bf Description\\\midrule
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetXsec_0} & Empty.SetXsec(-1, r1) & Set an xSec at a negative index of an empty vector\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetXsec_1} & Empty.SetXsec(0, r1) & Set an xSec at a the first index of an empty vector\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetXsec_2} & Empty.SetXsec(1, r1) & Set an xSec at an index out of bounds of an empty vector\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetXsec_3} & D.SetXsec(-1, r1) & Set an xSec at a negative index\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetXsec_4} & D.SetXsec(0, r1) & Set an xSec at a the first index\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetXsec_5} & D.SetXsec(n/2, r1) & Set an xSec at an index within the vector\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetXsec_6} & D.SetXsec(n-1, r1) & Set an xSec at the last index\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetXsec_7} & D.SetXsec(n, r1) & Set an xSec at an index our of bounds\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetXsec_8} & D.SetXsec(0, -1) & Try to set a negative xSec\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetXsec_9} & D.SetXsec(0, 0) & Try to set a zero xSec\\
+		\bottomrule
+		\end{tabular}
+		\end{table}
+	\subsubsection{Accuracy}
+		\begin{table}[H]
+		\centering
+		\caption{Accuracy}\label{GetY_acc}
+		\begin{tabular}{lll}
+		\toprule
+		\bf Test \# & Status \\\midrule
+		\ref{SetXsec_0} & Pass\\
+		\ref{SetXsec_1} & Pass\\
+		\ref{SetXsec_2} & Pass\\
+		\ref{SetXsec_3} & Pass\\
+		\ref{SetXsec_4} & Pass\\
+		\ref{SetXsec_5} & Pass\\
+		\ref{SetXsec_6} & Pass\\
+		\ref{SetXsec_7} & Pass\\
+		\ref{SetXsec_8} & Pass\\
+		\ref{SetXsec_9} & Pass\\
+		\bottomrule
+		\end{tabular}
+		\end{table}
+	\subsubsection{Performance}
+
+\subsection{SetX} % Test cases finished
+	\subsubsection{Unit Tests}
+		\begin{table}[H]
 		\centering
 		\caption{Unit Tests}\label{SetX_unit}
 		\begin{tabular}{lll}
 		\toprule
 		\bf Test \# & Code & \bf Description\\\midrule
-		\stepcounter{TestCounter}\arabic{TestCounter}\label{SetX_0} & SetX(-1, r1, r2) & Try to set a point at a negative index\\
-		\stepcounter{TestCounter}\arabic{TestCounter}\label{SetX_1} & SetX(0, r1. r2) & Try to set a point at a the first index\\
-		\stepcounter{TestCounter}\arabic{TestCounter}\label{SetX_2} & SetX(n/2, r1, r2) & Try to set a point at an index within the vector\\
-		\stepcounter{TestCounter}\arabic{TestCounter}\label{SetX_3} & SetX(n-1, r1, r2) & Try to set a point at the last index\\
-		\stepcounter{TestCounter}\arabic{TestCounter}\label{SetX_4} & SetX(n, r1, r2) & Try to set a point at an index our of bounds\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetX_0} & Empty.SetX(-1, r1) & Set an energy at a negative index of an empty vector\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetX_1} & Empty.SetX(0, r1) & Set an energy at a the first index of an empty vector\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetX_2} & Empty.SetX(1, r1) & Set an energy at an index out of bounds of an empty vector\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetX_3} & D.SetX(-1, r1) & Set an energy at a negative index\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetX_4} & D.SetX(0, r1) & Set an energy at a the first index\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetX_5} & D.SetX(n/2, r1) & Set an energy at an index within the vector\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetX_6} & D.SetX(n-1, r1) & Set an energy at the last index\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetX_7} & D.SetX(n, r1) & Set an energy at an index our of bounds\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetX_8} & D.SetX(0, -1) & Set a negative energy\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetX_9} & D.SetX(0, 0) & Set a zero energy\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
 	\subsubsection{Accuracy}
-		\begin{table}[!htbp]
+		\begin{table}[H]
 		\centering
-		\caption{Accuracy}\label{SetX_acc}
+		\caption{Accuracy}\label{GetY_acc}
 		\begin{tabular}{lll}
 		\toprule
-		\bf Test \# & CPU & GPU \\\midrule
-		\ref{SetX_0} & CPU time & GPU time\\
-		\ref{SetX_1} & CPU time & GPU time\\
-		\ref{SetX_2} & CPU time & GPU time\\
-		\ref{SetX_3} & CPU time & GPU time\\
-		\ref{SetX_4} & CPU time & GPU time\\
+		\bf Test \# & Status \\\midrule
+		\ref{SetX_0} & Pass\\
+		\ref{SetX_1} & Pass\\
+		\ref{SetX_2} & Pass\\
+		\ref{SetX_3} & Pass\\
+		\ref{SetX_4} & Pass\\
+		\ref{SetX_5} & Pass\\
+		\ref{SetX_6} & Pass\\
+		\ref{SetX_7} & Pass\\
+		\ref{SetX_8} & Pass\\
+		\ref{SetX_9} & Pass\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
 	\subsubsection{Performance}
 
-\subsection{SetY}
+\subsection{SetY} % Test cases finished
 	\subsubsection{Unit Tests}
-		\begin{table}[!htbp]
+		\begin{table}[H]
 		\centering
-		\caption{Unit Tests}\label{_unit}
+		\caption{Unit Tests}\label{SetY_unit}
 		\begin{tabular}{lll}
 		\toprule
 		\bf Test \# & Code & \bf Description\\\midrule
-		\stepcounter{TestCounter}\arabic{TestCounter} & Code goes here & Description goes here\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetY_0} & Empty.SetY(-1, r1) & Set an xSec at a negative index of an empty vector\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetY_1} & Empty.SetY(0, r1) & Set an xSec at a the first index of an empty vector\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetY_2} & Empty.SetY(1, r1) & Set an xSec at an index out of bounds of an empty vector\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetY_3} & D.SetY(-1, r1) & Set an xSec at a negative index\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetY_4} & D.SetY(0, r1) & Set an xSec at a the first index\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetY_5} & D.SetY(n/2, r1) & Set an xSec at an index within the vector\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetY_6} & D.SetY(n-1, r1) & Set an xSec at the last index\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetY_7} & D.SetY(n, r1) & Set an xSec at an index our of bounds\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetY_8} & D.SetY(0, -1) & Set a negative xSec\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetY_9} & D.SetY(0, 0) & Set a zero xSec\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
 	\subsubsection{Accuracy}
-		\begin{table}[!htbp]
+		\begin{table}[H]
 		\centering
-		\caption{Accuracy}\label{_acc}
+		\caption{Accuracy}\label{SetY_acc}
 		\begin{tabular}{lll}
 		\toprule
-		\bf Test \# & CPU & GPU \\\midrule
-		\arabic{TestCounter} & CPU time & GPU time\\
+		\bf Test \# & Status \\\midrule
+		\ref{SetY_0} & Pass\\
+		\ref{SetY_1} & Pass\\
+		\ref{SetY_2} & Pass\\
+		\ref{SetY_3} & Pass\\
+		\ref{SetY_4} & Pass\\
+		\ref{SetY_5} & Pass\\
+		\ref{SetY_6} & Pass\\
+		\ref{SetY_7} & Pass\\
+		\ref{SetY_8} & Pass\\
+		\ref{SetY_9} & Pass\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
 	\subsubsection{Performance}
 
-\subsection{Init}
+\subsection{Init} % Test Cases done
 	\subsubsection{Unit Tests}
-		\begin{table}[!htbp]
+		\begin{table}[H]
 		\centering
-		\caption{Unit Tests}\label{_unit}
+		\caption{Unit Tests}\label{Init_unit}
 		\begin{tabular}{lll}
 		\toprule
 		\bf Test \# & Code & \bf Description\\\midrule
-		\stepcounter{TestCounter}\arabic{TestCounter} & Code goes here & Description goes here\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{Init_0} & Empty.Init() & Init an empty Vector\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{Init_1} & D.Init() & Init a Vector\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
 	\subsubsection{Accuracy}
 		\begin{table}[!htbp]
 		\centering
-		\caption{Accuracy}\label{_acc}
+		\caption{Accuracy}\label{Init_acc}
 		\begin{tabular}{lll}
 		\toprule
-		\bf Test \# & CPU & GPU \\\midrule
-		\arabic{TestCounter} & CPU time & GPU time\\
+		\bf Test \# & Status \\\midrule
+		\ref{Init_0} & Pass\\
+		\ref{Init_1} & Pass\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
 	\subsubsection{Performance}
 
-\subsection{CleanUp}
+%\subsection{CleanUp}
+%	\subsubsection{Unit Tests}
+%		\begin{table}[!htbp]
+%		\centering
+%		\caption{Unit Tests}\label{_unit}
+%		\begin{tabular}{lll}
+%		\toprule
+%		\bf Test \# & Code & \bf Description\\\midrule
+%		\refstepcounter{TestCounter}\arabic{TestCounter} & Code goes here & Description goes here\\
+%		\bottomrule
+%		\end{tabular}
+%		\end{table}
+%	\subsubsection{Accuracy}
+%		\begin{table}[!htbp]
+%		\centering
+%		\caption{Accuracy}\label{_acc}
+%		\begin{tabular}{lll}
+%		\toprule
+%		\bf Test \# & CPU & GPU \\\midrule
+%		\arabic{TestCounter} & CPU time & GPU time\\
+%		\bottomrule
+%		\end{tabular}
+%		\end{table}
+%	\subsubsection{Performance}
+
+\subsection{SampleLin}% Test Cases finished
 	\subsubsection{Unit Tests}
-		\begin{table}[!htbp]
+		\begin{table}[H]
 		\centering
-		\caption{Unit Tests}\label{_unit}
+		\caption{Unit Tests}\label{SampleLin_unit}
 		\begin{tabular}{lll}
 		\toprule
 		\bf Test \# & Code & \bf Description\\\midrule
-		\stepcounter{TestCounter}\arabic{TestCounter} & Code goes here & Description goes here\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SampleLin_0} & Empty.SampleLin() & Sample an empty Vector\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SampleLin_1} & D.SampleLin() & Sample a Vector\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
 	\subsubsection{Accuracy}
-		\begin{table}[!htbp]
+		\begin{table}[H]
 		\centering
-		\caption{Accuracy}\label{_acc}
+		\caption{Accuracy}\label{SampleLin_acc}
 		\begin{tabular}{lll}
 		\toprule
 		\bf Test \# & CPU & GPU \\\midrule
-		\arabic{TestCounter} & CPU time & GPU time\\
+		\ref{SampleLin_0} & CPU result & GPU result\\
+		\ref{SampleLin_1} & CPU result & GPU result\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
 	\subsubsection{Performance}
 
-\subsection{SampleLin}
+\subsection{Integrate}% Test Cases done
 	\subsubsection{Unit Tests}
-		\begin{table}[!htbp]
+		\begin{table}[H]
 		\centering
-		\caption{Unit Tests}\label{_unit}
+		\caption{Unit Tests}\label{Integrate_unit}
 		\begin{tabular}{lll}
 		\toprule
 		\bf Test \# & Code & \bf Description\\\midrule
-		\stepcounter{TestCounter}\arabic{TestCounter} & Code goes here & Description goes here\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{Integrate_0} & Empty.Integrate() & Integrate an empty Vector\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{Integrate_1} & D.Integrate() & Integrate a Vector\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
 	\subsubsection{Accuracy}
-		\begin{table}[!htbp]
+		\begin{table}[H]
 		\centering
-		\caption{Accuracy}\label{_acc}
+		\caption{Accuracy}\label{Integrate_acc}
 		\begin{tabular}{lll}
 		\toprule
-		\bf Test \# & CPU & GPU \\\midrule
-		\arabic{TestCounter} & CPU time & GPU time\\
+		\bf Test \# & Status \\\midrule
+		\ref{Integrate_0} & Pass\\
+		\ref{Integrate_1} & Pass\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
 	\subsubsection{Performance}
 
-\subsection{Integrate}
+\subsection{IntegrateAndNormalise}% Test Cases done
 	\subsubsection{Unit Tests}
-		\begin{table}[!htbp]
+		\begin{table}[H]
 		\centering
-		\caption{Unit Tests}\label{_unit}
+		\caption{Unit Tests}\label{IntAndNorm_unit}
 		\begin{tabular}{lll}
 		\toprule
 		\bf Test \# & Code & \bf Description\\\midrule
-		\stepcounter{TestCounter}\arabic{TestCounter} & Code goes here & Description goes here\\
+		\stepcounter{TestCounter}\arabic{TestCounter}\label{IntAndNorm_0} & Empty.IntegrateAndNormalise() & Integrate and normalize an empty Vector\\
+		\stepcounter{TestCounter}\arabic{TestCounter}\label{IntAndNorm_1} & D.IntegrateAndNormalise() & Integrate normalize a Vector\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
 	\subsubsection{Accuracy}
-		\begin{table}[!htbp]
+		\begin{table}[H]
 		\centering
-		\caption{Accuracy}\label{_acc}
+		\caption{Accuracy}\label{IntAndNorm_acc}
 		\begin{tabular}{lll}
 		\toprule
-		\bf Test \# & CPU & GPU \\\midrule
-		\arabic{TestCounter} & CPU time & GPU time\\
+		\bf Test \# & Status \\\midrule
+		\ref{IntAndNorm_0} & Pass\\
+		\ref{IntAndNorm_1} & Pass\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
 	\subsubsection{Performance}
 
-\subsection{IntegrateAndNormalise}
+\subsection{Times} % Test cases finished
 	\subsubsection{Unit Tests}
-		\begin{table}[!htbp]
+		\begin{table}[H]
 		\centering
-		\caption{Unit Tests}\label{_unit}
+		\caption{Unit Tests}\label{Times_unit}
 		\begin{tabular}{lll}
 		\toprule
 		\bf Test \# & Code & \bf Description\\\midrule
-		\stepcounter{TestCounter}\arabic{TestCounter} & Code goes here & Description goes here\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{Times_0} & Empty.Times(-1) & Times an empty vector by a negative factor\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{Times_1} & Empty.Times(0) & Times an empty vector by zero\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{Times_2} & Empty.Times(1) & Times an empty vector by 1\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{Times_3} & Empty.Times(r1) & Times an empty vector by a random factor\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{Times_4} & D.Times(-1) & Times a vector by a negative factor\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{Times_5} & D.Times(0) & Times a vector by zero\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{Times_6} & D.Times(1) & Times a vector by 1\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{Times_7} & D.Times(r1) & Times a vector by a random factor\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
 	\subsubsection{Accuracy}
-		\begin{table}[!htbp]
+		\begin{table}[H]
 		\centering
-		\caption{Accuracy}\label{_acc}
+		\caption{Accuracy}\label{Times_acc}
 		\begin{tabular}{lll}
 		\toprule
-		\bf Test \# & CPU & GPU \\\midrule
-		\arabic{TestCounter} & CPU time & GPU time\\
+		\bf Test \# & Status \\\midrule
+		\ref{Times_0} & Pass\\
+		\ref{Times_1} & Pass\\
+		\ref{Times_2} & Pass\\
+		\ref{Times_3} & Pass\\
+		\ref{Times_4} & Pass\\
+		\ref{Times_5} & Pass\\
+		\ref{Times_6} & Pass\\
+		\ref{Times_7} & Pass\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
 	\subsubsection{Performance}
 
-\subsection{Times}
+\subsection{GetXsecBuffer} % test cases finished
+	\begin{table}[H]
+	\centering
+	\caption{General Unit Test Variables}\label{buffer_table}
+	\begin{tabular}{lll}
+	\toprule
+		\bf Name & \bf Size & Description\\\midrule 
+		emptyBuff 	& 0		& Array with no queries\\	
+		singleBuff 	& 1		& Array with a single query\\
+		smallbuff	& 50		& Array with a small number of queries\\
+		normalBuff	& 1000	& Array with a moderate number of queries\\
+		largeBuff	& 10000	& Array with a large amount of queries\\
+		negBuff	& 50		& Array of queries with negative values\\
+		zeroBuff	& 50		& Array of queries with values of zero\\
+		highBuff	& 50		& Array of queries with values larger than the highest energy in the vector\\
+	\bottomrule		
+	\end{tabular}
+	\end{table}
 	\subsubsection{Unit Tests}
-		\begin{table}[!htbp]
+		\begin{table}[H]
 		\centering
-		\caption{Unit Tests}\label{_unit}
+		\caption{Unit Tests}\label{xSecBuffer_unit}
 		\begin{tabular}{lll}
 		\toprule
 		\bf Test \# & Code & \bf Description\\\midrule
-		\stepcounter{TestCounter}\arabic{TestCounter} & Code goes here & Description goes here\\
+		\refstepcounter{TestCounter}\arabic{TestCounter} \label{xSecBuffer_0} & D.GetXsecBuffer(normalBuff, -1) &  buffer with a negative size\\
+		\refstepcounter{TestCounter}\arabic{TestCounter} \label{xSecBuffer_1} & Empty.GetXsecBuffer(emptyBuff, 0) &  Empty buffer of xSec queries to an empty vector\\
+		\refstepcounter{TestCounter}\arabic{TestCounter} \label{xSecBuffer_2} & Empty.GetXsecBuffer(normalBuff, 1000) &  Normal buffer of xSec queries to an empty vector\\
+		\refstepcounter{TestCounter}\arabic{TestCounter} \label{xSecBuffer_3} & D.GetXsecBuffer(emptyBuff, 0) &  Empty buffer of xSec queries\\
+		\refstepcounter{TestCounter}\arabic{TestCounter} \label{xSecBuffer_4} & D.GetXsecBuffer(smalllBuff, 50) &  Small number of queries\\
+		\refstepcounter{TestCounter}\arabic{TestCounter} \label{xSecBuffer_5} & D.GetXsecBuffer(normalBuff, 1000) &  Normal case\\
+		\refstepcounter{TestCounter}\arabic{TestCounter} \label{xSecBuffer_6} & D.GetXsecBuffer(highBuff, 10000) &  Large number of queries\\
+		\refstepcounter{TestCounter}\arabic{TestCounter} \label{xSecBuffer_7} & D.GetXsecBuffer(negBuff, 1000) &  Buffer of negative xSec queries\\
+		\refstepcounter{TestCounter}\arabic{TestCounter} \label{xSecBuffer_8} & D.GetXsecBuffer(emptyBuff, 1000) &  Buffer of zeros\\
+		\refstepcounter{TestCounter}\arabic{TestCounter} \label{xSecBuffer_9} & D.GetXsecBuffer(highBuff, 0) & Buffer of high valued xSec queries\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
 	\subsubsection{Accuracy}
-		\begin{table}[!htbp]
+		\begin{table}[H]
 		\centering
-		\caption{Accuracy}\label{_acc}
+		\caption{Accuracy}\label{xSecBuffer_acc}
 		\begin{tabular}{lll}
 		\toprule
-		\bf Test \# & CPU & GPU \\\midrule
-		\arabic{TestCounter} & CPU time & GPU time\\
+		\bf Test \# & Status \\\midrule
+		\ref{xSecBuffer_0} & Pass\\
+		\ref{xSecBuffer_1} & Pass\\
+		\ref{xSecBuffer_2} & Pass\\
+		\ref{xSecBuffer_3} & Pass\\
+		\ref{xSecBuffer_4} & Pass\\
+		\ref{xSecBuffer_5} & Pass\\
+		\ref{xSecBuffer_6} & Pass\\
+		\ref{xSecBuffer_7} & Pass\\
+		\ref{xSecBuffer_8} & Pass\\
+		\ref{xSecBuffer_9} & Pass\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
 	\subsubsection{Performance}
 
-\subsection{GetXsecBuffer}
+%\subsection{Dump}% Test Cases done
+%	\subsubsection{Unit Tests}
+%		\begin{table}[!htbp]
+%		\centering
+%		\caption{Unit Tests}\label{Dump_unit}
+%		\begin{tabular}{lll}
+%		\toprule
+%		\bf Test \# & Code & \bf Description\\\midrule
+%		\refstepcounter{TestCounter}\arabic{TestCounter}\label{Dump_0} & Empty.Dump() & Dump an empty Vector\\
+%		\refstepcounter{TestCounter}\arabic{TestCounter}\label{Dump_1} & D.Dump() & Dump a Vector\\
+%		\bottomrule
+%		\end{tabular}
+%		\end{table}
+%	\subsubsection{Accuracy}
+%		\begin{table}[!htbp]
+%		\centering
+%		\caption{Accuracy}\label{Dump_acc}
+%		\begin{tabular}{lll}
+%		\toprule
+%		\bf Test \# & Status \\\midrule
+%		\ref{Dump_0} & Pass\\
+%		\ref{Dump_1} & Pass\\
+%		\bottomrule
+%		\end{tabular}
+%		\end{table}
+%	\subsubsection{Performance}
+
+\subsection{ThinOut}% Test Cases Done
 	\subsubsection{Unit Tests}
-		\begin{table}[!htbp]
+		\begin{table}[H]
 		\centering
-		\caption{Unit Tests}\label{_unit}
+		\caption{Unit Tests}\label{ThinOut_unit}
 		\begin{tabular}{lll}
 		\toprule
 		\bf Test \# & Code & \bf Description\\\midrule
-		\stepcounter{TestCounter}\arabic{TestCounter} & Code goes here & Description goes here\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{ThinOut_0} & Empty.ThinOut(r1) & ThinOut an empty Vector\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{ThinOut_1} & D.ThinOut(-1) & ThinOut a Vector using a negative value\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{ThinOut_2} & D.ThinOut(0) & ThinOut a Vector using a zero value\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{ThinOut_3} & D.ThinOut(r0) & ThinOut a Vector using a small value\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{ThinOut_4} & D.ThinOut(r1) & ThinOut a Vector using a normal value\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{ThinOut_5} & D.ThinOut(r2) & ThinOut a Vector using a large value\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
 	\subsubsection{Accuracy}
-		\begin{table}[!htbp]
+		\begin{table}[H]
 		\centering
-		\caption{Accuracy}\label{_acc}
+		\caption{Accuracy}\label{ThinOut_acc}
 		\begin{tabular}{lll}
 		\toprule
-		\bf Test \# & CPU & GPU \\\midrule
-		\arabic{TestCounter} & CPU time & GPU time\\
+		\bf Test \# & Status \\\midrule
+		\ref{ThinOut_0} & Pass\\
+		\ref{ThinOut_1} & Pass\\
+		\ref{ThinOut_2} & Pass\\
+		\ref{ThinOut_3} & Pass\\
+		\ref{ThinOut_4} & Pass\\
+		\ref{ThinOut_5} & Pass\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
 	\subsubsection{Performance}
 
-\subsection{Dump}
+\subsection{Sample}% Test Cases done
 	\subsubsection{Unit Tests}
-		\begin{table}[!htbp]
+		\begin{table}[H]
 		\centering
-		\caption{Unit Tests}\label{_unit}
+		\caption{Unit Tests}\label{Sample_unit}
 		\begin{tabular}{lll}
 		\toprule
 		\bf Test \# & Code & \bf Description\\\midrule
-		\stepcounter{TestCounter}\arabic{TestCounter} & Code goes here & Description goes here\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{Sample_0} & Empty.Sample() & Sample an empty Vector\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{Sample_1} & D.Sample() & Sample a Vector\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
 	\subsubsection{Accuracy}
 		\begin{table}[!htbp]
 		\centering
-		\caption{Accuracy}\label{_acc}
+		\caption{Accuracy}\label{Sample_acc}
 		\begin{tabular}{lll}
 		\toprule
 		\bf Test \# & CPU & GPU \\\midrule
-		\arabic{TestCounter} & CPU time & GPU time\\
+		\ref{Sample_0} & CPU result & GPU result\\
+		\ref{Sample_1} & CPU result & GPU result\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
 	\subsubsection{Performance}
 
-\subsection{ThinOut}
-	\subsubsection{Unit Tests}
-		\begin{table}[!htbp]
-		\centering
-		\caption{Unit Tests}\label{_unit}
-		\begin{tabular}{lll}
-		\toprule
-		\bf Test \# & Code & \bf Description\\\midrule
-		\stepcounter{TestCounter}\arabic{TestCounter} & Code goes here & Description goes here\\
-		\bottomrule
-		\end{tabular}
-		\end{table}
-	\subsubsection{Accuracy}
-		\begin{table}[!htbp]
-		\centering
-		\caption{Accuracy}\label{_acc}
-		\begin{tabular}{lll}
-		\toprule
-		\bf Test \# & CPU & GPU \\\midrule
-		\arabic{TestCounter} & CPU time & GPU time\\
-		\bottomrule
-		\end{tabular}
-		\end{table}
-	\subsubsection{Performance}
-
-\subsection{Sample}
-	\subsubsection{Unit Tests}
-		\begin{table}[!htbp]
-		\centering
-		\caption{Unit Tests}\label{_unit}
-		\begin{tabular}{lll}
-		\toprule
-		\bf Test \# & Code & \bf Description\\\midrule
-		\stepcounter{TestCounter}\arabic{TestCounter} & Code goes here & Description goes here\\
-		\bottomrule
-		\end{tabular}
-		\end{table}
-	\subsubsection{Accuracy}
-		\begin{table}[!htbp]
-		\centering
-		\caption{Accuracy}\label{_acc}
-		\begin{tabular}{lll}
-		\toprule
-		\bf Test \# & CPU & GPU \\\midrule
-		\arabic{TestCounter} & CPU time & GPU time\\
-		\bottomrule
-		\end{tabular}
-		\end{table}
-	\subsubsection{Performance}
-
-\subsection{Check}
-	\subsubsection{Unit Tests}
-		\begin{table}[!htbp]
-		\centering
-		\caption{Unit Tests}\label{_unit}
-		\begin{tabular}{lll}
-		\toprule
-		\bf Test \# & Code & \bf Description\\\midrule
-		\stepcounter{TestCounter}\arabic{TestCounter} & Code goes here & Description goes here\\
-		\bottomrule
-		\end{tabular}
-		\end{table}
-	\subsubsection{Accuracy}
-		\begin{table}[!htbp]
-		\centering
-		\caption{Accuracy}\label{_acc}
-		\begin{tabular}{lll}
-		\toprule
-		\bf Test \# & CPU & GPU \\\midrule
-		\arabic{TestCounter} & CPU time & GPU time\\
-		\bottomrule
-		\end{tabular}
-		\end{table}
-	\subsubsection{Performance}
-
-%from .hh
-
-\subsection{GetVectorLength}
-	\subsubsection{Unit Tests}
-		\begin{table}[!htbp]
-		\centering
-		\caption{Unit Tests}\label{_unit}
-		\begin{tabular}{lll}
-		\toprule
-		\bf Test \# & Code & \bf Description\\\midrule
-		\stepcounter{TestCounter}\arabic{TestCounter} & Code goes here & Description goes here\\
-		\bottomrule
-		\end{tabular}
-		\end{table}
-	\subsubsection{Accuracy}
-		\begin{table}[!htbp]
-		\centering
-		\caption{Accuracy}\label{_acc}
-		\begin{tabular}{lll}
-		\toprule
-		\bf Test \# & CPU & GPU \\\midrule
-		\arabic{TestCounter} & CPU time & GPU time\\
-		\bottomrule
-		\end{tabular}
-		\end{table}
-	\subsubsection{Performance}
-
-\subsection{GetLabel}
-	\subsubsection{Unit Tests}
-		\begin{table}[!htbp]
-		\centering
-		\caption{Unit Tests}\label{_unit}
-		\begin{tabular}{lll}
-		\toprule
-		\bf Test \# & Code & \bf Description\\\midrule
-		\stepcounter{TestCounter}\arabic{TestCounter} & Code goes here & Description goes here\\
-		\bottomrule
-		\end{tabular}
-		\end{table}
-	\subsubsection{Accuracy}
-		\begin{table}[!htbp]
-		\centering
-		\caption{Accuracy}\label{_acc}
-		\begin{tabular}{lll}
-		\toprule
-		\bf Test \# & CPU & GPU \\\midrule
-		\arabic{TestCounter} & CPU time & GPU time\\
-		\bottomrule
-		\end{tabular}
-		\end{table}
-	\subsubsection{Performance}
-
-\subsection{GetIntegral}
-	\subsubsection{Unit Tests}
-		\begin{table}[!htbp]
-		\centering
-		\caption{Unit Tests}\label{_unit}
-		\begin{tabular}{lll}
-		\toprule
-		\bf Test \# & Code & \bf Description\\\midrule
-		\stepcounter{TestCounter}\arabic{TestCounter} & Code goes here & Description goes here\\
-		\bottomrule
-		\end{tabular}
-		\end{table}
-	\subsubsection{Accuracy}
-		\begin{table}[!htbp]
-		\centering
-		\caption{Accuracy}\label{_acc}
-		\begin{tabular}{lll}
-		\toprule
-		\bf Test \# & CPU & GPU \\\midrule
-		\arabic{TestCounter} & CPU time & GPU time\\
-		\bottomrule
-		\end{tabular}
-		\end{table}
-	\subsubsection{Performance}
-
-\subsection{SetPoint}
-	\subsubsection{Unit Tests}
-		For all unit tests ``point" will be a random G4ParticleHPDataPoint. ``n" is the length of the G4ParticleHPVector 
-		\begin{table}[!htbp]
-		\centering
-		\caption{Unit Tests}\label{SetPoint_unit}
-		\begin{tabular}{lll}
-		\toprule
-		\bf Test \# & Code & \bf Description\\\midrule
-		\stepcounter{TestCounter}\arabic{TestCounter}\label{SetPoint_0} & SetPoint(-1, point) & Try to set a point at a negative index\\
-		\stepcounter{TestCounter}\arabic{TestCounter}\label{SetPoint_1} & SetPoint(0, point) & Try to set a point at a the first index\\
-		\stepcounter{TestCounter}\arabic{TestCounter}\label{SetPoint_2} & SetPoint(n/2, point) & Try to set a point at an index within the vector\\
-		\stepcounter{TestCounter}\arabic{TestCounter}\label{SetPoint_3} & SetPoint(n-1, point) & Try to set a point at the last index\\
-		\stepcounter{TestCounter}\arabic{TestCounter}\label{SetPoint_4} & SetPoint(n, point) & Try to set a point at an index our of bounds\\
-		\bottomrule
-		\end{tabular}
-		\end{table}
-	\subsubsection{Accuracy}
-		\begin{table}[!htbp]
-		\centering
-		\caption{Accuracy}\label{SetPoint_acc}
-		\begin{tabular}{lll}
-		\toprule
-		\bf Test \# & CPU & GPU \\\midrule
-		\ref{SetPoint_0} & CPU time & GPU time\\
-		\ref{SetPoint_1} & CPU time & GPU time\\
-		\ref{SetPoint_2} & CPU time & GPU time\\
-		\ref{SetPoint_3} & CPU time & GPU time\\
-		\ref{SetPoint_4} & CPU time & GPU time\\
-		\bottomrule
-		\end{tabular}
-		\end{table}
-	\subsubsection{Performance}
-%
-%\subsection{SetLabel}
+%\subsection{Check}
 %	\subsubsection{Unit Tests}
 %		\begin{table}[!htbp]
 %		\centering
@@ -780,76 +920,182 @@ Our testing is semi-automated. Due to the nature of this implementation we need 
 %		\end{table}
 %	\subsubsection{Performance}
 
-\subsection{SetInterpolationManager}
+%from .hh
+
+%\subsection{GetVectorLength} % Test cases finished
+%	\subsubsection{Unit Tests}		
+%		\begin{table}[!htbp]
+%		\centering
+%		\caption{Unit Tests}\label{GetVectorLength_unit}
+%		\begin{tabular}{lll}
+%		\toprule
+%		\bf Test \# & Code & \bf Description\\\midrule
+%		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetVectorLength_0} & Empty.GetVectorLength() & Get the length of an empty vector\\
+%		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetVectorLength_1} & D.GetVectorLength() & Get the length of a vector\\
+%		\bottomrule
+%		\end{tabular}
+%		\end{table}
+%	\subsubsection{Accuracy}
+%		\begin{table}[!htbp]
+%		\centering
+%		\caption{Accuracy}\label{GetVectorLength_acc}
+%		\begin{tabular}{lll}
+%		\toprule
+%		\bf Test \# & Status \\\midrule		
+%		\ref{GetVectorLength_0} & Pass\\
+%		\ref{GetVectorLength_1} & Pass\\
+%		\bottomrule
+%		\end{tabular}
+%		\end{table}
+%	\subsubsection{Performance}
+
+%\subsection{GetIntegral}
+%	\subsubsection{Unit Tests}
+%		\begin{table}[!htbp]
+%		\centering
+%		\caption{Unit Tests}\label{_unit}
+%		\begin{tabular}{lll}
+%		\toprule
+%		\bf Test \# & Code & \bf Description\\\midrule
+%		\refstepcounter{TestCounter}\arabic{TestCounter} & Code goes here & Description goes here\\
+%		\bottomrule
+%		\end{tabular}
+%		\end{table}
+%	\subsubsection{Accuracy}
+%		\begin{table}[!htbp]
+%		\centering
+%		\caption{Accuracy}\label{_acc}
+%		\begin{tabular}{lll}
+%		\toprule
+%		\bf Test \# & CPU & GPU \\\midrule
+%		\arabic{TestCounter} & CPU time & GPU time\\
+%		\bottomrule
+%		\end{tabular}
+%		\end{table}
+%	\subsubsection{Performance}
+
+\subsection{SetPoint} % Test cases finished
 	\subsubsection{Unit Tests}
-		\begin{table}[!htbp]
+		\begin{itemize}
+			\item ``rPoint" is a random G4ParticleHPDataPoint
+			\item ``nPoint" is a negative G4ParticleHPDataPoint
+			\item ``zPoint" is a zero G4ParticleHPDataPoint
+		\end{itemize}
+		\begin{table}[H]
 		\centering
-		\caption{Unit Tests}\label{_unit}
+		\caption{Unit Tests}\label{SetPoint_unit}
 		\begin{tabular}{lll}
 		\toprule
 		\bf Test \# & Code & \bf Description\\\midrule
-		\stepcounter{TestCounter}\arabic{TestCounter} & Code goes here & Description goes here\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetPoint_0} & Empty.SetPoint(-1, rPoint) & Set a point at a negative index of an empty vector\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetPoint_1} & Empty.SetPoint(0, rPoint) & Set a point at a the first index of an empty vector\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetPoint_2} & Empty.SetPoint(1, rPoint) & Set a point at an index out of bounds of an empty vector\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetPoint_3} & D.SetPoint(-1, rPoint) & Set a point at a negative index\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetPoint_4} & D.SetPoint(0, rPoint) & Set a point at a the first index\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetPoint_5} & D.SetPoint(n/2, rPoint) & Set a point at an index within the vector\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetPoint_6} & D.SetPoint(n-1, rPoint) & Set a point at the last index\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetPoint_7} & D.SetPoint(n, rPoint) & Set a point at an index our of bounds\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetPoint_8} & D.SetPoint(0, nPoint) & Set a negative point\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetPoint_9} & D.SetPoint(0, zPoint) & Set a zero point\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
 	\subsubsection{Accuracy}
-		\begin{table}[!htbp]
+		\begin{table}[H]
 		\centering
-		\caption{Accuracy}\label{_acc}
+		\caption{Accuracy}\label{SetPoint_acc}
 		\begin{tabular}{lll}
 		\toprule
-		\bf Test \# & CPU & GPU \\\midrule
-		\arabic{TestCounter} & CPU time & GPU time\\
+		\bf Test \# & Status \\\midrule
+		\ref{SetPoint_0} & Pass\\
+		\ref{SetPoint_1} & Pass\\
+		\ref{SetPoint_2} & Pass\\
+		\ref{SetPoint_3} & Pass\\
+		\ref{SetPoint_4} & Pass\\
+		\ref{SetPoint_5} & Pass\\
+		\ref{SetPoint_6} & Pass\\
+		\ref{SetPoint_7} & Pass\\
+		\ref{SetPoint_8} & Pass\\
+		\ref{SetPoint_9} & Pass\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
 	\subsubsection{Performance}
 
-\subsection{SetScheme}
-	\subsubsection{Unit Tests}
-		\begin{table}[!htbp]
+%\subsection{Merge}
+%	\subsubsection{Unit Tests}
+%		\begin{table}[!htbp]
+%		\centering
+%		\caption{Unit Tests}\label{Merge_unit}
+%		\begin{tabular}{lll}
+%		\toprule
+%		\bf Test \# & Code & \bf Description\\\midrule
+%		\refstepcounter{TestCounter}\arabic{TestCounter} & Code goes here & Description goes here\\
+%		\bottomrule
+%		\end{tabular}
+%		\end{table}
+%	\subsubsection{Accuracy}
+%		\begin{table}[!htbp]
+%		\centering
+%		\caption{Accuracy}\label{Merge_acc}
+%		\begin{tabular}{lll}
+%		\toprule
+%		\bf Test \# & Status \\\midrule
+%		\arabic{TestCounter} & Pass\\
+%		\bottomrule
+%		\end{tabular}
+%		\end{table}
+%	\subsubsection{Performance}
+
+\subsection{Get15percentBorder} % Test cases finished
+	\subsubsection{Unit Tests}		
+		\begin{table}[H]
 		\centering
-		\caption{Unit Tests}\label{_unit}
+		\caption{Unit Tests}\label{Get15percentBorder_unit}
 		\begin{tabular}{lll}
 		\toprule
 		\bf Test \# & Code & \bf Description\\\midrule
-		\stepcounter{TestCounter}\arabic{TestCounter} & Code goes here & Description goes here\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{Get15percentBorder_0} & Empty.Get15percentBorder() & Get 15 percent Border of an empty vector\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{Get15percentBorder_1} & D.Get15percentBorder() & Get 15 percent Border of a vector\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
 	\subsubsection{Accuracy}
-		\begin{table}[!htbp]
+		\begin{table}[H]
 		\centering
-		\caption{Accuracy}\label{_acc}
+		\caption{Accuracy}\label{Get15percentBorder_acc}
 		\begin{tabular}{lll}
 		\toprule
-		\bf Test \# & CPU & GPU \\\midrule
-		\arabic{TestCounter} & CPU time & GPU time\\
+		\bf Test \# & Status \\\midrule		
+		\ref{Get15percentBorder_0} & Pass\\
+		\ref{Get15percentBorder_1} & Pass\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
 	\subsubsection{Performance}
 
-\subsection{Merge}
-	\subsubsection{Unit Tests}
-		\begin{table}[!htbp]
+\subsection{Get50percentBorder} % Test cases finished
+	\subsubsection{Unit Tests}		
+		\begin{table}[H]
 		\centering
-		\caption{Unit Tests}\label{_unit}
+		\caption{Unit Tests}\label{Get50percentBorder_unit}
 		\begin{tabular}{lll}
 		\toprule
 		\bf Test \# & Code & \bf Description\\\midrule
-		\arabic{TestCounter} & Code goes here & Description goes here\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{Get50percentBorder_0} & Empty.Get50percentBorder() & Get 50 percent Border of an empty vector\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{Get50percentBorder_1} & D.Get50percentBorder() & Get 50 percent Border of a vector\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
 	\subsubsection{Accuracy}
-		\begin{table}[!htbp]
+		\begin{table}[H]
 		\centering
-		\caption{Accuracy}\label{_acc}
+		\caption{Accuracy}\label{Get50percentBorder_acc}
 		\begin{tabular}{lll}
 		\toprule
-		\bf Test \# & CPU & GPU \\\midrule
-		\arabic{TestCounter} & CPU time & GPU time\\
+		\bf Test \# & Status \\\midrule		
+		\ref{Get50percentBorder_0} & Pass\\
+		\ref{Get50percentBorder_1} & Pass\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
@@ -1139,7 +1385,7 @@ Similarly, the following is a traceability table explicitly relating test cases 
 \end{longtable}
 \end{center}
 
-% =============================== Section =============================== %
+% =============================== Section =============================== % --------------------------- Stuart
 \section{Changes after Testing}
 
 
