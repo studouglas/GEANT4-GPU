@@ -114,1429 +114,219 @@ theIntegral []
 theData xVals []
 theData yVals []
 theIntegral []
-#void Merge(G4ParticleHPVector * active, G4ParticleHPVector * passive)_0
-@active_caseNum=1
-@passive_caseNum=1
-theData xVals []
-theData yVals []
-@active_caseNum=1
-@passive_caseNum=2
-theData xVals []
-theData yVals []
-@active_caseNum=1
-@passive_caseNum=3
-theData xVals []
-theData yVals []
-@active_caseNum=1
-@passive_caseNum=4
-theData xVals []
-theData yVals []
-@active_caseNum=1
-@passive_caseNum=5
-theData xVals []
-theData yVals []
-@active_caseNum=1
-@passive_caseNum=6
-theData xVals []
-theData yVals []
-@active_caseNum=1
-@passive_caseNum=7
-theData xVals []
-theData yVals []
-@active_caseNum=2
-@passive_caseNum=1
-theData xVals []
-theData yVals []
-@active_caseNum=2
-@passive_caseNum=2
-theData xVals []
-theData yVals []
-@active_caseNum=2
-@passive_caseNum=3
-theData xVals []
-theData yVals []
-@active_caseNum=2
-@passive_caseNum=4
-theData xVals []
-theData yVals []
-@active_caseNum=2
-@passive_caseNum=5
-theData xVals []
-theData yVals []
-@active_caseNum=2
-@passive_caseNum=6
-theData xVals []
-theData yVals []
-@active_caseNum=2
-@passive_caseNum=7
-theData xVals []
-theData yVals []
-@active_caseNum=3
-@passive_caseNum=1
-theData xVals []
-theData yVals []
-@active_caseNum=3
-@passive_caseNum=2
-theData xVals []
-theData yVals []
-@active_caseNum=3
-@passive_caseNum=3
-theData xVals []
-theData yVals []
-@active_caseNum=3
-@passive_caseNum=4
-theData xVals []
-theData yVals []
-@active_caseNum=3
-@passive_caseNum=5
-theData xVals []
-theData yVals []
-@active_caseNum=3
-@passive_caseNum=6
-theData xVals []
-theData yVals []
-@active_caseNum=3
-@passive_caseNum=7
-theData xVals []
-theData yVals []
-@active_caseNum=4
-@passive_caseNum=1
-theData xVals []
-theData yVals []
-@active_caseNum=4
-@passive_caseNum=2
-theData xVals []
-theData yVals []
-@active_caseNum=4
-@passive_caseNum=3
-theData xVals []
-theData yVals []
-@active_caseNum=4
-@passive_caseNum=4
-theData xVals []
-theData yVals []
-@active_caseNum=4
-@passive_caseNum=5
-theData xVals []
-theData yVals []
-@active_caseNum=4
-@passive_caseNum=6
-theData xVals []
-theData yVals []
-@active_caseNum=4
-@passive_caseNum=7
-theData xVals []
-theData yVals []
-@active_caseNum=5
-@passive_caseNum=1
-theData xVals []
-theData yVals []
-@active_caseNum=5
-@passive_caseNum=2
-theData xVals []
-theData yVals []
-@active_caseNum=5
-@passive_caseNum=3
-theData xVals []
-theData yVals []
-@active_caseNum=5
-@passive_caseNum=4
-theData xVals []
-theData yVals []
-@active_caseNum=5
-@passive_caseNum=5
-theData xVals []
-theData yVals []
-@active_caseNum=5
-@passive_caseNum=6
-theData xVals []
-theData yVals []
-@active_caseNum=5
-@passive_caseNum=7
-theData xVals []
-theData yVals []
-@active_caseNum=6
-@passive_caseNum=1
-theData xVals []
-theData yVals []
-@active_caseNum=6
-@passive_caseNum=2
-theData xVals []
-theData yVals []
-@active_caseNum=6
-@passive_caseNum=3
-theData xVals []
-theData yVals []
-@active_caseNum=6
-@passive_caseNum=4
-theData xVals []
-theData yVals []
-@active_caseNum=6
-@passive_caseNum=5
-theData xVals []
-theData yVals []
-@active_caseNum=6
-@passive_caseNum=6
-theData xVals []
-theData yVals []
-@active_caseNum=6
-@passive_caseNum=7
-theData xVals []
-theData yVals []
-@active_caseNum=7
-@passive_caseNum=1
-theData xVals []
-theData yVals []
-@active_caseNum=7
-@passive_caseNum=2
-theData xVals []
-theData yVals []
-@active_caseNum=7
-@passive_caseNum=3
-theData xVals []
-theData yVals []
-@active_caseNum=7
-@passive_caseNum=4
-theData xVals []
-theData yVals []
-@active_caseNum=7
-@passive_caseNum=5
-theData xVals []
-theData yVals []
-@active_caseNum=7
-@passive_caseNum=6
-theData xVals []
-theData yVals []
-@active_caseNum=7
-@passive_caseNum=7
-theData xVals []
-theData yVals []
-#void Merge(G4InterpolationScheme aScheme, G4double aValue, G4ParticleHPVector * active, G4ParticleHPVector * passive)_0
-@aValue=0
-@active_caseNum=1
-@passive_caseNum=1
-theData xVals []
-theData yVals []
-@aValue=0
-@active_caseNum=1
-@passive_caseNum=2
-theData xVals []
-theData yVals []
-@aValue=0
-@active_caseNum=1
-@passive_caseNum=3
-theData xVals []
-theData yVals []
-@aValue=0
-@active_caseNum=1
-@passive_caseNum=4
-theData xVals []
-theData yVals []
-@aValue=0
-@active_caseNum=1
-@passive_caseNum=5
-theData xVals []
-theData yVals []
-@aValue=0
-@active_caseNum=1
-@passive_caseNum=6
-theData xVals []
-theData yVals []
-@aValue=0
-@active_caseNum=1
-@passive_caseNum=7
-theData xVals []
-theData yVals []
-@aValue=0
-@active_caseNum=2
-@passive_caseNum=1
-theData xVals []
-theData yVals []
-@aValue=0
-@active_caseNum=2
-@passive_caseNum=2
-theData xVals []
-theData yVals []
-@aValue=0
-@active_caseNum=2
-@passive_caseNum=3
-theData xVals []
-theData yVals []
-@aValue=0
-@active_caseNum=2
-@passive_caseNum=4
-theData xVals []
-theData yVals []
-@aValue=0
-@active_caseNum=2
-@passive_caseNum=5
-theData xVals []
-theData yVals []
-@aValue=0
-@active_caseNum=2
-@passive_caseNum=6
-theData xVals []
-theData yVals []
-@aValue=0
-@active_caseNum=2
-@passive_caseNum=7
-theData xVals []
-theData yVals []
-@aValue=0
-@active_caseNum=3
-@passive_caseNum=1
-theData xVals []
-theData yVals []
-@aValue=0
-@active_caseNum=3
-@passive_caseNum=2
-theData xVals []
-theData yVals []
-@aValue=0
-@active_caseNum=3
-@passive_caseNum=3
-theData xVals []
-theData yVals []
-@aValue=0
-@active_caseNum=3
-@passive_caseNum=4
-theData xVals []
-theData yVals []
-@aValue=0
-@active_caseNum=3
-@passive_caseNum=5
-theData xVals []
-theData yVals []
-@aValue=0
-@active_caseNum=3
-@passive_caseNum=6
-theData xVals []
-theData yVals []
-@aValue=0
-@active_caseNum=3
-@passive_caseNum=7
-theData xVals []
-theData yVals []
-@aValue=0
-@active_caseNum=4
-@passive_caseNum=1
-theData xVals []
-theData yVals []
-@aValue=0
-@active_caseNum=4
-@passive_caseNum=2
-theData xVals []
-theData yVals []
-@aValue=0
-@active_caseNum=4
-@passive_caseNum=3
-theData xVals []
-theData yVals []
-@aValue=0
-@active_caseNum=4
-@passive_caseNum=4
-theData xVals []
-theData yVals []
-@aValue=0
-@active_caseNum=4
-@passive_caseNum=5
-theData xVals []
-theData yVals []
-@aValue=0
-@active_caseNum=4
-@passive_caseNum=6
-theData xVals []
-theData yVals []
-@aValue=0
-@active_caseNum=4
-@passive_caseNum=7
-theData xVals []
-theData yVals []
-@aValue=0
-@active_caseNum=5
-@passive_caseNum=1
-theData xVals []
-theData yVals []
-@aValue=0
-@active_caseNum=5
-@passive_caseNum=2
-theData xVals []
-theData yVals []
-@aValue=0
-@active_caseNum=5
-@passive_caseNum=3
-theData xVals []
-theData yVals []
-@aValue=0
-@active_caseNum=5
-@passive_caseNum=4
-theData xVals []
-theData yVals []
-@aValue=0
-@active_caseNum=5
-@passive_caseNum=5
-theData xVals []
-theData yVals []
-@aValue=0
-@active_caseNum=5
-@passive_caseNum=6
-theData xVals []
-theData yVals []
-@aValue=0
-@active_caseNum=5
-@passive_caseNum=7
-theData xVals []
-theData yVals []
-@aValue=0
-@active_caseNum=6
-@passive_caseNum=1
-theData xVals []
-theData yVals []
-@aValue=0
-@active_caseNum=6
-@passive_caseNum=2
-theData xVals []
-theData yVals []
-@aValue=0
-@active_caseNum=6
-@passive_caseNum=3
-theData xVals []
-theData yVals []
-@aValue=0
-@active_caseNum=6
-@passive_caseNum=4
-theData xVals []
-theData yVals []
-@aValue=0
-@active_caseNum=6
-@passive_caseNum=5
-theData xVals []
-theData yVals []
-@aValue=0
-@active_caseNum=6
-@passive_caseNum=6
-theData xVals []
-theData yVals []
-@aValue=0
-@active_caseNum=6
-@passive_caseNum=7
-theData xVals []
-theData yVals []
-@aValue=0
-@active_caseNum=7
-@passive_caseNum=1
-theData xVals []
-theData yVals []
-@aValue=0
-@active_caseNum=7
-@passive_caseNum=2
-theData xVals []
-theData yVals []
-@aValue=0
-@active_caseNum=7
-@passive_caseNum=3
-theData xVals []
-theData yVals []
-@aValue=0
-@active_caseNum=7
-@passive_caseNum=4
-theData xVals []
-theData yVals []
-@aValue=0
-@active_caseNum=7
-@passive_caseNum=5
-theData xVals []
-theData yVals []
-@aValue=0
-@active_caseNum=7
-@passive_caseNum=6
-theData xVals []
-theData yVals []
-@aValue=0
-@active_caseNum=7
-@passive_caseNum=7
-theData xVals []
-theData yVals []
 #void SetPoint(G4int i, const G4ParticleHPDataPoint & it)_0
 @i=-1
-@x=0.766495
-@y=0.477732
+@x=0.131538
+@y=0.755605
 theData xVals []
 theData yVals []
 @i=0
-@x=0.237774
-@y=0.274907
-theData xVals hash: 1011350241871583270
-theData yVals hash: 5414053891373683662
+@x=0.45865
+@y=0.532767
+theData xVals hash: 14400592941483567309
+theData yVals hash: 10448533049157737784
 @i=0
-@x=0.359265
-@y=0.166507
-theData xVals hash: 15233507833682031063
-theData yVals hash: 11671999709673450324
+@x=0.218959
+@y=0.0470446
+theData xVals hash: 17200259096082299534
+theData yVals hash: 17131240081400039868
 @i=-1
-@x=0.486517
-@y=0.897656
-theData xVals hash: 15233507833682031063
-theData yVals hash: 11671999709673450324
+@x=0.678865
+@y=0.679296
+theData xVals hash: 17200259096082299534
+theData yVals hash: 17131240081400039868
 @i=0
-@x=0.909208
-@y=0.0605643
-theData xVals hash: 11989470629887961781
-theData yVals hash: 5239459404866113813
+@x=0.934693
+@y=0.383502
+theData xVals hash: 14166377097628024394
+theData yVals hash: 16435277786750415911
 #void SetData(G4int i, G4double x, G4double y)_0
 @i=-1
-@x=0.904653
-@y=0.504523
-theData xVals hash: 11989470629887961781
-theData yVals hash: 5239459404866113813
+@x=0.519416
+@y=0.830965
+theData xVals hash: 14166377097628024394
+theData yVals hash: 16435277786750415911
 @i=0
-@x=0.516292
-@y=0.319033
-theData xVals hash: 3835572216668131882
-theData yVals hash: 8212405165002804879
+@x=0.0345721
+@y=0.0534616
+theData xVals hash: 431773384240695333
+theData yVals hash: 4867657251383994153
 @i=0
-@x=0.986642
-@y=0.493977
-theData xVals hash: 16404900449811303512
-theData yVals hash: 5483126076915568087
+@x=0.5297
+@y=0.671149
+theData xVals hash: 11937007072947804257
+theData yVals hash: 10173791199950981815
 @i=-1
-@x=0.266145
-@y=0.0907329
-theData xVals hash: 16404900449811303512
-theData yVals hash: 5483126076915568087
+@x=0.00769819
+@y=0.383416
+theData xVals hash: 11937007072947804257
+theData yVals hash: 10173791199950981815
 @i=0
-@x=0.947764
-@y=0.0737491
-theData xVals hash: 1141834631299707730
-theData yVals hash: 4519496215538966673
+@x=0.0668422
+@y=0.417486
+theData xVals hash: 7110779887645831032
+theData yVals hash: 18431905338467913712
 #void SetX(G4int i, G4double e)_0
 @i=-1
-@x=0.500707
-theData xVals hash: 1141834631299707730
-theData yVals hash: 4519496215538966673
+@x=0.686773
+theData xVals hash: 7110779887645831032
+theData yVals hash: 18431905338467913712
 @i=0
-@x=0.277082
-theData xVals hash: 15975739822060781196
-theData yVals hash: 4519496215538966673
+@x=0.930436
+theData xVals hash: 10680631674172326831
+theData yVals hash: 18431905338467913712
 @i=0
-@x=0.529747
-theData xVals hash: 14299295391308640649
-theData yVals hash: 4519496215538966673
+@x=0.526929
+theData xVals hash: 7265730154373466044
+theData yVals hash: 18431905338467913712
 @i=-1
-@x=0.94098
-theData xVals hash: 14299295391308640649
-theData yVals hash: 4519496215538966673
+@x=0.653919
+theData xVals hash: 7265730154373466044
+theData yVals hash: 18431905338467913712
 @i=0
-@x=0.761514
-theData xVals hash: 3173885415907857195
-theData yVals hash: 4519496215538966673
+@x=0.701191
+theData xVals hash: 1277938954293685435
+theData yVals hash: 18431905338467913712
 #void SetEnergy(G4int i, G4double e)_0
 @i=-1
-@x=0.827817
-theData xVals hash: 3173885415907857195
-theData yVals hash: 4519496215538966673
+@x=0.762198
+theData xVals hash: 1277938954293685435
+theData yVals hash: 18431905338467913712
 @i=0
-@x=0.0158677
-theData xVals hash: 17056932859819052074
-theData yVals hash: 4519496215538966673
+@x=0.0474645
+theData xVals hash: 10843782670149099104
+theData yVals hash: 18431905338467913712
 @i=0
-@x=0.868247
-theData xVals hash: 3681722622735605142
-theData yVals hash: 4519496215538966673
+@x=0.328234
+theData xVals hash: 4648478618209084003
+theData yVals hash: 18431905338467913712
 @i=-1
-@x=0.736225
-theData xVals hash: 3681722622735605142
-theData yVals hash: 4519496215538966673
+@x=0.75641
+theData xVals hash: 4648478618209084003
+theData yVals hash: 18431905338467913712
 @i=0
-@x=0.999458
-theData xVals hash: 17768681880656027927
-theData yVals hash: 4519496215538966673
+@x=0.365339
+theData xVals hash: 450010800388884236
+theData yVals hash: 18431905338467913712
 #void SetY(G4int i, G4double x)_0
 @i=-1
-@x=0.233195
-theData xVals hash: 17768681880656027927
-theData yVals hash: 4519496215538966673
+@x=0.98255
+theData xVals hash: 450010800388884236
+theData yVals hash: 18431905338467913712
 @i=0
-@x=0.351015
-theData xVals hash: 17768681880656027927
-theData yVals hash: 17962609233883673214
+@x=0.753356
+theData xVals hash: 450010800388884236
+theData yVals hash: 3837593982203358085
 @i=0
-@x=0.591114
-theData xVals hash: 17768681880656027927
-theData yVals hash: 17686477143621688651
+@x=0.0726859
+theData xVals hash: 450010800388884236
+theData yVals hash: 36901637128445519
 @i=-1
-@x=0.412081
-theData xVals hash: 17768681880656027927
-theData yVals hash: 17686477143621688651
+@x=0.884707
+theData xVals hash: 450010800388884236
+theData yVals hash: 36901637128445519
 @i=0
-@x=0.269317
-theData xVals hash: 17768681880656027927
-theData yVals hash: 17852151621070025401
+@x=0.436411
+theData xVals hash: 450010800388884236
+theData yVals hash: 451568714161999128
 #void SetXsec(G4int i, G4double x)_0
 @i=-1
-@x=0.537304
-theData xVals hash: 17768681880656027927
-theData yVals hash: 17852151621070025401
+@x=0.477732
+theData xVals hash: 450010800388884236
+theData yVals hash: 451568714161999128
 @i=0
-@x=0.287212
-theData xVals hash: 17768681880656027927
-theData yVals hash: 7530659476906604429
+@x=0.274907
+theData xVals hash: 450010800388884236
+theData yVals hash: 5414053891373683662
 @i=0
-@x=0.15372
-theData xVals hash: 17768681880656027927
-theData yVals hash: 7141457787472333720
+@x=0.166507
+theData xVals hash: 450010800388884236
+theData yVals hash: 11671999709673450324
 @i=-1
-@x=0.802406
-theData xVals hash: 17768681880656027927
-theData yVals hash: 7141457787472333720
+@x=0.897656
+theData xVals hash: 450010800388884236
+theData yVals hash: 11671999709673450324
 @i=0
-@x=0.53445
-theData xVals hash: 17768681880656027927
-theData yVals hash: 11284546466841770121
+@x=0.0605643
+theData xVals hash: 450010800388884236
+theData yVals hash: 5239459404866113813
 #const G4ParticleHPDataPoint GetPoint(G4int i)_0
 @i=-1
-(0.999458,0.53445)
+(0.365339,0.0605643)
 @i=0
-(0.999458,0.53445)
+(0.365339,0.0605643)
 @i=0
-(0.999458,0.53445)
+(0.365339,0.0605643)
 @i=-1
-(0.999458,0.53445)
+(0.365339,0.0605643)
 @i=0
-(0.999458,0.53445)
+(0.365339,0.0605643)
 #G4double GetEnergy(G4int i)_0
 @i=-1
-0.999458
+0.365339
 @i=0
-0.999458
+0.365339
 @i=0
-0.999458
+0.365339
 @i=-1
-0.999458
+0.365339
 @i=0
-0.999458
+0.365339
 #G4double GetX(G4int i)_0
 @i=-1
-0.999458
+0.365339
 @i=0
-0.999458
+0.365339
 @i=0
-0.999458
+0.365339
 @i=-1
-0.999458
+0.365339
 @i=0
-0.999458
+0.365339
 #G4double GetXsec(G4int i)_0
 @i=-1
-0.53445
+0.0605643
 @i=0
-0.53445
+0.0605643
 @i=0
-0.53445
+0.0605643
 @i=-1
-0.53445
+0.0605643
 @i=0
-0.53445
+0.0605643
 #G4double GetY(G4int i)_0
 @i=-1
-0.53445
+0.0605643
 @i=0
-0.53445
+0.0605643
 @i=0
-0.53445
+0.0605643
 @i=-1
-0.53445
+0.0605643
 @i=0
-0.53445
+0.0605643
 #void ThinOut(G4double precision)_0
 @precision=-1
-theData xVals hash: 12251707491706944044
-theData yVals hash: 10585188841007779166
+theData xVals hash: 7796533128307282249
+theData yVals hash: 7744828653599683931
 @precision=0
-theData xVals hash: 12251707491706944044
-theData yVals hash: 10585188841007779166
+theData xVals hash: 7796533128307282249
+theData yVals hash: 7744828653599683931
 @precision=0.00051234
-theData xVals hash: 12251707491706944044
-theData yVals hash: 10585188841007779166
+theData xVals hash: 7796533128307282249
+theData yVals hash: 7744828653599683931
 @precision=1.58923
-theData xVals hash: 12251707491706944044
-theData yVals hash: 10585188841007779166
+theData xVals hash: 7796533128307282249
+theData yVals hash: 7744828653599683931
 @precision=513.187
-theData xVals hash: 12251707491706944044
-theData yVals hash: 10585188841007779166
+theData xVals hash: 7796533128307282249
+theData yVals hash: 7744828653599683931
 #G4ParticleHPVector & operator = (const G4ParticleHPVector & right)_0
-hash: 12251707491706944044
+hash: 7796533128307282249
 #void Init(std::istream & aDataFile, G4int total, G4double ux=1., G4double uy=1.)_1
-theData xVals hash: 3725582875375954288
-theData yVals hash: 9345306507238906401
-#G4double GetXsec(G4double e)_1
-@e=-1
--3.95202e+07
-@e=0
-1.09e+07
-@e=0.00051234
-1.09258e+07
-@e=1.58923
-1e+08
-@e=513.187
-1e+08
-#G4double GetXsec(G4double e, G4int min)_1
-@e=-1
-@min=-1
--3.95202e+07
-@e=-1
-@min=0
--3.95202e+07
-@e=-1
-@min=34
-4.39667e+08
-@e=-1
-@min=68
-7.69938e+08
-@e=-1
-@min=69
-1.09e+07
-@e=0
-@min=-1
-1.09e+07
-@e=0
-@min=0
-1.09e+07
-@e=0
-@min=34
-1.06333e+08
-@e=0
-@min=68
-1.44938e+08
-@e=0
-@min=69
-1.09e+07
-@e=0.00051234
-@min=-1
-1.09258e+07
-@e=0.00051234
-@min=0
-1.09258e+07
-@e=0.00051234
-@min=34
-1.06163e+08
-@e=0.00051234
-@min=68
-1.44617e+08
-@e=0.00051234
-@min=69
-1.09e+07
-@e=1.58923
-@min=-1
-1e+08
-@e=1.58923
-@min=0
-1e+08
-@e=1.58923
-@min=34
-1e+08
-@e=1.58923
-@min=68
-1e+08
-@e=1.58923
-@min=69
-1.09e+07
-@e=513.187
-@min=-1
-1e+08
-@e=513.187
-@min=0
-1e+08
-@e=513.187
-@min=34
-1e+08
-@e=513.187
-@min=68
-1e+08
-@e=513.187
-@min=69
-1.09e+07
-#G4double SampleLin()_1
-$0.350749
-#G4double Sample()_1
-$0.361614
-#G4double Get15PercentBorder()_1
-0.517
-#G4double Get50PercentBorder()_1
-0.320867
-#void Times(G4double factor)_1
-@factor=-4.67
-theData xVals hash: 3725582875375954288
-theData yVals hash: 6202019079997952056
-theIntegral hash: 6113854436586226292
-@factor=-1.525e-05
-theData xVals hash: 3725582875375954288
-theData yVals hash: 11559464146372669160
-theIntegral hash: 6113854436586226292
-@factor=0.00090982
-theData xVals hash: 3725582875375954288
-theData yVals hash: 14325546593513382826
-theIntegral hash: 6113854436586226292
-@factor=1.54333e+07
-theData xVals hash: 3725582875375954288
-theData yVals hash: 9030773083498938759
-theIntegral hash: 6113854436586226292
-#void Merge(G4ParticleHPVector * active, G4ParticleHPVector * passive)_1
-@active_caseNum=0
-@passive_caseNum=0
-theData xVals hash: 3725582875375954288
-theData yVals hash: 9030773083498938759
-@active_caseNum=0
-@passive_caseNum=2
-theData xVals hash: 3725582875375954288
-theData yVals hash: 9030773083498938759
-@active_caseNum=0
-@passive_caseNum=3
-theData xVals hash: 3725582875375954288
-theData yVals hash: 9030773083498938759
-@active_caseNum=0
-@passive_caseNum=4
-theData xVals hash: 3725582875375954288
-theData yVals hash: 9030773083498938759
-@active_caseNum=0
-@passive_caseNum=5
-theData xVals hash: 3725582875375954288
-theData yVals hash: 9030773083498938759
-@active_caseNum=0
-@passive_caseNum=6
-theData xVals hash: 3725582875375954288
-theData yVals hash: 9030773083498938759
-@active_caseNum=0
-@passive_caseNum=7
-theData xVals hash: 3725582875375954288
-theData yVals hash: 9030773083498938759
-@active_caseNum=2
-@passive_caseNum=0
-theData xVals hash: 3725582875375954288
-theData yVals hash: 9030773083498938759
-@active_caseNum=2
-@passive_caseNum=2
-theData xVals hash: 3725582875375954288
-theData yVals hash: 9030773083498938759
-@active_caseNum=2
-@passive_caseNum=3
-theData xVals hash: 3725582875375954288
-theData yVals hash: 9030773083498938759
-@active_caseNum=2
-@passive_caseNum=4
-theData xVals hash: 3725582875375954288
-theData yVals hash: 9030773083498938759
-@active_caseNum=2
-@passive_caseNum=5
-theData xVals hash: 3725582875375954288
-theData yVals hash: 9030773083498938759
-@active_caseNum=2
-@passive_caseNum=6
-theData xVals hash: 3725582875375954288
-theData yVals hash: 9030773083498938759
-@active_caseNum=2
-@passive_caseNum=7
-theData xVals hash: 3725582875375954288
-theData yVals hash: 9030773083498938759
-@active_caseNum=3
-@passive_caseNum=0
-theData xVals hash: 3725582875375954288
-theData yVals hash: 9030773083498938759
-@active_caseNum=3
-@passive_caseNum=2
-theData xVals hash: 3725582875375954288
-theData yVals hash: 9030773083498938759
-@active_caseNum=3
-@passive_caseNum=3
-theData xVals hash: 3725582875375954288
-theData yVals hash: 9030773083498938759
-@active_caseNum=3
-@passive_caseNum=4
-theData xVals hash: 3725582875375954288
-theData yVals hash: 9030773083498938759
-@active_caseNum=3
-@passive_caseNum=5
-theData xVals hash: 3725582875375954288
-theData yVals hash: 9030773083498938759
-@active_caseNum=3
-@passive_caseNum=6
-theData xVals hash: 3725582875375954288
-theData yVals hash: 9030773083498938759
-@active_caseNum=3
-@passive_caseNum=7
-theData xVals hash: 3725582875375954288
-theData yVals hash: 9030773083498938759
-@active_caseNum=4
-@passive_caseNum=0
-theData xVals hash: 3725582875375954288
-theData yVals hash: 9030773083498938759
-@active_caseNum=4
-@passive_caseNum=2
-theData xVals hash: 3725582875375954288
-theData yVals hash: 9030773083498938759
-@active_caseNum=4
-@passive_caseNum=3
-theData xVals hash: 3725582875375954288
-theData yVals hash: 9030773083498938759
-@active_caseNum=4
-@passive_caseNum=4
-theData xVals hash: 3725582875375954288
-theData yVals hash: 9030773083498938759
-@active_caseNum=4
-@passive_caseNum=5
-theData xVals hash: 3725582875375954288
-theData yVals hash: 9030773083498938759
-@active_caseNum=4
-@passive_caseNum=6
-theData xVals hash: 3725582875375954288
-theData yVals hash: 9030773083498938759
-@active_caseNum=4
-@passive_caseNum=7
-theData xVals hash: 3725582875375954288
-theData yVals hash: 9030773083498938759
-@active_caseNum=5
-@passive_caseNum=0
-theData xVals hash: 3725582875375954288
-theData yVals hash: 9030773083498938759
-@active_caseNum=5
-@passive_caseNum=2
-theData xVals hash: 3725582875375954288
-theData yVals hash: 9030773083498938759
-@active_caseNum=5
-@passive_caseNum=3
-theData xVals hash: 3725582875375954288
-theData yVals hash: 9030773083498938759
-@active_caseNum=5
-@passive_caseNum=4
-theData xVals hash: 3725582875375954288
-theData yVals hash: 9030773083498938759
-@active_caseNum=5
-@passive_caseNum=5
-theData xVals hash: 3725582875375954288
-theData yVals hash: 9030773083498938759
-@active_caseNum=5
-@passive_caseNum=6
-theData xVals hash: 3725582875375954288
-theData yVals hash: 9030773083498938759
-@active_caseNum=5
-@passive_caseNum=7
-theData xVals hash: 3725582875375954288
-theData yVals hash: 9030773083498938759
-@active_caseNum=6
-@passive_caseNum=0
-theData xVals hash: 3725582875375954288
-theData yVals hash: 9030773083498938759
-@active_caseNum=6
-@passive_caseNum=2
-theData xVals hash: 3725582875375954288
-theData yVals hash: 9030773083498938759
-@active_caseNum=6
-@passive_caseNum=3
-theData xVals hash: 3725582875375954288
-theData yVals hash: 9030773083498938759
-@active_caseNum=6
-@passive_caseNum=4
-theData xVals hash: 3725582875375954288
-theData yVals hash: 9030773083498938759
-@active_caseNum=6
-@passive_caseNum=5
-theData xVals hash: 3725582875375954288
-theData yVals hash: 9030773083498938759
-@active_caseNum=6
-@passive_caseNum=6
-theData xVals hash: 3725582875375954288
-theData yVals hash: 9030773083498938759
-@active_caseNum=6
-@passive_caseNum=7
-theData xVals hash: 3725582875375954288
-theData yVals hash: 9030773083498938759
-@active_caseNum=7
-@passive_caseNum=0
-theData xVals hash: 3725582875375954288
-theData yVals hash: 9030773083498938759
-@active_caseNum=7
-@passive_caseNum=2
-theData xVals hash: 3725582875375954288
-theData yVals hash: 9030773083498938759
-@active_caseNum=7
-@passive_caseNum=3
-theData xVals hash: 3725582875375954288
-theData yVals hash: 9030773083498938759
-@active_caseNum=7
-@passive_caseNum=4
-theData xVals hash: 3725582875375954288
-theData yVals hash: 9030773083498938759
-@active_caseNum=7
-@passive_caseNum=5
-theData xVals hash: 3725582875375954288
-theData yVals hash: 9030773083498938759
-@active_caseNum=7
-@passive_caseNum=6
-theData xVals hash: 3725582875375954288
-theData yVals hash: 9030773083498938759
-@active_caseNum=7
-@passive_caseNum=7
-theData xVals hash: 3725582875375954288
-theData yVals hash: 9030773083498938759
-#void Merge(G4InterpolationScheme aScheme, G4double aValue, G4ParticleHPVector * active, G4ParticleHPVector * passive)_1
-@aValue=0
-@active_caseNum=0
-@passive_caseNum=0
-theData xVals hash: 3725582875375954288
-theData yVals hash: 9030773083498938759
-@aValue=0
-@active_caseNum=0
-@passive_caseNum=2
-theData xVals hash: 3725582875375954288
-theData yVals hash: 9030773083498938759
-@aValue=0
-@active_caseNum=0
-@passive_caseNum=3
-theData xVals hash: 3725582875375954288
-theData yVals hash: 9030773083498938759
-@aValue=0
-@active_caseNum=0
-@passive_caseNum=4
-theData xVals hash: 3725582875375954288
-theData yVals hash: 9030773083498938759
-@aValue=0
-@active_caseNum=0
-@passive_caseNum=5
-theData xVals hash: 3725582875375954288
-theData yVals hash: 9030773083498938759
-@aValue=0
-@active_caseNum=0
-@passive_caseNum=6
-theData xVals hash: 3725582875375954288
-theData yVals hash: 9030773083498938759
-@aValue=0
-@active_caseNum=0
-@passive_caseNum=7
-theData xVals hash: 3725582875375954288
-theData yVals hash: 9030773083498938759
-@aValue=0
-@active_caseNum=2
-@passive_caseNum=0
-theData xVals hash: 3725582875375954288
-theData yVals hash: 9030773083498938759
-@aValue=0
-@active_caseNum=2
-@passive_caseNum=2
-theData xVals hash: 3725582875375954288
-theData yVals hash: 9030773083498938759
-@aValue=0
-@active_caseNum=2
-@passive_caseNum=3
-theData xVals hash: 3725582875375954288
-theData yVals hash: 9030773083498938759
-@aValue=0
-@active_caseNum=2
-@passive_caseNum=4
-theData xVals hash: 3725582875375954288
-theData yVals hash: 9030773083498938759
-@aValue=0
-@active_caseNum=2
-@passive_caseNum=5
-theData xVals hash: 3725582875375954288
-theData yVals hash: 9030773083498938759
-@aValue=0
-@active_caseNum=2
-@passive_caseNum=6
-theData xVals hash: 3725582875375954288
-theData yVals hash: 9030773083498938759
-@aValue=0
-@active_caseNum=2
-@passive_caseNum=7
-theData xVals hash: 3725582875375954288
-theData yVals hash: 9030773083498938759
-@aValue=0
-@active_caseNum=3
-@passive_caseNum=0
-theData xVals hash: 3725582875375954288
-theData yVals hash: 9030773083498938759
-@aValue=0
-@active_caseNum=3
-@passive_caseNum=2
-theData xVals hash: 3725582875375954288
-theData yVals hash: 9030773083498938759
-@aValue=0
-@active_caseNum=3
-@passive_caseNum=3
-theData xVals hash: 3725582875375954288
-theData yVals hash: 9030773083498938759
-@aValue=0
-@active_caseNum=3
-@passive_caseNum=4
-theData xVals hash: 3725582875375954288
-theData yVals hash: 9030773083498938759
-@aValue=0
-@active_caseNum=3
-@passive_caseNum=5
-theData xVals hash: 3725582875375954288
-theData yVals hash: 9030773083498938759
-@aValue=0
-@active_caseNum=3
-@passive_caseNum=6
-theData xVals hash: 3725582875375954288
-theData yVals hash: 9030773083498938759
-@aValue=0
-@active_caseNum=3
-@passive_caseNum=7
-theData xVals hash: 3725582875375954288
-theData yVals hash: 9030773083498938759
-@aValue=0
-@active_caseNum=4
-@passive_caseNum=0
-theData xVals hash: 3725582875375954288
-theData yVals hash: 9030773083498938759
-@aValue=0
-@active_caseNum=4
-@passive_caseNum=2
-theData xVals hash: 3725582875375954288
-theData yVals hash: 9030773083498938759
-@aValue=0
-@active_caseNum=4
-@passive_caseNum=3
-theData xVals hash: 3725582875375954288
-theData yVals hash: 9030773083498938759
-@aValue=0
-@active_caseNum=4
-@passive_caseNum=4
-theData xVals hash: 3725582875375954288
-theData yVals hash: 9030773083498938759
-@aValue=0
-@active_caseNum=4
-@passive_caseNum=5
-theData xVals hash: 3725582875375954288
-theData yVals hash: 9030773083498938759
-@aValue=0
-@active_caseNum=4
-@passive_caseNum=6
-theData xVals hash: 3725582875375954288
-theData yVals hash: 9030773083498938759
-@aValue=0
-@active_caseNum=4
-@passive_caseNum=7
-theData xVals hash: 3725582875375954288
-theData yVals hash: 9030773083498938759
-@aValue=0
-@active_caseNum=5
-@passive_caseNum=0
-theData xVals hash: 3725582875375954288
-theData yVals hash: 9030773083498938759
-@aValue=0
-@active_caseNum=5
-@passive_caseNum=2
-theData xVals hash: 3725582875375954288
-theData yVals hash: 9030773083498938759
-@aValue=0
-@active_caseNum=5
-@passive_caseNum=3
-theData xVals hash: 3725582875375954288
-theData yVals hash: 9030773083498938759
-@aValue=0
-@active_caseNum=5
-@passive_caseNum=4
-theData xVals hash: 3725582875375954288
-theData yVals hash: 9030773083498938759
-@aValue=0
-@active_caseNum=5
-@passive_caseNum=5
-theData xVals hash: 3725582875375954288
-theData yVals hash: 9030773083498938759
-@aValue=0
-@active_caseNum=5
-@passive_caseNum=6
-theData xVals hash: 3725582875375954288
-theData yVals hash: 9030773083498938759
-@aValue=0
-@active_caseNum=5
-@passive_caseNum=7
-theData xVals hash: 3725582875375954288
-theData yVals hash: 9030773083498938759
-@aValue=0
-@active_caseNum=6
-@passive_caseNum=0
-theData xVals hash: 3725582875375954288
-theData yVals hash: 9030773083498938759
-@aValue=0
-@active_caseNum=6
-@passive_caseNum=2
-theData xVals hash: 3725582875375954288
-theData yVals hash: 9030773083498938759
-@aValue=0
-@active_caseNum=6
-@passive_caseNum=3
-theData xVals hash: 3725582875375954288
-theData yVals hash: 9030773083498938759
-@aValue=0
-@active_caseNum=6
-@passive_caseNum=4
-theData xVals hash: 3725582875375954288
-theData yVals hash: 9030773083498938759
-@aValue=0
-@active_caseNum=6
-@passive_caseNum=5
-theData xVals hash: 3725582875375954288
-theData yVals hash: 9030773083498938759
-@aValue=0
-@active_caseNum=6
-@passive_caseNum=6
-theData xVals hash: 3725582875375954288
-theData yVals hash: 9030773083498938759
-@aValue=0
-@active_caseNum=6
-@passive_caseNum=7
-theData xVals hash: 3725582875375954288
-theData yVals hash: 9030773083498938759
-@aValue=0
-@active_caseNum=7
-@passive_caseNum=0
-theData xVals hash: 3725582875375954288
-theData yVals hash: 9030773083498938759
-@aValue=0
-@active_caseNum=7
-@passive_caseNum=2
-theData xVals hash: 3725582875375954288
-theData yVals hash: 9030773083498938759
-@aValue=0
-@active_caseNum=7
-@passive_caseNum=3
-theData xVals hash: 3725582875375954288
-theData yVals hash: 9030773083498938759
-@aValue=0
-@active_caseNum=7
-@passive_caseNum=4
-theData xVals hash: 3725582875375954288
-theData yVals hash: 9030773083498938759
-@aValue=0
-@active_caseNum=7
-@passive_caseNum=5
-theData xVals hash: 3725582875375954288
-theData yVals hash: 9030773083498938759
-@aValue=0
-@active_caseNum=7
-@passive_caseNum=6
-theData xVals hash: 3725582875375954288
-theData yVals hash: 9030773083498938759
-@aValue=0
-@active_caseNum=7
-@passive_caseNum=7
-theData xVals hash: 3725582875375954288
-theData yVals hash: 9030773083498938759
-#void SetPoint(G4int i, const G4ParticleHPDataPoint & it)_1
-@i=-1
-@x=0.414028
-@y=0.576717
-theData xVals hash: 3725582875375954288
-theData yVals hash: 9030773083498938759
-@i=0
-@x=0.876566
-@y=0.440039
-theData xVals hash: 18204564682412692951
-theData yVals hash: 13752787824740251818
-@i=34
-@x=0.729748
-@y=0.869264
-theData xVals hash: 17832449094589899592
-theData yVals hash: 2350067823896117312
-@i=68
-@x=0.715642
-@y=0.80072
-theData xVals hash: 13503219613862221530
-theData yVals hash: 13375788056604377661
-@i=69
-@x=0.706535
-@y=0.741716
-theData xVals hash: 9352881122237744621
-theData yVals hash: 9901770961980471630
-#void SetData(G4int i, G4double x, G4double y)_1
-@i=-1
-@x=0.0190924
-@y=0.886031
-theData xVals hash: 9352881122237744621
-theData yVals hash: 9901770961980471630
-@i=0
-@x=0.524987
-@y=0.463323
-theData xVals hash: 13573109088190588579
-theData yVals hash: 16433733051939315883
-@i=34
-@x=0.0651939
-@y=0.713422
-theData xVals hash: 10700701177496260615
-theData yVals hash: 14775018175328777402
-@i=68
-@x=0.488943
-@y=0.667679
-theData xVals hash: 6268659530856818222
-theData yVals hash: 15467727462743161026
-@i=69
-@x=0.682049
-@y=0.199555
-theData xVals hash: 10176745702321328397
-theData yVals hash: 9933843326859661498
-#void SetX(G4int i, G4double e)_1
-@i=-1
-@x=0.916634
-theData xVals hash: 10176745702321328397
-theData yVals hash: 9933843326859661498
-@i=0
-@x=0.890019
-theData xVals hash: 17142547595157533670
-theData yVals hash: 9933843326859661498
-@i=34
-@x=0.139195
-theData xVals hash: 289051129243410755
-theData yVals hash: 9933843326859661498
-@i=68
-@x=0.989362
-theData xVals hash: 12560306411978990582
-theData yVals hash: 9933843326859661498
-@i=69
-@x=0.446023
-theData xVals hash: 4237956045329461553
-theData yVals hash: 9933843326859661498
-#void SetEnergy(G4int i, G4double e)_1
-@i=-1
-@x=0.514659
-theData xVals hash: 4237956045329461553
-theData yVals hash: 9933843326859661498
-@i=0
-@x=0.439726
-theData xVals hash: 10513576847862057865
-theData yVals hash: 9933843326859661498
-@i=34
-@x=0.80665
-theData xVals hash: 11698735016554255501
-theData yVals hash: 9933843326859661498
-@i=68
-@x=0.211519
-theData xVals hash: 6694411762859636869
-theData yVals hash: 9933843326859661498
-@i=69
-@x=0.153604
-theData xVals hash: 5316521370641635892
-theData yVals hash: 9933843326859661498
-#void SetY(G4int i, G4double x)_1
-@i=-1
-@x=0.61635
-theData xVals hash: 5316521370641635892
-theData yVals hash: 9933843326859661498
-@i=0
-@x=0.000879
-theData xVals hash: 5316521370641635892
-theData yVals hash: 7583699314914273522
-@i=34
-@x=0.727335
-theData xVals hash: 5316521370641635892
-theData yVals hash: 4994256123044547145
-@i=68
-@x=0.417724
-theData xVals hash: 5316521370641635892
-theData yVals hash: 10713444015227874689
-@i=69
-@x=0.680562
-theData xVals hash: 5316521370641635892
-theData yVals hash: 15726855996403403014
-#void SetXsec(G4int i, G4double x)_1
-@i=-1
-@x=0.83642
-theData xVals hash: 5316521370641635892
-theData yVals hash: 15726855996403403014
-@i=0
-@x=0.828708
-theData xVals hash: 5316521370641635892
-theData yVals hash: 13853131776001629371
-@i=34
-@x=0.0817376
-theData xVals hash: 5316521370641635892
-theData yVals hash: 1572662632872072967
-@i=68
-@x=0.629572
-theData xVals hash: 5316521370641635892
-theData yVals hash: 16514849164694547491
-@i=69
-@x=0.213547
-theData xVals hash: 5316521370641635892
-theData yVals hash: 8571108790086731707
-#const G4ParticleHPDataPoint GetPoint(G4int i)_1
-@i=-1
-(0.439726,0.828708)
-@i=0
-(0.439726,0.828708)
-@i=34
-(0.80665,0.0817376)
-@i=68
-(0.211519,0.629572)
-@i=69
-(0.153604,0.213547)
-#G4double GetEnergy(G4int i)_1
-@i=-1
-0.439726
-@i=0
-0.439726
-@i=34
-0.80665
-@i=68
-0.211519
-@i=69
-0.153604
-#G4double GetX(G4int i)_1
-@i=-1
-0.439726
-@i=0
-0.439726
-@i=34
-0.80665
-@i=68
-0.211519
-@i=69
-0.153604
-#G4double GetXsec(G4int i)_1
-@i=-1
-0.828708
-@i=0
-0.828708
-@i=34
-0.0817376
-@i=68
-0.629572
-@i=69
-0.213547
-#G4double GetY(G4int i)_1
-@i=-1
-0.828708
-@i=0
-0.828708
-@i=34
-0.0817376
-@i=68
-0.629572
-@i=69
-0.213547
-#void ThinOut(G4double precision)_1
-@precision=-1
-theData xVals hash: 5316521370641635892
-theData yVals hash: 8571108790086731707
-@precision=0
-theData xVals hash: 5797807716630016119
-theData yVals hash: 16757960931502363410
-@precision=0.00051234
-theData xVals hash: 17753514683147557426
-theData yVals hash: 6306225512548067398
-@precision=1.58923
-theData xVals hash: 14486898733621519451
-theData yVals hash: 16173021700600023560
-@precision=513.187
-theData xVals hash: 8634307847037951653
-theData yVals hash: 13816624479244340288
-#G4ParticleHPVector & operator = (const G4ParticleHPVector & right)_1
-hash: 8634307847037951653
-#void Init(std::istream & aDataFile, G4int total, G4double ux=1., G4double uy=1.)_2
 theData xVals hash: 1285262205404685270
 theData yVals hash: 8558769185984268590
-#G4double GetXsec(G4double e)_2
+#G4double GetXsec(G4double e)_1
 @e=-1
 -2.30153
 @e=0
@@ -1547,7 +337,7 @@ theData yVals hash: 8558769185984268590
 -2.30153
 @e=513.187
 -2.30131
-#G4double GetXsec(G4double e, G4int min)_2
+#G4double GetXsec(G4double e, G4int min)_1
 @e=-1
 @min=-1
 -2.30153
@@ -1623,15 +413,15 @@ theData yVals hash: 8558769185984268590
 @e=513.187
 @min=80
 0
-#G4double SampleLin()_2
-$2.58501e+07
-#G4double Sample()_2
-$2.42071e+07
-#G4double Get15PercentBorder()_2
+#G4double SampleLin()_1
+$2.54281e+07
+#G4double Sample()_1
+$2.53303e+07
+#G4double Get15PercentBorder()_1
 1.05e+07
-#G4double Get50PercentBorder()_2
+#G4double Get50PercentBorder()_1
 1.70503e+07
-#void Times(G4double factor)_2
+#void Times(G4double factor)_1
 @factor=-4.67
 theData xVals hash: 1285262205404685270
 theData yVals hash: 2663170278787499100
@@ -1648,662 +438,219 @@ theIntegral hash: 6428737731256113294
 theData xVals hash: 1285262205404685270
 theData yVals hash: 8558769185984268590
 theIntegral hash: 6428737731256113294
-#void Merge(G4ParticleHPVector * active, G4ParticleHPVector * passive)_2
-@active_caseNum=0
-@passive_caseNum=0
-theData xVals hash: 1285262205404685270
-theData yVals hash: 8558769185984268590
-@active_caseNum=0
-@passive_caseNum=1
-theData xVals hash: 1285262205404685270
-theData yVals hash: 8558769185984268590
-@active_caseNum=0
-@passive_caseNum=3
-theData xVals hash: 1285262205404685270
-theData yVals hash: 8558769185984268590
-@active_caseNum=0
-@passive_caseNum=4
-theData xVals hash: 1285262205404685270
-theData yVals hash: 8558769185984268590
-@active_caseNum=0
-@passive_caseNum=5
-theData xVals hash: 1285262205404685270
-theData yVals hash: 8558769185984268590
-@active_caseNum=0
-@passive_caseNum=6
-theData xVals hash: 1285262205404685270
-theData yVals hash: 8558769185984268590
-@active_caseNum=0
-@passive_caseNum=7
-theData xVals hash: 1285262205404685270
-theData yVals hash: 8558769185984268590
-@active_caseNum=1
-@passive_caseNum=0
-theData xVals hash: 1285262205404685270
-theData yVals hash: 8558769185984268590
-@active_caseNum=1
-@passive_caseNum=1
-theData xVals hash: 1285262205404685270
-theData yVals hash: 8558769185984268590
-@active_caseNum=1
-@passive_caseNum=3
-theData xVals hash: 1285262205404685270
-theData yVals hash: 8558769185984268590
-@active_caseNum=1
-@passive_caseNum=4
-theData xVals hash: 1285262205404685270
-theData yVals hash: 8558769185984268590
-@active_caseNum=1
-@passive_caseNum=5
-theData xVals hash: 1285262205404685270
-theData yVals hash: 8558769185984268590
-@active_caseNum=1
-@passive_caseNum=6
-theData xVals hash: 1285262205404685270
-theData yVals hash: 8558769185984268590
-@active_caseNum=1
-@passive_caseNum=7
-theData xVals hash: 1285262205404685270
-theData yVals hash: 8558769185984268590
-@active_caseNum=3
-@passive_caseNum=0
-theData xVals hash: 1285262205404685270
-theData yVals hash: 8558769185984268590
-@active_caseNum=3
-@passive_caseNum=1
-theData xVals hash: 1285262205404685270
-theData yVals hash: 8558769185984268590
-@active_caseNum=3
-@passive_caseNum=3
-theData xVals hash: 1285262205404685270
-theData yVals hash: 8558769185984268590
-@active_caseNum=3
-@passive_caseNum=4
-theData xVals hash: 1285262205404685270
-theData yVals hash: 8558769185984268590
-@active_caseNum=3
-@passive_caseNum=5
-theData xVals hash: 1285262205404685270
-theData yVals hash: 8558769185984268590
-@active_caseNum=3
-@passive_caseNum=6
-theData xVals hash: 1285262205404685270
-theData yVals hash: 8558769185984268590
-@active_caseNum=3
-@passive_caseNum=7
-theData xVals hash: 1285262205404685270
-theData yVals hash: 8558769185984268590
-@active_caseNum=4
-@passive_caseNum=0
-theData xVals hash: 1285262205404685270
-theData yVals hash: 8558769185984268590
-@active_caseNum=4
-@passive_caseNum=1
-theData xVals hash: 1285262205404685270
-theData yVals hash: 8558769185984268590
-@active_caseNum=4
-@passive_caseNum=3
-theData xVals hash: 1285262205404685270
-theData yVals hash: 8558769185984268590
-@active_caseNum=4
-@passive_caseNum=4
-theData xVals hash: 1285262205404685270
-theData yVals hash: 8558769185984268590
-@active_caseNum=4
-@passive_caseNum=5
-theData xVals hash: 1285262205404685270
-theData yVals hash: 8558769185984268590
-@active_caseNum=4
-@passive_caseNum=6
-theData xVals hash: 1285262205404685270
-theData yVals hash: 8558769185984268590
-@active_caseNum=4
-@passive_caseNum=7
-theData xVals hash: 1285262205404685270
-theData yVals hash: 8558769185984268590
-@active_caseNum=5
-@passive_caseNum=0
-theData xVals hash: 1285262205404685270
-theData yVals hash: 8558769185984268590
-@active_caseNum=5
-@passive_caseNum=1
-theData xVals hash: 1285262205404685270
-theData yVals hash: 8558769185984268590
-@active_caseNum=5
-@passive_caseNum=3
-theData xVals hash: 1285262205404685270
-theData yVals hash: 8558769185984268590
-@active_caseNum=5
-@passive_caseNum=4
-theData xVals hash: 1285262205404685270
-theData yVals hash: 8558769185984268590
-@active_caseNum=5
-@passive_caseNum=5
-theData xVals hash: 1285262205404685270
-theData yVals hash: 8558769185984268590
-@active_caseNum=5
-@passive_caseNum=6
-theData xVals hash: 1285262205404685270
-theData yVals hash: 8558769185984268590
-@active_caseNum=5
-@passive_caseNum=7
-theData xVals hash: 1285262205404685270
-theData yVals hash: 8558769185984268590
-@active_caseNum=6
-@passive_caseNum=0
-theData xVals hash: 1285262205404685270
-theData yVals hash: 8558769185984268590
-@active_caseNum=6
-@passive_caseNum=1
-theData xVals hash: 1285262205404685270
-theData yVals hash: 8558769185984268590
-@active_caseNum=6
-@passive_caseNum=3
-theData xVals hash: 1285262205404685270
-theData yVals hash: 8558769185984268590
-@active_caseNum=6
-@passive_caseNum=4
-theData xVals hash: 1285262205404685270
-theData yVals hash: 8558769185984268590
-@active_caseNum=6
-@passive_caseNum=5
-theData xVals hash: 1285262205404685270
-theData yVals hash: 8558769185984268590
-@active_caseNum=6
-@passive_caseNum=6
-theData xVals hash: 1285262205404685270
-theData yVals hash: 8558769185984268590
-@active_caseNum=6
-@passive_caseNum=7
-theData xVals hash: 1285262205404685270
-theData yVals hash: 8558769185984268590
-@active_caseNum=7
-@passive_caseNum=0
-theData xVals hash: 1285262205404685270
-theData yVals hash: 8558769185984268590
-@active_caseNum=7
-@passive_caseNum=1
-theData xVals hash: 1285262205404685270
-theData yVals hash: 8558769185984268590
-@active_caseNum=7
-@passive_caseNum=3
-theData xVals hash: 1285262205404685270
-theData yVals hash: 8558769185984268590
-@active_caseNum=7
-@passive_caseNum=4
-theData xVals hash: 1285262205404685270
-theData yVals hash: 8558769185984268590
-@active_caseNum=7
-@passive_caseNum=5
-theData xVals hash: 1285262205404685270
-theData yVals hash: 8558769185984268590
-@active_caseNum=7
-@passive_caseNum=6
-theData xVals hash: 1285262205404685270
-theData yVals hash: 8558769185984268590
-@active_caseNum=7
-@passive_caseNum=7
-theData xVals hash: 1285262205404685270
-theData yVals hash: 8558769185984268590
-#void Merge(G4InterpolationScheme aScheme, G4double aValue, G4ParticleHPVector * active, G4ParticleHPVector * passive)_2
-@aValue=0
-@active_caseNum=0
-@passive_caseNum=0
-theData xVals hash: 1285262205404685270
-theData yVals hash: 8558769185984268590
-@aValue=0
-@active_caseNum=0
-@passive_caseNum=1
-theData xVals hash: 1285262205404685270
-theData yVals hash: 8558769185984268590
-@aValue=0
-@active_caseNum=0
-@passive_caseNum=3
-theData xVals hash: 1285262205404685270
-theData yVals hash: 8558769185984268590
-@aValue=0
-@active_caseNum=0
-@passive_caseNum=4
-theData xVals hash: 1285262205404685270
-theData yVals hash: 8558769185984268590
-@aValue=0
-@active_caseNum=0
-@passive_caseNum=5
-theData xVals hash: 1285262205404685270
-theData yVals hash: 8558769185984268590
-@aValue=0
-@active_caseNum=0
-@passive_caseNum=6
-theData xVals hash: 1285262205404685270
-theData yVals hash: 8558769185984268590
-@aValue=0
-@active_caseNum=0
-@passive_caseNum=7
-theData xVals hash: 1285262205404685270
-theData yVals hash: 8558769185984268590
-@aValue=0
-@active_caseNum=1
-@passive_caseNum=0
-theData xVals hash: 1285262205404685270
-theData yVals hash: 8558769185984268590
-@aValue=0
-@active_caseNum=1
-@passive_caseNum=1
-theData xVals hash: 1285262205404685270
-theData yVals hash: 8558769185984268590
-@aValue=0
-@active_caseNum=1
-@passive_caseNum=3
-theData xVals hash: 1285262205404685270
-theData yVals hash: 8558769185984268590
-@aValue=0
-@active_caseNum=1
-@passive_caseNum=4
-theData xVals hash: 1285262205404685270
-theData yVals hash: 8558769185984268590
-@aValue=0
-@active_caseNum=1
-@passive_caseNum=5
-theData xVals hash: 1285262205404685270
-theData yVals hash: 8558769185984268590
-@aValue=0
-@active_caseNum=1
-@passive_caseNum=6
-theData xVals hash: 1285262205404685270
-theData yVals hash: 8558769185984268590
-@aValue=0
-@active_caseNum=1
-@passive_caseNum=7
-theData xVals hash: 1285262205404685270
-theData yVals hash: 8558769185984268590
-@aValue=0
-@active_caseNum=3
-@passive_caseNum=0
-theData xVals hash: 1285262205404685270
-theData yVals hash: 8558769185984268590
-@aValue=0
-@active_caseNum=3
-@passive_caseNum=1
-theData xVals hash: 1285262205404685270
-theData yVals hash: 8558769185984268590
-@aValue=0
-@active_caseNum=3
-@passive_caseNum=3
-theData xVals hash: 1285262205404685270
-theData yVals hash: 8558769185984268590
-@aValue=0
-@active_caseNum=3
-@passive_caseNum=4
-theData xVals hash: 1285262205404685270
-theData yVals hash: 8558769185984268590
-@aValue=0
-@active_caseNum=3
-@passive_caseNum=5
-theData xVals hash: 1285262205404685270
-theData yVals hash: 8558769185984268590
-@aValue=0
-@active_caseNum=3
-@passive_caseNum=6
-theData xVals hash: 1285262205404685270
-theData yVals hash: 8558769185984268590
-@aValue=0
-@active_caseNum=3
-@passive_caseNum=7
-theData xVals hash: 1285262205404685270
-theData yVals hash: 8558769185984268590
-@aValue=0
-@active_caseNum=4
-@passive_caseNum=0
-theData xVals hash: 1285262205404685270
-theData yVals hash: 8558769185984268590
-@aValue=0
-@active_caseNum=4
-@passive_caseNum=1
-theData xVals hash: 1285262205404685270
-theData yVals hash: 8558769185984268590
-@aValue=0
-@active_caseNum=4
-@passive_caseNum=3
-theData xVals hash: 1285262205404685270
-theData yVals hash: 8558769185984268590
-@aValue=0
-@active_caseNum=4
-@passive_caseNum=4
-theData xVals hash: 1285262205404685270
-theData yVals hash: 8558769185984268590
-@aValue=0
-@active_caseNum=4
-@passive_caseNum=5
-theData xVals hash: 1285262205404685270
-theData yVals hash: 8558769185984268590
-@aValue=0
-@active_caseNum=4
-@passive_caseNum=6
-theData xVals hash: 1285262205404685270
-theData yVals hash: 8558769185984268590
-@aValue=0
-@active_caseNum=4
-@passive_caseNum=7
-theData xVals hash: 1285262205404685270
-theData yVals hash: 8558769185984268590
-@aValue=0
-@active_caseNum=5
-@passive_caseNum=0
-theData xVals hash: 1285262205404685270
-theData yVals hash: 8558769185984268590
-@aValue=0
-@active_caseNum=5
-@passive_caseNum=1
-theData xVals hash: 1285262205404685270
-theData yVals hash: 8558769185984268590
-@aValue=0
-@active_caseNum=5
-@passive_caseNum=3
-theData xVals hash: 1285262205404685270
-theData yVals hash: 8558769185984268590
-@aValue=0
-@active_caseNum=5
-@passive_caseNum=4
-theData xVals hash: 1285262205404685270
-theData yVals hash: 8558769185984268590
-@aValue=0
-@active_caseNum=5
-@passive_caseNum=5
-theData xVals hash: 1285262205404685270
-theData yVals hash: 8558769185984268590
-@aValue=0
-@active_caseNum=5
-@passive_caseNum=6
-theData xVals hash: 1285262205404685270
-theData yVals hash: 8558769185984268590
-@aValue=0
-@active_caseNum=5
-@passive_caseNum=7
-theData xVals hash: 1285262205404685270
-theData yVals hash: 8558769185984268590
-@aValue=0
-@active_caseNum=6
-@passive_caseNum=0
-theData xVals hash: 1285262205404685270
-theData yVals hash: 8558769185984268590
-@aValue=0
-@active_caseNum=6
-@passive_caseNum=1
-theData xVals hash: 1285262205404685270
-theData yVals hash: 8558769185984268590
-@aValue=0
-@active_caseNum=6
-@passive_caseNum=3
-theData xVals hash: 1285262205404685270
-theData yVals hash: 8558769185984268590
-@aValue=0
-@active_caseNum=6
-@passive_caseNum=4
-theData xVals hash: 1285262205404685270
-theData yVals hash: 8558769185984268590
-@aValue=0
-@active_caseNum=6
-@passive_caseNum=5
-theData xVals hash: 1285262205404685270
-theData yVals hash: 8558769185984268590
-@aValue=0
-@active_caseNum=6
-@passive_caseNum=6
-theData xVals hash: 1285262205404685270
-theData yVals hash: 8558769185984268590
-@aValue=0
-@active_caseNum=6
-@passive_caseNum=7
-theData xVals hash: 1285262205404685270
-theData yVals hash: 8558769185984268590
-@aValue=0
-@active_caseNum=7
-@passive_caseNum=0
-theData xVals hash: 1285262205404685270
-theData yVals hash: 8558769185984268590
-@aValue=0
-@active_caseNum=7
-@passive_caseNum=1
-theData xVals hash: 1285262205404685270
-theData yVals hash: 8558769185984268590
-@aValue=0
-@active_caseNum=7
-@passive_caseNum=3
-theData xVals hash: 1285262205404685270
-theData yVals hash: 8558769185984268590
-@aValue=0
-@active_caseNum=7
-@passive_caseNum=4
-theData xVals hash: 1285262205404685270
-theData yVals hash: 8558769185984268590
-@aValue=0
-@active_caseNum=7
-@passive_caseNum=5
-theData xVals hash: 1285262205404685270
-theData yVals hash: 8558769185984268590
-@aValue=0
-@active_caseNum=7
-@passive_caseNum=6
-theData xVals hash: 1285262205404685270
-theData yVals hash: 8558769185984268590
-@aValue=0
-@active_caseNum=7
-@passive_caseNum=7
-theData xVals hash: 1285262205404685270
-theData yVals hash: 8558769185984268590
-#void SetPoint(G4int i, const G4ParticleHPDataPoint & it)_2
+#void SetPoint(G4int i, const G4ParticleHPDataPoint & it)_1
 @i=-1
-@x=0.246733
-@y=0.843975
+@x=0.748293
+@y=0.554584
 theData xVals hash: 1285262205404685270
 theData yVals hash: 8558769185984268590
 @i=0
-@x=0.694024
-@y=0.455752
-theData xVals hash: 9194182591487113957
-theData yVals hash: 18268320035324705893
+@x=0.890737
+@y=0.624849
+theData xVals hash: 5804543389799649049
+theData yVals hash: 9927639986837056674
 @i=40
-@x=0.817101
-@y=0.0220837
-theData xVals hash: 8995224247142223526
-theData yVals hash: 3146017168165147975
+@x=0.84204
+@y=0.159768
+theData xVals hash: 9465941251169175937
+theData yVals hash: 11558143587205118448
 @i=79
-@x=0.160749
-@y=0.70695
-theData xVals hash: 9415613075261002385
-theData yVals hash: 146421154533363851
+@x=0.212752
+@y=0.71471
+theData xVals hash: 2231515682788555185
+theData yVals hash: 1687061799853086818
 @i=80
-@x=0.707826
-@y=0.436638
-theData xVals hash: 1372019286307195375
-theData yVals hash: 3350980802532984813
-#void SetData(G4int i, G4double x, G4double y)_2
+@x=0.130427
+@y=0.0909903
+theData xVals hash: 11917004909728228006
+theData yVals hash: 17620866354523199768
+#void SetData(G4int i, G4double x, G4double y)_1
 @i=-1
-@x=0.582421
-@y=0.75171
-theData xVals hash: 1372019286307195375
-theData yVals hash: 3350980802532984813
+@x=0.274588
+@y=0.0029996
+theData xVals hash: 11917004909728228006
+theData yVals hash: 17620866354523199768
 @i=0
-@x=0.991533
-@y=0.695679
-theData xVals hash: 1374176957114310999
-theData yVals hash: 92112694903942212
+@x=0.414293
+@y=0.0268763
+theData xVals hash: 1069802273639276750
+theData yVals hash: 14287143589577325518
 @i=40
-@x=0.279512
-@y=0.753863
-theData xVals hash: 9545790654075195611
-theData yVals hash: 4861217371167214179
+@x=0.70982
+@y=0.937897
+theData xVals hash: 12057179999853550630
+theData yVals hash: 1505286251743665114
 @i=79
-@x=0.171179
-@y=0.00425392
-theData xVals hash: 5475934818125045649
-theData yVals hash: 8503428750386887313
+@x=0.239911
+@y=0.180896
+theData xVals hash: 13487485298378379190
+theData yVals hash: 10071501334371812117
 @i=80
-@x=0.495691
-@y=0.0799169
-theData xVals hash: 4811730204073247616
-theData yVals hash: 13482471746184470673
-#void SetX(G4int i, G4double e)_2
+@x=0.31754
+@y=0.886991
+theData xVals hash: 17211162626664510973
+theData yVals hash: 10064459020536613032
+#void SetX(G4int i, G4double e)_1
 @i=-1
-@x=0.163081
-theData xVals hash: 4811730204073247616
-theData yVals hash: 13482471746184470673
+@x=0.652059
+theData xVals hash: 17211162626664510973
+theData yVals hash: 10064459020536613032
 @i=0
-@x=0.782992
-theData xVals hash: 3631531378053762859
-theData yVals hash: 13482471746184470673
+@x=0.681346
+theData xVals hash: 825639811120898923
+theData yVals hash: 10064459020536613032
 @i=40
-@x=0.436426
-theData xVals hash: 12086290103983185728
-theData yVals hash: 13482471746184470673
+@x=0.387725
+theData xVals hash: 10024193743126311778
+theData yVals hash: 10064459020536613032
 @i=79
-@x=0.584787
-theData xVals hash: 12535907267802224463
-theData yVals hash: 13482471746184470673
+@x=0.147533
+theData xVals hash: 15039657372492632892
+theData yVals hash: 10064459020536613032
 @i=80
-@x=0.0668498
-theData xVals hash: 5855381444526441853
-theData yVals hash: 13482471746184470673
-#void SetEnergy(G4int i, G4double e)_2
+@x=0.845576
+theData xVals hash: 9754064126738262472
+theData yVals hash: 10064459020536613032
+#void SetEnergy(G4int i, G4double e)_1
 @i=-1
-@x=0.389731
-theData xVals hash: 5855381444526441853
-theData yVals hash: 13482471746184470673
+@x=0.955409
+theData xVals hash: 9754064126738262472
+theData yVals hash: 10064459020536613032
 @i=0
-@x=0.385769
-theData xVals hash: 1583684706139984142
-theData yVals hash: 13482471746184470673
+@x=0.148152
+theData xVals hash: 3177640956036421428
+theData yVals hash: 10064459020536613032
 @i=40
-@x=0.659053
-theData xVals hash: 13719168736349294624
-theData yVals hash: 13482471746184470673
+@x=0.408767
+theData xVals hash: 5867531154422902595
+theData yVals hash: 10064459020536613032
 @i=79
-@x=0.538661
-theData xVals hash: 10049968820114358171
-theData yVals hash: 13482471746184470673
+@x=0.564899
+theData xVals hash: 6579622520035491065
+theData yVals hash: 10064459020536613032
 @i=80
-@x=0.815932
-theData xVals hash: 11609199198589148998
-theData yVals hash: 13482471746184470673
-#void SetY(G4int i, G4double x)_2
+@x=0.488515
+theData xVals hash: 13806855424293551845
+theData yVals hash: 10064459020536613032
+#void SetY(G4int i, G4double x)_1
 @i=-1
-@x=0.686102
-theData xVals hash: 11609199198589148998
-theData yVals hash: 13482471746184470673
+@x=0.961095
+theData xVals hash: 13806855424293551845
+theData yVals hash: 10064459020536613032
 @i=0
-@x=0.00934752
-theData xVals hash: 11609199198589148998
-theData yVals hash: 2935484460623267634
+@x=0.199757
+theData xVals hash: 13806855424293551845
+theData yVals hash: 12477622324396195408
 @i=40
-@x=0.52096
-theData xVals hash: 11609199198589148998
-theData yVals hash: 13796482481626012946
+@x=0.629269
+theData xVals hash: 13806855424293551845
+theData yVals hash: 2785588263556789062
 @i=79
-@x=0.220685
-theData xVals hash: 11609199198589148998
-theData yVals hash: 13839077392245931847
+@x=0.651254
+theData xVals hash: 13806855424293551845
+theData yVals hash: 12820530409600777276
 @i=80
-@x=0.0706349
-theData xVals hash: 11609199198589148998
-theData yVals hash: 4012728386831777084
-#void SetXsec(G4int i, G4double x)_2
+@x=0.803073
+theData xVals hash: 13806855424293551845
+theData yVals hash: 1509665415038215975
+#void SetXsec(G4int i, G4double x)_1
 @i=-1
-@x=0.723764
-theData xVals hash: 11609199198589148998
-theData yVals hash: 4012728386831777084
+@x=0.476432
+theData xVals hash: 13806855424293551845
+theData yVals hash: 1509665415038215975
 @i=0
-@x=0.0506026
-theData xVals hash: 11609199198589148998
-theData yVals hash: 16365865109251119767
+@x=0.20325
+theData xVals hash: 13806855424293551845
+theData yVals hash: 16020493961350317485
 @i=40
-@x=0.457162
-theData xVals hash: 11609199198589148998
-theData yVals hash: 14035156135067035007
+@x=0.901673
+theData xVals hash: 13806855424293551845
+theData yVals hash: 7675668830669903963
 @i=79
-@x=0.44649
-theData xVals hash: 11609199198589148998
-theData yVals hash: 14072386224778802249
+@x=0.142021
+theData xVals hash: 13806855424293551845
+theData yVals hash: 4680530222202648150
 @i=80
-@x=0.285942
-theData xVals hash: 11609199198589148998
-theData yVals hash: 14373671742186920323
-#const G4ParticleHPDataPoint GetPoint(G4int i)_2
+@x=0.410313
+theData xVals hash: 13806855424293551845
+theData yVals hash: 2728580726983251594
+#const G4ParticleHPDataPoint GetPoint(G4int i)_1
 @i=-1
-(0.385769,0.0506026)
+(0.148152,0.20325)
 @i=0
-(0.385769,0.0506026)
+(0.148152,0.20325)
 @i=40
-(0.659053,0.457162)
+(0.408767,0.901673)
 @i=79
-(0.538661,0.44649)
+(0.564899,0.142021)
 @i=80
-(0.815932,0.285942)
-#G4double GetEnergy(G4int i)_2
+(0.488515,0.410313)
+#G4double GetEnergy(G4int i)_1
 @i=-1
-0.385769
+0.148152
 @i=0
-0.385769
+0.148152
 @i=40
-0.659053
+0.408767
 @i=79
-0.538661
+0.564899
 @i=80
-0.815932
-#G4double GetX(G4int i)_2
+0.488515
+#G4double GetX(G4int i)_1
 @i=-1
-0.385769
+0.148152
 @i=0
-0.385769
+0.148152
 @i=40
-0.659053
+0.408767
 @i=79
-0.538661
+0.564899
 @i=80
-0.815932
-#G4double GetXsec(G4int i)_2
+0.488515
+#G4double GetXsec(G4int i)_1
 @i=-1
-0.0506026
+0.20325
 @i=0
-0.0506026
+0.20325
 @i=40
-0.457162
+0.901673
 @i=79
-0.44649
+0.142021
 @i=80
-0.285942
-#G4double GetY(G4int i)_2
+0.410313
+#G4double GetY(G4int i)_1
 @i=-1
-0.0506026
+0.20325
 @i=0
-0.0506026
+0.20325
 @i=40
-0.457162
+0.901673
 @i=79
-0.44649
+0.142021
 @i=80
-0.285942
-#void ThinOut(G4double precision)_2
+0.410313
+#void ThinOut(G4double precision)_1
 @precision=-1
-theData xVals hash: 11609199198589148998
-theData yVals hash: 14373671742186920323
+theData xVals hash: 13806855424293551845
+theData yVals hash: 2728580726983251594
 @precision=0
-theData xVals hash: 17064378814643561459
-theData yVals hash: 4031036242261500596
+theData xVals hash: 12624653897631436154
+theData yVals hash: 2928955526087722116
 @precision=0.00051234
-theData xVals hash: 5127711583530102387
-theData yVals hash: 527054748219264876
+theData xVals hash: 5126156352620981978
+theData yVals hash: 9598653997824891045
 @precision=1.58923
-theData xVals hash: 3530429096441896796
-theData yVals hash: 7937017703879618976
+theData xVals hash: 9112047995248431637
+theData yVals hash: 14320359104302300058
 @precision=513.187
-theData xVals hash: 8629992844204688688
-theData yVals hash: 16123018215151080309
-#G4ParticleHPVector & operator = (const G4ParticleHPVector & right)_2
-hash: 8629992844204688688
-#void Init(std::istream & aDataFile, G4int total, G4double ux=1., G4double uy=1.)_3
+theData xVals hash: 9810318745675441055
+theData yVals hash: 3007423311850214453
+#G4ParticleHPVector & operator = (const G4ParticleHPVector & right)_1
+hash: 9810318745675441055
+#void Init(std::istream & aDataFile, G4int total, G4double ux=1., G4double uy=1.)_2
 theData xVals hash: 2814258466556012703
 theData yVals hash: 7454723789077549572
-#G4double GetXsec(G4double e)_3
+#G4double GetXsec(G4double e)_2
 @e=-1
 368338
 @e=0
@@ -2314,7 +661,7 @@ theData yVals hash: 7454723789077549572
 0.0189098
 @e=513.187
 0.00101927
-#G4double GetXsec(G4double e, G4int min)_3
+#G4double GetXsec(G4double e, G4int min)_2
 @e=-1
 @min=-1
 368338
@@ -2390,15 +737,15 @@ theData yVals hash: 7454723789077549572
 @e=513.187
 @min=1509
 7.54
-#G4double SampleLin()_3
-$1.11334e+07
-#G4double Sample()_3
-$1.0532e+07
-#G4double Get15PercentBorder()_3
+#G4double SampleLin()_2
+$1.09637e+07
+#G4double Sample()_2
+$1.08377e+07
+#G4double Get15PercentBorder()_2
 4.3125e+06
-#G4double Get50PercentBorder()_3
+#G4double Get50PercentBorder()_2
 1.0898e+07
-#void Times(G4double factor)_3
+#void Times(G4double factor)_2
 @factor=-4.67
 theData xVals hash: 2814258466556012703
 theData yVals hash: 17186371222629392991
@@ -2415,662 +762,219 @@ theIntegral hash: 6887186259448902067
 theData xVals hash: 2814258466556012703
 theData yVals hash: 7454723789077549572
 theIntegral hash: 6887186259448902067
-#void Merge(G4ParticleHPVector * active, G4ParticleHPVector * passive)_3
-@active_caseNum=0
-@passive_caseNum=0
-theData xVals hash: 2814258466556012703
-theData yVals hash: 7454723789077549572
-@active_caseNum=0
-@passive_caseNum=1
-theData xVals hash: 2814258466556012703
-theData yVals hash: 7454723789077549572
-@active_caseNum=0
-@passive_caseNum=2
-theData xVals hash: 2814258466556012703
-theData yVals hash: 7454723789077549572
-@active_caseNum=0
-@passive_caseNum=4
-theData xVals hash: 2814258466556012703
-theData yVals hash: 7454723789077549572
-@active_caseNum=0
-@passive_caseNum=5
-theData xVals hash: 2814258466556012703
-theData yVals hash: 7454723789077549572
-@active_caseNum=0
-@passive_caseNum=6
-theData xVals hash: 2814258466556012703
-theData yVals hash: 7454723789077549572
-@active_caseNum=0
-@passive_caseNum=7
-theData xVals hash: 2814258466556012703
-theData yVals hash: 7454723789077549572
-@active_caseNum=1
-@passive_caseNum=0
-theData xVals hash: 2814258466556012703
-theData yVals hash: 7454723789077549572
-@active_caseNum=1
-@passive_caseNum=1
-theData xVals hash: 2814258466556012703
-theData yVals hash: 7454723789077549572
-@active_caseNum=1
-@passive_caseNum=2
-theData xVals hash: 2814258466556012703
-theData yVals hash: 7454723789077549572
-@active_caseNum=1
-@passive_caseNum=4
-theData xVals hash: 2814258466556012703
-theData yVals hash: 7454723789077549572
-@active_caseNum=1
-@passive_caseNum=5
-theData xVals hash: 2814258466556012703
-theData yVals hash: 7454723789077549572
-@active_caseNum=1
-@passive_caseNum=6
-theData xVals hash: 2814258466556012703
-theData yVals hash: 7454723789077549572
-@active_caseNum=1
-@passive_caseNum=7
-theData xVals hash: 2814258466556012703
-theData yVals hash: 7454723789077549572
-@active_caseNum=2
-@passive_caseNum=0
-theData xVals hash: 2814258466556012703
-theData yVals hash: 7454723789077549572
-@active_caseNum=2
-@passive_caseNum=1
-theData xVals hash: 2814258466556012703
-theData yVals hash: 7454723789077549572
-@active_caseNum=2
-@passive_caseNum=2
-theData xVals hash: 2814258466556012703
-theData yVals hash: 7454723789077549572
-@active_caseNum=2
-@passive_caseNum=4
-theData xVals hash: 2814258466556012703
-theData yVals hash: 7454723789077549572
-@active_caseNum=2
-@passive_caseNum=5
-theData xVals hash: 2814258466556012703
-theData yVals hash: 7454723789077549572
-@active_caseNum=2
-@passive_caseNum=6
-theData xVals hash: 2814258466556012703
-theData yVals hash: 7454723789077549572
-@active_caseNum=2
-@passive_caseNum=7
-theData xVals hash: 2814258466556012703
-theData yVals hash: 7454723789077549572
-@active_caseNum=4
-@passive_caseNum=0
-theData xVals hash: 2814258466556012703
-theData yVals hash: 7454723789077549572
-@active_caseNum=4
-@passive_caseNum=1
-theData xVals hash: 2814258466556012703
-theData yVals hash: 7454723789077549572
-@active_caseNum=4
-@passive_caseNum=2
-theData xVals hash: 2814258466556012703
-theData yVals hash: 7454723789077549572
-@active_caseNum=4
-@passive_caseNum=4
-theData xVals hash: 2814258466556012703
-theData yVals hash: 7454723789077549572
-@active_caseNum=4
-@passive_caseNum=5
-theData xVals hash: 2814258466556012703
-theData yVals hash: 7454723789077549572
-@active_caseNum=4
-@passive_caseNum=6
-theData xVals hash: 2814258466556012703
-theData yVals hash: 7454723789077549572
-@active_caseNum=4
-@passive_caseNum=7
-theData xVals hash: 2814258466556012703
-theData yVals hash: 7454723789077549572
-@active_caseNum=5
-@passive_caseNum=0
-theData xVals hash: 2814258466556012703
-theData yVals hash: 7454723789077549572
-@active_caseNum=5
-@passive_caseNum=1
-theData xVals hash: 2814258466556012703
-theData yVals hash: 7454723789077549572
-@active_caseNum=5
-@passive_caseNum=2
-theData xVals hash: 2814258466556012703
-theData yVals hash: 7454723789077549572
-@active_caseNum=5
-@passive_caseNum=4
-theData xVals hash: 2814258466556012703
-theData yVals hash: 7454723789077549572
-@active_caseNum=5
-@passive_caseNum=5
-theData xVals hash: 2814258466556012703
-theData yVals hash: 7454723789077549572
-@active_caseNum=5
-@passive_caseNum=6
-theData xVals hash: 2814258466556012703
-theData yVals hash: 7454723789077549572
-@active_caseNum=5
-@passive_caseNum=7
-theData xVals hash: 2814258466556012703
-theData yVals hash: 7454723789077549572
-@active_caseNum=6
-@passive_caseNum=0
-theData xVals hash: 2814258466556012703
-theData yVals hash: 7454723789077549572
-@active_caseNum=6
-@passive_caseNum=1
-theData xVals hash: 2814258466556012703
-theData yVals hash: 7454723789077549572
-@active_caseNum=6
-@passive_caseNum=2
-theData xVals hash: 2814258466556012703
-theData yVals hash: 7454723789077549572
-@active_caseNum=6
-@passive_caseNum=4
-theData xVals hash: 2814258466556012703
-theData yVals hash: 7454723789077549572
-@active_caseNum=6
-@passive_caseNum=5
-theData xVals hash: 2814258466556012703
-theData yVals hash: 7454723789077549572
-@active_caseNum=6
-@passive_caseNum=6
-theData xVals hash: 2814258466556012703
-theData yVals hash: 7454723789077549572
-@active_caseNum=6
-@passive_caseNum=7
-theData xVals hash: 2814258466556012703
-theData yVals hash: 7454723789077549572
-@active_caseNum=7
-@passive_caseNum=0
-theData xVals hash: 2814258466556012703
-theData yVals hash: 7454723789077549572
-@active_caseNum=7
-@passive_caseNum=1
-theData xVals hash: 2814258466556012703
-theData yVals hash: 7454723789077549572
-@active_caseNum=7
-@passive_caseNum=2
-theData xVals hash: 2814258466556012703
-theData yVals hash: 7454723789077549572
-@active_caseNum=7
-@passive_caseNum=4
-theData xVals hash: 2814258466556012703
-theData yVals hash: 7454723789077549572
-@active_caseNum=7
-@passive_caseNum=5
-theData xVals hash: 2814258466556012703
-theData yVals hash: 7454723789077549572
-@active_caseNum=7
-@passive_caseNum=6
-theData xVals hash: 2814258466556012703
-theData yVals hash: 7454723789077549572
-@active_caseNum=7
-@passive_caseNum=7
-theData xVals hash: 2814258466556012703
-theData yVals hash: 7454723789077549572
-#void Merge(G4InterpolationScheme aScheme, G4double aValue, G4ParticleHPVector * active, G4ParticleHPVector * passive)_3
-@aValue=0
-@active_caseNum=0
-@passive_caseNum=0
-theData xVals hash: 2814258466556012703
-theData yVals hash: 7454723789077549572
-@aValue=0
-@active_caseNum=0
-@passive_caseNum=1
-theData xVals hash: 2814258466556012703
-theData yVals hash: 7454723789077549572
-@aValue=0
-@active_caseNum=0
-@passive_caseNum=2
-theData xVals hash: 2814258466556012703
-theData yVals hash: 7454723789077549572
-@aValue=0
-@active_caseNum=0
-@passive_caseNum=4
-theData xVals hash: 2814258466556012703
-theData yVals hash: 7454723789077549572
-@aValue=0
-@active_caseNum=0
-@passive_caseNum=5
-theData xVals hash: 2814258466556012703
-theData yVals hash: 7454723789077549572
-@aValue=0
-@active_caseNum=0
-@passive_caseNum=6
-theData xVals hash: 2814258466556012703
-theData yVals hash: 7454723789077549572
-@aValue=0
-@active_caseNum=0
-@passive_caseNum=7
-theData xVals hash: 2814258466556012703
-theData yVals hash: 7454723789077549572
-@aValue=0
-@active_caseNum=1
-@passive_caseNum=0
-theData xVals hash: 2814258466556012703
-theData yVals hash: 7454723789077549572
-@aValue=0
-@active_caseNum=1
-@passive_caseNum=1
-theData xVals hash: 2814258466556012703
-theData yVals hash: 7454723789077549572
-@aValue=0
-@active_caseNum=1
-@passive_caseNum=2
-theData xVals hash: 2814258466556012703
-theData yVals hash: 7454723789077549572
-@aValue=0
-@active_caseNum=1
-@passive_caseNum=4
-theData xVals hash: 2814258466556012703
-theData yVals hash: 7454723789077549572
-@aValue=0
-@active_caseNum=1
-@passive_caseNum=5
-theData xVals hash: 2814258466556012703
-theData yVals hash: 7454723789077549572
-@aValue=0
-@active_caseNum=1
-@passive_caseNum=6
-theData xVals hash: 2814258466556012703
-theData yVals hash: 7454723789077549572
-@aValue=0
-@active_caseNum=1
-@passive_caseNum=7
-theData xVals hash: 2814258466556012703
-theData yVals hash: 7454723789077549572
-@aValue=0
-@active_caseNum=2
-@passive_caseNum=0
-theData xVals hash: 2814258466556012703
-theData yVals hash: 7454723789077549572
-@aValue=0
-@active_caseNum=2
-@passive_caseNum=1
-theData xVals hash: 2814258466556012703
-theData yVals hash: 7454723789077549572
-@aValue=0
-@active_caseNum=2
-@passive_caseNum=2
-theData xVals hash: 2814258466556012703
-theData yVals hash: 7454723789077549572
-@aValue=0
-@active_caseNum=2
-@passive_caseNum=4
-theData xVals hash: 2814258466556012703
-theData yVals hash: 7454723789077549572
-@aValue=0
-@active_caseNum=2
-@passive_caseNum=5
-theData xVals hash: 2814258466556012703
-theData yVals hash: 7454723789077549572
-@aValue=0
-@active_caseNum=2
-@passive_caseNum=6
-theData xVals hash: 2814258466556012703
-theData yVals hash: 7454723789077549572
-@aValue=0
-@active_caseNum=2
-@passive_caseNum=7
-theData xVals hash: 2814258466556012703
-theData yVals hash: 7454723789077549572
-@aValue=0
-@active_caseNum=4
-@passive_caseNum=0
-theData xVals hash: 2814258466556012703
-theData yVals hash: 7454723789077549572
-@aValue=0
-@active_caseNum=4
-@passive_caseNum=1
-theData xVals hash: 2814258466556012703
-theData yVals hash: 7454723789077549572
-@aValue=0
-@active_caseNum=4
-@passive_caseNum=2
-theData xVals hash: 2814258466556012703
-theData yVals hash: 7454723789077549572
-@aValue=0
-@active_caseNum=4
-@passive_caseNum=4
-theData xVals hash: 2814258466556012703
-theData yVals hash: 7454723789077549572
-@aValue=0
-@active_caseNum=4
-@passive_caseNum=5
-theData xVals hash: 2814258466556012703
-theData yVals hash: 7454723789077549572
-@aValue=0
-@active_caseNum=4
-@passive_caseNum=6
-theData xVals hash: 2814258466556012703
-theData yVals hash: 7454723789077549572
-@aValue=0
-@active_caseNum=4
-@passive_caseNum=7
-theData xVals hash: 2814258466556012703
-theData yVals hash: 7454723789077549572
-@aValue=0
-@active_caseNum=5
-@passive_caseNum=0
-theData xVals hash: 2814258466556012703
-theData yVals hash: 7454723789077549572
-@aValue=0
-@active_caseNum=5
-@passive_caseNum=1
-theData xVals hash: 2814258466556012703
-theData yVals hash: 7454723789077549572
-@aValue=0
-@active_caseNum=5
-@passive_caseNum=2
-theData xVals hash: 2814258466556012703
-theData yVals hash: 7454723789077549572
-@aValue=0
-@active_caseNum=5
-@passive_caseNum=4
-theData xVals hash: 2814258466556012703
-theData yVals hash: 7454723789077549572
-@aValue=0
-@active_caseNum=5
-@passive_caseNum=5
-theData xVals hash: 2814258466556012703
-theData yVals hash: 7454723789077549572
-@aValue=0
-@active_caseNum=5
-@passive_caseNum=6
-theData xVals hash: 2814258466556012703
-theData yVals hash: 7454723789077549572
-@aValue=0
-@active_caseNum=5
-@passive_caseNum=7
-theData xVals hash: 2814258466556012703
-theData yVals hash: 7454723789077549572
-@aValue=0
-@active_caseNum=6
-@passive_caseNum=0
-theData xVals hash: 2814258466556012703
-theData yVals hash: 7454723789077549572
-@aValue=0
-@active_caseNum=6
-@passive_caseNum=1
-theData xVals hash: 2814258466556012703
-theData yVals hash: 7454723789077549572
-@aValue=0
-@active_caseNum=6
-@passive_caseNum=2
-theData xVals hash: 2814258466556012703
-theData yVals hash: 7454723789077549572
-@aValue=0
-@active_caseNum=6
-@passive_caseNum=4
-theData xVals hash: 2814258466556012703
-theData yVals hash: 7454723789077549572
-@aValue=0
-@active_caseNum=6
-@passive_caseNum=5
-theData xVals hash: 2814258466556012703
-theData yVals hash: 7454723789077549572
-@aValue=0
-@active_caseNum=6
-@passive_caseNum=6
-theData xVals hash: 2814258466556012703
-theData yVals hash: 7454723789077549572
-@aValue=0
-@active_caseNum=6
-@passive_caseNum=7
-theData xVals hash: 2814258466556012703
-theData yVals hash: 7454723789077549572
-@aValue=0
-@active_caseNum=7
-@passive_caseNum=0
-theData xVals hash: 2814258466556012703
-theData yVals hash: 7454723789077549572
-@aValue=0
-@active_caseNum=7
-@passive_caseNum=1
-theData xVals hash: 2814258466556012703
-theData yVals hash: 7454723789077549572
-@aValue=0
-@active_caseNum=7
-@passive_caseNum=2
-theData xVals hash: 2814258466556012703
-theData yVals hash: 7454723789077549572
-@aValue=0
-@active_caseNum=7
-@passive_caseNum=4
-theData xVals hash: 2814258466556012703
-theData yVals hash: 7454723789077549572
-@aValue=0
-@active_caseNum=7
-@passive_caseNum=5
-theData xVals hash: 2814258466556012703
-theData yVals hash: 7454723789077549572
-@aValue=0
-@active_caseNum=7
-@passive_caseNum=6
-theData xVals hash: 2814258466556012703
-theData yVals hash: 7454723789077549572
-@aValue=0
-@active_caseNum=7
-@passive_caseNum=7
-theData xVals hash: 2814258466556012703
-theData yVals hash: 7454723789077549572
-#void SetPoint(G4int i, const G4ParticleHPDataPoint & it)_3
+#void SetPoint(G4int i, const G4ParticleHPDataPoint & it)_2
 @i=-1
-@x=0.329056
-@y=0.44593
+@x=0.524987
+@y=0.463323
 theData xVals hash: 2814258466556012703
 theData yVals hash: 7454723789077549572
 @i=0
-@x=0.743274
-@y=0.205341
-theData xVals hash: 14427217726186185810
-theData yVals hash: 17414189951861971713
+@x=0.0651939
+@y=0.713422
+theData xVals hash: 15263281900258556439
+theData yVals hash: 5028621939114274346
 @i=754
-@x=0.171379
-@y=0.37252
-theData xVals hash: 2491269942165496520
-theData yVals hash: 8486715413304293585
+@x=0.488943
+@y=0.667679
+theData xVals hash: 915621649933798008
+theData yVals hash: 9087457982512837067
 @i=1508
-@x=0.939725
-@y=0.964851
-theData xVals hash: 11567167838261052287
-theData yVals hash: 6579275387623705597
+@x=0.682049
+@y=0.199555
+theData xVals hash: 14452550200258808396
+theData yVals hash: 16347732070514974093
 @i=1509
-@x=0.254957
-@y=0.0703352
-theData xVals hash: 14221085241300737032
-theData yVals hash: 15618842908027164286
-#void SetData(G4int i, G4double x, G4double y)_3
+@x=0.916634
+@y=0.865883
+theData xVals hash: 10322863760789531885
+theData yVals hash: 11585633683297973238
+#void SetData(G4int i, G4double x, G4double y)_2
 @i=-1
-@x=0.123849
-@y=0.526338
-theData xVals hash: 14221085241300737032
-theData yVals hash: 15618842908027164286
+@x=0.890019
+@y=0.543948
+theData xVals hash: 10322863760789531885
+theData yVals hash: 11585633683297973238
 @i=0
-@x=0.160083
-@y=0.517707
-theData xVals hash: 6734082379445648810
-theData yVals hash: 16619011157146005840
+@x=0.139195
+@y=0.450347
+theData xVals hash: 7745416696526102279
+theData yVals hash: 1540208423189871886
 @i=754
-@x=0.105185
-@y=0.841576
-theData xVals hash: 13445982815256995090
-theData yVals hash: 11891517223145881816
+@x=0.989362
+@y=0.215532
+theData xVals hash: 7515339646276908821
+theData yVals hash: 14188731446478845704
 @i=1508
-@x=0.368562
-@y=0.42389
-theData xVals hash: 2414276786292763170
-theData yVals hash: 7635752830631393497
+@x=0.446023
+@y=0.315732
+theData xVals hash: 5727310911073034965
+theData yVals hash: 4183444033107138255
 @i=1509
-@x=0.327228
-@y=0.713547
-theData xVals hash: 5816179643743771819
-theData yVals hash: 17444186788994735847
-#void SetX(G4int i, G4double e)_3
+@x=0.514659
+@y=0.881504
+theData xVals hash: 9183821913985944155
+theData yVals hash: 14907270809275916389
+#void SetX(G4int i, G4double e)_2
 @i=-1
-@x=0.576776
-theData xVals hash: 5816179643743771819
-theData yVals hash: 17444186788994735847
+@x=0.439726
+theData xVals hash: 9183821913985944155
+theData yVals hash: 14907270809275916389
 @i=0
-@x=0.758246
-theData xVals hash: 8359966721697302215
-theData yVals hash: 17444186788994735847
+@x=0.80665
+theData xVals hash: 3499421724333230922
+theData yVals hash: 14907270809275916389
 @i=754
-@x=0.699791
-theData xVals hash: 12446306961504263527
-theData yVals hash: 17444186788994735847
+@x=0.211519
+theData xVals hash: 5008314441891216475
+theData yVals hash: 14907270809275916389
 @i=1508
-@x=0.935242
-theData xVals hash: 12590448387166388543
-theData yVals hash: 17444186788994735847
+@x=0.153604
+theData xVals hash: 1878501910225240995
+theData yVals hash: 14907270809275916389
 @i=1509
-@x=0.362084
-theData xVals hash: 17058488083664213417
-theData yVals hash: 17444186788994735847
-#void SetEnergy(G4int i, G4double e)_3
+@x=0.61635
+theData xVals hash: 12727529533491297308
+theData yVals hash: 14907270809275916389
+#void SetEnergy(G4int i, G4double e)_2
 @i=-1
-@x=0.455072
-theData xVals hash: 17058488083664213417
-theData yVals hash: 17444186788994735847
+@x=0.000879
+theData xVals hash: 12727529533491297308
+theData yVals hash: 14907270809275916389
 @i=0
-@x=0.24044
-theData xVals hash: 2264402066721336454
-theData yVals hash: 17444186788994735847
+@x=0.727335
+theData xVals hash: 15986703068109141146
+theData yVals hash: 14907270809275916389
 @i=754
-@x=0.421579
-theData xVals hash: 9622565660009423636
-theData yVals hash: 17444186788994735847
+@x=0.417724
+theData xVals hash: 16368838079181939236
+theData yVals hash: 14907270809275916389
 @i=1508
-@x=0.289766
-theData xVals hash: 11246782228671600357
-theData yVals hash: 17444186788994735847
+@x=0.680562
+theData xVals hash: 2936974210038281632
+theData yVals hash: 14907270809275916389
 @i=1509
-@x=0.216386
-theData xVals hash: 9398614403025818895
-theData yVals hash: 17444186788994735847
-#void SetY(G4int i, G4double x)_3
+@x=0.83642
+theData xVals hash: 13496554590542748648
+theData yVals hash: 14907270809275916389
+#void SetY(G4int i, G4double x)_2
 @i=-1
-@x=0.527439
-theData xVals hash: 9398614403025818895
-theData yVals hash: 17444186788994735847
+@x=0.828708
+theData xVals hash: 13496554590542748648
+theData yVals hash: 14907270809275916389
 @i=0
-@x=0.863643
-theData xVals hash: 9398614403025818895
-theData yVals hash: 16759705781438326237
+@x=0.0817376
+theData xVals hash: 13496554590542748648
+theData yVals hash: 15917252544041703154
 @i=754
-@x=0.711564
-theData xVals hash: 9398614403025818895
-theData yVals hash: 11917125181424843677
+@x=0.629572
+theData xVals hash: 13496554590542748648
+theData yVals hash: 13734303039431150445
 @i=1508
-@x=0.382822
-theData xVals hash: 9398614403025818895
-theData yVals hash: 11569028165304023
+@x=0.213547
+theData xVals hash: 13496554590542748648
+theData yVals hash: 7731179624533846841
 @i=1509
-@x=0.459763
-theData xVals hash: 9398614403025818895
-theData yVals hash: 14879555687288523861
-#void SetXsec(G4int i, G4double x)_3
+@x=0.388823
+theData xVals hash: 13496554590542748648
+theData yVals hash: 8902769948247638454
+#void SetXsec(G4int i, G4double x)_2
 @i=-1
-@x=0.795353
-theData xVals hash: 9398614403025818895
-theData yVals hash: 14879555687288523861
+@x=0.947545
+theData xVals hash: 13496554590542748648
+theData yVals hash: 8902769948247638454
 @i=0
-@x=0.00322878
-theData xVals hash: 9398614403025818895
-theData yVals hash: 15237007719185005179
+@x=0.269215
+theData xVals hash: 13496554590542748648
+theData yVals hash: 5404389660463283374
 @i=754
-@x=0.664689
-theData xVals hash: 9398614403025818895
-theData yVals hash: 4753257548299885363
+@x=0.284035
+theData xVals hash: 13496554590542748648
+theData yVals hash: 18360963776501276465
 @i=1508
-@x=0.186825
-theData xVals hash: 9398614403025818895
-theData yVals hash: 14130871276285481435
+@x=0.783865
+theData xVals hash: 13496554590542748648
+theData yVals hash: 3263147531857230057
 @i=1509
-@x=0.134039
-theData xVals hash: 9398614403025818895
-theData yVals hash: 13589129365995327927
-#const G4ParticleHPDataPoint GetPoint(G4int i)_3
+@x=0.282156
+theData xVals hash: 13496554590542748648
+theData yVals hash: 14520313221902641440
+#const G4ParticleHPDataPoint GetPoint(G4int i)_2
 @i=-1
-(0.24044,0.00322878)
+(0.727335,0.269215)
 @i=0
-(0.24044,0.00322878)
+(0.727335,0.269215)
 @i=754
-(0.421579,0.664689)
+(0.417724,0.284035)
 @i=1508
-(0.289766,0.186825)
+(0.680562,0.783865)
 @i=1509
-(0.216386,0.134039)
-#G4double GetEnergy(G4int i)_3
+(0.83642,0.282156)
+#G4double GetEnergy(G4int i)_2
 @i=-1
-0.24044
+0.727335
 @i=0
-0.24044
+0.727335
 @i=754
-0.421579
+0.417724
 @i=1508
-0.289766
+0.680562
 @i=1509
-0.216386
-#G4double GetX(G4int i)_3
+0.83642
+#G4double GetX(G4int i)_2
 @i=-1
-0.24044
+0.727335
 @i=0
-0.24044
+0.727335
 @i=754
-0.421579
+0.417724
 @i=1508
-0.289766
+0.680562
 @i=1509
-0.216386
-#G4double GetXsec(G4int i)_3
+0.83642
+#G4double GetXsec(G4int i)_2
 @i=-1
-0.00322878
+0.269215
 @i=0
-0.00322878
+0.269215
 @i=754
-0.664689
+0.284035
 @i=1508
-0.186825
+0.783865
 @i=1509
-0.134039
-#G4double GetY(G4int i)_3
+0.282156
+#G4double GetY(G4int i)_2
 @i=-1
-0.00322878
+0.269215
 @i=0
-0.00322878
+0.269215
 @i=754
-0.664689
+0.284035
 @i=1508
-0.186825
+0.783865
 @i=1509
-0.134039
-#void ThinOut(G4double precision)_3
+0.282156
+#void ThinOut(G4double precision)_2
 @precision=-1
-theData xVals hash: 9398614403025818895
-theData yVals hash: 13589129365995327927
+theData xVals hash: 13496554590542748648
+theData yVals hash: 14520313221902641440
 @precision=0
-theData xVals hash: 11809180429920952297
-theData yVals hash: 8911881919816623016
+theData xVals hash: 3874562226314398690
+theData yVals hash: 17804265597025232686
 @precision=0.00051234
-theData xVals hash: 6008121339809801910
-theData yVals hash: 5461341140109829514
+theData xVals hash: 16039181476600041817
+theData yVals hash: 13200865594264250663
 @precision=1.58923
-theData xVals hash: 14408717527595396939
-theData yVals hash: 3007860182362356118
+theData xVals hash: 9548533914556869118
+theData yVals hash: 16107375269193461410
 @precision=513.187
-theData xVals hash: 5590264141243137605
-theData yVals hash: 6839373031261673069
-#G4ParticleHPVector & operator = (const G4ParticleHPVector & right)_3
-hash: 5590264141243137605
-#void Init(std::istream & aDataFile, G4int total, G4double ux=1., G4double uy=1.)_4
+theData xVals hash: 1436906696194018586
+theData yVals hash: 15972818090631325727
+#G4ParticleHPVector & operator = (const G4ParticleHPVector & right)_2
+hash: 1436906696194018586
+#void Init(std::istream & aDataFile, G4int total, G4double ux=1., G4double uy=1.)_3
 theData xVals hash: 380856461566793921
 theData yVals hash: 17341898202202105047
-#G4double GetXsec(G4double e)_4
+#G4double GetXsec(G4double e)_3
 @e=-1
 1.99238e+08
 @e=0
@@ -3081,7 +985,7 @@ theData yVals hash: 17341898202202105047
 4.20396
 @e=513.187
 5.22455
-#G4double GetXsec(G4double e, G4int min)_4
+#G4double GetXsec(G4double e, G4int min)_3
 @e=-1
 @min=-1
 1.99238e+08
@@ -3157,15 +1061,15 @@ theData yVals hash: 17341898202202105047
 @e=513.187
 @min=8045
 4077.57
-#G4double SampleLin()_4
-$1.05982e+07
-#G4double Sample()_4
-$1.05096e+07
-#G4double Get15PercentBorder()_4
+#G4double SampleLin()_3
+$1.071e+07
+#G4double Sample()_3
+$1.0468e+07
+#G4double Get15PercentBorder()_3
 3.625e+06
-#G4double Get50PercentBorder()_4
+#G4double Get50PercentBorder()_3
 1.06199e+07
-#void Times(G4double factor)_4
+#void Times(G4double factor)_3
 @factor=-4.67
 theData xVals hash: 380856461566793921
 theData yVals hash: 12246166195605673861
@@ -3182,662 +1086,219 @@ theIntegral hash: 15126371128399175743
 theData xVals hash: 380856461566793921
 theData yVals hash: 17341898202202105047
 theIntegral hash: 15126371128399175743
-#void Merge(G4ParticleHPVector * active, G4ParticleHPVector * passive)_4
-@active_caseNum=0
-@passive_caseNum=0
-theData xVals hash: 380856461566793921
-theData yVals hash: 17341898202202105047
-@active_caseNum=0
-@passive_caseNum=1
-theData xVals hash: 380856461566793921
-theData yVals hash: 17341898202202105047
-@active_caseNum=0
-@passive_caseNum=2
-theData xVals hash: 380856461566793921
-theData yVals hash: 17341898202202105047
-@active_caseNum=0
-@passive_caseNum=3
-theData xVals hash: 380856461566793921
-theData yVals hash: 17341898202202105047
-@active_caseNum=0
-@passive_caseNum=5
-theData xVals hash: 380856461566793921
-theData yVals hash: 17341898202202105047
-@active_caseNum=0
-@passive_caseNum=6
-theData xVals hash: 380856461566793921
-theData yVals hash: 17341898202202105047
-@active_caseNum=0
-@passive_caseNum=7
-theData xVals hash: 380856461566793921
-theData yVals hash: 17341898202202105047
-@active_caseNum=1
-@passive_caseNum=0
-theData xVals hash: 380856461566793921
-theData yVals hash: 17341898202202105047
-@active_caseNum=1
-@passive_caseNum=1
-theData xVals hash: 380856461566793921
-theData yVals hash: 17341898202202105047
-@active_caseNum=1
-@passive_caseNum=2
-theData xVals hash: 380856461566793921
-theData yVals hash: 17341898202202105047
-@active_caseNum=1
-@passive_caseNum=3
-theData xVals hash: 380856461566793921
-theData yVals hash: 17341898202202105047
-@active_caseNum=1
-@passive_caseNum=5
-theData xVals hash: 380856461566793921
-theData yVals hash: 17341898202202105047
-@active_caseNum=1
-@passive_caseNum=6
-theData xVals hash: 380856461566793921
-theData yVals hash: 17341898202202105047
-@active_caseNum=1
-@passive_caseNum=7
-theData xVals hash: 380856461566793921
-theData yVals hash: 17341898202202105047
-@active_caseNum=2
-@passive_caseNum=0
-theData xVals hash: 380856461566793921
-theData yVals hash: 17341898202202105047
-@active_caseNum=2
-@passive_caseNum=1
-theData xVals hash: 380856461566793921
-theData yVals hash: 17341898202202105047
-@active_caseNum=2
-@passive_caseNum=2
-theData xVals hash: 380856461566793921
-theData yVals hash: 17341898202202105047
-@active_caseNum=2
-@passive_caseNum=3
-theData xVals hash: 380856461566793921
-theData yVals hash: 17341898202202105047
-@active_caseNum=2
-@passive_caseNum=5
-theData xVals hash: 380856461566793921
-theData yVals hash: 17341898202202105047
-@active_caseNum=2
-@passive_caseNum=6
-theData xVals hash: 380856461566793921
-theData yVals hash: 17341898202202105047
-@active_caseNum=2
-@passive_caseNum=7
-theData xVals hash: 380856461566793921
-theData yVals hash: 17341898202202105047
-@active_caseNum=3
-@passive_caseNum=0
-theData xVals hash: 380856461566793921
-theData yVals hash: 17341898202202105047
-@active_caseNum=3
-@passive_caseNum=1
-theData xVals hash: 380856461566793921
-theData yVals hash: 17341898202202105047
-@active_caseNum=3
-@passive_caseNum=2
-theData xVals hash: 380856461566793921
-theData yVals hash: 17341898202202105047
-@active_caseNum=3
-@passive_caseNum=3
-theData xVals hash: 380856461566793921
-theData yVals hash: 17341898202202105047
-@active_caseNum=3
-@passive_caseNum=5
-theData xVals hash: 380856461566793921
-theData yVals hash: 17341898202202105047
-@active_caseNum=3
-@passive_caseNum=6
-theData xVals hash: 380856461566793921
-theData yVals hash: 17341898202202105047
-@active_caseNum=3
-@passive_caseNum=7
-theData xVals hash: 380856461566793921
-theData yVals hash: 17341898202202105047
-@active_caseNum=5
-@passive_caseNum=0
-theData xVals hash: 380856461566793921
-theData yVals hash: 17341898202202105047
-@active_caseNum=5
-@passive_caseNum=1
-theData xVals hash: 380856461566793921
-theData yVals hash: 17341898202202105047
-@active_caseNum=5
-@passive_caseNum=2
-theData xVals hash: 380856461566793921
-theData yVals hash: 17341898202202105047
-@active_caseNum=5
-@passive_caseNum=3
-theData xVals hash: 380856461566793921
-theData yVals hash: 17341898202202105047
-@active_caseNum=5
-@passive_caseNum=5
-theData xVals hash: 380856461566793921
-theData yVals hash: 17341898202202105047
-@active_caseNum=5
-@passive_caseNum=6
-theData xVals hash: 380856461566793921
-theData yVals hash: 17341898202202105047
-@active_caseNum=5
-@passive_caseNum=7
-theData xVals hash: 380856461566793921
-theData yVals hash: 17341898202202105047
-@active_caseNum=6
-@passive_caseNum=0
-theData xVals hash: 380856461566793921
-theData yVals hash: 17341898202202105047
-@active_caseNum=6
-@passive_caseNum=1
-theData xVals hash: 380856461566793921
-theData yVals hash: 17341898202202105047
-@active_caseNum=6
-@passive_caseNum=2
-theData xVals hash: 380856461566793921
-theData yVals hash: 17341898202202105047
-@active_caseNum=6
-@passive_caseNum=3
-theData xVals hash: 380856461566793921
-theData yVals hash: 17341898202202105047
-@active_caseNum=6
-@passive_caseNum=5
-theData xVals hash: 380856461566793921
-theData yVals hash: 17341898202202105047
-@active_caseNum=6
-@passive_caseNum=6
-theData xVals hash: 380856461566793921
-theData yVals hash: 17341898202202105047
-@active_caseNum=6
-@passive_caseNum=7
-theData xVals hash: 380856461566793921
-theData yVals hash: 17341898202202105047
-@active_caseNum=7
-@passive_caseNum=0
-theData xVals hash: 380856461566793921
-theData yVals hash: 17341898202202105047
-@active_caseNum=7
-@passive_caseNum=1
-theData xVals hash: 380856461566793921
-theData yVals hash: 17341898202202105047
-@active_caseNum=7
-@passive_caseNum=2
-theData xVals hash: 380856461566793921
-theData yVals hash: 17341898202202105047
-@active_caseNum=7
-@passive_caseNum=3
-theData xVals hash: 380856461566793921
-theData yVals hash: 17341898202202105047
-@active_caseNum=7
-@passive_caseNum=5
-theData xVals hash: 380856461566793921
-theData yVals hash: 17341898202202105047
-@active_caseNum=7
-@passive_caseNum=6
-theData xVals hash: 380856461566793921
-theData yVals hash: 17341898202202105047
-@active_caseNum=7
-@passive_caseNum=7
-theData xVals hash: 380856461566793921
-theData yVals hash: 17341898202202105047
-#void Merge(G4InterpolationScheme aScheme, G4double aValue, G4ParticleHPVector * active, G4ParticleHPVector * passive)_4
-@aValue=0
-@active_caseNum=0
-@passive_caseNum=0
-theData xVals hash: 380856461566793921
-theData yVals hash: 17341898202202105047
-@aValue=0
-@active_caseNum=0
-@passive_caseNum=1
-theData xVals hash: 380856461566793921
-theData yVals hash: 17341898202202105047
-@aValue=0
-@active_caseNum=0
-@passive_caseNum=2
-theData xVals hash: 380856461566793921
-theData yVals hash: 17341898202202105047
-@aValue=0
-@active_caseNum=0
-@passive_caseNum=3
-theData xVals hash: 380856461566793921
-theData yVals hash: 17341898202202105047
-@aValue=0
-@active_caseNum=0
-@passive_caseNum=5
-theData xVals hash: 380856461566793921
-theData yVals hash: 17341898202202105047
-@aValue=0
-@active_caseNum=0
-@passive_caseNum=6
-theData xVals hash: 380856461566793921
-theData yVals hash: 17341898202202105047
-@aValue=0
-@active_caseNum=0
-@passive_caseNum=7
-theData xVals hash: 380856461566793921
-theData yVals hash: 17341898202202105047
-@aValue=0
-@active_caseNum=1
-@passive_caseNum=0
-theData xVals hash: 380856461566793921
-theData yVals hash: 17341898202202105047
-@aValue=0
-@active_caseNum=1
-@passive_caseNum=1
-theData xVals hash: 380856461566793921
-theData yVals hash: 17341898202202105047
-@aValue=0
-@active_caseNum=1
-@passive_caseNum=2
-theData xVals hash: 380856461566793921
-theData yVals hash: 17341898202202105047
-@aValue=0
-@active_caseNum=1
-@passive_caseNum=3
-theData xVals hash: 380856461566793921
-theData yVals hash: 17341898202202105047
-@aValue=0
-@active_caseNum=1
-@passive_caseNum=5
-theData xVals hash: 380856461566793921
-theData yVals hash: 17341898202202105047
-@aValue=0
-@active_caseNum=1
-@passive_caseNum=6
-theData xVals hash: 380856461566793921
-theData yVals hash: 17341898202202105047
-@aValue=0
-@active_caseNum=1
-@passive_caseNum=7
-theData xVals hash: 380856461566793921
-theData yVals hash: 17341898202202105047
-@aValue=0
-@active_caseNum=2
-@passive_caseNum=0
-theData xVals hash: 380856461566793921
-theData yVals hash: 17341898202202105047
-@aValue=0
-@active_caseNum=2
-@passive_caseNum=1
-theData xVals hash: 380856461566793921
-theData yVals hash: 17341898202202105047
-@aValue=0
-@active_caseNum=2
-@passive_caseNum=2
-theData xVals hash: 380856461566793921
-theData yVals hash: 17341898202202105047
-@aValue=0
-@active_caseNum=2
-@passive_caseNum=3
-theData xVals hash: 380856461566793921
-theData yVals hash: 17341898202202105047
-@aValue=0
-@active_caseNum=2
-@passive_caseNum=5
-theData xVals hash: 380856461566793921
-theData yVals hash: 17341898202202105047
-@aValue=0
-@active_caseNum=2
-@passive_caseNum=6
-theData xVals hash: 380856461566793921
-theData yVals hash: 17341898202202105047
-@aValue=0
-@active_caseNum=2
-@passive_caseNum=7
-theData xVals hash: 380856461566793921
-theData yVals hash: 17341898202202105047
-@aValue=0
-@active_caseNum=3
-@passive_caseNum=0
-theData xVals hash: 380856461566793921
-theData yVals hash: 17341898202202105047
-@aValue=0
-@active_caseNum=3
-@passive_caseNum=1
-theData xVals hash: 380856461566793921
-theData yVals hash: 17341898202202105047
-@aValue=0
-@active_caseNum=3
-@passive_caseNum=2
-theData xVals hash: 380856461566793921
-theData yVals hash: 17341898202202105047
-@aValue=0
-@active_caseNum=3
-@passive_caseNum=3
-theData xVals hash: 380856461566793921
-theData yVals hash: 17341898202202105047
-@aValue=0
-@active_caseNum=3
-@passive_caseNum=5
-theData xVals hash: 380856461566793921
-theData yVals hash: 17341898202202105047
-@aValue=0
-@active_caseNum=3
-@passive_caseNum=6
-theData xVals hash: 380856461566793921
-theData yVals hash: 17341898202202105047
-@aValue=0
-@active_caseNum=3
-@passive_caseNum=7
-theData xVals hash: 380856461566793921
-theData yVals hash: 17341898202202105047
-@aValue=0
-@active_caseNum=5
-@passive_caseNum=0
-theData xVals hash: 380856461566793921
-theData yVals hash: 17341898202202105047
-@aValue=0
-@active_caseNum=5
-@passive_caseNum=1
-theData xVals hash: 380856461566793921
-theData yVals hash: 17341898202202105047
-@aValue=0
-@active_caseNum=5
-@passive_caseNum=2
-theData xVals hash: 380856461566793921
-theData yVals hash: 17341898202202105047
-@aValue=0
-@active_caseNum=5
-@passive_caseNum=3
-theData xVals hash: 380856461566793921
-theData yVals hash: 17341898202202105047
-@aValue=0
-@active_caseNum=5
-@passive_caseNum=5
-theData xVals hash: 380856461566793921
-theData yVals hash: 17341898202202105047
-@aValue=0
-@active_caseNum=5
-@passive_caseNum=6
-theData xVals hash: 380856461566793921
-theData yVals hash: 17341898202202105047
-@aValue=0
-@active_caseNum=5
-@passive_caseNum=7
-theData xVals hash: 380856461566793921
-theData yVals hash: 17341898202202105047
-@aValue=0
-@active_caseNum=6
-@passive_caseNum=0
-theData xVals hash: 380856461566793921
-theData yVals hash: 17341898202202105047
-@aValue=0
-@active_caseNum=6
-@passive_caseNum=1
-theData xVals hash: 380856461566793921
-theData yVals hash: 17341898202202105047
-@aValue=0
-@active_caseNum=6
-@passive_caseNum=2
-theData xVals hash: 380856461566793921
-theData yVals hash: 17341898202202105047
-@aValue=0
-@active_caseNum=6
-@passive_caseNum=3
-theData xVals hash: 380856461566793921
-theData yVals hash: 17341898202202105047
-@aValue=0
-@active_caseNum=6
-@passive_caseNum=5
-theData xVals hash: 380856461566793921
-theData yVals hash: 17341898202202105047
-@aValue=0
-@active_caseNum=6
-@passive_caseNum=6
-theData xVals hash: 380856461566793921
-theData yVals hash: 17341898202202105047
-@aValue=0
-@active_caseNum=6
-@passive_caseNum=7
-theData xVals hash: 380856461566793921
-theData yVals hash: 17341898202202105047
-@aValue=0
-@active_caseNum=7
-@passive_caseNum=0
-theData xVals hash: 380856461566793921
-theData yVals hash: 17341898202202105047
-@aValue=0
-@active_caseNum=7
-@passive_caseNum=1
-theData xVals hash: 380856461566793921
-theData yVals hash: 17341898202202105047
-@aValue=0
-@active_caseNum=7
-@passive_caseNum=2
-theData xVals hash: 380856461566793921
-theData yVals hash: 17341898202202105047
-@aValue=0
-@active_caseNum=7
-@passive_caseNum=3
-theData xVals hash: 380856461566793921
-theData yVals hash: 17341898202202105047
-@aValue=0
-@active_caseNum=7
-@passive_caseNum=5
-theData xVals hash: 380856461566793921
-theData yVals hash: 17341898202202105047
-@aValue=0
-@active_caseNum=7
-@passive_caseNum=6
-theData xVals hash: 380856461566793921
-theData yVals hash: 17341898202202105047
-@aValue=0
-@active_caseNum=7
-@passive_caseNum=7
-theData xVals hash: 380856461566793921
-theData yVals hash: 17341898202202105047
-#void SetPoint(G4int i, const G4ParticleHPDataPoint & it)_4
+#void SetPoint(G4int i, const G4ParticleHPDataPoint & it)_3
 @i=-1
-@x=0.919236
-@y=0.601638
+@x=0.370226
+@y=0.393018
 theData xVals hash: 380856461566793921
 theData yVals hash: 17341898202202105047
 @i=0
-@x=0.723836
-@y=0.519337
-theData xVals hash: 8776912492622376546
-theData yVals hash: 594494648521314143
+@x=0.446866
+@y=0.475896
+theData xVals hash: 9445251933483649630
+theData yVals hash: 3915544383555146098
 @i=4022
-@x=0.490817
-@y=0.161419
-theData xVals hash: 10495111956666003404
-theData yVals hash: 11937643190790311350
+@x=0.387831
+@y=0.279293
+theData xVals hash: 9238936008197903425
+theData yVals hash: 17626796549443285766
 @i=8044
-@x=0.976116
-@y=0.57436
-theData xVals hash: 3498972730102219869
-theData yVals hash: 6410822760680669677
+@x=0.0782632
+@y=0.369742
+theData xVals hash: 5757568406937758680
+theData yVals hash: 1773178088212928095
 @i=8045
-@x=0.273251
-@y=0.531427
-theData xVals hash: 6722085010723423700
-theData yVals hash: 6713689930634233927
-#void SetData(G4int i, G4double x, G4double y)_4
+@x=0.253922
+@y=0.671784
+theData xVals hash: 17875790432347015977
+theData yVals hash: 7942300946707419493
+#void SetData(G4int i, G4double x, G4double y)_3
 @i=-1
-@x=0.698558
-@y=0.667049
-theData xVals hash: 6722085010723423700
-theData yVals hash: 6713689930634233927
+@x=0.676237
+@y=0.513936
+theData xVals hash: 17875790432347015977
+theData yVals hash: 7942300946707419493
 @i=0
-@x=0.0974325
-@y=0.548736
-theData xVals hash: 16711000001783565217
-theData yVals hash: 7846716500569575035
+@x=0.728608
+@y=0.720768
+theData xVals hash: 823897271341828253
+theData yVals hash: 14418512271066769309
 @i=4022
-@x=0.610738
-@y=0.667965
-theData xVals hash: 4824224337025997005
-theData yVals hash: 14189741233305340799
+@x=0.944753
+@y=0.460697
+theData xVals hash: 4629286121501244966
+theData yVals hash: 17697244837551929551
 @i=8044
-@x=0.495125
-@y=0.571583
-theData xVals hash: 528761573814657544
-theData yVals hash: 1279731207551436302
+@x=0.940163
+@y=0.32156
+theData xVals hash: 13159139452338042024
+theData yVals hash: 14680699536952517896
 @i=8045
-@x=0.588888
-@y=0.441313
-theData xVals hash: 4122257671949858612
-theData yVals hash: 5512675802685262341
-#void SetX(G4int i, G4double e)_4
+@x=0.460434
+@y=0.517145
+theData xVals hash: 13778977473904959450
+theData yVals hash: 14437271691292445665
+#void SetX(G4int i, G4double e)_3
 @i=-1
-@x=0.151217
-theData xVals hash: 4122257671949858612
-theData yVals hash: 5512675802685262341
+@x=0.661355
+theData xVals hash: 13778977473904959450
+theData yVals hash: 14437271691292445665
 @i=0
-@x=0.731364
-theData xVals hash: 5927939002692085359
-theData yVals hash: 5512675802685262341
+@x=0.60564
+theData xVals hash: 6877607923640485594
+theData yVals hash: 14437271691292445665
 @i=4022
-@x=0.0516167
-theData xVals hash: 6310323423823794331
-theData yVals hash: 5512675802685262341
+@x=0.150394
+theData xVals hash: 14423324167542982315
+theData yVals hash: 14437271691292445665
 @i=8044
-@x=0.320642
-theData xVals hash: 17566572138712006988
-theData yVals hash: 5512675802685262341
+@x=0.343818
+theData xVals hash: 9175551380722047216
+theData yVals hash: 14437271691292445665
 @i=8045
-@x=0.245142
-theData xVals hash: 1523650393119285466
-theData yVals hash: 5512675802685262341
-#void SetEnergy(G4int i, G4double e)_4
+@x=0.522808
+theData xVals hash: 2962073885877311687
+theData yVals hash: 14437271691292445665
+#void SetEnergy(G4int i, G4double e)_3
 @i=-1
-@x=0.382969
-theData xVals hash: 1523650393119285466
-theData yVals hash: 5512675802685262341
+@x=0.0149506
+theData xVals hash: 2962073885877311687
+theData yVals hash: 14437271691292445665
 @i=0
-@x=0.597169
-theData xVals hash: 18339512742290818567
-theData yVals hash: 5512675802685262341
+@x=0.642979
+theData xVals hash: 1700515689883538626
+theData yVals hash: 14437271691292445665
 @i=4022
-@x=0.935252
-theData xVals hash: 6014894338576726498
-theData yVals hash: 5512675802685262341
+@x=0.917848
+theData xVals hash: 11517412699107832152
+theData yVals hash: 14437271691292445665
 @i=8044
-@x=0.513148
-theData xVals hash: 4961638897440389644
-theData yVals hash: 5512675802685262341
+@x=0.970087
+theData xVals hash: 12701270803806242214
+theData yVals hash: 14437271691292445665
 @i=8045
-@x=0.650128
-theData xVals hash: 16651447922610998101
-theData yVals hash: 5512675802685262341
-#void SetY(G4int i, G4double x)_4
+@x=0.843975
+theData xVals hash: 2142442771557930373
+theData yVals hash: 14437271691292445665
+#void SetY(G4int i, G4double x)_3
 @i=-1
-@x=0.407538
-theData xVals hash: 16651447922610998101
-theData yVals hash: 5512675802685262341
+@x=0.455752
+theData xVals hash: 2142442771557930373
+theData yVals hash: 14437271691292445665
 @i=0
-@x=0.479783
-theData xVals hash: 16651447922610998101
-theData yVals hash: 16465135563630095196
+@x=0.0220837
+theData xVals hash: 2142442771557930373
+theData yVals hash: 12324744903065649626
 @i=4022
-@x=0.534199
-theData xVals hash: 16651447922610998101
-theData yVals hash: 11365313651136126692
+@x=0.70695
+theData xVals hash: 2142442771557930373
+theData yVals hash: 1655895183090488025
 @i=8044
-@x=0.605538
-theData xVals hash: 16651447922610998101
-theData yVals hash: 184841130087070099
+@x=0.436638
+theData xVals hash: 2142442771557930373
+theData yVals hash: 18365601556786375003
 @i=8045
-@x=0.703369
-theData xVals hash: 16651447922610998101
-theData yVals hash: 1614459161105063590
-#void SetXsec(G4int i, G4double x)_4
+@x=0.75171
+theData xVals hash: 2142442771557930373
+theData yVals hash: 2007163731354165939
+#void SetXsec(G4int i, G4double x)_3
 @i=-1
-@x=0.938254
-theData xVals hash: 16651447922610998101
-theData yVals hash: 1614459161105063590
+@x=0.695679
+theData xVals hash: 2142442771557930373
+theData yVals hash: 2007163731354165939
 @i=0
-@x=0.413494
-theData xVals hash: 16651447922610998101
-theData yVals hash: 769033552997890197
+@x=0.753863
+theData xVals hash: 2142442771557930373
+theData yVals hash: 2647364708453058289
 @i=4022
-@x=0.783002
-theData xVals hash: 16651447922610998101
-theData yVals hash: 9140357983399159037
+@x=0.00425392
+theData xVals hash: 2142442771557930373
+theData yVals hash: 3428685418900473792
 @i=8044
-@x=0.681491
-theData xVals hash: 16651447922610998101
-theData yVals hash: 17159229741180241596
+@x=0.0799169
+theData xVals hash: 2142442771557930373
+theData yVals hash: 13650374006307638095
 @i=8045
-@x=0.527413
-theData xVals hash: 16651447922610998101
-theData yVals hash: 14077757848837254994
-#const G4ParticleHPDataPoint GetPoint(G4int i)_4
+@x=0.903301
+theData xVals hash: 2142442771557930373
+theData yVals hash: 11893276942478543675
+#const G4ParticleHPDataPoint GetPoint(G4int i)_3
 @i=-1
-(0.597169,0.413494)
+(0.642979,0.753863)
 @i=0
-(0.597169,0.413494)
+(0.642979,0.753863)
 @i=4022
-(0.935252,0.783002)
+(0.917848,0.00425392)
 @i=8044
-(0.513148,0.681491)
+(0.970087,0.0799169)
 @i=8045
-(0.650128,0.527413)
-#G4double GetEnergy(G4int i)_4
+(0.843975,0.903301)
+#G4double GetEnergy(G4int i)_3
 @i=-1
-0.597169
+0.642979
 @i=0
-0.597169
+0.642979
 @i=4022
-0.935252
+0.917848
 @i=8044
-0.513148
+0.970087
 @i=8045
-0.650128
-#G4double GetX(G4int i)_4
+0.843975
+#G4double GetX(G4int i)_3
 @i=-1
-0.597169
+0.642979
 @i=0
-0.597169
+0.642979
 @i=4022
-0.935252
+0.917848
 @i=8044
-0.513148
+0.970087
 @i=8045
-0.650128
-#G4double GetXsec(G4int i)_4
+0.843975
+#G4double GetXsec(G4int i)_3
 @i=-1
-0.413494
+0.753863
 @i=0
-0.413494
+0.753863
 @i=4022
-0.783002
+0.00425392
 @i=8044
-0.681491
+0.0799169
 @i=8045
-0.527413
-#G4double GetY(G4int i)_4
+0.903301
+#G4double GetY(G4int i)_3
 @i=-1
-0.413494
+0.753863
 @i=0
-0.413494
+0.753863
 @i=4022
-0.783002
+0.00425392
 @i=8044
-0.681491
+0.0799169
 @i=8045
-0.527413
-#void ThinOut(G4double precision)_4
+0.903301
+#void ThinOut(G4double precision)_3
 @precision=-1
-theData xVals hash: 16651447922610998101
-theData yVals hash: 14077757848837254994
+theData xVals hash: 2142442771557930373
+theData yVals hash: 11893276942478543675
 @precision=0
-theData xVals hash: 16651447922610998101
-theData yVals hash: 14077757848837254994
+theData xVals hash: 2142442771557930373
+theData yVals hash: 11893276942478543675
 @precision=0.00051234
-theData xVals hash: 7311175005907480657
-theData yVals hash: 10358833075416573040
+theData xVals hash: 16665869920381395843
+theData yVals hash: 4458368117059818411
 @precision=1.58923
-theData xVals hash: 6509801247887869042
-theData yVals hash: 8493279427472139340
+theData xVals hash: 8977483483858033851
+theData yVals hash: 11167607419376617017
 @precision=513.187
-theData xVals hash: 11339131273521603836
-theData yVals hash: 8555989708377447630
-#G4ParticleHPVector & operator = (const G4ParticleHPVector & right)_4
-hash: 11339131273521603836
-#void Init(std::istream & aDataFile, G4int total, G4double ux=1., G4double uy=1.)_5
+theData xVals hash: 9331551469271385338
+theData yVals hash: 14496527978579579391
+#G4ParticleHPVector & operator = (const G4ParticleHPVector & right)_3
+hash: 9331551469271385338
+#void Init(std::istream & aDataFile, G4int total, G4double ux=1., G4double uy=1.)_4
 theData xVals hash: 54681960905177130
 theData yVals hash: 1230654354166793649
-#G4double GetXsec(G4double e)_5
+#G4double GetXsec(G4double e)_4
 @e=-1
 114874
 @e=0
@@ -3848,7 +1309,7 @@ theData yVals hash: 1230654354166793649
 0.0106582
 @e=513.187
 0.000325115
-#G4double GetXsec(G4double e, G4int min)_5
+#G4double GetXsec(G4double e, G4int min)_4
 @e=-1
 @min=-1
 114874
@@ -3924,15 +1385,15 @@ theData yVals hash: 1230654354166793649
 @e=513.187
 @min=41854
 2.35112
-#G4double SampleLin()_5
-$1.73654e+07
-#G4double Sample()_5
-$1.74759e+07
-#G4double Get15PercentBorder()_5
+#G4double SampleLin()_4
+$1.74876e+07
+#G4double Sample()_4
+$1.68508e+07
+#G4double Get15PercentBorder()_4
 8.2e+06
-#G4double Get50PercentBorder()_5
+#G4double Get50PercentBorder()_4
 1.79658e+07
-#void Times(G4double factor)_5
+#void Times(G4double factor)_4
 @factor=-4.67
 theData xVals hash: 54681960905177130
 theData yVals hash: 15325741174545806607
@@ -3949,662 +1410,219 @@ theIntegral hash: 2938941608009595531
 theData xVals hash: 54681960905177130
 theData yVals hash: 3089117796153364178
 theIntegral hash: 2938941608009595531
-#void Merge(G4ParticleHPVector * active, G4ParticleHPVector * passive)_5
-@active_caseNum=0
-@passive_caseNum=0
-theData xVals hash: 54681960905177130
-theData yVals hash: 3089117796153364178
-@active_caseNum=0
-@passive_caseNum=1
-theData xVals hash: 54681960905177130
-theData yVals hash: 3089117796153364178
-@active_caseNum=0
-@passive_caseNum=2
-theData xVals hash: 54681960905177130
-theData yVals hash: 3089117796153364178
-@active_caseNum=0
-@passive_caseNum=3
-theData xVals hash: 54681960905177130
-theData yVals hash: 3089117796153364178
-@active_caseNum=0
-@passive_caseNum=4
-theData xVals hash: 54681960905177130
-theData yVals hash: 3089117796153364178
-@active_caseNum=0
-@passive_caseNum=6
-theData xVals hash: 54681960905177130
-theData yVals hash: 3089117796153364178
-@active_caseNum=0
-@passive_caseNum=7
-theData xVals hash: 54681960905177130
-theData yVals hash: 3089117796153364178
-@active_caseNum=1
-@passive_caseNum=0
-theData xVals hash: 54681960905177130
-theData yVals hash: 3089117796153364178
-@active_caseNum=1
-@passive_caseNum=1
-theData xVals hash: 54681960905177130
-theData yVals hash: 3089117796153364178
-@active_caseNum=1
-@passive_caseNum=2
-theData xVals hash: 54681960905177130
-theData yVals hash: 3089117796153364178
-@active_caseNum=1
-@passive_caseNum=3
-theData xVals hash: 54681960905177130
-theData yVals hash: 3089117796153364178
-@active_caseNum=1
-@passive_caseNum=4
-theData xVals hash: 54681960905177130
-theData yVals hash: 3089117796153364178
-@active_caseNum=1
-@passive_caseNum=6
-theData xVals hash: 54681960905177130
-theData yVals hash: 3089117796153364178
-@active_caseNum=1
-@passive_caseNum=7
-theData xVals hash: 54681960905177130
-theData yVals hash: 3089117796153364178
-@active_caseNum=2
-@passive_caseNum=0
-theData xVals hash: 54681960905177130
-theData yVals hash: 3089117796153364178
-@active_caseNum=2
-@passive_caseNum=1
-theData xVals hash: 54681960905177130
-theData yVals hash: 3089117796153364178
-@active_caseNum=2
-@passive_caseNum=2
-theData xVals hash: 54681960905177130
-theData yVals hash: 3089117796153364178
-@active_caseNum=2
-@passive_caseNum=3
-theData xVals hash: 54681960905177130
-theData yVals hash: 3089117796153364178
-@active_caseNum=2
-@passive_caseNum=4
-theData xVals hash: 54681960905177130
-theData yVals hash: 3089117796153364178
-@active_caseNum=2
-@passive_caseNum=6
-theData xVals hash: 54681960905177130
-theData yVals hash: 3089117796153364178
-@active_caseNum=2
-@passive_caseNum=7
-theData xVals hash: 54681960905177130
-theData yVals hash: 3089117796153364178
-@active_caseNum=3
-@passive_caseNum=0
-theData xVals hash: 54681960905177130
-theData yVals hash: 3089117796153364178
-@active_caseNum=3
-@passive_caseNum=1
-theData xVals hash: 54681960905177130
-theData yVals hash: 3089117796153364178
-@active_caseNum=3
-@passive_caseNum=2
-theData xVals hash: 54681960905177130
-theData yVals hash: 3089117796153364178
-@active_caseNum=3
-@passive_caseNum=3
-theData xVals hash: 54681960905177130
-theData yVals hash: 3089117796153364178
-@active_caseNum=3
-@passive_caseNum=4
-theData xVals hash: 54681960905177130
-theData yVals hash: 3089117796153364178
-@active_caseNum=3
-@passive_caseNum=6
-theData xVals hash: 54681960905177130
-theData yVals hash: 3089117796153364178
-@active_caseNum=3
-@passive_caseNum=7
-theData xVals hash: 54681960905177130
-theData yVals hash: 3089117796153364178
-@active_caseNum=4
-@passive_caseNum=0
-theData xVals hash: 54681960905177130
-theData yVals hash: 3089117796153364178
-@active_caseNum=4
-@passive_caseNum=1
-theData xVals hash: 54681960905177130
-theData yVals hash: 3089117796153364178
-@active_caseNum=4
-@passive_caseNum=2
-theData xVals hash: 54681960905177130
-theData yVals hash: 3089117796153364178
-@active_caseNum=4
-@passive_caseNum=3
-theData xVals hash: 54681960905177130
-theData yVals hash: 3089117796153364178
-@active_caseNum=4
-@passive_caseNum=4
-theData xVals hash: 54681960905177130
-theData yVals hash: 3089117796153364178
-@active_caseNum=4
-@passive_caseNum=6
-theData xVals hash: 54681960905177130
-theData yVals hash: 3089117796153364178
-@active_caseNum=4
-@passive_caseNum=7
-theData xVals hash: 54681960905177130
-theData yVals hash: 3089117796153364178
-@active_caseNum=6
-@passive_caseNum=0
-theData xVals hash: 54681960905177130
-theData yVals hash: 3089117796153364178
-@active_caseNum=6
-@passive_caseNum=1
-theData xVals hash: 54681960905177130
-theData yVals hash: 3089117796153364178
-@active_caseNum=6
-@passive_caseNum=2
-theData xVals hash: 54681960905177130
-theData yVals hash: 3089117796153364178
-@active_caseNum=6
-@passive_caseNum=3
-theData xVals hash: 54681960905177130
-theData yVals hash: 3089117796153364178
-@active_caseNum=6
-@passive_caseNum=4
-theData xVals hash: 54681960905177130
-theData yVals hash: 3089117796153364178
-@active_caseNum=6
-@passive_caseNum=6
-theData xVals hash: 54681960905177130
-theData yVals hash: 3089117796153364178
-@active_caseNum=6
-@passive_caseNum=7
-theData xVals hash: 54681960905177130
-theData yVals hash: 3089117796153364178
-@active_caseNum=7
-@passive_caseNum=0
-theData xVals hash: 54681960905177130
-theData yVals hash: 3089117796153364178
-@active_caseNum=7
-@passive_caseNum=1
-theData xVals hash: 54681960905177130
-theData yVals hash: 3089117796153364178
-@active_caseNum=7
-@passive_caseNum=2
-theData xVals hash: 54681960905177130
-theData yVals hash: 3089117796153364178
-@active_caseNum=7
-@passive_caseNum=3
-theData xVals hash: 54681960905177130
-theData yVals hash: 3089117796153364178
-@active_caseNum=7
-@passive_caseNum=4
-theData xVals hash: 54681960905177130
-theData yVals hash: 3089117796153364178
-@active_caseNum=7
-@passive_caseNum=6
-theData xVals hash: 54681960905177130
-theData yVals hash: 3089117796153364178
-@active_caseNum=7
-@passive_caseNum=7
-theData xVals hash: 54681960905177130
-theData yVals hash: 3089117796153364178
-#void Merge(G4InterpolationScheme aScheme, G4double aValue, G4ParticleHPVector * active, G4ParticleHPVector * passive)_5
-@aValue=0
-@active_caseNum=0
-@passive_caseNum=0
-theData xVals hash: 54681960905177130
-theData yVals hash: 3089117796153364178
-@aValue=0
-@active_caseNum=0
-@passive_caseNum=1
-theData xVals hash: 54681960905177130
-theData yVals hash: 3089117796153364178
-@aValue=0
-@active_caseNum=0
-@passive_caseNum=2
-theData xVals hash: 54681960905177130
-theData yVals hash: 3089117796153364178
-@aValue=0
-@active_caseNum=0
-@passive_caseNum=3
-theData xVals hash: 54681960905177130
-theData yVals hash: 3089117796153364178
-@aValue=0
-@active_caseNum=0
-@passive_caseNum=4
-theData xVals hash: 54681960905177130
-theData yVals hash: 3089117796153364178
-@aValue=0
-@active_caseNum=0
-@passive_caseNum=6
-theData xVals hash: 54681960905177130
-theData yVals hash: 3089117796153364178
-@aValue=0
-@active_caseNum=0
-@passive_caseNum=7
-theData xVals hash: 54681960905177130
-theData yVals hash: 3089117796153364178
-@aValue=0
-@active_caseNum=1
-@passive_caseNum=0
-theData xVals hash: 54681960905177130
-theData yVals hash: 3089117796153364178
-@aValue=0
-@active_caseNum=1
-@passive_caseNum=1
-theData xVals hash: 54681960905177130
-theData yVals hash: 3089117796153364178
-@aValue=0
-@active_caseNum=1
-@passive_caseNum=2
-theData xVals hash: 54681960905177130
-theData yVals hash: 3089117796153364178
-@aValue=0
-@active_caseNum=1
-@passive_caseNum=3
-theData xVals hash: 54681960905177130
-theData yVals hash: 3089117796153364178
-@aValue=0
-@active_caseNum=1
-@passive_caseNum=4
-theData xVals hash: 54681960905177130
-theData yVals hash: 3089117796153364178
-@aValue=0
-@active_caseNum=1
-@passive_caseNum=6
-theData xVals hash: 54681960905177130
-theData yVals hash: 3089117796153364178
-@aValue=0
-@active_caseNum=1
-@passive_caseNum=7
-theData xVals hash: 54681960905177130
-theData yVals hash: 3089117796153364178
-@aValue=0
-@active_caseNum=2
-@passive_caseNum=0
-theData xVals hash: 54681960905177130
-theData yVals hash: 3089117796153364178
-@aValue=0
-@active_caseNum=2
-@passive_caseNum=1
-theData xVals hash: 54681960905177130
-theData yVals hash: 3089117796153364178
-@aValue=0
-@active_caseNum=2
-@passive_caseNum=2
-theData xVals hash: 54681960905177130
-theData yVals hash: 3089117796153364178
-@aValue=0
-@active_caseNum=2
-@passive_caseNum=3
-theData xVals hash: 54681960905177130
-theData yVals hash: 3089117796153364178
-@aValue=0
-@active_caseNum=2
-@passive_caseNum=4
-theData xVals hash: 54681960905177130
-theData yVals hash: 3089117796153364178
-@aValue=0
-@active_caseNum=2
-@passive_caseNum=6
-theData xVals hash: 54681960905177130
-theData yVals hash: 3089117796153364178
-@aValue=0
-@active_caseNum=2
-@passive_caseNum=7
-theData xVals hash: 54681960905177130
-theData yVals hash: 3089117796153364178
-@aValue=0
-@active_caseNum=3
-@passive_caseNum=0
-theData xVals hash: 54681960905177130
-theData yVals hash: 3089117796153364178
-@aValue=0
-@active_caseNum=3
-@passive_caseNum=1
-theData xVals hash: 54681960905177130
-theData yVals hash: 3089117796153364178
-@aValue=0
-@active_caseNum=3
-@passive_caseNum=2
-theData xVals hash: 54681960905177130
-theData yVals hash: 3089117796153364178
-@aValue=0
-@active_caseNum=3
-@passive_caseNum=3
-theData xVals hash: 54681960905177130
-theData yVals hash: 3089117796153364178
-@aValue=0
-@active_caseNum=3
-@passive_caseNum=4
-theData xVals hash: 54681960905177130
-theData yVals hash: 3089117796153364178
-@aValue=0
-@active_caseNum=3
-@passive_caseNum=6
-theData xVals hash: 54681960905177130
-theData yVals hash: 3089117796153364178
-@aValue=0
-@active_caseNum=3
-@passive_caseNum=7
-theData xVals hash: 54681960905177130
-theData yVals hash: 3089117796153364178
-@aValue=0
-@active_caseNum=4
-@passive_caseNum=0
-theData xVals hash: 54681960905177130
-theData yVals hash: 3089117796153364178
-@aValue=0
-@active_caseNum=4
-@passive_caseNum=1
-theData xVals hash: 54681960905177130
-theData yVals hash: 3089117796153364178
-@aValue=0
-@active_caseNum=4
-@passive_caseNum=2
-theData xVals hash: 54681960905177130
-theData yVals hash: 3089117796153364178
-@aValue=0
-@active_caseNum=4
-@passive_caseNum=3
-theData xVals hash: 54681960905177130
-theData yVals hash: 3089117796153364178
-@aValue=0
-@active_caseNum=4
-@passive_caseNum=4
-theData xVals hash: 54681960905177130
-theData yVals hash: 3089117796153364178
-@aValue=0
-@active_caseNum=4
-@passive_caseNum=6
-theData xVals hash: 54681960905177130
-theData yVals hash: 3089117796153364178
-@aValue=0
-@active_caseNum=4
-@passive_caseNum=7
-theData xVals hash: 54681960905177130
-theData yVals hash: 3089117796153364178
-@aValue=0
-@active_caseNum=6
-@passive_caseNum=0
-theData xVals hash: 54681960905177130
-theData yVals hash: 3089117796153364178
-@aValue=0
-@active_caseNum=6
-@passive_caseNum=1
-theData xVals hash: 54681960905177130
-theData yVals hash: 3089117796153364178
-@aValue=0
-@active_caseNum=6
-@passive_caseNum=2
-theData xVals hash: 54681960905177130
-theData yVals hash: 3089117796153364178
-@aValue=0
-@active_caseNum=6
-@passive_caseNum=3
-theData xVals hash: 54681960905177130
-theData yVals hash: 3089117796153364178
-@aValue=0
-@active_caseNum=6
-@passive_caseNum=4
-theData xVals hash: 54681960905177130
-theData yVals hash: 3089117796153364178
-@aValue=0
-@active_caseNum=6
-@passive_caseNum=6
-theData xVals hash: 54681960905177130
-theData yVals hash: 3089117796153364178
-@aValue=0
-@active_caseNum=6
-@passive_caseNum=7
-theData xVals hash: 54681960905177130
-theData yVals hash: 3089117796153364178
-@aValue=0
-@active_caseNum=7
-@passive_caseNum=0
-theData xVals hash: 54681960905177130
-theData yVals hash: 3089117796153364178
-@aValue=0
-@active_caseNum=7
-@passive_caseNum=1
-theData xVals hash: 54681960905177130
-theData yVals hash: 3089117796153364178
-@aValue=0
-@active_caseNum=7
-@passive_caseNum=2
-theData xVals hash: 54681960905177130
-theData yVals hash: 3089117796153364178
-@aValue=0
-@active_caseNum=7
-@passive_caseNum=3
-theData xVals hash: 54681960905177130
-theData yVals hash: 3089117796153364178
-@aValue=0
-@active_caseNum=7
-@passive_caseNum=4
-theData xVals hash: 54681960905177130
-theData yVals hash: 3089117796153364178
-@aValue=0
-@active_caseNum=7
-@passive_caseNum=6
-theData xVals hash: 54681960905177130
-theData yVals hash: 3089117796153364178
-@aValue=0
-@active_caseNum=7
-@passive_caseNum=7
-theData xVals hash: 54681960905177130
-theData yVals hash: 3089117796153364178
-#void SetPoint(G4int i, const G4ParticleHPDataPoint & it)_5
+#void SetPoint(G4int i, const G4ParticleHPDataPoint & it)_4
 @i=-1
-@x=0.238019
-@y=0.390967
+@x=0.738959
+@y=0.679332
 theData xVals hash: 54681960905177130
 theData yVals hash: 3089117796153364178
 @i=0
-@x=0.975881
-@y=0.628767
-theData xVals hash: 8756888203324909393
-theData yVals hash: 10809262286856293689
+@x=0.536267
+@y=0.0355877
+theData xVals hash: 12540642572394492896
+theData yVals hash: 833486318027297864
 @i=20927
-@x=0.681199
-@y=0.908691
-theData xVals hash: 13115245916680433881
-theData yVals hash: 18161934569221506157
+@x=0.122507
+@y=0.973356
+theData xVals hash: 13953712764119746364
+theData yVals hash: 17168493809614718971
 @i=41853
-@x=0.3624
-@y=0.859213
-theData xVals hash: 5738495531527367140
-theData yVals hash: 3727288782824207038
+@x=0.188276
+@y=0.351319
+theData xVals hash: 4636956808994333779
+theData yVals hash: 9360638456673751928
 @i=41854
-@x=0.794278
-@y=0.428873
-theData xVals hash: 9530503872696409722
-theData yVals hash: 11593169790277841112
-#void SetData(G4int i, G4double x, G4double y)_5
+@x=0.614126
+@y=0.607611
+theData xVals hash: 4096701063333501856
+theData yVals hash: 5030145070707386817
+#void SetData(G4int i, G4double x, G4double y)_4
 @i=-1
-@x=0.073511
-@y=0.498631
-theData xVals hash: 9530503872696409722
-theData yVals hash: 11593169790277841112
+@x=0.125933
+@y=0.552862
+theData xVals hash: 4096701063333501856
+theData yVals hash: 5030145070707386817
 @i=0
-@x=0.483873
-@y=0.450735
-theData xVals hash: 1592175772701004737
-theData yVals hash: 8501087127430787710
+@x=0.954028
+@y=0.356925
+theData xVals hash: 11045920274054264078
+theData yVals hash: 16148876229271562848
 @i=20927
-@x=0.499657
-@y=0.740759
-theData xVals hash: 12427124813673000353
-theData yVals hash: 16447205534098733418
+@x=0.838102
+@y=0.974252
+theData xVals hash: 6784515726311536294
+theData yVals hash: 1282090637960833143
 @i=41853
-@x=0.932843
-@y=0.300122
-theData xVals hash: 17184582589232994926
-theData yVals hash: 10074265223428220944
+@x=0.259014
+@y=0.251528
+theData xVals hash: 9258570002301049005
+theData yVals hash: 16235203331396507115
 @i=41854
-@x=0.146196
-@y=0.110018
-theData xVals hash: 2384557544072082665
-theData yVals hash: 7266138952784333713
-#void SetX(G4int i, G4double e)_5
+@x=0.424336
+@y=0.813048
+theData xVals hash: 957295841047481825
+theData yVals hash: 2798367151213966973
+#void SetX(G4int i, G4double e)_4
 @i=-1
-@x=0.080322
-theData xVals hash: 2384557544072082665
-theData yVals hash: 7266138952784333713
+@x=0.897914
+theData xVals hash: 957295841047481825
+theData yVals hash: 2798367151213966973
 @i=0
-@x=0.408177
-theData xVals hash: 13282220935961380316
-theData yVals hash: 7266138952784333713
+@x=0.760617
+theData xVals hash: 17286350076243401551
+theData yVals hash: 2798367151213966973
 @i=20927
-@x=0.96316
-theData xVals hash: 15448655927564394134
-theData yVals hash: 7266138952784333713
+@x=0.451851
+theData xVals hash: 14627709867217944084
+theData yVals hash: 2798367151213966973
 @i=41853
-@x=0.19808
-theData xVals hash: 5468240031918939948
-theData yVals hash: 7266138952784333713
+@x=0.665503
+theData xVals hash: 13836840840974649787
+theData yVals hash: 2798367151213966973
 @i=41854
-@x=0.196307
-theData xVals hash: 5179663865651230728
-theData yVals hash: 7266138952784333713
-#void SetEnergy(G4int i, G4double e)_5
+@x=0.209562
+theData xVals hash: 10251320418831661842
+theData yVals hash: 2798367151213966973
+#void SetEnergy(G4int i, G4double e)_4
 @i=-1
-@x=0.575679
-theData xVals hash: 5179663865651230728
-theData yVals hash: 7266138952784333713
+@x=0.546975
+theData xVals hash: 10251320418831661842
+theData yVals hash: 2798367151213966973
 @i=0
-@x=0.585675
-theData xVals hash: 10111652409589686852
-theData yVals hash: 7266138952784333713
+@x=0.175974
+theData xVals hash: 13402313388222767254
+theData yVals hash: 2798367151213966973
 @i=20927
-@x=0.368203
-theData xVals hash: 13048690753663082726
-theData yVals hash: 7266138952784333713
+@x=0.431908
+theData xVals hash: 9889489229821377739
+theData yVals hash: 2798367151213966973
 @i=41853
-@x=0.600133
-theData xVals hash: 16632700940056510334
-theData yVals hash: 7266138952784333713
+@x=0.687414
+theData xVals hash: 7942425435534718340
+theData yVals hash: 2798367151213966973
 @i=41854
-@x=0.148787
-theData xVals hash: 4828474924989264191
-theData yVals hash: 7266138952784333713
-#void SetY(G4int i, G4double x)_5
+@x=0.836207
+theData xVals hash: 10591115026336172123
+theData yVals hash: 2798367151213966973
+#void SetY(G4int i, G4double x)_4
 @i=-1
-@x=0.995401
-theData xVals hash: 4828474924989264191
-theData yVals hash: 7266138952784333713
+@x=0.973346
+theData xVals hash: 10591115026336172123
+theData yVals hash: 2798367151213966973
 @i=0
-@x=0.40274
-theData xVals hash: 4828474924989264191
-theData yVals hash: 15167803725929615390
+@x=0.0803531
+theData xVals hash: 10591115026336172123
+theData yVals hash: 5644943797306611048
 @i=20927
-@x=0.819527
-theData xVals hash: 4828474924989264191
-theData yVals hash: 16128467673302970528
+@x=0.769437
+theData xVals hash: 10591115026336172123
+theData yVals hash: 3817780862167722569
 @i=41853
-@x=0.374249
-theData xVals hash: 4828474924989264191
-theData yVals hash: 10152632924817671926
+@x=0.250155
+theData xVals hash: 10591115026336172123
+theData yVals hash: 3874494265940333961
 @i=41854
-@x=0.479779
-theData xVals hash: 4828474924989264191
-theData yVals hash: 2637937373421448340
-#void SetXsec(G4int i, G4double x)_5
+@x=0.769114
+theData xVals hash: 10591115026336172123
+theData yVals hash: 9538352991280107567
+#void SetXsec(G4int i, G4double x)_4
 @i=-1
-@x=0.646495
-theData xVals hash: 4828474924989264191
-theData yVals hash: 2637937373421448340
+@x=0.749252
+theData xVals hash: 10591115026336172123
+theData yVals hash: 9538352991280107567
 @i=0
-@x=0.799035
-theData xVals hash: 4828474924989264191
-theData yVals hash: 1428737400884924517
+@x=0.681666
+theData xVals hash: 10591115026336172123
+theData yVals hash: 10122653076573690479
 @i=20927
-@x=0.357672
-theData xVals hash: 4828474924989264191
-theData yVals hash: 16854449314605930800
+@x=0.0363676
+theData xVals hash: 10591115026336172123
+theData yVals hash: 3369370611021018836
 @i=41853
-@x=0.334307
-theData xVals hash: 4828474924989264191
-theData yVals hash: 15347770553868521634
+@x=0.221667
+theData xVals hash: 10591115026336172123
+theData yVals hash: 1069881657158185155
 @i=41854
-@x=0.144897
-theData xVals hash: 4828474924989264191
-theData yVals hash: 12793395277697988841
-#const G4ParticleHPDataPoint GetPoint(G4int i)_5
+@x=0.652622
+theData xVals hash: 10591115026336172123
+theData yVals hash: 4620620761558809347
+#const G4ParticleHPDataPoint GetPoint(G4int i)_4
 @i=-1
-(0.585675,0.799035)
+(0.175974,0.681666)
 @i=0
-(0.585675,0.799035)
+(0.175974,0.681666)
 @i=20927
-(0.368203,0.357672)
+(0.431908,0.0363676)
 @i=41853
-(0.600133,0.334307)
+(0.687414,0.221667)
 @i=41854
-(0.148787,0.144897)
-#G4double GetEnergy(G4int i)_5
+(0.836207,0.652622)
+#G4double GetEnergy(G4int i)_4
 @i=-1
-0.585675
+0.175974
 @i=0
-0.585675
+0.175974
 @i=20927
-0.368203
+0.431908
 @i=41853
-0.600133
+0.687414
 @i=41854
-0.148787
-#G4double GetX(G4int i)_5
+0.836207
+#G4double GetX(G4int i)_4
 @i=-1
-0.585675
+0.175974
 @i=0
-0.585675
+0.175974
 @i=20927
-0.368203
+0.431908
 @i=41853
-0.600133
+0.687414
 @i=41854
-0.148787
-#G4double GetXsec(G4int i)_5
+0.836207
+#G4double GetXsec(G4int i)_4
 @i=-1
-0.799035
+0.681666
 @i=0
-0.799035
+0.681666
 @i=20927
-0.357672
+0.0363676
 @i=41853
-0.334307
+0.221667
 @i=41854
-0.144897
-#G4double GetY(G4int i)_5
+0.652622
+#G4double GetY(G4int i)_4
 @i=-1
-0.799035
+0.681666
 @i=0
-0.799035
+0.681666
 @i=20927
-0.357672
+0.0363676
 @i=41853
-0.334307
+0.221667
 @i=41854
-0.144897
-#void ThinOut(G4double precision)_5
+0.652622
+#void ThinOut(G4double precision)_4
 @precision=-1
-theData xVals hash: 4828474924989264191
-theData yVals hash: 12793395277697988841
+theData xVals hash: 10591115026336172123
+theData yVals hash: 4620620761558809347
 @precision=0
-theData xVals hash: 3410646415956779223
-theData yVals hash: 7284451234980988947
+theData xVals hash: 3882296072537689296
+theData yVals hash: 13529763916258832700
 @precision=0.00051234
-theData xVals hash: 4537234178875677939
-theData yVals hash: 17938106341618366271
+theData xVals hash: 6807408662561104301
+theData yVals hash: 15610041926946712147
 @precision=1.58923
-theData xVals hash: 1068689046355312787
-theData yVals hash: 5460557420923009565
+theData xVals hash: 5119749438082653758
+theData yVals hash: 13657064271391722745
 @precision=513.187
-theData xVals hash: 2686076452423462699
-theData yVals hash: 8682438659411247242
-#G4ParticleHPVector & operator = (const G4ParticleHPVector & right)_5
-hash: 2686076452423462699
-#void Init(std::istream & aDataFile, G4int total, G4double ux=1., G4double uy=1.)_6
+theData xVals hash: 17316422391723166144
+theData yVals hash: 12444643024670476332
+#G4ParticleHPVector & operator = (const G4ParticleHPVector & right)_4
+hash: 17316422391723166144
+#void Init(std::istream & aDataFile, G4int total, G4double ux=1., G4double uy=1.)_5
 theData xVals hash: 7171123492023199933
 theData yVals hash: 9268461341921925588
-#G4double GetXsec(G4double e)_6
+#G4double GetXsec(G4double e)_5
 @e=-1
 0
 @e=0
@@ -4615,7 +1633,7 @@ theData yVals hash: 9268461341921925588
 0
 @e=513.187
 0
-#G4double GetXsec(G4double e, G4int min)_6
+#G4double GetXsec(G4double e, G4int min)_5
 @e=-1
 @min=-1
 0
@@ -4691,15 +1709,15 @@ theData yVals hash: 9268461341921925588
 @e=513.187
 @min=98995
 0
-#G4double SampleLin()_6
-$1.23303e+07
-#G4double Sample()_6
-$1.24679e+07
-#G4double Get15PercentBorder()_6
+#G4double SampleLin()_5
+$1.27081e+07
+#G4double Sample()_5
+$1.25523e+07
+#G4double Get15PercentBorder()_5
 7.4e+06
-#G4double Get50PercentBorder()_6
+#G4double Get50PercentBorder()_5
 1.33873e+07
-#void Times(G4double factor)_6
+#void Times(G4double factor)_5
 @factor=-4.67
 theData xVals hash: 7171123492023199933
 theData yVals hash: 9365539138291727388
@@ -4716,662 +1734,219 @@ theIntegral hash: 7928541022771315913
 theData xVals hash: 7171123492023199933
 theData yVals hash: 9268461341921925588
 theIntegral hash: 7928541022771315913
-#void Merge(G4ParticleHPVector * active, G4ParticleHPVector * passive)_6
-@active_caseNum=0
-@passive_caseNum=0
-theData xVals hash: 7171123492023199933
-theData yVals hash: 9268461341921925588
-@active_caseNum=0
-@passive_caseNum=1
-theData xVals hash: 7171123492023199933
-theData yVals hash: 9268461341921925588
-@active_caseNum=0
-@passive_caseNum=2
-theData xVals hash: 7171123492023199933
-theData yVals hash: 9268461341921925588
-@active_caseNum=0
-@passive_caseNum=3
-theData xVals hash: 7171123492023199933
-theData yVals hash: 9268461341921925588
-@active_caseNum=0
-@passive_caseNum=4
-theData xVals hash: 7171123492023199933
-theData yVals hash: 9268461341921925588
-@active_caseNum=0
-@passive_caseNum=5
-theData xVals hash: 7171123492023199933
-theData yVals hash: 9268461341921925588
-@active_caseNum=0
-@passive_caseNum=7
-theData xVals hash: 7171123492023199933
-theData yVals hash: 9268461341921925588
-@active_caseNum=1
-@passive_caseNum=0
-theData xVals hash: 7171123492023199933
-theData yVals hash: 9268461341921925588
-@active_caseNum=1
-@passive_caseNum=1
-theData xVals hash: 7171123492023199933
-theData yVals hash: 9268461341921925588
-@active_caseNum=1
-@passive_caseNum=2
-theData xVals hash: 7171123492023199933
-theData yVals hash: 9268461341921925588
-@active_caseNum=1
-@passive_caseNum=3
-theData xVals hash: 7171123492023199933
-theData yVals hash: 9268461341921925588
-@active_caseNum=1
-@passive_caseNum=4
-theData xVals hash: 7171123492023199933
-theData yVals hash: 9268461341921925588
-@active_caseNum=1
-@passive_caseNum=5
-theData xVals hash: 7171123492023199933
-theData yVals hash: 9268461341921925588
-@active_caseNum=1
-@passive_caseNum=7
-theData xVals hash: 7171123492023199933
-theData yVals hash: 9268461341921925588
-@active_caseNum=2
-@passive_caseNum=0
-theData xVals hash: 7171123492023199933
-theData yVals hash: 9268461341921925588
-@active_caseNum=2
-@passive_caseNum=1
-theData xVals hash: 7171123492023199933
-theData yVals hash: 9268461341921925588
-@active_caseNum=2
-@passive_caseNum=2
-theData xVals hash: 7171123492023199933
-theData yVals hash: 9268461341921925588
-@active_caseNum=2
-@passive_caseNum=3
-theData xVals hash: 7171123492023199933
-theData yVals hash: 9268461341921925588
-@active_caseNum=2
-@passive_caseNum=4
-theData xVals hash: 7171123492023199933
-theData yVals hash: 9268461341921925588
-@active_caseNum=2
-@passive_caseNum=5
-theData xVals hash: 7171123492023199933
-theData yVals hash: 9268461341921925588
-@active_caseNum=2
-@passive_caseNum=7
-theData xVals hash: 7171123492023199933
-theData yVals hash: 9268461341921925588
-@active_caseNum=3
-@passive_caseNum=0
-theData xVals hash: 7171123492023199933
-theData yVals hash: 9268461341921925588
-@active_caseNum=3
-@passive_caseNum=1
-theData xVals hash: 7171123492023199933
-theData yVals hash: 9268461341921925588
-@active_caseNum=3
-@passive_caseNum=2
-theData xVals hash: 7171123492023199933
-theData yVals hash: 9268461341921925588
-@active_caseNum=3
-@passive_caseNum=3
-theData xVals hash: 7171123492023199933
-theData yVals hash: 9268461341921925588
-@active_caseNum=3
-@passive_caseNum=4
-theData xVals hash: 7171123492023199933
-theData yVals hash: 9268461341921925588
-@active_caseNum=3
-@passive_caseNum=5
-theData xVals hash: 7171123492023199933
-theData yVals hash: 9268461341921925588
-@active_caseNum=3
-@passive_caseNum=7
-theData xVals hash: 7171123492023199933
-theData yVals hash: 9268461341921925588
-@active_caseNum=4
-@passive_caseNum=0
-theData xVals hash: 7171123492023199933
-theData yVals hash: 9268461341921925588
-@active_caseNum=4
-@passive_caseNum=1
-theData xVals hash: 7171123492023199933
-theData yVals hash: 9268461341921925588
-@active_caseNum=4
-@passive_caseNum=2
-theData xVals hash: 7171123492023199933
-theData yVals hash: 9268461341921925588
-@active_caseNum=4
-@passive_caseNum=3
-theData xVals hash: 7171123492023199933
-theData yVals hash: 9268461341921925588
-@active_caseNum=4
-@passive_caseNum=4
-theData xVals hash: 7171123492023199933
-theData yVals hash: 9268461341921925588
-@active_caseNum=4
-@passive_caseNum=5
-theData xVals hash: 7171123492023199933
-theData yVals hash: 9268461341921925588
-@active_caseNum=4
-@passive_caseNum=7
-theData xVals hash: 7171123492023199933
-theData yVals hash: 9268461341921925588
-@active_caseNum=5
-@passive_caseNum=0
-theData xVals hash: 7171123492023199933
-theData yVals hash: 9268461341921925588
-@active_caseNum=5
-@passive_caseNum=1
-theData xVals hash: 7171123492023199933
-theData yVals hash: 9268461341921925588
-@active_caseNum=5
-@passive_caseNum=2
-theData xVals hash: 7171123492023199933
-theData yVals hash: 9268461341921925588
-@active_caseNum=5
-@passive_caseNum=3
-theData xVals hash: 7171123492023199933
-theData yVals hash: 9268461341921925588
-@active_caseNum=5
-@passive_caseNum=4
-theData xVals hash: 7171123492023199933
-theData yVals hash: 9268461341921925588
-@active_caseNum=5
-@passive_caseNum=5
-theData xVals hash: 7171123492023199933
-theData yVals hash: 9268461341921925588
-@active_caseNum=5
-@passive_caseNum=7
-theData xVals hash: 7171123492023199933
-theData yVals hash: 9268461341921925588
-@active_caseNum=7
-@passive_caseNum=0
-theData xVals hash: 7171123492023199933
-theData yVals hash: 9268461341921925588
-@active_caseNum=7
-@passive_caseNum=1
-theData xVals hash: 7171123492023199933
-theData yVals hash: 9268461341921925588
-@active_caseNum=7
-@passive_caseNum=2
-theData xVals hash: 7171123492023199933
-theData yVals hash: 9268461341921925588
-@active_caseNum=7
-@passive_caseNum=3
-theData xVals hash: 7171123492023199933
-theData yVals hash: 9268461341921925588
-@active_caseNum=7
-@passive_caseNum=4
-theData xVals hash: 7171123492023199933
-theData yVals hash: 9268461341921925588
-@active_caseNum=7
-@passive_caseNum=5
-theData xVals hash: 7171123492023199933
-theData yVals hash: 9268461341921925588
-@active_caseNum=7
-@passive_caseNum=7
-theData xVals hash: 7171123492023199933
-theData yVals hash: 9268461341921925588
-#void Merge(G4InterpolationScheme aScheme, G4double aValue, G4ParticleHPVector * active, G4ParticleHPVector * passive)_6
-@aValue=0
-@active_caseNum=0
-@passive_caseNum=0
-theData xVals hash: 7171123492023199933
-theData yVals hash: 9268461341921925588
-@aValue=0
-@active_caseNum=0
-@passive_caseNum=1
-theData xVals hash: 7171123492023199933
-theData yVals hash: 9268461341921925588
-@aValue=0
-@active_caseNum=0
-@passive_caseNum=2
-theData xVals hash: 7171123492023199933
-theData yVals hash: 9268461341921925588
-@aValue=0
-@active_caseNum=0
-@passive_caseNum=3
-theData xVals hash: 7171123492023199933
-theData yVals hash: 9268461341921925588
-@aValue=0
-@active_caseNum=0
-@passive_caseNum=4
-theData xVals hash: 7171123492023199933
-theData yVals hash: 9268461341921925588
-@aValue=0
-@active_caseNum=0
-@passive_caseNum=5
-theData xVals hash: 7171123492023199933
-theData yVals hash: 9268461341921925588
-@aValue=0
-@active_caseNum=0
-@passive_caseNum=7
-theData xVals hash: 7171123492023199933
-theData yVals hash: 9268461341921925588
-@aValue=0
-@active_caseNum=1
-@passive_caseNum=0
-theData xVals hash: 7171123492023199933
-theData yVals hash: 9268461341921925588
-@aValue=0
-@active_caseNum=1
-@passive_caseNum=1
-theData xVals hash: 7171123492023199933
-theData yVals hash: 9268461341921925588
-@aValue=0
-@active_caseNum=1
-@passive_caseNum=2
-theData xVals hash: 7171123492023199933
-theData yVals hash: 9268461341921925588
-@aValue=0
-@active_caseNum=1
-@passive_caseNum=3
-theData xVals hash: 7171123492023199933
-theData yVals hash: 9268461341921925588
-@aValue=0
-@active_caseNum=1
-@passive_caseNum=4
-theData xVals hash: 7171123492023199933
-theData yVals hash: 9268461341921925588
-@aValue=0
-@active_caseNum=1
-@passive_caseNum=5
-theData xVals hash: 7171123492023199933
-theData yVals hash: 9268461341921925588
-@aValue=0
-@active_caseNum=1
-@passive_caseNum=7
-theData xVals hash: 7171123492023199933
-theData yVals hash: 9268461341921925588
-@aValue=0
-@active_caseNum=2
-@passive_caseNum=0
-theData xVals hash: 7171123492023199933
-theData yVals hash: 9268461341921925588
-@aValue=0
-@active_caseNum=2
-@passive_caseNum=1
-theData xVals hash: 7171123492023199933
-theData yVals hash: 9268461341921925588
-@aValue=0
-@active_caseNum=2
-@passive_caseNum=2
-theData xVals hash: 7171123492023199933
-theData yVals hash: 9268461341921925588
-@aValue=0
-@active_caseNum=2
-@passive_caseNum=3
-theData xVals hash: 7171123492023199933
-theData yVals hash: 9268461341921925588
-@aValue=0
-@active_caseNum=2
-@passive_caseNum=4
-theData xVals hash: 7171123492023199933
-theData yVals hash: 9268461341921925588
-@aValue=0
-@active_caseNum=2
-@passive_caseNum=5
-theData xVals hash: 7171123492023199933
-theData yVals hash: 9268461341921925588
-@aValue=0
-@active_caseNum=2
-@passive_caseNum=7
-theData xVals hash: 7171123492023199933
-theData yVals hash: 9268461341921925588
-@aValue=0
-@active_caseNum=3
-@passive_caseNum=0
-theData xVals hash: 7171123492023199933
-theData yVals hash: 9268461341921925588
-@aValue=0
-@active_caseNum=3
-@passive_caseNum=1
-theData xVals hash: 7171123492023199933
-theData yVals hash: 9268461341921925588
-@aValue=0
-@active_caseNum=3
-@passive_caseNum=2
-theData xVals hash: 7171123492023199933
-theData yVals hash: 9268461341921925588
-@aValue=0
-@active_caseNum=3
-@passive_caseNum=3
-theData xVals hash: 7171123492023199933
-theData yVals hash: 9268461341921925588
-@aValue=0
-@active_caseNum=3
-@passive_caseNum=4
-theData xVals hash: 7171123492023199933
-theData yVals hash: 9268461341921925588
-@aValue=0
-@active_caseNum=3
-@passive_caseNum=5
-theData xVals hash: 7171123492023199933
-theData yVals hash: 9268461341921925588
-@aValue=0
-@active_caseNum=3
-@passive_caseNum=7
-theData xVals hash: 7171123492023199933
-theData yVals hash: 9268461341921925588
-@aValue=0
-@active_caseNum=4
-@passive_caseNum=0
-theData xVals hash: 7171123492023199933
-theData yVals hash: 9268461341921925588
-@aValue=0
-@active_caseNum=4
-@passive_caseNum=1
-theData xVals hash: 7171123492023199933
-theData yVals hash: 9268461341921925588
-@aValue=0
-@active_caseNum=4
-@passive_caseNum=2
-theData xVals hash: 7171123492023199933
-theData yVals hash: 9268461341921925588
-@aValue=0
-@active_caseNum=4
-@passive_caseNum=3
-theData xVals hash: 7171123492023199933
-theData yVals hash: 9268461341921925588
-@aValue=0
-@active_caseNum=4
-@passive_caseNum=4
-theData xVals hash: 7171123492023199933
-theData yVals hash: 9268461341921925588
-@aValue=0
-@active_caseNum=4
-@passive_caseNum=5
-theData xVals hash: 7171123492023199933
-theData yVals hash: 9268461341921925588
-@aValue=0
-@active_caseNum=4
-@passive_caseNum=7
-theData xVals hash: 7171123492023199933
-theData yVals hash: 9268461341921925588
-@aValue=0
-@active_caseNum=5
-@passive_caseNum=0
-theData xVals hash: 7171123492023199933
-theData yVals hash: 9268461341921925588
-@aValue=0
-@active_caseNum=5
-@passive_caseNum=1
-theData xVals hash: 7171123492023199933
-theData yVals hash: 9268461341921925588
-@aValue=0
-@active_caseNum=5
-@passive_caseNum=2
-theData xVals hash: 7171123492023199933
-theData yVals hash: 9268461341921925588
-@aValue=0
-@active_caseNum=5
-@passive_caseNum=3
-theData xVals hash: 7171123492023199933
-theData yVals hash: 9268461341921925588
-@aValue=0
-@active_caseNum=5
-@passive_caseNum=4
-theData xVals hash: 7171123492023199933
-theData yVals hash: 9268461341921925588
-@aValue=0
-@active_caseNum=5
-@passive_caseNum=5
-theData xVals hash: 7171123492023199933
-theData yVals hash: 9268461341921925588
-@aValue=0
-@active_caseNum=5
-@passive_caseNum=7
-theData xVals hash: 7171123492023199933
-theData yVals hash: 9268461341921925588
-@aValue=0
-@active_caseNum=7
-@passive_caseNum=0
-theData xVals hash: 7171123492023199933
-theData yVals hash: 9268461341921925588
-@aValue=0
-@active_caseNum=7
-@passive_caseNum=1
-theData xVals hash: 7171123492023199933
-theData yVals hash: 9268461341921925588
-@aValue=0
-@active_caseNum=7
-@passive_caseNum=2
-theData xVals hash: 7171123492023199933
-theData yVals hash: 9268461341921925588
-@aValue=0
-@active_caseNum=7
-@passive_caseNum=3
-theData xVals hash: 7171123492023199933
-theData yVals hash: 9268461341921925588
-@aValue=0
-@active_caseNum=7
-@passive_caseNum=4
-theData xVals hash: 7171123492023199933
-theData yVals hash: 9268461341921925588
-@aValue=0
-@active_caseNum=7
-@passive_caseNum=5
-theData xVals hash: 7171123492023199933
-theData yVals hash: 9268461341921925588
-@aValue=0
-@active_caseNum=7
-@passive_caseNum=7
-theData xVals hash: 7171123492023199933
-theData yVals hash: 9268461341921925588
-#void SetPoint(G4int i, const G4ParticleHPDataPoint & it)_6
+#void SetPoint(G4int i, const G4ParticleHPDataPoint & it)_5
 @i=-1
-@x=0.886726
-@y=0.196178
+@x=0.699791
+@y=0.38906
 theData xVals hash: 7171123492023199933
 theData yVals hash: 9268461341921925588
 @i=0
-@x=0.162958
-@y=0.835997
-theData xVals hash: 14771859316984817069
-theData yVals hash: 10289909397705078662
+@x=0.935242
+@y=0.605603
+theData xVals hash: 8087400567356673865
+theData yVals hash: 14328351860513807934
 @i=49497
-@x=0.602405
-@y=0.623243
-theData xVals hash: 10730769518528509148
-theData yVals hash: 7813661156339699522
+@x=0.362084
+@y=0.539505
+theData xVals hash: 4967041083789535198
+theData yVals hash: 15582391938398552681
 @i=98994
-@x=0.838679
-@y=0.671648
-theData xVals hash: 130684891043351349
-theData yVals hash: 14768316220803104247
+@x=0.455072
+@y=0.401692
+theData xVals hash: 14636593035089019132
+theData yVals hash: 12384385125394167646
 @i=98995
-@x=0.391555
-@y=0.871284
-theData xVals hash: 10529580244335687834
-theData yVals hash: 12621477930345558688
-#void SetData(G4int i, G4double x, G4double y)_6
+@x=0.24044
+@y=0.0830857
+theData xVals hash: 1163880160301980444
+theData yVals hash: 6097288361979055925
+#void SetData(G4int i, G4double x, G4double y)_5
 @i=-1
-@x=0.667348
-@y=0.115607
-theData xVals hash: 10529580244335687834
-theData yVals hash: 12621477930345558688
+@x=0.421579
+@y=0.47238
+theData xVals hash: 1163880160301980444
+theData yVals hash: 6097288361979055925
 @i=0
-@x=4.02252e-05
-@y=0.676065
-theData xVals hash: 14190236723214973365
-theData yVals hash: 9859493506703052711
+@x=0.289766
+@y=0.104969
+theData xVals hash: 13353489806794614594
+theData yVals hash: 10854233893770602628
 @i=49497
-@x=0.628753
-@y=0.454547
-theData xVals hash: 17854340270898792249
-theData yVals hash: 17573496453048036208
+@x=0.216386
+@y=0.802019
+theData xVals hash: 17622552535108543332
+theData yVals hash: 5540325132109300678
 @i=98994
-@x=0.574346
-@y=0.0322694
-theData xVals hash: 2999969618716944846
-theData yVals hash: 5155357441759957157
+@x=0.527439
+@y=0.66882
+theData xVals hash: 4554169523972720559
+theData yVals hash: 864871021010522220
 @i=98995
-@x=0.351393
-@y=0.855082
-theData xVals hash: 7332933195704606414
-theData yVals hash: 10082411450720340214
-#void SetX(G4int i, G4double e)_6
+@x=0.863643
+@y=0.24375
+theData xVals hash: 11485999879402359663
+theData yVals hash: 12044205416062542412
+#void SetX(G4int i, G4double e)_5
 @i=-1
-@x=0.370837
-theData xVals hash: 7332933195704606414
-theData yVals hash: 10082411450720340214
+@x=0.711564
+theData xVals hash: 11485999879402359663
+theData yVals hash: 12044205416062542412
 @i=0
-@x=0.57643
-theData xVals hash: 4129724173094804718
-theData yVals hash: 10082411450720340214
+@x=0.382822
+theData xVals hash: 14995114390740775498
+theData yVals hash: 12044205416062542412
 @i=49497
-@x=0.744468
-theData xVals hash: 7828510666455502428
-theData yVals hash: 10082411450720340214
+@x=0.459763
+theData xVals hash: 10108270346967157414
+theData yVals hash: 12044205416062542412
 @i=98994
-@x=0.442624
-theData xVals hash: 1734043937030143710
-theData yVals hash: 10082411450720340214
+@x=0.795353
+theData xVals hash: 2768707601057873684
+theData yVals hash: 12044205416062542412
 @i=98995
-@x=0.0918009
-theData xVals hash: 16096195087459760216
-theData yVals hash: 10082411450720340214
-#void SetEnergy(G4int i, G4double e)_6
+@x=0.00322878
+theData xVals hash: 6328197661742067720
+theData yVals hash: 12044205416062542412
+#void SetEnergy(G4int i, G4double e)_5
 @i=-1
-@x=0.992419
-theData xVals hash: 16096195087459760216
-theData yVals hash: 10082411450720340214
+@x=0.664689
+theData xVals hash: 6328197661742067720
+theData yVals hash: 12044205416062542412
 @i=0
-@x=0.0330036
-theData xVals hash: 6768243894288997894
-theData yVals hash: 10082411450720340214
+@x=0.186825
+theData xVals hash: 14885544728758867484
+theData yVals hash: 12044205416062542412
 @i=49497
-@x=0.487212
-theData xVals hash: 5803335025189265573
-theData yVals hash: 10082411450720340214
+@x=0.134039
+theData xVals hash: 6193298988767029547
+theData yVals hash: 12044205416062542412
 @i=98994
-@x=0.895724
-theData xVals hash: 13027311345070339926
-theData yVals hash: 10082411450720340214
+@x=0.946045
+theData xVals hash: 850939744612141602
+theData yVals hash: 12044205416062542412
 @i=98995
-@x=0.688594
-theData xVals hash: 9015867262612639840
-theData yVals hash: 10082411450720340214
-#void SetY(G4int i, G4double x)_6
+@x=0.606001
+theData xVals hash: 5567062327401838460
+theData yVals hash: 12044205416062542412
+#void SetY(G4int i, G4double x)_5
 @i=-1
-@x=0.48172
-theData xVals hash: 9015867262612639840
-theData yVals hash: 10082411450720340214
+@x=0.347492
+theData xVals hash: 5567062327401838460
+theData yVals hash: 12044205416062542412
 @i=0
-@x=0.94712
-theData xVals hash: 9015867262612639840
-theData yVals hash: 6846953669393472641
+@x=0.509658
+theData xVals hash: 5567062327401838460
+theData yVals hash: 1510505131477239413
 @i=49497
-@x=0.953262
-theData xVals hash: 9015867262612639840
-theData yVals hash: 9673448873030793623
+@x=0.834338
+theData xVals hash: 5567062327401838460
+theData yVals hash: 5679054010361945998
 @i=98994
-@x=0.127088
-theData xVals hash: 9015867262612639840
-theData yVals hash: 1727417834220911530
+@x=0.329434
+theData xVals hash: 5567062327401838460
+theData yVals hash: 4363344532959287244
 @i=98995
-@x=0.857156
-theData xVals hash: 9015867262612639840
-theData yVals hash: 2734151193100911337
-#void SetXsec(G4int i, G4double x)_6
+@x=0.631763
+theData xVals hash: 5567062327401838460
+theData yVals hash: 13503293311964332929
+#void SetXsec(G4int i, G4double x)_5
 @i=-1
-@x=0.00700794
-theData xVals hash: 9015867262612639840
-theData yVals hash: 2734151193100911337
+@x=0.0414204
+theData xVals hash: 5567062327401838460
+theData yVals hash: 13503293311964332929
 @i=0
-@x=0.0503933
-theData xVals hash: 9015867262612639840
-theData yVals hash: 2419041242744422590
+@x=0.767065
+theData xVals hash: 5567062327401838460
+theData yVals hash: 9991291410685478560
 @i=49497
-@x=0.641374
-theData xVals hash: 9015867262612639840
-theData yVals hash: 2127850505840136547
+@x=0.519303
+theData xVals hash: 5567062327401838460
+theData yVals hash: 5306777872739445084
 @i=98994
-@x=0.137093
-theData xVals hash: 9015867262612639840
-theData yVals hash: 6131914018925306465
+@x=0.220516
+theData xVals hash: 5567062327401838460
+theData yVals hash: 14066293278789511144
 @i=98995
-@x=0.824627
-theData xVals hash: 9015867262612639840
-theData yVals hash: 3684471053901434941
-#const G4ParticleHPDataPoint GetPoint(G4int i)_6
+@x=0.0889927
+theData xVals hash: 5567062327401838460
+theData yVals hash: 14809245636263334604
+#const G4ParticleHPDataPoint GetPoint(G4int i)_5
 @i=-1
-(0.0330036,0.0503933)
+(0.186825,0.767065)
 @i=0
-(0.0330036,0.0503933)
+(0.186825,0.767065)
 @i=49497
-(0.487212,0.641374)
+(0.134039,0.519303)
 @i=98994
-(0.895724,0.137093)
+(0.946045,0.220516)
 @i=98995
-(0.688594,0.824627)
-#G4double GetEnergy(G4int i)_6
+(0.606001,0.0889927)
+#G4double GetEnergy(G4int i)_5
 @i=-1
-0.0330036
+0.186825
 @i=0
-0.0330036
+0.186825
 @i=49497
-0.487212
+0.134039
 @i=98994
-0.895724
+0.946045
 @i=98995
-0.688594
-#G4double GetX(G4int i)_6
+0.606001
+#G4double GetX(G4int i)_5
 @i=-1
-0.0330036
+0.186825
 @i=0
-0.0330036
+0.186825
 @i=49497
-0.487212
+0.134039
 @i=98994
-0.895724
+0.946045
 @i=98995
-0.688594
-#G4double GetXsec(G4int i)_6
+0.606001
+#G4double GetXsec(G4int i)_5
 @i=-1
-0.0503933
+0.767065
 @i=0
-0.0503933
+0.767065
 @i=49497
-0.641374
+0.519303
 @i=98994
-0.137093
+0.220516
 @i=98995
-0.824627
-#G4double GetY(G4int i)_6
+0.0889927
+#G4double GetY(G4int i)_5
 @i=-1
-0.0503933
+0.767065
 @i=0
-0.0503933
+0.767065
 @i=49497
-0.641374
+0.519303
 @i=98994
-0.137093
+0.220516
 @i=98995
-0.824627
-#void ThinOut(G4double precision)_6
+0.0889927
+#void ThinOut(G4double precision)_5
 @precision=-1
-theData xVals hash: 1742701867924853851
-theData yVals hash: 7095643224680524693
+theData xVals hash: 12954435322133276589
+theData yVals hash: 14921455029472994608
 @precision=0
-theData xVals hash: 6706271929472470177
-theData yVals hash: 6915917805996952609
+theData xVals hash: 5305980882361436096
+theData yVals hash: 13905076034796310618
 @precision=0.00051234
-theData xVals hash: 12650632012151844460
-theData yVals hash: 10048111651190685185
+theData xVals hash: 2660913159176154139
+theData yVals hash: 419151880701509672
 @precision=1.58923
-theData xVals hash: 1286982657074201956
-theData yVals hash: 15941553135684669238
+theData xVals hash: 156200433032669903
+theData yVals hash: 6789807671422706239
 @precision=513.187
-theData xVals hash: 18156762521058937446
-theData yVals hash: 3872170401866156845
-#G4ParticleHPVector & operator = (const G4ParticleHPVector & right)_6
-hash: 18156762521058937446
-#void Init(std::istream & aDataFile, G4int total, G4double ux=1., G4double uy=1.)_7
+theData xVals hash: 156200433032669903
+theData yVals hash: 6789807671422706239
+#G4ParticleHPVector & operator = (const G4ParticleHPVector & right)_5
+hash: 156200433032669903
+#void Init(std::istream & aDataFile, G4int total, G4double ux=1., G4double uy=1.)_6
 theData xVals hash: 16082830809520917107
 theData yVals hash: 569425363193013609
-#G4double GetXsec(G4double e)_7
+#G4double GetXsec(G4double e)_6
 @e=-1
 1.53489e+09
 @e=0
@@ -5382,7 +1957,7 @@ theData yVals hash: 569425363193013609
 15.1255
 @e=513.187
 84.8337
-#G4double GetXsec(G4double e, G4int min)_7
+#G4double GetXsec(G4double e, G4int min)_6
 @e=-1
 @min=-1
 1.53489e+09
@@ -5458,15 +2033,15 @@ theData yVals hash: 569425363193013609
 @e=513.187
 @min=242594
 31411.9
-#G4double SampleLin()_7
-$1.12675e+07
-#G4double Sample()_7
-$1.13071e+07
-#G4double Get15PercentBorder()_7
+#G4double SampleLin()_6
+$1.07129e+07
+#G4double Sample()_6
+$1.13324e+07
+#G4double Get15PercentBorder()_6
 4.4e+06
-#G4double Get50PercentBorder()_7
+#G4double Get50PercentBorder()_6
 1.17496e+07
-#void Times(G4double factor)_7
+#void Times(G4double factor)_6
 @factor=-4.67
 theData xVals hash: 16082830809520917107
 theData yVals hash: 4187932830574422470
@@ -5483,655 +2058,212 @@ theIntegral hash: 15619544932401450365
 theData xVals hash: 16082830809520917107
 theData yVals hash: 569425363193013609
 theIntegral hash: 15619544932401450365
-#void Merge(G4ParticleHPVector * active, G4ParticleHPVector * passive)_7
-@active_caseNum=0
-@passive_caseNum=0
-theData xVals hash: 16082830809520917107
-theData yVals hash: 569425363193013609
-@active_caseNum=0
-@passive_caseNum=1
-theData xVals hash: 16082830809520917107
-theData yVals hash: 569425363193013609
-@active_caseNum=0
-@passive_caseNum=2
-theData xVals hash: 16082830809520917107
-theData yVals hash: 569425363193013609
-@active_caseNum=0
-@passive_caseNum=3
-theData xVals hash: 16082830809520917107
-theData yVals hash: 569425363193013609
-@active_caseNum=0
-@passive_caseNum=4
-theData xVals hash: 16082830809520917107
-theData yVals hash: 569425363193013609
-@active_caseNum=0
-@passive_caseNum=5
-theData xVals hash: 16082830809520917107
-theData yVals hash: 569425363193013609
-@active_caseNum=0
-@passive_caseNum=6
-theData xVals hash: 16082830809520917107
-theData yVals hash: 569425363193013609
-@active_caseNum=1
-@passive_caseNum=0
-theData xVals hash: 16082830809520917107
-theData yVals hash: 569425363193013609
-@active_caseNum=1
-@passive_caseNum=1
-theData xVals hash: 16082830809520917107
-theData yVals hash: 569425363193013609
-@active_caseNum=1
-@passive_caseNum=2
-theData xVals hash: 16082830809520917107
-theData yVals hash: 569425363193013609
-@active_caseNum=1
-@passive_caseNum=3
-theData xVals hash: 16082830809520917107
-theData yVals hash: 569425363193013609
-@active_caseNum=1
-@passive_caseNum=4
-theData xVals hash: 16082830809520917107
-theData yVals hash: 569425363193013609
-@active_caseNum=1
-@passive_caseNum=5
-theData xVals hash: 16082830809520917107
-theData yVals hash: 569425363193013609
-@active_caseNum=1
-@passive_caseNum=6
-theData xVals hash: 16082830809520917107
-theData yVals hash: 569425363193013609
-@active_caseNum=2
-@passive_caseNum=0
-theData xVals hash: 16082830809520917107
-theData yVals hash: 569425363193013609
-@active_caseNum=2
-@passive_caseNum=1
-theData xVals hash: 16082830809520917107
-theData yVals hash: 569425363193013609
-@active_caseNum=2
-@passive_caseNum=2
-theData xVals hash: 16082830809520917107
-theData yVals hash: 569425363193013609
-@active_caseNum=2
-@passive_caseNum=3
-theData xVals hash: 16082830809520917107
-theData yVals hash: 569425363193013609
-@active_caseNum=2
-@passive_caseNum=4
-theData xVals hash: 16082830809520917107
-theData yVals hash: 569425363193013609
-@active_caseNum=2
-@passive_caseNum=5
-theData xVals hash: 16082830809520917107
-theData yVals hash: 569425363193013609
-@active_caseNum=2
-@passive_caseNum=6
-theData xVals hash: 16082830809520917107
-theData yVals hash: 569425363193013609
-@active_caseNum=3
-@passive_caseNum=0
-theData xVals hash: 16082830809520917107
-theData yVals hash: 569425363193013609
-@active_caseNum=3
-@passive_caseNum=1
-theData xVals hash: 16082830809520917107
-theData yVals hash: 569425363193013609
-@active_caseNum=3
-@passive_caseNum=2
-theData xVals hash: 16082830809520917107
-theData yVals hash: 569425363193013609
-@active_caseNum=3
-@passive_caseNum=3
-theData xVals hash: 16082830809520917107
-theData yVals hash: 569425363193013609
-@active_caseNum=3
-@passive_caseNum=4
-theData xVals hash: 16082830809520917107
-theData yVals hash: 569425363193013609
-@active_caseNum=3
-@passive_caseNum=5
-theData xVals hash: 16082830809520917107
-theData yVals hash: 569425363193013609
-@active_caseNum=3
-@passive_caseNum=6
-theData xVals hash: 16082830809520917107
-theData yVals hash: 569425363193013609
-@active_caseNum=4
-@passive_caseNum=0
-theData xVals hash: 16082830809520917107
-theData yVals hash: 569425363193013609
-@active_caseNum=4
-@passive_caseNum=1
-theData xVals hash: 16082830809520917107
-theData yVals hash: 569425363193013609
-@active_caseNum=4
-@passive_caseNum=2
-theData xVals hash: 16082830809520917107
-theData yVals hash: 569425363193013609
-@active_caseNum=4
-@passive_caseNum=3
-theData xVals hash: 16082830809520917107
-theData yVals hash: 569425363193013609
-@active_caseNum=4
-@passive_caseNum=4
-theData xVals hash: 16082830809520917107
-theData yVals hash: 569425363193013609
-@active_caseNum=4
-@passive_caseNum=5
-theData xVals hash: 16082830809520917107
-theData yVals hash: 569425363193013609
-@active_caseNum=4
-@passive_caseNum=6
-theData xVals hash: 16082830809520917107
-theData yVals hash: 569425363193013609
-@active_caseNum=5
-@passive_caseNum=0
-theData xVals hash: 16082830809520917107
-theData yVals hash: 569425363193013609
-@active_caseNum=5
-@passive_caseNum=1
-theData xVals hash: 16082830809520917107
-theData yVals hash: 569425363193013609
-@active_caseNum=5
-@passive_caseNum=2
-theData xVals hash: 16082830809520917107
-theData yVals hash: 569425363193013609
-@active_caseNum=5
-@passive_caseNum=3
-theData xVals hash: 16082830809520917107
-theData yVals hash: 569425363193013609
-@active_caseNum=5
-@passive_caseNum=4
-theData xVals hash: 16082830809520917107
-theData yVals hash: 569425363193013609
-@active_caseNum=5
-@passive_caseNum=5
-theData xVals hash: 16082830809520917107
-theData yVals hash: 569425363193013609
-@active_caseNum=5
-@passive_caseNum=6
-theData xVals hash: 16082830809520917107
-theData yVals hash: 569425363193013609
-@active_caseNum=6
-@passive_caseNum=0
-theData xVals hash: 16082830809520917107
-theData yVals hash: 569425363193013609
-@active_caseNum=6
-@passive_caseNum=1
-theData xVals hash: 16082830809520917107
-theData yVals hash: 569425363193013609
-@active_caseNum=6
-@passive_caseNum=2
-theData xVals hash: 16082830809520917107
-theData yVals hash: 569425363193013609
-@active_caseNum=6
-@passive_caseNum=3
-theData xVals hash: 16082830809520917107
-theData yVals hash: 569425363193013609
-@active_caseNum=6
-@passive_caseNum=4
-theData xVals hash: 16082830809520917107
-theData yVals hash: 569425363193013609
-@active_caseNum=6
-@passive_caseNum=5
-theData xVals hash: 16082830809520917107
-theData yVals hash: 569425363193013609
-@active_caseNum=6
-@passive_caseNum=6
-theData xVals hash: 16082830809520917107
-theData yVals hash: 569425363193013609
-#void Merge(G4InterpolationScheme aScheme, G4double aValue, G4ParticleHPVector * active, G4ParticleHPVector * passive)_7
-@aValue=0
-@active_caseNum=0
-@passive_caseNum=0
-theData xVals hash: 16082830809520917107
-theData yVals hash: 569425363193013609
-@aValue=0
-@active_caseNum=0
-@passive_caseNum=1
-theData xVals hash: 16082830809520917107
-theData yVals hash: 569425363193013609
-@aValue=0
-@active_caseNum=0
-@passive_caseNum=2
-theData xVals hash: 16082830809520917107
-theData yVals hash: 569425363193013609
-@aValue=0
-@active_caseNum=0
-@passive_caseNum=3
-theData xVals hash: 16082830809520917107
-theData yVals hash: 569425363193013609
-@aValue=0
-@active_caseNum=0
-@passive_caseNum=4
-theData xVals hash: 16082830809520917107
-theData yVals hash: 569425363193013609
-@aValue=0
-@active_caseNum=0
-@passive_caseNum=5
-theData xVals hash: 16082830809520917107
-theData yVals hash: 569425363193013609
-@aValue=0
-@active_caseNum=0
-@passive_caseNum=6
-theData xVals hash: 16082830809520917107
-theData yVals hash: 569425363193013609
-@aValue=0
-@active_caseNum=1
-@passive_caseNum=0
-theData xVals hash: 16082830809520917107
-theData yVals hash: 569425363193013609
-@aValue=0
-@active_caseNum=1
-@passive_caseNum=1
-theData xVals hash: 16082830809520917107
-theData yVals hash: 569425363193013609
-@aValue=0
-@active_caseNum=1
-@passive_caseNum=2
-theData xVals hash: 16082830809520917107
-theData yVals hash: 569425363193013609
-@aValue=0
-@active_caseNum=1
-@passive_caseNum=3
-theData xVals hash: 16082830809520917107
-theData yVals hash: 569425363193013609
-@aValue=0
-@active_caseNum=1
-@passive_caseNum=4
-theData xVals hash: 16082830809520917107
-theData yVals hash: 569425363193013609
-@aValue=0
-@active_caseNum=1
-@passive_caseNum=5
-theData xVals hash: 16082830809520917107
-theData yVals hash: 569425363193013609
-@aValue=0
-@active_caseNum=1
-@passive_caseNum=6
-theData xVals hash: 16082830809520917107
-theData yVals hash: 569425363193013609
-@aValue=0
-@active_caseNum=2
-@passive_caseNum=0
-theData xVals hash: 16082830809520917107
-theData yVals hash: 569425363193013609
-@aValue=0
-@active_caseNum=2
-@passive_caseNum=1
-theData xVals hash: 16082830809520917107
-theData yVals hash: 569425363193013609
-@aValue=0
-@active_caseNum=2
-@passive_caseNum=2
-theData xVals hash: 16082830809520917107
-theData yVals hash: 569425363193013609
-@aValue=0
-@active_caseNum=2
-@passive_caseNum=3
-theData xVals hash: 16082830809520917107
-theData yVals hash: 569425363193013609
-@aValue=0
-@active_caseNum=2
-@passive_caseNum=4
-theData xVals hash: 16082830809520917107
-theData yVals hash: 569425363193013609
-@aValue=0
-@active_caseNum=2
-@passive_caseNum=5
-theData xVals hash: 16082830809520917107
-theData yVals hash: 569425363193013609
-@aValue=0
-@active_caseNum=2
-@passive_caseNum=6
-theData xVals hash: 16082830809520917107
-theData yVals hash: 569425363193013609
-@aValue=0
-@active_caseNum=3
-@passive_caseNum=0
-theData xVals hash: 16082830809520917107
-theData yVals hash: 569425363193013609
-@aValue=0
-@active_caseNum=3
-@passive_caseNum=1
-theData xVals hash: 16082830809520917107
-theData yVals hash: 569425363193013609
-@aValue=0
-@active_caseNum=3
-@passive_caseNum=2
-theData xVals hash: 16082830809520917107
-theData yVals hash: 569425363193013609
-@aValue=0
-@active_caseNum=3
-@passive_caseNum=3
-theData xVals hash: 16082830809520917107
-theData yVals hash: 569425363193013609
-@aValue=0
-@active_caseNum=3
-@passive_caseNum=4
-theData xVals hash: 16082830809520917107
-theData yVals hash: 569425363193013609
-@aValue=0
-@active_caseNum=3
-@passive_caseNum=5
-theData xVals hash: 16082830809520917107
-theData yVals hash: 569425363193013609
-@aValue=0
-@active_caseNum=3
-@passive_caseNum=6
-theData xVals hash: 16082830809520917107
-theData yVals hash: 569425363193013609
-@aValue=0
-@active_caseNum=4
-@passive_caseNum=0
-theData xVals hash: 16082830809520917107
-theData yVals hash: 569425363193013609
-@aValue=0
-@active_caseNum=4
-@passive_caseNum=1
-theData xVals hash: 16082830809520917107
-theData yVals hash: 569425363193013609
-@aValue=0
-@active_caseNum=4
-@passive_caseNum=2
-theData xVals hash: 16082830809520917107
-theData yVals hash: 569425363193013609
-@aValue=0
-@active_caseNum=4
-@passive_caseNum=3
-theData xVals hash: 16082830809520917107
-theData yVals hash: 569425363193013609
-@aValue=0
-@active_caseNum=4
-@passive_caseNum=4
-theData xVals hash: 16082830809520917107
-theData yVals hash: 569425363193013609
-@aValue=0
-@active_caseNum=4
-@passive_caseNum=5
-theData xVals hash: 16082830809520917107
-theData yVals hash: 569425363193013609
-@aValue=0
-@active_caseNum=4
-@passive_caseNum=6
-theData xVals hash: 16082830809520917107
-theData yVals hash: 569425363193013609
-@aValue=0
-@active_caseNum=5
-@passive_caseNum=0
-theData xVals hash: 16082830809520917107
-theData yVals hash: 569425363193013609
-@aValue=0
-@active_caseNum=5
-@passive_caseNum=1
-theData xVals hash: 16082830809520917107
-theData yVals hash: 569425363193013609
-@aValue=0
-@active_caseNum=5
-@passive_caseNum=2
-theData xVals hash: 16082830809520917107
-theData yVals hash: 569425363193013609
-@aValue=0
-@active_caseNum=5
-@passive_caseNum=3
-theData xVals hash: 16082830809520917107
-theData yVals hash: 569425363193013609
-@aValue=0
-@active_caseNum=5
-@passive_caseNum=4
-theData xVals hash: 16082830809520917107
-theData yVals hash: 569425363193013609
-@aValue=0
-@active_caseNum=5
-@passive_caseNum=5
-theData xVals hash: 16082830809520917107
-theData yVals hash: 569425363193013609
-@aValue=0
-@active_caseNum=5
-@passive_caseNum=6
-theData xVals hash: 16082830809520917107
-theData yVals hash: 569425363193013609
-@aValue=0
-@active_caseNum=6
-@passive_caseNum=0
-theData xVals hash: 16082830809520917107
-theData yVals hash: 569425363193013609
-@aValue=0
-@active_caseNum=6
-@passive_caseNum=1
-theData xVals hash: 16082830809520917107
-theData yVals hash: 569425363193013609
-@aValue=0
-@active_caseNum=6
-@passive_caseNum=2
-theData xVals hash: 16082830809520917107
-theData yVals hash: 569425363193013609
-@aValue=0
-@active_caseNum=6
-@passive_caseNum=3
-theData xVals hash: 16082830809520917107
-theData yVals hash: 569425363193013609
-@aValue=0
-@active_caseNum=6
-@passive_caseNum=4
-theData xVals hash: 16082830809520917107
-theData yVals hash: 569425363193013609
-@aValue=0
-@active_caseNum=6
-@passive_caseNum=5
-theData xVals hash: 16082830809520917107
-theData yVals hash: 569425363193013609
-@aValue=0
-@active_caseNum=6
-@passive_caseNum=6
-theData xVals hash: 16082830809520917107
-theData yVals hash: 569425363193013609
-#void SetPoint(G4int i, const G4ParticleHPDataPoint & it)_7
+#void SetPoint(G4int i, const G4ParticleHPDataPoint & it)_6
 @i=-1
-@x=0.817317
-@y=0.642734
+@x=0.674525
+@y=0.737175
 theData xVals hash: 16082830809520917107
 theData yVals hash: 569425363193013609
 @i=0
-@x=0.435375
-@y=0.352314
-theData xVals hash: 5431018828179365984
-theData yVals hash: 5567964339009897502
+@x=0.69846
+@y=0.0227995
+theData xVals hash: 18397182415033339234
+theData yVals hash: 1455442707195540424
 @i=121297
-@x=0.349157
-@y=0.281545
-theData xVals hash: 5449037180981901081
-theData yVals hash: 6419010087418905798
+@x=0.191984
+@y=0.670991
+theData xVals hash: 10505210695898925213
+theData yVals hash: 9210196055197380394
 @i=242593
-@x=0.919119
-@y=0.626152
-theData xVals hash: 17250420927941556527
-theData yVals hash: 10848169044374949008
+@x=0.345872
+@y=0.0662903
+theData xVals hash: 9398706473952381314
+theData yVals hash: 16555705405241266553
 @i=242594
-@x=0.74458
-@y=0.15754
-theData xVals hash: 9610005060433584726
-theData yVals hash: 17254973608360153348
-#void SetData(G4int i, G4double x, G4double y)_7
+@x=0.14071
+@y=0.921117
+theData xVals hash: 9911964083262845079
+theData yVals hash: 8486322597291556643
+#void SetData(G4int i, G4double x, G4double y)_6
 @i=-1
-@x=0.776418
-@y=0.251955
-theData xVals hash: 9610005060433584726
-theData yVals hash: 17254973608360153348
+@x=0.221656
+@y=0.380115
+theData xVals hash: 9911964083262845079
+theData yVals hash: 8486322597291556643
 @i=0
-@x=0.612058
-@y=0.854603
-theData xVals hash: 3440535624905699552
-theData yVals hash: 15380199106580366957
+@x=0.586016
+@y=0.167313
+theData xVals hash: 11590516211648082719
+theData yVals hash: 9007329258585984958
 @i=121297
-@x=0.314608
-@y=0.608444
-theData xVals hash: 4354852546682296825
-theData yVals hash: 5368459332899990737
+@x=0.0263397
+@y=0.691126
+theData xVals hash: 6515426450923642489
+theData yVals hash: 9974786910215613194
 @i=242593
-@x=0.125922
-@y=0.373662
-theData xVals hash: 4265066352543496221
-theData yVals hash: 13126069698024796549
+@x=0.762344
+@y=0.713695
+theData xVals hash: 16265311635498900267
+theData yVals hash: 9240996292166863838
 @i=242594
-@x=0.133293
-@y=0.261863
-theData xVals hash: 14110335850106111073
-theData yVals hash: 16008270557624025882
-#void SetX(G4int i, G4double e)_7
+@x=0.0773243
+@y=0.589809
+theData xVals hash: 7558865659866100675
+theData yVals hash: 5369732450404980584
+#void SetX(G4int i, G4double e)_6
 @i=-1
-@x=0.126031
-theData xVals hash: 14110335850106111073
-theData yVals hash: 16008270557624025882
+@x=0.925503
+theData xVals hash: 7558865659866100675
+theData yVals hash: 5369732450404980584
 @i=0
-@x=0.750525
-theData xVals hash: 14689420606592267389
-theData yVals hash: 16008270557624025882
+@x=0.430446
+theData xVals hash: 15920917407431928970
+theData yVals hash: 5369732450404980584
 @i=121297
-@x=0.458914
-theData xVals hash: 7955089360613678493
-theData yVals hash: 16008270557624025882
+@x=0.831256
+theData xVals hash: 14382223587171678938
+theData yVals hash: 5369732450404980584
 @i=242593
-@x=0.234676
-theData xVals hash: 12358863780697264659
-theData yVals hash: 16008270557624025882
+@x=0.601638
+theData xVals hash: 11149555553481353593
+theData yVals hash: 5369732450404980584
 @i=242594
-@x=0.683946
-theData xVals hash: 8288863805387532274
-theData yVals hash: 16008270557624025882
-#void SetEnergy(G4int i, G4double e)_7
+@x=0.519337
+theData xVals hash: 6481390517599952939
+theData yVals hash: 5369732450404980584
+#void SetEnergy(G4int i, G4double e)_6
 @i=-1
-@x=0.854236
-theData xVals hash: 8288863805387532274
-theData yVals hash: 16008270557624025882
+@x=0.161419
+theData xVals hash: 6481390517599952939
+theData yVals hash: 5369732450404980584
 @i=0
-@x=0.120177
-theData xVals hash: 244237540940088597
-theData yVals hash: 16008270557624025882
+@x=0.57436
+theData xVals hash: 7580828173092072526
+theData yVals hash: 5369732450404980584
 @i=121297
-@x=0.944193
-theData xVals hash: 8039683301069421254
-theData yVals hash: 16008270557624025882
+@x=0.531427
+theData xVals hash: 10122461602637858210
+theData yVals hash: 5369732450404980584
 @i=242593
-@x=0.0602624
-theData xVals hash: 9088875046964587001
-theData yVals hash: 16008270557624025882
+@x=0.667049
+theData xVals hash: 7553243067199054522
+theData yVals hash: 5369732450404980584
 @i=242594
-@x=0.141179
-theData xVals hash: 16904182959844922792
-theData yVals hash: 16008270557624025882
-#void SetY(G4int i, G4double x)_7
+@x=0.548736
+theData xVals hash: 3620176360579644709
+theData yVals hash: 5369732450404980584
+#void SetY(G4int i, G4double x)_6
 @i=-1
-@x=0.227488
-theData xVals hash: 16904182959844922792
-theData yVals hash: 16008270557624025882
+@x=0.667965
+theData xVals hash: 3620176360579644709
+theData yVals hash: 5369732450404980584
 @i=0
-@x=0.599194
-theData xVals hash: 16904182959844922792
-theData yVals hash: 15055712548879301114
+@x=0.571583
+theData xVals hash: 3620176360579644709
+theData yVals hash: 6582335393495465863
 @i=121297
-@x=0.0537268
-theData xVals hash: 16904182959844922792
-theData yVals hash: 11433683609728090673
+@x=0.441313
+theData xVals hash: 3620176360579644709
+theData yVals hash: 17252752808377143588
 @i=242593
-@x=0.812305
-theData xVals hash: 16904182959844922792
-theData yVals hash: 17872530253068205972
+@x=0.502275
+theData xVals hash: 3620176360579644709
+theData yVals hash: 12116266986092176281
 @i=242594
-@x=0.0318384
-theData xVals hash: 16904182959844922792
-theData yVals hash: 6981297995648957027
-#void SetXsec(G4int i, G4double x)_7
+@x=0.0316565
+theData xVals hash: 3620176360579644709
+theData yVals hash: 14089331617330398784
+#void SetXsec(G4int i, G4double x)_6
 @i=-1
-@x=0.974467
-theData xVals hash: 16904182959844922792
-theData yVals hash: 6981297995648957027
+@x=0.522063
+theData xVals hash: 3620176360579644709
+theData yVals hash: 14089331617330398784
 @i=0
-@x=0.67108
-theData xVals hash: 16904182959844922792
-theData yVals hash: 5285079466279087519
+@x=0.0350595
+theData xVals hash: 3620176360579644709
+theData yVals hash: 12788096995096067508
 @i=121297
-@x=0.238217
-theData xVals hash: 16904182959844922792
-theData yVals hash: 6986806160027597085
+@x=0.107181
+theData xVals hash: 3620176360579644709
+theData yVals hash: 15721562173133296591
 @i=242593
-@x=0.589708
-theData xVals hash: 16904182959844922792
-theData yVals hash: 15231731215728632389
+@x=0.551829
+theData xVals hash: 3620176360579644709
+theData yVals hash: 3872890826226946639
 @i=242594
-@x=0.227762
-theData xVals hash: 16904182959844922792
-theData yVals hash: 12228076680434915716
-#const G4ParticleHPDataPoint GetPoint(G4int i)_7
+@x=0.611111
+theData xVals hash: 3620176360579644709
+theData yVals hash: 7499503193467483396
+#const G4ParticleHPDataPoint GetPoint(G4int i)_6
 @i=-1
-(0.120177,0.67108)
+(0.57436,0.0350595)
 @i=0
-(0.120177,0.67108)
+(0.57436,0.0350595)
 @i=121297
-(0.944193,0.238217)
+(0.531427,0.107181)
 @i=242593
-(0.0602624,0.589708)
+(0.667049,0.551829)
 @i=242594
-(0.141179,0.227762)
-#G4double GetEnergy(G4int i)_7
+(0.548736,0.611111)
+#G4double GetEnergy(G4int i)_6
 @i=-1
-0.120177
+0.57436
 @i=0
-0.120177
+0.57436
 @i=121297
-0.944193
+0.531427
 @i=242593
-0.0602624
+0.667049
 @i=242594
-0.141179
-#G4double GetX(G4int i)_7
+0.548736
+#G4double GetX(G4int i)_6
 @i=-1
-0.120177
+0.57436
 @i=0
-0.120177
+0.57436
 @i=121297
-0.944193
+0.531427
 @i=242593
-0.0602624
+0.667049
 @i=242594
-0.141179
-#G4double GetXsec(G4int i)_7
+0.548736
+#G4double GetXsec(G4int i)_6
 @i=-1
-0.67108
+0.0350595
 @i=0
-0.67108
+0.0350595
 @i=121297
-0.238217
+0.107181
 @i=242593
-0.589708
+0.551829
 @i=242594
-0.227762
-#G4double GetY(G4int i)_7
+0.611111
+#G4double GetY(G4int i)_6
 @i=-1
-0.67108
+0.0350595
 @i=0
-0.67108
+0.0350595
 @i=121297
-0.238217
+0.107181
 @i=242593
-0.589708
+0.551829
 @i=242594
-0.227762
-#void ThinOut(G4double precision)_7
+0.611111
+#void ThinOut(G4double precision)_6
 @precision=-1
-theData xVals hash: 16904182959844922792
-theData yVals hash: 12228076680434915716
+theData xVals hash: 3620176360579644709
+theData yVals hash: 7499503193467483396
 @precision=0
-theData xVals hash: 8645904167873538764
-theData yVals hash: 2630175114128795152
+theData xVals hash: 13184183989977297097
+theData yVals hash: 15266794621650774970
 @precision=0.00051234
-theData xVals hash: 16709927116794133463
-theData yVals hash: 7999653503310369479
+theData xVals hash: 18340613153627739530
+theData yVals hash: 10551608720498518401
 @precision=1.58923
-theData xVals hash: 16844059465488843568
-theData yVals hash: 14975778243975666385
+theData xVals hash: 9797385101082542226
+theData yVals hash: 5265006066132620104
 @precision=513.187
-theData xVals hash: 18015312566751879313
-theData yVals hash: 9815867978995616129
-#G4ParticleHPVector & operator = (const G4ParticleHPVector & right)_7
-hash: 18015312566751879313
+theData xVals hash: 16942721548957039551
+theData yVals hash: 3904643891384310491
+#G4ParticleHPVector & operator = (const G4ParticleHPVector & right)_6
+hash: 16942721548957039551

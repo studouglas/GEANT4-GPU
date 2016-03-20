@@ -277,7 +277,7 @@ G4double G4ParticleHPVector_CUDA::GetY(G4double x) {
 
 G4double G4ParticleHPVector_CUDA::GetXsec(G4double e, G4int min) {
     if (nEntries == 0) {
-        return 0;
+        return 0.0;
     }
 
     // Note: this was causing some crashing / finishing in 0.01s pre-Mar-3 commit, if it crops up

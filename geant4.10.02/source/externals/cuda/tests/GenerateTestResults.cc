@@ -12,7 +12,7 @@
 #define VERSION_NUMBER "1.0"
 
 // number of different G4ParticleHPVectors to create
-#define NUM_TEST_CASES 8
+#define NUM_TEST_CASES 7
 
 // number of different input values to test (including 'edge case' values)
 #define NUM_TEST_INPUTS 5 
@@ -49,7 +49,7 @@ void writeOutArray(double* arr, int count) {
 		resultsFile << "[]";
 		return;
 	}
-
+	std::cout << "print arr\n";
 	// round our doubles within tolerance before calculating hash
 	for (int i = 0; i < count; i++) {
 		arr[i] = round(arr[i]*DOUBLE_PRECISION)/DOUBLE_PRECISION;
@@ -191,24 +191,21 @@ void testInitializeVector(int caseNum) {
 			timesFile << nEntriesId << caseNum << nEntriesId << 0 << "\n";
 			return;
 		case 1:
-			dataFileName = "50_112_Tin_69.txt";
-			break;
-		case 2:
 			dataFileName = "58_141_Cerium_80.txt";
 			break;
-		case 3:
+		case 2:
 			dataFileName = "90_228_Thorium_1509.txt";
 			break;
-		case 4:
+		case 3:
 			dataFileName = "92_232_Uranium_8045.txt";
 			break;
-		case 5:
+		case 4:
 			dataFileName = "92_236_Uranium_41854.txt";
 			break;
-		case 6:
+		case 5:
 			dataFileName = "90_232_Thorium_98995.txt";
 			break;
-		case 7:
+		case 6:
 			dataFileName = "92_235_Uranium_242594.txt";
 			break;
 		default:
@@ -342,7 +339,9 @@ void testGetXSec(int caseNum) {
 			writeOutDoubleInput("min", minVals[j]);
 			try {
 				double t1 = getWallTime();
+				std::cout << "pre write double\n";
 				writeOutDouble(vectors[caseNum]->GetXsec(testVals[i], minVals[j]));
+				std::cout << "post write double\n";
 				double t2 = getWallTime();
 				writeOutTime(t2-t1);
 			} catch (G4HadronicException e)  {
@@ -362,52 +361,6 @@ void testThinOut(int caseNum) {
 		writeOutTheData(caseNum);
 	}
 	free(testVals);
-}
-// todo: get working (crashes on CPU, probably GPU too)
-void testMerge(int caseNum) {
-	// merge each of our test case vectors with each other one, including itself
-	writeOutTestName("void Merge(G4ParticleHPVector * active, G4ParticleHPVector * passive)", caseNum);
-	for (int i = 0; i < NUM_TEST_CASES; i++) {
-		for (int j = 0; j < NUM_TEST_CASES; j++) {
-			if (i != caseNum && j != caseNum) {
-				// set up parameters
-				writeOutIntInput("active_caseNum", i);
-				writeOutIntInput("passive_caseNum", j);
-				
-				// perform merge
-				double t1 = getWallTime();
-				// vectors[caseNum]->Merge(new G4ParticleHPVector(vectors[i]), new G4ParticleHPVector(vectors[j]));
-				double t2 = getWallTime();
-				
-				// record results
-				writeOutTime(t2-t1);
-				writeOutTheData(caseNum);
-			}
-		}
-	}
-
-	writeOutTestName("void Merge(G4InterpolationScheme aScheme, G4double aValue, G4ParticleHPVector * active, G4ParticleHPVector * passive)", caseNum);
-	for (int i = 0; i < NUM_TEST_CASES; i++) {
-		for (int j = 0; j < NUM_TEST_CASES; j++) {
-			if (i != caseNum && j != caseNum) {
-				// set up parameters
-				G4InterpolationScheme scheme = G4InterpolationScheme();
-				double val = randDouble();
-				writeOutIntInput("aValue", val);
-				writeOutIntInput("active_caseNum", i);
-				writeOutIntInput("passive_caseNum", j);
-				
-				// perform merge
-				double t1 = getWallTime();
-				// vectors[caseNum]->Merge(vectors[i], vectors[j]);
-				double t2 = getWallTime();
-				
-				// record results
-				writeOutTime(t2-t1);
-				writeOutTheData(caseNum);
-			}
-		}
-	}
 }
 void testSample(int caseNum) {
 	writeOutTestName("G4double SampleLin()", caseNum);
@@ -549,7 +502,6 @@ int main(int argc, char** argv) {
 		testGetBorder(i);
 		// testIntegral(i);
 		testTimes(i);
-		testMerge(i);
 		testSettersAndGetters(i);
 		testThinOut(i);
 		testAssignment(i);
