@@ -103,7 +103,6 @@ class G4ParticleHPVector_CUDA {
     inline void SetPoint(G4int i, const G4ParticleHPDataPoint & it) {
         G4double x = it.GetX();
         G4double y = it.GetY();
-        std::cout << "about to call set data... (" << i << "," << x << "," << y << ")\n";
         SetData(i,x,y);
     }
 

@@ -461,7 +461,6 @@ G4double G4ParticleHPVector::Sample() // Samples X according to distribution Y
     //   }
     // }
     if (GetVectorLength() == 0) {
-      std::cout << "Vectorlen 0 in Sample()\n";
       result = 0.0;
     }
     else if(GetVectorLength()==1)

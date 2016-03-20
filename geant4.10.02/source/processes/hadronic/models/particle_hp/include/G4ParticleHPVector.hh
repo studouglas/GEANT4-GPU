@@ -49,7 +49,7 @@
 #include <cmath>
 #include <vector>
 
-#define GEANT4_ENABLE_CUDA 0
+#define GEANT4_ENABLE_CUDA 1
 #if GEANT4_ENABLE_CUDA
   #include "/Users/stuart/Documents/4th_Year/CS_4ZP6/GEANT4-GPU/geant4.10.02/source/externals/cuda/include/G4ParticleHPVector_CUDA.hh"
 #endif
@@ -186,23 +186,34 @@ class G4ParticleHPVector
         high = nEntries-1;
       }
       G4double y;
+      std::cout << "    GetXSec(" << e << "," << min << ") starting.\n";
+      std::cout << "      theData[low=" << low << "] = (" << theData[low].GetX() << "," << theData[low].GetY() << ")\n";
+      std::cout << "      theData[hig=" << high << "] = (" << theData[high].GetX() << "," << theData[high].GetY() << ")\n";
+          
       if(e<theData[nEntries-1].GetX())
       {
         // Protect against doubled-up x values
-        if( (theData[high].GetX()-theData[low].GetX())/theData[high].GetX() < 0.000001)
+        // Note: added std::abs check and check that theData[high] has non-zero energy to match
+        // GetXSec(e), as defined in G4ParticleHPVector.cc - Geant4-GPU team
+        if (theData[high].GetX() != 0 
+            && (std::abs((theData[high].GetX()-theData[low].GetX())/theData[high].GetX()) < 0.000001))
         {
           y = theData[low].GetY();
+          std::cout << "    GetXSec, case 1, y = theData[low].GetY() = " << y << "\n";
         }
         else
         {
+          std::cout << "    GetXSec interpolating... and: ";
           y = theInt.Interpolate(theManager.GetScheme(high), e,
                                  theData[low].GetX(), theData[high].GetX(),
                                  theData[low].GetY(), theData[high].GetY());
+          std::cout << "y = " << y << "\n";
         }
       }
       else
       {
         y=theData[nEntries-1].GetY();
+        std::cout << "    GetXSec, case 3, y = theData[nEntries-1].GetY() = " << y << "\n";
       }
       return y;
     #endif
@@ -586,7 +597,6 @@ class G4ParticleHPVector
       
       if (GetVectorLength() == 0) 
       {
-        std::cout << "Vector length 0 in SapmleLIn\n";
         result = 0;
       }
       else if (GetVectorLength()==1)
@@ -722,12 +732,6 @@ class G4ParticleHPVector
         x0 = theData[i-1].GetX();
         if (std::abs(x1-x0) > std::abs(x1*0.0000001) )
         {
-        	//********************************************************************
-        	//EMendoza -> the interpolation scheme is not always lin-lin
-        	/*
-                sum+= 0.5*(theData[i].GetY()+theData[i-1].GetY())*(x1-x0);
-        	*/
-        	//********************************************************************
           G4InterpolationScheme aScheme = theManager.GetScheme(i);
           G4double y0 = theData[i-1].GetY();
           G4double y1 = theData[i].GetY();
