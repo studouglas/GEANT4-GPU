@@ -1401,8 +1401,8 @@ This test simply runs the Hadr04 example on both the GPU and the CPU with a modi
 		\end{table}
 
 \subsection{System Test - Uranium, 20000 events}
-This test simply runs the Hadr04 example on both the GPU and the CPU with a modified source files to include Uranium as an element is the simulation. The macro file detailing the number of events had been changed such that 20000 events are run. The idea is to see if speed and/or accuracy gaps will widen or shrink as the number of events increases. The code for this example is bundled with the GEANT4 installation.\\
-\break
+This test simply runs the Hadr04 example on both the GPU and the CPU with a modified source files to include Uranium as an element is the simulation. The macro file detailing the number of events had been changed such that 20000 events are run. The idea is to see if speed and/or accuracy gaps will widen or shrink as the number of events increases. The code for this example is bundled with the GEANT4 installation.
+
 	\subsubsection{Accuracy}
 		\begin{table}[H]
 		\centering
@@ -1474,7 +1474,7 @@ Below is a traceability table outlining test cases and the requirements they are
 \caption{Tests and Requirements Relationship}\label{Table_TestsAndRequirements}
 \\\toprule
 \bf Test \#  & \bf Description & \bf Requirement\\\midrule
-1 & Performance test of functions & Req. \# 4 (Speed and Latency)\\
+\ref{Init_0}, \ref{SampleLin_0}, \ref{Times_0}, \ref{GetXSec_e_0}, \ref{GetXSec_e_min_0}, \ref{Get15Percent_0} , \ref{sys1} - \ref{sys5} & Performance test of functions & Req. \# 4 (Speed and Latency)\\
 2 & InitializeVector & Req \# 5, 6, 7 (Precision, Reliability, Robustness)\\
 3 & SettersandGetters & Req \# 5, 6, 7 (Precision, Reliability, Robustness)\\
 4 & GetXSec & Req \# 5, 6, 7 (Precision, Reliability, Robustness)\\
