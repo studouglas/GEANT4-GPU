@@ -656,23 +656,27 @@ For all unit tests:
 	\subsubsection{Performance}
 		This function is not computationally heavy, so performance data was not included.
 
-\subsection{Init} 
-	\subsubsection{Unit Tests}
+\subsection{void Init(istream & aDataFile, G4int total, G4double ux, G4double uy)} 
+	\subsubsection{Test Description}
+	Initializes the data.	
+
+	\subsubsection{Test Inputs}
 		\begin{table}[H]
 		\centering
-		\caption{Unit Tests}\label{Init_unit}
-		\begin{tabular}{lll}
+		\caption{Unit Tests - \texttt{Init}}\label{Init_unit}
+		\begin{tabular}{lllll}
 		\toprule
-		\bf Test \# & Code & \bf Description\\\midrule
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{Init_0} & Empty.Init() & Init an empty Vector\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{Init_1} & D.Init() & Init a Vector\\
+		\multirow{2}{*}{\bf Test \#}  & \multicolumn{2}{c}{\bf Inputs}\\
+		& \bf \texttt{aDataFile} & \bf \texttt{G4int} & \bf \texttt{ux} & \bf \texttt{uy}\\\midrule
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{Init_0} & Empty.Init() & n & 1 & 1\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{Init_1} & D.Init() & n & 1 & 1\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
-	\subsubsection{Accuracy}
+	\subsubsection{Test Results}
 		\begin{table}[H]
 		\centering
-		\caption{Accuracy}\label{Init_acc}
+		\caption{Test Results -- Init}\label{Init_acc}
 		\begin{tabular}{lll}
 		\toprule
 		\bf Test \# & Status \\\midrule
@@ -1016,8 +1020,11 @@ For all unit tests:
 %		\end{table}
 %	\subsubsection{Performance}
 
-\subsection{SetPoint} 
-	\subsubsection{Unit Tests}
+\subsection{void SetPoint(G4int i, const G4ParticleHPDataPoint & it)}
+	\subsubsection{Test Description}
+	Sets a point at a given index in a given vector.
+
+	\subsubsection{Test Inputs}
 		\begin{itemize}
 			\item ``rPoint" is a random G4ParticleHPDataPoint
 			\item ``nPoint" is a negative G4ParticleHPDataPoint
@@ -1028,24 +1035,25 @@ For all unit tests:
 		\caption{Unit Tests}\label{SetPoint_unit}
 		\begin{tabular}{lll}
 		\toprule
-		\bf Test \# & Code & \bf Description\\\midrule
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetPoint_0} & Empty.SetPoint(-1, rPoint) & Set a point at a negative index of an empty vector\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetPoint_1} & Empty.SetPoint(0, rPoint) & Set a point at a the first index of an empty vector\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetPoint_2} & Empty.SetPoint(1, rPoint) & Set a point at an index out of bounds of an empty vector\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetPoint_3} & D.SetPoint(-1, rPoint) & Set a point at a negative index\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetPoint_4} & D.SetPoint(0, rPoint) & Set a point at a the first index\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetPoint_5} & D.SetPoint(n/2, rPoint) & Set a point at an index within the vector\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetPoint_6} & D.SetPoint(n-1, rPoint) & Set a point at the last index\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetPoint_7} & D.SetPoint(n, rPoint) & Set a point at an index our of bounds\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetPoint_8} & D.SetPoint(0, nPoint) & Set a negative point\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetPoint_9} & D.SetPoint(0, zPoint) & Set a zero point\\
+		\multirow{2}{*}{\bf Test \#} & \multicolumn{2}{c}{\bf Inputs\\
+		& vec0 & vec1\\\midrule
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetPoint_0} & -1 & rPoint\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetPoint_1} & 0 & rPoint\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetPoint_2} & 1 & rPoint\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetPoint_3} & -1 & rPoint\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetPoint_4} & 0 & rPoint\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetPoint_5} & n/2 & rPoint\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetPoint_6} & n-1 & rPoint\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetPoint_7} & n & rPoint\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetPoint_8} & 0 & nPoint\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetPoint_9} & 0 & zPoint\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
-	\subsubsection{Accuracy}
+	\subsubsection{Test Results}
 		\begin{table}[H]
 		\centering
-		\caption{Accuracy}\label{SetPoint_acc}
+		\caption{Test Results -- SetPoint}\label{SetPoint_acc}
 		\begin{tabular}{lll}
 		\toprule
 		\bf Test \# & Status \\\midrule
