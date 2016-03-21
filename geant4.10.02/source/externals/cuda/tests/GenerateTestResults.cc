@@ -357,7 +357,9 @@ void testThinOut(int caseNum) {
 	double* testVals = testValuesForDoubles();
 	for (int i = 0; i < NUM_TEST_INPUTS; i++) {
 		writeOutDoubleInput("precision", testVals[i]);
+		double t1 = getWallTime();
 		vectors[caseNum]->ThinOut(testVals[i]);
+		writeOutTime(getWallTime() - t1);
 		writeOutTheData(caseNum);
 	}
 	free(testVals);
@@ -366,42 +368,50 @@ void testSample(int caseNum) {
 	writeOutTestName("G4double SampleLin()", caseNum);
 	
 	// includes random numbers, so run multiple times and take average
+	double t1 = getWallTime();
 	double sum = 0.0;
 	for (int i = 0; i < REPETITIONS_RAND_TESTS; i++) {
 		sum += vectors[caseNum]->SampleLin();
 	}
+	writeOutTime(getWallTime() - t1);
 	writeOutRandomDouble(sum/REPETITIONS_RAND_TESTS);
 
 	// includes random numbers, so run multiple times and take average
 	writeOutTestName("G4double Sample()", caseNum);
+	t1 = getWallTime();
 	sum = 0.0;
 	for (int i = 0; i < REPETITIONS_RAND_TESTS; i++) {
 		sum += vectors[caseNum]->Sample();
 	}
+	writeOutTime(getWallTime() - t1);
 	writeOutRandomDouble(sum/REPETITIONS_RAND_TESTS);
 }
 void testGetBorder(int caseNum) {
 	writeOutTestName("G4double Get15PercentBorder()", caseNum);
+	double t1 = getWallTime();
 	writeOutDouble(vectors[caseNum]->Get15percentBorder());
+	writeOutTime(getWallTime() - t1);
 
 	writeOutTestName("G4double Get50PercentBorder()", caseNum);
+	t1 = getWallTime();
 	writeOutDouble(vectors[caseNum]->Get50percentBorder());
+	writeOutTime(getWallTime() - t1);
 }
 // todo: re-enable (crashes on GPU)
 void testIntegral(int caseNum) {
 	writeOutTestName("void Integrate()", caseNum);
 	double t1 = getWallTime();
 	vectors[caseNum]->Integrate();
-	double t2 = getWallTime();
+	writeOutTime(getWallTime() - t1);
 	writeOutTheIntegral(caseNum);
-	writeOutTime(t2-t1);
+	
 
 	writeOutTestName("void IntegrateAndNormalise()", caseNum);
 	t1 = getWallTime();
 	vectors[caseNum]->IntegrateAndNormalise();
-	t2 = getWallTime();
+	writeOutTime (getWallTime() - t1);
 	writeOutTheIntegral(caseNum);
-	writeOutTime (t2-t1);
+	
 }
 void testTimes(int caseNum) {
 	writeOutTestName("void Times(G4double factor)", caseNum);
@@ -434,7 +444,8 @@ void testAssignment(int caseNum) {
 	double t1 = getWallTime();
 	G4ParticleHPVector vec = *(vectors[caseNum]);
 	double t2 = getWallTime();
-	
+	writeOutTime(t2-t1);
+
 	int nEntries = vec.GetVectorLength();
 	double xVals[nEntries];
 	double yVals[nEntries];
@@ -445,7 +456,6 @@ void testAssignment(int caseNum) {
 	
 	writeOutArray(xVals, nEntries);
 	resultsFile << "\n";
-	writeOutTime(t2-t1);
 }
 
 /***********************************************

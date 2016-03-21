@@ -416,7 +416,7 @@ theData yVals hash: 8558769185984268590
 #G4double SampleLin()_1
 $2.54281e+07
 #G4double Sample()_1
-$2.53303e+07
+$2.47954e+07
 #G4double Get15PercentBorder()_1
 1.05e+07
 #G4double Get50PercentBorder()_1
@@ -740,7 +740,7 @@ theData yVals hash: 7454723789077549572
 #G4double SampleLin()_2
 $1.09637e+07
 #G4double Sample()_2
-$1.08377e+07
+$1.08512e+07
 #G4double Get15PercentBorder()_2
 4.3125e+06
 #G4double Get50PercentBorder()_2
@@ -1064,7 +1064,7 @@ theData yVals hash: 17341898202202105047
 #G4double SampleLin()_3
 $1.071e+07
 #G4double Sample()_3
-$1.0468e+07
+$1.06597e+07
 #G4double Get15PercentBorder()_3
 3.625e+06
 #G4double Get50PercentBorder()_3
@@ -1388,7 +1388,7 @@ theData yVals hash: 1230654354166793649
 #G4double SampleLin()_4
 $1.74876e+07
 #G4double Sample()_4
-$1.68508e+07
+$1.73388e+07
 #G4double Get15PercentBorder()_4
 8.2e+06
 #G4double Get50PercentBorder()_4
@@ -1712,7 +1712,7 @@ theData yVals hash: 9268461341921925588
 #G4double SampleLin()_5
 $1.27081e+07
 #G4double Sample()_5
-$1.25523e+07
+$1.28759e+07
 #G4double Get15PercentBorder()_5
 7.4e+06
 #G4double Get50PercentBorder()_5
@@ -2036,7 +2036,7 @@ theData yVals hash: 569425363193013609
 #G4double SampleLin()_6
 $1.07129e+07
 #G4double Sample()_6
-$1.13324e+07
+$1.11912e+07
 #G4double Get15PercentBorder()_6
 4.4e+06
 #G4double Get50PercentBorder()_6

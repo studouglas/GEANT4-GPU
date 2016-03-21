@@ -2,7 +2,7 @@
 
 % Packages
 \usepackage[margin=1.2in]{geometry}
-\usepackage{graphicx}
+\usepackage{graphicx} 
 \usepackage{enumerate}
 \usepackage{listings}
 \usepackage{titling}
@@ -92,8 +92,8 @@ Template of document & Matt  & 2016-03-15\\
 \end{table}
 
 % =============================== Section =============================== %
-\section*{List of Figures}
-Tables and figures for specific unit tests have been omitted in order to keep this document readable.
+\section*{List of Tables}
+Tables for specific unit tests have been omitted in order to keep this document readable.
 \begin{center}
 \begin{tabular}{cl}
 \toprule
@@ -103,6 +103,22 @@ Tables and figures for specific unit tests have been omitted in order to keep th
 \ref{gen_var_table}			& General Unit Test Variables\\
 \ref{Table_TestsAndRequirements}	& Tests and Requirements Relationship\\
 \ref{Table_TestsAndModules}		& Tests and Modules Relationship\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\section*{List of Figures}
+\begin{center}
+\begin{tabular}{cl}
+\toprule
+\bf Figure \# & \bf Title\\\midrule
+\ref{figPerformanceInit} & Performance results for \texttt{Init} function\\
+\ref{figPerformanceSampleLin} & Performance results for \texttt{SampleLin} function\\
+\ref{figPerformanceTimes} & Performance results for \texttt{Times} function\\
+\ref{figPerformanceGetXSec_e} & Performance results for \texttt{GetXSec(e)} function\\
+\ref{figPerformanceGetXSec_e_min} & Performance results for \texttt{GetXSec(e,min)} function\\
+\ref{figPerformanceGet15Percent} & Performance results for \texttt{Get15PercentBorder} function\\
+\ref{figPerformanceGet50Percent} & Performance results for \texttt{Get50PercentBorder} function\\
 \bottomrule
 \end{tabular}
 \end{center}
@@ -128,22 +144,28 @@ CUDA & Parallel computing architecture for general purpose programming on GPU, d
 \section{Introduction}
 \subsection{Purpose of the Document}
 This document summarizes the testing and test conclusions of GEANT4-GPU. This document uses the implementation outlined in the test plan.
+
 \subsection{Scope of the Testing}
 The implemented tests are designed to give a general yet rigorous assessment of the components involved.\\
-The tests are segregated into two categories: unit tests \& system tests.
+
+The tests are segregated into two categories: unit tests and system tests.
 The unit tests test function components of the G4ParticleVector module, and the system tests compare total system differences between CPU (original GEANT4) and GPU implementations. For both categories, performance and correctness are the key concerns.\\
+
 Neither the unit tests nor the system tests are concerned with the correctness of original GEANT4 runs, as these runs are used as the baseline for the correctness of GEANT4-GPU modules.\\
-A basic knowledge of programming concepts and command-line tools is assumed, as well as familiarity with GEANT4. 
+
+A basic knowledge of programming concepts and command-line tools is assumed, as well as familiarity with GEANT4.
+
 \subsection{Organization}
 In Section 4 we provide an introduction to this report. Section 5 describes the test cases which are carried out on each function. Section 6 describes system test cases that were carried out by our team. In section 7 traceability matrices to requirements and modules are documented. Section 8 provides a summary of changes made in response to the testing results.
+
 \subsection{Usability Testing}
 GEANT4-GPU is a back end implementation of already existing GEANT4 modules. Therefore users will not be interacting with is directly. Since there is no direct user interaction with GEANT4-GPU. There are no usability test. 
+
 \subsection{Robustness Testing}
 The GEANT4-GPU functions are meant to mimic the already existing GEANT4 functions. Therefore the GEANT4-GPU functions must also mimic the the robustness of the GEANT4 functions. The accuracy section for unit tests has several unit tests designed to test the robustness of the functions. 
 
 % =============================== Section =============================== 
 % -------------------------- Matt does unit tests and accuracy. Victor Does performance graphs
-\newpage
 \section{Unit Testing}
 \subsection{Use of Automated Testing}
 \subsubsection{Overview}
@@ -634,23 +656,27 @@ For all unit tests:
 	\subsubsection{Performance}
 		This function is not computationally heavy, so performance data was not included.
 
-\subsection{Init} 
-	\subsubsection{Unit Tests}
+\subsection{void Init(istream & aDataFile, G4int total, G4double ux, G4double uy)} 
+	\subsubsection{Test Description}
+	Initializes the data.	
+
+	\subsubsection{Test Inputs}
 		\begin{table}[H]
 		\centering
-		\caption{Unit Tests}\label{Init_unit}
-		\begin{tabular}{lll}
+		\caption{Unit Tests - \texttt{Init}}\label{Init_unit}
+		\begin{tabular}{lllll}
 		\toprule
-		\bf Test \# & Code & \bf Description\\\midrule
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{Init_0} & Empty.Init() & Init an empty Vector\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{Init_1} & D.Init() & Init a Vector\\
+		\multirow{2}{*}{\bf Test \#}  & \multicolumn{2}{c}{\bf Inputs}\\
+		& \bf \texttt{aDataFile} & \bf \texttt{G4int} & \bf \texttt{ux} & \bf \texttt{uy}\\\midrule
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{Init_0} & Empty.Init() & n & 1 & 1\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{Init_1} & D.Init() & n & 1 & 1\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
-	\subsubsection{Accuracy}
+	\subsubsection{Test Results}
 		\begin{table}[H]
 		\centering
-		\caption{Accuracy}\label{Init_acc}
+		\caption{Test Results -- Init}\label{Init_acc}
 		\begin{tabular}{lll}
 		\toprule
 		\bf Test \# & Status \\\midrule
@@ -698,7 +724,14 @@ For all unit tests:
 		\end{table}
 
 	\subsubsection{Performance}
-		This method is not computationally heavy, so performance data was not included.
+		\begin{figure}[H]
+    	\centering
+    	\caption{Performance results for \texttt{SampleLin}}\label{figPerformanceSampleLin}
+    	\includegraphics[width=0.7\textwidth]{samplelin_bar.png}
+    	\includegraphics[width=0.7\textwidth]{samplelin_line.png}
+    	\end{figure}
+	The extraneous point for 1509 entries where the GPU function is significantly slower can be attributed to the need to copy the data from the GPU memory back to CPU memory in this case.
+
 		
 %\subsection{IntegrateAndNormalise}
 %	\subsubsection{Unit Tests}
@@ -828,67 +861,6 @@ For all unit tests:
     	\includegraphics[width=0.7\textwidth]{times_line.png}
     	\end{figure}
 
-%\subsection{GetXsecBuffer}
-%	\begin{table}[H]
-%	\centering
-%	\caption{General Unit Test Variables}\label{buffer_table}
-%	\begin{tabular}{lll}
-%	\toprule
-%		\bf Name & \bf Size & Description\\\midrule 
-%		emptyBuff 	& 0		& Array with no queries\\	
-%		singleBuff 	& 1		& Array with a single query\\
-%		smallbuff	& 50		& Array with a small number of queries\\
-%		normalBuff	& 1000	& Array with a moderate number of queries\\
-%		largeBuff	& 10000	& Array with a large amount of queries\\
-%		negBuff	& 50		& Array of queries with negative values\\
-%		zeroBuff	& 50		& Array of queries with values of zero\\
-%		highBuff	& 50		& Array of queries with values larger than the highest energy in the vector\\
-%	\bottomrule		
-%	\end{tabular}
-%	\end{table}
-%	\subsubsection{Unit Tests}
-%		\begin{table}[H]
-%		\centering
-%		\caption{Unit Tests}\label{xSecBuffer_unit}
-%		\begin{tabular}{lll}
-%		\toprule
-%		\bf Test \# & Code & \bf Description\\\midrule
-%		\refstepcounter{TestCounter}\arabic{TestCounter} \label{xSecBuffer_0} & D.GetXsecBuffer(normalBuff, -1) &  buffer with a negative size\\
-%		\refstepcounter{TestCounter}\arabic{TestCounter} \label{xSecBuffer_1} & Empty.GetXsecBuffer(emptyBuff, 0) &  Empty buffer of xSec queries to an empty vector\\
-%		\refstepcounter{TestCounter}\arabic{TestCounter} \label{xSecBuffer_2} & Empty.GetXsecBuffer(normalBuff, 1000) &  Normal buffer of xSec queries to an empty vector\\
-%		\refstepcounter{TestCounter}\arabic{TestCounter} \label{xSecBuffer_3} & D.GetXsecBuffer(emptyBuff, 0) &  Empty buffer of xSec queries\\
-%		\refstepcounter{TestCounter}\arabic{TestCounter} \label{xSecBuffer_4} & D.GetXsecBuffer(smalllBuff, 50) &  Small number of queries\\
-%		\refstepcounter{TestCounter}\arabic{TestCounter} \label{xSecBuffer_5} & D.GetXsecBuffer(normalBuff, 1000) &  Normal case\\
-%		\refstepcounter{TestCounter}\arabic{TestCounter} \label{xSecBuffer_6} & D.GetXsecBuffer(highBuff, 10000) &  Large number of queries\\
-%		\refstepcounter{TestCounter}\arabic{TestCounter} \label{xSecBuffer_7} & D.GetXsecBuffer(negBuff, 1000) &  Buffer of negative xSec queries\\
-%		\refstepcounter{TestCounter}\arabic{TestCounter} \label{xSecBuffer_8} & D.GetXsecBuffer(emptyBuff, 1000) &  Buffer of zeros\\
-%		\refstepcounter{TestCounter}\arabic{TestCounter} \label{xSecBuffer_9} & D.GetXsecBuffer(highBuff, 0) & Buffer of high valued xSec queries\\
-%		\bottomrule
-%		\end{tabular}
-%		\end{table}
-%	\subsubsection{Accuracy}
-%		\begin{table}[H]
-%		\centering
-%		\caption{Accuracy}\label{xSecBuffer_acc}
-%		\begin{tabular}{lll}
-%		\toprule
-%		\bf Test \# & Status \\\midrule
-%		\ref{xSecBuffer_0} & Pass\\
-%		\ref{xSecBuffer_1} & Pass\\
-%		\ref{xSecBuffer_2} & Pass\\
-%		\ref{xSecBuffer_3} & Pass\\
-%		\ref{xSecBuffer_4} & Pass\\
-%		\ref{xSecBuffer_5} & Pass\\
-%		\ref{xSecBuffer_6} & Pass\\
-%		\ref{xSecBuffer_7} & Pass\\
-%		\ref{xSecBuffer_8} & Pass\\
-%		\ref{xSecBuffer_9} & Pass\\
-%		\bottomrule
-%		\end{tabular}
-%		\end{table}
-%	\subsubsection{Performance}
-%		This method is not computationally heavy, so performance data was not included.
-		
 %\subsection{GetXsecBuffer} 
 %	\begin{table}[H]
 %	\centering
@@ -1048,8 +1020,11 @@ For all unit tests:
 %		\end{table}
 %	\subsubsection{Performance}
 
-\subsection{SetPoint} 
-	\subsubsection{Unit Tests}
+\subsection{void SetPoint(G4int i, const G4ParticleHPDataPoint & it)}
+	\subsubsection{Test Description}
+	Sets a point at a given index in a given vector.
+
+	\subsubsection{Test Inputs}
 		\begin{itemize}
 			\item ``rPoint" is a random G4ParticleHPDataPoint
 			\item ``nPoint" is a negative G4ParticleHPDataPoint
@@ -1060,24 +1035,25 @@ For all unit tests:
 		\caption{Unit Tests}\label{SetPoint_unit}
 		\begin{tabular}{lll}
 		\toprule
-		\bf Test \# & Code & \bf Description\\\midrule
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetPoint_0} & Empty.SetPoint(-1, rPoint) & Set a point at a negative index of an empty vector\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetPoint_1} & Empty.SetPoint(0, rPoint) & Set a point at a the first index of an empty vector\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetPoint_2} & Empty.SetPoint(1, rPoint) & Set a point at an index out of bounds of an empty vector\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetPoint_3} & D.SetPoint(-1, rPoint) & Set a point at a negative index\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetPoint_4} & D.SetPoint(0, rPoint) & Set a point at a the first index\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetPoint_5} & D.SetPoint(n/2, rPoint) & Set a point at an index within the vector\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetPoint_6} & D.SetPoint(n-1, rPoint) & Set a point at the last index\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetPoint_7} & D.SetPoint(n, rPoint) & Set a point at an index our of bounds\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetPoint_8} & D.SetPoint(0, nPoint) & Set a negative point\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetPoint_9} & D.SetPoint(0, zPoint) & Set a zero point\\
+		\multirow{2}{*}{\bf Test \#} & \multicolumn{2}{c}{\bf Inputs\\
+		& vec0 & vec1\\\midrule
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetPoint_0} & -1 & rPoint\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetPoint_1} & 0 & rPoint\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetPoint_2} & 1 & rPoint\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetPoint_3} & -1 & rPoint\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetPoint_4} & 0 & rPoint\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetPoint_5} & n/2 & rPoint\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetPoint_6} & n-1 & rPoint\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetPoint_7} & n & rPoint\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetPoint_8} & 0 & nPoint\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetPoint_9} & 0 & zPoint\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
-	\subsubsection{Accuracy}
+	\subsubsection{Test Results}
 		\begin{table}[H]
 		\centering
-		\caption{Accuracy}\label{SetPoint_acc}
+		\caption{Test Results -- SetPoint}\label{SetPoint_acc}
 		\begin{tabular}{lll}
 		\toprule
 		\bf Test \# & Status \\\midrule
@@ -1122,7 +1098,101 @@ For all unit tests:
 %		\end{table}
 %	\subsubsection{Performance}
 
-\subsection{G4double Get15percentBorder()} % Test Cases Done
+\subsection{G4double GetXsec(G4double e)} % Test cases finished
+	\subsubsection{Test Description}
+	Returns the first xSec from the current vector whose energy is greater than \texttt{e}. 
+	
+	\subsubsection{Test Inputs}
+	Commas denote multiple sub test inputs. If one of the sub tests fail then the whole test fails.
+		\begin{table}[H]
+		\centering
+		\caption{Unit Tests - \texttt{GetXsec}}\label{GetXsec_e_unit}
+		\begin{tabular}{llll}
+		\toprule
+		\multirow{2}{*}{\bf Test \#}  & \multicolumn{1}{c}{\bf Inputs}\\
+		& \bf \texttt{e}  \\\midrule
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetXsec_e_0} & r1, r2, r3, r4, r5 \\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetXsec_e_1} & r1, r2, r3, r4, r5 \\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetXsec_e_2} & r1, r2, r3, r4, r5 \\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetXsec_e_3} & r1, r2, r3, r4, r5 \\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetXsec_e_4} & r1, r2, r3, r4, r5 \\
+		\bottomrule
+		\end{tabular}
+		\end{table}
+	
+	\subsubsection{Test Results}
+		\begin{table}[H]
+		\centering
+		\caption{Test Results -- GetXsec}\label{GetXsec_e_acc}
+		\begin{tabular}{clllllll}
+		\toprule
+		\multirow{2}{*}{\bf Test \#} & \multicolumn{7}{c}{\bf Test Result}\\
+		& vec0 & vec1 & vec2 & vec3 & vec4 & vec5 & vec6\\\midrule
+		\ref{GetXsec_e_0} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
+		\ref{GetXsec_e_1} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
+		\ref{GetXsec_e_2} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
+		\ref{GetXsec_e_3} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
+		\ref{GetXsec_e_4} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
+		\bottomrule
+		\end{tabular}
+		\end{table}
+	\subsubsection{Performance}
+    	\begin{figure}[H]
+    	\centering
+    	\caption{Performance results for \texttt{GetXSec(e)} function}\label{figPerformanceGetXSec_e}
+    	\includegraphics[width=0.7\textwidth]{getxsec_e_bar.png}
+    	\includegraphics[width=0.7\textwidth]{getxsec_e_line.png}
+    	\end{figure}
+	The GPU function is significantly slower. This is due to the lack of a hashing function as on the CPU which dramatically speeds up the time to find the first element in the data with energy at least \emph{e}. It can be noted in figure \ref{figPerformanceGetXSec_e_min} that when a minimum value is pre-declared the performance gap is much smaller.
+	
+\subsection{G4double GetXsec(G4double e, G4int min)}
+	\subsubsection{Test Description}
+	Returns the first xSec from the current vector whose energy is greater than \texttt{e}. 
+	
+	\subsubsection{Test Inputs}
+	Commas denote multiple sub test inputs. If one of the sub tests fail then the whole test fails.
+		\begin{table}[H]
+		\centering
+		\caption{Unit Tests - \texttt{GetXsec}}\label{GetXsec_e_min_unit}
+		\begin{tabular}{llll}
+		\toprule
+		\multirow{2}{*}{\bf Test \#}  & \multicolumn{2}{c}{\bf Inputs}\\
+		& \bf \texttt{e} & \bf \texttt{min} \\\midrule
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetXsec_e_min_0} & r1, r2, r3, r4, r5 & -1\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetXsec_e_min_1} & r1, r2, r3, r4, r5 & 0\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetXsec_e_min_2} & r1, r2, r3, r4, r5 & n/2\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetXsec_e_min_3} & r1, r2, r3, r4, r5 & n-1\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetXsec_e_min_4} & r1, r2, r3, r4, r5 & n\\
+		\bottomrule
+		\end{tabular}
+		\end{table}
+	
+	\subsubsection{Test Results}
+		\begin{table}[H]
+		\centering
+		\caption{Test Results -- GetXsec}\label{GetXsec_e_min_acc}
+		\begin{tabular}{clllllll}
+		\toprule
+		\multirow{2}{*}{\bf Test \#} & \multicolumn{7}{c}{\bf Test Result}\\
+		& vec0 & vec1 & vec2 & vec3 & vec4 & vec5 & vec6\\\midrule
+		\ref{GetXsec_e_min_0} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
+		\ref{GetXsec_e_min_1} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
+		\ref{GetXsec_e_min_2} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
+		\ref{GetXsec_e_min_3} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
+		\ref{GetXsec_e_min_4} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
+		\bottomrule
+		\end{tabular}
+		\end{table}
+
+	\subsubsection{Performance}
+		\begin{figure}[H]
+    	\centering
+    	\caption{Performance results for \texttt{GetXSec(e,min)} function}\label{figPerformanceGetXSec_e_min}
+    	\includegraphics[width=0.7\textwidth]{getxsec_e_min_bar.png}
+    	\includegraphics[width=0.7\textwidth]{getxsec_e_min_line.png}
+    	\end{figure}
+
+\subsection{G4double Get15percentBorder()}
 	\subsubsection{Test Description}
 	 Returns the integral from each data point to the last data point and returns the first one within 
 15\% of the last data point.
@@ -1154,7 +1224,12 @@ For all unit tests:
 		\end{table}
 
 	\subsubsection{Performance}
-		This method is not computationally heavy, so performance data was not included.
+		\begin{figure}[H]
+    	\centering
+    	\caption{Performance results for \texttt{Get15PercentBorder}}\label{figPerformanceGet15Percent}
+    	\includegraphics[width=0.7\textwidth]{get15_bar.png}
+    	\includegraphics[width=0.7\textwidth]{get15_line.png}
+    	\end{figure}
 		
 \subsection{G4double Get50percentBorder()}% Test Cases Done
 	\subsubsection{Test Description}
@@ -1188,7 +1263,12 @@ For all unit tests:
 		\end{table}
 
 	\subsubsection{Performance}
-		This method is not computationally heavy, so performance data was not included.
+		\begin{figure}[H]
+    	\centering
+    	\caption{Performance results for \texttt{Get50PercentBorder} function}\label{figPerformanceGet50Percent}
+    	\includegraphics[width=0.7\textwidth]{get50_bar.png}
+    	\includegraphics[width=0.7\textwidth]{get50_line.png}
+    	\end{figure}
 		
 % =============================== Section =============================== %
 \section{System Tests}
@@ -1196,48 +1276,48 @@ For all unit tests:
 System tests will be performed by running the sample code packaged with the GEANT4 installation. The Hadr04 example will be run with different materials (i.e water, uranium) and number of events. The values and conditions that are changed per test are detailed in the table below.\\ \\
 
 \begin{center}
-\begin{longtable}{cc >{\raggedright\arraybackslash}p{2.8cm}>{\raggedright\arraybackslash}p{3cm}>{\raggedright\arraybackslash}p{4.5cm}}
+\begin{longtable}{c>{\raggedright\arraybackslash}p{2.8cm} >{\raggedright\arraybackslash}p{2.8cm}>{\raggedright\arraybackslash}p{3cm}>{\raggedright\arraybackslash}p{3.5cm}}
 \caption{System Tests}\label{Table_SystemTests}\\
 \toprule
 
-\bf Test \# & \bf Initial State & \bf Inputs & \bf Outputs & \bf Description\\\midrule
+\bf Test \# & \bf Name & \bf Inputs & \bf Outputs & \bf Description\\\midrule
 \refstepcounter{TestCounter}\arabic{TestCounter}\label{sys1}
-& Fresh start up
+& System Test - Water, 2000 events
 & Events = 2000
 Material = Water
 & Same output as non-GPU GEANT4 
 &  HADR04 no changes\\\midrule
 
 \refstepcounter{TestCounter}\arabic{TestCounter}\label{sys2}
-& Fresh start up 
+& System Test - Uranium, 2000 events
 & Events = 2000
 Material = Uranium
 & Same output as non-GPU GEANT4 
 & HADR04 -- basic example\\\midrule
 
 \refstepcounter{TestCounter}\arabic{TestCounter}\label{sys3}
-& Fresh start up 
+& System Test - Water, 600 events
 & Events = 600
 Material = Water
 & Same output as non-GPU GEANT4 
 & HADR04 -- Shorter test \\\midrule
 
 \refstepcounter{TestCounter}\arabic{TestCounter}\label{sys4}
-& Fresh start up 
+& System Test - Uranium, 600 events
 & Events = 600
 Material = Uranium
 & Same output as non-GPU GEANT4 
 & HADR04 -- Shorter test \\\midrule
 
 \refstepcounter{TestCounter}\arabic{TestCounter}\label{sys5}
-& Fresh start up 
+& System Test - Uranium, 20000 events
 & Events = 20000
 Material = Uranium
 & Same output as non-GPU GEANT4 
 & HADR04 -- Long simulation stress Test\\\midrule
 
 \refstepcounter{TestCounter}\arabic{TestCounter}\label{sys6}
-& Fresh start up 
+& System Test - Uranium, 0 events
 & Events = 0
 Material = Uranium
 & Same output as non-GPU GEANT4 
@@ -1249,7 +1329,7 @@ Material = Uranium
 \subsection{System Tests Results}
 This section will summarize all of the results from running tests 39 through 44. Each test has an accuracy section as well as a performance section. The accuracy of the results will be based on how well the values generated on the GPU match up with the values generated on the CPU. The performance metric that is used is the time required to run each system test, without initialization. A positive value in the difference section of the performance tables indicates that the CPU version of the system test was faster by that many seconds. A negative value in this section indicates that the GPU version of the test was quicker by that many seconds.
 
-\subsection{System test \# \ref{sys1}}
+\subsection{System Test - Water, 2000 events}
 This test simply runs the Hadr04 example on both the GPU and the CPU without changing the source files. The code for this example is bundled with the GEANT4 installation.\\
 	\subsubsection{Accuracy}
 		\begin{table}[!htbp]
@@ -1315,7 +1395,8 @@ This test simply runs the Hadr04 example on both the GPU and the CPU without cha
 		\end{tabular}
 		\end{table}
 \break
-\subsection{System test \#  \ref{sys2}}
+
+\subsection{System Test - Uranium, 2000 events}
 This test simply runs the Hadr04 example on both the GPU and the CPU with a modified source files to include Uranium as an element is the simulation. The number of events for this test has been set to 2000. The code for this example is bundled with the GEANT4 installation.\\
 	\subsubsection{Accuracy}
 		\begin{table}[!htbp]
@@ -1371,7 +1452,7 @@ This test simply runs the Hadr04 example on both the GPU and the CPU with a modi
 		0.63s&10.57s&9.94s\\
 		\end{tabular}
 		\end{table}
-\subsection{System test \#  \ref{sys3}}
+\subsection{System Test - Water, 600 events}
 This test simply runs the Hadr04 example on both the GPU and the CPU without changing the source files. The number of runs for this test has been changed to be 600, a low number of events relative to the other trials. The code for this example is bundled with the GEANT4 installation.\\
 \break
 	\subsubsection{Accuracy}
@@ -1423,7 +1504,7 @@ This test simply runs the Hadr04 example on both the GPU and the CPU without cha
 		\end{tabular}
 		\end{table}
 		
-\subsection{System test \#  \ref{sys4}}
+\subsection{System Test - Uranium, 600 events}
 This test simply runs the Hadr04 example on both the GPU and the CPU with a modified source files to include Uranium as an element is the simulation. The number of events is set to 600, a lower number of events than the other tests, to see how fewer events will impact accuracy and/or performance The code for this example is bundled with the GEANT4 installation.\\
 \break
 	\subsubsection{Accuracy}
@@ -1476,8 +1557,8 @@ This test simply runs the Hadr04 example on both the GPU and the CPU with a modi
 		.22s&3.01s&2.79s\\
 		\end{tabular}
 		\end{table}
-		
-\subsection{System test \#  \ref{sys5}}
+
+\subsection{System Test - Uranium, 20000 events}
 This test simply runs the Hadr04 example on both the GPU and the CPU with a modified source files to include Uranium as an element is the simulation. The macro file detailing the number of events had been changed such that 20000 events are run. The idea is to see if speed and/or accuracy gaps will widen or shrink as the number of events increases. The code for this example is bundled with the GEANT4 installation.\\
 \break
 	\subsubsection{Accuracy}
@@ -1536,8 +1617,9 @@ This test simply runs the Hadr04 example on both the GPU and the CPU with a modi
 		\end{tabular}
 		\end{table}
 		
-\subsection{System test \#  \ref{sys6}}
+\subsection{System Test - Uranium, 0 events}
 This test simply runs the Hadr04 example on both the GPU and the CPU with a modified source files to include Uranium as an element is the simulation. Then number of events in this test has been set to 0. This is to cover all possible cases. The code behaves as expected and no values are produced. The code for this example is bundled with the GEANT4 installation.\\
+
 \break
 	\subsubsection{Accuracy}
 		\begin{table}[!htbp]
@@ -1600,19 +1682,19 @@ Below is a traceability table outlining test cases and the requirements they are
 \begin{longtable}{>{\raggedright\arraybackslash}p{0.1\textwidth}>{\raggedright\arraybackslash}p{0.3\textwidth}>{\raggedright\arraybackslash}p{0.5\textwidth}}
 \caption{Tests and Requirements Relationship}\label{Table_TestsAndRequirements}
 \\\toprule
-\bf Test \#  & \bf Description & \bf Requirement\\\toprule
-1 & Performance test of functions & Req. \# 4 (Speed and Latency)\\\hline
-2 & InitializeVector & Req \# 5 \& 6 \& 7 (Precision \& Reliability \& Robustness)\\\hline
-3 & SettersandGetters & Req \# 5 \& 6 \& 7 (Precision \& Reliability \& Robustness)\\\hline
-4 & GetXSec & Req \# 5 \& 6 \& 7 (Precision \& Reliability \& Robustness)\\\hline
-5 & ThinOut & Req \# 5 \& 6 \& 7 (Precision \& Reliability \& Robustness)\\\hline
-6 & Merge & Req \# 5 \& 6 \& 7 (Precision \& Reliability \& Robustness)\\\hline
-7 & Sample & Req \# 5 \& 6 \& 7 (Precision \& Reliability \& Robustness)\\\hline
-8 & GetBorder & Req \# 5 \& 6 \& 7 (Precision \& Reliability \& Robustness)\\\hline
-9 & Integral & Req \# 5 \& 6 \& 7 (Precision \& Reliability \& Robustness)\\\hline
-10 & Times & Req \# 5 \& 6\& 7 (Precision \& Reliability \& Robustness)\\\hline
-11 & Assignment & Req \# 5 \& 6 \& 7 (Precision \& Reliability \& Robustness)\\\hline
-12 & System Test &  Req \# 1 \& 2 \& 8 \& 11 (Adjacent Systems \& Access)\\
+\bf Test \#  & \bf Description & \bf Requirement\\\midrule
+1 & Performance test of functions & Req. \# 4 (Speed and Latency)\\
+2 & InitializeVector & Req \# 5, 6, 7 (Precision, Reliability, Robustness)\\
+3 & SettersandGetters & Req \# 5, 6, 7 (Precision, Reliability, Robustness)\\
+4 & GetXSec & Req \# 5, 6, 7 (Precision, Reliability, Robustness)\\
+5 & ThinOut & Req \# 5, 6, 7 (Precision, Reliability, Robustness)\\
+6 & Merge & Req \# 5, 6, 7 (Precision, Reliability, Robustness)\\
+7 & Sample & Req \# 5, 6, 7 (Precision, Reliability, Robustness)\\
+8 & GetBorder & Req \# 5, 6, 7 (Precision, Reliability, Robustness)\\
+9 & Integral & Req \# 5, 6, 7 (Precision, Reliability, Robustness)\\
+10 & Times & Req \# 5, , 7 (Precision, Reliability, Robustness)\\
+11 & Assignment & Req \# 5, 6, 7 (Precision, Reliability, Robustness)\\
+12 & System Test &  Req \# 1, 2, 8, 11 (Adjacent Systems, Access)\\
 \bottomrule
 \end{longtable}
 \end{center}
@@ -1623,18 +1705,18 @@ Similarly, the following is a traceability table explicitly relating test cases 
 \begin{longtable}{>{\raggedright\arraybackslash}p{0.1\textwidth}>{\raggedright\arraybackslash}p{0.3\textwidth}>{\raggedright\arraybackslash}p{0.5\textwidth}}
 \caption{Tests and Modules Relationship}\label{Table_TestsAndModules}
 \\\toprule
-\bf Test \#  & \bf Description & \bf Module\\\toprule
-1 & Performance test of functions & G4ParticleVector\\\hline
-2 & InitializeVector & G4ParticleVector\\\hline
-3 & SettersandGetters & G4ParticleVector\\\hline
-4 & GetXSec & G4ParticleVector\\\hline
-5 & ThinOut & G4ParticleVector\\\hline
-6 & Merge & G4ParticleVector\\\hline
-7 & Sample & G4ParticleVector\\\hline
-8 & GetBorder & G4ParticleVector\\\hline
-9 & Integral & G4ParticleVector\\\hline
-10 & Times & G4ParticleVector\\\hline
-11 & Assignment & G4ParticleVector\\\hline
+\bf Test \#  & \bf Description & \bf Module\\\midrule
+1 & Performance test of functions & G4ParticleVector\\
+2 & InitializeVector & G4ParticleVector\\
+3 & SettersandGetters & G4ParticleVector\\
+4 & GetXSec & G4ParticleVector\\
+5 & ThinOut & G4ParticleVector\\
+6 & Merge & G4ParticleVector\\
+7 & Sample & G4ParticleVector\\
+8 & GetBorder & G4ParticleVector\\
+9 & Integral & G4ParticleVector\\
+10 & Times & G4ParticleVector\\
+11 & Assignment & G4ParticleVector\\
 12 & System Test & G4NeutronHPDataPoint \& G4ParticleVector \& CMake Files\\
 \bottomrule
 \end{longtable}
@@ -1643,6 +1725,9 @@ Similarly, the following is a traceability table explicitly relating test cases 
 % =============================== Section =============================== 
 % --------------------------- Stuart
 \section{Changes after Testing}
-Developing the unit testing system illuminated a variety of bugs and changes that needed to be made. These were predominantly related to edge cases -- trying to access indices in arrays that are negative or greater than the number of elements was a common theme. In some of these cases the same case was not covered by Geant4 itself, so the change was made there as well.
+Developing the unit testing system illuminated a variety of bugs and changes that needed to be made. These were predominantly related to edge cases -- trying to access indices in arrays that are negative or greater than the number of elements in the array was a common theme. Some of these edge cases were not covered by Geant4 itself, so the required change was made to the original Geant4 source code as well as the modified CUDA code.\\
 
+Aside from the handling of edge cases with if guards, there was one more significant change required to get the unit tests to pass. An important control flow statement in \texttt{GetXSec(e,min)} was supposed to branch if the difference between two values was below a certain threshold. Our implementation was missing a call to get the absolute value for this difference, and as such was returning the wrong result in cases where the second value was larger than the first.\\
+
+In terms of performance, some performance testing had been done prior to the development of the unit testing system. That profiling data led us to reimplement nearly every function on the GPU using a hybrid approach wherein the data values are stored in both GPU and CPU memory, are modified mainly on the GPU and then the version in CPU memory is updated only when required. This gave very large performance improvements, with the GPU code going from ~4.5X slower to ~1.2X slower. Further performance tuning is planned for the future based on the results from individual unit tests.
 \end{document}
