@@ -1,28 +1,315 @@
-void Times(G4double factor),0,0,factor=-4.67,0,8.82E-06,,nEntries,Avg. Time CPU,Avg. Time GPU
-void Times(G4double factor),0,0,factor=-1.525e-05,0,2.15E-06,,0,0,3.7551E-06
-void Times(G4double factor),0,0,factor=0.00090982,0,2.15E-06,,80,9.54E-07,2.30E-04
-void Times(G4double factor),0,0,factor=1.54333e+07,0,1.91E-06,,1509,1.28E-05,1.77E-04
-void Times(G4double factor),1,80,factor=-4.67,9.54E-07,3.00E-05,,8045,6.78E-05,6.85E-05
-void Times(G4double factor),1,80,factor=-1.525e-05,9.54E-07,0.000298977,,41854,0.000326693,0.000188947
-void Times(G4double factor),1,80,factor=0.00090982,9.54E-07,0.000289917,,98995,0.000838995,0.000304044
-void Times(G4double factor),1,80,factor=1.54333e+07,9.54E-07,0.000301123,,242594,0.001790048,0.001015008
-void Times(G4double factor),2,1509,factor=-4.67,1.41E-05,2.31E-05,,,,
-void Times(G4double factor),2,1509,factor=-1.525e-05,1.19E-05,0.000231981,,,,
-void Times(G4double factor),2,1509,factor=0.00090982,1.31E-05,0.000244141,,,,
-void Times(G4double factor),2,1509,factor=1.54333e+07,1.19E-05,0.000210047,,,,
-void Times(G4double factor),3,8045,factor=-4.67,7.01E-05,2.69E-05,,,,
-void Times(G4double factor),3,8045,factor=-1.525e-05,6.70E-05,7.80E-05,,,,
-void Times(G4double factor),3,8045,factor=0.00090982,6.70E-05,8.89E-05,,,,
-void Times(G4double factor),3,8045,factor=1.54333e+07,6.70E-05,8.01E-05,,,,
-void Times(G4double factor),4,41854,factor=-4.67,0.000329018,7.39E-05,,,,
-void Times(G4double factor),4,41854,factor=-1.525e-05,0.000326872,0.000130892,,,,
-void Times(G4double factor),4,41854,factor=0.00090982,0.000328064,0.000290871,,,,
-void Times(G4double factor),4,41854,factor=1.54333e+07,0.000322819,0.000260115,,,,
-void Times(G4double factor),5,98995,factor=-4.67,0.00103092,0.00012517,,,,
-void Times(G4double factor),5,98995,factor=-1.525e-05,0.000828028,0.000339985,,,,
-void Times(G4double factor),5,98995,factor=0.00090982,0.000741005,0.00036788,,,,
-void Times(G4double factor),5,98995,factor=1.54333e+07,0.000756025,0.000383139,,,,
-void Times(G4double factor),6,242594,factor=-4.67,0.00177693,0.000340939,,,,
-void Times(G4double factor),6,242594,factor=-1.525e-05,0.00177908,0.000705004,,,,
-void Times(G4double factor),6,242594,factor=0.00090982,0.00182009,0.00156188,,,,
-void Times(G4double factor),6,242594,factor=1.54333e+07,0.00178409,0.00145221,,,,
+Method Signature,Case Number,nEntries,Input,CPU Time,GPU Time
+G4double GetXsec(G4double e),0,0,e=-1,3.09944e-06,9.05991e-06
+G4double GetXsec(G4double e),0,0,e=0,9.53674e-07,9.53674e-07
+G4double GetXsec(G4double e),0,0,e=0.00051234,9.53674e-07,9.53674e-07
+G4double GetXsec(G4double e),0,0,e=1.58923,9.53674e-07,0
+G4double GetXsec(G4double e),0,0,e=513.187,9.53674e-07,9.53674e-07
+G4double GetXsec(G4double e. G4int min),0,0,min=-1,1.00136e-05,0.00014782
+G4double GetXsec(G4double e. G4int min),0,0,min=0,6.91414e-06,5.96046e-06
+G4double GetXsec(G4double e. G4int min),0,0,min=0,6.91414e-06,5.00679e-06
+G4double GetXsec(G4double e. G4int min),0,0,min=-1,7.15256e-06,4.05312e-06
+G4double GetXsec(G4double e. G4int min),0,0,min=0,6.91414e-06,5.00679e-06
+G4double GetXsec(G4double e. G4int min),0,0,min=-1,5.96046e-06,4.05312e-06
+G4double GetXsec(G4double e. G4int min),0,0,min=0,6.91414e-06,5.00679e-06
+G4double GetXsec(G4double e. G4int min),0,0,min=0,7.15256e-06,5.00679e-06
+G4double GetXsec(G4double e. G4int min),0,0,min=-1,6.91414e-06,8.82149e-06
+G4double GetXsec(G4double e. G4int min),0,0,min=0,6.19888e-06,5.00679e-06
+G4double GetXsec(G4double e. G4int min),0,0,min=-1,6.91414e-06,5.00679e-06
+G4double GetXsec(G4double e. G4int min),0,0,min=0,6.91414e-06,5.00679e-06
+G4double GetXsec(G4double e. G4int min),0,0,min=0,7.15256e-06,5.96046e-06
+G4double GetXsec(G4double e. G4int min),0,0,min=-1,7.15256e-06,5.00679e-06
+G4double GetXsec(G4double e. G4int min),0,0,min=0,7.15256e-06,5.00679e-06
+G4double GetXsec(G4double e. G4int min),0,0,min=-1,6.91414e-06,5.00679e-06
+G4double GetXsec(G4double e. G4int min),0,0,min=0,5.96046e-06,4.05312e-06
+G4double GetXsec(G4double e. G4int min),0,0,min=0,7.15256e-06,4.76837e-06
+G4double GetXsec(G4double e. G4int min),0,0,min=-1,6.91414e-06,4.05312e-06
+G4double GetXsec(G4double e. G4int min),0,0,min=0,5.96046e-06,5.00679e-06
+G4double GetXsec(G4double e. G4int min),0,0,min=-1,1.09673e-05,5.00679e-06
+G4double GetXsec(G4double e. G4int min),0,0,min=0,6.91414e-06,5.00679e-06
+G4double GetXsec(G4double e. G4int min),0,0,min=0,6.19888e-06,5.00679e-06
+G4double GetXsec(G4double e. G4int min),0,0,min=-1,6.91414e-06,5.00679e-06
+G4double GetXsec(G4double e. G4int min),0,0,min=0,5.96046e-06,3.8147e-06
+G4double SampleLin(),0,0,,1.00136e-05,0.00100684
+G4double Sample(),0,0,,1.09673e-05,0.000296831
+G4double Get15PercentBorder(),0,0,,8.10623e-06,4.05312e-06
+G4double Get50PercentBorder(),0,0,,2.86102e-06,1.90735e-06
+void Times(G4double factor),0,0,factor=-4.67,0,1.90735e-06
+void Times(G4double factor),0,0,factor=-1.525e-05,9.53674e-07,0
+void Times(G4double factor),0,0,factor=0.00090982,0,9.53674e-07
+void Times(G4double factor),0,0,factor=1.54333e+07,9.53674e-07,9.53674e-07
+void ThinOut(G4double precision),0,0,precision=-1,3.09944e-06,4.50611e-05
+void ThinOut(G4double precision),0,0,precision=0,9.53674e-07,2.90871e-05
+void ThinOut(G4double precision),0,0,precision=0.00051234,0,3.09944e-05
+void ThinOut(G4double precision),0,0,precision=1.58923,1.19209e-06,3.00407e-05
+void ThinOut(G4double precision),0,0,precision=513.187,9.53674e-07,3.00407e-05
+G4ParticleHPVector & operator = (const G4ParticleHPVector & right),0,0,,1.78814e-05,0
+void Init(std::istream & aDataFile. G4int total. G4double ux=1.. G4double uy=1.),1,,,0.00022006,0.000241995
+G4double GetXsec(G4double e),1,80,e=-1,6.91414e-06,9.53674e-07
+G4double GetXsec(G4double e),1,80,e=0,2.14577e-06,9.53674e-07
+G4double GetXsec(G4double e),1,80,e=0.00051234,9.53674e-07,9.53674e-07
+G4double GetXsec(G4double e),1,80,e=1.58923,9.53674e-07,9.53674e-07
+G4double GetXsec(G4double e),1,80,e=513.187,9.53674e-07,9.53674e-07
+G4double GetXsec(G4double e. G4int min),1,80,min=-1,7.86781e-06,5.00679e-06
+G4double GetXsec(G4double e. G4int min),1,80,min=0,7.86781e-06,5.00679e-06
+G4double GetXsec(G4double e. G4int min),1,80,min=40,7.86781e-06,5.00679e-06
+G4double GetXsec(G4double e. G4int min),1,80,min=79,6.91414e-06,5.00679e-06
+G4double GetXsec(G4double e. G4int min),1,80,min=80,7.15256e-06,5.00679e-06
+G4double GetXsec(G4double e. G4int min),1,80,min=-1,7.15256e-06,5.00679e-06
+G4double GetXsec(G4double e. G4int min),1,80,min=0,6.91414e-06,5.00679e-06
+G4double GetXsec(G4double e. G4int min),1,80,min=40,7.86781e-06,5.00679e-06
+G4double GetXsec(G4double e. G4int min),1,80,min=79,6.91414e-06,5.96046e-06
+G4double GetXsec(G4double e. G4int min),1,80,min=80,7.15256e-06,5.00679e-06
+G4double GetXsec(G4double e. G4int min),1,80,min=-1,7.15256e-06,5.96046e-06
+G4double GetXsec(G4double e. G4int min),1,80,min=0,6.91414e-06,5.00679e-06
+G4double GetXsec(G4double e. G4int min),1,80,min=40,6.91414e-06,5.00679e-06
+G4double GetXsec(G4double e. G4int min),1,80,min=79,6.91414e-06,5.00679e-06
+G4double GetXsec(G4double e. G4int min),1,80,min=80,6.91414e-06,5.00679e-06
+G4double GetXsec(G4double e. G4int min),1,80,min=-1,6.91414e-06,5.00679e-06
+G4double GetXsec(G4double e. G4int min),1,80,min=0,6.91414e-06,5.00679e-06
+G4double GetXsec(G4double e. G4int min),1,80,min=40,7.86781e-06,5.00679e-06
+G4double GetXsec(G4double e. G4int min),1,80,min=79,6.91414e-06,5.00679e-06
+G4double GetXsec(G4double e. G4int min),1,80,min=80,7.15256e-06,5.00679e-06
+G4double GetXsec(G4double e. G4int min),1,80,min=-1,7.15256e-06,5.96046e-06
+G4double GetXsec(G4double e. G4int min),1,80,min=0,8.10623e-06,5.00679e-06
+G4double GetXsec(G4double e. G4int min),1,80,min=40,7.15256e-06,5.00679e-06
+G4double GetXsec(G4double e. G4int min),1,80,min=79,6.91414e-06,5.00679e-06
+G4double GetXsec(G4double e. G4int min),1,80,min=80,8.10623e-06,5.00679e-06
+G4double SampleLin(),1,80,,0.000500917,0.000340939
+G4double Sample(),1,80,,0.000310898,0.102652
+G4double Get15PercentBorder(),1,80,,4.76837e-06,2.28882e-05
+G4double Get50PercentBorder(),1,80,,1.19209e-06,2.14577e-06
+void Times(G4double factor),1,80,factor=-4.67,9.53674e-07,1.19209e-05
+void Times(G4double factor),1,80,factor=-1.525e-05,9.53674e-07,1.50204e-05
+void Times(G4double factor),1,80,factor=0.00090982,9.53674e-07,5.96046e-06
+void Times(G4double factor),1,80,factor=1.54333e+07,9.53674e-07,1.00136e-05
+void ThinOut(G4double precision),1,80,precision=-1,1.00136e-05,0.000236034
+void ThinOut(G4double precision),1,80,precision=0,1.90735e-06,0.000145912
+void ThinOut(G4double precision),1,80,precision=0.00051234,1.90735e-06,0.000158072
+void ThinOut(G4double precision),1,80,precision=1.58923,5.96046e-06,0.000241995
+void ThinOut(G4double precision),1,80,precision=513.187,9.53674e-07,0.000158072
+G4ParticleHPVector & operator = (const G4ParticleHPVector & right),1,80,,2.14577e-06,0
+void Init(std::istream & aDataFile. G4int total. G4double ux=1.. G4double uy=1.),2,,,0.00356293,0.00313401
+G4double GetXsec(G4double e),2,1509,e=-1,9.53674e-07,3.09944e-06
+G4double GetXsec(G4double e),2,1509,e=0,9.53674e-07,2.14577e-06
+G4double GetXsec(G4double e),2,1509,e=0.00051234,9.53674e-07,1.90735e-06
+G4double GetXsec(G4double e),2,1509,e=1.58923,1.19209e-06,2.14577e-06
+G4double GetXsec(G4double e),2,1509,e=513.187,9.53674e-07,4.05312e-06
+G4double GetXsec(G4double e. G4int min),2,1509,min=-1,6.91414e-06,1.28746e-05
+G4double GetXsec(G4double e. G4int min),2,1509,min=0,5.96046e-06,9.05991e-06
+G4double GetXsec(G4double e. G4int min),2,1509,min=754,5.96046e-06,5.96046e-06
+G4double GetXsec(G4double e. G4int min),2,1509,min=1508,2.00272e-05,3.69549e-05
+G4double GetXsec(G4double e. G4int min),2,1509,min=1509,5.96046e-06,5.00679e-06
+G4double GetXsec(G4double e. G4int min),2,1509,min=-1,6.91414e-06,5.00679e-06
+G4double GetXsec(G4double e. G4int min),2,1509,min=0,5.96046e-06,5.96046e-06
+G4double GetXsec(G4double e. G4int min),2,1509,min=754,5.96046e-06,5.00679e-06
+G4double GetXsec(G4double e. G4int min),2,1509,min=1508,5.96046e-06,6.19888e-06
+G4double GetXsec(G4double e. G4int min),2,1509,min=1509,5.96046e-06,5.00679e-06
+G4double GetXsec(G4double e. G4int min),2,1509,min=-1,5.96046e-06,5.00679e-06
+G4double GetXsec(G4double e. G4int min),2,1509,min=0,5.96046e-06,5.00679e-06
+G4double GetXsec(G4double e. G4int min),2,1509,min=754,6.19888e-06,5.00679e-06
+G4double GetXsec(G4double e. G4int min),2,1509,min=1508,5.96046e-06,5.00679e-06
+G4double GetXsec(G4double e. G4int min),2,1509,min=1509,5.00679e-06,5.00679e-06
+G4double GetXsec(G4double e. G4int min),2,1509,min=-1,8.10623e-06,5.00679e-06
+G4double GetXsec(G4double e. G4int min),2,1509,min=0,9.05991e-06,5.96046e-06
+G4double GetXsec(G4double e. G4int min),2,1509,min=754,5.96046e-06,5.00679e-06
+G4double GetXsec(G4double e. G4int min),2,1509,min=1508,5.96046e-06,5.00679e-06
+G4double GetXsec(G4double e. G4int min),2,1509,min=1509,5.00679e-06,5.96046e-06
+G4double GetXsec(G4double e. G4int min),2,1509,min=-1,1.21593e-05,7.15256e-06
+G4double GetXsec(G4double e. G4int min),2,1509,min=0,1.09673e-05,7.15256e-06
+G4double GetXsec(G4double e. G4int min),2,1509,min=754,8.10623e-06,5.00679e-06
+G4double GetXsec(G4double e. G4int min),2,1509,min=1508,5.00679e-06,4.76837e-06
+G4double GetXsec(G4double e. G4int min),2,1509,min=1509,5.96046e-06,5.00679e-06
+G4double SampleLin(),2,1509,,0.000343084,0.0116169
+G4double Sample(),2,1509,,0.0033989,0.870204
+G4double Get15PercentBorder(),2,1509,,5.00679e-06,3.71933e-05
+G4double Get50PercentBorder(),2,1509,,5.00679e-06,5.96046e-06
+void Times(G4double factor),2,1509,factor=-4.67,1.19209e-05,7.86781e-06
+void Times(G4double factor),2,1509,factor=-1.525e-05,1.38283e-05,2.71797e-05
+void Times(G4double factor),2,1509,factor=0.00090982,1.28746e-05,1.88351e-05
+void Times(G4double factor),2,1509,factor=1.54333e+07,1.40667e-05,2.5034e-05
+void ThinOut(G4double precision),2,1509,precision=-1,4.1008e-05,0.00029397
+void ThinOut(G4double precision),2,1509,precision=0,3.40939e-05,0.000273943
+void ThinOut(G4double precision),2,1509,precision=0.00051234,6.79493e-05,0.000342846
+void ThinOut(G4double precision),2,1509,precision=1.58923,0.000119925,0.000287056
+void ThinOut(G4double precision),2,1509,precision=513.187,1.19209e-06,0.000339985
+G4ParticleHPVector & operator = (const G4ParticleHPVector & right),2,1509,,1.90735e-06,0
+void Init(std::istream & aDataFile. G4int total. G4double ux=1.. G4double uy=1.),3,,,0.017112,0.0245519
+G4double GetXsec(G4double e),3,8045,e=-1,2.14577e-06,3.09944e-06
+G4double GetXsec(G4double e),3,8045,e=0,9.53674e-07,9.53674e-07
+G4double GetXsec(G4double e),3,8045,e=0.00051234,1.19209e-06,9.53674e-07
+G4double GetXsec(G4double e),3,8045,e=1.58923,9.53674e-07,2.14577e-06
+G4double GetXsec(G4double e),3,8045,e=513.187,9.53674e-07,8.82149e-06
+G4double GetXsec(G4double e. G4int min),3,8045,min=-1,6.91414e-06,5.96046e-06
+G4double GetXsec(G4double e. G4int min),3,8045,min=0,5.00679e-06,5.00679e-06
+G4double GetXsec(G4double e. G4int min),3,8045,min=4022,5.96046e-06,5.96046e-06
+G4double GetXsec(G4double e. G4int min),3,8045,min=8044,5.96046e-06,5.00679e-06
+G4double GetXsec(G4double e. G4int min),3,8045,min=8045,5.96046e-06,5.00679e-06
+G4double GetXsec(G4double e. G4int min),3,8045,min=-1,5.96046e-06,5.00679e-06
+G4double GetXsec(G4double e. G4int min),3,8045,min=0,5.00679e-06,5.00679e-06
+G4double GetXsec(G4double e. G4int min),3,8045,min=4022,5.00679e-06,5.00679e-06
+G4double GetXsec(G4double e. G4int min),3,8045,min=8044,5.00679e-06,5.00679e-06
+G4double GetXsec(G4double e. G4int min),3,8045,min=8045,5.96046e-06,5.00679e-06
+G4double GetXsec(G4double e. G4int min),3,8045,min=-1,5.96046e-06,5.00679e-06
+G4double GetXsec(G4double e. G4int min),3,8045,min=0,5.96046e-06,5.00679e-06
+G4double GetXsec(G4double e. G4int min),3,8045,min=4022,5.00679e-06,5.00679e-06
+G4double GetXsec(G4double e. G4int min),3,8045,min=8044,5.00679e-06,4.76837e-06
+G4double GetXsec(G4double e. G4int min),3,8045,min=8045,5.00679e-06,5.00679e-06
+G4double GetXsec(G4double e. G4int min),3,8045,min=-1,7.86781e-06,5.00679e-06
+G4double GetXsec(G4double e. G4int min),3,8045,min=0,7.15256e-06,5.96046e-06
+G4double GetXsec(G4double e. G4int min),3,8045,min=4022,5.00679e-06,5.96046e-06
+G4double GetXsec(G4double e. G4int min),3,8045,min=8044,5.00679e-06,5.00679e-06
+G4double GetXsec(G4double e. G4int min),3,8045,min=8045,5.00679e-06,5.00679e-06
+G4double GetXsec(G4double e. G4int min),3,8045,min=-1,3.91006e-05,1.3113e-05
+G4double GetXsec(G4double e. G4int min),3,8045,min=0,3.79086e-05,1.21593e-05
+G4double GetXsec(G4double e. G4int min),3,8045,min=4022,2.09808e-05,8.82149e-06
+G4double GetXsec(G4double e. G4int min),3,8045,min=8044,5.96046e-06,5.00679e-06
+G4double GetXsec(G4double e. G4int min),3,8045,min=8045,5.00679e-06,5.00679e-06
+G4double SampleLin(),3,8045,,0.000567913,0.000577927
+G4double Sample(),3,8045,,0.0179679,3.25223
+G4double Get15PercentBorder(),3,8045,,3.09944e-05,0.000128031
+G4double Get50PercentBorder(),3,8045,,2.19345e-05,3.19481e-05
+void Times(G4double factor),3,8045,factor=-4.67,6.29425e-05,1.00136e-05
+void Times(G4double factor),3,8045,factor=-1.525e-05,6.19888e-05,2.09808e-05
+void Times(G4double factor),3,8045,factor=0.00090982,6.19888e-05,1.90735e-05
+void Times(G4double factor),3,8045,factor=1.54333e+07,6.10352e-05,2.71797e-05
+void ThinOut(G4double precision),3,8045,precision=-1,0.000154018,0.000560045
+void ThinOut(G4double precision),3,8045,precision=0,8.51154e-05,0.000369072
+void ThinOut(G4double precision),3,8045,precision=0.00051234,9.20296e-05,0.000374079
+void ThinOut(G4double precision),3,8045,precision=1.58923,0.00241303,0.00281
+void ThinOut(G4double precision),3,8045,precision=513.187,5.96046e-06,0.000169039
+G4ParticleHPVector & operator = (const G4ParticleHPVector & right),3,8045,,3.09944e-06,0
+void Init(std::istream & aDataFile. G4int total. G4double ux=1.. G4double uy=1.),4,,,0.0930762,0.0961971
+G4double GetXsec(G4double e),4,41854,e=-1,3.09944e-06,3.09944e-06
+G4double GetXsec(G4double e),4,41854,e=0,1.90735e-06,1.90735e-06
+G4double GetXsec(G4double e),4,41854,e=0.00051234,9.53674e-07,1.19209e-06
+G4double GetXsec(G4double e),4,41854,e=1.58923,1.19209e-06,9.53674e-07
+G4double GetXsec(G4double e),4,41854,e=513.187,9.53674e-07,2.7895e-05
+G4double GetXsec(G4double e. G4int min),4,41854,min=-1,7.15256e-06,5.96046e-06
+G4double GetXsec(G4double e. G4int min),4,41854,min=0,5.00679e-06,5.00679e-06
+G4double GetXsec(G4double e. G4int min),4,41854,min=20927,5.96046e-06,6.19888e-06
+G4double GetXsec(G4double e. G4int min),4,41854,min=41853,5.00679e-06,5.00679e-06
+G4double GetXsec(G4double e. G4int min),4,41854,min=41854,5.00679e-06,5.00679e-06
+G4double GetXsec(G4double e. G4int min),4,41854,min=-1,6.19888e-06,5.00679e-06
+G4double GetXsec(G4double e. G4int min),4,41854,min=0,5.96046e-06,5.96046e-06
+G4double GetXsec(G4double e. G4int min),4,41854,min=20927,5.00679e-06,5.96046e-06
+G4double GetXsec(G4double e. G4int min),4,41854,min=41853,5.00679e-06,5.96046e-06
+G4double GetXsec(G4double e. G4int min),4,41854,min=41854,5.00679e-06,5.96046e-06
+G4double GetXsec(G4double e. G4int min),4,41854,min=-1,5.96046e-06,5.96046e-06
+G4double GetXsec(G4double e. G4int min),4,41854,min=0,5.96046e-06,4.76837e-06
+G4double GetXsec(G4double e. G4int min),4,41854,min=20927,5.00679e-06,6.19888e-06
+G4double GetXsec(G4double e. G4int min),4,41854,min=41853,5.00679e-06,6.19888e-06
+G4double GetXsec(G4double e. G4int min),4,41854,min=41854,4.76837e-06,5.00679e-06
+G4double GetXsec(G4double e. G4int min),4,41854,min=-1,7.15256e-06,5.00679e-06
+G4double GetXsec(G4double e. G4int min),4,41854,min=0,7.15256e-06,5.96046e-06
+G4double GetXsec(G4double e. G4int min),4,41854,min=20927,6.19888e-06,5.00679e-06
+G4double GetXsec(G4double e. G4int min),4,41854,min=41853,5.00679e-06,5.00679e-06
+G4double GetXsec(G4double e. G4int min),4,41854,min=41854,5.00679e-06,5.00679e-06
+G4double GetXsec(G4double e. G4int min),4,41854,min=-1,7.31945e-05,2.09808e-05
+G4double GetXsec(G4double e. G4int min),4,41854,min=0,7.29561e-05,2.19345e-05
+G4double GetXsec(G4double e. G4int min),4,41854,min=20927,6.19888e-06,6.19888e-06
+G4double GetXsec(G4double e. G4int min),4,41854,min=41853,5.00679e-06,5.00679e-06
+G4double GetXsec(G4double e. G4int min),4,41854,min=41854,5.00679e-06,5.00679e-06
+G4double SampleLin(),4,41854,,0.00184917,0.00566888
+G4double Sample(),4,41854,,0.098294,17.523
+G4double Get15PercentBorder(),4,41854,,0.000125885,0.000535011
+G4double Get50PercentBorder(),4,41854,,0.000118971,0.000118971
+void Times(G4double factor),4,41854,factor=-4.67,0.000335932,1.09673e-05
+void Times(G4double factor),4,41854,factor=-1.525e-05,0.000324965,1.90735e-05
+void Times(G4double factor),4,41854,factor=0.00090982,0.000323057,2.00272e-05
+void Times(G4double factor),4,41854,factor=1.54333e+07,0.000315905,2.09808e-05
+void ThinOut(G4double precision),4,41854,precision=-1,0.000983,0.00201011
+void ThinOut(G4double precision),4,41854,precision=0,0.000422001,0.00115108
+void ThinOut(G4double precision),4,41854,precision=0.00051234,0.00246406,0.00130987
+void ThinOut(G4double precision),4,41854,precision=1.58923,0.0140049,0.015919
+void ThinOut(G4double precision),4,41854,precision=513.187,5.10216e-05,0.000216961
+G4ParticleHPVector & operator = (const G4ParticleHPVector & right),4,41854,,1.90735e-06,0
+void Init(std::istream & aDataFile. G4int total. G4double ux=1.. G4double uy=1.),5,,,0.14761,0.154657
+G4double GetXsec(G4double e),5,98995,e=-1,1.90735e-06,3.09944e-06
+G4double GetXsec(G4double e),5,98995,e=0,9.53674e-07,9.53674e-07
+G4double GetXsec(G4double e),5,98995,e=0.00051234,9.53674e-07,9.53674e-07
+G4double GetXsec(G4double e),5,98995,e=1.58923,9.53674e-07,1.90735e-06
+G4double GetXsec(G4double e),5,98995,e=513.187,9.53674e-07,2.31266e-05
+G4double GetXsec(G4double e. G4int min),5,98995,min=-1,5.96046e-06,5.00679e-06
+G4double GetXsec(G4double e. G4int min),5,98995,min=0,5.00679e-06,5.00679e-06
+G4double GetXsec(G4double e. G4int min),5,98995,min=49497,5.00679e-06,5.00679e-06
+G4double GetXsec(G4double e. G4int min),5,98995,min=98994,5.96046e-06,5.96046e-06
+G4double GetXsec(G4double e. G4int min),5,98995,min=98995,5.00679e-06,5.00679e-06
+G4double GetXsec(G4double e. G4int min),5,98995,min=-1,5.00679e-06,5.00679e-06
+G4double GetXsec(G4double e. G4int min),5,98995,min=0,5.00679e-06,5.00679e-06
+G4double GetXsec(G4double e. G4int min),5,98995,min=49497,5.96046e-06,5.00679e-06
+G4double GetXsec(G4double e. G4int min),5,98995,min=98994,4.76837e-06,6.19888e-06
+G4double GetXsec(G4double e. G4int min),5,98995,min=98995,5.00679e-06,5.00679e-06
+G4double GetXsec(G4double e. G4int min),5,98995,min=-1,5.96046e-06,5.00679e-06
+G4double GetXsec(G4double e. G4int min),5,98995,min=0,5.00679e-06,5.00679e-06
+G4double GetXsec(G4double e. G4int min),5,98995,min=49497,5.00679e-06,5.00679e-06
+G4double GetXsec(G4double e. G4int min),5,98995,min=98994,5.00679e-06,5.00679e-06
+G4double GetXsec(G4double e. G4int min),5,98995,min=98995,5.00679e-06,5.00679e-06
+G4double GetXsec(G4double e. G4int min),5,98995,min=-1,6.91414e-06,5.96046e-06
+G4double GetXsec(G4double e. G4int min),5,98995,min=0,5.96046e-06,5.00679e-06
+G4double GetXsec(G4double e. G4int min),5,98995,min=49497,5.00679e-06,5.00679e-06
+G4double GetXsec(G4double e. G4int min),5,98995,min=98994,5.00679e-06,5.96046e-06
+G4double GetXsec(G4double e. G4int min),5,98995,min=98995,5.00679e-06,5.00679e-06
+G4double GetXsec(G4double e. G4int min),5,98995,min=-1,0.000113964,2.59876e-05
+G4double GetXsec(G4double e. G4int min),5,98995,min=0,8.4877e-05,2.40803e-05
+G4double GetXsec(G4double e. G4int min),5,98995,min=49497,5.00679e-06,5.00679e-06
+G4double GetXsec(G4double e. G4int min),5,98995,min=98994,5.00679e-06,5.00679e-06
+G4double GetXsec(G4double e. G4int min),5,98995,min=98995,5.00679e-06,5.00679e-06
+G4double SampleLin(),5,98995,,0.00367212,0.00283003
+G4double Sample(),5,98995,,0.232637,42.0202
+G4double Get15PercentBorder(),5,98995,,0.000282049,0.000860929
+G4double Get50PercentBorder(),5,98995,,0.000271082,0.000277042
+void Times(G4double factor),5,98995,factor=-4.67,0.000735044,2.00272e-05
+void Times(G4double factor),5,98995,factor=-1.525e-05,0.000784159,2.90871e-05
+void Times(G4double factor),5,98995,factor=0.00090982,0.000773907,2.19345e-05
+void Times(G4double factor),5,98995,factor=1.54333e+07,0.00074482,2.19345e-05
+void ThinOut(G4double precision),5,98995,precision=-1,4.87628,4.97706
+void ThinOut(G4double precision),5,98995,precision=0,7.10487e-05,0.000275135
+void ThinOut(G4double precision),5,98995,precision=0.00051234,8.79765e-05,0.000250101
+void ThinOut(G4double precision),5,98995,precision=1.58923,8.91685e-05,0.000242949
+void ThinOut(G4double precision),5,98995,precision=513.187,6.69956e-05,0.000200987
+G4ParticleHPVector & operator = (const G4ParticleHPVector & right),5,98995,,1.90735e-06,0
+void Init(std::istream & aDataFile. G4int total. G4double ux=1.. G4double uy=1.),6,,,0.505485,0.509
+G4double GetXsec(G4double e),6,242594,e=-1,2.86102e-06,2.86102e-06
+G4double GetXsec(G4double e),6,242594,e=0,1.19209e-06,1.19209e-06
+G4double GetXsec(G4double e),6,242594,e=0.00051234,9.53674e-07,9.53674e-07
+G4double GetXsec(G4double e),6,242594,e=1.58923,1.90735e-06,1.90735e-06
+G4double GetXsec(G4double e),6,242594,e=513.187,1.90735e-06,0.000108004
+G4double GetXsec(G4double e. G4int min),6,242594,min=-1,5.96046e-06,5.96046e-06
+G4double GetXsec(G4double e. G4int min),6,242594,min=0,5.00679e-06,5.00679e-06
+G4double GetXsec(G4double e. G4int min),6,242594,min=121297,5.00679e-06,5.96046e-06
+G4double GetXsec(G4double e. G4int min),6,242594,min=242593,5.00679e-06,5.00679e-06
+G4double GetXsec(G4double e. G4int min),6,242594,min=242594,5.00679e-06,5.00679e-06
+G4double GetXsec(G4double e. G4int min),6,242594,min=-1,5.00679e-06,5.00679e-06
+G4double GetXsec(G4double e. G4int min),6,242594,min=0,5.00679e-06,5.00679e-06
+G4double GetXsec(G4double e. G4int min),6,242594,min=121297,5.00679e-06,5.96046e-06
+G4double GetXsec(G4double e. G4int min),6,242594,min=242593,5.00679e-06,5.00679e-06
+G4double GetXsec(G4double e. G4int min),6,242594,min=242594,5.00679e-06,5.00679e-06
+G4double GetXsec(G4double e. G4int min),6,242594,min=-1,1.50204e-05,5.00679e-06
+G4double GetXsec(G4double e. G4int min),6,242594,min=0,5.96046e-06,5.00679e-06
+G4double GetXsec(G4double e. G4int min),6,242594,min=121297,6.19888e-06,5.00679e-06
+G4double GetXsec(G4double e. G4int min),6,242594,min=242593,5.00679e-06,5.00679e-06
+G4double GetXsec(G4double e. G4int min),6,242594,min=242594,5.00679e-06,5.00679e-06
+G4double GetXsec(G4double e. G4int min),6,242594,min=-1,6.91414e-06,5.96046e-06
+G4double GetXsec(G4double e. G4int min),6,242594,min=0,7.15256e-06,5.96046e-06
+G4double GetXsec(G4double e. G4int min),6,242594,min=121297,5.00679e-06,5.00679e-06
+G4double GetXsec(G4double e. G4int min),6,242594,min=242593,5.00679e-06,5.00679e-06
+G4double GetXsec(G4double e. G4int min),6,242594,min=242594,2.7895e-05,5.00679e-06
+G4double GetXsec(G4double e. G4int min),6,242594,min=-1,0.000329971,7.51019e-05
+G4double GetXsec(G4double e. G4int min),6,242594,min=0,0.000329971,6.60419e-05
+G4double GetXsec(G4double e. G4int min),6,242594,min=121297,5.00679e-06,5.00679e-06
+G4double GetXsec(G4double e. G4int min),6,242594,min=242593,6.19888e-06,5.96046e-06
+G4double GetXsec(G4double e. G4int min),6,242594,min=242594,6.19888e-06,5.96046e-06
+G4double SampleLin(),6,242594,,0.00914693,0.0061729
+G4double Sample(),6,242594,,0.518809,99.7552
+G4double Get15PercentBorder(),6,242594,,0.000635147,0.00148106
+G4double Get50PercentBorder(),6,242594,,0.000639915,0.000642061
+void Times(G4double factor),6,242594,factor=-4.67,0.00184703,3.19481e-05
+void Times(G4double factor),6,242594,factor=-1.525e-05,0.00183487,2.40803e-05
+void Times(G4double factor),6,242594,factor=0.00090982,0.00185108,3.79086e-05
+void Times(G4double factor),6,242594,factor=1.54333e+07,0.00184703,2.7895e-05
+void ThinOut(G4double precision),6,242594,precision=-1,0.00486207,0.00946808
+void ThinOut(G4double precision),6,242594,precision=0,0.00570393,0.00723791
+void ThinOut(G4double precision),6,242594,precision=0.00051234,0.00367689,0.00758696
+void ThinOut(G4double precision),6,242594,precision=1.58923,0.0545661,0.0590968
+void ThinOut(G4double precision),6,242594,precision=513.187,0.00429201,0.00469685
+G4ParticleHPVector & operator = (const G4ParticleHPVector & right),6,242594,,3.09944e-06,0

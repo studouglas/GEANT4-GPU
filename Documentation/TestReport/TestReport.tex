@@ -113,9 +113,12 @@ Tables for specific unit tests have been omitted in order to keep this document 
 \toprule
 \bf Figure \# & \bf Title\\\midrule
 \ref{figPerformanceInit} & Performance results for \texttt{Init} function\\
+\ref{figPerformanceSampleLin} & Performance results for \texttt{SampleLin} function\\
 \ref{figPerformanceTimes} & Performance results for \texttt{Times} function\\
 \ref{figPerformanceGetXSec_e} & Performance results for \texttt{GetXSec(e)} function\\
 \ref{figPerformanceGetXSec_e_min} & Performance results for \texttt{GetXSec(e,min)} function\\
+\ref{figPerformanceGet15Percent} & Performance results for \texttt{Get15PercentBorder} function\\
+\ref{figPerformanceGet50Percent} & Performance results for \texttt{Get50PercentBorder} function\\
 \bottomrule
 \end{tabular}
 \end{center}
@@ -163,7 +166,6 @@ The GEANT4-GPU functions are meant to mimic the already existing GEANT4 function
 
 % =============================== Section =============================== 
 % -------------------------- Matt does unit tests and accuracy. Victor Does performance graphs
-\newpage
 \section{Unit Testing}
 \subsection{Use of Automated Testing}
 \subsubsection{Overview}
@@ -718,7 +720,14 @@ For all unit tests:
 		\end{table}
 
 	\subsubsection{Performance}
-		This method is not computationally heavy, so performance data was not included.
+		\begin{figure}[H]
+    	\centering
+    	\caption{Performance results for \texttt{SampleLin}}\label{figPerformanceSampleLin}
+    	\includegraphics[width=0.7\textwidth]{samplelin_bar.png}
+    	\includegraphics[width=0.7\textwidth]{samplelin_line.png}
+    	\end{figure}
+	The extraneous point for 1509 entries where the GPU function is significantly slower can be attributed to the need to copy the data from the GPU memory back to CPU memory in this case.
+
 		
 %\subsection{IntegrateAndNormalise}
 %	\subsubsection{Unit Tests}
@@ -1126,7 +1135,8 @@ For all unit tests:
     	\includegraphics[width=0.7\textwidth]{getxsec_e_bar.png}
     	\includegraphics[width=0.7\textwidth]{getxsec_e_line.png}
     	\end{figure}
-
+	The GPU function is significantly slower. This is due to the lack of a hashing function as on the CPU which dramatically speeds up the time to find the first element in the data with energy at least \emph{e}. It can be noted in figure \ref{figPerformanceGetXSec_e_min} that when a minimum value is pre-declared the performance gap is much smaller.
+	
 \subsection{G4double GetXsec(G4double e, G4int min)}
 	\subsubsection{Test Description}
 	Returns the first xSec from the current vector whose energy is greater than \texttt{e}. 
@@ -1206,7 +1216,12 @@ For all unit tests:
 		\end{table}
 
 	\subsubsection{Performance}
-		This method is not computationally heavy, so performance data was not included.
+		\begin{figure}[H]
+    	\centering
+    	\caption{Performance results for \texttt{Get15PercentBorder}}\label{figPerformanceGet15Percent}
+    	\includegraphics[width=0.7\textwidth]{get15_bar.png}
+    	\includegraphics[width=0.7\textwidth]{get15_line.png}
+    	\end{figure}
 		
 \subsection{G4double Get50percentBorder()}% Test Cases Done
 	\subsubsection{Test Description}
@@ -1240,7 +1255,12 @@ For all unit tests:
 		\end{table}
 
 	\subsubsection{Performance}
-		This method is not computationally heavy, so performance data was not included.
+		\begin{figure}[H]
+    	\centering
+    	\caption{Performance results for \texttt{Get50PercentBorder} function}\label{figPerformanceGet50Percent}
+    	\includegraphics[width=0.7\textwidth]{get50_bar.png}
+    	\includegraphics[width=0.7\textwidth]{get50_line.png}
+    	\end{figure}
 		
 % =============================== Section =============================== %
 \section{System Tests}
