@@ -206,8 +206,47 @@ For all unit tests:
 \end{tabular}
 \end{table}
 
+\subsection{void Init(istream \& aDataFile, G4int total, G4double ux, G4double uy)} 
+	Initializes the data in the current vector with \texttt{total} data points from \texttt{aDataFile}. Each data
+	point is multiplied by factor \texttt{ux} for the x-value and \texttt{uy} for the y-value.
+
+	\subsubsection{Test Inputs}
+		Each vector \emph{vec1}, \emph{vec2} \ldots \emph{vec6} is associated with a data file, which is the input \texttt{aDataFile} to
+		the \texttt{Init} function. These data files are bundled with Geant4, and include measured data points for 
+		a given isotope of an element. \texttt{vec0} is not initialized with a data file, as it is meant to be an empty vector to test edge cases.
+		As such, \texttt{vec0} is not tested with this function.
+		\begin{table}[H]
+		\centering
+		\caption{Unit Tests - \texttt{Init}}\label{Init_unit}
+		\begin{tabular}{lllll}
+		\toprule
+		\multirow{2}{*}{\bf Test \#}  & \multicolumn{2}{c}{\bf Inputs}\\
+		& \bf \texttt{aDataFile} & \bf \texttt{G4int} & \bf \texttt{ux} & \bf \texttt{uy}\\\midrule
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{Init_0} & Current data file & n & 1 & 1\\
+		\bottomrule
+		\end{tabular}
+		\end{table}
+	\subsubsection{Test Results}
+		\begin{table}[H]
+		\centering
+		\caption{Test Results -- Init}\label{Init_acc}
+		\begin{tabular}{cllllll}
+		\toprule
+		\multirow{2}{*}{\bf Test \#} & \multicolumn{6}{c}{\bf Test Result}\\
+		& vec1 & vec2 & vec3 & vec4 & vec5 & vec6\\\midrule
+		\ref{Init_0} & Pass & Pass & Pass & Pass & Pass & Pass\\
+		\bottomrule
+		\end{tabular}
+		\end{table}
+	\subsubsection{Performance}
+    	\begin{figure}[H]
+    	\centering
+    	\caption{Performance results for \texttt{Init} function}\label{figPerformanceInit}
+    	\includegraphics[width=0.7\textwidth]{init_bar.png}
+    	\includegraphics[width=0.7\textwidth]{init_line.png}
+   		\end{figure}
+
 \subsection{G4ParticleHPVector \& operator = (const G4ParticleHPVector \& right)}
-	
 	Create a new, temporary G4ParticleHPVector object and assign the current vector to it. Outputs the data and the integral from the new vector.
 
 	\subsubsection{Test Inputs}
@@ -320,6 +359,48 @@ For all unit tests:
 	\subsubsection{Performance}
 		This method is not computationally heavy, so performance data was not included.
 
+\subsection{G4double GetEnergy(G4int i)} % Test cases finished
+	
+	Returns the energy at index \texttt{i} in the current vector. The \texttt{x} 
+	value of the point are outputted.
+	
+	\subsubsection{Test Inputs}
+		\begin{table}[H]
+		\centering
+		\caption{Unit Tests - \texttt{GetEnergy}}\label{GetEnergy_unit}
+		\begin{tabular}{lll}
+		\toprule
+		\multirow{2}{*}{\bf Test \#}  & \multicolumn{1}{c}{\bf Inputs}\\
+		& \bf \texttt{i}\\\midrule
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetEnergy_0} & -1\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetEnergy_1} & 0\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetEnergy_2} & n/2\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetEnergy_3} & n-1\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetEnergy_4} & n\\
+		\bottomrule
+		\end{tabular}
+		\end{table}
+	
+	\subsubsection{Test Results}
+		\begin{table}[H]
+		\centering
+		\caption{Test Results -- GetEnergy}\label{GetEnergy_acc}
+		\begin{tabular}{clllllll}
+		\toprule
+		\multirow{2}{*}{\bf Test \#} & \multicolumn{7}{c}{\bf Test Result}\\
+		& vec0 & vec1 & vec2 & vec3 & vec4 & vec5 & vec6\\\midrule
+		\ref{GetEnergy_0} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
+		\ref{GetEnergy_1} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
+		\ref{GetEnergy_2} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
+		\ref{GetEnergy_3} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
+		\ref{GetEnergy_4} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
+		\bottomrule
+		\end{tabular}
+		\end{table}
+
+	\subsubsection{Performance}
+		This method is not computationally heavy, so performance data was not included.
+
 \subsection{G4double GetY(G4int i)}
 
 	
@@ -405,47 +486,6 @@ For all unit tests:
 	\subsubsection{Performance}
 		This method is not computationally heavy, so performance data was not included.
 		
-\subsection{G4double GetEnergy(G4int i)} % Test cases finished
-	
-	Returns the energy at index \texttt{i} in the current vector. The \texttt{x} 
-	value of the point are outputted.
-	
-	\subsubsection{Test Inputs}
-		\begin{table}[H]
-		\centering
-		\caption{Unit Tests - \texttt{GetEnergy}}\label{GetEnergy_unit}
-		\begin{tabular}{lll}
-		\toprule
-		\multirow{2}{*}{\bf Test \#}  & \multicolumn{1}{c}{\bf Inputs}\\
-		& \bf \texttt{i}\\\midrule
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetEnergy_0} & -1\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetEnergy_1} & 0\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetEnergy_2} & n/2\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetEnergy_3} & n-1\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetEnergy_4} & n\\
-		\bottomrule
-		\end{tabular}
-		\end{table}
-	
-	\subsubsection{Test Results}
-		\begin{table}[H]
-		\centering
-		\caption{Test Results -- GetEnergy}\label{GetEnergy_acc}
-		\begin{tabular}{clllllll}
-		\toprule
-		\multirow{2}{*}{\bf Test \#} & \multicolumn{7}{c}{\bf Test Result}\\
-		& vec0 & vec1 & vec2 & vec3 & vec4 & vec5 & vec6\\\midrule
-		\ref{GetEnergy_0} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
-		\ref{GetEnergy_1} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
-		\ref{GetEnergy_2} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
-		\ref{GetEnergy_3} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
-		\ref{GetEnergy_4} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
-		\bottomrule
-		\end{tabular}
-		\end{table}
-
-	\subsubsection{Performance}
-
 \subsection{void SetData(G4int i, G4double x, G4double y)}
 	
 	Sets the energy and xSec at index \texttt{i} in the current vector. 
@@ -488,87 +528,48 @@ For all unit tests:
 	\subsubsection{Performance}
 		This method is not computationally heavy, so performance data was not included.
 
-\subsection{void SetEnergy(G4int i, G4double e)}
-	
-	Sets the energy at index \texttt{i} in the current vector. 
-	
+\subsection{void SetPoint(G4int i, const G4ParticleHPDataPoint \& it)}	
+	Sets the data point to \texttt{it} at index \texttt{i} in the current vector.
+
 	\subsubsection{Test Inputs}
-	Commas denote multiple sub-test inputs. If one of the sub-tests fail then the whole test fails.
+		\begin{itemize}
+			\item ``rPoint" is a G4ParticleHPDataPoint with random values
+			\item ``nPoint" is a G4ParticleHPDataPoint with negative values
+			\item ``zPoint" is a G4ParticleHPDataPoint with zero values
+		\end{itemize}
+		Commas denote multiple sub-test inputs. If one of the sub-tests fail then the whole test fails.
 		\begin{table}[H]
 		\centering
-		\caption{Unit Tests - \texttt{SetEnergy}}\label{SetEnergy_unit}
-		\begin{tabular}{llll}
+		\caption{Unit Tests}\label{SetPoint_unit}
+		\begin{tabular}{lll}
 		\toprule
-		\multirow{2}{*}{\bf Test \#}  & \multicolumn{2}{c}{\bf Inputs}\\
-		& \bf \texttt{i} & \bf \texttt{e}\\\midrule
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetEnergy_0} & -1 & r1, r2, r3, r4, r5\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetEnergy_1} & 0 & r1, r2, r3, r4, r5\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetEnergy_2} & n/2 & r1, r2, r3, r4, r5\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetEnergy_3} & n-1 & r1, r2, r3, r4, r5\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetEnergy_4} & n & r1, r2, r3, r4, r5\\
+		\multirow{2}{*}{\bf Test \#} & \multicolumn{2}{c}{\bf Inputs}\\
+		& \texttt{i} & \texttt{it}\\\midrule
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetPoint_0} & -1 & rPoint, nPoint, zPoint\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetPoint_1} & 0 & rPoint, nPoint, zPoint\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetPoint_2} & n/2 & rPoint, nPoint, zPoint\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetPoint_3} & n-1 & rPoint, nPoint, zPoint\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetPoint_4} & n & rPoint, nPoint, zPoint\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
-	
 	\subsubsection{Test Results}
 		\begin{table}[H]
 		\centering
-		\caption{Test Results -- SetEnergy}\label{SetEnergy_acc}
+		\caption{Test Results -- SetPoint}\label{SetPoint_acc}
+		
 		\begin{tabular}{clllllll}
 		\toprule
 		\multirow{2}{*}{\bf Test \#} & \multicolumn{7}{c}{\bf Test Result}\\
 		& vec0 & vec1 & vec2 & vec3 & vec4 & vec5 & vec6\\\midrule
-		\ref{SetEnergy_0} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
-		\ref{SetEnergy_1} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
-		\ref{SetEnergy_2} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
-		\ref{SetEnergy_3} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
-		\ref{SetEnergy_4} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
+		\ref{SetPoint_0} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
+		\ref{SetPoint_1} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
+		\ref{SetPoint_2} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
+		\ref{SetPoint_3} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
+		\ref{SetPoint_4} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
-
-	\subsubsection{Performance}
-		This method is not computationally heavy, so performance data was not included.
-
-\subsection{void SetXsec(G4int i, G4double e)}
-	
-	Sets the xSec at index \texttt{i} in the current vector. 
-	
-	\subsubsection{Test Inputs}
-	Commas denote multiple sub-test inputs. If one of the sub-tests fail then the whole test fails.
-		\begin{table}[H]
-		\centering
-		\caption{Unit Tests - \texttt{SetXsec}}\label{SetXsec_unit}
-		\begin{tabular}{llll}
-		\toprule
-		\multirow{2}{*}{\bf Test \#}  & \multicolumn{2}{c}{\bf Inputs}\\
-		& \bf \texttt{i} & \bf \texttt{e}\\\midrule
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetXsec_0} & -1 & r1, r2, r3, r4, r5\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetXsec_1} & 0 & r1, r2, r3, r4, r5\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetXsec_2} & n/2 & r1, r2, r3, r4, r5\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetXsec_3} & n-1 & r1, r2, r3, r4, r5\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetXsec_4} & n & r1, r2, r3, r4, r5\\
-		\bottomrule
-		\end{tabular}
-		\end{table}
-	
-	\subsubsection{Test Results}
-		\begin{table}[H]
-		\centering
-		\caption{Test Results -- SetXsec}\label{SetXsec_acc}
-		\begin{tabular}{clllllll}
-		\toprule
-		\multirow{2}{*}{\bf Test \#} & \multicolumn{7}{c}{\bf Test Result}\\
-		& vec0 & vec1 & vec2 & vec3 & vec4 & vec5 & vec6\\\midrule
-		\ref{SetXsec_0} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
-		\ref{SetXsec_1} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
-		\ref{SetXsec_2} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
-		\ref{SetXsec_3} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
-		\ref{SetXsec_4} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
-		\bottomrule
-		\end{tabular}
-		\end{table}
-
 	\subsubsection{Performance}
 		This method is not computationally heavy, so performance data was not included.
 
@@ -614,6 +615,48 @@ For all unit tests:
 	\subsubsection{Performance}
 		This function is not computationally heavy, so performance data was not included.
 
+
+\subsection{void SetEnergy(G4int i, G4double e)}
+	
+	Sets the energy at index \texttt{i} in the current vector. 
+	
+	\subsubsection{Test Inputs}
+	Commas denote multiple sub-test inputs. If one of the sub-tests fail then the whole test fails.
+		\begin{table}[H]
+		\centering
+		\caption{Unit Tests - \texttt{SetEnergy}}\label{SetEnergy_unit}
+		\begin{tabular}{llll}
+		\toprule
+		\multirow{2}{*}{\bf Test \#}  & \multicolumn{2}{c}{\bf Inputs}\\
+		& \bf \texttt{i} & \bf \texttt{e}\\\midrule
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetEnergy_0} & -1 & r1, r2, r3, r4, r5\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetEnergy_1} & 0 & r1, r2, r3, r4, r5\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetEnergy_2} & n/2 & r1, r2, r3, r4, r5\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetEnergy_3} & n-1 & r1, r2, r3, r4, r5\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetEnergy_4} & n & r1, r2, r3, r4, r5\\
+		\bottomrule
+		\end{tabular}
+		\end{table}
+	
+	\subsubsection{Test Results}
+		\begin{table}[H]
+		\centering
+		\caption{Test Results -- SetEnergy}\label{SetEnergy_acc}
+		\begin{tabular}{clllllll}
+		\toprule
+		\multirow{2}{*}{\bf Test \#} & \multicolumn{7}{c}{\bf Test Result}\\
+		& vec0 & vec1 & vec2 & vec3 & vec4 & vec5 & vec6\\\midrule
+		\ref{SetEnergy_0} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
+		\ref{SetEnergy_1} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
+		\ref{SetEnergy_2} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
+		\ref{SetEnergy_3} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
+		\ref{SetEnergy_4} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
+		\bottomrule
+		\end{tabular}
+		\end{table}
+
+	\subsubsection{Performance}
+		This method is not computationally heavy, so performance data was not included.
 \subsection{void SetY(G4int i, G4double e)} % Test cases finished
 	
 	Sets the xSec at index \texttt{i} in the current vector. 
@@ -656,45 +699,82 @@ For all unit tests:
 	\subsubsection{Performance}
 		This function is not computationally heavy, so performance data was not included.
 
-\subsection{void Init(istream \& aDataFile, G4int total, G4double ux, G4double uy)} 
-	Initializes the data in the current vector with \texttt{total} data points from \texttt{aDataFile}. Each data
-	point is multiplied by factor \texttt{ux} for the x-value and \texttt{uy} for the y-value.
 
+\subsection{void SetXsec(G4int i, G4double e)}
+	
+	Sets the xSec at index \texttt{i} in the current vector. 
+	
 	\subsubsection{Test Inputs}
-		Each vector \emph{vec1}, \emph{vec2} \ldots \emph{vec6} is associated with a data file, which is the input \texttt{aDataFile} to
-		the \texttt{Init} function. These data files are bundled with Geant4, and include measured data points for 
-		a given isotope of an element. \texttt{vec0} is not initialized with a data file, as it is meant to be an empty vector to test edge cases.
-		As such, \texttt{vec0} is not tested with this function.
+	Commas denote multiple sub-test inputs. If one of the sub-tests fail then the whole test fails.
 		\begin{table}[H]
 		\centering
-		\caption{Unit Tests - \texttt{Init}}\label{Init_unit}
-		\begin{tabular}{lllll}
+		\caption{Unit Tests - \texttt{SetXsec}}\label{SetXsec_unit}
+		\begin{tabular}{llll}
 		\toprule
 		\multirow{2}{*}{\bf Test \#}  & \multicolumn{2}{c}{\bf Inputs}\\
-		& \bf \texttt{aDataFile} & \bf \texttt{G4int} & \bf \texttt{ux} & \bf \texttt{uy}\\\midrule
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{Init_0} & Current data file & n & 1 & 1\\
+		& \bf \texttt{i} & \bf \texttt{e}\\\midrule
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetXsec_0} & -1 & r1, r2, r3, r4, r5\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetXsec_1} & 0 & r1, r2, r3, r4, r5\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetXsec_2} & n/2 & r1, r2, r3, r4, r5\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetXsec_3} & n-1 & r1, r2, r3, r4, r5\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetXsec_4} & n & r1, r2, r3, r4, r5\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
+	
 	\subsubsection{Test Results}
 		\begin{table}[H]
 		\centering
-		\caption{Test Results -- Init}\label{Init_acc}
-		\begin{tabular}{cllllll}
+		\caption{Test Results -- SetXsec}\label{SetXsec_acc}
+		\begin{tabular}{clllllll}
 		\toprule
-		\multirow{2}{*}{\bf Test \#} & \multicolumn{6}{c}{\bf Test Result}\\
-		& vec1 & vec2 & vec3 & vec4 & vec5 & vec6\\\midrule
-		\ref{Init_0} & Pass & Pass & Pass & Pass & Pass & Pass\\
+		\multirow{2}{*}{\bf Test \#} & \multicolumn{7}{c}{\bf Test Result}\\
+		& vec0 & vec1 & vec2 & vec3 & vec4 & vec5 & vec6\\\midrule
+		\ref{SetXsec_0} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
+		\ref{SetXsec_1} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
+		\ref{SetXsec_2} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
+		\ref{SetXsec_3} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
+		\ref{SetXsec_4} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
+
 	\subsubsection{Performance}
-    	\begin{figure}[H]
-    	\centering
-    	\caption{Performance results for \texttt{Init} function}\label{figPerformanceInit}
-    	\includegraphics[width=0.7\textwidth]{init_bar.png}
-    	\includegraphics[width=0.7\textwidth]{init_line.png}
-    	\end{figure}
+		This method is not computationally heavy, so performance data was not included.
+
+\subsection{G4double Sample()}
+	
+	  Performs samples of the vector according to interpolation its interpolation scheme.
+	
+	\subsubsection{Test Inputs}
+		\begin{table}[H]
+		\centering
+		\caption{Unit Tests - \texttt{Sample}}\label{Sample_unit}
+		\begin{tabular}{lll}
+		\toprule
+		\multirow{2}{*}{\bf Test \#}  & \multicolumn{1}{c}{\bf Inputs}\\
+		& \bf \texttt{N/A}\\\midrule
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{Sample_0} & N/A \\
+		\bottomrule
+		\end{tabular}
+		\end{table}
+	
+	\subsubsection{Test Results}
+		\begin{table}[H]
+		\centering
+		\caption{Test Results -- Sample}\label{Sample_acc}
+		\begin{tabular}{clllllll}
+		\toprule
+		\multirow{2}{*}{\bf Test \#} & \multicolumn{7}{c}{\bf Test Result}\\
+		& vec0 & vec1 & vec2 & vec3 & vec4 & vec5 & vec6\\\midrule
+		\ref{Sample_0} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
+		\bottomrule
+		\end{tabular}
+		\end{table}
+
+	\subsubsection{Performance}
+		This method is not computationally heavy, so performance data was not included.
+
 
 \subsection{G4double SampleLin()}% Test Cases Done
 	
@@ -822,83 +902,7 @@ For all unit tests:
 	\subsubsection{Performance}
 		This method is not computationally heavy, so performance data was not included.
 
-\subsection{G4double Sample()}
-	
-	  Performs samples of the vector according to interpolation its interpolation scheme.
-	
-	\subsubsection{Test Inputs}
-		\begin{table}[H]
-		\centering
-		\caption{Unit Tests - \texttt{Sample}}\label{Sample_unit}
-		\begin{tabular}{lll}
-		\toprule
-		\multirow{2}{*}{\bf Test \#}  & \multicolumn{1}{c}{\bf Inputs}\\
-		& \bf \texttt{N/A}\\\midrule
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{Sample_0} & N/A \\
-		\bottomrule
-		\end{tabular}
-		\end{table}
-	
-	\subsubsection{Test Results}
-		\begin{table}[H]
-		\centering
-		\caption{Test Results -- Sample}\label{Sample_acc}
-		\begin{tabular}{clllllll}
-		\toprule
-		\multirow{2}{*}{\bf Test \#} & \multicolumn{7}{c}{\bf Test Result}\\
-		& vec0 & vec1 & vec2 & vec3 & vec4 & vec5 & vec6\\\midrule
-		\ref{Sample_0} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
-		\bottomrule
-		\end{tabular}
-		\end{table}
 
-	\subsubsection{Performance}
-		This method is not computationally heavy, so performance data was not included.
-
-\subsection{void SetPoint(G4int i, const G4ParticleHPDataPoint \& it)}	
-	Sets the data point to \texttt{it} at index \texttt{i} in the current vector.
-
-	\subsubsection{Test Inputs}
-		\begin{itemize}
-			\item ``rPoint" is a G4ParticleHPDataPoint with random values
-			\item ``nPoint" is a G4ParticleHPDataPoint with negative values
-			\item ``zPoint" is a G4ParticleHPDataPoint with zero values
-		\end{itemize}
-		Commas denote multiple sub-test inputs. If one of the sub-tests fail then the whole test fails.
-		\begin{table}[H]
-		\centering
-		\caption{Unit Tests}\label{SetPoint_unit}
-		\begin{tabular}{lll}
-		\toprule
-		\multirow{2}{*}{\bf Test \#} & \multicolumn{2}{c}{\bf Inputs}\\
-		& \texttt{i} & \texttt{it}\\\midrule
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetPoint_0} & -1 & rPoint, nPoint, zPoint\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetPoint_1} & 0 & rPoint, nPoint, zPoint\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetPoint_2} & n/2 & rPoint, nPoint, zPoint\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetPoint_3} & n-1 & rPoint, nPoint, zPoint\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetPoint_4} & n & rPoint, nPoint, zPoint\\
-		\bottomrule
-		\end{tabular}
-		\end{table}
-	\subsubsection{Test Results}
-		\begin{table}[H]
-		\centering
-		\caption{Test Results -- SetPoint}\label{SetPoint_acc}
-		
-		\begin{tabular}{clllllll}
-		\toprule
-		\multirow{2}{*}{\bf Test \#} & \multicolumn{7}{c}{\bf Test Result}\\
-		& vec0 & vec1 & vec2 & vec3 & vec4 & vec5 & vec6\\\midrule
-		\ref{SetPoint_0} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
-		\ref{SetPoint_1} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
-		\ref{SetPoint_2} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
-		\ref{SetPoint_3} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
-		\ref{SetPoint_4} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
-		\bottomrule
-		\end{tabular}
-		\end{table}
-	\subsubsection{Performance}
-		This method is not computationally heavy, so performance data was not included.
 
 \subsection{G4double GetXsec(G4double e)}
 	
@@ -948,7 +952,6 @@ For all unit tests:
 	The GPU function is significantly slower. This is due to the lack of a hashing function as on the CPU which dramatically speeds up the time to find the first element in the data with energy at least \emph{e}. It can be noted in figure \ref{figPerformanceGetXSec_e_min} that when a minimum value is pre-declared the performance gap is much smaller.
 	
 \subsection{G4double GetXsec(G4double e, G4int min)}
-	
 	Returns the first xSec from the current vector whose energy is greater than \texttt{e}. 
 	
 	\subsubsection{Test Inputs}

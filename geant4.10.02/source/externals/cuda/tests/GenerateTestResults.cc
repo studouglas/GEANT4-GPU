@@ -416,7 +416,6 @@ void testIntegral(int caseNum) {
 void testTimes(int caseNum) {
 	writeOutTestName("void Times(G4double factor)", caseNum);
 	
-	// vectors[caseNum]->Dump();
 	// multiply by several random factors, then by their 
 	// inverse to get back to original values
 	const int numTimesInputs = 4;
