@@ -19,6 +19,7 @@
 \usepackage{float}
 \lstset{basicstyle=\small\ttfamily,xleftmargin=18pt,breaklines=true}
 \captionsetup[table]{skip=2pt}
+
 % Comments --------------------------------------------------------------------
 \usepackage{xcolor}
 \newif\ifcomments\commentstrue
@@ -33,8 +34,6 @@
 % End Comments ---------------------------------------------------------------
 
 \setlength\parindent{0pt} % Cleaner look
-
-
 \usepackage{xcolor}
 \hypersetup{
     colorlinks,
@@ -93,7 +92,7 @@ Template of document & Matt  & 2016-03-15\\
 
 % =============================== Section =============================== %
 \section*{List of Tables}
-Tables for specific unit tests have been omitted in order to keep this document readable.
+Tables for specific unit and system tests have been omitted in order to keep this document readable.
 \begin{center}
 \begin{tabular}{cl}
 \toprule
@@ -101,6 +100,7 @@ Tables for specific unit tests have been omitted in order to keep this document 
 \ref{Table_Revision} 			& Revision History\\
 \ref{Table_DefAndAcro} 			& Definitions and Acronyms\\
 \ref{gen_var_table}			& General Unit Test Variables\\
+\ref{Table_SystemTests} & Summary of System Tests\\
 \ref{Table_TestsAndRequirements}	& Tests and Requirements Relationship\\
 \ref{Table_TestsAndModules}		& Tests and Modules Relationship\\
 \bottomrule
@@ -135,6 +135,7 @@ GEANT4-GPU & GEANT4 with some computations running on the GPU\\
 GPU & Graphics processing unit, well-suited to parallel computing tasks\\
 CPU & Computer processing unit, general computer processor well-suited to serial tasks\\
 CUDA & Parallel computing architecture for general purpose programming on GPU, developed by NVIDIA\\
+Hadr04 & Example simulation installed by default with Geant4, used for system tests.\\
 \Xhline{2\arrayrulewidth}
 \end{tabularx}
 \end{table}
@@ -165,7 +166,6 @@ GEANT4-GPU is a back end implementation of already existing GEANT4 modules. Ther
 The GEANT4-GPU functions are meant to mimic the already existing GEANT4 functions. Therefore the GEANT4-GPU functions must also mimic the the robustness of the GEANT4 functions. The accuracy section for unit tests has several unit tests designed to test the robustness of the functions. 
 
 % =============================== Section =============================== 
-% -------------------------- Matt does unit tests and accuracy. Victor Does performance graphs
 \section{Unit Testing}
 \subsection{Use of Automated Testing}
 \subsubsection{Overview}
@@ -207,7 +207,7 @@ For all unit tests:
 \end{table}
 
 \subsection{G4ParticleHPVector \& operator = (const G4ParticleHPVector \& right)}
-	\subsubsection{Test Description}
+	
 	Create a new, temporary G4ParticleHPVector object and assign the current vector to it. Outputs the data and the integral from the new vector.
 
 	\subsubsection{Test Inputs}
@@ -238,7 +238,7 @@ For all unit tests:
 		This method is not computationally heavy, so performance data was not included.
 		
 \subsection{const G4ParticleHPDataPoint GetPoint(G4int i)}
-	\subsubsection{Test Description}
+	
 	Returns the G4ParticleHPDataPoint at index \texttt{i} in the current vector. The \texttt{x} 
 	and \texttt{y} values of the point are outputted.
 	
@@ -279,7 +279,7 @@ For all unit tests:
 		This method is not computationally heavy, so performance data was not included.
 		
 \subsection{G4double GetX(G4int i)}
-	\subsubsection{Test Description}
+	
 	Returns the energy at index \texttt{i} in the current vector. The \texttt{x} 
 	value of the point are outputted.
 	
@@ -322,7 +322,7 @@ For all unit tests:
 
 \subsection{G4double GetY(G4int i)}
 
-	\subsubsection{Test Description}
+	
 	Returns the xSec at index \texttt{i} in the current vector. The \texttt{y} 
 	value of the point are outputted.
 	
@@ -364,7 +364,7 @@ For all unit tests:
 		This method is not computationally heavy, so performance data was not included.
 		
 \subsection{G4double GetXsec(G4int i)} % Test cases finished
-	\subsubsection{Test Description}
+	
 	Returns the xSec at index \texttt{i} in the current vector. The \texttt{y} 
 	value of the point are outputted.
 	
@@ -406,7 +406,7 @@ For all unit tests:
 		This method is not computationally heavy, so performance data was not included.
 		
 \subsection{G4double GetEnergy(G4int i)} % Test cases finished
-	\subsubsection{Test Description}
+	
 	Returns the energy at index \texttt{i} in the current vector. The \texttt{x} 
 	value of the point are outputted.
 	
@@ -447,11 +447,11 @@ For all unit tests:
 	\subsubsection{Performance}
 
 \subsection{void SetData(G4int i, G4double x, G4double y)}
-	\subsubsection{Test Description}
+	
 	Sets the energy and xSec at index \texttt{i} in the current vector. 
 	
 	\subsubsection{Test Inputs}
-	Commas denote multiple sub test inputs. If one of the sub tests fail then the whole test fails.
+	Commas denote multiple sub-test inputs. If one of the sub-tests fail then the whole test fails.
 		\begin{table}[H]
 		\centering
 		\caption{Unit Tests - \texttt{SetData}}\label{SetData_unit}
@@ -489,11 +489,11 @@ For all unit tests:
 		This method is not computationally heavy, so performance data was not included.
 
 \subsection{void SetEnergy(G4int i, G4double e)}
-	\subsubsection{Test Description}
+	
 	Sets the energy at index \texttt{i} in the current vector. 
 	
 	\subsubsection{Test Inputs}
-	Commas denote multiple sub test inputs. If one of the sub tests fail then the whole test fails.
+	Commas denote multiple sub-test inputs. If one of the sub-tests fail then the whole test fails.
 		\begin{table}[H]
 		\centering
 		\caption{Unit Tests - \texttt{SetEnergy}}\label{SetEnergy_unit}
@@ -530,12 +530,12 @@ For all unit tests:
 	\subsubsection{Performance}
 		This method is not computationally heavy, so performance data was not included.
 
-\subsection{void SetXsec(G4int i, G4double e)} % Test cases finished
-	\subsubsection{Test Description}
+\subsection{void SetXsec(G4int i, G4double e)}
+	
 	Sets the xSec at index \texttt{i} in the current vector. 
 	
 	\subsubsection{Test Inputs}
-	Commas denote multiple sub test inputs. If one of the sub tests fail then the whole test fails.
+	Commas denote multiple sub-test inputs. If one of the sub-tests fail then the whole test fails.
 		\begin{table}[H]
 		\centering
 		\caption{Unit Tests - \texttt{SetXsec}}\label{SetXsec_unit}
@@ -572,12 +572,12 @@ For all unit tests:
 	\subsubsection{Performance}
 		This method is not computationally heavy, so performance data was not included.
 
-\subsection{void SetX(G4int i, G4double e)} % Test cases finished
-	\subsubsection{Test Description}
+\subsection{void SetX(G4int i, G4double e)}
+	
 	Sets the energy at index \texttt{i} in the current vector. 
 	
 	\subsubsection{Test Inputs}
-	Commas denote multiple sub test inputs. If one of the sub tests fail then the whole test fails.
+	Commas denote multiple sub-test inputs. If one of the sub-tests fail then the whole test fails.
 		\begin{table}[H]
 		\centering
 		\caption{Unit Tests - \texttt{SetX}}\label{SetX_unit}
@@ -615,11 +615,11 @@ For all unit tests:
 		This function is not computationally heavy, so performance data was not included.
 
 \subsection{void SetY(G4int i, G4double e)} % Test cases finished
-	\subsubsection{Test Description}
+	
 	Sets the xSec at index \texttt{i} in the current vector. 
 	
 	\subsubsection{Test Inputs}
-	Commas denote multiple sub test inputs. If one of the sub tests fail then the whole test fails.
+	Commas denote multiple sub-test inputs. If one of the sub-tests fail then the whole test fails.
 		\begin{table}[H]
 		\centering
 		\caption{Unit Tests - \texttt{SetY}}\label{SetY_unit}
@@ -656,11 +656,16 @@ For all unit tests:
 	\subsubsection{Performance}
 		This function is not computationally heavy, so performance data was not included.
 
-\subsection{void Init(istream & aDataFile, G4int total, G4double ux, G4double uy)} 
-	\subsubsection{Test Description}
-	Initializes the data.	
+\subsection{void Init(istream \& aDataFile, G4int total, G4double ux, G4double uy)} 
+	
+	Initializes the data in the current vector with \texttt{total} data points from \texttt{aDataFile}. Each data
+	point is multiplied by factor \texttt{ux} for the x-value and \texttt{uy} for the y-value.
 
 	\subsubsection{Test Inputs}
+		Each vector \emph{vec1}, \emph{vec2} \ldots \emph{vec6} is associated with a data file, which is the input \texttt{aDataFile} to
+		the \texttt{Init} function. These data files are bundled with Geant4, and include measured data points for 
+		a given isotope of an element. \texttt{vec0} is not initialized with a data file, as it is meant to be an empty vector to test edge cases.
+		As such, \texttt{vec0} is not tested with this function.
 		\begin{table}[H]
 		\centering
 		\caption{Unit Tests - \texttt{Init}}\label{Init_unit}
@@ -668,8 +673,7 @@ For all unit tests:
 		\toprule
 		\multirow{2}{*}{\bf Test \#}  & \multicolumn{2}{c}{\bf Inputs}\\
 		& \bf \texttt{aDataFile} & \bf \texttt{G4int} & \bf \texttt{ux} & \bf \texttt{uy}\\\midrule
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{Init_0} & Empty.Init() & n & 1 & 1\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{Init_1} & D.Init() & n & 1 & 1\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{Init_0} & Current data file & n & 1 & 1\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
@@ -677,11 +681,11 @@ For all unit tests:
 		\begin{table}[H]
 		\centering
 		\caption{Test Results -- Init}\label{Init_acc}
-		\begin{tabular}{lll}
+		\begin{tabular}{cllllll}
 		\toprule
-		\bf Test \# & Status \\\midrule
-		\ref{Init_0} & Pass\\
-		\ref{Init_1} & Pass\\
+		\multirow{2}{*}{\bf Test \#} & \multicolumn{6}{c}{\bf Test Result}\\
+		& vec1 & vec2 & vec3 & vec4 & vec5 & vec6\\\midrule
+		\ref{Init_0} & Pass & Pass & Pass & Pass & Pass & Pass\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
@@ -694,7 +698,7 @@ For all unit tests:
     	\end{figure}
 
 \subsection{G4double SampleLin()}% Test Cases Done
-	\subsubsection{Test Description}
+	
 	 Performs samples of the vector with a linear interpolation scheme.
 	
 	\subsubsection{Test Inputs}
@@ -732,91 +736,8 @@ For all unit tests:
     	\end{figure}
 	The extraneous point for 1509 entries where the GPU function is significantly slower can be attributed to the need to copy the data from the GPU memory back to CPU memory in this case.
 
-		
-%\subsection{IntegrateAndNormalise}
-%	\subsubsection{Unit Tests}
-%		\begin{table}[H]
-%		\centering
-%		\caption{Unit Tests}\label{IntAndNorm_unit}
-%		\begin{tabular}{lll}
-%		\toprule
-%		\bf Test \# & Code & \bf Description\\\midrule
-%		\stepcounter{TestCounter}\arabic{TestCounter}\label{IntAndNorm_0} & Empty.IntegrateAndNormalise() & Integrate and normalize an empty Vector\\
-%		\stepcounter{TestCounter}\arabic{TestCounter}\label{IntAndNorm_1} & D.IntegrateAndNormalise() & Integrate normalize a Vector\\
-%		\bottomrule
-%		\end{tabular}
-%		\end{table}
-%	\subsubsection{Accuracy}
-%		\begin{table}[H]
-%		\centering
-%		\caption{Accuracy}\label{IntAndNorm_acc}
-%		\begin{tabular}{lll}
-%		\toprule
-%		\bf Test \# & Status \\\midrule
-%		\ref{IntAndNorm_0} & Pass\\
-%		\ref{IntAndNorm_1} & Pass\\
-%		\bottomrule
-%		\end{tabular}
-%		\end{table}
-%	\subsubsection{Performance}
-%		This method is not computationally heavy, so performance data was not included.
-		
-%\subsection{Integrate}
-%	\subsubsection{Unit Tests}
-%		\begin{table}[H]
-%		\centering
-%		\caption{Unit Tests}\label{Integrate_unit}
-%		\begin{tabular}{lll}
-%		\toprule
-%		\bf Test \# & Code & \bf Description\\\midrule
-%		\refstepcounter{TestCounter}\arabic{TestCounter}\label{Integrate_0} & Empty.Integrate() & Integrate an empty Vector\\
-%		\refstepcounter{TestCounter}\arabic{TestCounter}\label{Integrate_1} & D.Integrate() & Integrate a Vector\\
-%		\bottomrule
-%		\end{tabular}
-%		\end{table}
-%	\subsubsection{Accuracy}
-%		\begin{table}[H]
-%		\centering
-%		\caption{Accuracy}\label{Integrate_acc}
-%		\begin{tabular}{lll}
-%		\toprule
-%		\bf Test \# & Status \\\midrule
-%		\ref{Integrate_0} & Pass\\
-%		\ref{Integrate_1} & Pass\\
-%		\bottomrule
-%		\end{tabular}
-%		\end{table}
-%	\subsubsection{Performance}
-%
-%\subsection{IntegrateAndNormalise}
-%	\subsubsection{Unit Tests}
-%		\begin{table}[H]
-%		\centering
-%		\caption{Unit Tests}\label{IntAndNorm_unit}
-%		\begin{tabular}{lll}
-%		\toprule
-%		\bf Test \# & Code & \bf Description\\\midrule
-%		\stepcounter{TestCounter}\arabic{TestCounter}\label{IntAndNorm_0} & Empty.IntegrateAndNormalise() & Integrate and normalize an empty Vector\\
-%		\stepcounter{TestCounter}\arabic{TestCounter}\label{IntAndNorm_1} & D.IntegrateAndNormalise() & Integrate normalize a Vector\\
-%		\bottomrule
-%		\end{tabular}
-%		\end{table}
-%	\subsubsection{Accuracy}
-%		\begin{table}[H]
-%		\centering
-%		\caption{Accuracy}\label{IntAndNorm_acc}
-%		\begin{tabular}{lll}
-%		\toprule
-%		\bf Test \# & Status \\\midrule
-%		\ref{IntAndNorm_0} & Pass\\
-%		\ref{IntAndNorm_1} & Pass\\
-%		\bottomrule
-%		\end{tabular}
-%		\end{table}
-%	\subsubsection{Performance}
-
 \subsection{void Times(G4double factor)} % Test Cases done
-	\subsubsection{Test Description}
+	
 	Multiplies every element in the vector by \texttt{factor}.
 	
 	\subsubsection{Test Inputs}
@@ -861,68 +782,8 @@ For all unit tests:
     	\includegraphics[width=0.7\textwidth]{times_line.png}
     	\end{figure}
 
-%\subsection{GetXsecBuffer} 
-%	\begin{table}[H]
-%	\centering
-%	\caption{General Unit Test Variables}\label{buffer_table}
-%	\begin{tabular}{lll}
-%	\toprule
-%		\bf Name & \bf Size & Description\\\midrule 
-%		emptyBuff 	& 0		& Array with no queries\\	
-%		singleBuff 	& 1		& Array with a single query\\
-%		smallbuff	& 50		& Array with a small number of queries\\
-%		normalBuff	& 1000	& Array with a moderate number of queries\\
-%		largeBuff	& 10000	& Array with a large amount of queries\\
-%		negBuff	& 50		& Array of queries with negative values\\
-%		zeroBuff	& 50		& Array of queries with values of zero\\
-%		highBuff	& 50		& Array of queries with values larger than the highest energy in the vector\\
-%	\bottomrule		
-%	\end{tabular}
-%	\end{table}
-%	\subsubsection{Unit Tests}
-%		\begin{table}[H]
-%		\centering
-%		\caption{Unit Tests}\label{xSecBuffer_unit}
-%		\begin{tabular}{lll}
-%		\toprule
-%		\bf Test \# & Code & \bf Description\\\midrule
-%		\refstepcounter{TestCounter}\arabic{TestCounter} \label{xSecBuffer_0} & D.GetXsecBuffer(normalBuff, -1) &  buffer with a negative size\\
-%		\refstepcounter{TestCounter}\arabic{TestCounter} \label{xSecBuffer_1} & Empty.GetXsecBuffer(emptyBuff, 0) &  Empty buffer of xSec queries to an empty vector\\
-%		\refstepcounter{TestCounter}\arabic{TestCounter} \label{xSecBuffer_2} & Empty.GetXsecBuffer(normalBuff, 1000) &  Normal buffer of xSec queries to an empty vector\\
-%		\refstepcounter{TestCounter}\arabic{TestCounter} \label{xSecBuffer_3} & D.GetXsecBuffer(emptyBuff, 0) &  Empty buffer of xSec queries\\
-%		\refstepcounter{TestCounter}\arabic{TestCounter} \label{xSecBuffer_4} & D.GetXsecBuffer(smalllBuff, 50) &  Small number of queries\\
-%		\refstepcounter{TestCounter}\arabic{TestCounter} \label{xSecBuffer_5} & D.GetXsecBuffer(normalBuff, 1000) &  Normal case\\
-%		\refstepcounter{TestCounter}\arabic{TestCounter} \label{xSecBuffer_6} & D.GetXsecBuffer(highBuff, 10000) &  Large number of queries\\
-%		\refstepcounter{TestCounter}\arabic{TestCounter} \label{xSecBuffer_7} & D.GetXsecBuffer(negBuff, 1000) &  Buffer of negative xSec queries\\
-%		\refstepcounter{TestCounter}\arabic{TestCounter} \label{xSecBuffer_8} & D.GetXsecBuffer(emptyBuff, 1000) &  Buffer of zeros\\
-%		\refstepcounter{TestCounter}\arabic{TestCounter} \label{xSecBuffer_9} & D.GetXsecBuffer(highBuff, 0) & Buffer of high valued xSec queries\\
-%		\bottomrule
-%		\end{tabular}
-%		\end{table}
-%	\subsubsection{Accuracy}
-%		\begin{table}[H]
-%		\centering
-%		\caption{Accuracy}\label{xSecBuffer_acc}
-%		\begin{tabular}{lll}
-%		\toprule
-%		\bf Test \# & Status \\\midrule
-%		\ref{xSecBuffer_0} & Pass\\
-%		\ref{xSecBuffer_1} & Pass\\
-%		\ref{xSecBuffer_2} & Pass\\
-%		\ref{xSecBuffer_3} & Pass\\
-%		\ref{xSecBuffer_4} & Pass\\
-%		\ref{xSecBuffer_5} & Pass\\
-%		\ref{xSecBuffer_6} & Pass\\
-%		\ref{xSecBuffer_7} & Pass\\
-%		\ref{xSecBuffer_8} & Pass\\
-%		\ref{xSecBuffer_9} & Pass\\
-%		\bottomrule
-%		\end{tabular}
-%		\end{table}
-%	\subsubsection{Performance}
-
 \subsection{void ThinOut(G4double precision)} % Test Cases done 
-	\subsubsection{Test Description}
+	
 	Removes any element from the vector whose neighbor is closer than \texttt{precision}.
 	
 	\subsubsection{Test Inputs}
@@ -962,8 +823,8 @@ For all unit tests:
 	\subsubsection{Performance}
 		This method is not computationally heavy, so performance data was not included.
 
-\subsection{G4double Sample()}% Test Cases Done
-	\subsubsection{Test Description}
+\subsection{G4double Sample()}
+	
 	  Performs samples of the vector according to interpolation its interpolation scheme.
 	
 	\subsubsection{Test Inputs}
@@ -994,59 +855,30 @@ For all unit tests:
 
 	\subsubsection{Performance}
 		This method is not computationally heavy, so performance data was not included.
-		
-%\subsection{GetIntegral}
-%	\subsubsection{Unit Tests}
-%		\begin{table}[H]
-%		\centering
-%		\caption{Unit Tests}\label{_unit}
-%		\begin{tabular}{lll}
-%		\toprule
-%		\bf Test \# & Code & \bf Description\\\midrule
-%		\refstepcounter{TestCounter}\arabic{TestCounter} & Code goes here & Description goes here\\
-%		\bottomrule
-%		\end{tabular}
-%		\end{table}
-%	\subsubsection{Accuracy}
-%		\begin{table}[H]
-%		\centering
-%		\caption{Accuracy}\label{_acc}
-%		\begin{tabular}{lll}
-%		\toprule
-%		\bf Test \# & CPU & GPU \\\midrule
-%		\arabic{TestCounter} & CPU time & GPU time\\
-%		\bottomrule
-%		\end{tabular}
-%		\end{table}
-%	\subsubsection{Performance}
 
-\subsection{void SetPoint(G4int i, const G4ParticleHPDataPoint & it)}
-	\subsubsection{Test Description}
-	Sets a point at a given index in a given vector.
+\subsection{void SetPoint(G4int i, const G4ParticleHPDataPoint \& it)}
+	
+	Sets the data point to \texttt{it} at index \texttt{i} in the current vector.
 
 	\subsubsection{Test Inputs}
 		\begin{itemize}
-			\item ``rPoint" is a random G4ParticleHPDataPoint
-			\item ``nPoint" is a negative G4ParticleHPDataPoint
-			\item ``zPoint" is a zero G4ParticleHPDataPoint
+			\item ``rPoint" is a G4ParticleHPDataPoint with random values
+			\item ``nPoint" is a G4ParticleHPDataPoint with negative values
+			\item ``zPoint" is a G4ParticleHPDataPoint with zero values
 		\end{itemize}
+		Commas denote multiple sub-test inputs. If one of the sub-tests fail then the whole test fails.
 		\begin{table}[H]
 		\centering
 		\caption{Unit Tests}\label{SetPoint_unit}
 		\begin{tabular}{lll}
 		\toprule
-		\multirow{2}{*}{\bf Test \#} & \multicolumn{2}{c}{\bf Inputs\\
-		& vec0 & vec1\\\midrule
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetPoint_0} & -1 & rPoint\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetPoint_1} & 0 & rPoint\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetPoint_2} & 1 & rPoint\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetPoint_3} & -1 & rPoint\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetPoint_4} & 0 & rPoint\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetPoint_5} & n/2 & rPoint\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetPoint_6} & n-1 & rPoint\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetPoint_7} & n & rPoint\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetPoint_8} & 0 & nPoint\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetPoint_9} & 0 & zPoint\\
+		\multirow{2}{*}{\bf Test \#} & \multicolumn{2}{c}{\bf Inputs}\\
+		& \texttt{i} & \texttt{it}\\\midrule
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetPoint_0} & -1 & rPoint, nPoint, zPoint\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetPoint_1} & 0 & rPoint, nPoint, zPoint\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetPoint_2} & n/2 & rPoint, nPoint, zPoint\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetPoint_3} & n-1 & rPoint, nPoint, zPoint\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetPoint_4} & n & rPoint, nPoint, zPoint\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
@@ -1054,56 +886,28 @@ For all unit tests:
 		\begin{table}[H]
 		\centering
 		\caption{Test Results -- SetPoint}\label{SetPoint_acc}
-		\begin{tabular}{lll}
+		
+		\begin{tabular}{clllllll}
 		\toprule
-		\bf Test \# & Status \\\midrule
-		\ref{SetPoint_0} & Pass\\
-		\ref{SetPoint_1} & Pass\\
-		\ref{SetPoint_2} & Pass\\
-		\ref{SetPoint_3} & Pass\\
-		\ref{SetPoint_4} & Pass\\
-		\ref{SetPoint_5} & Pass\\
-		\ref{SetPoint_6} & Pass\\
-		\ref{SetPoint_7} & Pass\\
-		\ref{SetPoint_8} & Pass\\
-		\ref{SetPoint_9} & Pass\\
+		\multirow{2}{*}{\bf Test \#} & \multicolumn{7}{c}{\bf Test Result}\\
+		& vec0 & vec1 & vec2 & vec3 & vec4 & vec5 & vec6\\\midrule
+		\ref{SetPoint_0} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
+		\ref{SetPoint_1} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
+		\ref{SetPoint_2} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
+		\ref{SetPoint_3} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
+		\ref{SetPoint_4} & Pass & Pass & Pass & Pass & Pass & Pass & Pass\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
 	\subsubsection{Performance}
 		This method is not computationally heavy, so performance data was not included.
 
-%\subsection{Merge}
-%	\subsubsection{Unit Tests}
-%		\begin{table}[!htbp]
-%		\centering
-%		\caption{Unit Tests}\label{Merge_unit}
-%		\begin{tabular}{lll}
-%		\toprule
-%		\bf Test \# & Code & \bf Description\\\midrule
-%		\refstepcounter{TestCounter}\arabic{TestCounter} & Code goes here & Description goes here\\
-%		\bottomrule
-%		\end{tabular}
-%		\end{table}
-%	\subsubsection{Accuracy}
-%		\begin{table}[!htbp]
-%		\centering
-%		\caption{Accuracy}\label{Merge_acc}
-%		\begin{tabular}{lll}
-%		\toprule
-%		\bf Test \# & Status \\\midrule
-%		\arabic{TestCounter} & Pass\\
-%		\bottomrule
-%		\end{tabular}
-%		\end{table}
-%	\subsubsection{Performance}
-
-\subsection{G4double GetXsec(G4double e)} % Test cases finished
-	\subsubsection{Test Description}
+\subsection{G4double GetXsec(G4double e)}
+	
 	Returns the first xSec from the current vector whose energy is greater than \texttt{e}. 
 	
 	\subsubsection{Test Inputs}
-	Commas denote multiple sub test inputs. If one of the sub tests fail then the whole test fails.
+	Commas denote multiple sub-test inputs. If one of the sub-tests fail then the whole test fails.
 		\begin{table}[H]
 		\centering
 		\caption{Unit Tests - \texttt{GetXsec}}\label{GetXsec_e_unit}
@@ -1146,11 +950,11 @@ For all unit tests:
 	The GPU function is significantly slower. This is due to the lack of a hashing function as on the CPU which dramatically speeds up the time to find the first element in the data with energy at least \emph{e}. It can be noted in figure \ref{figPerformanceGetXSec_e_min} that when a minimum value is pre-declared the performance gap is much smaller.
 	
 \subsection{G4double GetXsec(G4double e, G4int min)}
-	\subsubsection{Test Description}
+	
 	Returns the first xSec from the current vector whose energy is greater than \texttt{e}. 
 	
 	\subsubsection{Test Inputs}
-	Commas denote multiple sub test inputs. If one of the sub tests fail then the whole test fails.
+	Commas denote multiple sub-test inputs. If one of the sub-tests fail then the whole test fails.
 		\begin{table}[H]
 		\centering
 		\caption{Unit Tests - \texttt{GetXsec}}\label{GetXsec_e_min_unit}
@@ -1193,7 +997,7 @@ For all unit tests:
     	\end{figure}
 
 \subsection{G4double Get15percentBorder()}
-	\subsubsection{Test Description}
+	
 	 Returns the integral from each data point to the last data point and returns the first one within 
 15\% of the last data point.
 	
@@ -1232,7 +1036,7 @@ For all unit tests:
     	\end{figure}
 		
 \subsection{G4double Get50percentBorder()}% Test Cases Done
-	\subsubsection{Test Description}
+	
 	 Returns the integral from each data point to the last data point and returns the first one within 
 50\% of the last data point.
 	
@@ -1272,136 +1076,140 @@ For all unit tests:
 		
 % =============================== Section =============================== %
 \section{System Tests}
-\subsection{Summary of Tests Performed}
-System tests will be performed by running the sample code packaged with the GEANT4 installation. The Hadr04 example will be run with different materials (i.e water, uranium) and number of events. The values and conditions that are changed per test are detailed in the table below.\\ \\
+\subsection{Summary of System Tests}
+System tests are performed by running the sample code packaged with the GEANT4 installation. The Hadr04 example will be run with different materials (i.e water, uranium) and varying number of events. The values and conditions that are changed per test are detailed in table \ref{Table_SystemTests}.\\
+
+For each system test, a summary of the results is recorded. This consists of a section detailing the accuracy fo the results, and a section covering performance.. The accuracy of the results will be based on the differnece between the values generated on the GPU and the values generated on the CPU. The performance metric that is used is the time required to run each system test.
+
 
 \begin{center}
-\begin{longtable}{c>{\raggedright\arraybackslash}p{2.8cm} >{\raggedright\arraybackslash}p{2.8cm}>{\raggedright\arraybackslash}p{3cm}>{\raggedright\arraybackslash}p{3.5cm}}
-\caption{System Tests}\label{Table_SystemTests}\\
-\toprule
+\begin{table}[H]
+\caption{System Tests}\label{Table_SystemTests}
+\begin{tabular}{c>{\raggedright\arraybackslash}p{2.8cm} >{\raggedright\arraybackslash}p{2.8cm}>{\raggedright\arraybackslash}p{3cm}>{\raggedright\arraybackslash}p{3.5cm}}
 
+\toprule
 \bf Test \# & \bf Name & \bf Inputs & \bf Outputs & \bf Description\\\midrule
 \refstepcounter{TestCounter}\arabic{TestCounter}\label{sys1}
 & System Test - Water, 2000 events
 & Events = 2000
 Material = Water
 & Same output as non-GPU GEANT4 
-&  HADR04 no changes\\\midrule
+&  Hadr04 no changes\\\midrule
 
 \refstepcounter{TestCounter}\arabic{TestCounter}\label{sys2}
 & System Test - Uranium, 2000 events
 & Events = 2000
 Material = Uranium
 & Same output as non-GPU GEANT4 
-& HADR04 -- basic example\\\midrule
+& Hadr04 -- basic example\\\midrule
 
 \refstepcounter{TestCounter}\arabic{TestCounter}\label{sys3}
 & System Test - Water, 600 events
 & Events = 600
 Material = Water
 & Same output as non-GPU GEANT4 
-& HADR04 -- Shorter test \\\midrule
+& Hadr04 -- Shorter test \\\midrule
 
 \refstepcounter{TestCounter}\arabic{TestCounter}\label{sys4}
 & System Test - Uranium, 600 events
 & Events = 600
 Material = Uranium
 & Same output as non-GPU GEANT4 
-& HADR04 -- Shorter test \\\midrule
+& Hadr04 -- Shorter test \\\midrule
 
 \refstepcounter{TestCounter}\arabic{TestCounter}\label{sys5}
 & System Test - Uranium, 20000 events
 & Events = 20000
 Material = Uranium
 & Same output as non-GPU GEANT4 
-& HADR04 -- Long simulation stress Test\\\midrule
-
-\refstepcounter{TestCounter}\arabic{TestCounter}\label{sys6}
-& System Test - Uranium, 0 events
-& Events = 0
-Material = Uranium
-& Same output as non-GPU GEANT4 
-& HADR04 -- no runs,  Edge case\\
+& Hadr04 -- Long simulation stress Test\\
 
 \bottomrule
-\end{longtable}
+
+\end{tabular}
+\end{table}
 \end{center}
-\subsection{System Tests Results}
-This section will summarize all of the results from running tests 39 through 44. Each test has an accuracy section as well as a performance section. The accuracy of the results will be based on how well the values generated on the GPU match up with the values generated on the CPU. The performance metric that is used is the time required to run each system test, without initialization. A positive value in the difference section of the performance tables indicates that the CPU version of the system test was faster by that many seconds. A negative value in this section indicates that the GPU version of the test was quicker by that many seconds.
 
 \subsection{System Test - Water, 2000 events}
-This test simply runs the Hadr04 example on both the GPU and the CPU without changing the source files. The code for this example is bundled with the GEANT4 installation.\\
+This test runs the Hadr04 example on both the GPU and the CPU. The code for the Hadr04 example is bundled with the GEANT4 installation.
 	\subsubsection{Accuracy}
-		\begin{table}[!htbp]
+	Test output for water, 2000 events:
+		\begin{table}[H]
 		\centering
-		\caption{Accuracy Test \# \ref{sys1}}\label{_acc}
+		\caption{Accuracy - Water, 2000 events}\label{sys1Acc}
 		\begin{tabular}{lp{2.3cm}p{2.3cm}l}
 		\toprule
-		\bf Data & CPU Values & GPU Values & Similarity\\\midrule
+		\bf Data & \bf CPU Values & \bf GPU Values & \bf Similarity\\\midrule
 		\bf Process Calls&&&\\
 		hadElastic&423181&432423&far\\
 		nCapture&1998&1998&same\\
 		neutronInelastic&2&2&same\\ 
+
+		\midrule
 		\bf Parcours of incident neutron&&&\\
 		collisions&212.59&217.21&close\\
 		track length&93.387 cm&95.292 cm&close\\
 		time of flight&202.14 mus&206.94 mus&close\\
+	
+		\midrule
 		\bf Generated particles&&&\\
-		\underline{C14}&&&different\\
+
+		\bf{C14}&&&\\
 		\# of particles&2&NA&different\\
 		Emean&404.13 keV&NA&different\\
-		\underline{C15}&&&different\\
+
+		\bf{C15}&&&\\
 		\# of particles&NA&2&different\\
 		Emean&NA&29.472 keV&different\\
-		\underline{O16}&&&\\
+
+		\bf{O16}&&&\\
 		\# of particles&5948&6035&close\\
 		Emean&39.577 keV&40.436 keV&close\\
 		
-		\underline{O17}&&&\\
+		\bf{O17}&&&\\
 		\# of particles&4&5&close\\
 		Emean&1.4823 keV&320.93 eV&far\\
 		
-		\underline{O18}&&&\\
+		\bf{O18}&&&\\
 		\# of particles&3&6&close\\
 		Emean&52.362&8.5446 keV&far\\
 		
-		\underline{Alpha}&&&\\
+		\bf{Alpha}&&&\\
 		\# of particles&2&2&same\\
 		Emean&1.4146 MeV&7.8556 keV&far\\
 		
-		\underline{Deuteron}&&&\\
+		\bf{Deuteron}&&&\\
 		\# of particles&1996&1994&close\\
 		Emean&1.3185 keV&1.3186 keV&close\\
 		
-		\underline{Gamma}&&&\\
+		\bf{Gamma}&&&\\
 		\# of particles&2000&2005&close\\
 		Emean&2.2239 MeV&2.2214 MeV&close\\
 		
-		\underline{Proton}&&&\\
+		\bf{Proton}&&&\\
 		\# of particles&45355&45645&close\\
-		Emean&83.046 keV&82.301 keV&close\\
+		Emean&83.046 keV&82.301 keV&close\\\bottomrule
 		
 		\end{tabular}
 		\end{table}	
-		\break
+
 	\subsubsection{Performance}
 		\begin{table}[!htbp]
 		\centering
-		\caption{Performance Test \# \ref{sys1}}\label{_acc}
+		\caption{Performance - Water, 2000 events}\label{_acc}
 		\begin{tabular}{lll}
 		\toprule
-		CPU Time& GPU Time&Difference\\\midrule
-		54.55s&72.08s&17.53s\\
+		CPU Time& GPU Time&Speedup of GPU\\\midrule
+		54.55s&72.08s&-1.32$\times$\\
 		\end{tabular}
 		\end{table}
-\break
 
 \subsection{System Test - Uranium, 2000 events}
-This test simply runs the Hadr04 example on both the GPU and the CPU with a modified source files to include Uranium as an element is the simulation. The number of events for this test has been set to 2000. The code for this example is bundled with the GEANT4 installation.\\
+This test runs the Hadr04 example on both the GPU and the CPU with a modified source files to include Uranium as an element in the simulation. The number of events for this test has been set to 2000.
 	\subsubsection{Accuracy}
-		\begin{table}[!htbp]
+		\begin{table}[H]
 		\centering
-		\caption{Accuracy Test \# \ref{sys2}}\label{_acc}
+		\caption{Accuracy - Uranium, 2000 events}\label{sys2Acc}
 		\begin{tabular}{lp{2.3cm}p{2.3cm}l}
 		\toprule
 		\bf Data & CPU Values & GPU Values & Similarity\\\midrule
@@ -1410,34 +1218,38 @@ This test simply runs the Hadr04 example on both the GPU and the CPU with a modi
 		nCapture&29&30&close\\
 		nFission&281&314&close\\		
 		neutronInelastic&1690&1656&close\\ 
+
+		\midrule	
 		\bf Parcours of incident neutron&&&\\
 		collisions&1.9655&1.966&close\\
 		track length&5.6484 cm&5.6517 cm&close\\
 		time of flight&2.896 ns&2.8983 ns&close\\
+		
+		\midrule
 		\bf Generated particles&&&\\
-		\underline{U235}&&&\\
+		\bf{U235}&&&\\
 		\# of particles&29&23&close\\
 		Emean&6.5841 keV&7.1217 keV&close\\
 		
-		\underline{U236}&&&different\\
+		\bf{U236}&&&\\
 		\# of particles&NA&1&different\\
 		Emean&NA&10.474 keV&different\\
 		
-		\underline{U238}&&&\\
+		\bf{U238}&&&\\
 		\# of particles&3592&3565&close\\
 		Emean&8.8059 keV&8.8494 keV&close\\
 		
-		\underline{U239}&&&\\
+		\bf{U239}&&&\\
 		\# of particles&29&29&close\\
 		Emean&8.3978 keV&8.3269 keV&close\\
 		
-		\underline{Gamma}&&&\\
+		\bf{Gamma}&&&\\
 		\# of particles&4319&4351&close\\
 		Emean&496.96 keV&477.71 keV&close\\
 		
-		\underline{Neutron}&&&\\
+		\bf{Neutron}&&&\\
 		\# of particles&2449&2410&close\\
-		Emean&1.2746 MeV&1.2814 MeV&close\\
+		Emean&1.2746 MeV&1.2814 MeV&close\\\bottomrule
 		
 		\end{tabular}
 		\end{table}
@@ -1445,62 +1257,67 @@ This test simply runs the Hadr04 example on both the GPU and the CPU with a modi
 		\subsubsection{Performance}
 		\begin{table}[!htbp]
 		\centering
-		\caption{Performance Test \# \ref{sys1}}\label{_acc}
+		\caption{Performance - Uranium, 2000 events}\label{sys2Perf}
 		\begin{tabular}{lll}
 		\toprule
-		CPU Time& GPU Time&Difference\\\midrule
-		0.63s&10.57s&9.94s\\
+		CPU Time& GPU Time&Speedup of GPU\\\midrule
+		0.63s&10.57s&-16.78$\times$\\\bottomrule
 		\end{tabular}
 		\end{table}
+
 \subsection{System Test - Water, 600 events}
-This test simply runs the Hadr04 example on both the GPU and the CPU without changing the source files. The number of runs for this test has been changed to be 600, a low number of events relative to the other trials. The code for this example is bundled with the GEANT4 installation.\\
-\break
+This test simply runs the Hadr04 example on both the GPU and the CPU without changing the source files. The number of runs for this test has been changed to be 600, a low number of events relative to the other trials. The code for this example is bundled with the GEANT4 installation.
+
 	\subsubsection{Accuracy}
-		\begin{table}[!htbp]
+		\begin{table}[H]
 		\centering
-		\caption{Accuracy Test \# \ref{sys3}}\label{_acc}
+		\caption{Accuracy - Water, 600 events}\label{sys3Acc}
 		\begin{tabular}{lp{2.3cm}p{2.3cm}l}
 		\toprule
 		\bf Data & CPU Values & GPU Values &Similarity\\\midrule
 		\bf Process Calls&&&\\
 		hadElastic&131588&131588&same\\
 		nCapture&600&600&same\\
+	
+		\midrule
 		\bf Parcours of incident neutron&&&\\
 		collisions&220.31&220.31&same\\
 		track length&96.495 cm&96.495 cm&same\\
 		time of flight&210.57 mus&210.57 mus&same\\
+
+		\midrule
 		\bf Generated particles&&&\\
-		\underline{O16}&&&\\
+		\bf{O16}&&&\\
 		\# of particles&1819&1819&same\\
 		Emean&41.788 keV&41.788 keV&same\\
 		
-		\underline{O17}&&&\\
+		\bf{O17}&&&\\
 		\# of particles&3&3&same\\
 		Emean&316.87 eV&316.87 eV&same\\
 		
-		\underline{O18}&&&\\
+		\bf{O18}&&&\\
 		\# of particles&1&1&same\\
 		Emean&9.3256 eV&9.3256 eV&same\\	
-		\underline{Deuteron}&&&\\
+		\bf{Deuteron}&&&\\
 		\# of particles&597&597&same\\
 		Emean&1.319 keV&1.319 keV&same\\	
-		\underline{Gamma}&&&\\
+		\bf{Gamma}&&&\\
 		\# of particles&602&602&same\\
 		Emean&2.2229 MeV&2.2229 MeV&same\\	
-		\underline{Proton}&&&\\
+		\bf{Proton}&&&\\
 		\# of particles&13860&13860&same\\
-		Emean&81.141 keV&81.141 keV&same\\	
+		Emean&81.141 keV&81.141 keV&same\\\bottomrule
 		\end{tabular}
 		\end{table}
 		\break
 	\subsubsection{Performance}
-		\begin{table}[!htbp]
+		\begin{table}[H]
 		\centering
-		\caption{Performance Test \# \ref{sys3}}\label{_acc}
+		\caption{Performance - Water, 600 events}\label{sys3Perf}
 		\begin{tabular}{lll}
 		\toprule
-		CPU Time& GPU Time&Difference\\\midrule
-		17.07s&22.11s&5.04s\\
+		CPU Time& GPU Time&Speedup of GPU\\\midrule
+		17.07s&22.11s&-1.29$\times$\\\bottomrule
 		\end{tabular}
 		\end{table}
 		
@@ -1508,9 +1325,9 @@ This test simply runs the Hadr04 example on both the GPU and the CPU without cha
 This test simply runs the Hadr04 example on both the GPU and the CPU with a modified source files to include Uranium as an element is the simulation. The number of events is set to 600, a lower number of events than the other tests, to see how fewer events will impact accuracy and/or performance The code for this example is bundled with the GEANT4 installation.\\
 \break
 	\subsubsection{Accuracy}
-		\begin{table}[!htbp]
+		\begin{table}[H]
 		\centering
-		\caption{Accuracy Test \# \ref{sys4}}\label{_acc}
+		\caption{Accuracy - Uranium, 600 events}\label{sys4Acc}
 		\begin{tabular}{lp{2.3cm}p{2.3cm}l}
 		\toprule
 		\bf Data & CPU Values & GPU Values & Similarity\\\midrule
@@ -1519,42 +1336,46 @@ This test simply runs the Hadr04 example on both the GPU and the CPU with a modi
 		nCapture&8&9&close\\
 		nFission&89&100&close\\
 		neutronInelastic&508&491&close\\ 
+
+		\midrule
 		\bf Parcours of incident neutron&&&\\
 		collisions&1.9367&1.9167&close\\
 		track length&5.6204 cm&5.4727 cm&close\\
 		time of flight&2.8817 ns&2.8063 ns&close\\
+
+		\midrule
 		\bf Generated particles&&&\\
 		
-		\underline{U235}&&&\\
+		\bf{U235}&&&\\
 		\# of particles&6&9&close\\
 		Emean&6.131 keV&6.1807 keV&close\\
 		
-		\underline{U238}&&&\\
+		\bf{U238}&&&\\
 		\# of particles&1064&1032&close\\
 		Emean&8.9857 keV&9.0257 keV&close\\
 		
-		\underline{U239}&&&\\
+		\bf{U239}&&&\\
 		\# of particles&8&9&close\\
 		Emean&8.3308 keV&8.498 keV&close\\
 		
-		\underline{Gamma}&&&\\
+		\bf{Gamma}&&&\\
 		\# of particles&1261&1294&close\\
 		Emean&486.58 keV&473.83 keV&close\\
 		
-		\underline{Neutron}&&&\\
+		\bf{Neutron}&&&\\
 		\# of particles&743&737&close\\
-		Emean&1.3038 MeV&1.3173 MeV&close\\
+		Emean&1.3038 MeV&1.3173 MeV&close\\\bottomrule
 		\end{tabular}
 		\end{table}
 		\break
 	\subsubsection{Performance}
-		\begin{table}[!htbp]
+		\begin{table}[H]
 		\centering
-		\caption{Performance Test \# \ref{sys4}}\label{_acc}
+		\caption{Performance - Uranium, 600 events}\label{sys4Perf}
 		\begin{tabular}{lll}
 		\toprule
-		CPU Time& GPU Time&Difference\\\midrule
-		.22s&3.01s&2.79s\\
+		CPU Time& GPU Time&Speedup of GPU\\\midrule
+		0.22s&3.01s&-13.68$\times$\\\bottomrule
 		\end{tabular}
 		\end{table}
 
@@ -1562,9 +1383,9 @@ This test simply runs the Hadr04 example on both the GPU and the CPU with a modi
 This test simply runs the Hadr04 example on both the GPU and the CPU with a modified source files to include Uranium as an element is the simulation. The macro file detailing the number of events had been changed such that 20000 events are run. The idea is to see if speed and/or accuracy gaps will widen or shrink as the number of events increases. The code for this example is bundled with the GEANT4 installation.\\
 \break
 	\subsubsection{Accuracy}
-		\begin{table}[!htbp]
+		\begin{table}[H]
 		\centering
-		\caption{Accuracy Test \# \ref{sys5}}\label{_acc}
+		\caption{Accuracy - Uranium, 20000 events}\label{sys5Acc}
 		\begin{tabular}{llll}
 		\toprule
 		\bf Data & CPU Values & GPU Values & Difference\\\midrule
@@ -1573,104 +1394,53 @@ This test simply runs the Hadr04 example on both the GPU and the CPU with a modi
 		nCapture&245&268&close\\
 		nFission&2933&2920&close\\
 		neutronInelastic&16822&16812&close\\ 
+		
+		\midrule
 		\bf Parcours of incident neutron&&&\\
 		collisions&1.9763&1.9667&close\\
 		track length&5.6512 cm&5.5873 cm&close\\
 		time of flight&2.898 ns&2.8651 ns&close\\
+
+		\midrule
 		\bf Generated particles&&&\\
-		\underline{U234}&&&\\
+		\bf{U234}&&&\\
 		\# of particles&6&4&close\\
 		Emean&3.1299 keV&6.32 keV&close\\
 		
-		\underline{U235}&&&\\
+		\bf{U235}&&&\\
 		\# of particles&223&193&close\\
 		Emean&8.4136 keV&8.4444 keV&close\\
 		
-		\underline{U236}&&&\\
+		\bf{U236}&&&\\
 		\# of particles&2&3&close\\
 		Emean&9.5669 keV&9.192 keV&close\\
 		
-		\underline{U238}&&&\\
+		\bf{U238}&&&\\
 		\# of particles&36119&35950&close\\
 		Emean&8.8767 keV&8.8895 keV&close\\
 		
-		\underline{U239}&&&\\
+		\bf{U239}&&&\\
 		\# of particles&243&265&close\\
 		Emean&8.428 keV&8.4341 keV&close\\
-		\underline{Gamma}&&&\\
+		\bf{Gamma}&&&\\
 		\# of particles&43826&44039&close\\
 		Emean&479.54 keV&479.03 keV&close\\
-		\underline{Proton}&&&\\
+		\bf{Proton}&&&\\
 		\# of particles&24374&24546&close\\
-		Emean&1.2749 MeV&1.2587 MeV&close\\
+		Emean&1.2749 MeV&1.2587 MeV&close\\\bottomrule
 		\end{tabular}
 		\end{table}
-		\break
-	\subsubsection{Performance}
-		\begin{table}[!htbp]
-		\centering
-		\caption{Performance Test \# \ref{sys5}}\label{_acc}
-		\begin{tabular}{lll}
-		\toprule
-		CPU Time& GPU Time&Difference\\\midrule
-		6.4s&106.41s&101.01s\\
-		\end{tabular}
-		\end{table}
-		
-\subsection{System Test - Uranium, 0 events}
-This test simply runs the Hadr04 example on both the GPU and the CPU with a modified source files to include Uranium as an element is the simulation. Then number of events in this test has been set to 0. This is to cover all possible cases. The code behaves as expected and no values are produced. The code for this example is bundled with the GEANT4 installation.\\
 
-\break
-	\subsubsection{Accuracy}
-		\begin{table}[!htbp]
-		\centering
-		\caption{Accuracy Test \# \ref{sys6}}\label{_acc}
-		\begin{tabular}{lp{2.3cm}p{2.3cm}l}
-		\toprule
-		\bf Data & CPU Values & GPU Values & Difference\\\midrule
-		\bf Process Calls&&&\\
-		hadElastic&NA&NA&NA\\
-		nCapture&NA&NA&NA\\
-		neutronInelastic&NA&NA&NA\\ 
-		\bf Parcours of incident neutron&&&\\
-		collisions&NA&NA&NA\\
-		track length&NA&NA&NA\\
-		time of flight&NA&NA&NA\\
-		\bf Generated particles&&&\\
-		\underline{O16}&&&\\
-		\# of particles&NA&NA&NA\\
-		Emean&NA&NA&NA\\
-		\underline{O17}&&&\\
-		\# of particles&NA&NA&NA\\
-		Emean&NA&NA&NA\\
-		\underline{O18}&&&\\
-		\# of particles&NA&NA&NA\\
-		Emean&NA&NA&NA\\
-		\underline{Deuteron}&&&\\
-		\# of particles&NA&NA&NA\\
-		Emean&NA&NA&NA\\
-		\underline{Gamma}&&&\\
-		\# of particles&NA&NA&NA\\
-		Emean&NA&NA&NA\\
-		\underline{Proton}&&&\\
-		\# of particles&NA&NA&NA\\
-		Emean&NA&NA&NA\\
-		\end{tabular}
-		\end{table}
-		\break
 	\subsubsection{Performance}
-		\begin{table}[!htbp]
+		\begin{table}[H]
 		\centering
-		\caption{Performance Test \# \ref{sys6}}\label{_acc}
+		\caption{Performance - Uranium, 20000 events}\label{sys5Perf}
 		\begin{tabular}{lll}
 		\toprule
-		Type&CPU Time& GPU Time\\\midrule
-		User&NA&NA\\
-		Real&NA&NA\\
-		System&NA&NA\\
+		CPU Time& GPU Time&Speedup on GPU\\\midrule
+		6.4s&106.41s&-16.64$\times$\\\bottomrule
 		\end{tabular}
-		\end{table}
-		
+		\end{table}		
 
 % =============================== Section =============================== %
 \section{Traceability}
