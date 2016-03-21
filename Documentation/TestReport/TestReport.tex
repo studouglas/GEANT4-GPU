@@ -1160,56 +1160,52 @@ This test runs the Hadr04 example on both the GPU and the CPU. The code for the 
 		\caption{Accuracy - Water, 2000 events}\label{sys1Acc}
 		\begin{tabular}{lp{2.3cm}p{2.3cm}l}
 		\toprule
-		\bf Data & \bf CPU Values & \bf GPU Values & \bf Similarity\\\midrule
+		\bf Data & \bf CPU Values & \bf GPU Values & \bf Absolute Difference\\\midrule
 		\bf Process Calls&&&\\
-		hadElastic&423181&432423&far\\
-		nCapture&1998&1998&same\\
-		neutronInelastic&2&2&same\\ 
+		hadElastic&423181&423181&0\\
+		nCapture&1998&1998&0\\
+		neutronInelastic&2&2&0\\ 
 
 		\midrule
 		\bf Parcours of incident neutron&&&\\
-		collisions&212.59&217.21&close\\
-		track length&93.387 cm&95.292 cm&close\\
-		time of flight&202.14 mus&206.94 mus&close\\
+		collisions&212.59&212.59&0\\
+		track length&93.387 cm&93.387 cm&0\\
+		time of flight&202.14 mus&202.14 mus&0\\
 	
 		\midrule
 		\bf Generated particles&&&\\
 
 		\bf{C14}&&&\\
-		\# of particles&2&NA&different\\
-		Emean&404.13 keV&NA&different\\
-
-		\bf{C15}&&&\\
-		\# of particles&NA&2&different\\
-		Emean&NA&29.472 keV&different\\
+		\# of particles&2&2&0\\
+		Emean&404.13 keV&404.13 keV&0\\
 
 		\bf{O16}&&&\\
-		\# of particles&5948&6035&close\\
-		Emean&39.577 keV&40.436 keV&close\\
+		\# of particles&5948&5948&0\\
+		Emean&39.577 keV&39.577 keV&0\\
 		
 		\bf{O17}&&&\\
-		\# of particles&4&5&close\\
-		Emean&1.4823 keV&320.93 eV&far\\
+		\# of particles&4&4&0\\
+		Emean&1.4823 keV&1.4823 keV&0\\
 		
 		\bf{O18}&&&\\
-		\# of particles&3&6&close\\
-		Emean&52.362&8.5446 keV&far\\
+		\# of particles&3&3&0\\
+		Emean&52.362 keV&52.362 keV&0\\
 		
 		\bf{Alpha}&&&\\
-		\# of particles&2&2&same\\
-		Emean&1.4146 MeV&7.8556 keV&far\\
+		\# of particles&2&2&0\\
+		Emean&1.4146 MeV&1.4146 MeV&0\\
 		
 		\bf{Deuteron}&&&\\
-		\# of particles&1996&1994&close\\
-		Emean&1.3185 keV&1.3186 keV&close\\
+		\# of particles&1996&1996&0\\
+		Emean&1.3185 keV&1.3185 keV&0\\
 		
 		\bf{Gamma}&&&\\
-		\# of particles&2000&2005&close\\
-		Emean&2.2239 MeV&2.2214 MeV&close\\
+		\# of particles&2000&2000&0\\
+		Emean&2.2239 MeV&2.2239 MeV&0\\
 		
 		\bf{Proton}&&&\\
-		\# of particles&45355&45645&close\\
-		Emean&83.046 keV&82.301 keV&close\\\bottomrule
+		\# of particles&45355&45355&0\\
+		Emean&83.046 keV&83.046 keV&0\\\bottomrule
 		
 		\end{tabular}
 		\end{table}	
@@ -1233,44 +1229,40 @@ This test runs the Hadr04 example on both the GPU and the CPU with a modified so
 		\caption{Accuracy - Uranium, 2000 events}\label{sys2Acc}
 		\begin{tabular}{lp{2.3cm}p{2.3cm}l}
 		\toprule
-		\bf Data & CPU Values & GPU Values & Similarity\\\midrule
+		\bf Data & CPU Values & GPU Values & Absolute Difference\\\midrule
 		\bf Process Calls&&&\\
-		hadElastic&1931&1932&close\\
-		nCapture&29&30&close\\
-		nFission&281&314&close\\		
-		neutronInelastic&1690&1656&close\\ 
+		hadElastic&1931&1931&0\\
+		nCapture&29&29&0\\
+		nFission&281&281&0\\		
+		neutronInelastic&1690&1690&0\\ 
 
 		\midrule	
 		\bf Parcours of incident neutron&&&\\
-		collisions&1.9655&1.966&close\\
-		track length&5.6484 cm&5.6517 cm&close\\
-		time of flight&2.896 ns&2.8983 ns&close\\
+		collisions&1.9655&1.966&0\\
+		track length&5.6484 cm&5.6517 cm&0\\
+		time of flight&2.896 ns&2.8983 ns&0\\
 		
 		\midrule
 		\bf Generated particles&&&\\
 		\bf{U235}&&&\\
-		\# of particles&29&23&close\\
-		Emean&6.5841 keV&7.1217 keV&close\\
-		
-		\bf{U236}&&&\\
-		\# of particles&NA&1&different\\
-		Emean&NA&10.474 keV&different\\
+		\# of particles&29&29&0\\
+		Emean&6.5841 keV&6.5841 keV&0\\
 		
 		\bf{U238}&&&\\
-		\# of particles&3592&3565&close\\
-		Emean&8.8059 keV&8.8494 keV&close\\
+		\# of particles&3592&3592&0\\
+		Emean&8.8059 keV&8.8059 keV&0\\
 		
 		\bf{U239}&&&\\
-		\# of particles&29&29&close\\
-		Emean&8.3978 keV&8.3269 keV&close\\
+		\# of particles&29&29&0\\
+		Emean&8.3978 keV&8.3978 keV&0\\
 		
 		\bf{Gamma}&&&\\
-		\# of particles&4319&4351&close\\
-		Emean&496.96 keV&477.71 keV&close\\
+		\# of particles&4319&4319&0\\
+		Emean&496.96 keV&496.96 keV&0\\
 		
 		\bf{Neutron}&&&\\
-		\# of particles&2449&2410&close\\
-		Emean&1.2746 MeV&1.2814 MeV&close\\\bottomrule
+		\# of particles&2449&2449&0\\
+		Emean&1.2746 MeV&1.2746 MeV&0\\\bottomrule
 		
 		\end{tabular}
 		\end{table}
@@ -1295,39 +1287,39 @@ This test simply runs the Hadr04 example on both the GPU and the CPU without cha
 		\caption{Accuracy - Water, 600 events}\label{sys3Acc}
 		\begin{tabular}{lp{2.3cm}p{2.3cm}l}
 		\toprule
-		\bf Data & CPU Values & GPU Values &Similarity\\\midrule
+		\bf Data & CPU Values & GPU Values &Absolute Difference\\\midrule
 		\bf Process Calls&&&\\
-		hadElastic&131588&131588&same\\
-		nCapture&600&600&same\\
+		hadElastic&131588&131588&0\\
+		nCapture&600&600&0\\
 	
 		\midrule
 		\bf Parcours of incident neutron&&&\\
-		collisions&220.31&220.31&same\\
-		track length&96.495 cm&96.495 cm&same\\
-		time of flight&210.57 mus&210.57 mus&same\\
+		collisions&220.31&220.31&0\\
+		track length&96.495 cm&96.495 cm&0\\
+		time of flight&210.57 mus&210.57 mus&0\\
 
 		\midrule
 		\bf Generated particles&&&\\
 		\bf{O16}&&&\\
-		\# of particles&1819&1819&same\\
-		Emean&41.788 keV&41.788 keV&same\\
+		\# of particles&1819&1819&0\\
+		Emean&41.788 keV&41.788 keV&0\\
 		
 		\bf{O17}&&&\\
-		\# of particles&3&3&same\\
-		Emean&316.87 eV&316.87 eV&same\\
+		\# of particles&3&3&0\\
+		Emean&316.87 eV&316.87 eV&0\\
 		
 		\bf{O18}&&&\\
-		\# of particles&1&1&same\\
-		Emean&9.3256 eV&9.3256 eV&same\\	
+		\# of particles&1&1&0\\
+		Emean&9.3256 eV&9.3256 eV&0\\	
 		\bf{Deuteron}&&&\\
-		\# of particles&597&597&same\\
-		Emean&1.319 keV&1.319 keV&same\\	
+		\# of particles&597&597&0\\
+		Emean&1.319 keV&1.319 keV&0\\	
 		\bf{Gamma}&&&\\
-		\# of particles&602&602&same\\
-		Emean&2.2229 MeV&2.2229 MeV&same\\	
+		\# of particles&602&602&0\\
+		Emean&2.2229 MeV&2.2229 MeV&0\\	
 		\bf{Proton}&&&\\
-		\# of particles&13860&13860&same\\
-		Emean&81.141 keV&81.141 keV&same\\\bottomrule
+		\# of particles&13860&13860&0\\
+		Emean&81.141 keV&81.141 keV&0\\\bottomrule
 		\end{tabular}
 		\end{table}
 		\break
@@ -1351,41 +1343,41 @@ This test simply runs the Hadr04 example on both the GPU and the CPU with a modi
 		\caption{Accuracy - Uranium, 600 events}\label{sys4Acc}
 		\begin{tabular}{lp{2.3cm}p{2.3cm}l}
 		\toprule
-		\bf Data & CPU Values & GPU Values & Similarity\\\midrule
+		\bf Data & CPU Values & GPU Values & Absolute Difference\\\midrule
 		\bf Process Calls&&&\\
-		hadElastic&562&550&close\\
-		nCapture&8&9&close\\
-		nFission&89&100&close\\
-		neutronInelastic&508&491&close\\ 
+		hadElastic&562&562&0\\
+		nCapture&8&8&0\\
+		nFission&89&89&0\\
+		neutronInelastic&508&508&0\\ 
 
 		\midrule
 		\bf Parcours of incident neutron&&&\\
-		collisions&1.9367&1.9167&close\\
-		track length&5.6204 cm&5.4727 cm&close\\
-		time of flight&2.8817 ns&2.8063 ns&close\\
+		collisions&1.9367&1.9367&0\\
+		track length&5.6204 cm&5.6204 cm&0\\
+		time of flight&2.8817 ns&2.8817 ns&0\\
 
 		\midrule
 		\bf Generated particles&&&\\
 		
 		\bf{U235}&&&\\
-		\# of particles&6&9&close\\
-		Emean&6.131 keV&6.1807 keV&close\\
+		\# of particles&6&6&0\\
+		Emean&6.131 keV&6.131 keV&0\\
 		
 		\bf{U238}&&&\\
-		\# of particles&1064&1032&close\\
-		Emean&8.9857 keV&9.0257 keV&close\\
+		\# of particles&1064&1064&0\\
+		Emean&8.9857 keV&8.9857 keV&0\\
 		
 		\bf{U239}&&&\\
-		\# of particles&8&9&close\\
-		Emean&8.3308 keV&8.498 keV&close\\
+		\# of particles&8&8&0\\
+		Emean&8.3308 keV&8.3308 keV&0\\
 		
 		\bf{Gamma}&&&\\
-		\# of particles&1261&1294&close\\
-		Emean&486.58 keV&473.83 keV&close\\
+		\# of particles&1261&1261&0\\
+		Emean&486.58 keV&47486.58 keV&0\\
 		
 		\bf{Neutron}&&&\\
-		\# of particles&743&737&close\\
-		Emean&1.3038 MeV&1.3173 MeV&close\\\bottomrule
+		\# of particles&743&743&0\\
+		Emean&1.3038 MeV&1.3038 MeV&0\\\bottomrule
 		\end{tabular}
 		\end{table}
 		\break
@@ -1409,46 +1401,46 @@ This test simply runs the Hadr04 example on both the GPU and the CPU with a modi
 		\caption{Accuracy - Uranium, 20000 events}\label{sys5Acc}
 		\begin{tabular}{llll}
 		\toprule
-		\bf Data & CPU Values & GPU Values & Difference\\\midrule
+		\bf Data & CPU Values & GPU Values & Absolute Difference\\\midrule
 		\bf Process Calls&&&\\
-		hadElastic&19526&19335&close\\
-		nCapture&245&268&close\\
-		nFission&2933&2920&close\\
-		neutronInelastic&16822&16812&close\\ 
+		hadElastic&19526&19526&0\\
+		nCapture&245&245&0\\
+		nFission&2933&2933&0\\
+		neutronInelastic&16822&16822&0\\ 
 		
 		\midrule
 		\bf Parcours of incident neutron&&&\\
-		collisions&1.9763&1.9667&close\\
-		track length&5.6512 cm&5.5873 cm&close\\
-		time of flight&2.898 ns&2.8651 ns&close\\
+		collisions&1.9763&1.9763&0\\
+		track length&5.6512 cm&5.6512 cm&0\\
+		time of flight&2.898 ns&2.898 ns&0\\
 
 		\midrule
 		\bf Generated particles&&&\\
 		\bf{U234}&&&\\
-		\# of particles&6&4&close\\
-		Emean&3.1299 keV&6.32 keV&close\\
+		\# of particles&6&6&0\\
+		Emean&3.1299 keV&3.1299 keV&0\\
 		
 		\bf{U235}&&&\\
-		\# of particles&223&193&close\\
-		Emean&8.4136 keV&8.4444 keV&close\\
+		\# of particles&223&223&0\\
+		Emean&8.4136 keV&8.4136 keV&0\\
 		
 		\bf{U236}&&&\\
-		\# of particles&2&3&close\\
-		Emean&9.5669 keV&9.192 keV&close\\
+		\# of particles&2&2&0\\
+		Emean&9.5669 keV&9.5669 keV&0\\
 		
 		\bf{U238}&&&\\
-		\# of particles&36119&35950&close\\
-		Emean&8.8767 keV&8.8895 keV&close\\
+		\# of particles&36119&36119&0\\
+		Emean&8.8767 keV&8.8767 keV&0\\
 		
 		\bf{U239}&&&\\
-		\# of particles&243&265&close\\
-		Emean&8.428 keV&8.4341 keV&close\\
+		\# of particles&243&243&0\\
+		Emean&8.428 keV&8.428 keV&0\\
 		\bf{Gamma}&&&\\
-		\# of particles&43826&44039&close\\
-		Emean&479.54 keV&479.03 keV&close\\
+		\# of particles&43826&43826&0\\
+		Emean&479.54 keV&479.54 keV&0\\
 		\bf{Proton}&&&\\
-		\# of particles&24374&24546&close\\
-		Emean&1.2749 MeV&1.2587 MeV&close\\\bottomrule
+		\# of particles&24374&24374&0\\
+		Emean&1.2749 MeV&1.2749 MeV&0\\\bottomrule
 		\end{tabular}
 		\end{table}
 
