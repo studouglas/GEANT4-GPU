@@ -149,7 +149,7 @@ This document summarizes the testing and test conclusions of the GEANT4-GPU proj
 \subsection{Scope of the Testing}
 The implemented tests are designed to give a general yet rigorous assessment of the components involved in terms of accuracy and performance.\\
 
-The tests are separated into two categories: unit tests and system tests. There are a large number of unit tests whcih test single functions of the modified G4ParticleVector module, comparing results of the function call with specified inputs between the existing CPU-based implementation and the GPU-based implementation of GEANT4-GPU. The system tests run a complete simulation, and the resulting output values are compared between the CPU and GPU implementations. Performance data is recorded for each performance test.\\
+The tests are separated into two categories: unit tests and system tests. There are a large number of unit tests which test single functions of the modified G4ParticleVector module, comparing results of the function call with specified inputs between the existing CPU-based implementation and the GPU-based implementation of GEANT4-GPU. The system tests run a complete simulation, and the resulting output values are compared between the CPU and GPU implementations. Performance data is recorded for each performance test.\\
 
 Neither the unit tests nor the system tests are concerned with the correctness of the original, CPU-based GEANT4 program, as these runs are used as the baseline for the correctness of GEANT4-GPU modules.\\
 
@@ -883,7 +883,7 @@ For all unit tests:
 
 \subsection{void ThinOut(G4double precision)} % Test Cases done 
 	
-	Removes any element from the vector whose neighbor is closer than \texttt{precision}.
+	Removes any element from the vector whose neighbour is closer than \texttt{precision}.
 	
 	\subsubsection{Test Inputs}
 		\begin{table}[H]
@@ -1100,7 +1100,7 @@ For all unit tests:
 \subsection{Summary of System Tests}
 System tests are performed by running the sample code packaged with the GEANT4 installation. The Hadr04 example will be run with different materials (i.e water, uranium) and varying number of events. The values and conditions that are changed per test are detailed in table \ref{Table_SystemTests}.\\
 
-For each system test, a summary of the results is recorded. This consists of a section detailing the accuracy fo the results, and a section covering performance.. The accuracy of the results will be based on the differnece between the values generated on the GPU and the values generated on the CPU. The performance metric that is used is the time required to run each system test.
+For each system test, a summary of the results is recorded. This consists of a section detailing the accuracy of the results, and a section covering performance.. The accuracy of the results will be based on the difference between the values generated on the GPU and the values generated on the CPU. The performance metric that is used is the time required to run each system test.
 
 
 \begin{center}
@@ -1215,7 +1215,7 @@ This test runs the Hadr04 example on both the GPU and the CPU. The code for the 
 		\end{table}	
 
 	\subsubsection{Performance}
-		\begin{table}[!htbp]
+		\begin{table}[H]
 		\centering
 		\caption{Performance - Water, 2000 events}\label{_acc}
 		\begin{tabular}{lll}
@@ -1276,7 +1276,7 @@ This test runs the Hadr04 example on both the GPU and the CPU with a modified so
 		\end{table}
 		\break
 		\subsubsection{Performance}
-		\begin{table}[!htbp]
+		\begin{table}[H]
 		\centering
 		\caption{Performance - Uranium, 2000 events}\label{sys2Perf}
 		\begin{tabular}{lll}
