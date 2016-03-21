@@ -13,6 +13,10 @@
 \usepackage{makecell}
 \usepackage{caption}
 \usepackage{array}
+
+\usepackage{placeins}
+\usepackage{float}
+\usepackage{multirow}
 \captionsetup[table]{skip=2pt}
 % Comments --------------------------------------------------------------------
 \usepackage{xcolor}
@@ -295,350 +299,491 @@ Material = Uranium
 \end{center}
 \mmp{Not using G4-STORK for system tests - therefore had to change system tests}
 % ----------------------------- Sub Section ----------------------------- %
-\subsection{Unit Testing}  
-Unit tests will be created throughout development as functions and classes are ported to the GPU. Before porting a specific function of a class, a variety of inputs covering edge cases for the function as well as several ``normal'' cases will be created. The results of the function for each of the inputs will be recorded from the CPU version, and a test case will be added to test whether the outputs are the same with GPU computation enabled. GEANT4 is not able to be reliably built in IDEs. Therefore we are going to create our own testing framework specifically for GEANT4-GPU. 
+\section{Unit Testing}
+\subsection{Use of Automated Testing}
+\subsubsection{Overview}
+Our unit testing system is semi-automated. The user runs a program to generate a test results text file, inputting whether or not Geant4 was compiled with CUDA enabled or disabled. Then, they recompile Geant4 in the opposite configuration (i.e. with CUDA enabled if previously disabled, and vice versa) and run the test program again. At this point there will be two test results text files, one for CUDA enabled, and one for CUDA disabled. In addition, two text files containing runtimes of all computationally-intensive functions are produced. After generating the files, a program to analyze the results is run outputting whether each test case passed or failed, and creating an Excel document (.csv) with the running times.
+
+\subsubsection{Generating Test Results}
+\texttt{GenerateTestResults} first initializes several G4ParticleHPVector objects from data files included with Geant4 of varying numbers of entries, including the creation of one G4ParticleHPVector with 0 entries. After the vectors have been initialized, the unit-tested methods are tested with a variety of input values. These cover edge cases (i.e. negative index for array, index greater than number of elements etc.) as well as more ``normal'' cases. The result of each function is then written to the results text file. This can be a single value in the case of ``clean'' functions that simply return a value, or it could be the state of the G4ParticleHPVector object, that is the array of points stored by that object. For performance reasons, instead of writing out the entire array of points, a hash value is generated from the array and is outputted. The value of the input variable for each function call is also outputted, so the results for specific inputs can be analyzed.
+
+\subsubsection{Analyzing Test Results}
+After the above files are generated, the \texttt{AnalyzeTestResults} utility runs through both documents and for each unit test outputted its status. If it failed, then the result from the CPU and from the GPU are both printed out. After the analysis completes, the total number of tests passed is outputted. In addition, \texttt{AnalyzeTestResults} will read the files containing runtimes for each function and output them in .csv format to simplify performance analysis.
+
+\subsubsection{Note About Random Results}
+Some of the tests run in \texttt{GenerateTestResults} are based off of random numbers, which differ between the CPU and GPU implementations. To counteract this, each of those tests is run multiple times and the result is averaged. When analyzing results for those functions, they are only marked as failed if the difference in the values of the GPU and CPU results are more than a specified tolerance. There are some functions that depend on random numbers that modify the data array. Since a hash is outputted and will differ no matter how small the difference in the values of the array are, before hashing the values are all rounded to a lower precision.
+
+\subsection{Definition of Variables Used for Unit Testing}
+The following are variables that are used for multiple unit tests. Instead of defining them again for each unit test they are defined here only once. Other variables used for specific unit tests will be defined in their respective unit test sections\\
+For all unit tests:
+\begin{table}[H]
+\centering
+\caption{General Unit Test Variables}\label{gen_var_table}
+\begin{tabular}{lll}
+\toprule
+	\bf Name & \bf Type & \bf Description\\\midrule
+	n 	& G4double 			& number of entries in the G4ParticleHPVector\\
+	r1 	& G4double 			& -1.0\\
+	r2	& G4double			& 0.0\\
+	r3 	& G4double 			& 0.00051234\\
+	r4 	& G4double 			& 1.5892317\\
+	r5 	& G4double 			& 513.18\\
+	vec0 & G4ParticleHPVector 	& 0 entries\\
+	vec1 & G4ParticleHPVector	& 80 entries\\
+	vec2 & G4ParticleHPVector 	& 1509 entries\\
+	vec3 & G4ParticleHPVector 	& 8045 entries\\
+	vec4 & G4ParticleHPVector 	& 41854 entries\\
+	vec5 & G4ParticleHPVector 	& 98995 entries\\
+	vec6 & G4ParticleHPVector 	& 242594 entries\\
+\bottomrule		
+\end{tabular}
+\end{table}
 
 \ds{What unit testing framework are you planning to use?} \mmp{Mentioned that we will be making our own unit testing framework}
 
+\subsection{G4ParticleHPVector \& operator = (const G4ParticleHPVector \& right)}
+	\subsubsection{Test Description}
+	Create a new, temporary G4ParticleHPVector object and assign the current vector to it. Outputs the data and the integral from the new vector.
 
-\subsection{PerformInitialization}
-		\begin{table}[!htbp]
+	\subsubsection{Test Inputs}
+		\begin{table}[H]
 		\centering
-		\caption{Unit Tests}\label{_unit}
-		\begin{tabular}{lll}
+		\caption{Unit Tests - \texttt{=} (overloaded assignment operator)}\label{OperatorEquals_unit}
+		\begin{tabular}{cl}
 		\toprule
-		\bf Test \# & Code & \bf Description\\\midrule
-		\stepcounter{TestCounter}\arabic{TestCounter} & Code goes here & Description goes here\\
+		\multirow{2}{*}{\bf Test \#}  & \multicolumn{1}{c}{\bf Inputs}\\
+		& \bf \texttt{right}\\\midrule
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{OperatorEquals_0} & Current vector\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
 
-\subsection{OperatorEquals}
-		\begin{table}[!htbp]
+\subsection{const G4ParticleHPDataPoint GetPoint(G4int i)}
+	\subsubsection{Test Description}
+	Returns the G4ParticleHPDataPoint at index \texttt{i} in the current vector. The \texttt{x} 
+	and \texttt{y} values of the point are outputted.
+	
+	\subsubsection{Test Inputs}
+		\begin{table}[H]
 		\centering
-		\caption{Unit Tests}\label{_unit}
+		\caption{Unit Tests - \texttt{GetPoint}}\label{GetPoint_unit}
 		\begin{tabular}{lll}
 		\toprule
-		\bf Test \# & Code & \bf Description\\\midrule
-		\stepcounter{TestCounter}\arabic{TestCounter} & Code goes here & Description goes here\\
+		\multirow{2}{*}{\bf Test \#}  & \multicolumn{1}{c}{\bf Inputs}\\
+		& \bf \texttt{i}\\\midrule
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetPoint_0} & -1\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetPoint_1} & 0\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetPoint_2} & n/2\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetPoint_3} & n-1\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetPoint_4} & n\\
+		\bottomrule
+		\end{tabular}
+		\end{table}
+		
+\subsection{G4double GetX(G4int i)}
+	\subsubsection{Test Description}
+	Returns the energy at index \texttt{i} in the current vector. The \texttt{x} 
+	value of the point are outputted.
+	
+	\subsubsection{Test Inputs}
+		\begin{table}[H]
+		\centering
+		\caption{Unit Tests - \texttt{GetX}}\label{GetX_unit}
+		\begin{tabular}{lll}
+		\toprule
+		\multirow{2}{*}{\bf Test \#}  & \multicolumn{1}{c}{\bf Inputs}\\
+		& \bf \texttt{i}\\\midrule
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetX_0} & -1\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetX_1} & 0\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetX_2} & n/2\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetX_3} & n-1\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetX_4} & n\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
 
-\subsection{GetPoint}
-		\begin{table}[!htbp]
+\subsection{G4double GetY(G4int i)}
+
+	\subsubsection{Test Description}
+	Returns the xSec at index \texttt{i} in the current vector. The \texttt{y} 
+	value of the point are outputted.
+	
+	\subsubsection{Test Inputs}
+		\begin{table}[H]
 		\centering
-		\caption{Unit Tests}\label{_unit}
+		\caption{Unit Tests - \texttt{GetY}}\label{GetY_unit}
 		\begin{tabular}{lll}
 		\toprule
-		\bf Test \# & Code & \bf Description\\\midrule
-		\stepcounter{TestCounter}\arabic{TestCounter} & Code goes here & Description goes here\\
+		\multirow{2}{*}{\bf Test \#}  & \multicolumn{1}{c}{\bf Inputs}\\
+		& \bf \texttt{i}\\\midrule
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetY_0} & -1\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetY_1} & 0\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetY_2} & n/2\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetY_3} & n-1\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetY_4} & n\\
+		\bottomrule
+		\end{tabular}
+\end{table}
+
+\subsection{G4double GetXsec(G4int i)} % Test cases finished
+	\subsubsection{Test Description}
+	Returns the xSec at index \texttt{i} in the current vector. The \texttt{y} 
+	value of the point are outputted.
+	
+	\subsubsection{Test Inputs}
+		\begin{table}[H]
+		\centering
+		\caption{Unit Tests - \texttt{GetXsec}}\label{GetXsec_unit}
+		\begin{tabular}{lll}
+		\toprule
+		\multirow{2}{*}{\bf Test \#}  & \multicolumn{1}{c}{\bf Inputs}\\
+		& \bf \texttt{i}\\\midrule
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetXsec_0} & -1\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetXsec_1} & 0\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetXsec_2} & n/2\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetXsec_3} & n-1\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetXsec_4} & n\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
 
-\subsection{GetX}
-		\begin{table}[!htbp]
+\subsection{G4double GetEnergy(G4int i)} % Test cases finished
+	\subsubsection{Test Description}
+	Returns the energy at index \texttt{i} in the current vector. The \texttt{x} 
+	value of the point are outputted.
+	
+	\subsubsection{Test Inputs}
+		\begin{table}[H]
 		\centering
-		\caption{Unit Tests}\label{_unit}
+		\caption{Unit Tests - \texttt{GetEnergy}}\label{GetEnergy_unit}
 		\begin{tabular}{lll}
 		\toprule
-		\bf Test \# & Code & \bf Description\\\midrule
-		\stepcounter{TestCounter}\arabic{TestCounter} & Code goes here & Description goes here\\
+		\multirow{2}{*}{\bf Test \#}  & \multicolumn{1}{c}{\bf Inputs}\\
+		& \bf \texttt{i}\\\midrule
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetEnergy_0} & -1\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetEnergy_1} & 0\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetEnergy_2} & n/2\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetEnergy_3} & n-1\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetEnergy_4} & n\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
 
-\subsection{GetY}
-		\begin{table}[!htbp]
+\subsection{void SetData(G4int i, G4double x, G4double y)}
+	\subsubsection{Test Description}
+	Sets the energy and xSec at index \texttt{i} in the current vector. 
+	
+	\subsubsection{Test Inputs}
+	Commas denote multiple sub test inputs. If one of the sub tests fail then the whole test fails.
+		\begin{table}[H]
 		\centering
-		\caption{Unit Tests}\label{_unit}
-		\begin{tabular}{lll}
+		\caption{Unit Tests - \texttt{SetData}}\label{SetData_unit}
+		\begin{tabular}{lllll}
 		\toprule
-		\bf Test \# & Code & \bf Description\\\midrule
-		\stepcounter{TestCounter}\arabic{TestCounter} & Code goes here & Description goes here\\
+		\multirow{2}{*}{\bf Test \#}  & \multicolumn{3}{c}{\bf Inputs}\\
+		& \bf \texttt{i} & \bf \texttt{x} & \bf \texttt{y}\\\midrule
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetData_0} & -1 & r1, r2, r3, r4, r5 & r1, r2, r3, r4, r5\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetData_1} & 0 & r1, r2, r3, r4, r5 & r1, r2, r3, r4, r5\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetData_2} & n/2 & r1, r2, r3, r4, r5 & r1, r2, r3, r4, r5\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetData_3} & n-1 & r1, r2, r3, r4, r5 & r1, r2, r3, r4, r5\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetData_4} & n & r1, r2, r3, r4, r5 & r1, r2, r3, r4, r5\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
 
-\subsection{GetXsec}
-		\begin{table}[!htbp]
+
+\subsection{void SetEnergy(G4int i, G4double e)}
+	\subsubsection{Test Description}
+	Sets the energy at index \texttt{i} in the current vector. 
+	
+	\subsubsection{Test Inputs}
+	Commas denote multiple sub test inputs. If one of the sub tests fail then the whole test fails.
+		\begin{table}[H]
 		\centering
-		\caption{Unit Tests}\label{_unit}
-		\begin{tabular}{lll}
+		\caption{Unit Tests - \texttt{SetEnergy}}\label{SetEnergy_unit}
+		\begin{tabular}{llll}
 		\toprule
-		\bf Test \# & Code & \bf Description\\\midrule
-		\stepcounter{TestCounter}\arabic{TestCounter} & Code goes here & Description goes here\\
+		\multirow{2}{*}{\bf Test \#}  & \multicolumn{2}{c}{\bf Inputs}\\
+		& \bf \texttt{i} & \bf \texttt{e}\\\midrule
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetEnergy_0} & -1 & r1, r2, r3, r4, r5\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetEnergy_1} & 0 & r1, r2, r3, r4, r5\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetEnergy_2} & n/2 & r1, r2, r3, r4, r5\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetEnergy_3} & n-1 & r1, r2, r3, r4, r5\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetEnergy_4} & n & r1, r2, r3, r4, r5\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
 
-\subsection{SetData}
-		\begin{table}[!htbp]
+\subsection{void SetXsec(G4int i, G4double e)} % Test cases finished
+	\subsubsection{Test Description}
+	Sets the xSec at index \texttt{i} in the current vector. 
+	
+	\subsubsection{Test Inputs}
+	Commas denote multiple sub test inputs. If one of the sub tests fail then the whole test fails.
+		\begin{table}[H]
 		\centering
-		\caption{Unit Tests}\label{_unit}
-		\begin{tabular}{lll}
+		\caption{Unit Tests - \texttt{SetXsec}}\label{SetXsec_unit}
+		\begin{tabular}{llll}
 		\toprule
-		\bf Test \# & Code & \bf Description\\\midrule
-		\stepcounter{TestCounter}\arabic{TestCounter} & Code goes here & Description goes here\\
+		\multirow{2}{*}{\bf Test \#}  & \multicolumn{2}{c}{\bf Inputs}\\
+		& \bf \texttt{i} & \bf \texttt{e}\\\midrule
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetXsec_0} & -1 & r1, r2, r3, r4, r5\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetXsec_1} & 0 & r1, r2, r3, r4, r5\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetXsec_2} & n/2 & r1, r2, r3, r4, r5\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetXsec_3} & n-1 & r1, r2, r3, r4, r5\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetXsec_4} & n & r1, r2, r3, r4, r5\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
 
-\subsection{SetX}
-		\begin{table}[!htbp]
+\subsection{void SetX(G4int i, G4double e)} % Test cases finished
+	\subsubsection{Test Description}
+	Sets the energy at index \texttt{i} in the current vector. 
+	
+	\subsubsection{Test Inputs}
+	Commas denote multiple sub test inputs. If one of the sub tests fail then the whole test fails.
+		\begin{table}[H]
 		\centering
-		\caption{Unit Tests}\label{_unit}
-		\begin{tabular}{lll}
+		\caption{Unit Tests - \texttt{SetX}}\label{SetX_unit}
+		\begin{tabular}{llll}
 		\toprule
-		\bf Test \# & Code & \bf Description\\\midrule
-		\stepcounter{TestCounter}\arabic{TestCounter} & Code goes here & Description goes here\\
+		\multirow{2}{*}{\bf Test \#}  & \multicolumn{2}{c}{\bf Inputs}\\
+		& \bf \texttt{i} & \bf \texttt{e}\\\midrule
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetX_0} & -1 & r1, r2, r3, r4, r5\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetX_1} & 0 & r1, r2, r3, r4, r5\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetX_2} & n/2 & r1, r2, r3, r4, r5\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetX_3} & n-1 & r1, r2, r3, r4, r5\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetX_4} & n & r1, r2, r3, r4, r5\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
 
-\subsection{SetY}
-		\begin{table}[!htbp]
+\subsection{void SetY(G4int i, G4double e)} % Test cases finished
+	\subsubsection{Test Description}
+	Sets the xSec at index \texttt{i} in the current vector. 
+	
+	\subsubsection{Test Inputs}
+	Commas denote multiple sub test inputs. If one of the sub tests fail then the whole test fails.
+		\begin{table}[H]
 		\centering
-		\caption{Unit Tests}\label{_unit}
-		\begin{tabular}{lll}
+		\caption{Unit Tests - \texttt{SetY}}\label{SetY_unit}
+		\begin{tabular}{llll}
 		\toprule
-		\bf Test \# & Code & \bf Description\\\midrule
-		\stepcounter{TestCounter}\arabic{TestCounter} & Code goes here & Description goes here\\
+		\multirow{2}{*}{\bf Test \#}  & \multicolumn{2}{c}{\bf Inputs}\\
+		& \bf \texttt{i} & \bf \texttt{e}\\\midrule
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetY_0} & -1 & r1, r2, r3, r4, r5\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetY_1} & 0 & r1, r2, r3, r4, r5\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetY_2} & n/2 & r1, r2, r3, r4, r5\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetY_3} & n-1 & r1, r2, r3, r4, r5\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetY_4} & n & r1, r2, r3, r4, r5\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
 
-\subsection{Init}
-		\begin{table}[!htbp]
+\subsection{void Init(istream \& aDataFile, G4int total, G4double ux, G4double uy)} 
+	\subsubsection{Test Description}
+	Initializes the data.	
+
+	\subsubsection{Test Inputs}
+		\begin{table}[H]
 		\centering
-		\caption{Unit Tests}\label{_unit}
-		\begin{tabular}{lll}
+		\caption{Unit Tests - \texttt{Init}}\label{Init_unit}
+		\begin{tabular}{lllll}
 		\toprule
-		\bf Test \# & Code & \bf Description\\\midrule
-		\stepcounter{TestCounter}\arabic{TestCounter} & Code goes here & Description goes here\\
+		\multirow{2}{*}{\bf Test \#}  & \multicolumn{4}{c}{\bf Inputs}\\
+		& \bf \texttt{aDataFile} & \bf \texttt{G4int} & \bf \texttt{ux} & \bf \texttt{uy}\\\midrule
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{Init_0} & Empty.Init() & n & 1 & 1\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{Init_1} & D.Init() & n & 1 & 1\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
 
-\subsection{CleanUp}
-		\begin{table}[!htbp]
+\subsection{G4double SampleLin()}% Test Cases Done
+	\subsubsection{Test Description}
+	 Performs samples of the vector with a linear interpolation scheme.
+	
+	\subsubsection{Test Inputs}
+		\begin{table}[H]
 		\centering
-		\caption{Unit Tests}\label{_unit}
+		\caption{Unit Tests - \texttt{SampleLin}}\label{SampleLin_unit}
 		\begin{tabular}{lll}
 		\toprule
-		\bf Test \# & Code & \bf Description\\\midrule
-		\stepcounter{TestCounter}\arabic{TestCounter} & Code goes here & Description goes here\\
+		\multirow{2}{*}{\bf Test \#}  & \multicolumn{1}{c}{\bf Inputs}\\
+		& \bf \texttt{N/A}\\\midrule
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SampleLin_0} & N/A \\
 		\bottomrule
 		\end{tabular}
 		\end{table}
 
-\subsection{SampleLin}
-		\begin{table}[!htbp]
+\subsection{void Times(G4double factor)} % Test Cases done
+	\subsubsection{Test Description}
+	Multiplies every element in the vector by \texttt{factor}.
+	
+	\subsubsection{Test Inputs}
+		\begin{table}[H]
 		\centering
-		\caption{Unit Tests}\label{_unit}
+		\caption{Unit Tests - \texttt{Times}}\label{Times_unit}
 		\begin{tabular}{lll}
 		\toprule
-		\bf Test \# & Code & \bf Description\\\midrule
-		\stepcounter{TestCounter}\arabic{TestCounter} & Code goes here & Description goes here\\
+		\multirow{2}{*}{\bf Test \#}  & \multicolumn{1}{c}{\bf Inputs}\\
+		& \bf \texttt{factor}\\\midrule
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{Times_0} & r1\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{Times_1} & r2\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{Times_2} & r3\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{Times_3} & r4\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{Times_4} & r5\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
 
-\subsection{Integrate}
-		\begin{table}[!htbp]
+\subsection{void ThinOut(G4double precision)} % Test Cases done 
+	\subsubsection{Test Description}
+	Removes any element from the vector whose neighbor is closer than \texttt{precision}.
+	
+	\subsubsection{Test Inputs}
+		\begin{table}[H]
 		\centering
-		\caption{Unit Tests}\label{_unit}
+		\caption{Unit Tests - \texttt{ThinOut}}\label{ThinOut_unit}
 		\begin{tabular}{lll}
 		\toprule
-		\bf Test \# & Code & \bf Description\\\midrule
-		\stepcounter{TestCounter}\arabic{TestCounter} & Code goes here & Description goes here\\
+		\multirow{2}{*}{\bf Test \#}  & \multicolumn{1}{c}{\bf Inputs}\\
+		& \bf \texttt{factor}\\\midrule
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{ThinOut_0} & r1\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{ThinOut_1} & r2\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{ThinOut_2} & r3\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{ThinOut_3} & r4\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{ThinOut_4} & r5\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
 
-\subsection{IntegrateAndNormalise}
-		\begin{table}[!htbp]
+\subsection{G4double Sample()}% Test Cases Done
+	\subsubsection{Test Description}
+	  Performs samples of the vector according to interpolation its interpolation scheme.
+	
+	\subsubsection{Test Inputs}
+		\begin{table}[H]
 		\centering
-		\caption{Unit Tests}\label{_unit}
+		\caption{Unit Tests - \texttt{Sample}}\label{Sample_unit}
 		\begin{tabular}{lll}
 		\toprule
-		\bf Test \# & Code & \bf Description\\\midrule
-		\stepcounter{TestCounter}\arabic{TestCounter} & Code goes here & Description goes here\\
+		\multirow{2}{*}{\bf Test \#}  & \multicolumn{1}{c}{\bf Inputs}\\
+		& \bf \texttt{N/A}\\\midrule
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{Sample_0} & N/A \\
 		\bottomrule
 		\end{tabular}
 		\end{table}
 
-\subsection{Times}
-		\begin{table}[!htbp]
+\subsection{void SetPoint(G4int i, const G4ParticleHPDataPoint \& it)}
+	\subsubsection{Test Description}
+	Sets a point at a given index in a given vector.
+
+	\subsubsection{Test Inputs}
+		\begin{itemize}
+			\item ``rPoint" is a random G4ParticleHPDataPoint
+			\item ``nPoint" is a negative G4ParticleHPDataPoint
+			\item ``zPoint" is a zero G4ParticleHPDataPoint
+		\end{itemize}
+		\begin{table}[H]
 		\centering
-		\caption{Unit Tests}\label{_unit}
+		\caption{Unit Tests}\label{SetPoint_unit}
 		\begin{tabular}{lll}
 		\toprule
-		\bf Test \# & Code & \bf Description\\\midrule
-		\stepcounter{TestCounter}\arabic{TestCounter} & Code goes here & Description goes here\\
+		\multirow{2}{*}{\bf Test \#} & \multicolumn{2}{c}{\bf Inputs}\\
+		& vec0 & vec1\\\midrule
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetPoint_0} & -1 & rPoint\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetPoint_1} & 0 & rPoint\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetPoint_2} & 1 & rPoint\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetPoint_3} & -1 & rPoint\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetPoint_4} & 0 & rPoint\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetPoint_5} & n/2 & rPoint\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetPoint_6} & n-1 & rPoint\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetPoint_7} & n & rPoint\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetPoint_8} & 0 & nPoint\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetPoint_9} & 0 & zPoint\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
 
-\subsection{GetXsecBuffer}
-		\begin{table}[!htbp]
+\subsection{G4double GetXsec(G4double e)} % Test cases finished
+	\subsubsection{Test Description}
+	Returns the first xSec from the current vector whose energy is greater than \texttt{e}. 
+	
+	\subsubsection{Test Inputs}
+	Commas denote multiple sub test inputs. If one of the sub tests fail then the whole test fails.
+		\begin{table}[H]
 		\centering
-		\caption{Unit Tests}\label{_unit}
-		\begin{tabular}{lll}
+		\caption{Unit Tests - \texttt{GetXsec}}\label{GetXsec_e_unit}
+		\begin{tabular}{llll}
 		\toprule
-		\bf Test \# & Code & \bf Description\\\midrule
-		\stepcounter{TestCounter}\arabic{TestCounter} & Code goes here & Description goes here\\
+		\multirow{2}{*}{\bf Test \#}  & \multicolumn{1}{c}{\bf Inputs}\\
+		& \bf \texttt{e}  \\\midrule
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetXsec_e_0} & r1, r2, r3, r4, r5 \\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetXsec_e_1} & r1, r2, r3, r4, r5 \\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetXsec_e_2} & r1, r2, r3, r4, r5 \\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetXsec_e_3} & r1, r2, r3, r4, r5 \\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetXsec_e_4} & r1, r2, r3, r4, r5 \\
 		\bottomrule
 		\end{tabular}
 		\end{table}
 
-\subsection{Dump}
-		\begin{table}[!htbp]
+\subsection{G4double GetXsec(G4double e, G4int min)}
+	\subsubsection{Test Description}
+	Returns the first xSec from the current vector whose energy is greater than \texttt{e}. 
+	
+	\subsubsection{Test Inputs}
+	Commas denote multiple sub test inputs. If one of the sub tests fail then the whole test fails.
+		\begin{table}[H]
 		\centering
-		\caption{Unit Tests}\label{_unit}
-		\begin{tabular}{lll}
+		\caption{Unit Tests - \texttt{GetXsec}}\label{GetXsec_e_min_unit}
+		\begin{tabular}{llll}
 		\toprule
-		\bf Test \# & Code & \bf Description\\\midrule
-		\stepcounter{TestCounter}\arabic{TestCounter} & Code goes here & Description goes here\\
+		\multirow{2}{*}{\bf Test \#}  & \multicolumn{2}{c}{\bf Inputs}\\
+		& \bf \texttt{e} & \bf \texttt{min} \\\midrule
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetXsec_e_min_0} & r1, r2, r3, r4, r5 & -1\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetXsec_e_min_1} & r1, r2, r3, r4, r5 & 0\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetXsec_e_min_2} & r1, r2, r3, r4, r5 & n/2\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetXsec_e_min_3} & r1, r2, r3, r4, r5 & n-1\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetXsec_e_min_4} & r1, r2, r3, r4, r5 & n\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
 
-\subsection{ThinOut}
-		\begin{table}[!htbp]
+\subsection{G4double Get15percentBorder()}
+	\subsubsection{Test Description}
+	 Returns the integral from each data point to the last data point and returns the first one within 
+15\% of the last data point.
+	
+	\subsubsection{Test Inputs}
+		\begin{table}[H]
 		\centering
-		\caption{Unit Tests}\label{_unit}
+		\caption{Unit Tests - \texttt{Get15percentBorder}}\label{Get15percentBorder_unit}
 		\begin{tabular}{lll}
 		\toprule
-		\bf Test \# & Code & \bf Description\\\midrule
-		\stepcounter{TestCounter}\arabic{TestCounter} & Code goes here & Description goes here\\
+		\multirow{2}{*}{\bf Test \#}  & \multicolumn{1}{c}{\bf Inputs}\\
+		& \bf \texttt{N/A}\\\midrule
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{Get15percentBorder_0} & N/A \\
 		\bottomrule
 		\end{tabular}
 		\end{table}
 
-\subsection{Sample}
-		\begin{table}[!htbp]
+\subsection{G4double Get50percentBorder()}% Test Cases Done
+	\subsubsection{Test Description}
+	 Returns the integral from each data point to the last data point and returns the first one within 
+50\% of the last data point.
+	
+	\subsubsection{Test Inputs}
+		\begin{table}[H]
 		\centering
-		\caption{Unit Tests}\label{_unit}
+		\caption{Unit Tests - \texttt{Get50percentBorder}}\label{Get50percentBorder_unit}
 		\begin{tabular}{lll}
 		\toprule
-		\bf Test \# & Code & \bf Description\\\midrule
-		\stepcounter{TestCounter}\arabic{TestCounter} & Code goes here & Description goes here\\
+		\multirow{2}{*}{\bf Test \#}  & \multicolumn{1}{c}{\bf Inputs}\\
+		& \bf \texttt{N/A}\\\midrule
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{Get50percentBorder_0} & N/A \\
 		\bottomrule
 		\end{tabular}
 		\end{table}
-
-\subsection{Check}
-		\begin{table}[!htbp]
-		\centering
-		\caption{Unit Tests}\label{_unit}
-		\begin{tabular}{lll}
-		\toprule
-		\bf Test \# & Code & \bf Description\\\midrule
-		\stepcounter{TestCounter}\arabic{TestCounter} & Code goes here & Description goes here\\
-		\bottomrule
-		\end{tabular}
-		\end{table}
-
-%from .hh
-
-\subsection{GetVectorLength}
-		\begin{table}[!htbp]
-		\centering
-		\caption{Unit Tests}\label{_unit}
-		\begin{tabular}{lll}
-		\toprule
-		\bf Test \# & Code & \bf Description\\\midrule
-		\stepcounter{TestCounter}\arabic{TestCounter} & Code goes here & Description goes here\\
-		\bottomrule
-		\end{tabular}
-		\end{table}
-
-\subsection{GetLabel}
-		\begin{table}[!htbp]
-		\centering
-		\caption{Unit Tests}\label{_unit}
-		\begin{tabular}{lll}
-		\toprule
-		\bf Test \# & Code & \bf Description\\\midrule
-		\stepcounter{TestCounter}\arabic{TestCounter} & Code goes here & Description goes here\\
-		\bottomrule
-		\end{tabular}
-		\end{table}
-
-\subsection{GetIntegral}
-		\begin{table}[!htbp]
-		\centering
-		\caption{Unit Tests}\label{_unit}
-		\begin{tabular}{lll}
-		\toprule
-		\bf Test \# & Code & \bf Description\\\midrule
-		\stepcounter{TestCounter}\arabic{TestCounter} & Code goes here & Description goes here\\
-		\bottomrule
-		\end{tabular}
-		\end{table}
-
-\subsection{SetPoint}
-		\begin{table}[!htbp]
-		\centering
-		\caption{Unit Tests}\label{_unit}
-		\begin{tabular}{lll}
-		\toprule
-		\bf Test \# & Code & \bf Description\\\midrule
-		\stepcounter{TestCounter}\arabic{TestCounter} & Code goes here & Description goes here\\
-		\bottomrule
-		\end{tabular}
-		\end{table}
-
-%\subsection{SetLabel}
-%		\begin{table}[!htbp]
-%		\centering
-%		\caption{Unit Tests}\label{_unit}
-%		\begin{tabular}{lll}
-%		\toprule
-%		\bf Test \# & Code & \bf Description\\\midrule
-%		\stepcounter{TestCounter}\arabic{TestCounter} & Code goes here & Description goes here\\
-%		\bottomrule
-%		\end{tabular}
-%		\end{table}
-
-\subsection{SetInterpolationManager}
-		\begin{table}[!htbp]
-		\centering
-		\caption{Unit Tests}\label{_unit}
-		\begin{tabular}{lll}
-		\toprule
-		\bf Test \# & Code & \bf Description\\\midrule
-		\stepcounter{TestCounter}\arabic{TestCounter} & Code goes here & Description goes here\\
-		\bottomrule
-		\end{tabular}
-		\end{table}
-
-\subsection{SetScheme}
-		\begin{table}[!htbp]
-		\centering
-		\caption{Unit Tests}\label{_unit}
-		\begin{tabular}{lll}
-		\toprule
-		\bf Test \# & Code & \bf Description\\\midrule
-		\stepcounter{TestCounter}\arabic{TestCounter} & Code goes here & Description goes here\\
-		\bottomrule
-		\end{tabular}
-		\end{table}
-
-\subsection{Merge}
-		\begin{table}[!htbp]
-		\centering
-		\caption{Unit Tests}\label{_unit}
-		\begin{tabular}{lll}
-		\toprule
-		\bf Test \# & Code & \bf Description\\\midrule
-		\stepcounter{TestCounter}\arabic{TestCounter} & Code goes here & Description goes here\\
-		\bottomrule
-		\end{tabular}
-		\end{table}
-
 
 %\begin{center}
 %\begin{longtable}{p{0.15in}>{\raggedright\arraybackslash}p{1in}>{\raggedright\arraybackslash}p{0.6in}>{\raggedright\arraybackslash}p{1.5in}>{\raggedright\arraybackslash}p{2in}}
