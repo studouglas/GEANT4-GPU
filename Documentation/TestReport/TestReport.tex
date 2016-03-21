@@ -1158,7 +1158,7 @@ This test runs the Hadr04 example on both the GPU and the CPU. The code for the 
 		\begin{table}[H]
 		\centering
 		\caption{Accuracy - Water, 2000 events}\label{sys1Acc}
-		\begin{tabular}{lp{2.3cm}p{2.3cm}l}
+		\begin{tabular}{llll}
 		\toprule
 		\bf Data & \bf CPU Values & \bf GPU Values & \bf Absolute Difference\\\midrule
 		\bf Process Calls&&&\\
@@ -1216,20 +1216,20 @@ This test runs the Hadr04 example on both the GPU and the CPU. The code for the 
 		\caption{Performance - Water, 2000 events}\label{_acc}
 		\begin{tabular}{lll}
 		\toprule
-		CPU Time& GPU Time&Speedup of GPU\\\midrule
-		54.55s&72.08s&-1.32$\times$\\
+		\bf CPU Time&\bf  GPU Time&\bf Speedup of GPU\\\midrule
+		54.55s&72.08s&-1.32$\times$\\\bottomrule
 		\end{tabular}
 		\end{table}
 
 \subsection{System Test - Uranium, 2000 events}
-This test runs the Hadr04 example on both the GPU and the CPU with a modified source files to include Uranium as an element in the simulation. The number of events for this test has been set to 2000.
+This test runs the Hadr04 example on both the GPU and the CPU including Uranium as an element in the simulation. The number of events for this test has been set to 2000.
 	\subsubsection{Accuracy}
 		\begin{table}[H]
 		\centering
 		\caption{Accuracy - Uranium, 2000 events}\label{sys2Acc}
-		\begin{tabular}{lp{2.3cm}p{2.3cm}l}
+		\begin{tabular}{llll}
 		\toprule
-		\bf Data & CPU Values & GPU Values & Absolute Difference\\\midrule
+		\bf Data & \bf  CPU Values &  \bf GPU Values &  \bf Absolute Difference\\\midrule
 		\bf Process Calls&&&\\
 		hadElastic&1931&1931&0\\
 		nCapture&29&29&0\\
@@ -1266,28 +1266,28 @@ This test runs the Hadr04 example on both the GPU and the CPU with a modified so
 		
 		\end{tabular}
 		\end{table}
-		\break
+
 		\subsubsection{Performance}
 		\begin{table}[H]
 		\centering
 		\caption{Performance - Uranium, 2000 events}\label{sys2Perf}
 		\begin{tabular}{lll}
 		\toprule
-		CPU Time& GPU Time&Speedup of GPU\\\midrule
+		 \bf CPU Time&  \bf GPU Time& \bf Speedup of GPU\\\midrule
 		0.63s&10.57s&-16.78$\times$\\\bottomrule
 		\end{tabular}
 		\end{table}
 
 \subsection{System Test - Water, 600 events}
-This test simply runs the Hadr04 example on both the GPU and the CPU without changing the source files. The number of runs for this test has been changed to be 600, a low number of events relative to the other trials. The code for this example is bundled with the GEANT4 installation.
+This test runs the Hadr04 example on both the GPU and the CPU. The number of runs for this test has been set to 600.
 
 	\subsubsection{Accuracy}
 		\begin{table}[H]
 		\centering
 		\caption{Accuracy - Water, 600 events}\label{sys3Acc}
-		\begin{tabular}{lp{2.3cm}p{2.3cm}l}
+		\begin{tabular}{llll}
 		\toprule
-		\bf Data & CPU Values & GPU Values &Absolute Difference\\\midrule
+		\bf Data &  \bf CPU Values & \bf  GPU Values & \bf Absolute Difference\\\midrule
 		\bf Process Calls&&&\\
 		hadElastic&131588&131588&0\\
 		nCapture&600&600&0\\
@@ -1322,28 +1322,27 @@ This test simply runs the Hadr04 example on both the GPU and the CPU without cha
 		Emean&81.141 keV&81.141 keV&0\\\bottomrule
 		\end{tabular}
 		\end{table}
-		\break
+
 	\subsubsection{Performance}
 		\begin{table}[H]
 		\centering
 		\caption{Performance - Water, 600 events}\label{sys3Perf}
 		\begin{tabular}{lll}
 		\toprule
-		CPU Time& GPU Time&Speedup of GPU\\\midrule
+		 \bf CPU Time&  \bf GPU Time& \bf Speedup of GPU\\\midrule
 		17.07s&22.11s&-1.29$\times$\\\bottomrule
 		\end{tabular}
 		\end{table}
 		
 \subsection{System Test - Uranium, 600 events}
-This test simply runs the Hadr04 example on both the GPU and the CPU with a modified source files to include Uranium as an element is the simulation. The number of events is set to 600, a lower number of events than the other tests, to see how fewer events will impact accuracy and/or performance The code for this example is bundled with the GEANT4 installation.\\
-\break
+This test runs the Hadr04 example on both the GPU and the CPU with a modified source files to include Uranium as an element is the simulation. The number of events is set to 600, a lower number of events than the other tests, to see how fewer events will impact accuracy and performance.
 	\subsubsection{Accuracy}
 		\begin{table}[H]
 		\centering
 		\caption{Accuracy - Uranium, 600 events}\label{sys4Acc}
-		\begin{tabular}{lp{2.3cm}p{2.3cm}l}
+		\begin{tabular}{llll}
 		\toprule
-		\bf Data & CPU Values & GPU Values & Absolute Difference\\\midrule
+		\bf Data &  \bf CPU Values &  \bf GPU Values &  \bf Absolute Difference\\\midrule
 		\bf Process Calls&&&\\
 		hadElastic&562&562&0\\
 		nCapture&8&8&0\\
@@ -1380,20 +1379,20 @@ This test simply runs the Hadr04 example on both the GPU and the CPU with a modi
 		Emean&1.3038 MeV&1.3038 MeV&0\\\bottomrule
 		\end{tabular}
 		\end{table}
-		\break
+
 	\subsubsection{Performance}
 		\begin{table}[H]
 		\centering
 		\caption{Performance - Uranium, 600 events}\label{sys4Perf}
 		\begin{tabular}{lll}
 		\toprule
-		CPU Time& GPU Time&Speedup of GPU\\\midrule
+		 \bf CPU Time&  \bf GPU Time& \bf Speedup of GPU\\\midrule
 		0.22s&3.01s&-13.68$\times$\\\bottomrule
 		\end{tabular}
 		\end{table}
 
 \subsection{System Test - Uranium, 20000 events}
-This test simply runs the Hadr04 example on both the GPU and the CPU with a modified source files to include Uranium as an element is the simulation. The macro file detailing the number of events had been changed such that 20000 events are run. The idea is to see if speed and/or accuracy gaps will widen or shrink as the number of events increases. The code for this example is bundled with the GEANT4 installation.
+This test runs the Hadr04 example on both the GPU and the CPU including Uranium as an element in the simulation. The number of events is set to 20000. The idea is to see if speed and accuracy gaps will widen or shrink as the number of events increases.
 
 	\subsubsection{Accuracy}
 		\begin{table}[H]
@@ -1401,7 +1400,7 @@ This test simply runs the Hadr04 example on both the GPU and the CPU with a modi
 		\caption{Accuracy - Uranium, 20000 events}\label{sys5Acc}
 		\begin{tabular}{llll}
 		\toprule
-		\bf Data & CPU Values & GPU Values & Absolute Difference\\\midrule
+		\bf Data &  \bf CPU Values &  \bf GPU Values &  \bf Absolute Difference\\\midrule
 		\bf Process Calls&&&\\
 		hadElastic&19526&19526&0\\
 		nCapture&245&245&0\\
@@ -1450,7 +1449,7 @@ This test simply runs the Hadr04 example on both the GPU and the CPU with a modi
 		\caption{Performance - Uranium, 20000 events}\label{sys5Perf}
 		\begin{tabular}{lll}
 		\toprule
-		CPU Time& GPU Time&Speedup on GPU\\\midrule
+		\bf CPU Time& \bf GPU Time& \bf Speedup on GPU\\\midrule
 		6.4s&106.41s&-16.64$\times$\\\bottomrule
 		\end{tabular}
 		\end{table}		
@@ -1458,6 +1457,7 @@ This test simply runs the Hadr04 example on both the GPU and the CPU with a modi
 % =============================== Section =============================== %
 \section{Traceability}
 The following section is used to highlight the relations of implemented test cases to requirements and modules. In doing so, we hope to draw clear reasoning upon the inclusion of such tests. 
+
 \subsection{Requirements}
 Below is a traceability table outlining test cases and the requirements they are related to:\\
 
@@ -1466,18 +1466,10 @@ Below is a traceability table outlining test cases and the requirements they are
 \caption{Tests and Requirements Relationship}\label{Table_TestsAndRequirements}
 \\\toprule
 \bf Test \#  & \bf Description & \bf Requirement\\\midrule
-\ref{Init_0}, \ref{SampleLin_0}, \ref{Times_0}, \ref{GetXSec_e_0}, \ref{GetXSec_e_min_0}, \ref{Get15Percent_0} , \ref{sys1} - \ref{sys5} & Performance test of functions & Req. \# 4 (Speed and Latency)\\
-2 & InitializeVector & Req \# 5, 6, 7 (Precision, Reliability, Robustness)\\
-3 & SettersandGetters & Req \# 5, 6, 7 (Precision, Reliability, Robustness)\\
-4 & GetXSec & Req \# 5, 6, 7 (Precision, Reliability, Robustness)\\
-5 & ThinOut & Req \# 5, 6, 7 (Precision, Reliability, Robustness)\\
-6 & Merge & Req \# 5, 6, 7 (Precision, Reliability, Robustness)\\
-7 & Sample & Req \# 5, 6, 7 (Precision, Reliability, Robustness)\\
-8 & GetBorder & Req \# 5, 6, 7 (Precision, Reliability, Robustness)\\
-9 & Integral & Req \# 5, 6, 7 (Precision, Reliability, Robustness)\\
-10 & Times & Req \# 5, , 7 (Precision, Reliability, Robustness)\\
-11 & Assignment & Req \# 5, 6, 7 (Precision, Reliability, Robustness)\\
-12 & System Test &  Req \# 1, 2, 8, 11 (Adjacent Systems, Access)\\
+\ref{Init_0}, \ref{SampleLin_0}, \ref{Times_0}, \ref{GetXsec_e_0} - \ref{GetXsec_e_4}, \ref{GetXsec_e_min_0} - \ref{GetXsec_e_min_4}, \ref{Get15percentBorder_0}, \ref{Get50percentBorder_0} & Unit tests, with performance measured & Req. \# 4 (Speed and Latency)\\
+\ref{sys1} - \ref{sys5} & System tests, with performance measured & Req. \# 4 (Speed and Latency)\\
+\ref{Init_0} - \ref{Get50percentBorder_0} & Unit tests, with accuracy measured & Req \# 5, 6, 7 (Precision, Reliability, Robustness)\\
+\ref{sys1} - \ref{sys5} & System tests, with accuracy measured & Req \# 5, 6, 7 (Precision, Reliability, Robustness)\\
 \bottomrule
 \end{longtable}
 \end{center}
@@ -1489,18 +1481,8 @@ Similarly, the following is a traceability table explicitly relating test cases 
 \caption{Tests and Modules Relationship}\label{Table_TestsAndModules}
 \\\toprule
 \bf Test \#  & \bf Description & \bf Module\\\midrule
-1 & Performance test of functions & G4ParticleVector\\
-2 & InitializeVector & G4ParticleVector\\
-3 & SettersandGetters & G4ParticleVector\\
-4 & GetXSec & G4ParticleVector\\
-5 & ThinOut & G4ParticleVector\\
-6 & Merge & G4ParticleVector\\
-7 & Sample & G4ParticleVector\\
-8 & GetBorder & G4ParticleVector\\
-9 & Integral & G4ParticleVector\\
-10 & Times & G4ParticleVector\\
-11 & Assignment & G4ParticleVector\\
-12 & System Test & G4NeutronHPDataPoint \& G4ParticleVector \& CMake Files\\
+\ref{Init_0} - \ref{Get50percentBorder_0} & Unit tests & G4ParticleVector\\
+\ref{sys1} - \ref{sys5} & System tests & G4ParticleHPDataPoint, G4ParticleVector, CMake Files\\
 \bottomrule
 \end{longtable}
 \end{center}
@@ -1512,5 +1494,5 @@ Developing the unit testing system illuminated a variety of bugs and changes tha
 
 Aside from the handling of edge cases with if guards, there was one more significant change required to get the unit tests to pass. An important control flow statement in \texttt{GetXSec(e,min)} was supposed to branch if the difference between two values was below a certain threshold. Our implementation was missing a call to get the absolute value for this difference, and as such was returning the wrong result in cases where the second value was larger than the first.\\
 
-In terms of performance, some performance testing had been done prior to the development of the unit testing system. That profiling data led us to reimplement nearly every function on the GPU using a hybrid approach wherein the data values are stored in both GPU and CPU memory, are modified mainly on the GPU and then the version in CPU memory is updated only when required. This gave very large performance improvements, with the GPU code going from ~4.5X slower to ~1.2X slower. Further performance tuning is planned for the future based on the results from individual unit tests.
+In terms of performance, some performance testing had been done prior to the development of the unit testing system. That profiling data led us to reimplement nearly every function on the GPU using a hybrid approach wherein the data values are stored in both GPU and CPU memory, are modified mainly on the GPU and then the version in CPU memory is updated only when required. This gave very large performance improvements, with the GPU code going from ~4.5X slower to ~1.2X slower for the Hadr04 example. Further performance tuning is planned for the future based on the results from individual unit tests.
 \end{document}
