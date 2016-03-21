@@ -92,8 +92,8 @@ Template of document & Matt  & 2016-03-15\\
 \end{table}
 
 % =============================== Section =============================== %
-\section*{List of Figures}
-Tables and figures for specific unit tests have been omitted in order to keep this document readable.
+\section*{List of Tables}
+Tables for specific unit tests have been omitted in order to keep this document readable.
 \begin{center}
 \begin{tabular}{cl}
 \toprule
@@ -103,6 +103,19 @@ Tables and figures for specific unit tests have been omitted in order to keep th
 \ref{gen_var_table}			& General Unit Test Variables\\
 \ref{Table_TestsAndRequirements}	& Tests and Requirements Relationship\\
 \ref{Table_TestsAndModules}		& Tests and Modules Relationship\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\section*{List of Figures}
+\begin{center}
+\begin{tabular}{cl}
+\toprule
+\bf Figure \# & \bf Title\\\midrule
+\ref{figPerformanceInit} & Performance results for \texttt{Init} function\\
+\ref{figPerformanceTimes} & Performance results for \texttt{Times} function\\
+\ref{figPerformanceGetXSec_e} & Performance results for \texttt{GetXSec(e)} function\\
+\ref{figPerformanceGetXSec_e_min} & Performance results for \texttt{GetXSec(e,min)} function\\
 \bottomrule
 \end{tabular}
 \end{center}
@@ -1161,7 +1174,7 @@ For all unit tests:
     	\includegraphics[width=0.7\textwidth]{getxsec_e_min_line.png}
     	\end{figure}
 
-\subsection{G4double Get15percentBorder()} % Test Cases Done
+\subsection{G4double Get15percentBorder()}
 	\subsubsection{Test Description}
 	 Returns the integral from each data point to the last data point and returns the first one within 
 15\% of the last data point.
@@ -1235,48 +1248,48 @@ For all unit tests:
 System tests will be performed by running the sample code packaged with the GEANT4 installation. The Hadr04 example will be run with different materials (i.e water, uranium) and number of events. The values and conditions that are changed per test are detailed in the table below.\\ \\
 
 \begin{center}
-\begin{longtable}{cc >{\raggedright\arraybackslash}p{2.8cm}>{\raggedright\arraybackslash}p{3cm}>{\raggedright\arraybackslash}p{4.5cm}}
+\begin{longtable}{c>{\raggedright\arraybackslash}p{2.8cm} >{\raggedright\arraybackslash}p{2.8cm}>{\raggedright\arraybackslash}p{3cm}>{\raggedright\arraybackslash}p{3.5cm}}
 \caption{System Tests}\label{Table_SystemTests}\\
 \toprule
 
-\bf Test \# & \bf Initial State & \bf Inputs & \bf Outputs & \bf Description\\\midrule
+\bf Test \# & \bf Name & \bf Inputs & \bf Outputs & \bf Description\\\midrule
 \refstepcounter{TestCounter}\arabic{TestCounter}\label{sys1}
-& Fresh start up
+& System Test - Water, 2000 events
 & Events = 2000
 Material = Water
 & Same output as non-GPU GEANT4 
 &  HADR04 no changes\\\midrule
 
 \refstepcounter{TestCounter}\arabic{TestCounter}\label{sys2}
-& Fresh start up 
+& System Test - Uranium, 2000 events
 & Events = 2000
 Material = Uranium
 & Same output as non-GPU GEANT4 
 & HADR04 -- basic example\\\midrule
 
 \refstepcounter{TestCounter}\arabic{TestCounter}\label{sys3}
-& Fresh start up 
+& System Test - Water, 600 events
 & Events = 600
 Material = Water
 & Same output as non-GPU GEANT4 
 & HADR04 -- Shorter test \\\midrule
 
 \refstepcounter{TestCounter}\arabic{TestCounter}\label{sys4}
-& Fresh start up 
+& System Test - Uranium, 600 events
 & Events = 600
 Material = Uranium
 & Same output as non-GPU GEANT4 
 & HADR04 -- Shorter test \\\midrule
 
 \refstepcounter{TestCounter}\arabic{TestCounter}\label{sys5}
-& Fresh start up 
+& System Test - Uranium, 20000 events
 & Events = 20000
 Material = Uranium
 & Same output as non-GPU GEANT4 
 & HADR04 -- Long simulation stress Test\\\midrule
 
 \refstepcounter{TestCounter}\arabic{TestCounter}\label{sys6}
-& Fresh start up 
+& System Test - Uranium, 0 events
 & Events = 0
 Material = Uranium
 & Same output as non-GPU GEANT4 
@@ -1288,7 +1301,7 @@ Material = Uranium
 \subsection{System Tests Results}
 This section will summarize all of the results from running tests 39 through 44. Each test has an accuracy section as well as a performance section. The accuracy of the results will be based on how well the values generated on the GPU match up with the values generated on the CPU. The performance metrics used will include user, system and real time required to run each  system test.
 
-\subsection{System test \# \ref{sys1}}
+\subsection{System Test - Water, 2000 events}
 This test simply runs the Hadr04 example on both the GPU and the CPU without changing the source files. The code for this example is bundled with the GEANT4 installation.\\
 	\subsubsection{Accuracy}
 		\begin{table}[!htbp]
@@ -1354,7 +1367,7 @@ This test simply runs the Hadr04 example on both the GPU and the CPU without cha
 		\end{tabular}
 		\end{table}
 \break
-\subsection{System test \#  \ref{sys2}}
+\subsection{System Test - Uranium, 2000 events}
 This test simply runs the Hadr04 example on both the GPU and the CPU without changing the source files. The code for this example is bundled with the GEANT4 installation.\\
 	\subsubsection{Accuracy}
 		\begin{table}[!htbp]
@@ -1407,7 +1420,7 @@ This test simply runs the Hadr04 example on both the GPU and the CPU without cha
 		System&NA&NA\\
 		\end{tabular}
 		\end{table}
-\subsection{System test \#  \ref{sys3}}
+\subsection{System Test - Water, 600 events}
 This test simply runs the Hadr04 example on both the GPU and the CPU without changing the source files. The code for this example is bundled with the GEANT4 installation.\\
 \break
 	\subsubsection{Accuracy}
@@ -1466,7 +1479,7 @@ This test simply runs the Hadr04 example on both the GPU and the CPU without cha
 		\end{tabular}
 		\end{table}
 		
-\subsection{System test \#  \ref{sys4}}
+\subsection{System Test - Uranium, 600 events}
 This test simply runs the Hadr04 example on both the GPU and the CPU without changing the source files. The code for this example is bundled with the GEANT4 installation.\\
 \break
 	\subsubsection{Accuracy}
@@ -1525,7 +1538,7 @@ This test simply runs the Hadr04 example on both the GPU and the CPU without cha
 		\end{tabular}
 		\end{table}
 		
-\subsection{System test \#  \ref{sys5}}
+\subsection{System Test - Uranium, 20000 events}
 This test simply runs the Hadr04 example on both the GPU and the CPU without changing the source files. The code for this example is bundled with the GEANT4 installation.\\
 \break
 	\subsubsection{Accuracy}
@@ -1584,7 +1597,7 @@ This test simply runs the Hadr04 example on both the GPU and the CPU without cha
 		\end{tabular}
 		\end{table}
 		
-\subsection{System test \#  \ref{sys6}}
+\subsection{System Test - Uranium, 0 events}
 This test simply runs the Hadr04 example on both the GPU and the CPU without changing the source files. The code for this example is bundled with the GEANT4 installation.\\
 \break
 	\subsubsection{Accuracy}
@@ -1652,19 +1665,19 @@ Below is a traceability table outlining test cases and the requirements they are
 \begin{longtable}{>{\raggedright\arraybackslash}p{0.1\textwidth}>{\raggedright\arraybackslash}p{0.3\textwidth}>{\raggedright\arraybackslash}p{0.5\textwidth}}
 \caption{Tests and Requirements Relationship}\label{Table_TestsAndRequirements}
 \\\toprule
-\bf Test \#  & \bf Description & \bf Requirement\\\toprule
-1 & Performance test of functions & Req. \# 4 (Speed and Latency)\\\hline
-2 & InitializeVector & Req \# 5 \& 6 \& 7 (Precision \& Reliability \& Robustness)\\\hline
-3 & SettersandGetters & Req \# 5 \& 6 \& 7 (Precision \& Reliability \& Robustness)\\\hline
-4 & GetXSec & Req \# 5 \& 6 \& 7 (Precision \& Reliability \& Robustness)\\\hline
-5 & ThinOut & Req \# 5 \& 6 \& 7 (Precision \& Reliability \& Robustness)\\\hline
-6 & Merge & Req \# 5 \& 6 \& 7 (Precision \& Reliability \& Robustness)\\\hline
-7 & Sample & Req \# 5 \& 6 \& 7 (Precision \& Reliability \& Robustness)\\\hline
-8 & GetBorder & Req \# 5 \& 6 \& 7 (Precision \& Reliability \& Robustness)\\\hline
-9 & Integral & Req \# 5 \& 6 \& 7 (Precision \& Reliability \& Robustness)\\\hline
-10 & Times & Req \# 5 \& 6\& 7 (Precision \& Reliability \& Robustness)\\\hline
-11 & Assignment & Req \# 5 \& 6 \& 7 (Precision \& Reliability \& Robustness)\\\hline
-12 & System Test &  Req \# 1 \& 2 \& 8 \& 11 (Adjacent Systems \& Access)\\
+\bf Test \#  & \bf Description & \bf Requirement\\\midrule
+1 & Performance test of functions & Req. \# 4 (Speed and Latency)\\
+2 & InitializeVector & Req \# 5, 6, 7 (Precision, Reliability, Robustness)\\
+3 & SettersandGetters & Req \# 5, 6, 7 (Precision, Reliability, Robustness)\\
+4 & GetXSec & Req \# 5, 6, 7 (Precision, Reliability, Robustness)\\
+5 & ThinOut & Req \# 5, 6, 7 (Precision, Reliability, Robustness)\\
+6 & Merge & Req \# 5, 6, 7 (Precision, Reliability, Robustness)\\
+7 & Sample & Req \# 5, 6, 7 (Precision, Reliability, Robustness)\\
+8 & GetBorder & Req \# 5, 6, 7 (Precision, Reliability, Robustness)\\
+9 & Integral & Req \# 5, 6, 7 (Precision, Reliability, Robustness)\\
+10 & Times & Req \# 5, , 7 (Precision, Reliability, Robustness)\\
+11 & Assignment & Req \# 5, 6, 7 (Precision, Reliability, Robustness)\\
+12 & System Test &  Req \# 1, 2, 8, 11 (Adjacent Systems, Access)\\
 \bottomrule
 \end{longtable}
 \end{center}
@@ -1675,18 +1688,18 @@ Similarly, the following is a traceability table explicitly relating test cases 
 \begin{longtable}{>{\raggedright\arraybackslash}p{0.1\textwidth}>{\raggedright\arraybackslash}p{0.3\textwidth}>{\raggedright\arraybackslash}p{0.5\textwidth}}
 \caption{Tests and Modules Relationship}\label{Table_TestsAndModules}
 \\\toprule
-\bf Test \#  & \bf Description & \bf Module\\\toprule
-1 & Performance test of functions & G4ParticleVector\\\hline
-2 & InitializeVector & G4ParticleVector\\\hline
-3 & SettersandGetters & G4ParticleVector\\\hline
-4 & GetXSec & G4ParticleVector\\\hline
-5 & ThinOut & G4ParticleVector\\\hline
-6 & Merge & G4ParticleVector\\\hline
-7 & Sample & G4ParticleVector\\\hline
-8 & GetBorder & G4ParticleVector\\\hline
-9 & Integral & G4ParticleVector\\\hline
-10 & Times & G4ParticleVector\\\hline
-11 & Assignment & G4ParticleVector\\\hline
+\bf Test \#  & \bf Description & \bf Module\\\midrule
+1 & Performance test of functions & G4ParticleVector\\
+2 & InitializeVector & G4ParticleVector\\
+3 & SettersandGetters & G4ParticleVector\\
+4 & GetXSec & G4ParticleVector\\
+5 & ThinOut & G4ParticleVector\\
+6 & Merge & G4ParticleVector\\
+7 & Sample & G4ParticleVector\\
+8 & GetBorder & G4ParticleVector\\
+9 & Integral & G4ParticleVector\\
+10 & Times & G4ParticleVector\\
+11 & Assignment & G4ParticleVector\\
 12 & System Test & G4NeutronHPDataPoint \& G4ParticleVector \& CMake Files\\
 \bottomrule
 \end{longtable}
@@ -1695,6 +1708,9 @@ Similarly, the following is a traceability table explicitly relating test cases 
 % =============================== Section =============================== 
 % --------------------------- Stuart
 \section{Changes after Testing}
-Developing the unit testing system illuminated a variety of bugs and changes that needed to be made. These were predominantly related to edge cases -- trying to access indices in arrays that are negative or greater than the number of elements was a common theme. In some of these cases the same case was not covered by Geant4 itself, so the change was made there as well.
+Developing the unit testing system illuminated a variety of bugs and changes that needed to be made. These were predominantly related to edge cases -- trying to access indices in arrays that are negative or greater than the number of elements in the array was a common theme. Some of these edge cases were not covered by Geant4 itself, so the required change was made to the original Geant4 source code as well as the modified CUDA code.\\
 
+Aside from the handling of edge cases with if guards, there was one more significant change required to get the unit tests to pass. An important control flow statement in \texttt{GetXSec(e,min)} was supposed to branch if the difference between two values was below a certain threshold. Our implementation was missing a call to get the absolute value for this difference, and as such was returning the wrong result in cases where the second value was larger than the first.\\
+
+In terms of performance, some performance testing had been done prior to the development of the unit testing system. That profiling data led us to reimplement nearly every function on the GPU using a hybrid approach wherein the data values are stored in both GPU and CPU memory, are modified mainly on the GPU and then the version in CPU memory is updated only when required. This gave very large performance improvements, with the GPU code going from ~4.5X slower to ~1.2X slower. Further performance tuning is planned for the future based on the results from individual unit tests.
 \end{document}
