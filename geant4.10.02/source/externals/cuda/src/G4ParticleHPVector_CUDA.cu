@@ -19,6 +19,47 @@ __global__ void SetValueTo_CUDA(G4ParticleHPDataPoint *addressToSet, G4double en
     addressToSet->xSec = xSec;
 }
 
+__global__ void GetXSecFirstIndex_CUDA(G4ParticleHPDataPoint * theData, G4double e,
+        int * resultIndex, int numThreads, int nEntries) {
+    int start = (blockDim.x * blockIdx.x + threadIdx.x);
+    for (int i = start; i < nEntries; i += numThreads) {
+        if (theData[i].energy >= e) {
+            atomicMin(resultIndex, i);
+            return;
+        }
+    }
+}
+
+__global__ void GetYForXSec_CUDA(G4ParticleHPDataPoint * theData, G4double e,
+    G4int * singleIntResult, GetXsecResultStruct * resultsStruct, int nEntries) {
+    G4int low = *(singleIntResult) - 1;
+    G4int high = *(singleIntResult);
+    if (*(singleIntResult) == 0) {
+        low = 0;
+        high = 1;
+    } else if (*(singleIntResult) == nEntries) {
+        low = nEntries - 2;
+        high = nEntries - 1;
+    }
+
+    if (e < theData[nEntries - 1].energy) {
+        if ((theData[high].energy != 0) && (abs((theData[high].energy - theData[low].energy) / theData[high].energy) < 0.000001)) {
+            resultsStruct->y = theData[low].xSec;
+        }
+        else {
+            resultsStruct->y = -1;
+            resultsStruct->pointLow.energy = theData[low].energy;
+            resultsStruct->pointLow.xSec = theData[low].xSec;
+            resultsStruct->pointHigh.energy = theData[high].energy;
+            resultsStruct->pointHigh.xSec = theData[high].xSec;
+            resultsStruct->indexHigh = high;
+        }
+    }
+    else {
+        resultsStruct->y = theData[nEntries - 1].xSec;
+    }
+}
+
 __device__ G4double rand_CUDA() {
     int i = blockDim.x * blockIdx.x + threadIdx.x;
     curandState state;
@@ -64,7 +105,7 @@ __global__ void CopyTheIntegralToBuffer_CUDA(G4double * fromBuffer, G4double * t
         toBuffer[i] = fromBuffer[i];
     }
 }
-
+  
 /***********************************************
 *   Constructors, Deconstructors
 ***********************************************/
@@ -280,49 +321,49 @@ G4double G4ParticleHPVector_CUDA::GetXsec(G4double e, G4int min) {
 
     // Note: this was causing some crashing / finishing in 0.01s pre-Mar-3 commit, if it crops up
     // again try copying d_theData to a new local array and using that (every GetXSec call)
-    CopyToCpuIfDirty();
-    if (nEntries == 1 || min >= nEntries) {
-        return h_theData[0].GetY();
-    }
+    // CopyToCpuIfDirty();
+    // if (nEntries == 1 || min >= nEntries) {
+    //     return h_theData[0].GetY();
+    // }
 
-    G4int i;
-    min = (min >= 0) ? min : 0;
-    for (i = min; i < nEntries; i++) {
-        if (h_theData[i].GetX() >= e) {
-            break;
-        }
-    }
+    // G4int i;
+    // min = (min >= 0) ? min : 0;
+    // for (i = min; i < nEntries; i++) {
+    //     if (h_theData[i].GetX() >= e) {
+    //         break;
+    //     }
+    // }
 
-    G4int low = i - 1;
-    G4int high = i;
-    if (i == 0) {
-        low = 0;
-        high = 1;
-    }
-    else if (i == nEntries) {
-        low = nEntries - 2;
-        high = nEntries - 1;
-    }
+    // G4int low = i - 1;
+    // G4int high = i;
+    // if (i == 0) {
+    //     low = 0;
+    //     high = 1;
+    // }
+    // else if (i == nEntries) {
+    //     low = nEntries - 2;
+    //     high = nEntries - 1;
+    // }
 
-    G4double y;
-    if (e < h_theData[nEntries-1].GetX()) {
-        if (h_theData[high].GetX() != 0
-                && (std::abs((h_theData[high].GetX() - h_theData[low].GetX()) / h_theData[high].GetX()) < 0.000001)) {
-            y = h_theData[low].GetY();
-        }
-        else {
-            y = theInt.Interpolate(theManager.GetScheme(high), e,
-                                   h_theData[low].GetX(), h_theData[high].GetX(),
-                                   h_theData[low].GetY(), h_theData[high].GetY());
-        }
-    }
-    else {
-        y = h_theData[nEntries-1].GetY();
-    }
+    // G4double y;
+    // if (e < h_theData[nEntries-1].GetX()) {
+    //     if (h_theData[high].GetX() != 0
+    //             && (std::abs((h_theData[high].GetX() - h_theData[low].GetX()) / h_theData[high].GetX()) < 0.000001)) {
+    //         y = h_theData[low].GetY();
+    //     }
+    //     else {
+    //         y = theInt.Interpolate(theManager.GetScheme(high), e,
+    //                                h_theData[low].GetX(), h_theData[high].GetX(),
+    //                                h_theData[low].GetY(), h_theData[high].GetY());
+    //     }
+    // }
+    // else {
+    //     y = h_theData[nEntries-1].GetY();
+    // }
 
-    return y;
+    // return y;
 
-    /* ===== Run GetXSec using CUDA ===========================================
+     // ===== Run GetXSec using CUDA ===========================================
     SetValueTo_CUDA<<<1,1>>> (d_singleIntResult, nEntries);
 
     // GetXSecFirstIndex = 0.000005s
@@ -351,7 +392,8 @@ G4double G4ParticleHPVector_CUDA::GetXsec(G4double e, G4int min) {
             return 0.0;
         }
         return y;
-    } ===================================================================== */
+    } 
+    // ===================================================================== 
 }
 
 // TODO: Port Me (requires interpolation)
@@ -652,6 +694,7 @@ __global__ void TimesTheIntegral_CUDA(G4double * theIntegral, G4int nEntries, G4
 }
 
 void G4ParticleHPVector_CUDA::IntegrateAndNormalise() {
+    printf("\nIntegrateAndNormalise (nEntries = %d)\n", nEntries) ;
     if (d_theIntegral != NULL) {
         return;
     }
@@ -734,46 +777,7 @@ void G4ParticleHPVector_CUDA::Times(G4double factor) {
 /******************************************
 * Functions from .cc
 ******************************************/
-__global__ void GetXSecFirstIndex_CUDA(G4ParticleHPDataPoint * theData, G4double e,
-        int * resultIndex, int numThreads, int nEntries) {
-    int start = (blockDim.x * blockIdx.x + threadIdx.x);
-    for (int i = start; i < nEntries; i += numThreads) {
-        if (theData[i].energy >= e) {
-            atomicMin(resultIndex, i);
-            return;
-        }
-    }
-}
 
-__global__ void GetYForXSec_CUDA(G4ParticleHPDataPoint * theData, G4double e,
-    G4int * singleIntResult, GetXsecResultStruct * resultsStruct, int nEntries) {
-    G4int low = *(singleIntResult) - 1;
-    G4int high = *(singleIntResult);
-    if (*(singleIntResult) == 0) {
-        low = 0;
-        high = 1;
-    } else if (*(singleIntResult) == nEntries) {
-        low = nEntries - 2;
-        high = nEntries - 1;
-    }
-
-    if (e < theData[nEntries - 1].energy) {
-        if ((theData[high].energy != 0) && (abs((theData[high].energy - theData[low].energy) / theData[high].energy) < 0.000001)) {
-            resultsStruct->y = theData[low].xSec;
-        }
-        else {
-            resultsStruct->y = -1;
-            resultsStruct->pointLow.energy = theData[low].energy;
-            resultsStruct->pointLow.xSec = theData[low].xSec;
-            resultsStruct->pointHigh.energy = theData[high].energy;
-            resultsStruct->pointHigh.xSec = theData[high].xSec;
-            resultsStruct->indexHigh = high;
-        }
-    }
-    else {
-        resultsStruct->y = theData[nEntries - 1].xSec;
-    }
-}
 
 G4double G4ParticleHPVector_CUDA::GetXsec(G4double e) {
     return GetXsec(e, 0);
