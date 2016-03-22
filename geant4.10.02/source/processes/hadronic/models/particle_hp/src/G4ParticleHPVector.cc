@@ -220,7 +220,7 @@ G4double G4ParticleHPVector::GetXsec(G4double e)
 void G4ParticleHPVector::GetXsecList(G4double * energiesIn_xSecsOut, G4int length)
 {
 	#if GEANT4_ENABLE_CUDA
-    cudaVector->GetXsecList(energiesIn_xSecsOut, length);
+    cudaVector->GetXsecList(energiesIn_xSecsOut, length, theData, nEntries);
   #else
     for (int i = 0; i < length; i++) {
       energiesIn_xSecsOut[i] = GetXsec(energiesIn_xSecsOut[i]);
