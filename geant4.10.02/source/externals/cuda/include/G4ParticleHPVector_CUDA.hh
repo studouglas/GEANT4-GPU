@@ -9,6 +9,7 @@
 #include "G4InterpolationScheme_CUDA.hh"
 #include "G4InterpolationManager_CUDA.hh"
 #include "G4Types_CUDA.hh"
+#include "G4Pow_CUDA.hh"
 
 #define THREADS_PER_BLOCK 32 // must be multiple of 32
 

@@ -35,7 +35,7 @@
 #include <fstream>
 #include <cuda.h>
 #include <cuda_runtime.h>
-#include "G4HadronicException_CUDA.hh"
+// #include "G4HadronicException_CUDA.hh"
 
 class G4InterpolationManager
 {
@@ -131,7 +131,7 @@ class G4InterpolationManager
    
    G4InterpolationScheme MakeScheme(G4int it);
    
-   __host__ __device__ G4InterpolationScheme GetScheme(G4int index)
+   G4InterpolationScheme GetScheme(G4int index)
    {
      G4int it = 0;
      for(G4int i=1; i<nRanges; i++)

@@ -70,7 +70,7 @@
 #include <limits>
 #include <stdint.h>
 #include <cfloat>
-// #include "G4Types.hh"
+#include "G4Types_CUDA.hh"
 
 namespace G4ExpConsts
 {  
@@ -122,7 +122,7 @@ namespace G4ExpConsts
   //----------------------------------------------------------------------------
   // Converts an unsigned long long to a double
   //
-  __host__ __device__ inline double uint642dp(uint64_t ll)
+  inline double uint642dp(uint64_t ll)
   {
     ieee754 tmp;
     tmp.ll=ll;
@@ -132,7 +132,7 @@ namespace G4ExpConsts
   //----------------------------------------------------------------------------
   // Converts an int to a float
   //
-  __host__ __device__ inline float uint322sp(int x)
+  inline float uint322sp(int x)
   {
     ieee754 tmp;
     tmp.i[0]=x;
@@ -142,7 +142,7 @@ namespace G4ExpConsts
   //----------------------------------------------------------------------------
   // Converts a float to an int
   //
-  __host__ __device__ inline uint32_t sp2uint32(float x)
+  inline uint32_t sp2uint32(float x)
   {
     ieee754 tmp;
     tmp.f[0]=x;
@@ -155,7 +155,7 @@ namespace G4ExpConsts
    * These functions do not distinguish between -0.0 and 0.0, so are not IEC6509 
    * compliant for argument -0.0
   **/ 
-  __host__ __device__ inline double fpfloor(const double x)
+  inline double fpfloor(const double x)
   {
     // no problem since exp is defined between -708 and 708. Int is enough for it!
     int32_t ret = int32_t (x);
@@ -169,7 +169,7 @@ namespace G4ExpConsts
    * These functions do not distinguish between -0.0 and 0.0, so are not IEC6509 
    * compliant for argument -0.0
   **/ 
-  __host__ __device__ inline float fpfloor(const float x)
+  inline float fpfloor(const float x)
   {
     int32_t ret = int32_t (x);
     ret-=(sp2uint32(x)>>31);  
@@ -181,7 +181,7 @@ namespace G4ExpConsts
 
 
 /// Exponential Function double precision
-__host__ __device__ inline double G4Exp(double initial_x)
+inline double G4Exp(double initial_x)
 {
     double x = initial_x;
     // double px=G4ExpConsts::fpfloor(G4ExpConsts::LOG2E * x +0.5);
@@ -233,7 +233,7 @@ __host__ __device__ inline double G4Exp(double initial_x)
 // Exp single precision --------------------------------------------------------
 
 /// Exponential Function single precision
-__host__ __device__ inline float G4Expf(float initial_x)
+inline float G4Expf(float initial_x)
 {
     float x = initial_x;
 

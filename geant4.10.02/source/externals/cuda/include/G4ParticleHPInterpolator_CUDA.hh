@@ -32,15 +32,14 @@
 #ifndef G4ParticleHPInterpolator_h
 #define G4ParticleHPInterpolator_h 1
 
-#include "globals_CUDA.hh"
+// #include "globals.hh"
 #include "G4InterpolationScheme_CUDA.hh"
 // #include "Randomize.hh"
-#include "G4ios_CUDA.hh"
+// #include "G4ios_CUDA.hh"
 #include "G4Types_CUDA.hh"
 #include "G4Exp_CUDA.hh"
 #include "G4Log_CUDA.hh"
-#include "G4HadronicException_CUDA.hh"
-
+// #include "G4HadronicException.hh"
 
 class G4ParticleHPInterpolator
 {
@@ -52,7 +51,7 @@ class G4ParticleHPInterpolator
     //  G4cout <<"deleted the interpolator"<<G4endl;
    }
   
-  __host__ __device__ inline G4double Lin(G4double x,G4double x1,G4double x2,G4double y1,G4double y2)
+  inline G4double Lin(G4double x,G4double x1,G4double x2,G4double y1,G4double y2)
   {
     G4double slope=0, off=0;
     if(x2-x1==0) {
@@ -120,7 +119,7 @@ Interpolate(G4InterpolationScheme aScheme,
       result = Random(x, x1, x2, y1, y2);
       break;
     default:
-      G4cout << "theScheme = "<<theScheme<<G4endl;
+      // G4cout << "theScheme = "<<theScheme<<G4endl;
       // throw G4HadronicException(__FILE__, __LINE__, "G4ParticleHPInterpolator::Carthesian Invalid InterpolationScheme");
       break;
   }
@@ -155,14 +154,14 @@ Interpolate2(G4InterpolationScheme aScheme,
       result = Random(x, x1, x2, y1, y2);
       break;
     default:
-      G4cout << "theScheme = "<<theScheme<<G4endl;
+      // G4cout << "theScheme = "<<theScheme<<G4endl;
       // throw G4HadronicException(__FILE__, __LINE__, "G4ParticleHPInterpolator::Carthesian Invalid InterpolationScheme");
       break;
   }
   return result;
 }
 
-__host__ __device__ inline G4double G4ParticleHPInterpolator::
+inline G4double G4ParticleHPInterpolator::
 Histogram(G4double , G4double , G4double , G4double y1, G4double ) const
 {
   G4double result;
@@ -170,7 +169,7 @@ Histogram(G4double , G4double , G4double , G4double y1, G4double ) const
   return result;
 }
 
-__host__ __device__ inline G4double G4ParticleHPInterpolator::
+inline G4double G4ParticleHPInterpolator::
 LinearLinear(G4double x, G4double x1, G4double x2, G4double y1, G4double y2) const
 {
   G4double slope=0, off=0;
@@ -221,7 +220,7 @@ LogarithmicLogarithmic(G4double x, G4double x1, G4double x2, G4double y1, G4doub
   return result;
 }
 
-__host__ __device__ inline G4double G4ParticleHPInterpolator::
+inline G4double G4ParticleHPInterpolator::
 Random(G4double , G4double , G4double , G4double y1, G4double y2) const
 {
   G4double result;
