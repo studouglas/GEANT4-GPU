@@ -5,6 +5,7 @@
 #include <fstream>
 #include <time.h>
 #include <sys/time.h>
+#include <stdlib.h>		// for rand() and srand()
 #include "G4ParticleHPVector.hh"
 
 // test will detect if CPU and GPU result files generated from different versions
@@ -457,6 +458,26 @@ void testAssignment(int caseNum) {
 	resultsFile << "\n";
 }
 
+void generateQueryList(int caseNum, G4double *list, int listSize){
+	srand(time(NULL));
+	for(int i = 0; i < listSize; i++){
+		list[i] = vectors[caseNum]->GetX(rand() % listSize); // get a random energy 
+	}
+}
+
+void testBuffer(int caseNum){
+	writeOutTestName("void G4ParticleHPVector_CUDA::GetXsecBuffer(G4double * queryList, G4int length)",caseNum);
+	int NUM_QUERY_LISTS = 5;
+	int queryListSizes[5] = {10,50,100,1000,10000};
+	for (int i = 0; i < NUM_QUERY_LISTS; i++) {
+		G4double list[queryListSizes[i]];
+		generateQueryList(caseNum, list, queryListSizes[i]);
+	}
+	
+}
+
+
+
 /***********************************************
 * usage: ./GenerateTestResults 0
 ***********************************************/
@@ -505,15 +526,16 @@ int main(int argc, char** argv) {
 
 	// run tests
 	for (int i = 0; i < NUM_TEST_CASES; i++) {
-		testInitializeVector(i);
-		testGetXSec(i);
-		testSample(i);
-		testGetBorder(i);
+		//testInitializeVector(i);
+		//testGetXSec(i);
+		//testSample(i);
+		//testGetBorder(i);
 		// testIntegral(i);
-		testTimes(i);
-		testSettersAndGetters(i);
-		testThinOut(i);
-		testAssignment(i);
+		//testTimes(i);
+		//testSettersAndGetters(i);
+		//testThinOut(i);
+		//testAssignment(i);
+		testBuffer(i);
 	}
 
 	std::cout << "\nAll tests complete.\n\n";
