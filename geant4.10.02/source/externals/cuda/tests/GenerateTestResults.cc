@@ -18,6 +18,9 @@
 // number of different input values to test (including 'edge case' values)
 #define NUM_TEST_INPUTS 5 
 
+// number of different lengths of query lists for getXSecList
+#define NUM_QUERY_LISTS 5
+
 // 10^n where n is number of digits to keep
 // TODO: try more (17 is to much)
 #define DOUBLE_PRECISION 10000000000
@@ -172,6 +175,12 @@ double getWallTime() {
 	gettimeofday(&time, NULL);
 	return (double)time.tv_sec + (double)time.tv_usec * 0.000001;
 }
+void generateQueryList(int caseNum, G4double *list, int listSize){
+	for (int i = 0; i < listSize; i++){
+		list[i] = vectors[caseNum]->GetX(rand() % listSize);
+	}
+}
+
 
 /***********************************************
 * Run unit tests
@@ -457,26 +466,33 @@ void testAssignment(int caseNum) {
 	writeOutArray(xVals, nEntries);
 	resultsFile << "\n";
 }
-
-void generateQueryList(int caseNum, G4double *list, int listSize){
-	srand(time(NULL));
-	for(int i = 0; i < listSize; i++){
-		list[i] = vectors[caseNum]->GetX(rand() % listSize); // get a random energy 
-	}
-}
-
 void testBuffer(int caseNum){
 	writeOutTestName("void G4ParticleHPVector_CUDA::GetXsecBuffer(G4double * queryList, G4int length)",caseNum);
-	int NUM_QUERY_LISTS = 5;
-	int queryListSizes[5] = {10,50,100,1000,10000};
-	for (int i = 0; i < NUM_QUERY_LISTS; i++) {
+	
+	int queryListSizes[NUM_QUERY_LISTS] = {10,50,100,1000,10000};
+	for (int i = 0; i < 2; i++) {
+		writeOutIntInput("numQueries", queryListSizes[i]);
+
 		G4double list[queryListSizes[i]];
 		generateQueryList(caseNum, list, queryListSizes[i]);
+
+		// std::cout << "    About to call GetXsecList...\n";
+		double t1 = getWallTime();
+		vectors[caseNum]->GetXsecList(list, queryListSizes[i]);
+		writeOutTime(getWallTime() - t1);
+
+		// std::cout << "    About to write out results...\n";
+		resultsFile << "getXSecList results ";
+		writeOutArray(list, queryListSizes[i]);
+		resultsFile << "\n";
+		resultsFile << "getXSecList results (array): [";
+		for (int j = 0; j < queryListSizes[i]; i++) {
+			resultsFile << list[j] << ",";
+		}
+		resultsFile << "]\n";
 	}
 	
 }
-
-
 
 /***********************************************
 * usage: ./GenerateTestResults 0
@@ -526,11 +542,11 @@ int main(int argc, char** argv) {
 
 	// run tests
 	for (int i = 0; i < NUM_TEST_CASES; i++) {
-		//testInitializeVector(i);
+		testInitializeVector(i);
 		//testGetXSec(i);
 		//testSample(i);
 		//testGetBorder(i);
-		// testIntegral(i);
+		////testIntegral(i);
 		//testTimes(i);
 		//testSettersAndGetters(i);
 		//testThinOut(i);

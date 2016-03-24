@@ -25,6 +25,8 @@ typedef struct GetXsecResultStruct {
 class G4ParticleHPVector_CUDA {
     public:
     void GetXsecList(G4double* energiesIn_xSecsOut, G4int length, G4ParticleHPDataPoint* theData, G4int nEntries);
+    void SetInterpolationManager(G4InterpolationManager & aManager);
+    void SetInterpolationManager(const G4InterpolationManager & aManager);
 
     private:
     G4InterpolationManager theManager;

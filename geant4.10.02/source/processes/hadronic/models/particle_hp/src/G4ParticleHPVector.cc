@@ -80,7 +80,7 @@ G4ParticleHPVector & operator + (G4ParticleHPVector & left, G4ParticleHPVector &
 
 G4ParticleHPVector::G4ParticleHPVector()
 {
-  #ifdef GEANT4_ENABLE_CUDA
+  #if GEANT4_ENABLE_CUDA
     cudaVector = new G4ParticleHPVector_CUDA();
   #endif
   theData = new G4ParticleHPDataPoint[20]; 
@@ -98,7 +98,7 @@ G4ParticleHPVector::G4ParticleHPVector()
 
 G4ParticleHPVector::G4ParticleHPVector(G4int n)
 {
-  #ifdef GEANT4_ENABLE_CUDA
+  #if GEANT4_ENABLE_CUDA
     cudaVector = new G4ParticleHPVector_CUDA();
   #endif
   nPoints = std::max(n, 20);

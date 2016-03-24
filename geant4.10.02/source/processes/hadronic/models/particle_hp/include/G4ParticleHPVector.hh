@@ -314,11 +314,17 @@ class G4ParticleHPVector
 
   inline void SetInterpolationManager(const G4InterpolationManager & aManager)
   {
-    theManager = aManager;   
+    #if GEANT4_ENABLE_CUDA
+      cudaVector->SetInterpolationManager(aManager);
+    #endif   
+    theManager = aManager;
   }
 
   inline void SetInterpolationManager(G4InterpolationManager & aMan)
   {
+    #if GEANT4_ENABLE_CUDA
+      cudaVector->SetInterpolationManager(aMan);
+    #endif
     theManager = aMan;
   }
 
@@ -622,7 +628,7 @@ class G4ParticleHPVector
    ******************************************/
   private:
   #if GEANT4_ENABLE_CUDA
-  G4ParticleHPVector_CUDA* cudaVector;
+    G4ParticleHPVector_CUDA* cudaVector;
   #endif
 
   void Check(G4int i);
