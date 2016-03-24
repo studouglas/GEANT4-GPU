@@ -53,7 +53,6 @@ void writeOutArray(double* arr, int count) {
 		resultsFile << "[]";
 		return;
 	}
-	std::cout << "print arr\n";
 	// round our doubles within tolerance before calculating hash
 	for (int i = 0; i < count; i++) {
 		arr[i] = round(arr[i]*DOUBLE_PRECISION)/DOUBLE_PRECISION;
@@ -468,30 +467,29 @@ void testAssignment(int caseNum) {
 }
 void testBuffer(int caseNum){
 	writeOutTestName("void G4ParticleHPVector_CUDA::GetXsecBuffer(G4double * queryList, G4int length)",caseNum);
-	
-	int queryListSizes[NUM_QUERY_LISTS] = {10,50,100,1000,10000};
-	for (int i = 0; i < 2; i++) {
+	std::cout << "Starting testBuffer case " << caseNum << "...\n";
+	double t1 = getWallTime();
+	int queryListSizes[NUM_QUERY_LISTS] = {10,50,100,10000,100000};
+	for (int i = 0; i < NUM_QUERY_LISTS; i++) {
 		writeOutIntInput("numQueries", queryListSizes[i]);
 
 		G4double list[queryListSizes[i]];
 		generateQueryList(caseNum, list, queryListSizes[i]);
-
-		// std::cout << "    About to call GetXsecList...\n";
+		
 		double t1 = getWallTime();
 		vectors[caseNum]->GetXsecList(list, queryListSizes[i]);
 		writeOutTime(getWallTime() - t1);
 
-		// std::cout << "    About to write out results...\n";
-		resultsFile << "getXSecList results ";
+		// resultsFile << "getXSecList results ";
 		writeOutArray(list, queryListSizes[i]);
 		resultsFile << "\n";
-		resultsFile << "getXSecList results (array): [";
-		for (int j = 0; j < queryListSizes[i]; i++) {
-			resultsFile << list[j] << ",";
-		}
-		resultsFile << "]\n";
+		// resultsFile << "getXSecList results (array): [";
+		// for (int j = 0; j < queryListSizes[i]; j++) {
+			// resultsFile << list[j] << ",";
+		// }
+		// resultsFile << "]\n";
 	}
-	
+	std::cout << "\nTOTAL testBuffer TIME FOR CASE " << caseNum << ": " << getWallTime() - t1 << "\n\n";
 }
 
 /***********************************************

@@ -4,47 +4,96 @@ theData xVals []
 theData yVals []
 #void G4ParticleHPVector_CUDA::GetXsecBuffer(G4double * queryList, G4int length)_0
 @numQueries=10
-getXSecList results hash: 15419858008900035231
-getXSecList results (array): [0,0,0,0,0,0,]
+hash: 15419858008900035231
+@numQueries=50
+hash: 10629210434101489480
+@numQueries=100
+hash: 15384032151602667482
+@numQueries=10000
+hash: 8702508877611739421
+@numQueries=100000
+hash: 17541831689045623584
 #void Init(std::istream & aDataFile, G4int total, G4double ux=1., G4double uy=1.)_1
 theData xVals hash: 1285262205404685270
 theData yVals hash: 8558769185984268590
 #void G4ParticleHPVector_CUDA::GetXsecBuffer(G4double * queryList, G4int length)_1
 @numQueries=10
-getXSecList results hash: 10933751501048646280
-getXSecList results (array): [2.26,2.26,2.26,2.26,2.26,2.26,]
+hash: 1846475753710227384
+@numQueries=50
+hash: 12933717056752910401
+@numQueries=100
+hash: 17532720959762765847
+@numQueries=10000
+hash: 13468565254778233183
+@numQueries=100000
+hash: 4035354415130795836
 #void Init(std::istream & aDataFile, G4int total, G4double ux=1., G4double uy=1.)_2
 theData xVals hash: 2814258466556012703
 theData yVals hash: 7454723789077549572
 #void G4ParticleHPVector_CUDA::GetXsecBuffer(G4double * queryList, G4int length)_2
 @numQueries=10
-getXSecList results hash: 16057353668409323531
-getXSecList results (array): [7.4249,7.4249,7.4249,7.4249,7.4249,7.4249,]
+hash: 675963414102594561
+@numQueries=50
+hash: 16924323567636677282
+@numQueries=100
+hash: 1600720243611036203
+@numQueries=10000
+hash: 4732629226372601674
+@numQueries=100000
+hash: 10681226162235257129
 #void Init(std::istream & aDataFile, G4int total, G4double ux=1., G4double uy=1.)_3
 theData xVals hash: 380856461566793921
 theData yVals hash: 17341898202202105047
 #void G4ParticleHPVector_CUDA::GetXsecBuffer(G4double * queryList, G4int length)_3
 @numQueries=10
-getXSecList results hash: 3110358790788514185
-getXSecList results (array): [4015.31,4015.31,4015.31,4015.31,4015.31,4015.31,]
+hash: 10968556605781628814
+@numQueries=50
+hash: 16965302351920661853
+@numQueries=100
+hash: 2193580249366593891
+@numQueries=10000
+hash: 1919792651575952809
+@numQueries=100000
+hash: 4325601080898585930
 #void Init(std::istream & aDataFile, G4int total, G4double ux=1., G4double uy=1.)_4
 theData xVals hash: 54681960905177130
 theData yVals hash: 1230654354166793649
 #void G4ParticleHPVector_CUDA::GetXsecBuffer(G4double * queryList, G4int length)_4
 @numQueries=10
-getXSecList results hash: 10318450902290704428
-getXSecList results (array): [2.1865,2.1865,2.1865,2.1865,2.1865,2.1865,]
+hash: 11580237488946379950
+@numQueries=50
+hash: 9927679758788255905
+@numQueries=100
+hash: 17710924904126496405
+@numQueries=10000
+hash: 7506977939755255107
+@numQueries=100000
+hash: 10300846530834065403
 #void Init(std::istream & aDataFile, G4int total, G4double ux=1., G4double uy=1.)_5
 theData xVals hash: 7171123492023199933
 theData yVals hash: 9268461341921925588
 #void G4ParticleHPVector_CUDA::GetXsecBuffer(G4double * queryList, G4int length)_5
 @numQueries=10
-getXSecList results hash: 15419858008900035231
-getXSecList results (array): [0,0,0,0,0,0,]
+hash: 15419858008900035231
+@numQueries=50
+hash: 10629210434101489480
+@numQueries=100
+hash: 15384032151602667482
+@numQueries=10000
+hash: 8702508877611739421
+@numQueries=100000
+hash: 6650516414528333820
 #void Init(std::istream & aDataFile, G4int total, G4double ux=1., G4double uy=1.)_6
 theData xVals hash: 16082830809520917107
 theData yVals hash: 569425363193013609
 #void G4ParticleHPVector_CUDA::GetXsecBuffer(G4double * queryList, G4int length)_6
 @numQueries=10
-getXSecList results hash: 288598403584025854
-getXSecList results (array): [30473.9,30473.9,30473.9,30473.9,30473.9,30473.9,]
+hash: 16548307878283220284
+@numQueries=50
+hash: 3204132713354913775
+@numQueries=100
+hash: 17547810204308157906
+@numQueries=10000
+hash: 4760018463382351335
+@numQueries=100000
+hash: 5019405429586795608

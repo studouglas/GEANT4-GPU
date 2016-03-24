@@ -170,6 +170,7 @@ G4double G4ParticleHPVector::GetXsec(G4double e)
   }
 
   G4int min = theHash.GetMinIndex(e);
+
   G4int i;
   for (i = min; i < nEntries; i++)
   {
@@ -177,7 +178,7 @@ G4double G4ParticleHPVector::GetXsec(G4double e)
       break;
     }
   }
-  
+
   G4int low = i - 1;
   G4int high = i;
   if (i == 0)
