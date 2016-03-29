@@ -16,9 +16,13 @@ if(GEANT4_BUILD_GRANULAR_LIBS)
     GEANT4_GRANULAR_LIBRARY_TARGET(COMPONENT sources.cmake)
 endif()
 
-# NOTE -- we get here (verified by printout), but definition is
-# not added to our source file
+set(ENABLE_CUDA 1)
 if(GEANT4_ENABLE_CUDA)
     message(STATUS "CUDA IS ENABLED -- cmake file from hadronic")
-    add_definitions(-DGEANT4_ENABLE_CUDA)
+    message("Current working directory ${PROJECT_SOURCE_DIR}")
+    message("Binary directory ${PROJECT_BINARY_DIR}")
+    message("Install prefix ${CMAKE_INSTALL_PREFIX}")
+    configure_file("${PROJECT_SOURCE_DIR}/source/externals/cuda/include/G4ParticleHPVector.hh"
+     "${PROJECT_SOURCE_DIR}/source/processes/hadronic/models/particle_hp/include/G4ParticleHPVector.hh")
+    add_definitions(-DGEANT4_ENABLE_CUDA=ON)
 endif()
