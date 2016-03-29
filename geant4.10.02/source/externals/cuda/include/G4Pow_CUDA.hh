@@ -66,45 +66,45 @@ class G4Pow
 
     // Fast computation of Z^1/3
     //
-    __host__ __device__ inline G4double Z13(G4int Z) const;
-    __host__ __device__ inline G4double A13(G4double A) const;
+    inline G4double Z13(G4int Z) const;
+    inline G4double A13(G4double A) const;
 
     // Fast computation of Z^2/3
     //
-    __host__ __device__ inline G4double Z23(G4int Z) const;
-    __host__ __device__ inline G4double A23(G4double A) const;
+    inline G4double Z23(G4int Z) const;
+    inline G4double A23(G4double A) const;
 
     // Fast computation of log(Z)
     //
-    __host__ __device__ inline G4double logZ(G4int Z) const;
-    __host__ __device__ inline G4double logA(G4double A) const;
-    __host__ __device__ inline G4double logX(G4double x) const;
+    inline G4double logZ(G4int Z) const;
+    inline G4double logA(G4double A) const;
+    inline G4double logX(G4double x) const;
 
     // Fast computation of log10(Z)
     //
-    __host__ __device__ inline G4double log10Z(G4int Z) const;
-    __host__ __device__ inline G4double log10A(G4double A) const;
+    inline G4double log10Z(G4int Z) const;
+    inline G4double log10A(G4double A) const;
 
     // Fast computation of exp(X)
     //
-    __host__ __device__ inline G4double expA(G4double A) const;
+    inline G4double expA(G4double A) const;
 
     // Fast computation of pow(Z,X)
     //
-    __host__ __device__ inline G4double powZ(G4int Z, G4double y) const;
-    __host__ __device__ inline G4double powA(G4double A, G4double y) const;
-    __host__ __device__ G4double powN(G4double x, G4int n) const;
+    inline G4double powZ(G4int Z, G4double y) const;
+    inline G4double powA(G4double A, G4double y) const;
+    G4double powN(G4double x, G4int n) const;
 
     // Fast factorial
     //
-    __host__ __device__ inline G4double factorial(G4int Z) const;
-    __host__ __device__ inline G4double logfactorial(G4int Z) const;
+    inline G4double factorial(G4int Z) const;
+    inline G4double logfactorial(G4int Z) const;
 
   private:
 
     G4Pow();
 
-    __host__ __device__ inline G4double logBase(G4double x) const;
+    inline G4double logBase(G4double x) const;
 
     static G4Pow* fpInstance;
 
@@ -127,12 +127,12 @@ class G4Pow
 
 // -------------------------------------------------------------------
 
-__host__ __device__ inline G4double G4Pow::Z13(G4int Z) const
+inline G4double G4Pow::Z13(G4int Z) const
 {
   return pz13[Z];
 }
 
-__host__ __device__ inline G4double G4Pow::A13(G4double A) const
+inline G4double G4Pow::A13(G4double A) const
 {
   G4double res = 0.0;
   if(A > 0.0) 
@@ -154,24 +154,24 @@ __host__ __device__ inline G4double G4Pow::A13(G4double A) const
   return res;
 }
 
-__host__ __device__ inline G4double G4Pow::Z23(G4int Z) const
+inline G4double G4Pow::Z23(G4int Z) const
 {
   G4double x = Z13(Z);
   return x*x;
 }
 
-__host__ __device__ inline G4double G4Pow::A23(G4double A) const
+inline G4double G4Pow::A23(G4double A) const
 {
   G4double x = A13(A);
   return x*x;
 }
 
-__host__ __device__ inline G4double G4Pow::logZ(G4int Z) const
+inline G4double G4Pow::logZ(G4int Z) const
 {
   return lz[Z];
 }
 
-__host__ __device__ inline G4double G4Pow::logBase(G4double a) const
+inline G4double G4Pow::logBase(G4double a) const
 {
   G4double res;
   if(a <= maxA2) 
@@ -194,12 +194,12 @@ __host__ __device__ inline G4double G4Pow::logBase(G4double a) const
   return res;
 }
 
-__host__ __device__ inline G4double G4Pow::logA(G4double A) const
+inline G4double G4Pow::logA(G4double A) const
 {
   return (1.0 <= A ? logBase(A) : -logBase(1./A));
 }
 
-__host__ __device__ inline G4double G4Pow::logX(G4double x) const {
+inline G4double G4Pow::logX(G4double x) const {
   G4double res = 0.0;
   G4double a = (1.0 <= x) ? x : 1.0/x;
 
@@ -222,17 +222,17 @@ __host__ __device__ inline G4double G4Pow::logX(G4double x) const {
   return res;
 }
 
-__host__ __device__ inline G4double G4Pow::log10Z(G4int Z) const
+inline G4double G4Pow::log10Z(G4int Z) const
 {
   return lz[Z]/lz[10];
 }
 
-__host__ __device__ inline G4double G4Pow::log10A(G4double A) const
+inline G4double G4Pow::log10A(G4double A) const
 {
   return logX(A)/lz[10];
 }
 
-__host__ __device__ inline G4double G4Pow::expA(G4double A) const
+inline G4double G4Pow::expA(G4double A) const
 {
   G4double res;
   G4double a = (0.0 <= A) ? A : -A;
@@ -252,22 +252,22 @@ __host__ __device__ inline G4double G4Pow::expA(G4double A) const
   return res;
 }
 
-__host__ __device__ inline G4double G4Pow::powZ(G4int Z, G4double y) const
+inline G4double G4Pow::powZ(G4int Z, G4double y) const
 {
   return expA(y*lz[Z]);
 }
 
-__host__ __device__ inline G4double G4Pow::powA(G4double A, G4double y) const
+inline G4double G4Pow::powA(G4double A, G4double y) const
 {
   return (0.0 == A ? 0.0 : expA(y*logX(A)));
 }
 
-__host__ __device__ inline G4double G4Pow::factorial(G4int Z) const
+inline G4double G4Pow::factorial(G4int Z) const
 {
   return fact[Z];
 }
 
-__host__ __device__ inline G4double G4Pow::logfactorial(G4int Z) const
+inline G4double G4Pow::logfactorial(G4int Z) const
 {
   return logfact[Z];
 }

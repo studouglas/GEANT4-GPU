@@ -5,6 +5,7 @@
 #include <fstream>
 #include <time.h>
 #include <sys/time.h>
+#include <stdlib.h>		// for rand() and srand()
 #include "G4ParticleHPVector.hh"
 
 // test will detect if CPU and GPU result files generated from different versions
@@ -16,6 +17,9 @@
 
 // number of different input values to test (including 'edge case' values)
 #define NUM_TEST_INPUTS 5 
+
+// number of different lengths of query lists for getXSecList
+#define NUM_QUERY_LISTS 5
 
 // 10^n where n is number of digits to keep
 // TODO: try more (17 is to much)
@@ -49,7 +53,6 @@ void writeOutArray(double* arr, int count) {
 		resultsFile << "[]";
 		return;
 	}
-	std::cout << "print arr\n";
 	// round our doubles within tolerance before calculating hash
 	for (int i = 0; i < count; i++) {
 		arr[i] = round(arr[i]*DOUBLE_PRECISION)/DOUBLE_PRECISION;
@@ -171,6 +174,12 @@ double getWallTime() {
 	gettimeofday(&time, NULL);
 	return (double)time.tv_sec + (double)time.tv_usec * 0.000001;
 }
+void generateQueryList(int caseNum, G4double *list, int listSize){
+	for (int i = 0; i < listSize; i++){
+		list[i] = vectors[caseNum]->GetX(rand() % listSize);
+	}
+}
+
 
 /***********************************************
 * Run unit tests
@@ -456,6 +465,32 @@ void testAssignment(int caseNum) {
 	writeOutArray(xVals, nEntries);
 	resultsFile << "\n";
 }
+void testBuffer(int caseNum){
+	writeOutTestName("void G4ParticleHPVector_CUDA::GetXsecBuffer(G4double * queryList, G4int length)",caseNum);
+	std::cout << "Starting testBuffer case " << caseNum << "...\n";
+	double t1 = getWallTime();
+	int queryListSizes[NUM_QUERY_LISTS] = {10,50,100,10000,100000};
+	for (int i = 0; i < NUM_QUERY_LISTS; i++) {
+		writeOutIntInput("numQueries", queryListSizes[i]);
+
+		G4double list[queryListSizes[i]];
+		generateQueryList(caseNum, list, queryListSizes[i]);
+		
+		double t1 = getWallTime();
+		vectors[caseNum]->GetXsecList(list, queryListSizes[i]);
+		writeOutTime(getWallTime() - t1);
+
+		// resultsFile << "getXSecList results ";
+		writeOutArray(list, queryListSizes[i]);
+		resultsFile << "\n";
+		// resultsFile << "getXSecList results (array): [";
+		// for (int j = 0; j < queryListSizes[i]; j++) {
+			// resultsFile << list[j] << ",";
+		// }
+		// resultsFile << "]\n";
+	}
+	std::cout << "\nTOTAL testBuffer TIME FOR CASE " << caseNum << ": " << getWallTime() - t1 << "\n\n";
+}
 
 /***********************************************
 * usage: ./GenerateTestResults 0
@@ -506,14 +541,15 @@ int main(int argc, char** argv) {
 	// run tests
 	for (int i = 0; i < NUM_TEST_CASES; i++) {
 		testInitializeVector(i);
-		testGetXSec(i);
-		testSample(i);
-		testGetBorder(i);
-		// testIntegral(i);
-		testTimes(i);
-		testSettersAndGetters(i);
-		testThinOut(i);
-		testAssignment(i);
+		//testGetXSec(i);
+		//testSample(i);
+		//testGetBorder(i);
+		////testIntegral(i);
+		//testTimes(i);
+		//testSettersAndGetters(i);
+		//testThinOut(i);
+		//testAssignment(i);
+		testBuffer(i);
 	}
 
 	std::cout << "\nAll tests complete.\n\n";

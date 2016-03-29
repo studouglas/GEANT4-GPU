@@ -72,7 +72,7 @@
 #include <stdint.h>
  #include <cuda.h>
  #include <cuda_runtime.h>
-// #include "G4Types.hh"
+#include "G4Types_CUDA.hh"
 
 // local namespace for the constants/functions which are necessary only here
 //
@@ -102,7 +102,7 @@ namespace G4LogConsts
     uint16_t s[4];
   };
 
-  __host__ __device__ inline double get_log_px(const double x)
+  inline double get_log_px(const double x)
   {
         const double PX1log = 1.01875663804580931796E-4;
         const double PX2log = 4.97494994976747001425E-1;
@@ -125,7 +125,7 @@ namespace G4LogConsts
         return px;
   }
 
-  __host__ __device__ inline double get_log_qx(const double x)
+  inline double get_log_qx(const double x)
   {
         const double QX1log = 1.12873587189167450590E1;
         const double QX2log = 4.52279145837532221105E1;
@@ -149,7 +149,7 @@ namespace G4LogConsts
   //----------------------------------------------------------------------------
   // Converts a double to an unsigned long long
   //
-  __host__ __device__ inline uint64_t dp2uint64(double x)
+  inline uint64_t dp2uint64(double x)
   {
     ieee754 tmp;
     tmp.d=x;
@@ -159,7 +159,7 @@ namespace G4LogConsts
   //----------------------------------------------------------------------------
   // Converts an unsigned long long to a double
   //
-  __host__ __device__ inline double uint642dp(uint64_t ll)
+  inline double uint642dp(uint64_t ll)
   {
     ieee754 tmp;
     tmp.ll=ll;
@@ -169,7 +169,7 @@ namespace G4LogConsts
   //----------------------------------------------------------------------------
   // Converts an int to a float
   //
-  __host__ __device__ inline float uint322sp(int x)
+  inline float uint322sp(int x)
   {
     ieee754 tmp;
     tmp.i[0]=x;
@@ -179,7 +179,7 @@ namespace G4LogConsts
   //----------------------------------------------------------------------------
   // Converts a float to an int
   //
-  __host__ __device__ inline uint32_t sp2uint32(float x)
+  inline uint32_t sp2uint32(float x)
   {
     ieee754 tmp;
     tmp.f[0]=x;
@@ -188,7 +188,7 @@ namespace G4LogConsts
 
   //----------------------------------------------------------------------------
   /// Like frexp but vectorising and the exponent is a double.
-  __host__ __device__ inline double getMantExponent(const double x, double & fe)
+  inline double getMantExponent(const double x, double & fe)
   {
     uint64_t n = dp2uint64(x);
 
@@ -212,7 +212,7 @@ namespace G4LogConsts
 
   //----------------------------------------------------------------------------
   /// Like frexp but vectorising and the exponent is a float.
-  __host__ __device__ inline float getMantExponentf(const float x, float & fe)
+  inline float getMantExponentf(const float x, float & fe)
   {
     uint32_t n = sp2uint32(x);
     int32_t e = (n >> 23)-127;
@@ -229,7 +229,7 @@ namespace G4LogConsts
 
 // Log double precision --------------------------------------------------------
 
-__host__ __device__ inline double G4Log(double x) {
+inline double G4Log(double x) {
         const double original_x = x;
 
         /* separate mantissa from exponent */
@@ -283,7 +283,7 @@ namespace G4LogConsts
   const float PX8logf = -2.4999993993E-1f;
   const float PX9logf = 3.3333331174E-1f;
 
-  __host__ __device__ inline float get_log_poly(const float x)
+  inline float get_log_poly(const float x)
   {
         float y = x*PX1logf;
         y += PX2logf;
@@ -309,7 +309,7 @@ namespace G4LogConsts
 
 // Log single precision --------------------------------------------------------
 
-__host__ __device__ inline float G4Logf( float x )
+inline float G4Logf( float x )
 {
         const float original_x = x;
 
@@ -341,10 +341,10 @@ __host__ __device__ inline float G4Logf( float x )
 
 //------------------------------------------------------------------------------
 
-__host__ __device__ void logv(const uint32_t size, double const * __restrict__ iarray, double* __restrict__ oarray);
-__host__ __device__ void G4Logv(const uint32_t size, double const * __restrict__ iarray, double* __restrict__ oarray);
-__host__ __device__ void logfv(const uint32_t size, float const * __restrict__ iarray, float* __restrict__ oarray);
-__host__ __device__ void G4Logfv(const uint32_t size, float const * __restrict__ iarray, float* __restrict__ oarray);
+void logv(const uint32_t size, double const * __restrict__ iarray, double* __restrict__ oarray);
+void G4Logv(const uint32_t size, double const * __restrict__ iarray, double* __restrict__ oarray);
+void logfv(const uint32_t size, float const * __restrict__ iarray, float* __restrict__ oarray);
+void G4Logfv(const uint32_t size, float const * __restrict__ iarray, float* __restrict__ oarray);
 
 #endif /* WIN32 */
 

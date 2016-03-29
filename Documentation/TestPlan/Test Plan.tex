@@ -208,96 +208,7 @@ UniNotesTestPlan & Umar Khan, Ashwin Samtani, Olakotumbo Agia & Test plan outlin
 \section{Test Types}
 
 % ----------------------------- Sub Section ----------------------------- %
-\subsection{System Testing} % Matt
-There are several examples included with the GEANT4 toolkit as well as some created by McMaster's Engineering Physics department for G4-STORK. Examples in GEANT4 will be used for system testing. Due to the computation time for some of the examples, they will be run less frequently than the simpler ones. This will let the developers run system tests regularly on the simple files, while checking that more realistic, complex examples are also correct after bigger changes.
 
-\begin{center}
-\begin{longtable}{cc >{\raggedright\arraybackslash}p{2.8cm}>{\raggedright\arraybackslash}p{3cm}>{\raggedright\arraybackslash}p{4.5cm}}
-\caption{System Tests}\label{Table_SystemTests}\\
-\toprule
-
-\bf \# & \bf Initial State & \bf Inputs & \bf Outputs & \bf Description\\\midrule
-\stepcounter{TestCounter}\arabic{TestCounter} 
-& Fresh start up 
-& Events = 2000
-Material = Water
-& Same output as non-GPU GEANT4 
-&  HADR04 no changes\\\midrule
-
-\stepcounter{TestCounter}\arabic{TestCounter}
-& Fresh start up 
-& Events = 2000
-Material = Uranium
-& Same output as non-GPU GEANT4 
-& HADR04 -- basic example\\\midrule
-
-\stepcounter{TestCounter}\arabic{TestCounter}
-& Fresh start up 
-& Events = 600
-Material = Water
-& Same output as non-GPU GEANT4 
-& HADR04 -- Shorter test \\\midrule
-
-\stepcounter{TestCounter}\arabic{TestCounter}
-& Fresh start up 
-& Events = 600
-Material = Uranium
-& Same output as non-GPU GEANT4 
-& HADR04 -- Shorter test \\\midrule
-
-\stepcounter{TestCounter}\arabic{TestCounter}
-& Fresh start up 
-& Events = 20000
-Material = Uranium
-& Same output as non-GPU GEANT4 
-& HADR04 -- Long simulation stress Test\\\midrule
-
-%\stepcounter{TestCounter}\arabic{TestCounter}
-%& Fresh start up 
-%& Events = 0
-%Material = Uranium
-%& Same output as non-GPU GEANT4 
-%& HADR04 -- no runs,  Edge case\\
-
-%\stepcounter{TestCounter}\arabic{TestCounter}
-%& Fresh start up 
-%& Events = 60
-%Particles = 20
-%& Same output as non-GPU G4STORK 
-%& HADR04 -- Long simulation\\\midrule
-%
-%\stepcounter{TestCounter}\arabic{TestCounter}
-%& Fresh start up 
-%& Events = 12
-%Particles = 2
-%& Same output as non-GPU G4STORK 
-%& SCWRDopplerInput.txt -- Few Particles\\\midrule
-%
-%\stepcounter{TestCounter}\arabic{TestCounter}
-%& Fresh start up 
-%& Events = 12
-%Particles = 2000
-%& Same output as non-GPU G4STORK 
-%& SCWRDopplerInput.txt -- Many Particles\\\midrule
-%
-%\stepcounter{TestCounter}\arabic{TestCounter} 
-%& Fresh start up 
-%& Events = 2
-%Particles = 2
-%& Same output as non-GPU G4STORK 
-%&  SCWRDopplerInput.txt  -- Minimum stress\\\midrule
-%
-%\stepcounter{TestCounter}\arabic{TestCounter} 
-%& Fresh start up 
-%& Events = 60
-%Particles = 2000
-%& Same output as non-GPU G4STORK 
-%&  SCWRDopplerInput.txt  -- Stress test\\
-
-\bottomrule
-\end{longtable}
-\end{center}
-\mmp{Not using G4-STORK for system tests - therefore had to change system tests}
 % ----------------------------- Sub Section ----------------------------- %
 \section{Unit Testing}
 \subsection{Use of Automated Testing}
@@ -341,8 +252,30 @@ For all unit tests:
 
 \ds{What unit testing framework are you planning to use?} \mmp{Mentioned that we will be making our own unit testing framework}
 
+\subsection{void Init(istream \& aDataFile, G4int total, G4double ux, G4double uy)} 
+	
+Initializes the data in the current vector with \texttt{total} data points from \texttt{aDataFile}. Each data
+	point is multiplied by factor \texttt{ux} for the x-value and \texttt{uy} for the y-value.
+
+
+	Each vector \emph{vec1}, \emph{vec2} \ldots \emph{vec6} is associated with a data file, which is the input \texttt{aDataFile} to
+		the \texttt{Init} function. These data files are bundled with Geant4, and include measured data points for 
+		a given isotope of an element. \texttt{vec0} is not initialized with a data file, as it is meant to be an empty vector to test edge cases.
+		As such, \texttt{vec0} is not tested with this function.
+		\begin{table}[H]
+		\centering
+		\caption{Unit Tests - \texttt{Init}}\label{Init_unit}
+		\begin{tabular}{lllll}
+		\toprule
+		\multirow{2}{*}{\bf Test \#}  & \multicolumn{2}{c}{\bf Inputs}\\
+		& \bf \texttt{aDataFile} & \bf \texttt{G4int} & \bf \texttt{ux} & \bf \texttt{uy}\\\midrule
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{Init_0} & Current data file & n & 1 & 1\\
+		\bottomrule
+		\end{tabular}
+		\end{table}
+		
 \subsection{G4ParticleHPVector \& operator = (const G4ParticleHPVector \& right)}
-	\subsubsection{Test Description}
+	
 	Create a new, temporary G4ParticleHPVector object and assign the current vector to it. Outputs the data and the integral from the new vector.
 
 	\subsubsection{Test Inputs}
@@ -359,7 +292,7 @@ For all unit tests:
 		\end{table}
 
 \subsection{const G4ParticleHPDataPoint GetPoint(G4int i)}
-	\subsubsection{Test Description}
+	
 	Returns the G4ParticleHPDataPoint at index \texttt{i} in the current vector. The \texttt{x} 
 	and \texttt{y} values of the point are outputted.
 	
@@ -381,7 +314,7 @@ For all unit tests:
 		\end{table}
 		
 \subsection{G4double GetX(G4int i)}
-	\subsubsection{Test Description}
+	
 	Returns the energy at index \texttt{i} in the current vector. The \texttt{x} 
 	value of the point are outputted.
 	
@@ -402,9 +335,31 @@ For all unit tests:
 		\end{tabular}
 		\end{table}
 
+\subsection{G4double GetEnergy(G4int i)} % Test cases finished
+	
+	Returns the energy at index \texttt{i} in the current vector. The \texttt{x} 
+	value of the point are outputted.
+	
+	\subsubsection{Test Inputs}
+		\begin{table}[H]
+		\centering
+		\caption{Unit Tests - \texttt{GetEnergy}}\label{GetEnergy_unit}
+		\begin{tabular}{lll}
+		\toprule
+		\multirow{2}{*}{\bf Test \#}  & \multicolumn{1}{c}{\bf Inputs}\\
+		& \bf \texttt{i}\\\midrule
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetEnergy_0} & -1\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetEnergy_1} & 0\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetEnergy_2} & n/2\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetEnergy_3} & n-1\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetEnergy_4} & n\\
+		\bottomrule
+		\end{tabular}
+		\end{table}
+		
 \subsection{G4double GetY(G4int i)}
 
-	\subsubsection{Test Description}
+	
 	Returns the xSec at index \texttt{i} in the current vector. The \texttt{y} 
 	value of the point are outputted.
 	
@@ -426,7 +381,7 @@ For all unit tests:
 \end{table}
 
 \subsection{G4double GetXsec(G4int i)} % Test cases finished
-	\subsubsection{Test Description}
+	
 	Returns the xSec at index \texttt{i} in the current vector. The \texttt{y} 
 	value of the point are outputted.
 	
@@ -447,30 +402,10 @@ For all unit tests:
 		\end{tabular}
 		\end{table}
 
-\subsection{G4double GetEnergy(G4int i)} % Test cases finished
-	\subsubsection{Test Description}
-	Returns the energy at index \texttt{i} in the current vector. The \texttt{x} 
-	value of the point are outputted.
-	
-	\subsubsection{Test Inputs}
-		\begin{table}[H]
-		\centering
-		\caption{Unit Tests - \texttt{GetEnergy}}\label{GetEnergy_unit}
-		\begin{tabular}{lll}
-		\toprule
-		\multirow{2}{*}{\bf Test \#}  & \multicolumn{1}{c}{\bf Inputs}\\
-		& \bf \texttt{i}\\\midrule
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetEnergy_0} & -1\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetEnergy_1} & 0\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetEnergy_2} & n/2\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetEnergy_3} & n-1\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetEnergy_4} & n\\
-		\bottomrule
-		\end{tabular}
-		\end{table}
+
 
 \subsection{void SetData(G4int i, G4double x, G4double y)}
-	\subsubsection{Test Description}
+	
 	Sets the energy and xSec at index \texttt{i} in the current vector. 
 	
 	\subsubsection{Test Inputs}
@@ -490,54 +425,36 @@ For all unit tests:
 		\bottomrule
 		\end{tabular}
 		\end{table}
-
-
-\subsection{void SetEnergy(G4int i, G4double e)}
-	\subsubsection{Test Description}
-	Sets the energy at index \texttt{i} in the current vector. 
+\subsection{void SetPoint(G4int i, const G4ParticleHPDataPoint \& it)}
 	
+	Sets a point at a given index in a given vector.
+
 	\subsubsection{Test Inputs}
-	Commas denote multiple sub test inputs. If one of the sub tests fail then the whole test fails.
+		\begin{itemize}
+			\item ``rPoint" is a G4ParticleHPDataPoint with random values
+			\item ``nPoint" is a G4ParticleHPDataPoint with negative values
+			\item ``zPoint" is a G4ParticleHPDataPoint with zero values
+		\end{itemize}
+		Commas denote multiple sub-test inputs. If one of the sub-tests fail then the whole test fails.
 		\begin{table}[H]
 		\centering
-		\caption{Unit Tests - \texttt{SetEnergy}}\label{SetEnergy_unit}
-		\begin{tabular}{llll}
+		\caption{Unit Tests}\label{SetPoint_unit}
+		\begin{tabular}{lll}
 		\toprule
-		\multirow{2}{*}{\bf Test \#}  & \multicolumn{2}{c}{\bf Inputs}\\
-		& \bf \texttt{i} & \bf \texttt{e}\\\midrule
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetEnergy_0} & -1 & r1, r2, r3, r4, r5\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetEnergy_1} & 0 & r1, r2, r3, r4, r5\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetEnergy_2} & n/2 & r1, r2, r3, r4, r5\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetEnergy_3} & n-1 & r1, r2, r3, r4, r5\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetEnergy_4} & n & r1, r2, r3, r4, r5\\
+		\multirow{2}{*}{\bf Test \#} & \multicolumn{2}{c}{\bf Inputs}\\
+		& \texttt{i} & \texttt{it}\\\midrule
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetPoint_0} & -1 & rPoint, nPoint, zPoint\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetPoint_1} & 0 & rPoint, nPoint, zPoint\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetPoint_2} & n/2 & rPoint, nPoint, zPoint\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetPoint_3} & n-1 & rPoint, nPoint, zPoint\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetPoint_4} & n & rPoint, nPoint, zPoint\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
 
-\subsection{void SetXsec(G4int i, G4double e)} % Test cases finished
-	\subsubsection{Test Description}
-	Sets the xSec at index \texttt{i} in the current vector. 
-	
-	\subsubsection{Test Inputs}
-	Commas denote multiple sub test inputs. If one of the sub tests fail then the whole test fails.
-		\begin{table}[H]
-		\centering
-		\caption{Unit Tests - \texttt{SetXsec}}\label{SetXsec_unit}
-		\begin{tabular}{llll}
-		\toprule
-		\multirow{2}{*}{\bf Test \#}  & \multicolumn{2}{c}{\bf Inputs}\\
-		& \bf \texttt{i} & \bf \texttt{e}\\\midrule
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetXsec_0} & -1 & r1, r2, r3, r4, r5\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetXsec_1} & 0 & r1, r2, r3, r4, r5\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetXsec_2} & n/2 & r1, r2, r3, r4, r5\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetXsec_3} & n-1 & r1, r2, r3, r4, r5\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetXsec_4} & n & r1, r2, r3, r4, r5\\
-		\bottomrule
-		\end{tabular}
-		\end{table}
 
 \subsection{void SetX(G4int i, G4double e)} % Test cases finished
-	\subsubsection{Test Description}
+	
 	Sets the energy at index \texttt{i} in the current vector. 
 	
 	\subsubsection{Test Inputs}
@@ -558,8 +475,31 @@ For all unit tests:
 		\end{tabular}
 		\end{table}
 
+
+\subsection{void SetEnergy(G4int i, G4double e)}
+	
+	Sets the energy at index \texttt{i} in the current vector. 
+	
+	\subsubsection{Test Inputs}
+	Commas denote multiple sub test inputs. If one of the sub tests fail then the whole test fails.
+		\begin{table}[H]
+		\centering
+		\caption{Unit Tests - \texttt{SetEnergy}}\label{SetEnergy_unit}
+		\begin{tabular}{llll}
+		\toprule
+		\multirow{2}{*}{\bf Test \#}  & \multicolumn{2}{c}{\bf Inputs}\\
+		& \bf \texttt{i} & \bf \texttt{e}\\\midrule
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetEnergy_0} & -1 & r1, r2, r3, r4, r5\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetEnergy_1} & 0 & r1, r2, r3, r4, r5\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetEnergy_2} & n/2 & r1, r2, r3, r4, r5\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetEnergy_3} & n-1 & r1, r2, r3, r4, r5\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetEnergy_4} & n & r1, r2, r3, r4, r5\\
+		\bottomrule
+		\end{tabular}
+		\end{table}
+
 \subsection{void SetY(G4int i, G4double e)} % Test cases finished
-	\subsubsection{Test Description}
+	
 	Sets the xSec at index \texttt{i} in the current vector. 
 	
 	\subsubsection{Test Inputs}
@@ -580,26 +520,49 @@ For all unit tests:
 		\end{tabular}
 		\end{table}
 
-\subsection{void Init(istream \& aDataFile, G4int total, G4double ux, G4double uy)} 
-	\subsubsection{Test Description}
-	Initializes the data.	
 
+\subsection{void SetXsec(G4int i, G4double e)} % Test cases finished
+	
+	Sets the xSec at index \texttt{i} in the current vector. 
+	
 	\subsubsection{Test Inputs}
+	Commas denote multiple sub test inputs. If one of the sub tests fail then the whole test fails.
 		\begin{table}[H]
 		\centering
-		\caption{Unit Tests - \texttt{Init}}\label{Init_unit}
-		\begin{tabular}{lllll}
+		\caption{Unit Tests - \texttt{SetXsec}}\label{SetXsec_unit}
+		\begin{tabular}{llll}
 		\toprule
-		\multirow{2}{*}{\bf Test \#}  & \multicolumn{4}{c}{\bf Inputs}\\
-		& \bf \texttt{aDataFile} & \bf \texttt{G4int} & \bf \texttt{ux} & \bf \texttt{uy}\\\midrule
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{Init_0} & Empty.Init() & n & 1 & 1\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{Init_1} & D.Init() & n & 1 & 1\\
+		\multirow{2}{*}{\bf Test \#}  & \multicolumn{2}{c}{\bf Inputs}\\
+		& \bf \texttt{i} & \bf \texttt{e}\\\midrule
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetXsec_0} & -1 & r1, r2, r3, r4, r5\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetXsec_1} & 0 & r1, r2, r3, r4, r5\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetXsec_2} & n/2 & r1, r2, r3, r4, r5\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetXsec_3} & n-1 & r1, r2, r3, r4, r5\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetXsec_4} & n & r1, r2, r3, r4, r5\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
 
+
+\subsection{G4double Sample()}% Test Cases Done
+	
+	  Performs samples of the vector according to interpolation its interpolation scheme.
+	
+	\subsubsection{Test Inputs}
+		\begin{table}[H]
+		\centering
+		\caption{Unit Tests - \texttt{Sample}}\label{Sample_unit}
+		\begin{tabular}{lll}
+		\toprule
+		\multirow{2}{*}{\bf Test \#}  & \multicolumn{1}{c}{\bf Inputs}\\
+		& \bf \texttt{N/A}\\\midrule
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{Sample_0} & N/A \\
+		\bottomrule
+		\end{tabular}
+		\end{table}
+		
 \subsection{G4double SampleLin()}% Test Cases Done
-	\subsubsection{Test Description}
+	
 	 Performs samples of the vector with a linear interpolation scheme.
 	
 	\subsubsection{Test Inputs}
@@ -616,7 +579,7 @@ For all unit tests:
 		\end{table}
 
 \subsection{void Times(G4double factor)} % Test Cases done
-	\subsubsection{Test Description}
+	
 	Multiplies every element in the vector by \texttt{factor}.
 	
 	\subsubsection{Test Inputs}
@@ -637,7 +600,7 @@ For all unit tests:
 		\end{table}
 
 \subsection{void ThinOut(G4double precision)} % Test Cases done 
-	\subsubsection{Test Description}
+	
 	Removes any element from the vector whose neighbor is closer than \texttt{precision}.
 	
 	\subsubsection{Test Inputs}
@@ -657,56 +620,11 @@ For all unit tests:
 		\end{tabular}
 		\end{table}
 
-\subsection{G4double Sample()}% Test Cases Done
-	\subsubsection{Test Description}
-	  Performs samples of the vector according to interpolation its interpolation scheme.
-	
-	\subsubsection{Test Inputs}
-		\begin{table}[H]
-		\centering
-		\caption{Unit Tests - \texttt{Sample}}\label{Sample_unit}
-		\begin{tabular}{lll}
-		\toprule
-		\multirow{2}{*}{\bf Test \#}  & \multicolumn{1}{c}{\bf Inputs}\\
-		& \bf \texttt{N/A}\\\midrule
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{Sample_0} & N/A \\
-		\bottomrule
-		\end{tabular}
-		\end{table}
 
-\subsection{void SetPoint(G4int i, const G4ParticleHPDataPoint \& it)}
-	\subsubsection{Test Description}
-	Sets a point at a given index in a given vector.
 
-	\subsubsection{Test Inputs}
-		\begin{itemize}
-			\item ``rPoint" is a random G4ParticleHPDataPoint
-			\item ``nPoint" is a negative G4ParticleHPDataPoint
-			\item ``zPoint" is a zero G4ParticleHPDataPoint
-		\end{itemize}
-		\begin{table}[H]
-		\centering
-		\caption{Unit Tests}\label{SetPoint_unit}
-		\begin{tabular}{lll}
-		\toprule
-		\multirow{2}{*}{\bf Test \#} & \multicolumn{2}{c}{\bf Inputs}\\
-		& vec0 & vec1\\\midrule
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetPoint_0} & -1 & rPoint\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetPoint_1} & 0 & rPoint\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetPoint_2} & 1 & rPoint\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetPoint_3} & -1 & rPoint\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetPoint_4} & 0 & rPoint\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetPoint_5} & n/2 & rPoint\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetPoint_6} & n-1 & rPoint\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetPoint_7} & n & rPoint\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetPoint_8} & 0 & nPoint\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetPoint_9} & 0 & zPoint\\
-		\bottomrule
-		\end{tabular}
-		\end{table}
 
 \subsection{G4double GetXsec(G4double e)} % Test cases finished
-	\subsubsection{Test Description}
+	
 	Returns the first xSec from the current vector whose energy is greater than \texttt{e}. 
 	
 	\subsubsection{Test Inputs}
@@ -728,7 +646,7 @@ For all unit tests:
 		\end{table}
 
 \subsection{G4double GetXsec(G4double e, G4int min)}
-	\subsubsection{Test Description}
+	
 	Returns the first xSec from the current vector whose energy is greater than \texttt{e}. 
 	
 	\subsubsection{Test Inputs}
@@ -750,7 +668,7 @@ For all unit tests:
 		\end{table}
 
 \subsection{G4double Get15percentBorder()}
-	\subsubsection{Test Description}
+	
 	 Returns the integral from each data point to the last data point and returns the first one within 
 15\% of the last data point.
 	
@@ -768,7 +686,7 @@ For all unit tests:
 		\end{table}
 
 \subsection{G4double Get50percentBorder()}% Test Cases Done
-	\subsubsection{Test Description}
+	
 	 Returns the integral from each data point to the last data point and returns the first one within 
 50\% of the last data point.
 	
@@ -785,6 +703,54 @@ For all unit tests:
 		\end{tabular}
 		\end{table}
 
+\section{System Testing} % Matt
+There are several examples included with the GEANT4 toolkit as well as some created by McMaster's Engineering Physics department for G4-STORK. Examples in GEANT4 will be used for system testing. Due to the computation time for some of the examples, they will be run less frequently than the simpler ones. This will let the developers run system tests regularly on the simple files, while checking that more realistic, complex examples are also correct after bigger changes.
+
+\begin{center}
+\begin{longtable}{cc >{\raggedright\arraybackslash}p{2.8cm}>{\raggedright\arraybackslash}p{3cm}>{\raggedright\arraybackslash}p{4.5cm}}
+\caption{System Tests}\label{Table_SystemTests}\\
+\toprule
+
+\bf \# & \bf Initial State & \bf Inputs & \bf Outputs & \bf Description\\\midrule
+\stepcounter{TestCounter}\arabic{TestCounter} 
+& Fresh start up 
+& Events = 2000
+Material = Water
+& Same output as non-GPU GEANT4 
+&  HADR04 no changes\\\midrule
+
+\stepcounter{TestCounter}\arabic{TestCounter}
+& Fresh start up 
+& Events = 2000
+Material = Uranium
+& Same output as non-GPU GEANT4 
+& HADR04 -- basic example\\\midrule
+
+\stepcounter{TestCounter}\arabic{TestCounter}
+& Fresh start up 
+& Events = 600
+Material = Water
+& Same output as non-GPU GEANT4 
+& HADR04 -- Shorter test \\\midrule
+
+\stepcounter{TestCounter}\arabic{TestCounter}
+& Fresh start up 
+& Events = 600
+Material = Uranium
+& Same output as non-GPU GEANT4 
+& HADR04 -- Shorter test \\\midrule
+
+\stepcounter{TestCounter}\arabic{TestCounter}
+& Fresh start up 
+& Events = 20000
+Material = Uranium
+& Same output as non-GPU GEANT4 
+& HADR04 -- Long simulation stress Test\\
+
+\bottomrule
+\end{longtable}
+\end{center}
+\mmp{Not using G4-STORK for system tests - therefore had to change system tests}
 %\begin{center}
 %\begin{longtable}{p{0.15in}>{\raggedright\arraybackslash}p{1in}>{\raggedright\arraybackslash}p{0.6in}>{\raggedright\arraybackslash}p{1.5in}>{\raggedright\arraybackslash}p{2in}}
 %\caption{Unit Testing -- \emph{G4NeutronHPVector.hh::Times(G4double factor)}}\label{Table_UnitTestsTimes}\\\toprule
@@ -928,12 +894,6 @@ Testing requirements refers to tests which verify that documented requirements a
 & NA
 & NA
 & enabling GPU computations should be straightforward -- an extra flag for the CMake tool will be used to enable or disable it\\\midrule
-
-%\stepcounter{TestCounter}\arabic{TestCounter} 
-%& 4
-%& NA
-%& NA
-%& trying to enable GPU computations on a computer with incompatible hardware should result in an appropriate error message\\\midrule
 
 \stepcounter{TestCounter}\arabic{TestCounter} 
 & 12
