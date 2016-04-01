@@ -50,7 +50,7 @@
 #include <vector>
 
 #if ${ENABLE_CUDA}
-  #include "{PROJECT_SOURCE_DIR}/source/externals/cuda/include/G4ParticleHPVector_CUDA.hh"
+  #include "${PROJECT_SOURCE_DIR}/source/externals/cuda/include/G4ParticleHPVector_CUDA.hh"
 #endif
 
 #if defined WIN32-VC
