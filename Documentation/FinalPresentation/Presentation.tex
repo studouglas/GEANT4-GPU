@@ -1,14 +1,11 @@
 \documentclass{beamer}
  
 \usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\newcommand{\textapprox}{\raisebox{0.5ex}{\texttildelow}}
+
 \setbeamertemplate{navigation symbols}{}
-
-% 8/10
-% \usetheme{Antibes}
-
-% 8.1
-% \usetheme{Copenhagen}
-
 \usetheme{Luebeck}
 
 \newcommand\pro{\item[$+$]}
@@ -19,10 +16,10 @@
 \title[GEANT4-GPU (McMaster University)]{Running GEANT4 Functions on a GPU}
 \subtitle{Discussion of Results}
 \institute{McMaster University}
-\author[S. Douglas, M .Pagnan, R. Gorrie, V. Reginato]{
+\author[S. Douglas, R. Gorrie, M .Pagnan, V. Reginato]{
 Stuart Douglas -- dougls2
-\\Matthew Pagnan -- pagnanmm
 \\Rob Gorrie -- gorrierw
+\\Matthew Pagnan -- pagnanmm
 \\Victor Reginato -- reginavp
 }
  
@@ -40,6 +37,10 @@ Stuart Douglas -- dougls2
 \subsection{Brief Project Overview}
 \begin{frame}
 \frametitle{Brief Project Overview}
+Take an existing particle simulation toolkit - GEANT4 - and have some functions run on a GPU device to improve performance.
+\begin{block}{Definition: GEANT4}
+GEANT4 is 
+\end{block}
 \end{frame}
 
 \begin{frame}
@@ -47,12 +48,23 @@ Stuart Douglas -- dougls2
 \end{frame}
 
 \subsection{Explanation of Terms}
+%Victor
 \begin{frame}
 \frametitle{What is GEANT4}
+\begin{itemize}
+\item Geant4 is a toolkit that is meant to simulate the passage of particles through matter. 
+\item It has been developed over the years through collaborative effort of many different institutions and individuals. 
+\item Geant4 has many different applications, including applications in high energy physics, space and radiation, medical. 
+\end{itemize}
 \end{frame}
 
 \begin{frame}
+\begin{itemize}
 \frametitle{What is GP-GPU}
+\item General purpose graphic processing unit computing is a re-purposing of graphics hardware
+\item Allows GPUs  to perform computations that would typically be computed on the CPU
+\item If problems are suitable to mass parallelization 
+\end{itemize}
 \end{frame}
 
 \subsection{Scope}
@@ -80,7 +92,7 @@ Stuart Douglas -- dougls2
 \end{itemize}
 \end{frame}
 
-\subsection{Completely on GPU}
+\subsection{Entire G4ParticleHPVector Object on GPU}
 \begin{frame}
 \frametitle{Completely on GPU}
 \begin{itemize}
@@ -127,14 +139,29 @@ Stuart Douglas -- dougls2
 \end{itemize}
 \end{frame}
 
-\subsubsection{Intensive Functions on GPU}
-\begin{frame}
-\frametitle{Intensive Functions on GPU}
-\end{frame}
-
 \subsubsection{Performance}
 \begin{frame}
-\frametitle{Performance Results}
+\frametitle{Performance Summary}
+\begin{itemize}
+\item Most functions slower on GPU until \textapprox 10,000 entries 
+\item Most \emph{commonly-used} functions significantly slower on GPU
+\begin{itemize}
+\item Lots of data accesses
+\end{itemize}
+\item Many problems in vector class not well-suited to parallelism
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Performance Results - \texttt{Times}}
+\begin{itemize}
+\item Multiplies each point in vector by factor
+\end{itemize}
+\begin{figure}
+\centering
+\includegraphics[width=0.9\textwidth]{images/times_line.png}
+\caption{Runtime vs. Number of Data Points -- \texttt{Times}}
+\end{figure}
 \end{frame}
 
 \begin{frame}
