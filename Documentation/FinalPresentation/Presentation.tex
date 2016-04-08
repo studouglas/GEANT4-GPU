@@ -10,6 +10,9 @@
 % \usetheme{Copenhagen}
 
 \usetheme{Luebeck}
+
+\newcommand\pro{\item[$+$]}
+\newcommand\con{\item[$-$]}
 %-------------------------------------------------------
 %	TITLE PAGE
 %-------------------------------------------------------
@@ -71,19 +74,30 @@ Stuart Douglas -- dougls2
 
 \begin{frame}
 \frametitle{Two Implementations}
+\begin{itemize}
+\item Run everything on the GPU
+\item Only select functions run on GPU
+\end{itemize}
 \end{frame}
 
 \subsection{Completely on GPU}
 \begin{frame}
 \frametitle{Completely on GPU}
+\begin{itemize}
+\item The vector is stored exclusively on the GPU
+\pro Do not have to maintain a copy of the vector on the CPU
+\pro Do not have to maintain the hashed vector
+\pro Reduces how much is being copied to the GPU
+\con All functions are run on the GPU
+\end{itemize}
 \end{frame}
 
-\subsection{Intensive Functions on GPU}
+\subsubsection{Intensive Functions on GPU}
 \begin{frame}
 \frametitle{Intensive Functions on GPU}
 \end{frame}
 
-\subsection{Performance}
+\subsubsection{Performance}
 \begin{frame}
 \frametitle{Performance Results}
 \end{frame}
@@ -92,12 +106,47 @@ Stuart Douglas -- dougls2
 \frametitle{Performance Discussion}
 \end{frame}
 
-\subsection{Accuracy}
+\subsubsection{Accuracy}
 \begin{frame}
 \frametitle{Accuracy}
 \end{frame}
 
-\subsection{Testing}
+\subsubsection{Testing}
+\begin{frame}
+\frametitle{Testing}
+\end{frame}
+
+\subsection{Implementation 2}
+\begin{frame}
+\frametitle{Implementation 2}
+\begin{itemize}
+\pro Only functions that run faster on the GPU are implemented
+\pro Not forced to run functions that run slowly on GPU
+\con Will have to maintain two copies of the vector
+\con More copying the vector to and from the GPU
+\end{itemize}
+\end{frame}
+
+\subsubsection{Intensive Functions on GPU}
+\begin{frame}
+\frametitle{Intensive Functions on GPU}
+\end{frame}
+
+\subsubsection{Performance}
+\begin{frame}
+\frametitle{Performance Results}
+\end{frame}
+
+\begin{frame}
+\frametitle{Performance Discussion}
+\end{frame}
+
+\subsubsection{Accuracy}
+\begin{frame}
+\frametitle{Accuracy}
+\end{frame}
+
+\subsubsection{Testing}
 \begin{frame}
 \frametitle{Testing}
 \end{frame}
