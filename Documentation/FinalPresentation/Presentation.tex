@@ -2,9 +2,10 @@
  
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx}
+\usepackage[font={footnotesize}]{caption}
 \usepackage{textcomp}
 \newcommand{\textapprox}{\raisebox{0.5ex}{\texttildelow}}
-
+\setcounter{tocdepth}{2}
 \setbeamertemplate{navigation symbols}{}
 \usetheme{Luebeck}
 
@@ -76,21 +77,20 @@ GEANT4 is
 
 % =================== Section =================== 
 \section{Features}
-\subsection{GPU acceleration done behind the scenes}
+\subsection{Easily Enable/Disable GPU Acceleration}
 \begin{frame}
-\frametitle{GPU acceleration done behind the scenes}
+\frametitle{Easily Enable/Disable GPU Acceleration}
+\end{frame}
+
+\begin{frame}
+\frametitle{Accelerating Module on GPU}
 \begin{itemize}
+\item
 \end{itemize}
 \end{frame}
 
-\subsection{Able to build GEANT4 with GPU on or off}
 \begin{frame}
-\frametitle{Able to build  GEANT4 with GPU on or off}
-\end{frame}
-
-\section{Particle Simulations on GPU}
-\begin{frame}
-\frametitle{Why G4ParticleHPVector}
+\frametitle{Why \texttt{G4ParticleHPVector}}
 \end{frame}
 
 \begin{frame}
@@ -101,7 +101,7 @@ GEANT4 is
 \end{itemize}
 \end{frame}
 
-\subsection{Entire G4ParticleHPVector Object on GPU}
+\subsection{Impl. 1: Existing Module in GPU Memory}
 \begin{frame}
 \frametitle{Completely on GPU}
 \begin{itemize}
@@ -113,33 +113,56 @@ GEANT4 is
 \end{itemize}
 \end{frame}
 
-\subsubsection{Intensive Functions on GPU}
+\subsubsection{Implementation of Select Functions on GPU}
 \begin{frame}
-\frametitle{Intensive Functions on GPU}
+\frametitle{Implementation -- \texttt{Times}}
+\end{frame}
+
+\begin{frame}
+\frametitle{Implementation -- \texttt{GetXSec}}
+\end{frame}
+
+\begin{frame}
+\frametitle{Implementation -- \texttt{SampleLin}}
 \end{frame}
 
 \subsubsection{Performance}
 \begin{frame}
-\frametitle{Performance Results}
+\frametitle{Performance Results Summary}
+\end{frame}
+
+\begin{frame}
+\frametitle{Performance Results -- \texttt{Times}}
+\begin{itemize}
+\item Multiplies each point in vector by factor
+\end{itemize}
+\begin{figure}
+\centering
+\includegraphics[width=0.8\textwidth]{images/times_line.png}
+\caption{Runtime vs. Number of Data Points -- \texttt{Times}}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+\frametitle{Performance Results -- \texttt{GetXSec}}
+\end{frame}
+
+\begin{frame}
+\frametitle{Performance Results -- \texttt{SampleLin}}
+\end{frame}
+
+\begin{frame}
+\frametitle{Performance Results -- System Tests}
 \end{frame}
 
 \begin{frame}
 \frametitle{Performance Discussion}
 \end{frame}
 
-\subsubsection{Accuracy}
-\begin{frame}
-\frametitle{Accuracy}
-\end{frame}
 
-\subsubsection{Testing}
+\subsection{Impl. 2: Add New GPU-Accelerated Functions to Interface}
 \begin{frame}
-\frametitle{Testing}
-\end{frame}
-
-\subsection{Implementation 2}
-\begin{frame}
-\frametitle{Implementation 2}
+\frametitle{Impl. 2: Add New GPU-Accelerated Functions to Interface}
 \begin{itemize}
 \pro Only functions that run faster on the GPU are implemented
 \pro Not forced to run functions that run slowly on GPU
@@ -148,9 +171,13 @@ GEANT4 is
 \end{itemize}
 \end{frame}
 
+\begin{frame}
+\frametitle{Implementation -- \texttt{Times}}
+\end{frame}
+
 \subsubsection{Performance}
 \begin{frame}
-\frametitle{Performance Summary}
+\frametitle{Performance Results Summary}
 \begin{itemize}
 \item Most functions slower on GPU until \textapprox 10,000 entries 
 \item Most \emph{commonly-used} functions significantly slower on GPU
@@ -162,27 +189,22 @@ GEANT4 is
 \end{frame}
 
 \begin{frame}
-\frametitle{Performance Results - \texttt{Times}}
-\begin{itemize}
-\item Multiplies each point in vector by factor
-\end{itemize}
-\begin{figure}
-\centering
-\includegraphics[width=0.9\textwidth]{images/times_line.png}
-\caption{Runtime vs. Number of Data Points -- \texttt{Times}}
-\end{figure}
+\frametitle{Performance Results -- \texttt{GetXSeclList}}
+\end{frame}
+
+\begin{frame}
+\frametitle{Performance Results -- System Tests}
 \end{frame}
 
 \begin{frame}
 \frametitle{Performance Discussion}
 \end{frame}
 
-\subsubsection{Accuracy}
+\subsection{Accuracy / Testing}
 \begin{frame}
 \frametitle{Accuracy}
 \end{frame}
 
-\subsubsection{Testing}
 \begin{frame}
 \frametitle{Testing}
 \end{frame}
