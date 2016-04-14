@@ -71,7 +71,8 @@ void G4ParticleHPVector_CUDA::GetXsecList(G4double* energiesIn_xSecsOut, G4int n
   cudaMemcpy(d_theData, theData, sizeof(G4ParticleHPDataPoint) * nEntries, cudaMemcpyHostToDevice);
   cudaMemcpy(d_energiesIn_xSecsOut, energiesIn_xSecsOut, sizeof(G4double) * numQueries, cudaMemcpyHostToDevice);
   
-  // NEW IMPL =========================================================================
+  printf("About to launch kernel...\n");
+  
   int queryBlocks = numQueries/THREADS_PER_BLOCK + (numQueries % THREADS_PER_BLOCK == 0 ? 0:1);
   G4double resultVal = 0;
   int dataChunk = 32;
