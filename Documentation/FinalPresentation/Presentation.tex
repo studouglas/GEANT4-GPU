@@ -59,6 +59,14 @@ Take an existing particle simulation toolkit - Geant4 - and have some functions 
 \end{frame}
 
 \begin{frame}
+\frametitle{Demonstration}
+\begin{center}
+\emph{Demonstration -- Running Geant4 on the CPU}
+% 
+\end{center}
+\end{frame}
+
+\begin{frame}
 \begin{itemize}
 \frametitle{What is GP-GPU}
 \item General-purpose graphic processing unit computing is a re-purposing of graphics hardware
@@ -295,6 +303,29 @@ Add new methods to \texttt{G4ParticleHPVector} interface that are well-suited to
 \subsection{Accuracy / Testing}
 \begin{frame}
 \frametitle{Accuracy}
+\begin{itemize}
+\item All modified functions except SampleLin and Sample
+yield results that precisely match 
+\begin{itemize}
+\item Some functions fell extremely close in accuracy to 
+the original, and were considered to 'pass'
+\item The average of 1000 SampleLin tests deviated from the 
+average of 1000 tests of the original with an error of 0.01 
+\end{itemize}  
+\item The system tests differ if the number of nentries is 
+greater than 500; if not however the results of the system 
+test conform. 
+\end{frame}
+
+\begin{frame}
+\frametitle{Accuracy Discussion}
+\begin{itemize}
+\item The deviations in SampleLin and Sample can be 
+attributed to the functions use of random numbers
+\item The negligable deviations in other ported functions 
+are likely attributed to differences in CPU and GPU 
+arithmetic, leading to different round-off errors
+\end{itemize}
 \end{frame}
 
 \begin{frame}

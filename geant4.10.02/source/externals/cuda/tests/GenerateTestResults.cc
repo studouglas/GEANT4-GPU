@@ -348,9 +348,7 @@ void testGetXSec(int caseNum) {
 			writeOutDoubleInput("min", minVals[j]);
 			try {
 				double t1 = getWallTime();
-				std::cout << "pre write double\n";
 				writeOutDouble(vectors[caseNum]->GetXsec(testVals[i], minVals[j]));
-				std::cout << "post write double\n";
 				double t2 = getWallTime();
 				writeOutTime(t2-t1);
 			} catch (G4HadronicException e)  {
@@ -467,7 +465,6 @@ void testAssignment(int caseNum) {
 }
 void testBuffer(int caseNum){
 	writeOutTestName("void G4ParticleHPVector_CUDA::GetXsecBuffer(G4double * queryList, G4int length)",caseNum);
-	std::cout << "Starting testBuffer case " << caseNum << "...\n";
 	double t1 = getWallTime();
 	int queryListSizes[NUM_QUERY_LISTS] = {10,50,100,10000,100000};
 	for (int i = 0; i < NUM_QUERY_LISTS; i++) {
@@ -480,16 +477,9 @@ void testBuffer(int caseNum){
 		vectors[caseNum]->GetXsecList(list, queryListSizes[i]);
 		writeOutTime(getWallTime() - t1);
 
-		// resultsFile << "getXSecList results ";
 		writeOutArray(list, queryListSizes[i]);
 		resultsFile << "\n";
-		// resultsFile << "getXSecList results (array): [";
-		// for (int j = 0; j < queryListSizes[i]; j++) {
-			// resultsFile << list[j] << ",";
-		// }
-		// resultsFile << "]\n";
 	}
-	std::cout << "\nTOTAL testBuffer TIME FOR CASE " << caseNum << ": " << getWallTime() - t1 << "\n\n";
 }
 
 /***********************************************
