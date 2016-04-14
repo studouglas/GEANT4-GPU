@@ -4,6 +4,7 @@
 \usepackage{graphicx}
 \usepackage[font={footnotesize}]{caption}
 \usepackage{textcomp}
+\usepackage{listings}
 \newcommand{\textapprox}{\raisebox{0.5ex}{\texttildelow}}
 \setcounter{tocdepth}{2}
 \setbeamertemplate{navigation symbols}{}
@@ -120,10 +121,29 @@ Take an existing particle simulation toolkit - Geant4 - and have some functions 
 \end{itemize}
 \end{frame}
 
+%\begin{lstlisting}[language=C++,basicstyle=\ttfamily,keywordstyle=\color{red}]
+%  inline G4double GetY(G4double x)
+%  {
+%    #if GEANT4_ENABLE_CUDA
+%      return cudaVector->GetXsec(x);
+%    #else
+%      return GetXsec(x);
+%    #endif
+%  }
+%\end{lstlisting}
+
+\begin{frame}
+\frametitle{Implementation}
+\begin{itemize}
+\item Header forwards function calls to GPU or CPU Implementation
+\item This decision is made at compile time
+\end{itemize}
+\end{frame}
+
 \begin{frame}
 \frametitle{Accelerating Module on GPU}
 \begin{itemize}
-\item
+\item a
 \end{itemize}
 \end{frame}
 
@@ -253,6 +273,10 @@ Add new methods to \texttt{G4ParticleHPVector} interface that are well-suited to
 
 \begin{frame}
 \frametitle{Implementation -- \texttt{GetXSecList}}
+\begin{itemize}
+\item Fill an array of energies we want to get xSec values for 
+\item Send the array to the GPU to work on
+\end{itemize}
 \end{frame}
 
 \subsubsection{Performance}
@@ -275,6 +299,32 @@ Add new methods to \texttt{G4ParticleHPVector} interface that are well-suited to
 \subsection{Accuracy / Testing}
 \begin{frame}
 \frametitle{Accuracy}
+\begin{itemize}
+\item All modified functions except SampleLin and Sample
+yield results that precisely match 
+\end{itemize}
+\begin{itemize}
+\item Some functions fell extremely close in accuracy to 
+the original, and were considered to 'pass'
+\item The average of 1000 SampleLin tests deviated from the 
+average of 1000 tests of the original with an error of 0.01 
+\end{itemize}
+\begin{itemize}
+\item The system tests differ if the number of nentries is 
+greater than 500; if not however the results of the system 
+test conform. 
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Accuracy Discussion}
+\begin{itemize}
+\item The deviations in SampleLin and Sample can be 
+attributed to the functions use of random numbers
+\item The negligable deviations in other ported functions 
+are likely attributed to differences in CPU and GPU 
+arithmetic, leading to different round-off errors
+\end{itemize}
 \end{frame}
 
 \begin{frame}
