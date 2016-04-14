@@ -39,9 +39,9 @@ Stuart Douglas -- dougls2
 \begin{frame}
 \frametitle{Brief Project Overview}
 Take an existing particle simulation toolkit - GEANT4 - and have some functions run on a GPU device to improve performance.
-\begin{block}{Definition: GEANT4}
-GEANT4 is 
-\end{block}
+%\begin{block}{Definition: GEANT4}
+%GEANT4 is 
+%\end{block}
 \end{frame}
 
 \subsection{Explanation of Terms}
@@ -51,7 +51,12 @@ GEANT4 is
 \begin{itemize}
 \item Geant4 is a toolkit that is meant to simulate the passage of particles through matter. 
 \item It has been developed over the years through collaborative effort of many different institutions and individuals. 
-\item Geant4 has many different applications, including applications in high energy physics, space and radiation, medical. 
+\item Geant4's diverse particle simulation library has a wide variety of applications including
+\begin{itemize}
+\item High energy physics simulations
+\item Space and radiation simulations
+\item Medical physics simulations
+\end{itemize}
 \end{itemize}
 \end{frame}
 
@@ -60,17 +65,31 @@ GEANT4 is
 \frametitle{What is GP-GPU}
 \item General purpose graphic processing unit computing is a re-purposing of graphics hardware
 \item Allows GPUs  to perform computations that would typically be computed on the CPU
-\item If problems are suitable to mass parallelization 
+\item If a particular problem is well suited to parallelization, GPGPU computing can greatly increase performance
 \end{itemize}
 \end{frame}
 
 \subsection{Scope}
 \begin{frame}
+\begin{itemize}
 \frametitle{Scope}
+\item Make current CPU functions available for use on GPU
+\begin{itemize}
+\item Add appropriate prefixes to function definitions
+\item Make use of multiple parallel threads to execute each function
+\end{itemize}
+\item Ensure correctness of each GPU available function by matching results to the corresponding CPU function
+\item Compare performance of GPU available functions to CPU functions
+\end{itemize}
 \end{frame}
 
 \subsection{Purpose}
 \begin{frame}
+\begin{itemize}
+\item Determine if target functions are suitable to parallelization 
+\item Increase performance of functions when run on GPU
+\item Decrease time required to run simulations involving ported functions
+\end{itemize}
 \frametitle{Purpose}
 \end{frame}
 
@@ -83,6 +102,7 @@ GEANT4 is
 \begin{itemize}
 \item Old projects can be run using GPU acceleration with out having to change anything 
 \item No new functions to learn
+\item GPU acceleration can be easily toggled using a flag during configuration and installation
 \end{itemize}
 \end{frame}
 
@@ -95,6 +115,18 @@ GEANT4 is
 
 \begin{frame}
 \frametitle{Why \texttt{G4ParticleHPVector}}
+\begin{itemize}
+\item Identified as starting point by relevant stakeholders
+\begin{itemize}
+\item Used heavily in simulations run by stakeholders
+\end{itemize}
+\item On the surface seems, suitable to parallelization
+\begin{itemize}
+\item Uses large list data structure
+\item Performs calculations on structure
+\end{itemize}
+\item Loads in large amounts of data to a list structure
+\end{itemize}
 \end{frame}
 
 \begin{frame}
