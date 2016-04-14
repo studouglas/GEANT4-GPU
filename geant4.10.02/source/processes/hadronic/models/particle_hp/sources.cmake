@@ -67,7 +67,7 @@ GEANT4_DEFINE_MODULE(NAME G4had_par_hp
     G4ParticleHP2NAInelasticFS.hh
     G4ParticleHPProduct.hh
     G4ParticleHP2NDInelasticFS.hh
-    CUDAGPU.hh
+	CUDAGPU.hh
     G4ParticleHPVector.hh
     G4ParticleHP2NInelasticFS.hh
     G4VParticleHPEDis.hh
