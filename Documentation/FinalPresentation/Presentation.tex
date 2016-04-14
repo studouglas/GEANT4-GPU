@@ -279,6 +279,24 @@ Add new methods to \texttt{G4ParticleHPVector} interface that are well-suited to
 
 \begin{frame}
 \frametitle{Testing}
+\begin{itemize}
+\item Comparing test results and performance with GPU acceleration enabled and disabled
+\item Testing framework based on two phases, one program for each phase
+\begin{enumerate}
+\item \texttt{GenerateTestResults:} Run unit tests and save results to file
+\item \texttt{AnalyzeTestResults:} Compare results files from CPU and GPU runs
+\end{enumerate}
+\item Run \texttt{GenerateTestResults} once for GPU acceleration enabled, once with it disabled
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{\texttt{GenerateTestResults} Details}
+\begin{itemize}
+\item Outputs simple results directly
+\item For vectors, calculates hash for vector and output it
+\item 
+\end{itemize}
 \end{frame}
 
 \section{Conclusion}

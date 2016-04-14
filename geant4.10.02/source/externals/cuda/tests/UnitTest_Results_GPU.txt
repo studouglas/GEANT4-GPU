@@ -68,7 +68,7 @@ hash: 17710924904126496405
 @numQueries=10000
 hash: 7506977939755255107
 @numQueries=100000
-hash: 10300846530834065403
+hash: 1638135657286475825
 #void Init(std::istream & aDataFile, G4int total, G4double ux=1., G4double uy=1.)_5
 theData xVals hash: 7171123492023199933
 theData yVals hash: 9268461341921925588
