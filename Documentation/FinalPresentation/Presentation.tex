@@ -5,6 +5,7 @@
 \usepackage[font={footnotesize}]{caption}
 \usepackage{textcomp}
 \usepackage{listings}
+\lstset{language=C++,basicstyle=\footnotesize\ttfamily,keywordstyle=\color{red}}
 \newcommand{\textapprox}{\raisebox{0.5ex}{\texttildelow}}
 \setcounter{tocdepth}{2}
 \setbeamertemplate{navigation symbols}{}
@@ -43,9 +44,8 @@ Take an existing particle simulation toolkit - Geant4 - and have some functions 
 \end{frame}
 
 \subsection{Explanation of Terms}
-%Victor
 \begin{frame}
-\frametitle{What is Geant4}
+\frametitle{What is Geant4?}
 \begin{itemize}
 \item Geant4 is a toolkit that is meant to simulate the passage of particles through matter. 
 \item It has been developed over the years through collaborative effort of many different institutions and individuals. 
@@ -62,14 +62,15 @@ Take an existing particle simulation toolkit - Geant4 - and have some functions 
 \frametitle{Demonstration}
 \begin{center}
 \emph{Demonstration -- Running Geant4 on the CPU}
-% 
+
+\emph{Hadr04 With Visualization}
 \end{center}
 \end{frame}
 
 \begin{frame}
 \begin{itemize}
-\frametitle{What is GP-GPU}
-\item General-purpose graphic processing unit computing is a re-purposing of graphics hardware
+\frametitle{What is GP-GPU Computing?}
+\item General-purpose graphic-processing-unit computing is a re-purposing of graphics hardware
 \item Allows GPUs  to perform computations that would typically be computed on the CPU
 \item If a particular problem is well suited to parallelization, GP-GPU computing can greatly increase performance
 \end{itemize}
@@ -99,7 +100,6 @@ Take an existing particle simulation toolkit - Geant4 - and have some functions 
 \frametitle{Purpose}
 \end{frame}
 
-
 % =================== Section =================== 
 \section{Features}
 \begin{frame}
@@ -107,6 +107,7 @@ Take an existing particle simulation toolkit - Geant4 - and have some functions 
 \begin{itemize}
 \item GPU acceleration available on an ``opt-in'' basis
 \item Easy to enable/disable GPU acceleration
+\item If GPU acceleration is enabled, some methods will run on GPU
 \item Same results whether acceleration enabled or disabled
 \end{itemize}
 \end{frame}
@@ -121,34 +122,45 @@ Take an existing particle simulation toolkit - Geant4 - and have some functions 
 \end{itemize}
 \end{frame}
 
-%\begin{lstlisting}[language=C++,basicstyle=\ttfamily,keywordstyle=\color{red}]
-%  inline G4double GetY(G4double x)
-%  {
-%    #if GEANT4_ENABLE_CUDA
-%      return cudaVector->GetXsec(x);
-%    #else
-%      return GetXsec(x);
-%    #endif
-%  }
-%\end{lstlisting}
-
 \begin{frame}
-\frametitle{Implementation}
+\frametitle{Demonstration}
+\begin{center}
+\emph{Demonstration -- Enabling CUDA Acceleration}
+\end{center}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Easily Enable/Disable GPU Acceleration}
+Method calls to \texttt{G4ParticleHPVector} forwarded to GPU-based implementation
 \begin{itemize}
-\item Header forwards function calls to GPU or CPU Implementation
-\item This decision is made at compile time
+\item This decision is made at compile time based on \texttt{cmake} flag
 \end{itemize}
+
+\begin{block}{Example of Forwarding Method Calls}
+\begin{lstlisting}
+inline G4double GetY(G4double x)
+{
+  #if GEANT4_ENABLE_CUDA
+    return cudaVector->GetXsec(x);
+  #else
+    return GetXsec(x);
+  #endif
+}
+\end{lstlisting}
+\end{block}
 \end{frame}
 
 \begin{frame}
 \frametitle{Accelerating Module on GPU}
-\begin{itemize}
-\item 
-\end{itemize}
+Existing module \texttt{G4ParticleHPVector} ported to GPU using CUDA\\~\\
+
+\begin{block}{Definition: CUDA}
+CUDA is a GP-GPU programming model developed by NVIDIA, for use with NVIDIA graphics cards
+\end{block}
 \end{frame}
 
 \begin{frame}
-\frametitle{Why \texttt{G4ParticleHPVector}}
+\frametitle{Why \texttt{G4ParticleHPVector}?}
 \begin{itemize}
 \item Represents empirically-found probabilities of collisions for different particles based on their energy
 \item Identified as starting point by relevant stakeholders
@@ -199,22 +211,25 @@ Calls to \texttt{G4ParticleHPVector} forwarded to new GPU-based class\\~\\ % hac
 \end{itemize}
 \end{frame}
 
+\begin{frame}
+\frametitle{Demonstration}
+\begin{center}
+\emph{Hadr04 with Visualization}
+\end{center}
+\end{frame}
+
 \subsubsection{Implementation of Select Methods on GPU}
 \begin{frame}
-\frametitle{Implementation -- \texttt{Times}}
+\frametitle{Impl. 1 -- \texttt{Times}}
 \end{frame}
 
 \begin{frame}
-\frametitle{Implementation -- \texttt{GetXSec}}
+\frametitle{Impl. 1 -- \texttt{GetXSec}}
 \end{frame}
 
+\subsubsection{Impl. 1: Performance}
 \begin{frame}
-\frametitle{Implementation -- \texttt{SampleLin}}
-\end{frame}
-
-\subsubsection{Performance}
-\begin{frame}
-\frametitle{Performance Results Summary}
+\frametitle{Impl. 1: Performance Results Summary}
 \begin{itemize}
 \item Most methods slower on GPU until \textapprox 10,000 entries in data vector
 \item Most \emph{commonly-used} methods significantly slower on GPU, even with large data vector
@@ -226,7 +241,7 @@ Calls to \texttt{G4ParticleHPVector} forwarded to new GPU-based class\\~\\ % hac
 \end{frame}
 
 \begin{frame}
-\frametitle{Performance Results -- \texttt{Times}}
+\frametitle{Impl. 1: Performance Results -- \texttt{Times}}
 \begin{itemize}
 \item Multiplies each point in vector by factor
 \end{itemize}
@@ -238,19 +253,32 @@ Calls to \texttt{G4ParticleHPVector} forwarded to new GPU-based class\\~\\ % hac
 \end{frame}
 
 \begin{frame}
-\frametitle{Performance Results -- \texttt{GetXSec}}
+\frametitle{Impl. 1: Performance Results -- \texttt{GetXSec}}
+\begin{figure}
+\centering
+\includegraphics[width=0.8\textwidth]{images/getxsec_e_line.png}
+\caption{Runtime vs. Number of Data Points -- \texttt{GetXSec}}
+\end{figure}
 \end{frame}
 
 \begin{frame}
-\frametitle{Performance Results -- \texttt{SampleLin}}
+\frametitle{Impl. 1: Performance Results -- \texttt{SampleLin}}
+\begin{figure}
+\centering
+\includegraphics[width=0.8\textwidth]{images/samplelin_line.png}
+\caption{Runtime vs. Number of Data Points -- \texttt{SampleLin}}
+\end{figure}
 \end{frame}
 
 \begin{frame}
-\frametitle{Performance Results -- System Tests}
+\frametitle{Impl. 1: Performance Results -- System Tests}
 \end{frame}
 
 \begin{frame}
-\frametitle{Performance Discussion}
+\frametitle{Impl. 1: Performance Discussion}
+\begin{itemize}
+\item Simple ``getters'' and ``setters'' now 
+\end{itemize}
 \end{frame}
 
 
@@ -260,25 +288,22 @@ Calls to \texttt{G4ParticleHPVector} forwarded to new GPU-based class\\~\\ % hac
 Add new methods to \texttt{G4ParticleHPVector} interface that are well-suited to parallelism\\~\\
 
 \textbf{Pros:}
-%\begin{block}{Pros:}
 \begin{itemize}
 \pro Only methods that run faster on the GPU are implemented
 \pro Not forced to run methods that run slowly on GPU
 \end{itemize}
-%\end{block}
+
 \textbf{Cons:}
-%\begin{block}{Cons:}
 \begin{itemize}
 \con Will have to maintain two copies of the vector
 \con More copying the vector to and from the GPU
 \end{itemize}
-%\end{block}
 \end{frame}
 
 \begin{frame}
-\frametitle{Implementation -- \texttt{GetXSecList}}
+\frametitle{Impl. 2: \texttt{GetXSecList}}
 \begin{itemize}
-\item Fill an array of energies we want to get xSec values for 
+\item Fill an array of energies for which we want to cross section values
 \item Send the array to the GPU to work on
 \item Each thread work on its own query(s)
 \end{itemize}
@@ -305,21 +330,21 @@ d_minIndices[idx] = i;
 \end{lstlisting}
 \end{frame}
 
-\subsubsection{Performance}
+\subsubsection{Impl. 2: Performance}
 \begin{frame}
-\frametitle{Performance Results Summary}
+\frametitle{Impl. 2: Performance Results Summary}
 \end{frame}
 
 \begin{frame}
-\frametitle{Performance Results -- \texttt{GetXSecList}}
+\frametitle{Impl. 2: Performance Results -- \texttt{GetXSecList}}
 \end{frame}
 
 \begin{frame}
-\frametitle{Performance Results -- System Tests}
+\frametitle{Impl. 2: Performance Results -- System Tests}
 \end{frame}
 
 \begin{frame}
-\frametitle{Performance Discussion}
+\frametitle{Impl. 2: Performance Discussion}
 \end{frame}
 
 \subsection{Accuracy / Testing}
@@ -343,7 +368,7 @@ test conform.
 \end{frame}
 
 \begin{frame}
-\frametitle{Accuracy Discussion}
+\frametitle{Accuracy}
 \begin{itemize}
 \item The deviations in SampleLin and Sample can be 
 attributed to the functions use of random numbers
@@ -360,19 +385,61 @@ arithmetic, leading to different round-off errors
 \item Testing framework based on two phases, one program for each phase
 \begin{enumerate}
 \item \texttt{GenerateTestResults:} Run unit tests and save results to file
-\item \texttt{AnalyzeTestResults:} Compare results files from CPU and GPU runs
+\item \texttt{AnalyzeTestResults:} Compare results from CPU and GPU
 \end{enumerate}
 \item Run \texttt{GenerateTestResults} once for GPU acceleration enabled, once with it disabled
 \end{itemize}
 \end{frame}
 
-\begin{frame}
+\begin{frame}[fragile]
 \frametitle{\texttt{GenerateTestResults} Details}
 \begin{itemize}
-\item Outputs simple results directly
+\item Includes testing version number in results file for analysis stage
+\item Outputs simple results directly to results file
 \item For vectors, calculates hash for vector and output it
-\item 
+\item Outputs timing data to separate file
 \end{itemize}
+\begin{block}{Example: Snippet of Generated Test Results}
+\begin{lstlisting}
+#void G4ParticleHPVector_CUDA::GetXsecBuffer(
+  G4double * queryList, G4int length)_6
+@numQueries=10
+hash: 16548307878283220284
+@numQueries=50
+hash: 3204132713354913775
+\end{lstlisting}
+\end{block}
+\end{frame}
+
+\begin{frame}
+\frametitle{Demonstration}
+\begin{center}
+\emph{Demonstration -- Generating Test Results}
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{\texttt{AnalyzeTestResults} Details}
+Two main functions:
+\begin{enumerate}
+\item Compare results for each test case, printing status to \texttt{stdout}
+\begin{itemize}
+\item If test failed, output differing values
+\item Summarize test results at the end with number passed
+\end{itemize}
+\item Generate \texttt{.csv} file from timing data
+\begin{itemize}
+\item One row per unique method call, columns show CPU time, GPU time, method name and parameters
+\item Can use Excel to analyze performance results
+\end{itemize}
+\end{enumerate}
+\end{frame}
+
+\begin{frame}
+\frametitle{Demonstration}
+\begin{center}
+\emph{Demonstration -- Analyzing Test Results}
+\end{center}
 \end{frame}
 
 \section{Conclusion}
