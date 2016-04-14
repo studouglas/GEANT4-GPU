@@ -624,12 +624,12 @@ with instructions for installing and testing
 \end{itemize}
 For further work with regards to parallelizing Geant4:
 \begin{itemize}
-\item Try parallelizing other commonly use components in sim$
+\item Try parallelizing other commonly use components in similar style
 \begin{itemize}
-\item Look for classes manipulating list-style data structur$
-\item Classes with functions that have nested loops or are h$
-\item Probabilistic functions and getter/setter functions wo$
-\item Functions with conditional branching may cause bottlen$
+\item Look for classes manipulating list-style data structures
+\item Classes with functions that have nested loops or are heavy in computing are prime candidates
+\item Probabilistic functions and getter/setter functions won't have considerable benefits
+\item Functions with conditional branching may cause bottlenecks in parallelization
 \end{itemize}
 \end{itemize}
 \end{frame}
