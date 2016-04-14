@@ -2,96 +2,96 @@
 !0!0
 #void G4ParticleHPVector_CUDA::GetXsecBuffer(G4double * queryList, G4int length)_0
 @numQueries=10
-1.21593e-05
+1.09673e-05
 @numQueries=50
-9.53674e-07
+0
 @numQueries=100
-9.53674e-07
+0
 @numQueries=10000
 4.05312e-06
 @numQueries=100000
-4.69685e-05
+4.98295e-05
 #void Init(std::istream & aDataFile, G4int total, G4double ux=1., G4double uy=1.)_1
-0.000205994
+0.000204086
 !1!80
 #void G4ParticleHPVector_CUDA::GetXsecBuffer(G4double * queryList, G4int length)_1
 @numQueries=10
-0.235717
+0.202016
 @numQueries=50
-0.000490904
+0.00048995
 @numQueries=100
-0.000483036
+0.000468016
 @numQueries=10000
-0.000724077
+0.000726223
 @numQueries=100000
-0.00242496
+0.0028441
 #void Init(std::istream & aDataFile, G4int total, G4double ux=1., G4double uy=1.)_2
-0.00358009
+0.00453401
 !2!1509
 #void G4ParticleHPVector_CUDA::GetXsecBuffer(G4double * queryList, G4int length)_2
 @numQueries=10
-0.000539064
+0.000522137
 @numQueries=50
-0.000510216
+0.000524044
 @numQueries=100
-0.000524998
+0.00048089
 @numQueries=10000
-0.000818014
+0.000844955
 @numQueries=100000
-0.00355101
+0.00341988
 #void Init(std::istream & aDataFile, G4int total, G4double ux=1., G4double uy=1.)_3
-0.0260339
+0.027122
 !3!8045
 #void G4ParticleHPVector_CUDA::GetXsecBuffer(G4double * queryList, G4int length)_3
 @numQueries=10
-0.00067687
+0.0007658
 @numQueries=50
-0.000547886
+0.000494003
 @numQueries=100
-0.000576019
+0.00051713
 @numQueries=10000
-0.00170112
+0.00158
 @numQueries=100000
-0.00536108
+0.00539708
 #void Init(std::istream & aDataFile, G4int total, G4double ux=1., G4double uy=1.)_4
-0.105539
+0.104905
 !4!41854
 #void G4ParticleHPVector_CUDA::GetXsecBuffer(G4double * queryList, G4int length)_4
 @numQueries=10
-0.00473499
+0.000849009
 @numQueries=50
-0.0117331
+0.000856876
 @numQueries=100
-0.00339794
+0.00116515
 @numQueries=10000
-0.00496721
+0.00551581
 @numQueries=100000
-0.026567
+0.0222161
 #void Init(std::istream & aDataFile, G4int total, G4double ux=1., G4double uy=1.)_5
-0.168296
+0.165668
 !5!98995
 #void G4ParticleHPVector_CUDA::GetXsecBuffer(G4double * queryList, G4int length)_5
 @numQueries=10
-0.001302
+0.00151587
 @numQueries=50
-0.00117707
+0.00114298
 @numQueries=100
-0.00108314
+0.00108194
 @numQueries=10000
-0.00359297
+0.00358415
 @numQueries=100000
-0.0407698
+0.040226
 #void Init(std::istream & aDataFile, G4int total, G4double ux=1., G4double uy=1.)_6
-0.539415
+0.568399
 !6!242594
 #void G4ParticleHPVector_CUDA::GetXsecBuffer(G4double * queryList, G4int length)_6
 @numQueries=10
-0.00200987
+0.00199294
 @numQueries=50
-0.00186896
+0.00188303
 @numQueries=100
-0.001863
+0.00190687
 @numQueries=10000
-0.00484085
+0.00501609
 @numQueries=100000
-0.0501089
+0.052654

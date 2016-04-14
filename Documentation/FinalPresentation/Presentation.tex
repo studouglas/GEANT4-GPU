@@ -5,6 +5,7 @@
 \usepackage[font={footnotesize}]{caption}
 \usepackage{textcomp}
 \usepackage{listings}
+\lstset{language=C++,basicstyle=\footnotesize\ttfamily,keywordstyle=\color{red}}
 \newcommand{\textapprox}{\raisebox{0.5ex}{\texttildelow}}
 \setcounter{tocdepth}{2}
 \setbeamertemplate{navigation symbols}{}
@@ -40,6 +41,9 @@ Stuart Douglas -- dougls2
 \begin{frame}
 \frametitle{Brief Project Overview}
 Take an existing particle simulation toolkit - Geant4 - and have some functions run on a GPU device to improve performance.
+\begin{block}{Geant}
+Geant4
+\end{block}
 \end{frame}
 
 \subsection{Explanation of Terms}
@@ -107,6 +111,7 @@ Take an existing particle simulation toolkit - Geant4 - and have some functions 
 \begin{itemize}
 \item GPU acceleration available on an ``opt-in'' basis
 \item Easy to enable/disable GPU acceleration
+\item If GPU acceleration is enabled, some methods will run on GPU
 \item Same results whether acceleration enabled or disabled
 \end{itemize}
 \end{frame}
@@ -121,34 +126,38 @@ Take an existing particle simulation toolkit - Geant4 - and have some functions 
 \end{itemize}
 \end{frame}
 
-%\begin{lstlisting}[language=C++,basicstyle=\ttfamily,keywordstyle=\color{red}]
-%  inline G4double GetY(G4double x)
-%  {
-%    #if GEANT4_ENABLE_CUDA
-%      return cudaVector->GetXsec(x);
-%    #else
-%      return GetXsec(x);
-%    #endif
-%  }
-%\end{lstlisting}
-
-\begin{frame}
-\frametitle{Implementation}
+\begin{frame}[fragile]
+\frametitle{Easily Enable/Disable GPU Acceleration}
+Method calls to \texttt{G4ParticleHPVector} forwarded to GPU-based implementation
 \begin{itemize}
-\item Header forwards function calls to GPU or CPU Implementation
-\item This decision is made at compile time
+\item This decision is made at compile time based on \texttt{cmake} flag
 \end{itemize}
+
+\begin{block}{Example of Forwarding}
+\begin{lstlisting}
+inline G4double GetY(G4double x)
+{
+  #if GEANT4_ENABLE_CUDA
+    return cudaVector->GetXsec(x);
+  #else
+    return GetXsec(x);
+  #endif
+}
+\end{lstlisting}
+\end{block}
 \end{frame}
 
 \begin{frame}
 \frametitle{Accelerating Module on GPU}
-\begin{itemize}
-\item a
-\end{itemize}
+Existing module \texttt{G4ParticleHPVector} ported to GPU using CUDA\\~\\
+
+\begin{block}{Definition: CUDA}
+CUDA is a GP-GPU programming model developed by NVIDIA, for use with NVIDIA graphics cards
+\end{block}
 \end{frame}
 
 \begin{frame}
-\frametitle{Why \texttt{G4ParticleHPVector}}
+\frametitle{Why \texttt{G4ParticleHPVector}?}
 \begin{itemize}
 \item Represents empirically-found probabilities of collisions for different particles based on their energy
 \item Identified as starting point by relevant stakeholders
@@ -201,20 +210,16 @@ Calls to \texttt{G4ParticleHPVector} forwarded to new GPU-based class\\~\\ % hac
 
 \subsubsection{Implementation of Select Methods on GPU}
 \begin{frame}
-\frametitle{Implementation -- \texttt{Times}}
+\frametitle{Impl. 1 -- \texttt{Times}}
 \end{frame}
 
 \begin{frame}
-\frametitle{Implementation -- \texttt{GetXSec}}
+\frametitle{Impl. 1 -- \texttt{GetXSec}}
 \end{frame}
 
+\subsubsection{Impl. 1: Performance}
 \begin{frame}
-\frametitle{Implementation -- \texttt{SampleLin}}
-\end{frame}
-
-\subsubsection{Performance}
-\begin{frame}
-\frametitle{Performance Results Summary}
+\frametitle{Impl. 1: Performance Results Summary}
 \begin{itemize}
 \item Most methods slower on GPU until \textapprox 10,000 entries in data vector
 \item Most \emph{commonly-used} methods significantly slower on GPU, even with large data vector
@@ -226,7 +231,7 @@ Calls to \texttt{G4ParticleHPVector} forwarded to new GPU-based class\\~\\ % hac
 \end{frame}
 
 \begin{frame}
-\frametitle{Performance Results -- \texttt{Times}}
+\frametitle{Impl. 1: Performance Results -- \texttt{Times}}
 \begin{itemize}
 \item Multiplies each point in vector by factor
 \end{itemize}
@@ -238,19 +243,19 @@ Calls to \texttt{G4ParticleHPVector} forwarded to new GPU-based class\\~\\ % hac
 \end{frame}
 
 \begin{frame}
-\frametitle{Performance Results -- \texttt{GetXSec}}
+\frametitle{Impl. 1: Performance Results -- \texttt{GetXSec}}
 \end{frame}
 
 \begin{frame}
-\frametitle{Performance Results -- \texttt{SampleLin}}
+\frametitle{Impl. 1: Performance Results -- \texttt{SampleLin}}
 \end{frame}
 
 \begin{frame}
-\frametitle{Performance Results -- System Tests}
+\frametitle{Impl. 1: Performance Results -- System Tests}
 \end{frame}
 
 \begin{frame}
-\frametitle{Performance Discussion}
+\frametitle{Impl. 1: Performance Discussion}
 \end{frame}
 
 
@@ -272,28 +277,28 @@ Add new methods to \texttt{G4ParticleHPVector} interface that are well-suited to
 \end{frame}
 
 \begin{frame}
-\frametitle{Implementation -- \texttt{GetXSecList}}
+\frametitle{Impl. 2: \texttt{GetXSecList}}
 \begin{itemize}
 \item Fill an array of energies we want to get xSec values for 
 \item Send the array to the GPU to work on
 \end{itemize}
 \end{frame}
 
-\subsubsection{Performance}
+\subsubsection{Impl. 2: Performance}
 \begin{frame}
-\frametitle{Performance Results Summary}
+\frametitle{Impl. 2: Performance Results Summary}
 \end{frame}
 
 \begin{frame}
-\frametitle{Performance Results -- \texttt{GetXSecList}}
+\frametitle{Impl. 2: Performance Results -- \texttt{GetXSecList}}
 \end{frame}
 
 \begin{frame}
-\frametitle{Performance Results -- System Tests}
+\frametitle{Impl. 2: Performance Results -- System Tests}
 \end{frame}
 
 \begin{frame}
-\frametitle{Performance Discussion}
+\frametitle{Impl. 2: Performance Discussion}
 \end{frame}
 
 \subsection{Accuracy / Testing}
@@ -317,7 +322,7 @@ test conform.
 \end{frame}
 
 \begin{frame}
-\frametitle{Accuracy Discussion}
+\frametitle{Accuracy}
 \begin{itemize}
 \item The deviations in SampleLin and Sample can be 
 attributed to the functions use of random numbers
@@ -340,13 +345,48 @@ arithmetic, leading to different round-off errors
 \end{itemize}
 \end{frame}
 
-\begin{frame}
+\begin{frame}[fragile]
 \frametitle{\texttt{GenerateTestResults} Details}
 \begin{itemize}
-\item Outputs simple results directly
+\item Includes testing version number in results file for analysis stage
+\item Outputs simple results directly to results file
 \item For vectors, calculates hash for vector and output it
-\item 
+\item Outputs timing data to separate file
 \end{itemize}
+\begin{block}{Example: Snippet of Generated Test Results}
+\begin{lstlisting}
+#void G4ParticleHPVector_CUDA::GetXsecBuffer(
+  G4double * queryList, G4int length)_6
+@numQueries=10
+hash: 16548307878283220284
+@numQueries=50
+hash: 3204132713354913775
+\end{lstlisting}
+\end{block}
+\end{frame}
+
+\begin{frame}
+\frametitle{\texttt{AnalyzeTestResults} Details}
+Two main functions:
+\begin{enumerate}
+\item Compare results for each test case, printing status to \texttt{stdout}
+\begin{itemize}
+\item If test failed, output differing values
+\item Summarize test results at the end with number passed
+\end{itemize}
+\item Generate \texttt{.csv} file from timing data
+\begin{itemize}
+\item One row per unique method call, columns show CPU time, GPU time, method name and parameters
+\item Can use Excel to analyze performance results
+\end{itemize}
+\end{enumerate}
+\end{frame}
+
+\begin{frame}
+\frametitle{Demonstration}
+\begin{center}
+\emph{Demonstration of Generating and Analyzing Test Results}
+\end{center}
 \end{frame}
 
 \section{Conclusion}
