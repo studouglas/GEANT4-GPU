@@ -90,6 +90,32 @@ Take an existing particle simulation toolkit - Geant4 - and have some functions 
 \end{itemize}
 \end{frame}
 
+\begin{frame}
+\frametitle{Possible Implementations}
+There were initially five possible implementations to reach 
+a solution:
+\begin{itemize}
+\item Port Geant4 to the GPU such that each particle runs in parallel
+\item Port all the functions of some class(es) to the GPU, with those functions privatized to the GPU
+\item Port some functions of some class(es) to the GPU, memory stored on host, passing mem to device as necessary
+\item Port some functions of some class(es) to the GPU, memory stored and updated on host and device
+\item Port some functions of some class(es) to the GPU, data divided between host and device, passing mem as necessary
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Solution Choice}
+\begin{itemize}
+\item Implementation 1 was believed to be unreasonable given schedule/resource limitations
+\item Implementation 5 was found to be most suitable
+\begin{itemize}
+\item Easy to switch between CPU & GPU versions
+\item Less memory usage than other implementations
+\item Least redundancy in computation
+\end{itemize}
+\end{itemize}
+\end{frame}
+
 \subsection{Purpose}
 \begin{frame}
 \begin{itemize}
@@ -431,6 +457,14 @@ Two main functions:
 \subsection{Recommendations}
 \begin{frame}
 \frametitle{Recommendations}
+For further work with regards to NeutronHPVector:
+\begin{itemize}
+\item
+\end{itemize}
+For further work with regards to parallelizing Geant4:
+\begin{itemize}
+\item 
+\end{itemize}
 \end{frame}
 
 \end{document}
