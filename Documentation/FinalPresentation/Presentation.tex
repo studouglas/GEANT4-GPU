@@ -145,7 +145,7 @@ a solution:
 \begin{itemize}
 \item Existing projects can use GPU acceleration without having to change any code 
 \item Flag during build phase enables/disables GPU acceleration
-\item No new functions to learn \footnote{implementation 1 only}
+\item Interface remains the same\footnote{implementation 1 only}, acceleration happens ``invisibly''
 \end{itemize}
 \end{frame}
 
@@ -363,7 +363,10 @@ System Test \#4:
 \begin{frame}
 \frametitle{Impl. 1: Performance Discussion}
 \begin{itemize}
-\item Simple ``getters'' and ``setters'' require copy from GPU to CPU memory
+\item Simple ``getters'' and ``setters'' now require copy from GPU to CPU memory
+\item Current code calling \texttt{G4ParticleHPVector} more data-oriented than computation-oriented
+\item Low \texttt{GetXSec} performance due to lack of \texttt{Hash} object on GPU to accelerate finding min index
+\item Although some functions faster, rarely used in practice
 \end{itemize}
 \end{frame}
 
