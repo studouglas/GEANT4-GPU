@@ -391,9 +391,9 @@ Add new methods to \texttt{G4ParticleHPVector} interface that are well-suited to
 \begin{frame}
 \frametitle{Impl. 2: \texttt{GetXSecList}}
 \begin{itemize}
-\item Fill an array of energies for which we want to cross section values
+\item Fill an array of energies for which we want the cross section values for
 \item Send the array to the GPU to work on
-\item Each thread work on its own query(s)
+\item Each thread works on its own query(s)
 \end{itemize}
 \end{frame}
 
@@ -589,6 +589,15 @@ Two main functions:
 \subsection{Summary of Results}
 \begin{frame}
 \frametitle{Summary of Results}
+\begin{itemize}
+\item Both Implementations are on average slower than the CPU
+\item Most methods slower on GPU until ~10,000 entires in data vector
+\item Most commonly-used methods significantly slower on GPU, even with large data vector
+\begin{itemize}
+\item Lots of data accesses
+\end{itemize}
+\item SampleLin has accuracy issues due to random number generation
+\end{itemize}
 \end{frame}
 
 \subsection{Recommendations}
