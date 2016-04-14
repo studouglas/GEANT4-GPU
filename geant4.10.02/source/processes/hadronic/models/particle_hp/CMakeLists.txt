@@ -19,7 +19,7 @@ endif()
 set(ENABLE_CUDA 0)
 if(GEANT4_ENABLE_CUDA)
 	set(ENABLE_CUDA 1)
-    message(STATUS "CUDA IS ENABLED -- cmake file from hadronic")    
+    message(STATUS "CUDA Acceleration ENABLED")    
     add_definitions(-DGEANT4_ENABLE_CUDA=ON)
 endif()
 configure_file("${PROJECT_SOURCE_DIR}/source/externals/cuda/include/G4ParticleHPVector.hh"
