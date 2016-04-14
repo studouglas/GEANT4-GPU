@@ -14,7 +14,7 @@
 %-------------------------------------------------------
 %	TITLE PAGE
 %-------------------------------------------------------
-\title[GEANT4-GPU (McMaster University)]{Running GEANT4 Functions on a GPU}
+\title[Geant4-GPU (McMaster University)]{Running Geant4 Functions on a GPU}
 \subtitle{Discussion of Results}
 \institute{McMaster University}
 \author[S. Douglas, R. Gorrie, M .Pagnan, V. Reginato]{
@@ -38,16 +38,13 @@ Stuart Douglas -- dougls2
 \subsection{Brief Project Overview}
 \begin{frame}
 \frametitle{Brief Project Overview}
-Take an existing particle simulation toolkit - GEANT4 - and have some functions run on a GPU device to improve performance.
-%\begin{block}{Definition: GEANT4}
-%GEANT4 is 
-%\end{block}
+Take an existing particle simulation toolkit - Geant4 - and have some functions run on a GPU device to improve performance.
 \end{frame}
 
 \subsection{Explanation of Terms}
 %Victor
 \begin{frame}
-\frametitle{What is GEANT4}
+\frametitle{What is Geant4}
 \begin{itemize}
 \item Geant4 is a toolkit that is meant to simulate the passage of particles through matter. 
 \item It has been developed over the years through collaborative effort of many different institutions and individuals. 
@@ -63,9 +60,9 @@ Take an existing particle simulation toolkit - GEANT4 - and have some functions 
 \begin{frame}
 \begin{itemize}
 \frametitle{What is GP-GPU}
-\item General purpose graphic processing unit computing is a re-purposing of graphics hardware
+\item General-purpose graphic processing unit computing is a re-purposing of graphics hardware
 \item Allows GPUs  to perform computations that would typically be computed on the CPU
-\item If a particular problem is well suited to parallelization, GPGPU computing can greatly increase performance
+\item If a particular problem is well suited to parallelization, GP-GPU computing can greatly increase performance
 \end{itemize}
 \end{frame}
 
@@ -96,13 +93,22 @@ Take an existing particle simulation toolkit - GEANT4 - and have some functions 
 
 % =================== Section =================== 
 \section{Features}
+\begin{frame}
+\frametitle{Features}
+\begin{itemize}
+\item GPU acceleration available on an ``opt-in'' basis
+\item Easy to enable/disable GPU acceleration
+\item Same results whether acceleration enabled or disabled
+\end{itemize}
+\end{frame}
+
 \subsection{Easily Enable/Disable GPU Acceleration}
 \begin{frame}
 \frametitle{Easily Enable/Disable GPU Acceleration}
 \begin{itemize}
-\item Old projects can be run using GPU acceleration with out having to change anything 
-\item No new functions to learn
-\item GPU acceleration can be easily toggled using a flag during configuration and installation
+\item Existing projects can use GPU acceleration without having to change any code 
+\item Flag during build phase enables/disables GPU acceleration
+\item No new functions to learn \footnote{implementation 1 only}
 \end{itemize}
 \end{frame}
 
@@ -116,40 +122,56 @@ Take an existing particle simulation toolkit - GEANT4 - and have some functions 
 \begin{frame}
 \frametitle{Why \texttt{G4ParticleHPVector}}
 \begin{itemize}
+\item Represents empirically-found probabilities of collisions for different particles based on their energy
 \item Identified as starting point by relevant stakeholders
 \begin{itemize}
 \item Used heavily in simulations run by stakeholders
 \end{itemize}
-\item On the surface seems, suitable to parallelization
+\item Seems well-suited to parallelization
 \begin{itemize}
-\item Uses large list data structure
-\item Performs calculations on structure
+\item Based on large vector of 2D points
+\item Performs calculations over this vector
+\item Sorted by x-value (particle energy)
 \end{itemize}
-\item Loads in large amounts of data to a list structure
 \end{itemize}
 \end{frame}
 
 \begin{frame}
 \frametitle{Two Implementations}
+\begin{enumerate}
+\item Forward all calls to existing \texttt{G4ParticleHPVector} interface to a GPU-based implementation of the module
+
 \begin{itemize}
-\item Run everything on the GPU
-\item Only select functions run on GPU
+\item Store data vector in GPU memory
+\item Copy results back to the CPU to return to the caller
 \end{itemize}
+
+\item Add new methods to \texttt{G4ParticleHPVector} interface that are well-suited to GPU computing
+\begin{itemize}
+\item Copy data vector to GPU memory on method call
+\item Existing \texttt{G4ParticleHPVector} methods unchanged, continue to run on CPU
+\end{itemize}
+\end{enumerate}
 \end{frame}
 
 \subsection{Impl. 1: Existing Module in GPU Memory}
 \begin{frame}
-\frametitle{Completely on GPU}
+\frametitle{Impl. 1: Existing Module in GPU Memory}
+Calls to \texttt{G4ParticleHPVector} forwarded to new GPU-based class\\~\\ % hack to get new line in Beamer
+
+\textbf{Pros:}
 \begin{itemize}
-\item The vector is stored exclusively on the GPU
 \pro Do not have to maintain a copy of the vector on the CPU
-\pro Do not have to maintain the hashed vector
+\pro Do not have to maintain a hashed vector
 \pro Reduces how much is being copied to the GPU
-\con All functions are run on the GPU
+\end{itemize}
+\textbf{Cons:}
+\begin{itemize}
+\con All methods are run on the GPU
 \end{itemize}
 \end{frame}
 
-\subsubsection{Implementation of Select Functions on GPU}
+\subsubsection{Implementation of Select Methods on GPU}
 \begin{frame}
 \frametitle{Implementation -- \texttt{Times}}
 \end{frame}
@@ -165,6 +187,14 @@ Take an existing particle simulation toolkit - GEANT4 - and have some functions 
 \subsubsection{Performance}
 \begin{frame}
 \frametitle{Performance Results Summary}
+\begin{itemize}
+\item Most methods slower on GPU until \textapprox 10,000 entries in data vector
+\item Most \emph{commonly-used} methods significantly slower on GPU, even with large data vector
+\begin{itemize}
+\item Lots of data accesses
+\end{itemize}
+\item Many problems in vector class not well-suited to parallelism
+\end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -196,36 +226,34 @@ Take an existing particle simulation toolkit - GEANT4 - and have some functions 
 \end{frame}
 
 
-\subsection{Impl. 2: Add New GPU-Accelerated Functions to Interface}
+\subsection{Impl. 2: Add New GPU-Accelerated Methods to Interface}
 \begin{frame}
-\frametitle{Impl. 2: Add New GPU-Accelerated Functions to Interface}
+\frametitle{Impl. 2: Add New GPU-Accelerated Methods to Interface}
+Add new methods to \texttt{G4ParticleHPVector} interface that are well-suited to parallelism\\~\\
+
+\textbf{Pros:}
 \begin{itemize}
-\pro Only functions that run faster on the GPU are implemented
-\pro Not forced to run functions that run slowly on GPU
+\pro Only methods that run faster on the GPU are implemented
+\pro Not forced to run methods that run slowly on GPU
+\end{itemize}
+\textbf{Cons:}
+\begin{itemize}
 \con Will have to maintain two copies of the vector
 \con More copying the vector to and from the GPU
 \end{itemize}
 \end{frame}
 
 \begin{frame}
-\frametitle{Implementation -- \texttt{Times}}
+\frametitle{Implementation -- \texttt{GetXSecList}}
 \end{frame}
 
 \subsubsection{Performance}
 \begin{frame}
 \frametitle{Performance Results Summary}
-\begin{itemize}
-\item Most functions slower on GPU until \textapprox 10,000 entries 
-\item Most \emph{commonly-used} functions significantly slower on GPU
-\begin{itemize}
-\item Lots of data accesses
-\end{itemize}
-\item Many problems in vector class not well-suited to parallelism
-\end{itemize}
 \end{frame}
 
 \begin{frame}
-\frametitle{Performance Results -- \texttt{GetXSeclList}}
+\frametitle{Performance Results -- \texttt{GetXSecList}}
 \end{frame}
 
 \begin{frame}
