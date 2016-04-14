@@ -532,7 +532,7 @@ d_queryList[threadID] = i;
 \frametitle{Accuracy}
 \begin{itemize}
 \item All modified functions except SampleLin and Sample
-yield results that precisely match 
+yield results that precisely match original implementations
 \end{itemize}
 \begin{itemize}
 \item Some functions fell extremely close in accuracy to 
@@ -631,13 +631,24 @@ Two main functions:
 \subsection{Recommendations}
 \begin{frame}
 \frametitle{Recommendations}
-For further work with regards to NeutronHPVector:
+For further work with regards to ParticleHPVector:
 \begin{itemize}
-\item
+\item Abstact further up the Geant4 system, parallelizing 
+components that make reference to NeutronHPVector
+\item This will decrease the frequency of data transfer 
+between the host and device
+\item Up-to-date work can be found on out github, along 
+with instructions for installing and testing
 \end{itemize}
 For further work with regards to parallelizing Geant4:
 \begin{itemize}
-\item 
+\item Try parallelizing other commonly use components in similar style
+\begin{itemize}
+\item Look for classes manipulating list-style data structures
+\item Classes with functions that have nested loops or are heavy in computation are prime candidates
+\item Probabilistic functions and getter/setter functions won't benefit greatly
+\item Functions with conditional branching may cause bottlenecks in parallelization
+\end{itemize}
 \end{itemize}
 \end{frame}
 
