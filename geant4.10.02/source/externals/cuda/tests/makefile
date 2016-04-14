@@ -5,7 +5,7 @@ HEADER_PATH_CPU='../../../processes/hadronic/models/particle_hp/include'
 HEADER_PATH_GEANT=${GEANT4_INSTALL_DIR}/include/Geant4
 
 # Linux
-LIBRARY_PATH_GEANT=${GEANT4_INSTALL_DIR}/lib64	
+#LIBRARY_PATH_GEANT=${GEANT4_INSTALL_DIR}/lib64	
 
 # OS X
 LIBRARY_PATH_GEANT=${GEANT4_INSTALL_DIR}/lib
