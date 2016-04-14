@@ -16,13 +16,12 @@ if(GEANT4_BUILD_GRANULAR_LIBS)
     GEANT4_GRANULAR_LIBRARY_TARGET(COMPONENT sources.cmake)
 endif()
 
-set(ENABLE_CUDA 0)
 if(GEANT4_ENABLE_CUDA)
     set(ENABLE_CUDA 1)
-    message(STATUS "CUDA Acceleration ENABLED")    
-    #add_definitions(-DGEANT4_ENABLE_CUDA=ON)
+    message(STATUS "CUDA Acceleration ENABLED")
 else()
+    set(ENABLE_CUDA 0)
     message(STATUS "CUDA Acceleration DISABLED")
 endif()
-configure_file("${PROJECT_SOURCE_DIR}/source/externals/cuda/include/G4ParticleHPVector.hh"
-     "${PROJECT_SOURCE_DIR}/source/processes/hadronic/models/particle_hp/include/G4ParticleHPVector.hh")
+configure_file("${PROJECT_SOURCE_DIR}/source/externals/cuda/CUDAGPU.hh"
+     "${PROJECT_SOURCE_DIR}/source/processes/hadronic/models/particle_hp/include/CUDAGPU.hh")
