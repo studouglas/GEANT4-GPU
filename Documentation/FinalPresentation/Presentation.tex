@@ -4,6 +4,7 @@
 \usepackage{graphicx}
 \usepackage[font={footnotesize}]{caption}
 \usepackage{textcomp}
+\usepackage{listings}
 \newcommand{\textapprox}{\raisebox{0.5ex}{\texttildelow}}
 \setcounter{tocdepth}{2}
 \setbeamertemplate{navigation symbols}{}
@@ -110,6 +111,29 @@ Take an existing particle simulation toolkit - Geant4 - and have some functions 
 \item Flag during build phase enables/disables GPU acceleration
 \item No new functions to learn \footnote{implementation 1 only}
 \end{itemize}
+\end{frame}
+
+\defverbatim[colored]\lstI{
+\begin{lstlisting}[language=C++,basicstyle=\ttfamily,keywordstyle=\color{red}]
+  inline G4double GetY(G4double x)
+  {
+    #if GEANT4_ENABLE_CUDA
+      return cudaVector->GetXsec(x);
+    #else
+      return GetXsec(x);
+    #endif
+  }
+\end{lstlisting}
+}
+
+
+\begin{frame}
+\frametitle{Implementation}
+\begin{itemize}
+\item Header forwards function calls to GPU or CPU Implementation
+\item This decision is made at compile time. 
+\end{itemize}
+\lstI
 \end{frame}
 
 \begin{frame}
