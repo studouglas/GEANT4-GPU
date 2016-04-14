@@ -41,15 +41,11 @@ Stuart Douglas -- dougls2
 \begin{frame}
 \frametitle{Brief Project Overview}
 Take an existing particle simulation toolkit - Geant4 - and have some functions run on a GPU device to improve performance.
-\begin{block}{Geant}
-Geant4
-\end{block}
 \end{frame}
 
 \subsection{Explanation of Terms}
-%Victor
 \begin{frame}
-\frametitle{What is Geant4}
+\frametitle{What is Geant4?}
 \begin{itemize}
 \item Geant4 is a toolkit that is meant to simulate the passage of particles through matter. 
 \item It has been developed over the years through collaborative effort of many different institutions and individuals. 
@@ -66,14 +62,15 @@ Geant4
 \frametitle{Demonstration}
 \begin{center}
 \emph{Demonstration -- Running Geant4 on the CPU}
-% 
+
+\emph{Hadr04 With Visualization}
 \end{center}
 \end{frame}
 
 \begin{frame}
 \begin{itemize}
-\frametitle{What is GP-GPU}
-\item General-purpose graphic processing unit computing is a re-purposing of graphics hardware
+\frametitle{What is GP-GPU Computing?}
+\item General-purpose graphic-processing-unit computing is a re-purposing of graphics hardware
 \item Allows GPUs  to perform computations that would typically be computed on the CPU
 \item If a particular problem is well suited to parallelization, GP-GPU computing can greatly increase performance
 \end{itemize}
@@ -103,7 +100,6 @@ Geant4
 \frametitle{Purpose}
 \end{frame}
 
-
 % =================== Section =================== 
 \section{Features}
 \begin{frame}
@@ -126,6 +122,13 @@ Geant4
 \end{itemize}
 \end{frame}
 
+\begin{frame}
+\frametitle{Demonstration}
+\begin{center}
+\emph{Demonstration -- Enabling CUDA Acceleration}
+\end{center}
+\end{frame}
+
 \begin{frame}[fragile]
 \frametitle{Easily Enable/Disable GPU Acceleration}
 Method calls to \texttt{G4ParticleHPVector} forwarded to GPU-based implementation
@@ -133,7 +136,7 @@ Method calls to \texttt{G4ParticleHPVector} forwarded to GPU-based implementatio
 \item This decision is made at compile time based on \texttt{cmake} flag
 \end{itemize}
 
-\begin{block}{Example of Forwarding}
+\begin{block}{Example of Forwarding Method Calls}
 \begin{lstlisting}
 inline G4double GetY(G4double x)
 {
@@ -149,17 +152,11 @@ inline G4double GetY(G4double x)
 
 \begin{frame}
 \frametitle{Accelerating Module on GPU}
-<<<<<<< HEAD
 Existing module \texttt{G4ParticleHPVector} ported to GPU using CUDA\\~\\
 
 \begin{block}{Definition: CUDA}
 CUDA is a GP-GPU programming model developed by NVIDIA, for use with NVIDIA graphics cards
 \end{block}
-=======
-\begin{itemize}
-\item 
-\end{itemize}
->>>>>>> d58a86955ef97fecb9c25abda474d33038b8f10f
 \end{frame}
 
 \begin{frame}
@@ -214,6 +211,13 @@ Calls to \texttt{G4ParticleHPVector} forwarded to new GPU-based class\\~\\ % hac
 \end{itemize}
 \end{frame}
 
+\begin{frame}
+\frametitle{Demonstration}
+\begin{center}
+\emph{Hadr04 with Visualization}
+\end{center}
+\end{frame}
+
 \subsubsection{Implementation of Select Methods on GPU}
 \begin{frame}
 \frametitle{Impl. 1 -- \texttt{Times}}
@@ -250,18 +254,87 @@ Calls to \texttt{G4ParticleHPVector} forwarded to new GPU-based class\\~\\ % hac
 
 \begin{frame}
 \frametitle{Impl. 1: Performance Results -- \texttt{GetXSec}}
+\begin{figure}
+\centering
+\includegraphics[width=0.8\textwidth]{images/getxsec_e_line.png}
+\caption{Runtime vs. Number of Data Points -- \texttt{GetXSec}}
+\end{figure}
 \end{frame}
 
 \begin{frame}
 \frametitle{Impl. 1: Performance Results -- \texttt{SampleLin}}
+\begin{figure}
+\centering
+\includegraphics[width=0.8\textwidth]{images/samplelin_line.png}
+\caption{Runtime vs. Number of Data Points -- \texttt{SampleLin}}
+\end{figure}
 \end{frame}
 
 \begin{frame}
 \frametitle{Impl. 1: Performance Results -- System Tests}
+\textbf{System Test \#1:}\\
+\begin{table}
+		\caption{Performance - Water, 2000 events}
+		\begin{tabular}{lll}
+		\bf CPU Time&\bf  GPU Time&\bf Speedup of GPU\\
+		54.55s&72.08s&-1.32$\times$\\
+		\end{tabular}
+\end{table}
+\textbf{System Test \#2:}\\
+\begin{table}
+		\caption{Performance - Uranium, 2000 events}
+		\begin{tabular}{lll}
+		\bf CPU Time&\bf  GPU Time&\bf Speedup of GPU\\
+		54.55s&72.08s&-1.32$\times$\\
+		\end{tabular}
+\end{table}
+\end{frame}
+
+\begin{frame}
+\frametitle{Impl. 1: Performance Results -- System Tests (Cont.)}
+\textbf{System Test \#3:}\\
+\begin{table}
+		\caption{Performance - Water, 2000 events}
+		\begin{tabular}{lll}
+		\bf CPU Time&\bf  GPU Time&\bf Speedup of GPU\\
+		54.55s&72.08s&-1.32$\times$\\
+		\end{tabular}
+\end{table}
+\textbf{System Test \#4:}\\
+\begin{table}
+		\caption{Performance - Uranium, 2000 events}
+		\begin{tabular}{lll}
+		\bf CPU Time&\bf  GPU Time&\bf Speedup of GPU\\
+		54.55s&72.08s&-1.32$\times$\\
+		\end{tabular}
+\end{table}
+\end{frame}
+
+\begin{frame}
+\frametitle{Impl. 2: Performance Results -- System Tests (Cont.)}
+\textbf{System Test \#5:}\\
+\begin{table}
+		\caption{Performance - Water, 2000 events}
+		\begin{tabular}{lll}
+		\bf CPU Time&\bf  GPU Time&\bf Speedup of GPU\\
+		54.55s&72.08s&-1.32$\times$\\
+		\end{tabular}
+\end{table}
+\textbf{System Test \#6:}\\
+\begin{table}
+		\caption{Performance - Uranium, 2000 events}
+		\begin{tabular}{lll}
+		\bf CPU Time&\bf  GPU Time&\bf Speedup of GPU\\
+		54.55s&72.08s&-1.32$\times$\\
+		\end{tabular}
+\end{table}
 \end{frame}
 
 \begin{frame}
 \frametitle{Impl. 1: Performance Discussion}
+\begin{itemize}
+\item Simple ``getters'' and ``setters'' now 
+\end{itemize}
 \end{frame}
 
 
@@ -271,30 +344,47 @@ Calls to \texttt{G4ParticleHPVector} forwarded to new GPU-based class\\~\\ % hac
 Add new methods to \texttt{G4ParticleHPVector} interface that are well-suited to parallelism\\~\\
 
 \textbf{Pros:}
-%\begin{block}{Pros:}
 \begin{itemize}
 \pro Only methods that run faster on the GPU are implemented
 \pro Not forced to run methods that run slowly on GPU
 \end{itemize}
-%\end{block}
+
 \textbf{Cons:}
-%\begin{block}{Cons:}
 \begin{itemize}
 \con Will have to maintain two copies of the vector
 \con More copying the vector to and from the GPU
 \end{itemize}
-%\end{block}
 \end{frame}
 
 \begin{frame}
 \frametitle{Impl. 2: \texttt{GetXSecList}}
 \begin{itemize}
-\item Fill an array of energies we want to get xSec values for 
+\item Fill an array of energies for which we want to cross section values
 \item Send the array to the GPU to work on
 \item Each thread work on its own query(s)
 \end{itemize}
 \end{frame}
 
+\begin{frame}[fragile]
+\frametitle{Implementation -- \texttt{GetXSecList}}
+\begin{lstlisting}[language=C++,basicstyle=\ttfamily,keywordstyle=\color{red}]
+int stepSize = sqrt(nEntries);
+int i = 0;
+double e = queryList[threadID];
+    
+for (i = 0; i < nEntries; i += stepSize) 
+   if (d_theData[i].energy >= e) 
+      break;
+   
+i =  i - (stepSize - 1); 
+
+for (; i < nEntries; i++) 
+   if (d_theData[i].energy >= e) 
+      break;
+   
+d_minIndices[idx] = i;
+\end{lstlisting}
+\end{frame}
 
 \subsubsection{Impl. 2: Performance}
 \begin{frame}
@@ -305,8 +395,65 @@ Add new methods to \texttt{G4ParticleHPVector} interface that are well-suited to
 \frametitle{Impl. 2: Performance Results -- \texttt{GetXSecList}}
 \end{frame}
 
+
 \begin{frame}
 \frametitle{Impl. 2: Performance Results -- System Tests}
+\textbf{System Test \#1:}\\
+\begin{table}
+		\caption{Performance - Water, 2000 events}
+		\begin{tabular}{lll}
+		\bf CPU Time&\bf  GPU Time&\bf Speedup of GPU\\
+		54.55s&72.08s&-1.32$\times$\\
+		\end{tabular}
+\end{table}
+\textbf{System Test \#2:}\\
+\begin{table}
+		\caption{Performance - Uranium, 2000 events}
+		\begin{tabular}{lll}
+		\bf CPU Time&\bf  GPU Time&\bf Speedup of GPU\\
+		54.55s&72.08s&-1.32$\times$\\
+		\end{tabular}
+\end{table}
+\end{frame}
+
+\begin{frame}
+\frametitle{Impl. 2: Performance Results -- System Tests (Cont.)}
+\textbf{System Test \#3:}\\
+\begin{table}
+		\caption{Performance - Water, 2000 events}
+		\begin{tabular}{lll}
+		\bf CPU Time&\bf  GPU Time&\bf Speedup of GPU\\
+		54.55s&72.08s&-1.32$\times$\\
+		\end{tabular}
+\end{table}
+\textbf{System Test \#4:}\\
+\begin{table}
+		\caption{Performance - Uranium, 2000 events}
+		\begin{tabular}{lll}
+		\bf CPU Time&\bf  GPU Time&\bf Speedup of GPU\\
+		54.55s&72.08s&-1.32$\times$\\
+		\end{tabular}
+\end{table}
+\end{frame}
+
+\begin{frame}
+\frametitle{Impl. 2: Performance Results -- System Tests (Cont.)}
+\textbf{System Test \#5:}\\
+\begin{table}
+		\caption{Performance - Water, 2000 events}
+		\begin{tabular}{lll}
+		\bf CPU Time&\bf  GPU Time&\bf Speedup of GPU\\
+		54.55s&72.08s&-1.32$\times$\\
+		\end{tabular}
+\end{table}
+\textbf{System Test \#6:}\\
+\begin{table}
+		\caption{Performance - Uranium, 2000 events}
+		\begin{tabular}{lll}
+		\bf CPU Time&\bf  GPU Time&\bf Speedup of GPU\\
+		54.55s&72.08s&-1.32$\times$\\
+		\end{tabular}
+\end{table}
 \end{frame}
 
 \begin{frame}
@@ -351,7 +498,7 @@ arithmetic, leading to different round-off errors
 \item Testing framework based on two phases, one program for each phase
 \begin{enumerate}
 \item \texttt{GenerateTestResults:} Run unit tests and save results to file
-\item \texttt{AnalyzeTestResults:} Compare results files from CPU and GPU runs
+\item \texttt{AnalyzeTestResults:} Compare results from CPU and GPU
 \end{enumerate}
 \item Run \texttt{GenerateTestResults} once for GPU acceleration enabled, once with it disabled
 \end{itemize}
@@ -378,6 +525,13 @@ hash: 3204132713354913775
 \end{frame}
 
 \begin{frame}
+\frametitle{Demonstration}
+\begin{center}
+\emph{Demonstration -- Generating Test Results}
+\end{center}
+\end{frame}
+
+\begin{frame}
 \frametitle{\texttt{AnalyzeTestResults} Details}
 Two main functions:
 \begin{enumerate}
@@ -397,7 +551,7 @@ Two main functions:
 \begin{frame}
 \frametitle{Demonstration}
 \begin{center}
-\emph{Demonstration of Generating and Analyzing Test Results}
+\emph{Demonstration -- Analyzing Test Results}
 \end{center}
 \end{frame}
 
