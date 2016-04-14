@@ -287,6 +287,62 @@ Calls to \texttt{G4ParticleHPVector} forwarded to new GPU-based class\\~\\ % hac
 
 \begin{frame}
 \frametitle{Impl. 1: Performance Results -- System Tests}
+\textbf{System Test \#1:}\\
+\begin{table}
+		\caption{Performance - Water, 2000 events}
+		\begin{tabular}{lll}
+		\bf CPU Time&\bf  GPU Time&\bf Speedup of GPU\\
+		54.55s&72.08s&-1.32$\times$\\
+		\end{tabular}
+\end{table}
+\textbf{System Test \#2:}\\
+\begin{table}
+		\caption{Performance - Uranium, 2000 events}
+		\begin{tabular}{lll}
+		\bf CPU Time&\bf  GPU Time&\bf Speedup of GPU\\
+		54.55s&72.08s&-1.32$\times$\\
+		\end{tabular}
+\end{table}
+\end{frame}
+
+\begin{frame}
+\frametitle{Impl. 1: Performance Results -- System Tests (Cont.)}
+\textbf{System Test \#3:}\\
+\begin{table}
+		\caption{Performance - Water, 2000 events}
+		\begin{tabular}{lll}
+		\bf CPU Time&\bf  GPU Time&\bf Speedup of GPU\\
+		54.55s&72.08s&-1.32$\times$\\
+		\end{tabular}
+\end{table}
+\textbf{System Test \#4:}\\
+\begin{table}
+		\caption{Performance - Uranium, 2000 events}
+		\begin{tabular}{lll}
+		\bf CPU Time&\bf  GPU Time&\bf Speedup of GPU\\
+		54.55s&72.08s&-1.32$\times$\\
+		\end{tabular}
+\end{table}
+\end{frame}
+
+\begin{frame}
+\frametitle{Impl. 2: Performance Results -- System Tests (Cont.)}
+\textbf{System Test \#5:}\\
+\begin{table}
+		\caption{Performance - Water, 2000 events}
+		\begin{tabular}{lll}
+		\bf CPU Time&\bf  GPU Time&\bf Speedup of GPU\\
+		54.55s&72.08s&-1.32$\times$\\
+		\end{tabular}
+\end{table}
+\textbf{System Test \#6:}\\
+\begin{table}
+		\caption{Performance - Uranium, 2000 events}
+		\begin{tabular}{lll}
+		\bf CPU Time&\bf  GPU Time&\bf Speedup of GPU\\
+		54.55s&72.08s&-1.32$\times$\\
+		\end{tabular}
+\end{table}
 \end{frame}
 
 \begin{frame}
@@ -323,6 +379,26 @@ Add new methods to \texttt{G4ParticleHPVector} interface that are well-suited to
 \end{itemize}
 \end{frame}
 
+\begin{frame}[fragile]
+\frametitle{Implementation -- \texttt{GetXSecList}}
+\begin{lstlisting}[language=C++,basicstyle=\ttfamily,keywordstyle=\color{red}]
+int stepSize = sqrt(nEntries);
+int i = 0;
+double e = queryList[threadID];
+    
+for (i = 0; i < nEntries; i += stepSize) 
+   if (d_theData[i].energy >= e) 
+      break;
+   
+i =  i - (stepSize - 1); 
+
+for (; i < nEntries; i++) 
+   if (d_theData[i].energy >= e) 
+      break;
+   
+d_minIndices[idx] = i;
+\end{lstlisting}
+\end{frame}
 
 \subsubsection{Impl. 2: Performance}
 \begin{frame}
@@ -333,8 +409,65 @@ Add new methods to \texttt{G4ParticleHPVector} interface that are well-suited to
 \frametitle{Impl. 2: Performance Results -- \texttt{GetXSecList}}
 \end{frame}
 
+
 \begin{frame}
 \frametitle{Impl. 2: Performance Results -- System Tests}
+\textbf{System Test \#1:}\\
+\begin{table}
+		\caption{Performance - Water, 2000 events}
+		\begin{tabular}{lll}
+		\bf CPU Time&\bf  GPU Time&\bf Speedup of GPU\\
+		54.55s&72.08s&-1.32$\times$\\
+		\end{tabular}
+\end{table}
+\textbf{System Test \#2:}\\
+\begin{table}
+		\caption{Performance - Uranium, 2000 events}
+		\begin{tabular}{lll}
+		\bf CPU Time&\bf  GPU Time&\bf Speedup of GPU\\
+		54.55s&72.08s&-1.32$\times$\\
+		\end{tabular}
+\end{table}
+\end{frame}
+
+\begin{frame}
+\frametitle{Impl. 2: Performance Results -- System Tests (Cont.)}
+\textbf{System Test \#3:}\\
+\begin{table}
+		\caption{Performance - Water, 2000 events}
+		\begin{tabular}{lll}
+		\bf CPU Time&\bf  GPU Time&\bf Speedup of GPU\\
+		54.55s&72.08s&-1.32$\times$\\
+		\end{tabular}
+\end{table}
+\textbf{System Test \#4:}\\
+\begin{table}
+		\caption{Performance - Uranium, 2000 events}
+		\begin{tabular}{lll}
+		\bf CPU Time&\bf  GPU Time&\bf Speedup of GPU\\
+		54.55s&72.08s&-1.32$\times$\\
+		\end{tabular}
+\end{table}
+\end{frame}
+
+\begin{frame}
+\frametitle{Impl. 2: Performance Results -- System Tests (Cont.)}
+\textbf{System Test \#5:}\\
+\begin{table}
+		\caption{Performance - Water, 2000 events}
+		\begin{tabular}{lll}
+		\bf CPU Time&\bf  GPU Time&\bf Speedup of GPU\\
+		54.55s&72.08s&-1.32$\times$\\
+		\end{tabular}
+\end{table}
+\textbf{System Test \#6:}\\
+\begin{table}
+		\caption{Performance - Uranium, 2000 events}
+		\begin{tabular}{lll}
+		\bf CPU Time&\bf  GPU Time&\bf Speedup of GPU\\
+		54.55s&72.08s&-1.32$\times$\\
+		\end{tabular}
+\end{table}
 \end{frame}
 
 \begin{frame}
