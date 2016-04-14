@@ -147,7 +147,7 @@ Take an existing particle simulation toolkit - Geant4 - and have some functions 
 \begin{frame}
 \frametitle{Accelerating Module on GPU}
 \begin{itemize}
-\item
+\item 
 \end{itemize}
 \end{frame}
 
@@ -264,15 +264,19 @@ Calls to \texttt{G4ParticleHPVector} forwarded to new GPU-based class\\~\\ % hac
 Add new methods to \texttt{G4ParticleHPVector} interface that are well-suited to parallelism\\~\\
 
 \textbf{Pros:}
+%\begin{block}{Pros:}
 \begin{itemize}
 \pro Only methods that run faster on the GPU are implemented
 \pro Not forced to run methods that run slowly on GPU
 \end{itemize}
+%\end{block}
 \textbf{Cons:}
+%\begin{block}{Cons:}
 \begin{itemize}
 \con Will have to maintain two copies of the vector
 \con More copying the vector to and from the GPU
 \end{itemize}
+%\end{block}
 \end{frame}
 
 \begin{frame}
@@ -280,7 +284,15 @@ Add new methods to \texttt{G4ParticleHPVector} interface that are well-suited to
 \begin{itemize}
 \item Fill an array of energies we want to get xSec values for 
 \item Send the array to the GPU to work on
+\item Each thread work on its own query(s)
 \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Implementation -- \texttt{GetXSecList}}
+\begin{lstlisting}[language=C++,basicstyle=\ttfamily,keywordstyle=\color{red}]
+
+\end{lstlisting}
 \end{frame}
 
 \subsubsection{Performance}
@@ -314,7 +326,8 @@ average of 1000 tests of the original with an error of 0.01
 \end{itemize}  
 \item The system tests differ if the number of nentries is 
 greater than 500; if not however the results of the system 
-test conform. 
+test conform.
+\end{itemize}
 \end{frame}
 
 \begin{frame}

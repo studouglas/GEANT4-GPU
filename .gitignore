@@ -10,6 +10,7 @@
 *.toc
 *.snm
 *.nav
+*.vrb
 Documentation/*/*.out
 
 # Xcode project files
