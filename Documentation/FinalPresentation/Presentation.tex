@@ -287,7 +287,21 @@ Add new methods to \texttt{G4ParticleHPVector} interface that are well-suited to
 \begin{frame}[fragile]
 \frametitle{Implementation -- \texttt{GetXSecList}}
 \begin{lstlisting}[language=C++,basicstyle=\ttfamily,keywordstyle=\color{red}]
+int stepSize = sqrt(nEntries);
+int i = 0;
+double e = queryList[threadID];
+    
+for (i = 0; i < nEntries; i += stepSize) 
+   if (d_theData[i].energy >= e) 
+      break;
+   
+i =  i - (stepSize - 1); 
 
+for (; i < nEntries; i++) 
+   if (d_theData[i].energy >= e) 
+      break;
+   
+d_minIndices[idx] = i;
 \end{lstlisting}
 \end{frame}
 
