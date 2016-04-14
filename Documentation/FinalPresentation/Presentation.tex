@@ -269,6 +269,10 @@ Add new methods to \texttt{G4ParticleHPVector} interface that are well-suited to
 
 \begin{frame}
 \frametitle{Implementation -- \texttt{GetXSecList}}
+\begin{itemize}
+\item Fill an array of energies we want to get xSec values for 
+\item Send the array to the GPU to work on
+\end{itemize}
 \end{frame}
 
 \subsubsection{Performance}
