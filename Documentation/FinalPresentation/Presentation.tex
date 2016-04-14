@@ -121,27 +121,23 @@ Take an existing particle simulation toolkit - Geant4 - and have some functions 
 \end{itemize}
 \end{frame}
 
-\defverbatim[colored]\lstI{
-\begin{lstlisting}[language=C++,basicstyle=\ttfamily,keywordstyle=\color{red}]
-  inline G4double GetY(G4double x)
-  {
-    #if GEANT4_ENABLE_CUDA
-      return cudaVector->GetXsec(x);
-    #else
-      return GetXsec(x);
-    #endif
-  }
-\end{lstlisting}
-}
-
+%\begin{lstlisting}[language=C++,basicstyle=\ttfamily,keywordstyle=\color{red}]
+%  inline G4double GetY(G4double x)
+%  {
+%    #if GEANT4_ENABLE_CUDA
+%      return cudaVector->GetXsec(x);
+%    #else
+%      return GetXsec(x);
+%    #endif
+%  }
+%\end{lstlisting}
 
 \begin{frame}
 \frametitle{Implementation}
 \begin{itemize}
 \item Header forwards function calls to GPU or CPU Implementation
-\item This decision is made at compile time. 
+\item This decision is made at compile time
 \end{itemize}
-\lstI
 \end{frame}
 
 \begin{frame}
@@ -318,12 +314,14 @@ Add new methods to \texttt{G4ParticleHPVector} interface that are well-suited to
 \begin{itemize}
 \item All modified functions except SampleLin and Sample
 yield results that precisely match 
+\end{itemize}
 \begin{itemize}
 \item Some functions fell extremely close in accuracy to 
 the original, and were considered to 'pass'
 \item The average of 1000 SampleLin tests deviated from the 
 average of 1000 tests of the original with an error of 0.01 
-\end{itemize}  
+\end{itemize}
+\begin{itemize}
 \item The system tests differ if the number of nentries is 
 greater than 500; if not however the results of the system 
 test conform.
@@ -343,6 +341,24 @@ arithmetic, leading to different round-off errors
 
 \begin{frame}
 \frametitle{Testing}
+\begin{itemize}
+\item Comparing test results and performance with GPU acceleration enabled and disabled
+\item Testing framework based on two phases, one program for each phase
+\begin{enumerate}
+\item \texttt{GenerateTestResults:} Run unit tests and save results to file
+\item \texttt{AnalyzeTestResults:} Compare results files from CPU and GPU runs
+\end{enumerate}
+\item Run \texttt{GenerateTestResults} once for GPU acceleration enabled, once with it disabled
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{\texttt{GenerateTestResults} Details}
+\begin{itemize}
+\item Outputs simple results directly
+\item For vectors, calculates hash for vector and output it
+\item 
+\end{itemize}
 \end{frame}
 
 \section{Conclusion}

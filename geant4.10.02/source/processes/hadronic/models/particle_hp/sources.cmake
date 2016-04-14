@@ -25,8 +25,10 @@ include_directories(${ZLIB_INCLUDE_DIRS})
 # here it can't be found, so for now we're explicitly including it
 # via its full path in the G4ParticleVector.hh file
 # TODO: set a macro w/ its location in the .hh file  so it's a bit better
-if ($GEANT4_ENABLE_CUDA)
-    set(CUDA_LIBRARIES_IF_ENABLED, ${G4CUDA_LIBRARIES})
+if (GEANT4_ENABLE_CUDA)
+    message(STATUS "Setting cuda libraries if enabled...")
+    set(G4CUDA_LIBRARIES_IF_ENABLED, ${G4CUDA_LIBRARIES})
+    message(STATUS "G4Cuda_libraries = '${G4CUDA_LIBRARIES}'")
 endif()
 
 # List internal includes needed.
@@ -465,7 +467,7 @@ GEANT4_DEFINE_MODULE(NAME G4had_par_hp
     G4track
   LINK_LIBRARIES
     ${ZLIB_LIBRARIES}
-    ${CUDA_LIBRARIES_IF_ENABLED}
+    ${G4CUDA_LIBRARIES}
   )
 
 # List any source specific properties here
