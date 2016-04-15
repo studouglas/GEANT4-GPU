@@ -346,13 +346,13 @@ theData yVals hash: 8558769185984268590
 -2.30153
 @e=-1
 @min=40
--2.30153
+0.576
 @e=-1
 @min=79
--2.30153
+0.1793
 @e=-1
 @min=80
--2.30153
+0
 @e=0
 @min=-1
 -2.30153
@@ -361,13 +361,13 @@ theData yVals hash: 8558769185984268590
 -2.30153
 @e=0
 @min=40
--2.30153
+0.576
 @e=0
 @min=79
--2.30153
+0.1793
 @e=0
 @min=80
--2.30153
+0
 @e=0.00051234
 @min=-1
 -2.30153
@@ -376,13 +376,13 @@ theData yVals hash: 8558769185984268590
 -2.30153
 @e=0.00051234
 @min=40
--2.30153
+0.576
 @e=0.00051234
 @min=79
--2.30153
+0.1793
 @e=0.00051234
 @min=80
--2.30153
+0
 @e=1.58923
 @min=-1
 -2.30153
@@ -391,13 +391,13 @@ theData yVals hash: 8558769185984268590
 -2.30153
 @e=1.58923
 @min=40
--2.30153
+0.576
 @e=1.58923
 @min=79
--2.30153
+0.1793
 @e=1.58923
 @min=80
--2.30153
+0
 @e=513.187
 @min=-1
 -2.30131
@@ -406,17 +406,17 @@ theData yVals hash: 8558769185984268590
 -2.30131
 @e=513.187
 @min=40
--2.30131
+0.575995
 @e=513.187
 @min=79
--2.30131
+0.179299
 @e=513.187
 @min=80
--2.30131
+0
 #G4double SampleLin()_1
 $2.54281e+07
 #G4double Sample()_1
-$2.52369e+07
+$2.59318e+07
 #G4double Get15PercentBorder()_1
 1.05e+07
 #G4double Get50PercentBorder()_1
@@ -670,13 +670,13 @@ theData yVals hash: 7454723789077549572
 368338
 @e=-1
 @min=754
-368338
+0.0153557
 @e=-1
 @min=1508
-368338
+0.472068
 @e=-1
 @min=1509
-368338
+7.54
 @e=0
 @min=-1
 11.2233
@@ -685,13 +685,13 @@ theData yVals hash: 7454723789077549572
 11.2233
 @e=0
 @min=754
-11.2233
+0.0145421
 @e=0
 @min=1508
-11.2233
+0.472068
 @e=0
 @min=1509
-11.2233
+7.54
 @e=0.00051234
 @min=-1
 1.0538
@@ -700,13 +700,13 @@ theData yVals hash: 7454723789077549572
 1.0538
 @e=0.00051234
 @min=754
-1.0538
+0.0145416
 @e=0.00051234
 @min=1508
-1.0538
+0.472068
 @e=0.00051234
 @min=1509
-1.0538
+7.54
 @e=1.58923
 @min=-1
 0.0189098
@@ -715,13 +715,13 @@ theData yVals hash: 7454723789077549572
 0.0189098
 @e=1.58923
 @min=754
-0.0189098
+0.0132491
 @e=1.58923
 @min=1508
-0.0189098
+0.472068
 @e=1.58923
 @min=1509
-0.0189098
+7.54
 @e=513.187
 @min=-1
 0.00101927
@@ -733,14 +733,14 @@ theData yVals hash: 7454723789077549572
 0.00101927
 @e=513.187
 @min=1508
-0.00101927
+0.472076
 @e=513.187
 @min=1509
-0.00101927
+7.54
 #G4double SampleLin()_2
-$1.09637e+07
+$1.06849e+07
 #G4double Sample()_2
-$1.09449e+07
+$1.06442e+07
 #G4double Get15PercentBorder()_2
 4.3125e+06
 #G4double Get50PercentBorder()_2
@@ -994,13 +994,13 @@ theData yVals hash: 17341898202202105047
 1.99238e+08
 @e=-1
 @min=4022
-1.99238e+08
+-243259
 @e=-1
 @min=8044
-1.99238e+08
+2.07047
 @e=-1
 @min=8045
-1.99238e+08
+4077.57
 @e=0
 @min=-1
 6069.89
@@ -1009,13 +1009,13 @@ theData yVals hash: 17341898202202105047
 6069.89
 @e=0
 @min=4022
-6069.89
+-241009
 @e=0
 @min=8044
-6069.89
+2.07047
 @e=0
 @min=8045
-6069.89
+4077.57
 @e=0.00051234
 @min=-1
 569.027
@@ -1024,13 +1024,13 @@ theData yVals hash: 17341898202202105047
 569.027
 @e=0.00051234
 @min=4022
-569.027
+-241008
 @e=0.00051234
 @min=8044
-569.027
+2.07047
 @e=0.00051234
 @min=8045
-569.027
+4077.57
 @e=1.58923
 @min=-1
 4.20396
@@ -1039,13 +1039,13 @@ theData yVals hash: 17341898202202105047
 4.20396
 @e=1.58923
 @min=4022
-4.20396
+-237434
 @e=1.58923
 @min=8044
-4.20396
+2.07047
 @e=1.58923
 @min=8045
-4.20396
+4077.57
 @e=513.187
 @min=-1
 5.22455
@@ -1057,14 +1057,14 @@ theData yVals hash: 17341898202202105047
 5.22455
 @e=513.187
 @min=8044
-5.22455
+2.07049
 @e=513.187
 @min=8045
-5.22455
+4077.57
 #G4double SampleLin()_3
-$1.071e+07
+$1.05418e+07
 #G4double Sample()_3
-$1.03618e+07
+$1.03529e+07
 #G4double Get15PercentBorder()_3
 3.625e+06
 #G4double Get50PercentBorder()_3
@@ -1295,975 +1295,4 @@ theData xVals hash: 9331551469271385338
 theData yVals hash: 14496527978579579391
 #G4ParticleHPVector & operator = (const G4ParticleHPVector & right)_3
 hash: 9331551469271385338
-#void Init(std::istream & aDataFile, G4int total, G4double ux=1., G4double uy=1.)_4
-theData xVals hash: 54681960905177130
-theData yVals hash: 1230654354166793649
-#G4double GetXsec(G4double e)_4
-@e=-1
-114874
-@e=0
-3.49982
-@e=0.00051234
-0.328538
-@e=1.58923
-0.0106582
-@e=513.187
-0.000325115
-#G4double GetXsec(G4double e, G4int min)_4
-@e=-1
-@min=-1
-114874
-@e=-1
-@min=0
-114874
-@e=-1
-@min=20927
-114874
-@e=-1
-@min=41853
-114874
-@e=-1
-@min=41854
-114874
-@e=0
-@min=-1
-3.49982
-@e=0
-@min=0
-3.49982
-@e=0
-@min=20927
-3.49982
-@e=0
-@min=41853
-3.49982
-@e=0
-@min=41854
-3.49982
-@e=0.00051234
-@min=-1
-0.328538
-@e=0.00051234
-@min=0
-0.328538
-@e=0.00051234
-@min=20927
-0.328538
-@e=0.00051234
-@min=41853
-0.328538
-@e=0.00051234
-@min=41854
-0.328538
-@e=1.58923
-@min=-1
-0.0106582
-@e=1.58923
-@min=0
-0.0106582
-@e=1.58923
-@min=20927
-0.0106582
-@e=1.58923
-@min=41853
-0.0106582
-@e=1.58923
-@min=41854
-0.0106582
-@e=513.187
-@min=-1
-0.000325115
-@e=513.187
-@min=0
-0.000325115
-@e=513.187
-@min=20927
-0.000325115
-@e=513.187
-@min=41853
-0.000325115
-@e=513.187
-@min=41854
-0.000325115
-#G4double SampleLin()_4
-$1.74876e+07
-#G4double Sample()_4
-$1.73296e+07
-#G4double Get15PercentBorder()_4
-8.2e+06
-#G4double Get50PercentBorder()_4
-1.79658e+07
-#void Times(G4double factor)_4
-@factor=-4.67
-theData xVals hash: 54681960905177130
-theData yVals hash: 15325741174545806607
-theIntegral hash: 2938941608009595531
-@factor=-1.525e-05
-theData xVals hash: 54681960905177130
-theData yVals hash: 2639458418711613107
-theIntegral hash: 2938941608009595531
-@factor=0.00090982
-theData xVals hash: 54681960905177130
-theData yVals hash: 9338453451443704381
-theIntegral hash: 2938941608009595531
-@factor=1.54333e+07
-theData xVals hash: 54681960905177130
-theData yVals hash: 3089117796153364178
-theIntegral hash: 2938941608009595531
-#void SetPoint(G4int i, const G4ParticleHPDataPoint & it)_4
-@i=-1
-@x=0.738959
-@y=0.679332
-theData xVals hash: 54681960905177130
-theData yVals hash: 3089117796153364178
-@i=0
-@x=0.536267
-@y=0.0355877
-theData xVals hash: 12540642572394492896
-theData yVals hash: 833486318027297864
-@i=20927
-@x=0.122507
-@y=0.973356
-theData xVals hash: 13953712764119746364
-theData yVals hash: 17168493809614718971
-@i=41853
-@x=0.188276
-@y=0.351319
-theData xVals hash: 4636956808994333779
-theData yVals hash: 9360638456673751928
-@i=41854
-@x=0.614126
-@y=0.607611
-theData xVals hash: 4096701063333501856
-theData yVals hash: 5030145070707386817
-#void SetData(G4int i, G4double x, G4double y)_4
-@i=-1
-@x=0.125933
-@y=0.552862
-theData xVals hash: 4096701063333501856
-theData yVals hash: 5030145070707386817
-@i=0
-@x=0.954028
-@y=0.356925
-theData xVals hash: 11045920274054264078
-theData yVals hash: 16148876229271562848
-@i=20927
-@x=0.838102
-@y=0.974252
-theData xVals hash: 6784515726311536294
-theData yVals hash: 1282090637960833143
-@i=41853
-@x=0.259014
-@y=0.251528
-theData xVals hash: 9258570002301049005
-theData yVals hash: 16235203331396507115
-@i=41854
-@x=0.424336
-@y=0.813048
-theData xVals hash: 957295841047481825
-theData yVals hash: 2798367151213966973
-#void SetX(G4int i, G4double e)_4
-@i=-1
-@x=0.897914
-theData xVals hash: 957295841047481825
-theData yVals hash: 2798367151213966973
-@i=0
-@x=0.760617
-theData xVals hash: 17286350076243401551
-theData yVals hash: 2798367151213966973
-@i=20927
-@x=0.451851
-theData xVals hash: 14627709867217944084
-theData yVals hash: 2798367151213966973
-@i=41853
-@x=0.665503
-theData xVals hash: 13836840840974649787
-theData yVals hash: 2798367151213966973
-@i=41854
-@x=0.209562
-theData xVals hash: 10251320418831661842
-theData yVals hash: 2798367151213966973
-#void SetEnergy(G4int i, G4double e)_4
-@i=-1
-@x=0.546975
-theData xVals hash: 10251320418831661842
-theData yVals hash: 2798367151213966973
-@i=0
-@x=0.175974
-theData xVals hash: 13402313388222767254
-theData yVals hash: 2798367151213966973
-@i=20927
-@x=0.431908
-theData xVals hash: 9889489229821377739
-theData yVals hash: 2798367151213966973
-@i=41853
-@x=0.687414
-theData xVals hash: 7942425435534718340
-theData yVals hash: 2798367151213966973
-@i=41854
-@x=0.836207
-theData xVals hash: 10591115026336172123
-theData yVals hash: 2798367151213966973
-#void SetY(G4int i, G4double x)_4
-@i=-1
-@x=0.973346
-theData xVals hash: 10591115026336172123
-theData yVals hash: 2798367151213966973
-@i=0
-@x=0.0803531
-theData xVals hash: 10591115026336172123
-theData yVals hash: 5644943797306611048
-@i=20927
-@x=0.769437
-theData xVals hash: 10591115026336172123
-theData yVals hash: 3817780862167722569
-@i=41853
-@x=0.250155
-theData xVals hash: 10591115026336172123
-theData yVals hash: 3874494265940333961
-@i=41854
-@x=0.769114
-theData xVals hash: 10591115026336172123
-theData yVals hash: 9538352991280107567
-#void SetXsec(G4int i, G4double x)_4
-@i=-1
-@x=0.749252
-theData xVals hash: 10591115026336172123
-theData yVals hash: 9538352991280107567
-@i=0
-@x=0.681666
-theData xVals hash: 10591115026336172123
-theData yVals hash: 10122653076573690479
-@i=20927
-@x=0.0363676
-theData xVals hash: 10591115026336172123
-theData yVals hash: 3369370611021018836
-@i=41853
-@x=0.221667
-theData xVals hash: 10591115026336172123
-theData yVals hash: 1069881657158185155
-@i=41854
-@x=0.652622
-theData xVals hash: 10591115026336172123
-theData yVals hash: 4620620761558809347
-#const G4ParticleHPDataPoint GetPoint(G4int i)_4
-@i=-1
-(0.175974,0.681666)
-@i=0
-(0.175974,0.681666)
-@i=20927
-(0.431908,0.0363676)
-@i=41853
-(0.687414,0.221667)
-@i=41854
-(0.836207,0.652622)
-#G4double GetEnergy(G4int i)_4
-@i=-1
-0.175974
-@i=0
-0.175974
-@i=20927
-0.431908
-@i=41853
-0.687414
-@i=41854
-0.836207
-#G4double GetX(G4int i)_4
-@i=-1
-0.175974
-@i=0
-0.175974
-@i=20927
-0.431908
-@i=41853
-0.687414
-@i=41854
-0.836207
-#G4double GetXsec(G4int i)_4
-@i=-1
-0.681666
-@i=0
-0.681666
-@i=20927
-0.0363676
-@i=41853
-0.221667
-@i=41854
-0.652622
-#G4double GetY(G4int i)_4
-@i=-1
-0.681666
-@i=0
-0.681666
-@i=20927
-0.0363676
-@i=41853
-0.221667
-@i=41854
-0.652622
-#void ThinOut(G4double precision)_4
-@precision=-1
-theData xVals hash: 10591115026336172123
-theData yVals hash: 4620620761558809347
-@precision=0
-theData xVals hash: 3882296072537689296
-theData yVals hash: 13529763916258832700
-@precision=0.00051234
-theData xVals hash: 6807408662561104301
-theData yVals hash: 15610041926946712147
-@precision=1.58923
-theData xVals hash: 5119749438082653758
-theData yVals hash: 13657064271391722745
-@precision=513.187
-theData xVals hash: 17316422391723166144
-theData yVals hash: 12444643024670476332
-#G4ParticleHPVector & operator = (const G4ParticleHPVector & right)_4
-hash: 17316422391723166144
-#void Init(std::istream & aDataFile, G4int total, G4double ux=1., G4double uy=1.)_5
-theData xVals hash: 7171123492023199933
-theData yVals hash: 9268461341921925588
-#G4double GetXsec(G4double e)_5
-@e=-1
-0
-@e=0
-0
-@e=0.00051234
-0
-@e=1.58923
-0
-@e=513.187
-0
-#G4double GetXsec(G4double e, G4int min)_5
-@e=-1
-@min=-1
-0
-@e=-1
-@min=0
-0
-@e=-1
-@min=49497
-0
-@e=-1
-@min=98994
-0
-@e=-1
-@min=98995
-0
-@e=0
-@min=-1
-0
-@e=0
-@min=0
-0
-@e=0
-@min=49497
-0
-@e=0
-@min=98994
-0
-@e=0
-@min=98995
-0
-@e=0.00051234
-@min=-1
-0
-@e=0.00051234
-@min=0
-0
-@e=0.00051234
-@min=49497
-0
-@e=0.00051234
-@min=98994
-0
-@e=0.00051234
-@min=98995
-0
-@e=1.58923
-@min=-1
-0
-@e=1.58923
-@min=0
-0
-@e=1.58923
-@min=49497
-0
-@e=1.58923
-@min=98994
-0
-@e=1.58923
-@min=98995
-0
-@e=513.187
-@min=-1
-0
-@e=513.187
-@min=0
-0
-@e=513.187
-@min=49497
-0
-@e=513.187
-@min=98994
-0
-@e=513.187
-@min=98995
-0
-#G4double SampleLin()_5
-$1.27081e+07
-#G4double Sample()_5
-$1.22133e+07
-#G4double Get15PercentBorder()_5
-7.4e+06
-#G4double Get50PercentBorder()_5
-1.33873e+07
-#void Times(G4double factor)_5
-@factor=-4.67
-theData xVals hash: 7171123492023199933
-theData yVals hash: 9365539138291727388
-theIntegral hash: 7928541022771315913
-@factor=-1.525e-05
-theData xVals hash: 7171123492023199933
-theData yVals hash: 17931948134866168131
-theIntegral hash: 7928541022771315913
-@factor=0.00090982
-theData xVals hash: 7171123492023199933
-theData yVals hash: 15754205843458034988
-theIntegral hash: 7928541022771315913
-@factor=1.54333e+07
-theData xVals hash: 7171123492023199933
-theData yVals hash: 9268461341921925588
-theIntegral hash: 7928541022771315913
-#void SetPoint(G4int i, const G4ParticleHPDataPoint & it)_5
-@i=-1
-@x=0.699791
-@y=0.38906
-theData xVals hash: 7171123492023199933
-theData yVals hash: 9268461341921925588
-@i=0
-@x=0.935242
-@y=0.605603
-theData xVals hash: 8087400567356673865
-theData yVals hash: 14328351860513807934
-@i=49497
-@x=0.362084
-@y=0.539505
-theData xVals hash: 4967041083789535198
-theData yVals hash: 15582391938398552681
-@i=98994
-@x=0.455072
-@y=0.401692
-theData xVals hash: 14636593035089019132
-theData yVals hash: 12384385125394167646
-@i=98995
-@x=0.24044
-@y=0.0830857
-theData xVals hash: 1163880160301980444
-theData yVals hash: 6097288361979055925
-#void SetData(G4int i, G4double x, G4double y)_5
-@i=-1
-@x=0.421579
-@y=0.47238
-theData xVals hash: 1163880160301980444
-theData yVals hash: 6097288361979055925
-@i=0
-@x=0.289766
-@y=0.104969
-theData xVals hash: 13353489806794614594
-theData yVals hash: 10854233893770602628
-@i=49497
-@x=0.216386
-@y=0.802019
-theData xVals hash: 17622552535108543332
-theData yVals hash: 5540325132109300678
-@i=98994
-@x=0.527439
-@y=0.66882
-theData xVals hash: 4554169523972720559
-theData yVals hash: 864871021010522220
-@i=98995
-@x=0.863643
-@y=0.24375
-theData xVals hash: 11485999879402359663
-theData yVals hash: 12044205416062542412
-#void SetX(G4int i, G4double e)_5
-@i=-1
-@x=0.711564
-theData xVals hash: 11485999879402359663
-theData yVals hash: 12044205416062542412
-@i=0
-@x=0.382822
-theData xVals hash: 14995114390740775498
-theData yVals hash: 12044205416062542412
-@i=49497
-@x=0.459763
-theData xVals hash: 10108270346967157414
-theData yVals hash: 12044205416062542412
-@i=98994
-@x=0.795353
-theData xVals hash: 2768707601057873684
-theData yVals hash: 12044205416062542412
-@i=98995
-@x=0.00322878
-theData xVals hash: 6328197661742067720
-theData yVals hash: 12044205416062542412
-#void SetEnergy(G4int i, G4double e)_5
-@i=-1
-@x=0.664689
-theData xVals hash: 6328197661742067720
-theData yVals hash: 12044205416062542412
-@i=0
-@x=0.186825
-theData xVals hash: 14885544728758867484
-theData yVals hash: 12044205416062542412
-@i=49497
-@x=0.134039
-theData xVals hash: 6193298988767029547
-theData yVals hash: 12044205416062542412
-@i=98994
-@x=0.946045
-theData xVals hash: 850939744612141602
-theData yVals hash: 12044205416062542412
-@i=98995
-@x=0.606001
-theData xVals hash: 5567062327401838460
-theData yVals hash: 12044205416062542412
-#void SetY(G4int i, G4double x)_5
-@i=-1
-@x=0.347492
-theData xVals hash: 5567062327401838460
-theData yVals hash: 12044205416062542412
-@i=0
-@x=0.509658
-theData xVals hash: 5567062327401838460
-theData yVals hash: 1510505131477239413
-@i=49497
-@x=0.834338
-theData xVals hash: 5567062327401838460
-theData yVals hash: 5679054010361945998
-@i=98994
-@x=0.329434
-theData xVals hash: 5567062327401838460
-theData yVals hash: 4363344532959287244
-@i=98995
-@x=0.631763
-theData xVals hash: 5567062327401838460
-theData yVals hash: 13503293311964332929
-#void SetXsec(G4int i, G4double x)_5
-@i=-1
-@x=0.0414204
-theData xVals hash: 5567062327401838460
-theData yVals hash: 13503293311964332929
-@i=0
-@x=0.767065
-theData xVals hash: 5567062327401838460
-theData yVals hash: 9991291410685478560
-@i=49497
-@x=0.519303
-theData xVals hash: 5567062327401838460
-theData yVals hash: 5306777872739445084
-@i=98994
-@x=0.220516
-theData xVals hash: 5567062327401838460
-theData yVals hash: 14066293278789511144
-@i=98995
-@x=0.0889927
-theData xVals hash: 5567062327401838460
-theData yVals hash: 14809245636263334604
-#const G4ParticleHPDataPoint GetPoint(G4int i)_5
-@i=-1
-(0.186825,0.767065)
-@i=0
-(0.186825,0.767065)
-@i=49497
-(0.134039,0.519303)
-@i=98994
-(0.946045,0.220516)
-@i=98995
-(0.606001,0.0889927)
-#G4double GetEnergy(G4int i)_5
-@i=-1
-0.186825
-@i=0
-0.186825
-@i=49497
-0.134039
-@i=98994
-0.946045
-@i=98995
-0.606001
-#G4double GetX(G4int i)_5
-@i=-1
-0.186825
-@i=0
-0.186825
-@i=49497
-0.134039
-@i=98994
-0.946045
-@i=98995
-0.606001
-#G4double GetXsec(G4int i)_5
-@i=-1
-0.767065
-@i=0
-0.767065
-@i=49497
-0.519303
-@i=98994
-0.220516
-@i=98995
-0.0889927
-#G4double GetY(G4int i)_5
-@i=-1
-0.767065
-@i=0
-0.767065
-@i=49497
-0.519303
-@i=98994
-0.220516
-@i=98995
-0.0889927
-#void ThinOut(G4double precision)_5
-@precision=-1
-theData xVals hash: 12954435322133276589
-theData yVals hash: 14921455029472994608
-@precision=0
-theData xVals hash: 5305980882361436096
-theData yVals hash: 13905076034796310618
-@precision=0.00051234
-theData xVals hash: 2660913159176154139
-theData yVals hash: 419151880701509672
-@precision=1.58923
-theData xVals hash: 156200433032669903
-theData yVals hash: 6789807671422706239
-@precision=513.187
-theData xVals hash: 156200433032669903
-theData yVals hash: 6789807671422706239
-#G4ParticleHPVector & operator = (const G4ParticleHPVector & right)_5
-hash: 156200433032669903
-#void Init(std::istream & aDataFile, G4int total, G4double ux=1., G4double uy=1.)_6
-theData xVals hash: 16082830809520917107
-theData yVals hash: 569425363193013609
-#G4double GetXsec(G4double e)_6
-@e=-1
-1.53489e+09
-@e=0
-46760.3
-@e=0.00051234
-4378.56
-@e=1.58923
-15.1255
-@e=513.187
-84.8337
-#G4double GetXsec(G4double e, G4int min)_6
-@e=-1
-@min=-1
-1.53489e+09
-@e=-1
-@min=0
-1.53489e+09
-@e=-1
-@min=121297
-1.53489e+09
-@e=-1
-@min=242593
-1.53489e+09
-@e=-1
-@min=242594
-1.53489e+09
-@e=0
-@min=-1
-46760.3
-@e=0
-@min=0
-46760.3
-@e=0
-@min=121297
-46760.3
-@e=0
-@min=242593
-46760.3
-@e=0
-@min=242594
-46760.3
-@e=0.00051234
-@min=-1
-4378.56
-@e=0.00051234
-@min=0
-4378.56
-@e=0.00051234
-@min=121297
-4378.56
-@e=0.00051234
-@min=242593
-4378.56
-@e=0.00051234
-@min=242594
-4378.56
-@e=1.58923
-@min=-1
-15.1255
-@e=1.58923
-@min=0
-15.1255
-@e=1.58923
-@min=121297
-15.1255
-@e=1.58923
-@min=242593
-15.1255
-@e=1.58923
-@min=242594
-15.1255
-@e=513.187
-@min=-1
-84.8337
-@e=513.187
-@min=0
-84.8337
-@e=513.187
-@min=121297
-84.8337
-@e=513.187
-@min=242593
-84.8337
-@e=513.187
-@min=242594
-84.8337
-#G4double SampleLin()_6
-$1.07129e+07
-#G4double Sample()_6
-$1.14387e+07
-#G4double Get15PercentBorder()_6
-4.4e+06
-#G4double Get50PercentBorder()_6
-1.17496e+07
-#void Times(G4double factor)_6
-@factor=-4.67
-theData xVals hash: 16082830809520917107
-theData yVals hash: 4187932830574422470
-theIntegral hash: 15619544932401450365
-@factor=-1.525e-05
-theData xVals hash: 16082830809520917107
-theData yVals hash: 3288109314193836618
-theIntegral hash: 15619544932401450365
-@factor=0.00090982
-theData xVals hash: 16082830809520917107
-theData yVals hash: 12351123038835423430
-theIntegral hash: 15619544932401450365
-@factor=1.54333e+07
-theData xVals hash: 16082830809520917107
-theData yVals hash: 569425363193013609
-theIntegral hash: 15619544932401450365
-#void SetPoint(G4int i, const G4ParticleHPDataPoint & it)_6
-@i=-1
-@x=0.674525
-@y=0.737175
-theData xVals hash: 16082830809520917107
-theData yVals hash: 569425363193013609
-@i=0
-@x=0.69846
-@y=0.0227995
-theData xVals hash: 18397182415033339234
-theData yVals hash: 1455442707195540424
-@i=121297
-@x=0.191984
-@y=0.670991
-theData xVals hash: 10505210695898925213
-theData yVals hash: 9210196055197380394
-@i=242593
-@x=0.345872
-@y=0.0662903
-theData xVals hash: 9398706473952381314
-theData yVals hash: 16555705405241266553
-@i=242594
-@x=0.14071
-@y=0.921117
-theData xVals hash: 9911964083262845079
-theData yVals hash: 8486322597291556643
-#void SetData(G4int i, G4double x, G4double y)_6
-@i=-1
-@x=0.221656
-@y=0.380115
-theData xVals hash: 9911964083262845079
-theData yVals hash: 8486322597291556643
-@i=0
-@x=0.586016
-@y=0.167313
-theData xVals hash: 11590516211648082719
-theData yVals hash: 9007329258585984958
-@i=121297
-@x=0.0263397
-@y=0.691126
-theData xVals hash: 6515426450923642489
-theData yVals hash: 9974786910215613194
-@i=242593
-@x=0.762344
-@y=0.713695
-theData xVals hash: 16265311635498900267
-theData yVals hash: 9240996292166863838
-@i=242594
-@x=0.0773243
-@y=0.589809
-theData xVals hash: 7558865659866100675
-theData yVals hash: 5369732450404980584
-#void SetX(G4int i, G4double e)_6
-@i=-1
-@x=0.925503
-theData xVals hash: 7558865659866100675
-theData yVals hash: 5369732450404980584
-@i=0
-@x=0.430446
-theData xVals hash: 15920917407431928970
-theData yVals hash: 5369732450404980584
-@i=121297
-@x=0.831256
-theData xVals hash: 14382223587171678938
-theData yVals hash: 5369732450404980584
-@i=242593
-@x=0.601638
-theData xVals hash: 11149555553481353593
-theData yVals hash: 5369732450404980584
-@i=242594
-@x=0.519337
-theData xVals hash: 6481390517599952939
-theData yVals hash: 5369732450404980584
-#void SetEnergy(G4int i, G4double e)_6
-@i=-1
-@x=0.161419
-theData xVals hash: 6481390517599952939
-theData yVals hash: 5369732450404980584
-@i=0
-@x=0.57436
-theData xVals hash: 7580828173092072526
-theData yVals hash: 5369732450404980584
-@i=121297
-@x=0.531427
-theData xVals hash: 10122461602637858210
-theData yVals hash: 5369732450404980584
-@i=242593
-@x=0.667049
-theData xVals hash: 7553243067199054522
-theData yVals hash: 5369732450404980584
-@i=242594
-@x=0.548736
-theData xVals hash: 3620176360579644709
-theData yVals hash: 5369732450404980584
-#void SetY(G4int i, G4double x)_6
-@i=-1
-@x=0.667965
-theData xVals hash: 3620176360579644709
-theData yVals hash: 5369732450404980584
-@i=0
-@x=0.571583
-theData xVals hash: 3620176360579644709
-theData yVals hash: 6582335393495465863
-@i=121297
-@x=0.441313
-theData xVals hash: 3620176360579644709
-theData yVals hash: 17252752808377143588
-@i=242593
-@x=0.502275
-theData xVals hash: 3620176360579644709
-theData yVals hash: 12116266986092176281
-@i=242594
-@x=0.0316565
-theData xVals hash: 3620176360579644709
-theData yVals hash: 14089331617330398784
-#void SetXsec(G4int i, G4double x)_6
-@i=-1
-@x=0.522063
-theData xVals hash: 3620176360579644709
-theData yVals hash: 14089331617330398784
-@i=0
-@x=0.0350595
-theData xVals hash: 3620176360579644709
-theData yVals hash: 12788096995096067508
-@i=121297
-@x=0.107181
-theData xVals hash: 3620176360579644709
-theData yVals hash: 15721562173133296591
-@i=242593
-@x=0.551829
-theData xVals hash: 3620176360579644709
-theData yVals hash: 3872890826226946639
-@i=242594
-@x=0.611111
-theData xVals hash: 3620176360579644709
-theData yVals hash: 7499503193467483396
-#const G4ParticleHPDataPoint GetPoint(G4int i)_6
-@i=-1
-(0.57436,0.0350595)
-@i=0
-(0.57436,0.0350595)
-@i=121297
-(0.531427,0.107181)
-@i=242593
-(0.667049,0.551829)
-@i=242594
-(0.548736,0.611111)
-#G4double GetEnergy(G4int i)_6
-@i=-1
-0.57436
-@i=0
-0.57436
-@i=121297
-0.531427
-@i=242593
-0.667049
-@i=242594
-0.548736
-#G4double GetX(G4int i)_6
-@i=-1
-0.57436
-@i=0
-0.57436
-@i=121297
-0.531427
-@i=242593
-0.667049
-@i=242594
-0.548736
-#G4double GetXsec(G4int i)_6
-@i=-1
-0.0350595
-@i=0
-0.0350595
-@i=121297
-0.107181
-@i=242593
-0.551829
-@i=242594
-0.611111
-#G4double GetY(G4int i)_6
-@i=-1
-0.0350595
-@i=0
-0.0350595
-@i=121297
-0.107181
-@i=242593
-0.551829
-@i=242594
-0.611111
-#void ThinOut(G4double precision)_6
-@precision=-1
-theData xVals hash: 3620176360579644709
-theData yVals hash: 7499503193467483396
-@precision=0
-theData xVals hash: 13184183989977297097
-theData yVals hash: 15266794621650774970
-@precision=0.00051234
-theData xVals hash: 18340613153627739530
-theData yVals hash: 10551608720498518401
-@precision=1.58923
-theData xVals hash: 9797385101082542226
-theData yVals hash: 5265006066132620104
-@precision=513.187
-theData xVals hash: 16942721548957039551
-theData yVals hash: 3904643891384310491
-#G4ParticleHPVector & operator = (const G4ParticleHPVector & right)_6
-hash: 16942721548957039551
+#void Init(std

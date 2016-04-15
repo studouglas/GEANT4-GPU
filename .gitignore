@@ -8,6 +8,8 @@
 *.log
 *.synctex.gz
 *.toc
+*.snm
+*.nav
 Documentation/*/*.out
 
 # Xcode project files

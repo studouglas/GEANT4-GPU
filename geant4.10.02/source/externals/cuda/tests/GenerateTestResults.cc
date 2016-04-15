@@ -49,7 +49,6 @@ void writeOutArray(double* arr, int count) {
 		resultsFile << "[]";
 		return;
 	}
-	std::cout << "print arr\n";
 	// round our doubles within tolerance before calculating hash
 	for (int i = 0; i < count; i++) {
 		arr[i] = round(arr[i]*DOUBLE_PRECISION)/DOUBLE_PRECISION;
@@ -339,9 +338,7 @@ void testGetXSec(int caseNum) {
 			writeOutDoubleInput("min", minVals[j]);
 			try {
 				double t1 = getWallTime();
-				std::cout << "pre write double\n";
 				writeOutDouble(vectors[caseNum]->GetXsec(testVals[i], minVals[j]));
-				std::cout << "post write double\n";
 				double t2 = getWallTime();
 				writeOutTime(t2-t1);
 			} catch (G4HadronicException e)  {

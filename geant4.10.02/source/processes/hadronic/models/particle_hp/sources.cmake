@@ -19,12 +19,9 @@
 include_directories(${CLHEP_INCLUDE_DIRS})
 include_directories(${ZLIB_INCLUDE_DIRS})
 
-# NOTE ABOUT CUDA LIBRARY ---------------------------------
-# the variabla ${G4CUDA_INCLUDE_DIRS} is correctly set in 
-# cmake/modules/Geant4OptionalComponents.cmake, but including it 
-# here it can't be found, so for now we're explicitly including it
-# via its full path in the G4ParticleVector.hh file
-# TODO: set a macro w/ its location in the .hh file  so it's a bit better
+if (GEANT4_ENABLE_CUDA)
+    set(G4CUDA_LIBRARIES_IF_ENABLED ${G4CUDA_LIBRARIES})
+endif()
 
 # List internal includes needed.
 include_directories(${CMAKE_SOURCE_DIR}/source/geometry/management/include)
@@ -70,6 +67,7 @@ GEANT4_DEFINE_MODULE(NAME G4had_par_hp
     G4ParticleHP2NAInelasticFS.hh
     G4ParticleHPProduct.hh
     G4ParticleHP2NDInelasticFS.hh
+    CUDAGPU.hh
     G4ParticleHPVector.hh
     G4ParticleHP2NInelasticFS.hh
     G4VParticleHPEDis.hh
@@ -462,7 +460,7 @@ GEANT4_DEFINE_MODULE(NAME G4had_par_hp
     G4track
   LINK_LIBRARIES
     ${ZLIB_LIBRARIES}
-    ${G4CUDA_LIBRARIES}
+    ${G4CUDA_LIBRARIES_IF_ENABLED}
   )
 
 # List any source specific properties here
