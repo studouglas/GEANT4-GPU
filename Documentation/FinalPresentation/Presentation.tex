@@ -145,7 +145,7 @@ a solution:
 \begin{itemize}
 \item Existing projects can use GPU acceleration without having to change any code 
 \item Flag during build phase enables/disables GPU acceleration
-\item Interface remains the same\footnote{implementation 1 only}, acceleration happens ``invisibly''
+\item Interface remains the same\footnote{implementation 1 only}, acceleration happens behind the scenes
 \end{itemize}
 \end{frame}
 
@@ -246,6 +246,23 @@ Calls to \texttt{G4ParticleHPVector} forwarded to new GPU-based class\\~\\ % hac
 \emph{Hadr04 With Visualization}
 
 \end{center}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{memcpy optimization}
+\begin{itemize}
+\item Keep track of which version of the data is most up-to-date
+\item Only copy data when it has been modified
+\end{itemize}
+\begin{block}{CopyToCpuIfDirty}
+\begin{lstlisting}
+if(isDataDirtyHost){
+   cudaMemcpy(h_theData, d_theData, nEntries);
+   isDataDirtyHost = false;
+}
+\end{lstlisting}
+\end{block}
+
 \end{frame}
 
 \subsubsection{Implementation of Select Methods on GPU}
