@@ -1,0 +1,23 @@
+ Run terminated.
+Run Summary
+  Number of events processed : 600
+  User=17.01s Real=17.02s Sys=0s
+
+ The run is 600 neutron of 2 MeV through 50 cm  of Water_ts (density: 1 g/cm3 )
+
+ Process calls frequency :
+        hadElastic= 131588      nCapture= 600
+
+ Parcours of incident neutron:
+   nb of collisions    E>1*eV= 16.708      E<1*eV= 203.6       total= 220.31
+   track length        E>1*eV= 20.057 cm   E<1*eV= 76.437 cm    total= 96.495 cm 
+   time of flight      E>1*eV= 772.72 ns   E<1*eV= 209.8 mus   total= 210.57 mus
+
+ List of generated particles:
+            O16:    1819  Emean =  41.788 keV   ( 2.1992 meV --> 446.59 keV)
+            O17:       3  Emean =  316.87 eV    ( 187.15 eV  --> 544.69 eV )
+            O18:       1  Emean =  9.3256 eV    ( 9.3256 eV  --> 9.3256 eV )
+       deuteron:     597  Emean =   1.319 keV   ( 1.2775 keV --> 1.7025 keV)
+          gamma:     602  Emean =  2.2229 MeV   ( 870.8 keV --> 4.1431 MeV)
+         proton:   13860  Emean =  81.141 keV   ( 0.14188 meV --> 1.9993 MeV)
+... write Root file : Water_thermal_44.root - done
