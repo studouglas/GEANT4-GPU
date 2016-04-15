@@ -434,7 +434,7 @@ d_queryList[threadID] = i;
 Performance of implementation 2 also proved slower than 
 original Geant4 implementations of ParticleHPVector
 \begin{itemize}
-\item Buffered implementation begins to tapper off, but at a 
+\item Buffered implementation begins to taper off, but at a 
 much slower rate than the original
 \end{itemize}
 \end{frame}
@@ -449,51 +449,12 @@ much slower rate than the original
 \end{frame}
 
 \begin{frame}
-\frametitle{Impl. 2: Performance Results -- System Tests}
-System Test \#1:
-\begin{table}
-	\begin{tabular}{lll}
-	\toprule
-	\bf CPU Time&\bf  GPU Time&\bf Speedup of GPU\\\midrule
-	54.55s&72.08s&-1.32$\times$\\\bottomrule
-	\end{tabular}
-	\caption{Performance - Water, 2000 events}
-\end{table}
-System Test \#2:
-\begin{table}
-	\begin{tabular}{lll}
-	\toprule
-	\bf CPU Time&\bf  GPU Time&\bf Speedup of GPU\\\midrule
-	54.55s&72.08s&-1.32$\times$\\\bottomrule
-	\end{tabular}
-	\caption{Performance - Uranium, 2000 events}
-\end{table}
-\end{frame}
-
-\begin{frame}
-\frametitle{Impl. 2: Performance Results -- System Tests (Cont.)}
-System Test \#3:
-\begin{table}
-	\begin{tabular}{lll}
-	\toprule
-	\bf CPU Time&\bf  GPU Time&\bf Speedup of GPU\\\midrule
-	54.55s&72.08s&-1.32$\times$\\\bottomrule
-	\end{tabular}
-	\caption{Performance - Water, 2000 events}
-\end{table}
-System Test \#4:
-\begin{table}
-	\begin{tabular}{lll}
-	\toprule
-	\bf CPU Time&\bf  GPU Time&\bf Speedup of GPU\\\midrule
-	54.55s&72.08s&-1.32$\times$\\\bottomrule
-	\end{tabular}
-	\caption{Performance - Uranium, 2000 events}
-\end{table}
-\end{frame}
-
-\begin{frame}
 \frametitle{Impl. 2: Performance Discussion}
+\begin{itemize}
+\item CPU implemenation makes use of \texttt{Hash} to quickly find minimum index
+\item Finding first element satisfying predicate not well-suited to parallelism
+\item If one thread finds element, must wait for all other threads (blocked ifs)
+\end{itemize}
 \end{frame}
 
 \subsection{Accuracy / Testing}
@@ -621,7 +582,6 @@ with instructions for installing and testing
 \end{frame}
 
 \begin{frame}
-\end{itemize}
 For further work with regards to parallelizing Geant4:
 \begin{itemize}
 \item Try parallelizing other commonly use components in similar style
