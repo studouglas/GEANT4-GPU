@@ -145,7 +145,7 @@ a solution:
 \begin{itemize}
 \item Existing projects can use GPU acceleration without having to change any code 
 \item Flag during build phase enables/disables GPU acceleration
-\item No new functions to learn \footnote{implementation 1 only}
+\item Interface remains the same\footnote{implementation 1 only}, acceleration happens ``invisibly''
 \end{itemize}
 \end{frame}
 
@@ -363,7 +363,10 @@ System Test \#4:
 \begin{frame}
 \frametitle{Impl. 1: Performance Discussion}
 \begin{itemize}
-\item Simple ``getters'' and ``setters'' require copy from GPU to CPU memory
+\item Simple ``getters'' and ``setters'' now require copy from GPU to CPU memory
+\item Current code calling \texttt{G4ParticleHPVector} more data-oriented than computation-oriented
+\item Low \texttt{GetXSec} performance due to lack of \texttt{Hash} object on GPU to accelerate finding min index
+\item Although some functions faster, rarely used in practice
 \end{itemize}
 \end{frame}
 
@@ -428,6 +431,12 @@ d_queryList[threadID] = i;
 \subsubsection{Impl. 2: Performance}
 \begin{frame}
 \frametitle{Impl. 2: Performance Results Summary}
+Performance of implementation 2 also proved slower than 
+original Geant4 implementations of ParticleHPVector
+\begin{itemize}
+\item Buffered implementation begins to tapper off, but at a 
+much slower rate than the original
+\end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -508,7 +517,7 @@ test conform.
 \end{frame}
 
 \begin{frame}
-\frametitle{Accuracy}
+\frametitle{Accuracy Discussion}
 \begin{itemize}
 \item The deviations in SampleLin and Sample can be 
 attributed to the functions use of random numbers
@@ -609,13 +618,17 @@ between the host and device
 \item Up-to-date work can be found on out github, along 
 with instructions for installing and testing
 \end{itemize}
+\end{frame}
+
+\begin{frame}
+\end{itemize}
 For further work with regards to parallelizing Geant4:
 \begin{itemize}
 \item Try parallelizing other commonly use components in similar style
 \begin{itemize}
 \item Look for classes manipulating list-style data structures
-\item Classes with functions that have nested loops or are heavy in computation are prime candidates
-\item Probabilistic functions and getter/setter functions won't benefit greatly
+\item Classes with functions that have nested loops or are heavy in computing are prime candidates
+\item Probabilistic functions and getter/setter functions won't have considerable benefits
 \item Functions with conditional branching may cause bottlenecks in parallelization
 \end{itemize}
 \end{itemize}
