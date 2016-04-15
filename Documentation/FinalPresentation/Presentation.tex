@@ -42,20 +42,6 @@ Stuart Douglas -- dougls2
 \begin{frame}
 \frametitle{Brief Project Overview}
 Take an existing particle simulation toolkit - Geant4 - and have some functions run on a GPU device to improve performance.
-\begin{table}[htdp]
-\begin{center}
-\begin{tabular}{cc}
-\toprule
-\textbf{test} & \textbf{test}\\\midrule
-a & b\\
-a & b\\
-a & b\\
-\bottomrule
-\end{tabular}
-\end{center}
-\caption{default}
-\end{table}%
-
 \end{frame}
 
 \subsection{Explanation of Terms}
@@ -102,6 +88,32 @@ a & b\\
 \end{itemize}
 \item Ensure correctness of each GPU available function by matching results to the corresponding CPU function
 \item Compare performance of GPU available functions to CPU functions
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Possible Implementations}
+There were initially five possible implementations to reach 
+a solution:
+\begin{itemize}
+\item Port Geant4 to the GPU such that each particle runs in parallel
+\item Port all the functions of some class(es) to the GPU, with those functions privatized to the GPU
+\item Port some functions of some class(es) to the GPU, memory stored on host, passing mem to device as necessary
+\item Port some functions of some class(es) to the GPU, memory stored and updated on host and device
+\item Port some functions of some class(es) to the GPU, data divided between host and device, passing mem as necessary
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Solution Choice}
+\begin{itemize}
+\item Implementation 1 was believed to be unreasonable given schedule/resource limitations
+\item Implementation 5 was found to be most suitable
+\begin{itemize}
+\item Easy to switch between CPU \& GPU versions
+\item Less memory usage than other implementations
+\item Least redundancy in computation
+\end{itemize}
 \end{itemize}
 \end{frame}
 
@@ -229,7 +241,10 @@ Calls to \texttt{G4ParticleHPVector} forwarded to new GPU-based class\\~\\ % hac
 \begin{frame}
 \frametitle{Demonstration}
 \begin{center}
-\emph{Hadr04 with Visualization}
+\emph{Demonstration -- Running Geant4 on the GPU}
+
+\emph{Hadr04 With Visualization}
+
 \end{center}
 \end{frame}
 
@@ -304,63 +319,46 @@ for (int i = start; i < nEntries; i += numThreads)
 
 \begin{frame}
 \frametitle{Impl. 1: Performance Results -- System Tests}
-\textbf{System Test \#1:}\\
+System Test \#1:
 \begin{table}
-		\caption{Performance - Water, 2000 events}
-		\begin{tabular}{lll}
-		\bf CPU Time&\bf  GPU Time&\bf Speedup of GPU\\
-		54.55s&72.08s&-1.32$\times$\\
-		\end{tabular}
+	\begin{tabular}{lll}
+	\toprule
+	\bf CPU Time&\bf  GPU Time&\bf Speedup of GPU\\\midrule
+	54.55s&72.08s&-1.32$\times$\\\bottomrule
+	\end{tabular}
+	\caption{Performance - Water, 2000 events}
 \end{table}
-\textbf{System Test \#2:}\\
+System Test \#2:
 \begin{table}
-		\caption{Performance - Uranium, 2000 events}
-		\begin{tabular}{lll}
-		\bf CPU Time&\bf  GPU Time&\bf Speedup of GPU\\
-		54.55s&72.08s&-1.32$\times$\\
-		\end{tabular}
+	\begin{tabular}{lll}
+	\toprule
+	\bf CPU Time&\bf  GPU Time&\bf Speedup of GPU\\\midrule
+	54.55s&72.08s&-1.32$\times$\\\bottomrule
+	\end{tabular}
+	\caption{Performance - Uranium, 2000 events}
 \end{table}
 \end{frame}
 
 \begin{frame}
 \frametitle{Impl. 1: Performance Results -- System Tests (Cont.)}
-\textbf{System Test \#3:}\\
+System Test \#3:
 \begin{table}
-		\caption{Performance - Water, 2000 events}
-		\begin{tabular}{lll}
-		\bf CPU Time&\bf  GPU Time&\bf Speedup of GPU\\
-		54.55s&72.08s&-1.32$\times$\\
-		\end{tabular}
+	\begin{tabular}{lll}
+	\toprule
+	\bf CPU Time&\bf  GPU Time&\bf Speedup of GPU\\\midrule
+	54.55s&72.08s&-1.32$\times$\\\bottomrule
+	\end{tabular}
+	\caption{Performance - Water, 2000 events}
 \end{table}
-\textbf{System Test \#4:}\\
+System Test \#4:
 \begin{table}
-		\caption{Performance - Uranium, 2000 events}
-		\begin{tabular}{lll}
-		\bf CPU Time&\bf  GPU Time&\bf Speedup of GPU\\
-		54.55s&72.08s&-1.32$\times$\\
-		\end{tabular}
-\end{table}
-\end{frame}
-
-\begin{frame}
-\frametitle{Impl. 2: Performance Results -- System Tests (Cont.)}
-\textbf{System Test \#5:}\\
-\begin{table}
-		\caption{Performance - Water, 2000 events}
-		\begin{tabular}{lll}
-		\bf CPU Time&\bf  GPU Time&\bf Speedup of GPU\\
-		54.55s&72.08s&-1.32$\times$\\
-		\end{tabular}
-\end{table}
-\textbf{System Test \#6:}\\
-\begin{table}
-		\caption{Performance - Uranium, 2000 events}
-		\begin{tabular}{lll}
-		\bf CPU Time&\bf  GPU Time&\bf Speedup of GPU\\
-		54.55s&72.08s&-1.32$\times$\\
-		\end{tabular}
-\end{table}
-\end{frame}
+	\begin{tabular}{lll}
+	\toprule
+	\bf CPU Time&\bf  GPU Time&\bf Speedup of GPU\\\midrule
+	54.55s&72.08s&-1.32$\times$\\\bottomrule
+	\end{tabular}
+	\caption{Performance - Uranium, 2000 events}
+\end{table}\end{frame}
 
 \begin{frame}
 \frametitle{Impl. 1: Performance Discussion}
@@ -434,66 +432,54 @@ d_queryList[threadID] = i;
 
 \begin{frame}
 \frametitle{Impl. 2: Performance Results -- \texttt{GetXSecList}}
+\begin{figure}
+\centering
+\includegraphics[width=0.8\textwidth]{images/getxseclist_100000.png}
+\caption{Runtime vs. Number of Data Points -- \texttt{GetXSecList}, 100,000 Queries}
+\end{figure}
 \end{frame}
-
 
 \begin{frame}
 \frametitle{Impl. 2: Performance Results -- System Tests}
-\textbf{System Test \#1:}\\
+System Test \#1:
 \begin{table}
-		\caption{Performance - Water, 2000 events}
-		\begin{tabular}{lll}
-		\bf CPU Time&\bf  GPU Time&\bf Speedup of GPU\\
-		54.55s&72.08s&-1.32$\times$\\
-		\end{tabular}
+	\begin{tabular}{lll}
+	\toprule
+	\bf CPU Time&\bf  GPU Time&\bf Speedup of GPU\\\midrule
+	54.55s&72.08s&-1.32$\times$\\\bottomrule
+	\end{tabular}
+	\caption{Performance - Water, 2000 events}
 \end{table}
-\textbf{System Test \#2:}\\
+System Test \#2:
 \begin{table}
-		\caption{Performance - Uranium, 2000 events}
-		\begin{tabular}{lll}
-		\bf CPU Time&\bf  GPU Time&\bf Speedup of GPU\\
-		54.55s&72.08s&-1.32$\times$\\
-		\end{tabular}
-\end{table}
-\end{frame}
-
-\begin{frame}
-\frametitle{Impl. 2: Performance Results -- System Tests (Cont.)}
-\textbf{System Test \#3:}\\
-\begin{table}
-		\caption{Performance - Water, 2000 events}
-		\begin{tabular}{lll}
-		\bf CPU Time&\bf  GPU Time&\bf Speedup of GPU\\
-		54.55s&72.08s&-1.32$\times$\\
-		\end{tabular}
-\end{table}
-\textbf{System Test \#4:}\\
-\begin{table}
-		\caption{Performance - Uranium, 2000 events}
-		\begin{tabular}{lll}
-		\bf CPU Time&\bf  GPU Time&\bf Speedup of GPU\\
-		54.55s&72.08s&-1.32$\times$\\
-		\end{tabular}
+	\begin{tabular}{lll}
+	\toprule
+	\bf CPU Time&\bf  GPU Time&\bf Speedup of GPU\\\midrule
+	54.55s&72.08s&-1.32$\times$\\\bottomrule
+	\end{tabular}
+	\caption{Performance - Uranium, 2000 events}
 \end{table}
 \end{frame}
 
 \begin{frame}
 \frametitle{Impl. 2: Performance Results -- System Tests (Cont.)}
-\textbf{System Test \#5:}\\
+System Test \#3:
 \begin{table}
-		\caption{Performance - Water, 2000 events}
-		\begin{tabular}{lll}
-		\bf CPU Time&\bf  GPU Time&\bf Speedup of GPU\\
-		54.55s&72.08s&-1.32$\times$\\
-		\end{tabular}
+	\begin{tabular}{lll}
+	\toprule
+	\bf CPU Time&\bf  GPU Time&\bf Speedup of GPU\\\midrule
+	54.55s&72.08s&-1.32$\times$\\\bottomrule
+	\end{tabular}
+	\caption{Performance - Water, 2000 events}
 \end{table}
-\textbf{System Test \#6:}\\
+System Test \#4:
 \begin{table}
-		\caption{Performance - Uranium, 2000 events}
-		\begin{tabular}{lll}
-		\bf CPU Time&\bf  GPU Time&\bf Speedup of GPU\\
-		54.55s&72.08s&-1.32$\times$\\
-		\end{tabular}
+	\begin{tabular}{lll}
+	\toprule
+	\bf CPU Time&\bf  GPU Time&\bf Speedup of GPU\\\midrule
+	54.55s&72.08s&-1.32$\times$\\\bottomrule
+	\end{tabular}
+	\caption{Performance - Uranium, 2000 events}
 \end{table}
 \end{frame}
 
@@ -506,7 +492,7 @@ d_queryList[threadID] = i;
 \frametitle{Accuracy}
 \begin{itemize}
 \item All modified functions except SampleLin and Sample
-yield results that precisely match 
+yield results that precisely match original implementations
 \end{itemize}
 \begin{itemize}
 \item Some functions fell extremely close in accuracy to 
@@ -614,6 +600,25 @@ Two main functions:
 \subsection{Recommendations}
 \begin{frame}
 \frametitle{Recommendations}
+For further work with regards to ParticleHPVector:
+\begin{itemize}
+\item Abstact further up the Geant4 system, parallelizing 
+components that make reference to NeutronHPVector
+\item This will decrease the frequency of data transfer 
+between the host and device
+\item Up-to-date work can be found on out github, along 
+with instructions for installing and testing
+\end{itemize}
+For further work with regards to parallelizing Geant4:
+\begin{itemize}
+\item Try parallelizing other commonly use components in similar style
+\begin{itemize}
+\item Look for classes manipulating list-style data structures
+\item Classes with functions that have nested loops or are heavy in computation are prime candidates
+\item Probabilistic functions and getter/setter functions won't benefit greatly
+\item Functions with conditional branching may cause bottlenecks in parallelization
+\end{itemize}
+\end{itemize}
 \end{frame}
 
 \end{document}
