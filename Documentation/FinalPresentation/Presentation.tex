@@ -333,7 +333,7 @@ System Test \#1:
 	\begin{tabular}{lll}
 	\toprule
 	\bf CPU Time&\bf  GPU Time&\bf Speedup of GPU\\\midrule
-	54.55s&72.08s&-1.32$\times$\\\bottomrule
+	17.01s&60.96s&-3.58$\times$\\\bottomrule
 	\end{tabular}
 	\caption{Performance - Water, 500 events}
 \end{table}
@@ -342,7 +342,7 @@ System Test \#2:
 	\begin{tabular}{lll}
 	\toprule
 	\bf CPU Time&\bf  GPU Time&\bf Speedup of GPU\\\midrule
-	54.55s&72.08s&-1.32$\times$\\\bottomrule
+	54.85s&196.34s&-3.58$\times$\\\bottomrule
 	\end{tabular}
 	\caption{Performance - Water, 2000 events}
 \end{table}
@@ -433,6 +433,28 @@ similar CPU-based method
 \caption{Runtime vs. Number of Data Points -- \texttt{GetXSecList}, 100,000 Queries}
 \end{figure}
 \end{frame}
+
+\begin{frame}
+\frametitle{Impl. 2: Performance Results -- System Tests}
+System Test \#1:
+\begin{table}
+	\begin{tabular}{lll}
+	\toprule
+	\bf CPU Time&\bf  GPU Time&\bf Speedup of GPU\\\midrule
+	17.03s&17.11s&-1.004$\times$\\\bottomrule
+	\end{tabular}
+	\caption{Performance - Water, 600 events}
+\end{table}
+System Test \#2:
+\begin{table}
+	\begin{tabular}{lll}
+	\toprule
+	\bf CPU Time&\bf  GPU Time&\bf Speedup of GPU\\\midrule
+	54.89s&55.02s&-1.002$\times$\\\bottomrule
+	\end{tabular}
+	\caption{Performance - Water, 2000 events}
+\end{table}
+\end{frame}`
 
 \begin{frame}
 \frametitle{Impl. 2: Performance Discussion}
