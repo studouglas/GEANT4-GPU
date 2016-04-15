@@ -4,6 +4,7 @@
 \usepackage{graphicx}
 \usepackage[font={footnotesize}]{caption}
 \usepackage{textcomp}
+\usepackage{booktabs}
 \usepackage{listings}
 \lstset{language=C++,basicstyle=\footnotesize\ttfamily,keywordstyle=\color{red}}
 \newcommand{\textapprox}{\raisebox{0.5ex}{\texttildelow}}
@@ -41,6 +42,20 @@ Stuart Douglas -- dougls2
 \begin{frame}
 \frametitle{Brief Project Overview}
 Take an existing particle simulation toolkit - Geant4 - and have some functions run on a GPU device to improve performance.
+\begin{table}[htdp]
+\begin{center}
+\begin{tabular}{cc}
+\toprule
+\textbf{test} & \textbf{test}\\\midrule
+a & b\\
+a & b\\
+a & b\\
+\bottomrule
+\end{tabular}
+\end{center}
+\caption{default}
+\end{table}%
+
 \end{frame}
 
 \subsection{Explanation of Terms}
@@ -350,10 +365,9 @@ for (int i = start; i < nEntries; i += numThreads)
 \begin{frame}
 \frametitle{Impl. 1: Performance Discussion}
 \begin{itemize}
-\item Simple ``getters'' and ``setters'' now 
+\item Simple ``getters'' and ``setters'' require copy from GPU to CPU memory
 \end{itemize}
 \end{frame}
-
 
 \subsection{Impl. 2: Add New GPU-Accelerated Methods to Interface}
 \begin{frame}
