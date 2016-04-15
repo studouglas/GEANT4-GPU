@@ -41,16 +41,16 @@ Stuart Douglas -- dougls2
 \subsection{Brief Project Overview}
 \begin{frame}
 \frametitle{Brief Project Overview}
-Take an existing particle simulation toolkit - Geant4 - and have some functions run on a GPU device to improve performance.
+Take an existing particle simulation toolkit - Geant4 - and have some functions run on a GPU device to improve performance
 \end{frame}
 
 \subsection{Explanation of Terms}
 \begin{frame}
 \frametitle{What is Geant4?}
 \begin{itemize}
-\item Geant4 is a toolkit that is meant to simulate the passage of particles through matter. 
-\item It has been developed over the years through collaborative effort of many different institutions and individuals. 
-\item Geant4's diverse particle simulation library has a wide variety of applications including
+\item Geant4 is a toolkit that is meant to simulate the passage of particles through matter
+\item It has been developed over the years through collaborative effort of many different institutions and individuals
+\item Geant4's diverse particle simulation library has a wide variety of applications including:
 \begin{itemize}
 \item High energy physics simulations
 \item Space and radiation simulations
@@ -81,38 +81,28 @@ Take an existing particle simulation toolkit - Geant4 - and have some functions 
 \begin{frame}
 \begin{itemize}
 \frametitle{Scope}
-\item Make current CPU functions available for use on GPU
+\item Make current CPU methods available for use on GPU
 \begin{itemize}
-\item Add appropriate prefixes to function definitions
-\item Make use of multiple parallel threads to execute each function
+\item Update build system to support compiling and linking with GPU code
+\item Rewrite algorithms in parallel fashion to run on GPU
 \end{itemize}
-\item Ensure correctness of each GPU available function by matching results to the corresponding CPU function
-\item Compare performance of GPU available functions to CPU functions
-\end{itemize}
-\end{frame}
-
-\begin{frame}
-\frametitle{Possible Implementations}
-There were initially five possible implementations to reach 
-a solution:
-\begin{itemize}
-\item Port Geant4 to the GPU such that each particle runs in parallel
-\item Port all the functions of some class(es) to the GPU, with those functions privatized to the GPU
-\item Port some functions of some class(es) to the GPU, memory stored on host, passing mem to device as necessary
-\item Port some functions of some class(es) to the GPU, memory stored and updated on host and device
-\item Port some functions of some class(es) to the GPU, data divided between host and device, passing mem as necessary
+\item Ensure correctness of each GPU-available method by matching results to the corresponding CPU method
+\item Compare performance of GPU-available methods to CPU methods
 \end{itemize}
 \end{frame}
 
 \begin{frame}
-\frametitle{Solution Choice}
+\frametitle{Design Phase -- Possible Implementations}
+There were initially two different implementation approaches:
 \begin{itemize}
-\item Implementation 1 was believed to be unreasonable given schedule/resource limitations
-\item Implementation 5 was found to be most suitable
+\item Port much of Geant4 to the GPU such that each particle runs in parallel
 \begin{itemize}
-\item Easy to switch between CPU \& GPU versions
-\item Less memory usage than other implementations
-\item Least redundancy in computation
+\item Unreasonable given schedule/resource limitations
+\end{itemize}
+\item Port all methods in some modules to the GPU, storing all relevant data in GPU memory
+\begin{itemize}
+\item Easy to switch between CPU \& GPU implementations
+\item Supports splitting up work by module and by method, and working incrementally
 \end{itemize}
 \end{itemize}
 \end{frame}
@@ -120,9 +110,9 @@ a solution:
 \subsection{Purpose}
 \begin{frame}
 \begin{itemize}
-\item Determine if target functions are suitable to parallelization 
-\item Increase performance of functions when run on GPU
-\item Decrease time required to run simulations involving ported functions
+\item Determine if target methods are suitable to parallelization 
+\item Increase performance of methods when run on GPU
+\item Decrease time required to run simulations involving ported methods
 \end{itemize}
 \frametitle{Purpose}
 \end{frame}
@@ -131,6 +121,7 @@ a solution:
 \section{Features}
 \begin{frame}
 \frametitle{Features}
+Overview of Main Features:
 \begin{itemize}
 \item GPU acceleration available on an ``opt-in'' basis
 \item Easy to enable/disable GPU acceleration
@@ -158,10 +149,7 @@ a solution:
 
 \begin{frame}[fragile]
 \frametitle{Easily Enable/Disable GPU Acceleration}
-Method calls to \texttt{G4ParticleHPVector} forwarded to GPU-based implementation
-\begin{itemize}
-\item This decision is made at compile time based on \texttt{cmake} flag
-\end{itemize}
+Methods with GPU versions forwarded to GPU-based implementation at compile time
 
 \begin{block}{Example of Forwarding Method Calls}
 \begin{lstlisting}
@@ -187,9 +175,10 @@ CUDA is a GP-GPU programming model developed by NVIDIA, for use with NVIDIA grap
 \end{frame}
 
 \begin{frame}
-\frametitle{Why \texttt{G4ParticleHPVector}?}
+\frametitle{\texttt{G4ParticleHPVector} Overview}
+Represents empirically-found probabilities of collisions for different particles based on their energy
+
 \begin{itemize}
-\item Represents empirically-found probabilities of collisions for different particles based on their energy
 \item Identified as starting point by relevant stakeholders
 \begin{itemize}
 \item Used heavily in simulations run by stakeholders
@@ -224,17 +213,17 @@ CUDA is a GP-GPU programming model developed by NVIDIA, for use with NVIDIA grap
 \subsection{Impl. 1: Existing Module in GPU Memory}
 \begin{frame}
 \frametitle{Impl. 1: Existing Module in GPU Memory}
-Calls to \texttt{G4ParticleHPVector} forwarded to new GPU-based class\\~\\ % hack to get new line in Beamer
+Calls to \texttt{G4ParticleHPVector} forwarded to new GPU-based class\\~\\
 
 \textbf{Pros:}
 \begin{itemize}
-\pro Do not have to maintain a copy of the vector on the CPU
-\pro Do not have to maintain a hashed vector
-\pro Reduces how much is being copied to the GPU
+\pro Do not have to maintain a copy of the vector on the CPU\footnote{CPU cache was implemented later}
+\pro Data rarely copied to GPU memory
 \end{itemize}
 \textbf{Cons:}
 \begin{itemize}
-\con All methods are run on the GPU
+\con All methods are run on the GPU, even if not well-suited to parallelism
+\con Return values must be copied from GPU memory to CPU memory (slow)
 \end{itemize}
 \end{frame}
 
@@ -249,14 +238,15 @@ Calls to \texttt{G4ParticleHPVector} forwarded to new GPU-based class\\~\\ % hac
 \end{frame}
 
 \begin{frame}[fragile]
-\frametitle{memcpy optimization}
+\frametitle{Caching Data Vector in CPU Memory}
+To improve data-copying performance, maintain cache of data in CPU memory as well
 \begin{itemize}
-\item Keep track of which version of the data is most up-to-date
-\item Only copy data when it has been modified
+\item Only updated when necessary
+\item For methods that are not parallelizable, can run on CPU using cached data
 \end{itemize}
 \begin{block}{CopyToCpuIfDirty}
 \begin{lstlisting}
-if(isDataDirtyHost){
+if (isDataDirtyHost) {
    cudaMemcpy(h_theData, d_theData, nEntries);
    isDataDirtyHost = false;
 }
@@ -268,6 +258,7 @@ if(isDataDirtyHost){
 \subsubsection{Implementation of Select Methods on GPU}
 \begin{frame}[fragile]
 \frametitle{Impl. 1 -- \texttt{Times}}
+Multiplies each element in data vector by factor
 \begin{block}{Times\_CUDA}
 \begin{lstlisting} 
 int tid = blockDim.x * blockIdx.x + threadIdx.x;
@@ -279,14 +270,15 @@ if (tid < nEntries)
 
 \begin{frame}[fragile]
 \frametitle{Impl. 1 -- \texttt{GetXSec}}
+Returns y-value of first point with energy at least \texttt{e} parameter
 \begin{block}{GetXSec\_CUDA}
 \begin{lstlisting}
-int start = (blockDim.x * blockIdx.x + threadIdx.x);
-for (int i = start; i < nEntries; i += numThreads) 
+int start = blockDim.x * blockIdx.x + threadIdx.x;
+for (int i = start; i < nEntries; i += numThreads)
    if (theData[i].energy >= e) {
       resultIndex = Min(resultIndex, i);
       return;
-      }
+    }
 \end{lstlisting}
 \end{block}
 \end{frame}
@@ -295,10 +287,10 @@ for (int i = start; i < nEntries; i += numThreads)
 \begin{frame}
 \frametitle{Impl. 1: Performance Results Summary}
 \begin{itemize}
-\item Most methods slower on GPU until \textapprox 10,000 entries in data vector
+\item Methods generally slower on GPU until \textapprox 10,000 entries in data vector
 \item Most \emph{commonly-used} methods significantly slower on GPU, even with large data vector
 \begin{itemize}
-\item Lots of data accesses
+\item Lots of data copying
 \end{itemize}
 \item Many problems in vector class not well-suited to parallelism
 \end{itemize}
@@ -306,9 +298,7 @@ for (int i = start; i < nEntries; i += numThreads)
 
 \begin{frame}
 \frametitle{Impl. 1: Performance Results -- \texttt{Times}}
-\begin{itemize}
-\item Multiplies each point in vector by factor
-\end{itemize}
+Multiplies each point in vector by factor
 \begin{figure}
 \centering
 \includegraphics[width=0.8\textwidth]{images/times_line.png}
@@ -318,6 +308,7 @@ for (int i = start; i < nEntries; i += numThreads)
 
 \begin{frame}
 \frametitle{Impl. 1: Performance Results -- \texttt{GetXSec}}
+Returns y-value of first point with energy at least `\texttt{e}'
 \begin{figure}
 \centering
 \includegraphics[width=0.8\textwidth]{images/getxsec_e_line.png}
@@ -327,6 +318,7 @@ for (int i = start; i < nEntries; i += numThreads)
 
 \begin{frame}
 \frametitle{Impl. 1: Performance Results -- \texttt{SampleLin}}
+Interpolates between two random, consecutive points and their corresponding integrals
 \begin{figure}
 \centering
 \includegraphics[width=0.8\textwidth]{images/samplelin_line.png}
@@ -343,7 +335,7 @@ System Test \#1:
 	\bf CPU Time&\bf  GPU Time&\bf Speedup of GPU\\\midrule
 	54.55s&72.08s&-1.32$\times$\\\bottomrule
 	\end{tabular}
-	\caption{Performance - Water, 2000 events}
+	\caption{Performance - Water, 500 events}
 \end{table}
 System Test \#2:
 \begin{table}
@@ -352,30 +344,9 @@ System Test \#2:
 	\bf CPU Time&\bf  GPU Time&\bf Speedup of GPU\\\midrule
 	54.55s&72.08s&-1.32$\times$\\\bottomrule
 	\end{tabular}
-	\caption{Performance - Uranium, 2000 events}
-\end{table}
-\end{frame}
-
-\begin{frame}
-\frametitle{Impl. 1: Performance Results -- System Tests (Cont.)}
-System Test \#3:
-\begin{table}
-	\begin{tabular}{lll}
-	\toprule
-	\bf CPU Time&\bf  GPU Time&\bf Speedup of GPU\\\midrule
-	54.55s&72.08s&-1.32$\times$\\\bottomrule
-	\end{tabular}
 	\caption{Performance - Water, 2000 events}
 \end{table}
-System Test \#4:
-\begin{table}
-	\begin{tabular}{lll}
-	\toprule
-	\bf CPU Time&\bf  GPU Time&\bf Speedup of GPU\\\midrule
-	54.55s&72.08s&-1.32$\times$\\\bottomrule
-	\end{tabular}
-	\caption{Performance - Uranium, 2000 events}
-\end{table}\end{frame}
+\end{frame}
 
 \begin{frame}
 \frametitle{Impl. 1: Performance Discussion}
@@ -383,7 +354,7 @@ System Test \#4:
 \item Simple ``getters'' and ``setters'' now require copy from GPU to CPU memory
 \item Current code calling \texttt{G4ParticleHPVector} more data-oriented than computation-oriented
 \item Low \texttt{GetXSec} performance due to lack of \texttt{Hash} object on GPU to accelerate finding min index
-\item Although some functions faster, rarely used in practice
+\item Although some methods faster, rarely used in practice
 \end{itemize}
 \end{frame}
 
@@ -395,18 +366,18 @@ Add new methods to \texttt{G4ParticleHPVector} interface that are well-suited to
 \textbf{Pros:}
 \begin{itemize}
 \pro Only methods that run faster on the GPU are implemented
-\pro Not forced to run methods that run slowly on GPU
 \end{itemize}
 
 \textbf{Cons:}
 \begin{itemize}
-\con Will have to maintain two copies of the vector
-\con More copying the vector to and from the GPU
+\con Will have to maintain two copies of the data vector
+\con Will need to copy the vector to the GPU whenever method called
 \end{itemize}
 \end{frame}
 
 \begin{frame}
 \frametitle{Impl. 2: \texttt{GetXSecList}}
+\texttt{GetXSecList} Overview
 \begin{itemize}
 \item Fill an array of energies for which we want the cross section values for
 \item Send the array to the GPU to work on
@@ -419,10 +390,9 @@ Add new methods to \texttt{G4ParticleHPVector} interface that are well-suited to
 \begin{block}{GetXSecList}
 \begin{lstlisting}[language=C++,basicstyle=\ttfamily,keywordstyle=\color{red}]
 stepSize = sqrt(nEntries);
-i = 0;
 e = queryList[threadID];
     
-for (i = 0; i < nEntries; i += stepSize) 
+for (int i = 0; i < nEntries; i += stepSize) 
    if (d_theData[i].energy >= e) 
       break;
 \end{lstlisting}
@@ -430,7 +400,7 @@ for (i = 0; i < nEntries; i += stepSize)
 \end{frame}
 
 \begin{frame}[fragile]
-\frametitle{Implementation -- \texttt{GetXSecList -- cont}}
+\frametitle{Implementation -- \texttt{GetXSecList} Cont.}
 \begin{block}{GetXSecList -- cont}
 \begin{lstlisting}[language=C++, basicstyle=\ttfamily, keywordstyle=\color{red}]
 i =  i - (stepSize - 1); 
@@ -449,10 +419,10 @@ d_queryList[threadID] = i;
 \begin{frame}
 \frametitle{Impl. 2: Performance Results Summary}
 Performance of implementation 2 also proved slower than 
-original Geant4 implementations of ParticleHPVector
+similar CPU-based method
 \begin{itemize}
-\item Buffered implementation begins to taper off, but at a 
-much slower rate than the original
+\item Performance on GPU linear to number of elements in data array
+\item Performance on CPU not affected by number of elements after point, due to saved hashes
 \end{itemize}
 \end{frame}
 
@@ -468,9 +438,9 @@ much slower rate than the original
 \begin{frame}
 \frametitle{Impl. 2: Performance Discussion}
 \begin{itemize}
-\item CPU implemenation makes use of \texttt{Hash} to quickly find minimum index
+\item CPU implementation makes use of \texttt{Hash} to quickly find minimum index
 \item Finding first element satisfying predicate not well-suited to parallelism
-\item If one thread finds element, must wait for all other threads (blocked ifs)
+\item If one thread finds element, must wait for all other threads (blocking divergence)
 \end{itemize}
 \end{frame}
 
@@ -478,30 +448,33 @@ much slower rate than the original
 \begin{frame}
 \frametitle{Accuracy}
 \begin{itemize}
-\item All modified functions except SampleLin and Sample
+\item All modified methods except \texttt{SampleLin} and \texttt{Sample}
 yield results that precisely match original implementations
-\end{itemize}
 \begin{itemize}
-\item Some functions fell extremely close in accuracy to 
-the original, and were considered to 'pass'
-\item The average of 1000 SampleLin tests deviated from the 
-average of 1000 tests of the original with an error of 0.01 
+\item Some methods fell extremely close in accuracy to 
+the original, and were considered to `pass'
+\item For \texttt{Sample} and \texttt{SampleLin}, the average of 1000 tests was compared, with a relative error tolerance of 0.01
 \end{itemize}
+
+\item The system test results differ with more than 500 events
 \begin{itemize}
-\item The system tests differ if the number of nentries is 
-greater than 500; if not however the results of the system 
-test conform.
+\item \texttt{Sample} and \texttt{SampleLin} only called if more than 500 events
+\end{itemize}
 \end{itemize}
 \end{frame}
 
 \begin{frame}
 \frametitle{Accuracy Discussion}
 \begin{itemize}
-\item The deviations in SampleLin and Sample can be 
-attributed to the functions use of random numbers
-\item The negligable deviations in other ported functions 
-are likely attributed to differences in CPU and GPU 
-arithmetic, leading to different round-off errors
+\item The deviations in \texttt{SampleLin} and \texttt{Sample} can be 
+attributed to their use of random numbers
+\begin{itemize}
+\item CUDA random number generator will have different results than \texttt{rand()}
+\item Both methods take random point and interpolate it and its neighbour, so values differ significantly based on random number
+\end{itemize}
+\item The negligible deviations in other ported methods 
+are attributed to small differences in CPU and GPU 
+arithmetic round-off errors (\texttt{log}, \texttt{exp}, etc.)
 \end{itemize}
 \end{frame}
 
@@ -514,16 +487,15 @@ arithmetic, leading to different round-off errors
 \item \texttt{GenerateTestResults:} Run unit tests and save results to file
 \item \texttt{AnalyzeTestResults:} Compare results from CPU and GPU
 \end{enumerate}
-\item Run \texttt{GenerateTestResults} once for GPU acceleration enabled, once with it disabled
+\item Run \texttt{GenerateTestResults} once with GPU acceleration enabled, once with it disabled
 \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
 \frametitle{\texttt{GenerateTestResults} Details}
 \begin{itemize}
-\item Includes testing version number in results file for analysis stage
 \item Outputs simple results directly to results file
-\item For vectors, calculates hash for vector and output it
+\item For arrays, calculates hash for array and output it
 \item Outputs timing data to separate file
 \end{itemize}
 \begin{block}{Example: Snippet of Generated Test Results}
@@ -539,24 +511,17 @@ hash: 3204132713354913775
 \end{frame}
 
 \begin{frame}
-\frametitle{Demonstration}
-\begin{center}
-\emph{Demonstration -- Generating Test Results}
-\end{center}
-\end{frame}
-
-\begin{frame}
 \frametitle{\texttt{AnalyzeTestResults} Details}
 Two main functions:
 \begin{enumerate}
 \item Compare results for each test case, printing status to \texttt{stdout}
 \begin{itemize}
 \item If test failed, output differing values
-\item Summarize test results at the end with number passed
+\item Summarize test results at the end
 \end{itemize}
 \item Generate \texttt{.csv} file from timing data
 \begin{itemize}
-\item One row per unique method call, columns show CPU time, GPU time, method name and parameters
+\item One row per unique method call comparing CPU and GPU times
 \item Can use Excel to analyze performance results
 \end{itemize}
 \end{enumerate}
@@ -574,40 +539,32 @@ Two main functions:
 \begin{frame}
 \frametitle{Summary of Results}
 \begin{itemize}
-\item Both Implementations are on average slower than the CPU
-\item Most methods slower on GPU until ~10,000 entires in data vector
-\item Most commonly-used methods significantly slower on GPU, even with large data vector
-\begin{itemize}
-\item Lots of data accesses
-\end{itemize}
-\item SampleLin has accuracy issues due to random number generation
+\item Impl. 1 was about 1.3X slower on average in system tests
+\item Impl. 2 was about 4X slower in unit tests
+\item Most commonly-used methods not well-suited to parallelism
+\item \texttt{Sample} and \texttt{SampleLin} have accuracy issues due to random number generation
 \end{itemize}
 \end{frame}
 
 \subsection{Recommendations}
 \begin{frame}
-\frametitle{Recommendations}
-For further work with regards to ParticleHPVector:
+For further work parallelizing Geant4:
 \begin{itemize}
-\item Abstact further up the Geant4 system, parallelizing 
-components that make reference to NeutronHPVector
-\item This will decrease the frequency of data transfer 
-between the host and device
-\item Up-to-date work can be found on out github, along 
-with instructions for installing and testing
+\item Use Geant4-GPU project as framework for parallelizing other modules
+\item Look for modules storing large amounts of structured data
+\item Methods with nested loops are prime candidates for parallelization
+\item Probabilistic methods and getter/setter methods won't have considerable benefits
+\item Methods with extensive conditional branching may cause difficulties in parallelizing
 \end{itemize}
 \end{frame}
 
+\subsection{Final Thoughts}
 \begin{frame}
-For further work with regards to parallelizing Geant4:
+\frametitle{Conclusion}
 \begin{itemize}
-\item Try parallelizing other commonly use components in similar style
-\begin{itemize}
-\item Look for classes manipulating list-style data structures
-\item Classes with functions that have nested loops or are heavy in computing are prime candidates
-\item Probabilistic functions and getter/setter functions won't have considerable benefits
-\item Functions with conditional branching may cause bottlenecks in parallelization
-\end{itemize}
+\item All project collaborators have gained a lot of experience
+\item Lack of speedup disappointing, but lets us know \texttt{G4ParticleHPVector} not perfect candidate
+\item Parallelization of existing software is hard
 \end{itemize}
 \end{frame}
 
