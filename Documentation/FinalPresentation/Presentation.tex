@@ -62,7 +62,7 @@ Take an existing particle simulation toolkit - Geant4 - and have some functions 
 \begin{frame}
 \frametitle{Demonstration}
 \begin{center}
-\emph{Demonstration -- Running Geant4 on the CPU}
+\emph{Demonstration \#1 -- Running Geant4 on the CPU}
 
 \emph{Hadr04 With Visualization}
 \end{center}
@@ -143,7 +143,7 @@ Overview of Main Features:
 \begin{frame}
 \frametitle{Demonstration}
 \begin{center}
-\emph{Demonstration -- Enabling CUDA Acceleration}
+\emph{Demonstration  \#1 -- Enabling CUDA Acceleration}
 \end{center}
 \end{frame}
 
@@ -230,7 +230,7 @@ Calls to \texttt{G4ParticleHPVector} forwarded to new GPU-based class\\~\\
 \begin{frame}
 \frametitle{Demonstration}
 \begin{center}
-\emph{Demonstration -- Running Geant4 on the GPU}
+\emph{Demonstration  \#3 -- Running Geant4 on the GPU}
 
 \emph{Hadr04 With Visualization}
 
@@ -335,14 +335,14 @@ System Test \#1:
 	\bf CPU Time&\bf  GPU Time&\bf Speedup of GPU\\\midrule
 	17.01s&60.96s&-3.58$\times$\\\bottomrule
 	\end{tabular}
-	\caption{Performance - Water, 500 events}
+	\caption{Performance - Water, 600 events}
 \end{table}
 System Test \#2:
 \begin{table}
 	\begin{tabular}{lll}
 	\toprule
 	\bf CPU Time&\bf  GPU Time&\bf Speedup of GPU\\\midrule
-	54.85s&196.34s&-3.58$\times$\\\bottomrule
+	17.07s&22.11s&-1.29$\times$\\\bottomrule
 	\end{tabular}
 	\caption{Performance - Water, 2000 events}
 \end{table}
@@ -433,28 +433,6 @@ similar CPU-based method
 \caption{Runtime vs. Number of Data Points -- \texttt{GetXSecList}, 100,000 Queries}
 \end{figure}
 \end{frame}
-
-\begin{frame}
-\frametitle{Impl. 2: Performance Results -- System Tests}
-System Test \#1:
-\begin{table}
-	\begin{tabular}{lll}
-	\toprule
-	\bf CPU Time&\bf  GPU Time&\bf Speedup of GPU\\\midrule
-	17.03s&17.11s&-1.004$\times$\\\bottomrule
-	\end{tabular}
-	\caption{Performance - Water, 600 events}
-\end{table}
-System Test \#2:
-\begin{table}
-	\begin{tabular}{lll}
-	\toprule
-	\bf CPU Time&\bf  GPU Time&\bf Speedup of GPU\\\midrule
-	54.89s&55.02s&-1.002$\times$\\\bottomrule
-	\end{tabular}
-	\caption{Performance - Water, 2000 events}
-\end{table}
-\end{frame}`
 
 \begin{frame}
 \frametitle{Impl. 2: Performance Discussion}
@@ -551,7 +529,7 @@ Two main functions:
 \begin{frame}
 \frametitle{Demonstration}
 \begin{center}
-\emph{Demonstration -- Analyzing Test Results}
+\emph{Demonstration  \#4 -- Analyzing Test Results}
 \end{center}
 \end{frame}
 
