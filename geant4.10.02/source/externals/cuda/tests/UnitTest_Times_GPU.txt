@@ -997,4 +997,585 @@
 0.075166
 #G4double Get15PercentBorder()_4
 0.000108004
-#G4double Get50PercentBorder(
+#G4double Get50PercentBorder()_4
+0.000118017
+#void Times(G4double factor)_4
+@factor=-4.67
+4.79221e-05
+@factor=-1.525e-05
+2.7895e-05
+@factor=0.00090982
+2.28882e-05
+@factor=1.54333e+07
+2.09808e-05
+#void SetPoint(G4int i, const G4ParticleHPDataPoint & it)_4
+@i=-1
+@x=0.738959
+@y=0.679332
+@i=0
+@x=0.536267
+@y=0.0355877
+@i=20927
+@x=0.122507
+@y=0.973356
+@i=41853
+@x=0.188276
+@y=0.351319
+@i=41854
+@x=0.614126
+@y=0.607611
+#void SetData(G4int i, G4double x, G4double y)_4
+@i=-1
+@x=0.125933
+@y=0.552862
+@i=0
+@x=0.954028
+@y=0.356925
+@i=20927
+@x=0.838102
+@y=0.974252
+@i=41853
+@x=0.259014
+@y=0.251528
+@i=41854
+@x=0.424336
+@y=0.813048
+#void SetX(G4int i, G4double e)_4
+@i=-1
+@x=0.897914
+@i=0
+@x=0.760617
+@i=20927
+@x=0.451851
+@i=41853
+@x=0.665503
+@i=41854
+@x=0.209562
+#void SetEnergy(G4int i, G4double e)_4
+@i=-1
+@x=0.546975
+@i=0
+@x=0.175974
+@i=20927
+@x=0.431908
+@i=41853
+@x=0.687414
+@i=41854
+@x=0.836207
+#void SetY(G4int i, G4double x)_4
+@i=-1
+@x=0.973346
+@i=0
+@x=0.0803531
+@i=20927
+@x=0.769437
+@i=41853
+@x=0.250155
+@i=41854
+@x=0.769114
+#void SetXsec(G4int i, G4double x)_4
+@i=-1
+@x=0.749252
+@i=0
+@x=0.681666
+@i=20927
+@x=0.0363676
+@i=41853
+@x=0.221667
+@i=41854
+@x=0.652622
+#const G4ParticleHPDataPoint GetPoint(G4int i)_4
+@i=-1
+@i=0
+@i=20927
+@i=41853
+@i=41854
+#G4double GetEnergy(G4int i)_4
+@i=-1
+@i=0
+@i=20927
+@i=41853
+@i=41854
+#G4double GetX(G4int i)_4
+@i=-1
+@i=0
+@i=20927
+@i=41853
+@i=41854
+#G4double GetXsec(G4int i)_4
+@i=-1
+@i=0
+@i=20927
+@i=41853
+@i=41854
+#G4double GetY(G4int i)_4
+@i=-1
+@i=0
+@i=20927
+@i=41853
+@i=41854
+#void ThinOut(G4double precision)_4
+@precision=-1
+0.00265598
+@precision=0
+0.00127697
+@precision=0.00051234
+0.00123501
+@precision=1.58923
+0.0170419
+@precision=513.187
+0.000281811
+#G4ParticleHPVector & operator = (const G4ParticleHPVector & right)_4
+0
+#void Init(std::istream & aDataFile, G4int total, G4double ux=1., G4double uy=1.)_5
+0.14838
+!5!98995
+#G4double GetXsec(G4double e)_5
+@e=-1
+1.09673e-05
+@e=0
+9.53674e-07
+@e=0.00051234
+9.53674e-07
+@e=1.58923
+9.53674e-07
+@e=513.187
+2.00272e-05
+#G4double GetXsec(G4double e, G4int min)_5
+@e=-1
+@min=-1
+1.19209e-06
+@e=-1
+@min=0
+9.53674e-07
+@e=-1
+@min=49497
+0
+@e=-1
+@min=98994
+9.53674e-07
+@e=-1
+@min=98995
+9.53674e-07
+@e=0
+@min=-1
+1.19209e-06
+@e=0
+@min=0
+1.19209e-06
+@e=0
+@min=49497
+9.53674e-07
+@e=0
+@min=98994
+9.53674e-07
+@e=0
+@min=98995
+9.53674e-07
+@e=0.00051234
+@min=-1
+9.53674e-07
+@e=0.00051234
+@min=0
+9.53674e-07
+@e=0.00051234
+@min=49497
+9.53674e-07
+@e=0.00051234
+@min=98994
+1.19209e-06
+@e=0.00051234
+@min=98995
+1.19209e-06
+@e=1.58923
+@min=-1
+9.53674e-07
+@e=1.58923
+@min=0
+9.53674e-07
+@e=1.58923
+@min=49497
+0
+@e=1.58923
+@min=98994
+9.53674e-07
+@e=1.58923
+@min=98995
+0
+@e=513.187
+@min=-1
+1.71661e-05
+@e=513.187
+@min=0
+2.59876e-05
+@e=513.187
+@min=49497
+0
+@e=513.187
+@min=98994
+1.19209e-06
+@e=513.187
+@min=98995
+0
+#G4double SampleLin()_5
+0.00276804
+#G4double Sample()_5
+0.177163
+#G4double Get15PercentBorder()_5
+0.000281096
+#G4double Get50PercentBorder()_5
+0.00027585
+#void Times(G4double factor)_5
+@factor=-4.67
+4.00543e-05
+@factor=-1.525e-05
+2.19345e-05
+@factor=0.00090982
+2.88486e-05
+@factor=1.54333e+07
+2.7895e-05
+#void SetPoint(G4int i, const G4ParticleHPDataPoint & it)_5
+@i=-1
+@x=0.699791
+@y=0.38906
+@i=0
+@x=0.935242
+@y=0.605603
+@i=49497
+@x=0.362084
+@y=0.539505
+@i=98994
+@x=0.455072
+@y=0.401692
+@i=98995
+@x=0.24044
+@y=0.0830857
+#void SetData(G4int i, G4double x, G4double y)_5
+@i=-1
+@x=0.421579
+@y=0.47238
+@i=0
+@x=0.289766
+@y=0.104969
+@i=49497
+@x=0.216386
+@y=0.802019
+@i=98994
+@x=0.527439
+@y=0.66882
+@i=98995
+@x=0.863643
+@y=0.24375
+#void SetX(G4int i, G4double e)_5
+@i=-1
+@x=0.711564
+@i=0
+@x=0.382822
+@i=49497
+@x=0.459763
+@i=98994
+@x=0.795353
+@i=98995
+@x=0.00322878
+#void SetEnergy(G4int i, G4double e)_5
+@i=-1
+@x=0.664689
+@i=0
+@x=0.186825
+@i=49497
+@x=0.134039
+@i=98994
+@x=0.946045
+@i=98995
+@x=0.606001
+#void SetY(G4int i, G4double x)_5
+@i=-1
+@x=0.347492
+@i=0
+@x=0.509658
+@i=49497
+@x=0.834338
+@i=98994
+@x=0.329434
+@i=98995
+@x=0.631763
+#void SetXsec(G4int i, G4double x)_5
+@i=-1
+@x=0.0414204
+@i=0
+@x=0.767065
+@i=49497
+@x=0.519303
+@i=98994
+@x=0.220516
+@i=98995
+@x=0.0889927
+#const G4ParticleHPDataPoint GetPoint(G4int i)_5
+@i=-1
+@i=0
+@i=49497
+@i=98994
+@i=98995
+#G4double GetEnergy(G4int i)_5
+@i=-1
+@i=0
+@i=49497
+@i=98994
+@i=98995
+#G4double GetX(G4int i)_5
+@i=-1
+@i=0
+@i=49497
+@i=98994
+@i=98995
+#G4double GetXsec(G4int i)_5
+@i=-1
+@i=0
+@i=49497
+@i=98994
+@i=98995
+#G4double GetY(G4int i)_5
+@i=-1
+@i=0
+@i=49497
+@i=98994
+@i=98995
+#void ThinOut(G4double precision)_5
+@precision=-1
+4.83622
+@precision=0
+0.000386
+@precision=0.00051234
+0.000361919
+@precision=1.58923
+0.000369072
+@precision=513.187
+0.000246048
+#G4ParticleHPVector & operator = (const G4ParticleHPVector & right)_5
+0
+#void Init(std::istream & aDataFile, G4int total, G4double ux=1., G4double uy=1.)_6
+0.502663
+!6!242594
+#G4double GetXsec(G4double e)_6
+@e=-1
+4.05312e-06
+@e=0
+1.90735e-06
+@e=0.00051234
+2.14577e-06
+@e=1.58923
+1.90735e-06
+@e=513.187
+0.000105858
+#G4double GetXsec(G4double e, G4int min)_6
+@e=-1
+@min=-1
+9.53674e-07
+@e=-1
+@min=0
+9.53674e-07
+@e=-1
+@min=121297
+2.14577e-06
+@e=-1
+@min=242593
+9.53674e-07
+@e=-1
+@min=242594
+1.90735e-06
+@e=0
+@min=-1
+9.53674e-07
+@e=0
+@min=0
+1.19209e-06
+@e=0
+@min=121297
+9.53674e-07
+@e=0
+@min=242593
+1.19209e-06
+@e=0
+@min=242594
+9.53674e-07
+@e=0.00051234
+@min=-1
+9.53674e-07
+@e=0.00051234
+@min=0
+1.19209e-06
+@e=0.00051234
+@min=121297
+9.53674e-07
+@e=0.00051234
+@min=242593
+9.53674e-07
+@e=0.00051234
+@min=242594
+9.53674e-07
+@e=1.58923
+@min=-1
+1.09673e-05
+@e=1.58923
+@min=0
+9.53674e-07
+@e=1.58923
+@min=121297
+9.53674e-07
+@e=1.58923
+@min=242593
+9.53674e-07
+@e=1.58923
+@min=242594
+9.53674e-07
+@e=513.187
+@min=-1
+8.70228e-05
+@e=513.187
+@min=0
+8.29697e-05
+@e=513.187
+@min=121297
+9.53674e-07
+@e=513.187
+@min=242593
+9.53674e-07
+@e=513.187
+@min=242594
+9.53674e-07
+#G4double SampleLin()_6
+0.00498199
+#G4double Sample()_6
+0.437515
+#G4double Get15PercentBorder()_6
+0.000651121
+#G4double Get50PercentBorder()_6
+0.000646114
+#void Times(G4double factor)_6
+@factor=-4.67
+5.10216e-05
+@factor=-1.525e-05
+4.19617e-05
+@factor=0.00090982
+3.88622e-05
+@factor=1.54333e+07
+4.79221e-05
+#void SetPoint(G4int i, const G4ParticleHPDataPoint & it)_6
+@i=-1
+@x=0.674525
+@y=0.737175
+@i=0
+@x=0.69846
+@y=0.0227995
+@i=121297
+@x=0.191984
+@y=0.670991
+@i=242593
+@x=0.345872
+@y=0.0662903
+@i=242594
+@x=0.14071
+@y=0.921117
+#void SetData(G4int i, G4double x, G4double y)_6
+@i=-1
+@x=0.221656
+@y=0.380115
+@i=0
+@x=0.586016
+@y=0.167313
+@i=121297
+@x=0.0263397
+@y=0.691126
+@i=242593
+@x=0.762344
+@y=0.713695
+@i=242594
+@x=0.0773243
+@y=0.589809
+#void SetX(G4int i, G4double e)_6
+@i=-1
+@x=0.925503
+@i=0
+@x=0.430446
+@i=121297
+@x=0.831256
+@i=242593
+@x=0.601638
+@i=242594
+@x=0.519337
+#void SetEnergy(G4int i, G4double e)_6
+@i=-1
+@x=0.161419
+@i=0
+@x=0.57436
+@i=121297
+@x=0.531427
+@i=242593
+@x=0.667049
+@i=242594
+@x=0.548736
+#void SetY(G4int i, G4double x)_6
+@i=-1
+@x=0.667965
+@i=0
+@x=0.571583
+@i=121297
+@x=0.441313
+@i=242593
+@x=0.502275
+@i=242594
+@x=0.0316565
+#void SetXsec(G4int i, G4double x)_6
+@i=-1
+@x=0.522063
+@i=0
+@x=0.0350595
+@i=121297
+@x=0.107181
+@i=242593
+@x=0.551829
+@i=242594
+@x=0.611111
+#const G4ParticleHPDataPoint GetPoint(G4int i)_6
+@i=-1
+@i=0
+@i=121297
+@i=242593
+@i=242594
+#G4double GetEnergy(G4int i)_6
+@i=-1
+@i=0
+@i=121297
+@i=242593
+@i=242594
+#G4double GetX(G4int i)_6
+@i=-1
+@i=0
+@i=121297
+@i=242593
+@i=242594
+#G4double GetXsec(G4int i)_6
+@i=-1
+@i=0
+@i=121297
+@i=242593
+@i=242594
+#G4double GetY(G4int i)_6
+@i=-1
+@i=0
+@i=121297
+@i=242593
+@i=242594
+#void ThinOut(G4double precision)_6
+@precision=-1
+0.0171111
+@precision=0
+0.00722408
+@precision=0.00051234
+0.007442
+@precision=1.58923
+0.0663719
+@precision=513.187
+0.00497317
+#G4ParticleHPVector & operator = (const G4ParticleHPVector & right)_6
+0

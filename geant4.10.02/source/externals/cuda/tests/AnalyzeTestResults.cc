@@ -16,7 +16,7 @@ const char nEntriesId = '!';
 const char randomResultId = '$';
 
 // for averaged results, accept differences less than tolerance
-#define RAND_RESULT_TOLERANCE 0.01
+#define RAND_RESULT_TOLERANCE 0.1
 
 void compareTestResults() {
 	int testsPassed = 0;
@@ -76,7 +76,8 @@ void compareTestResults() {
 				if (cpuLine.at(0) == randomResultId) {
 					cpuLine = cpuLine.substr(1);
 					gpuLine = gpuLine.substr(1);
-					if (fabs(stod(cpuLine) - stod(gpuLine)) <= RAND_RESULT_TOLERANCE) {
+					std::cout << "Relative error: " << fabs((stod(cpuLine) - stod(gpuLine))/stod(cpuLine)) << "\n";
+					if (fabs((stod(cpuLine) - stod(gpuLine))/stod(cpuLine)) <= RAND_RESULT_TOLERANCE) {
 						goto TestPassed;
 					}
 				}
