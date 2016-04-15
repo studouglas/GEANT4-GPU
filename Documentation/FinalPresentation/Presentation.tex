@@ -219,12 +219,29 @@ Calls to \texttt{G4ParticleHPVector} forwarded to new GPU-based class\\~\\ % hac
 \end{frame}
 
 \subsubsection{Implementation of Select Methods on GPU}
-\begin{frame}
+\begin{frame}[fragile]
 \frametitle{Impl. 1 -- \texttt{Times}}
+\begin{block}{Times\_CUDA}
+\begin{lstlisting} 
+int tid = blockDim.x * blockIdx.x + threadIdx.x;
+if (tid < nEntries) 
+   theData[tid].xSec = theData[tid].xSec * factor;    
+\end{lstlisting}
+\end{block}
 \end{frame}
 
-\begin{frame}
+\begin{frame}[fragile]
 \frametitle{Impl. 1 -- \texttt{GetXSec}}
+\begin{block}{GetXSec\_CUDA}
+\begin{lstlisting}
+int start = (blockDim.x * blockIdx.x + threadIdx.x);
+for (int i = start; i < nEntries; i += numThreads) 
+   if (theData[i].energy >= e) {
+      resultIndex = Min(resultIndex, i);
+      return;
+      }
+\end{lstlisting}
+\end{block}
 \end{frame}
 
 \subsubsection{Impl. 1: Performance}
@@ -367,24 +384,34 @@ Add new methods to \texttt{G4ParticleHPVector} interface that are well-suited to
 
 \begin{frame}[fragile]
 \frametitle{Implementation -- \texttt{GetXSecList}}
+\begin{block}{GetXSecList}
 \begin{lstlisting}[language=C++,basicstyle=\ttfamily,keywordstyle=\color{red}]
-int stepSize = sqrt(nEntries);
-int i = 0;
-double e = queryList[threadID];
+stepSize = sqrt(nEntries);
+i = 0;
+e = queryList[threadID];
     
 for (i = 0; i < nEntries; i += stepSize) 
    if (d_theData[i].energy >= e) 
       break;
-   
+\end{lstlisting}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Implementation -- \texttt{GetXSecList -- cont}}
+\begin{block}{GetXSecList -- cont}
+\begin{lstlisting}[language=C++, basicstyle=\ttfamily, keywordstyle=\color{red}]
 i =  i - (stepSize - 1); 
 
 for (; i < nEntries; i++) 
    if (d_theData[i].energy >= e) 
       break;
    
-d_minIndices[idx] = i;
+d_queryList[threadID] = i;
 \end{lstlisting}
+\end{block}
 \end{frame}
+
 
 \subsubsection{Impl. 2: Performance}
 \begin{frame}
