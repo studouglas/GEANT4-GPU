@@ -86,24 +86,24 @@ G4NistManager* man = G4NistManager::Instance();
   
   // specific element name for thermal neutronHP
   // (see G4NeutronHPThermalScatteringNames.cc)
-  G4Element* H  = new G4Element("TS_H_of_Water" ,"H" , 1., 1.0079*g/mole);
-  G4Element* O  = new G4Element("Oxygen"        ,"O" , 8., 16.00*g/mole);
+  // G4Element* H  = new G4Element("TS_H_of_Water" ,"H" , 1., 1.0079*g/mole);
+  // G4Element* O  = new G4Element("Oxygen"        ,"O" , 8., 16.00*g/mole);
 
-  G4Material* H2O =
-  new G4Material("Water_ts", 1.000*g/cm3, ncomponents=2,
-                         kStateLiquid, 593*kelvin, 150*bar);
-  H2O->AddElement(H, natoms=2);
-  H2O->AddElement(O, natoms=1);
-  H2O->GetIonisation()->SetMeanExcitationEnergy(78.0*eV);
+  // G4Material* H2O =
+  // new G4Material("Water_ts", 1.000*g/cm3, ncomponents=2,
+  //                        kStateLiquid, 593*kelvin, 150*bar);
+  // H2O->AddElement(H, natoms=2);
+  // H2O->AddElement(O, natoms=1);
+  // H2O->GetIonisation()->SetMeanExcitationEnergy(78.0*eV);
 
-  // graphite
-  G4Isotope* C12 = new G4Isotope("C12", 6, 12);
-  G4Element* elC = new G4Element("TS_C_of_Graphite","C", ncomponents=1);
-  elC->AddIsotope(C12, 100.*perCent);
-  G4Material* graphite =
-  new G4Material("graphite", 2.27*g/cm3, ncomponents=1,
-                         kStateSolid, 293*kelvin, 1*atmosphere);
-  graphite->AddElement(elC, natoms=1);
+  // // graphite
+  // G4Isotope* C12 = new G4Isotope("C12", 6, 12);
+  // G4Element* elC = new G4Element("TS_C_of_Graphite","C", ncomponents=1);
+  // elC->AddIsotope(C12, 100.*perCent);
+  // G4Material* graphite =
+  // new G4Material("graphite", 2.27*g/cm3, ncomponents=1,
+  //                        kStateSolid, 293*kelvin, 1*atmosphere);
+  // graphite->AddElement(elC, natoms=1);
 
  ///G4cout << *(G4Material::GetMaterialTable()) << G4endl;
 

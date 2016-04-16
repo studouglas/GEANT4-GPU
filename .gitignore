@@ -8,6 +8,9 @@
 *.log
 *.synctex.gz
 *.toc
+*.snm
+*.nav
+*.vrb
 Documentation/*/*.out
 
 # Xcode project files
@@ -22,6 +25,8 @@ G4STORK/include/Marshaled*
 G4STORK/include/*.msh
 G4STORK/OutputFiles
 G4STORK/SourceFiles
+
+geant4.10.02/source/**/CUDAGPU.hh
 
 # Executables
 */**/AnalyzeTestResults

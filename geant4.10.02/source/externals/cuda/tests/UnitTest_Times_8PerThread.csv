@@ -1,0 +1,42 @@
+Method Signature,Case Number,nEntries,Input,CPU Time,GPU Time
+void G4ParticleHPVector_CUDA::GetXsecBuffer(G4double * queryList. G4int length),0,0,numQueries=10,4.05312e-06,1.90735e-06
+void G4ParticleHPVector_CUDA::GetXsecBuffer(G4double * queryList. G4int length),0,0,numQueries=50,0,9.53674e-07
+void G4ParticleHPVector_CUDA::GetXsecBuffer(G4double * queryList. G4int length),0,0,numQueries=100,9.53674e-07,9.53674e-07
+void G4ParticleHPVector_CUDA::GetXsecBuffer(G4double * queryList. G4int length),0,0,numQueries=10000,0.000500917,5.00679e-05
+void G4ParticleHPVector_CUDA::GetXsecBuffer(G4double * queryList. G4int length),0,0,numQueries=100000,0.000389099,0.000420094
+void Init(std::istream & aDataFile. G4int total. G4double ux=1.. G4double uy=1.),1,,,0.000202894,0.00019908
+void G4ParticleHPVector_CUDA::GetXsecBuffer(G4double * queryList. G4int length),1,80,numQueries=10,8.82149e-06,9.05991e-06
+void G4ParticleHPVector_CUDA::GetXsecBuffer(G4double * queryList. G4int length),1,80,numQueries=50,4.05312e-06,3.8147e-06
+void G4ParticleHPVector_CUDA::GetXsecBuffer(G4double * queryList. G4int length),1,80,numQueries=100,6.19888e-06,4.05312e-06
+void G4ParticleHPVector_CUDA::GetXsecBuffer(G4double * queryList. G4int length),1,80,numQueries=10000,0.000139952,0.000117779
+void G4ParticleHPVector_CUDA::GetXsecBuffer(G4double * queryList. G4int length),1,80,numQueries=100000,0.00121808,0.00111699
+void Init(std::istream & aDataFile. G4int total. G4double ux=1.. G4double uy=1.),2,,,0.00348091,0.00348496
+void G4ParticleHPVector_CUDA::GetXsecBuffer(G4double * queryList. G4int length),2,1509,numQueries=10,2.14577e-06,9.53674e-07
+void G4ParticleHPVector_CUDA::GetXsecBuffer(G4double * queryList. G4int length),2,1509,numQueries=50,2.14577e-06,3.09944e-06
+void G4ParticleHPVector_CUDA::GetXsecBuffer(G4double * queryList. G4int length),2,1509,numQueries=100,5.00679e-06,5.00679e-06
+void G4ParticleHPVector_CUDA::GetXsecBuffer(G4double * queryList. G4int length),2,1509,numQueries=10000,0.000267029,0.000267029
+void G4ParticleHPVector_CUDA::GetXsecBuffer(G4double * queryList. G4int length),2,1509,numQueries=100000,0.00193715,0.00184393
+void Init(std::istream & aDataFile. G4int total. G4double ux=1.. G4double uy=1.),3,,,0.023423,0.02549
+void G4ParticleHPVector_CUDA::GetXsecBuffer(G4double * queryList. G4int length),3,8045,numQueries=10,5.00679e-06,4.05312e-06
+void G4ParticleHPVector_CUDA::GetXsecBuffer(G4double * queryList. G4int length),3,8045,numQueries=50,2.14577e-06,2.14577e-06
+void G4ParticleHPVector_CUDA::GetXsecBuffer(G4double * queryList. G4int length),3,8045,numQueries=100,5.00679e-06,5.96046e-06
+void G4ParticleHPVector_CUDA::GetXsecBuffer(G4double * queryList. G4int length),3,8045,numQueries=10000,0.000792027,0.000828028
+void G4ParticleHPVector_CUDA::GetXsecBuffer(G4double * queryList. G4int length),3,8045,numQueries=100000,0.00246,0.00222898
+void Init(std::istream & aDataFile. G4int total. G4double ux=1.. G4double uy=1.),4,,,0.105233,0.113319
+void G4ParticleHPVector_CUDA::GetXsecBuffer(G4double * queryList. G4int length),4,41854,numQueries=10,2.86102e-06,1.90735e-06
+void G4ParticleHPVector_CUDA::GetXsecBuffer(G4double * queryList. G4int length),4,41854,numQueries=50,4.05312e-06,2.86102e-06
+void G4ParticleHPVector_CUDA::GetXsecBuffer(G4double * queryList. G4int length),4,41854,numQueries=100,7.15256e-06,5.00679e-06
+void G4ParticleHPVector_CUDA::GetXsecBuffer(G4double * queryList. G4int length),4,41854,numQueries=10000,0.00113606,0.000825882
+void G4ParticleHPVector_CUDA::GetXsecBuffer(G4double * queryList. G4int length),4,41854,numQueries=100000,0.00560093,0.00593495
+void Init(std::istream & aDataFile. G4int total. G4double ux=1.. G4double uy=1.),5,,,0.171404,0.174828
+void G4ParticleHPVector_CUDA::GetXsecBuffer(G4double * queryList. G4int length),5,98995,numQueries=10,2.14577e-06,1.90735e-06
+void G4ParticleHPVector_CUDA::GetXsecBuffer(G4double * queryList. G4int length),5,98995,numQueries=50,2.86102e-06,3.09944e-06
+void G4ParticleHPVector_CUDA::GetXsecBuffer(G4double * queryList. G4int length),5,98995,numQueries=100,5.00679e-06,5.00679e-06
+void G4ParticleHPVector_CUDA::GetXsecBuffer(G4double * queryList. G4int length),5,98995,numQueries=10000,0.000799894,0.000813007
+void G4ParticleHPVector_CUDA::GetXsecBuffer(G4double * queryList. G4int length),5,98995,numQueries=100000,0.0110049,0.011142
+void Init(std::istream & aDataFile. G4int total. G4double ux=1.. G4double uy=1.),6,,,0.527347,0.507052
+void G4ParticleHPVector_CUDA::GetXsecBuffer(G4double * queryList. G4int length),6,242594,numQueries=10,2.14577e-06,2.14577e-06
+void G4ParticleHPVector_CUDA::GetXsecBuffer(G4double * queryList. G4int length),6,242594,numQueries=50,1.90735e-06,3.09944e-06
+void G4ParticleHPVector_CUDA::GetXsecBuffer(G4double * queryList. G4int length),6,242594,numQueries=100,5.96046e-06,5.00679e-06
+void G4ParticleHPVector_CUDA::GetXsecBuffer(G4double * queryList. G4int length),6,242594,numQueries=10000,0.000939131,0.000813961
+void G4ParticleHPVector_CUDA::GetXsecBuffer(G4double * queryList. G4int length),6,242594,numQueries=100000,0.014972,0.011879

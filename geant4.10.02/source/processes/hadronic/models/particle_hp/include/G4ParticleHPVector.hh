@@ -48,11 +48,7 @@
 #include "G4ParticleHPHash.hh"
 #include <cmath>
 #include <vector>
-
-#define GEANT4_ENABLE_CUDA 0
-#if GEANT4_ENABLE_CUDA
-  #include "/Users/stuart/Documents/4th_Year/CS_4ZP6/GEANT4-GPU/geant4.10.02/source/externals/cuda/include/G4ParticleHPVector_CUDA.hh"
-#endif
+#include "CUDAGPU.hh"
 
 #if defined WIN32-VC
   #include <float.h>
@@ -479,13 +475,13 @@ class G4ParticleHPVector
       // this was replaced
       // for(i=1;i<GetVectorLength();i++)
       //      {
-      //	if(rand<theIntegral[i]/theIntegral[GetVectorLength()-1]) break;
+      //  if(rand<theIntegral[i]/theIntegral[GetVectorLength()-1]) break;
       //      }
 
       // by this (begin)
       for (i = GetVectorLength()-1; i >= 0 ; i--)
       {
-      	if (rand > theIntegral[i]/theIntegral[GetVectorLength()-1]) {
+        if (rand > theIntegral[i]/theIntegral[GetVectorLength()-1]) {
           break;
         }
       }
@@ -501,8 +497,8 @@ class G4ParticleHPVector
       x2 = theIntegral[i];
       if (std::abs((y2-y1)/y2)<0.0000001) // not really necessary, since the case is excluded by construction
       {
-      	y1 = theData[i-2].GetX();
-      	x1 = theIntegral[i-2];
+        y1 = theData[i-2].GetX();
+        x1 = theIntegral[i-2];
       }
       result = theLin.Lin(rand, x1, x2, y1, y2);
     }
@@ -592,15 +588,15 @@ class G4ParticleHPVector
         G4InterpolationScheme aScheme = theManager.GetScheme(i);
         G4double y0 = theData[i-1].GetY();
         G4double y1 = theData[i].GetY();
-      	G4double integ = theInt.GetBinIntegral(aScheme,x0,x1,y0,y1);
+        G4double integ = theInt.GetBinIntegral(aScheme,x0,x1,y0,y1);
         #if defined WIN32-VC
-        	if(!_finite(integ)){ integ = 0; }
+          if(!_finite(integ)){ integ = 0; }
         #elif defined __IBMCPP__
-        	if(isinf(integ)||isnan(integ)){ integ = 0; }
+          if(isinf(integ)||isnan(integ)){ integ = 0; }
         #else
-        	if(std::isinf(integ)||std::isnan(integ)){ integ = 0; }
+          if(std::isinf(integ)||std::isnan(integ)){ integ = 0; }
         #endif
-      	sum += integ;
+        sum += integ;
       }
       theIntegral[i] = sum;
     }
