@@ -26,7 +26,7 @@ G4STORK/include/*.msh
 G4STORK/OutputFiles
 G4STORK/SourceFiles
 
-geant4.10.02/source/**/CUDAGPU.hh
+geant4.10.02/source/processes/**/CUDAGPU.hh
 
 # Executables
 */**/AnalyzeTestResults
