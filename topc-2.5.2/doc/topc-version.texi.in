@@ -1,5 +1,0 @@
-@comment @configure_input@
-
-@set VERSION @TOPC_VERSION@
-@set UPDATED @TOPC_UPDATED@
-@set PWD @PWD@
