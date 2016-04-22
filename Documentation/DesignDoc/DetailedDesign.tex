@@ -118,7 +118,9 @@ Geant4 is developed entirely in C++. The project will use C++ as the interface b
 \subsection{Notes}
 Geant4 uses its own basic types for standard C++ types (G4int, G4bool, G4double, etc). These types are currently just \texttt{typedefs} to the respective type as defined in the system libraries.\\
 
-The modules G4NeutronHPDataPoint and G4ParticleVector described below are existing modules of Geant4. All methods and state variables are pre-existing, and will be replicated on the GPU. The interface of the modules will not change.
+The modules G4NeutronHPDataPoint and G4ParticleVector described below are existing modules of Geant4. All methods and state variables are pre-existing, and will be replicated on the GPU. The interface of the modules will not change.\\
+
+This document contains two different implementations for G4ParticleVector. Both implementations use the same implementation for G4NeutronHPDataPoint.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ----- NeutronHPDataPoint
 \section{G4NeutronHPDataPoint}
@@ -208,7 +210,7 @@ This module represents data, and as such does not contain any algorithms.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ----- NeutronHPVector
-\section{G4ParticleVector}
+\section{G4ParticleVector -- Implementation 1}
 
 \subsection{Description}
 This module stores a large vector of data points (G4NeutronHPDataPoint). It includes functions for setting the data points, retrieving them, and calculating information over them (such as the integral).
@@ -388,6 +390,83 @@ There are a variety of algorithms used in the module. When porting to the GPU, t
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ---- NeutronHPVector
 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ----- NeutronHPVector
+\section{G4ParticleVector -- Implementation 2}
+
+\subsection{Description}
+Instead of storing and maintaining everything on the GPU, only functions which are well suited to run on the GPU are implemented. The data vector will
+be stored and maintained on the CPU in this implementation and will be sent to the GPU for processing results.
+
+\subsection{MIS (Module Interface Specification)}
+Note that hyphens in routine names, inputs, outputs, and exceptions are just for linebreaks due to the table size. The actual routine names, inputs, outputs, and exceptions do not have hyphens.
+
+\subsubsection{Access Program Syntax}% ================ Victor
+\begin{longtable}{p{0.28\textwidth}p{0.28\textwidth}p{0.28\textwidth}p{0.14\textwidth}}
+\caption{G4ParticleVector -- access program syntax}\label{Table_NeutronHPVectorInterface}\\
+\toprule
+\bf Routine Name & \bf Input & \bf Output & \bf Exceptions \\\midrule
+\arrayrulecolor{lightgray}
+SetInterpolationManager & const G4InterpolationManager \&  & & \\\hline
+SetInterpolationManager & G4InterpolationManager \&  & & \\\hline
+GetXsecList & G4double, G4int, G4ParticleHPDataPoint*, G4int & &\\
+\arrayrulecolor{black}
+\bottomrule
+\end{longtable}
+
+\mmp{commented out energy and Xsec functions since X and Y do the exact same thing. Our code no longer has those functions}
+\mmp{We do not need the hash function since it was used to make cpu execution faster, which we are porting to the gpu}
+
+\subsubsection{Access Program Semantics}% ============ Rob
+Note that hyphens in routine names and inputs are just for linebreaks due to the table size. The actual routine names and inputs do not have hyphens.
+
+\begin{longtable}{p{0.25\textwidth}p{0.25\textwidth}p{0.5\textwidth}}
+\caption{G4ParticleVector -- access program semantics}\label{Table_NeutronHPVectorSemantics}\\
+\toprule
+\bf Routine Name & \bf Input & \bf Description \\\midrule
+\arrayrulecolor{lightgray}
+SetInterpolation-Manager & G4Interpolation-Manager\& & sets \texttt{theManager} to the input \\\hline
+GetXsecList & G4double, G4int, G4ParticleHPDataPoint*, G4int & Takes a list of energies and finds their corresponding xSecs\\\hline
+\arrayrulecolor{black}
+\bottomrule
+\end{longtable}
+\mmp{commented out energy and Xsec functions since X and Y do the exact same thing. Our code no longer has those functions}
+\mmp{We do not need the hash function since it was used to make cpu execution faster, which we are porting to the gpu}
+
+\subsubsection{State Variables}% ================== Matt
+The following variables maintain state for the class, and are all private to the class.
+
+Note that hyphens in variable names and types are just for line breaks due to the table size. The actual variable names and types do not have hyphens.
+
+\begin{table}[h]
+\caption{G4ParticleVector -- state variables}\label{Table_NeutronHPDataPointStateVariables}
+\begin{tabularx}{\textwidth}{p{0.2\textwidth}p{0.2\textwidth}p{0.5\textwidth}}
+\toprule
+\bf Variable & \bf Type & \bf Description\\\midrule
+\arrayrulecolor{lightgray}
+\texttt{theManager} & G4Interpolation-Manager & manages the interpolation schemes, knows how to interpolate data\\\hline
+\texttt{theInt} & G4Neutron-Interpolator & the interpolator for sampling data (may not be linear)\\
+\arrayrulecolor{black}
+\bottomrule
+\end{tabularx}
+\end{table}
+\mmp{no longer use theHash since it was a object used to speed up cpu computions, which has been ported to GPU}
+\subsubsection{Environment Variables}% ============== Matt
+There are no environment variables for this module.
+
+\subsubsection{Assumptions}% ==================== Stuart	
+It can be assumed that the module will be initialized before other functions are called.
+
+\subsection{Error Handling}
+The \texttt{Check} method throws a G4HadronicException on error, however it is the only function to do so in the module. In the other functions, erroneous input is not handled explicitly beyond control statement checks that will assume default values for any invalid parameters.
+
+\subsection{Key Algorithms}
+There are a variety of algorithms used in the module. When porting to the GPU, the same algorithms will be modified to run in parallel. In general, this consists of taking array traversals and running the procedures executed sequentially at the same time on different cores of the GPU. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ---- NeutronHPVector
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ----- Cmake Files
 \section{CMake Files}
 \subsection{Description}\label{Sec_CMakeDesc}
@@ -421,7 +500,7 @@ CUDA support is built in to CMake, as such no new access programs or public macr
 It is assumed the user has CMake installed, as it is required for Geant4.
 
 \subsection{Error Handling}
-If the tries to enable CUDA without compatible hardware, CMake will detect this and output a fatal error message. The user will not be able to enable CUDA unless they have compatible hardware. If the user is using an older version of CMake (before 2.8) that does not support CUDA compilation, a fatal error message will be outputted.
+If user the tries to enable CUDA without compatible hardware, CMake will detect this and output a fatal error message. The user will not be able to enable CUDA unless they have compatible hardware. If the user is using an older version of CMake (before 2.8) that does not support CUDA compilation, a fatal error message will be outputted.
 
 \subsection{Key Algorithms}
 CMake is the existing build system for generating make files for the project. As such, there are no key algorithms to document.
