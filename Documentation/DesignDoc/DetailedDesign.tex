@@ -411,7 +411,8 @@ Note that hyphens in routine names, inputs, outputs, and exceptions are just for
 \arrayrulecolor{lightgray}
 SetInterpolationManager & const G4InterpolationManager \&  & & \\\hline
 SetInterpolationManager & G4InterpolationManager \&  & & \\\hline
-GetXsecList & G4double, G4int, G4ParticleHPDataPoint*, G4int & &\\
+GetXsecList & G4double, G4int, G4ParticleHPDataPoint*, G4int & &\\\hline
+GetMinIndices\_CUDA & G4ParticleHPDataPoint* , int, double* , int, int* & &\\
 \arrayrulecolor{black}
 \bottomrule
 \end{longtable}
@@ -419,13 +420,14 @@ GetXsecList & G4double, G4int, G4ParticleHPDataPoint*, G4int & &\\
 \subsubsection{Access Program Semantics}% ============ Rob
 Note that hyphens in routine names and inputs are just for linebreaks due to the table size. The actual routine names and inputs do not have hyphens.
 
-\begin{longtable}{p{0.25\textwidth}p{0.25\textwidth}p{0.5\textwidth}}
+\begin{longtable}{p{0.25\textwidth}p{0.3\textwidth}p{0.45\textwidth}}
 \caption{G4ParticleVector -- access program semantics}\label{Table_NeutronHPVectorSemantics}\\
 \toprule
 \bf Routine Name & \bf Input & \bf Description \\\midrule
 \arrayrulecolor{lightgray}
 SetInterpolation-Manager & G4Interpolation-Manager\& & sets \texttt{theManager} to the input \\\hline
 GetXsecList & G4double, G4int, G4ParticleHPDataPoint*, G4int & Takes a list of energies and finds their corresponding xSecs\\\hline
+GetMinIndices\_CUDA & G4ParticleHPDataPoint* , int, double* , int, int* & device function used to find the indexes for the query values given\\\hline
 \arrayrulecolor{black}
 \bottomrule
 \end{longtable}
@@ -501,7 +503,7 @@ It is assumed the user has CMake installed, as it is required for Geant4.
 If user the tries to enable CUDA without compatible hardware, CMake will detect this and output a fatal error message. The user will not be able to enable CUDA unless they have compatible hardware. If the user is using an older version of CMake (before 2.8) that does not support CUDA compilation, a fatal error message will be outputted.
 
 \subsection{Key Algorithms}
-CMake is the existing build system for generating make files for the project. As such, there are no key algorithms to document.
+When GEANT4\_Enable\_CUDA is set to true CMake will configure a header file which will indicate if Geant4 needs to include the CUDA files or not. This file then gets moved to the include directory where G4ParticleHPVector.hh can see it and include it.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ---- Cmake Files
 
