@@ -459,7 +459,7 @@ The \texttt{Check} method throws a G4HadronicException on error, however it is t
 There are a variety of algorithms used in the module. When porting to the GPU, the same algorithms will be modified to run in parallel. In general, this consists of taking array traversals and running the procedures executed sequentially at the same time on different cores of the GPU. 
 
 \subsubsection{GetXsecList}
-GetXsecList takes in an array of energy queries, it then sends that array to the GPU to work on. The GPU divides up the work by having each individual thread on the GPU be responsible for a single energy query. Every thread will run the same algorithm that is run on the CPU, but instead they will all be doing it at the same time all checking the same vector for the Xsec corresponding to the energy query that thread has. 
+GetXsecList takes in an array of energy queries, it then sends that array to the GPU to work on. The GPU divides up the work by having each individual thread on the GPU be responsible for a single energy query. Every thread will look through the data vector independently until it finds the xSec corresponding to its energy value. This will all be happening in parallel. The results found replace the corresponding query energies  
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ---- NeutronHPVector
 
