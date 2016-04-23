@@ -1,5 +1,0 @@
-@comment doc/topc-version.texi.  Generated from topc-version.texi.in by configure.
-
-@set VERSION 2.5.2
-@set UPDATED April, 2011
-@set PWD /home/kason/school/4zp6/repo/GEANT4-GPU/topc-2.5.2

@@ -1,6 +1,0 @@
-RECURSION with TOP-C (similar to Cilk):
-  Use CONTINUATION()
-    After every x steps, split pending branches in half and offer to
-    others.  On next communication with master (or on this),
-    the master will tell us if the split is taken via
-    the CONTINUATION() action.
