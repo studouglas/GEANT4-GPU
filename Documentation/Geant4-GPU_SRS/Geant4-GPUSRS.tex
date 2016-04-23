@@ -48,7 +48,7 @@
 
 % Title Page -----------------------------------------------------------------
 \title{
-\LARGE GEANT-4 GPU Port:
+\LARGE GEANT4 GPU Port:
 \\\vspace{10mm}
 \large \textbf{Software Requirements Specification}
 \\Volere Template, Edition 16
@@ -101,7 +101,7 @@ Update for Rev0 presentation & Matt & 2016--08-02\\
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Purpose of Project} % Matt
 \subsubsection{Project Background}
-Physics researchers use software simulations to model how particles interact with environments, and to determine the effects of these interactions. Members of McMaster's Engineering Physics department use GEANT-4 -- a simulation toolkit developed by CERN. McMaster's researchers have developed their own fork of the software, G4-STORK, designed to study McMaster's nuclear reactor. Currently, running G4-STORK simulations (as well as other GEANT-4 simulations) that require many particles takes a long time to compute when run on the CPU. This limits researchers to smaller number of particles than are realistic, and prevents them from seeing the effects of longer time periods.
+Physics researchers use software simulations to model how particles interact with environments, and to determine the effects of these interactions. Members of McMaster's Engineering Physics department use Geant4 -- a simulation toolkit developed by CERN. McMaster's researchers have developed their own fork of the software, G4-STORK, designed to study McMaster's nuclear reactor. Currently, running G4-STORK simulations (as well as other Geant4 simulations) that require many particles takes a long time to compute when run on the CPU. This limits researchers to smaller number of particles than are realistic, and prevents them from seeing the effects of longer time periods.
 
 \subsubsection{Goal of the project}
 The goal of this project is to significantly increase the computation speed of G4-STORK simulations, which should transfer well to other GEANT-4 projects. Increasing the speed will allow researchers to use more accurate models, to see the effects of longer time periods on the particles, and to generally increase their productivity. This will be achieved by porting the algorithms that currently run on the CPU to the GPU, taking advantage of the parallel power of the GPU's many cores.
@@ -147,7 +147,7 @@ student that proposed the project to Dr. Buijs. He will be the primary user of G
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Mandated Constraints} % Rob
 There are global constraints put in place by the existing software, the stakeholders, and the structure of 4ZP6. The project must be built upon the existing GEANT-4 code, which is used by G4-STORK to run the simulation. The final product must be able to run any code/simulation that ran on the existing software.\\ 
-The GPU code being used to speed up the simulation is only able to be run on a NVIDIA GPU. Therefore the software must run in parallel on a NVIDIA GPU. The GPU's must also have been made in 2008 or later since GPU's older than 2008 do not support CUDA. Newer GPU's are preferable since they will have better data transfer times.\\
+The GPU code being used to speed up the simulation is only able to be run on a NVIDIA GPU. Therefore the software must run in parallel on a NVIDIA GPU. The GPU's must also have been made in 2008 or later since GPU's older than 2008 do not support CUDA. Newer GPU's are preferable since they will have better data transfer times. The NVIDIA GPU used must have a compute capability (version) of at least 1.3 because it needs to support double-precision floating-point operations.\\
 Additionally, the final product needs to be completed by the end of April, 2016. If these global constraints are not met the final product is not acceptable.\\
 
 
@@ -182,8 +182,8 @@ PUC & Product Use case\\
 \subsection{Relevant Facts and Assumptions} %Matt
 \subsubsection{Facts}
 \begin{itemize}
-\item GEANT-4/G4-STORK are programmed in C++
-\item GEANT-4/G4-STORK run simulations on the CPU
+\item GEANT-4 are programmed in C++
+\item GEANT-4 run simulations on the CPU
 \item Simulations run calculations on each particle independently
 \item Calculations on each particle are relatively simple probabilities
 \end{itemize}
@@ -200,7 +200,7 @@ PUC & Product Use case\\
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{The Scope of the Work} % Victor
 \subsubsection{The Current Situation}
-The project, G4-STORK, is currently at a point where it is able to run all necessary simulations, on the CPU. Currently, when the G4-STORK simulation is run with a large number of particles or over a period of several seconds it takes a lot of computation time.
+The project, Geant4, is currently at a point where it is able to run all necessary simulations, on the CPU. Currently, when the Geant4 simulation is run with a large number of particles or over a period of several seconds it takes a lot of computation time.
 
 \subsubsection{The Context of The Work}
 \begin{figure}[h]
@@ -630,22 +630,24 @@ NA -- There are no internal standards that are required to be met by the product
 \subsection{Off-the-Shelf Solutions} % Rob
 
 \subsubsection{Ready-Made Products}
-No fully-fledged solution to the given problem has been implemented and distributed. There have been attempts, however, to solving certain portions of the problem. At the Helsinki Institute of Physics (HIP) a team of three attempted to test the potential efficiency increase of porting GEANT-4 code to a GPU. They ported some small portions of GEANT-4, but determined that taking on the entire project would be difficult. Their conclusions supported the conjecture that running the code on a GPU would offer significant increases in performance.
+No fully-fledged solution to the given problem has been implemented and distributed. There have been attempts, however, to solving certain portions of the problem. At the Helsinki Institute of Physics (HIP) a team of three attempted to test the potential efficiency increase of porting Geant4 code to a GPU. They ported some small portions of Geant4, but determined that taking on the entire project would be difficult. Their conclusions supported the conjecture that running the code on a GPU would offer significant increases in performance.
 
 \subsubsection{Reusable Components}
 Although there is not any hard-copy code that can be reused, the team of three from HIP have published a research paper that may be used as a starting point for the current project.
-
+	
 \subsubsection{Products That Can Be Copied}
 NA -- There are no existing products that can be copied.
 
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{New Problems}\label{SubSec_NewProbs} % Stuart
 \subsubsection{Effects on the Current Environment}
-The new product will be designed as an opt-in addition to the existing product. That is, unless manually changed by the user, the program will execute identically as before, running on the CPU. The motivation for this is to ensure compatibility, as the programming environment for GP-GPU programming is restricted to certain hardware. The current environment will not be affected by the changes unless the user specifically decides to use them.
-\ds{You are describing design decisions, not effects on the current environment}
+GEANT4-GPU is an extension of the current environment. The goal of GEANT4-GPU is to decrease the time that a simulation will take by running sections of the code on the GPU. The output produced by a simulation run with the extension enabled will produce the same results, more quickly, as the same simulation run with the extension disabled. In the sense that the output of any given simulation is not changed, the current environment should be the same to the user when running simulations. The user should only notice changes in the current environment when building a simulation with the GEANT4-GPU extension enabled, not when running the  simulation. The difference that the user will notice when building their simulation (using the cmake command) will be the addition of a command line flag to indicate that the extension will be used.
+%The new product will be designed as an opt-in addition to the existing product. That is, unless manually changed by the user, the program will execute identically as before, running on the CPU. The motivation for this is to ensure compatibility, as the programming environment for GP-GPU programming is restricted to certain hardware. The current environment will not be affected by the changes unless the user specifically decides to use them.
+\ds{You are describing design decisions, not effects on the current environment}\vr{Changed section to describe how design decisions effect the current environment}
 
 \subsubsection{Effects on the Installed Systems}
-Requirement \ref{Req_EasyChange} specifies the importance of creating a simple interface for the user to enable the changes in the new system, or revert to the previous one. Changes to the code will be isolated, and only used when they are manually enabled.
+The GEANT4-GPU extension interfaces with the system through 
+%Requirement \ref{Req_EasyChange} specifies the importance of creating a simple interface for the user to enable the changes in the new system, or revert to the previous one. Changes to the code will be isolated, and only used when they are manually enabled.
 \ds{Again you are talking about design. Here you should be detailing what your
 how your product interfaces with the existing system. Are there any potential
 conflicts that would need to be solved (i.e. by your design decision)?}
