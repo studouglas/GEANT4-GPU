@@ -415,9 +415,6 @@ GetXsecList & G4double, G4int, G4ParticleHPDataPoint*, G4int & &\\
 \bottomrule
 \end{longtable}
 
-\mmp{commented out energy and Xsec functions since X and Y do the exact same thing. Our code no longer has those functions}
-\mmp{We do not need the hash function since it was used to make cpu execution faster, which we are porting to the gpu}
-
 \subsubsection{Access Program Semantics}% ============ Rob
 Note that hyphens in routine names and inputs are just for linebreaks due to the table size. The actual routine names and inputs do not have hyphens.
 
@@ -431,8 +428,6 @@ GetXsecList & G4double, G4int, G4ParticleHPDataPoint*, G4int & Takes a list of e
 \arrayrulecolor{black}
 \bottomrule
 \end{longtable}
-\mmp{commented out energy and Xsec functions since X and Y do the exact same thing. Our code no longer has those functions}
-\mmp{We do not need the hash function since it was used to make cpu execution faster, which we are porting to the gpu}
 
 \subsubsection{State Variables}% ================== Matt
 The following variables maintain state for the class, and are all private to the class.
@@ -451,7 +446,6 @@ Note that hyphens in variable names and types are just for line breaks due to th
 \bottomrule
 \end{tabularx}
 \end{table}
-\mmp{no longer use theHash since it was a object used to speed up cpu computions, which has been ported to GPU}
 \subsubsection{Environment Variables}% ============== Matt
 There are no environment variables for this module.
 
@@ -463,6 +457,9 @@ The \texttt{Check} method throws a G4HadronicException on error, however it is t
 
 \subsection{Key Algorithms}
 There are a variety of algorithms used in the module. When porting to the GPU, the same algorithms will be modified to run in parallel. In general, this consists of taking array traversals and running the procedures executed sequentially at the same time on different cores of the GPU. 
+
+\subsubsection{GetXsecList}
+GetXsecList takes in an array of energy queries, it then sends that array to the GPU to work on. The GPU divides up the work by having each individual thread on the GPU be responsible for a single energy query. Every thread will run the same algorithm that is run on the CPU, but instead they will all be doing it at the same time all checking the same vector for the Xsec corresponding to the energy query that thread has. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ---- NeutronHPVector
 
