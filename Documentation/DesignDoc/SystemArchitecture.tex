@@ -218,7 +218,8 @@ When considering how to integrate the GPU computations with the non-ported proce
 
 In all options except 1 and 2, a function call to one of the functions of a ported class will be received by the existing C++ class, which will then either execute the existing code if that function has not been ported or if GPU computation is disabled, or will call the corresponding function from the CUDA file.
 
-Option 5 was chosen due to its ability to divide work easily, its compatibility with the current codebase, and the memory advantages over option 4.
+Option 5 was chosen due to its ability to divide work easily, its compatibility with the current codebase, and the memory advantages over option 4. 
+Option 3 was also implemented after performance testing showed that option 5 did not provide any significant speed ups.
 
 \subsection{G4ParticleVector}\label{subsec_G4ParticleVector} % rob
 As was explained in the preceding subsection, the problem has been decomposed to that of only integrating specific functions from given modules with the CUDA technology. With that said, a decision needed to be made as for which class and which functions within that class to integrate.
