@@ -38,6 +38,7 @@ Installation
 
 **Install Geant4**<br>
 If installing on McMaster's servers, add `. /opt/rh/devtoolset-3/enable` to your bash_profile to use the newer version of gcc.
+
 1. `mkdir /path/to/Geant4-GPU/geant4.10.02-build`<br>
 2. `mkdir /path/to/Geant4-GPU/geant4.10.02-install`<br>
 3. `cd /path/to/Geant4-GPU/geant4.10.02-build`<br>
