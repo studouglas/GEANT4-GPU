@@ -231,6 +231,13 @@ Geant4 organizes the processes for particles that it must manipulate into separa
 	 
 The decision as to which model to integrate was made to satisfy stakeholder requirements. The problem at hand was proposed by Dr. Buijs and his graduate students from the Engineering Physics department at McMaster. Dr. Buijs' team uses Geant4 to model the university's local nuclear reactor. Their simulations very heavily depend on manipulating neutrons through the G4ParticleVector class. Therefore, this model was chosen for CUDA integration in an attempt to offer the most significant performance increases to the project stakeholders specifically.
 
+\subsection{Two Implementations}
+Over the course of the year, two different implementations were constructed and tested in order to weigh the different advantages and disadvantages. 
+
+The first implementation involved porting the entirety of GPParticleVector to the GPU. For each function of the class, a GPU implementation was written and was to be redirected to if the user had compiled with CUDA instantiated. This method of implementation proved very useful in initially determining which functions of G4ParticleVector would immediately benefit from GPU parallelization. 
+
+The second attempted implementation involved the construction of a buffered list that would accumulate calls to GetXSec (arguably the most important function in the class) and a few other functions. It would then send the data vector to the GPU and compute the calls in parallel. This second method was more specialized and focused, using the insight gained from the first implementation to approach the problem in, what we thought was, a more reasonable and appropriate manner. 
+
 \section{Likely and Unlikely Changes}
 Different aspects of the system are presented below in two lists, those that are likely to change in the future and those that are unlikely to change. Relative likelihood of changes in the same category may vary.
 
