@@ -22,13 +22,14 @@
 
 % Comments --------------------------------------------------------------------
 \usepackage{xcolor}
-\newif\ifcomments\commentstrue
+\newif\ifcomments\commentsfalse
 \ifcomments \newcommand{\authornote}[3]{\textcolor{#1}{[#3 ---#2]}}
 \newcommand{\todo}[1]{\textcolor{red}{[TODO: #1]}} \else
 \newcommand{\authornote}[3]{} \newcommand{\todo}[1]{} \fi
 \newcommand{\wss}[1]{\authornote{magenta}{SS}{#1}}
 \newcommand{\ds}[1]{\authornote{blue}{DS}{#1}}
 \newcommand{\mmp}[1]{\authornote{green}{MP}{#1}}
+\newcommand{\sd}[1]{\authornote{orange}{SD}{#1}}
 \newcounter{TestCounter}
 \setcounter{TestCounter}{0}
 % End Comments ---------------------------------------------------------------
@@ -44,7 +45,7 @@
 
 % Title Page -----------------------------------------------------------------
 \title{
-\LARGE GEANT4 GPU Port:
+\LARGE Geant4 GPU Port:
 \\\vspace{10mm}
 \large \textbf{Test Report}
 \vspace{40mm}
@@ -56,7 +57,7 @@ Stuart Douglas -- dougls2
 \\Victor Reginato -- reginavp
 \vspace{10mm}
 }
-\date{\vfill \textbf{Version 0}\\ \today}
+\date{\vfill \textbf{Version 1}\\ \today}
 % End Title Page -------------------------------------------------------------
 
 % ============================== BEGIN DOCUMENT ============================= %
@@ -81,9 +82,10 @@ All major edits to this document will be recorded in the table below.
 \begin{table}[h]
 \centering
 \caption{Revision History}\label{Table_Revision}
-\begin{tabular}{lll}
+\begin{tabular}{p{8cm}ll}
 \toprule
 \bf Description of Changes & \bf Author & \bf Date\\\midrule
+Added descriptions for each test, spelling fixes, minor rewording & Stuart & 2016-04-25\\
 Added expected vs actual subsection & Matt & 2016-04-23\\
 Initial draft of document & Matt, Rob, Victor, Stuart & 2016-03-18\\
 Template of document & Matt  & 2016-03-15\\
@@ -133,8 +135,8 @@ This section contains a table of Definitions and Acronyms used within this docum
 \begin{tabularx}{\textwidth}{lX}
 \toprule
 \bf Term & \bf Description\\\midrule
-GEANT4 & Open-source software toolkit used to simulate the passage of particles through matter\\
-GEANT4-GPU & GEANT4 with some computations running on the GPU\\
+Geant4 & Open-source software toolkit used to simulate the passage of particles through matter\\
+GEANT4-GPU & Geant4 with some computations running on the GPU\\
 GPU & Graphics processing unit, well-suited to parallel computing tasks\\
 CPU & Computer processing unit, general computer processor well-suited to serial tasks\\
 CUDA & Parallel computing architecture for general purpose programming on GPU, developed by NVIDIA\\
@@ -154,11 +156,11 @@ This document summarizes the testing and test conclusions of the GEANT4-GPU proj
 \subsection{Scope of the Testing}
 The implemented tests are designed to give a general yet rigorous assessment of the components involved in terms of accuracy and performance.\\
 
-The tests are separated into two categories: unit tests and system tests. There are a large number of unit tests which test single functions of the modified G4ParticleVector module, comparing results of the function call with specified inputs between the existing CPU-based implementation and the GPU-based implementation of GEANT4-GPU. The system tests run a complete simulation, and the resulting output values are compared between the CPU and GPU implementations. Performance data is recorded for each performance test.\\
+The tests are separated into two categories: unit tests and system tests. There are a large number of unit tests which test single functions of the modified G4ParticleHPVector module, comparing results of the function call with specified inputs between the existing CPU-based implementation and the GPU-based implementation of GEANT4-GPU. The system tests run a complete simulation, and the resulting output values are compared between the CPU and GPU implementations. Performance data is recorded for each performance test.\\
 
-Neither the unit tests nor the system tests are concerned with the correctness of the original, CPU-based GEANT4 program, as these runs are used as the baseline for the correctness of GEANT4-GPU modules.\\
+Neither the unit tests nor the system tests are concerned with the correctness of the original, CPU-based Geant4 program, as these runs are used as the baseline for the correctness of GEANT4-GPU modules.\\
 
-A basic knowledge of programming concepts and command-line tools is assumed, as well as familiarity with GEANT4.
+A basic knowledge of programming concepts and command-line tools is assumed, as well as familiarity with Geant4.
 
 \subsection{Organization}
 \ds{Use refs for your section/figure/table numbering. That way they'll be auto-generated.\\}
@@ -167,10 +169,10 @@ A basic knowledge of programming concepts and command-line tools is assumed, as 
 In Section \ref{Introduction} we provide an introduction to this report. Section \ref{Unit Testing} describes the test cases which are carried out on each function. Section \ref{System Tests} describes system test cases that were carried out by our team. In section \ref{Traceability} traceability matrices to requirements and modules are documented. Section \ref{Changes after Testing} provides a summary of changes made in response to the testing results.
 
 \subsection{Usability Testing}
-GEANT4-GPU is a back end implementation of already existing GEANT4 modules. Therefore users will not be interacting with is directly. Since there is no direct user interaction with GEANT4-GPU, usability tests do not fit the project and are not included.
+GEANT4-GPU is a back end implementation of already existing Geant4 modules. Therefore users will not be interacting with is directly. Since there is no direct user interaction with GEANT4-GPU, usability tests do not fit the project and are not included.
 
 \subsection{Robustness Testing}
-The GEANT4-GPU functions are meant to mimic the already existing GEANT4 functions. Therefore the GEANT4-GPU functions must also mimic the the robustness of the GEANT4 functions. The accuracy section for unit tests has several unit tests designed to test the robustness of the functions, so robustness is included in accuracy results.
+The GEANT4-GPU functions are meant to mimic the already existing Geant4 functions. Therefore the GEANT4-GPU functions must also mimic the the robustness of the Geant4 functions. The accuracy section for unit tests has several unit tests designed to test the robustness of the functions, so robustness is included in accuracy results.
 
 % =============================== Section =============================== 
 \section{Unit Testing} \label{Unit Testing}
@@ -185,14 +187,14 @@ Our unit testing system is semi-automated. The user runs a program to generate a
 After the above files are generated, the \texttt{AnalyzeTestResults} utility runs through both documents and for each unit test outputted its status. If it failed, then the result from the CPU and from the GPU are both printed out. After the analysis completes, the total number of tests passed is outputted. In addition, \texttt{AnalyzeTestResults} will read the files containing runtimes for each function and output them in .csv format to simplify performance analysis.
 
 \subsubsection{How to Run Unit Tests}
-The following steps are also recorded in a README file in the \texttt{tests} directory. It is assumed that there is a working copy of GEANT4 on the user's system, set up as per the installation instructions of GEANT4-GPU. In particular, the \emph{geant4.10.02-install} directory must be in the same directory as the \emph{geant4.10.02} directory.\\
+The following steps are also recorded in a README file in the \texttt{tests} directory. It is assumed that there is a working copy of Geant4 on the user's system, set up as per the installation instructions of GEANT4-GPU. In particular, the \emph{geant4.10.02-install} directory must be in the same directory as the \emph{geant4.10.02} directory.\\
 
 \textbf{Generating Test Results:}
 \begin{enumerate}
 \item Build Geant4 with CUDA disabled (see project README for more information).
 \item Run \texttt{make clean} to remove any old files.
 \item Run \texttt{make} to build the executable files for generating and analyzing the test results.
-\item Execute \texttt{./GenerateTestResults 0}, where 0 indicates that GEANT4 was compiled with CUDA disabled.
+\item Execute \texttt{./GenerateTestResults 0}, where 0 indicates that Geant4 was compiled with CUDA disabled.
 \item Rebuild Geant4 with CUDA enabled, and repeat steps 2-4.
 \end{enumerate}
 
@@ -201,7 +203,7 @@ At this point, there should be 4 text files in the tests directory. These contai
 \textbf{Analyzing Test Results:}
 \begin{enumerate}
 \item After generating the test results as outlined above, simply run \texttt{./AnalyzeTestResults}. The result of each individual test will be printed to the terminal.
-\item A csv file will be created to easily compare runtimes of each function with CUDA enabled and disabled.
+\item A .csv (Excel) file will be created to easily compare runtimes of each function with CUDA enabled and disabled.
 \end{enumerate}
 
 
@@ -248,11 +250,11 @@ For all unit tests:
 		\begin{table}[H]
 		\centering
 		\caption{Unit Tests - \texttt{Init}}\label{Init_unit}
-		\begin{tabular}{lllll}
+		\begin{tabular}{lllllp{4cm}}
 		\toprule
-		\multirow{2}{*}{\bf Test \#}  & \multicolumn{2}{c}{\bf Inputs}\\
+		\multirow{2}{*}{\bf Test \#}  & \multicolumn{4}{c}{\bf Inputs} & \multirow{2}{*}{\bf Description}\\
 		& \bf \texttt{aDataFile} & \bf \texttt{G4int} & \bf \texttt{ux} & \bf \texttt{uy}\\\midrule
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{Init_0} & Current data file & n & 1 & 1\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{Init_0} & Current data file & n & 1 & 1 & Runs initialize function with data file for current \texttt{vec} object\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
@@ -280,17 +282,17 @@ For all unit tests:
 	The actual output did show a performance increase as teh size of the vector grew, however it was not as large of an increase as we were 	 		expecting. The results on the GPU and CPU were both the same, as expected. 
 
 \subsection{G4ParticleHPVector \& operator = (const G4ParticleHPVector \& right)}
-	Create a new, temporary G4ParticleHPVector object and assign the current vector to it. Outputs the data and the integral from the new vector.
+	Create a new, temporary G4ParticleHPVector object and assign the current vector to it. This operator is overridden, and uses a special GPU kernel function to perform the copying of the vector data from GPU memory of the \texttt{right} parameter to GPU memory of our new temporary vector. We need to ensure that the data vectors are properly allocated and copied to the new vector. Test outputs the data and the integral from the new vector and verifies that they are the same.
 
 	\subsubsection{Test Inputs}
 		\begin{table}[H]
 		\centering
 		\caption{Unit Tests - \texttt{=} (overloaded assignment operator)}\label{OperatorEquals_unit}
-		\begin{tabular}{cl}
+		\begin{tabular}{cll}
 		\toprule
-		\multirow{2}{*}{\bf Test \#}  & \multicolumn{1}{c}{\bf Inputs}\\
+		\multirow{2}{*}{\bf Test \#}  & \multicolumn{1}{c}{\bf Inputs} & \multirow{2}{*}{\bf Description}\\
 		& \bf \texttt{right}\\\midrule
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{OperatorEquals_0} & Current vector\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{OperatorEquals_0} & Current vector & Tests assignment of current vector to new vector\\
 		\bottomrule
 		\end{tabular}
 		\end{table}	
@@ -308,8 +310,9 @@ For all unit tests:
 		\end{tabular}
 		\end{table}
 
-%\ds{The way this is written is very hard to understand. Can you explain it in more depth? 
-%Or give a brief rundown of the system state, what the input to each parameter is, etc.?}		% -- commented this out cause it just don't know what Dan meant by this
+\ds{The way this is written is very hard to understand. Can you explain it in more depth? 
+Or give a brief rundown of the system state, what the input to each parameter is, etc.?}
+\sd{Added more thorough description}
 		
 	\subsubsection{Performance}	
 		This method is not computationally heavy, so performance data was not included.
@@ -329,11 +332,11 @@ For all unit tests:
 		\caption{Unit Tests - \texttt{GetPoint}}\label{GetPoint_unit}
 		\begin{tabular}{lll}
 		\toprule
-		\multirow{2}{*}{\bf Test \#}  & \multicolumn{1}{c}{\bf Inputs}\\
-		& \bf \texttt{i}\\\midrule
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetPoint_0} & -1\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetPoint_1} & 0\\
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetPoint_2} & n/2\\
+		\multirow{2}{*}{\bf Test \#}  & {\bf Inputs} & \multirow{2}{*}{\bf Description}\\
+		& \bf \texttt{i} & \\\midrule
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetPoint_0} & -1 & \multirow{5}{*}{Verifies that getting a point at \texttt{i} returns the proper data point}\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetPoint_1} & 0 \\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetPoint_2} & n/2 \\
 		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetPoint_3} & n-1\\
 		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetPoint_4} & n\\
 		\bottomrule
@@ -372,11 +375,11 @@ For all unit tests:
 		\begin{table}[H]
 		\centering
 		\caption{Unit Tests - \texttt{GetX}}\label{GetX_unit}
-		\begin{tabular}{lll}
+		\begin{tabular}{llll}
 		\toprule
-		\multirow{2}{*}{\bf Test \#}  & \multicolumn{1}{c}{\bf Inputs}\\
+		\multirow{2}{*}{\bf Test \#}  & \multicolumn{1}{c}{\bf Inputs} & \multirow{2}{*}{\bf Description}\\
 		& \bf \texttt{i}\\\midrule
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetX_0} & -1\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetX_0} & -1 & \multirow{5}{*}{Verifies getting x value at \texttt{i} is correct}\\
 		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetX_1} & 0\\
 		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetX_2} & n/2\\
 		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetX_3} & n-1\\
@@ -420,9 +423,9 @@ For all unit tests:
 		\caption{Unit Tests - \texttt{GetEnergy}}\label{GetEnergy_unit}
 		\begin{tabular}{lll}
 		\toprule
-		\multirow{2}{*}{\bf Test \#}  & \multicolumn{1}{c}{\bf Inputs}\\
+		\multirow{2}{*}{\bf Test \#}  & \multicolumn{1}{c}{\bf Inputs} & \multirow{2}{*}{\bf Description}\\
 		& \bf \texttt{i}\\\midrule
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetEnergy_0} & -1\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetEnergy_0} & -1 & \multirow{5}{*}{Verifies getting x value at \texttt{i} is correct}\\
 		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetEnergy_1} & 0\\
 		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetEnergy_2} & n/2\\
 		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetEnergy_3} & n-1\\
@@ -464,11 +467,11 @@ For all unit tests:
 		\begin{table}[H]
 		\centering
 		\caption{Unit Tests - \texttt{GetY}}\label{GetY_unit}
-		\begin{tabular}{lll}
+		\begin{tabular}{llll}
 		\toprule
-		\multirow{2}{*}{\bf Test \#}  & \multicolumn{1}{c}{\bf Inputs}\\
+		\multirow{2}{*}{\bf Test \#}  & \multicolumn{1}{c}{\bf Inputs} & \multirow{2}{*}{\bf Description}\\
 		& \bf \texttt{i}\\\midrule
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetY_0} & -1\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetY_0} & -1 & \multirow{5}{*}{Verifies getting y value at \texttt{i} is correct}\\
 		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetY_1} & 0\\
 		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetY_2} & n/2\\
 		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetY_3} & n-1\\
@@ -510,11 +513,11 @@ For all unit tests:
 		\begin{table}[H]
 		\centering
 		\caption{Unit Tests - \texttt{GetXsec}}\label{GetXsec_unit}
-		\begin{tabular}{lll}
+		\begin{tabular}{llll}
 		\toprule
-		\multirow{2}{*}{\bf Test \#}  & \multicolumn{1}{c}{\bf Inputs}\\
+		\multirow{2}{*}{\bf Test \#}  & \multicolumn{1}{c}{\bf Inputs} & \multirow{2}{*}{\bf Description}\\
 		& \bf \texttt{i}\\\midrule
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetXsec_0} & -1\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetXsec_0} & -1 & \multirow{5}{*}{Verifies getting y value at \texttt{i} is correct}\\
 		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetXsec_1} & 0\\
 		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetXsec_2} & n/2\\
 		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetXsec_3} & n-1\\
@@ -556,11 +559,11 @@ For all unit tests:
 		\begin{table}[H]
 		\centering
 		\caption{Unit Tests - \texttt{SetData}}\label{SetData_unit}
-		\begin{tabular}{lllll}
+		\begin{tabular}{llllll}
 		\toprule
-		\multirow{2}{*}{\bf Test \#}  & \multicolumn{3}{c}{\bf Inputs}\\
+		\multirow{2}{*}{\bf Test \#}  & \multicolumn{3}{c}{\bf Inputs} & \multirow{2}{*}{\bf Description}\\
 		& \bf \texttt{i} & \bf \texttt{x} & \bf \texttt{y}\\\midrule
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetData_0} & -1 & r1, r2, r3, r4, r5 & r1, r2, r3, r4, r5\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetData_0} & -1 & r1, r2, r3, r4, r5 & r1, r2, r3, r4, r5 & \multirow{5}{*}{tests setting point \texttt{i} to (x,y)}\\
 		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetData_1} & 0 & r1, r2, r3, r4, r5 & r1, r2, r3, r4, r5\\
 		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetData_2} & n/2 & r1, r2, r3, r4, r5 & r1, r2, r3, r4, r5\\
 		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetData_3} & n-1 & r1, r2, r3, r4, r5 & r1, r2, r3, r4, r5\\
@@ -606,11 +609,11 @@ For all unit tests:
 		\begin{table}[H]
 		\centering
 		\caption{Unit Tests}\label{SetPoint_unit}
-		\begin{tabular}{lll}
+		\begin{tabular}{llll}
 		\toprule
-		\multirow{2}{*}{\bf Test \#} & \multicolumn{2}{c}{\bf Inputs}\\
+		\multirow{2}{*}{\bf Test \#} & \multicolumn{2}{c}{\bf Inputs} & \multirow{2}{*}{\bf Description}\\
 		& \texttt{i} & \texttt{it}\\\midrule
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetPoint_0} & -1 & rPoint, nPoint, zPoint\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetPoint_0} & -1 & rPoint, nPoint, zPoint & \multirow{5}{*}{Tests setting point \texttt{i} to each input individually}\\
 		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetPoint_1} & 0 & rPoint, nPoint, zPoint\\
 		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetPoint_2} & n/2 & rPoint, nPoint, zPoint\\
 		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetPoint_3} & n-1 & rPoint, nPoint, zPoint\\
@@ -651,11 +654,11 @@ For all unit tests:
 		\begin{table}[H]
 		\centering
 		\caption{Unit Tests - \texttt{SetX}}\label{SetX_unit}
-		\begin{tabular}{llll}
+		\begin{tabular}{lllll}
 		\toprule
-		\multirow{2}{*}{\bf Test \#}  & \multicolumn{2}{c}{\bf Inputs}\\
+		\multirow{2}{*}{\bf Test \#}  & \multicolumn{2}{c}{\bf Inputs} & \multirow{2}{*}{\bf Description}\\
 		& \bf \texttt{i} & \bf \texttt{e}\\\midrule
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetX_0} & -1 & r1, r2, r3, r4, r5\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetX_0} & -1 & r1, r2, r3, r4, r5 & \multirow{5}{*}{Tests setting x value of point \texttt{i} to each \texttt{e}}\\
 		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetX_1} & 0 & r1, r2, r3, r4, r5\\
 		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetX_2} & n/2 & r1, r2, r3, r4, r5\\
 		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetX_3} & n-1 & r1, r2, r3, r4, r5\\
@@ -698,11 +701,11 @@ For all unit tests:
 		\begin{table}[H]
 		\centering
 		\caption{Unit Tests - \texttt{SetEnergy}}\label{SetEnergy_unit}
-		\begin{tabular}{llll}
+		\begin{tabular}{lllll}
 		\toprule
-		\multirow{2}{*}{\bf Test \#}  & \multicolumn{2}{c}{\bf Inputs}\\
+		\multirow{2}{*}{\bf Test \#}  & \multicolumn{2}{c}{\bf Inputs} & \multirow{2}{*}{\bf Description}\\
 		& \bf \texttt{i} & \bf \texttt{e}\\\midrule
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetEnergy_0} & -1 & r1, r2, r3, r4, r5\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetEnergy_0} & -1 & r1, r2, r3, r4, r5 & \multirow{5}{*}{Tests setting x value of point \texttt{i} to each \texttt{e} value independently}\\
 		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetEnergy_1} & 0 & r1, r2, r3, r4, r5\\
 		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetEnergy_2} & n/2 & r1, r2, r3, r4, r5\\
 		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetEnergy_3} & n-1 & r1, r2, r3, r4, r5\\
@@ -791,11 +794,11 @@ For all unit tests:
 		\begin{table}[H]
 		\centering
 		\caption{Unit Tests - \texttt{SetXsec}}\label{SetXsec_unit}
-		\begin{tabular}{llll}
+		\begin{tabular}{lllll}
 		\toprule
-		\multirow{2}{*}{\bf Test \#}  & \multicolumn{2}{c}{\bf Inputs}\\
+		\multirow{2}{*}{\bf Test \#}  & \multicolumn{2}{c}{\bf Inputs} & \multirow{2}{*}{\bf Description}\\
 		& \bf \texttt{i} & \bf \texttt{e}\\\midrule
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetXsec_0} & -1 & r1, r2, r3, r4, r5\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetXsec_0} & -1 & r1, r2, r3, r4, r5 \multirow{5}{*}{Tests setting y value of point \texttt{i} to each \texttt{e} value independently}\\
 		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetXsec_1} & 0 & r1, r2, r3, r4, r5\\
 		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetXsec_2} & n/2 & r1, r2, r3, r4, r5\\
 		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SetXsec_3} & n-1 & r1, r2, r3, r4, r5\\
@@ -836,11 +839,11 @@ For all unit tests:
 		\begin{table}[H]
 		\centering
 		\caption{Unit Tests - \texttt{Sample}}\label{Sample_unit}
-		\begin{tabular}{lll}
+		\begin{tabular}{llll}
 		\toprule
-		\multirow{2}{*}{\bf Test \#}  & \multicolumn{1}{c}{\bf Inputs}\\
+		\multirow{2}{*}{\bf Test \#}  & \multicolumn{1}{c}{\bf Inputs} & \multirow{2}{*}{\bf Description}\\
 		& \bf \texttt{N/A}\\\midrule
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{Sample_0} & N/A \\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{Sample_0} & N/A & Tests correctness of sampling vector\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
@@ -874,11 +877,11 @@ For all unit tests:
 		\begin{table}[H]
 		\centering
 		\caption{Unit Tests - \texttt{SampleLin}}\label{SampleLin_unit}
-		\begin{tabular}{lll}
+		\begin{tabular}{llll}
 		\toprule
-		\multirow{2}{*}{\bf Test \#}  & \multicolumn{1}{c}{\bf Inputs}\\
+		\multirow{2}{*}{\bf Test \#}  & \multicolumn{1}{c}{\bf Inputs} & \multirow{2}{*}{\bf Description}\\
 		& \bf \texttt{N/A}\\\midrule
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SampleLin_0} & N/A \\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{SampleLin_0} & N/A & Tests correctness of sampling vector with linear interpolation \\
 		\bottomrule
 		\end{tabular}
 		\end{table}
@@ -907,6 +910,7 @@ For all unit tests:
 
 	\subsubsection{Expected vs. Actual output}
 		We expected the results on the GPU to be the same as on the CPU. We were also expecting to see SampleLin perform better on the GPU 			as the number of entries in the vector grew\\
+		
 	 	The results on the GPU and CPU were both the same, as expected. SampleLin seems to appear to perform better after 100,000 entries.
 
 \subsection{void Times(G4double factor)} % Test Cases done
@@ -917,11 +921,11 @@ For all unit tests:
 		\begin{table}[H]
 		\centering
 		\caption{Unit Tests - \texttt{Times}}\label{Times_unit}
-		\begin{tabular}{lll}
+		\begin{tabular}{llll}
 		\toprule
-		\multirow{2}{*}{\bf Test \#}  & \multicolumn{1}{c}{\bf Inputs}\\
+		\multirow{2}{*}{\bf Test \#}  & \multicolumn{1}{c}{\bf Inputs} & \multirow{2}{*}{\bf Description}\\
 		& \bf \texttt{factor}\\\midrule
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{Times_0} & r1\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{Times_0} & r1 & \multirow{5}{*}{Tests multiplying vector by \texttt{factor}}\\
 		\refstepcounter{TestCounter}\arabic{TestCounter}\label{Times_1} & r2\\
 		\refstepcounter{TestCounter}\arabic{TestCounter}\label{Times_2} & r3\\
 		\refstepcounter{TestCounter}\arabic{TestCounter}\label{Times_3} & r4\\
@@ -955,7 +959,8 @@ For all unit tests:
     	\includegraphics[width=0.7\textwidth]{times_line.png}
     	\end{figure}
 	\subsubsection{Expected vs. Actual output}
-		 We expected the results on the GPU to be the same as on the CPU. We expected the Times function to run much faster on the GPU 				compared to the CPU\\
+		 We expected the results on the GPU to be the same as on the CPU. We expected the Times function to run much faster on the GPU 				compared to the CPU.\\
+		 
 	 	The results on the GPU and CPU were both the same, as expected. After roughly 10000 entries the Times function runs faster on the GPU 			compared to the CPU just as expected.
 
 \subsection{void ThinOut(G4double precision)} % Test Cases done 
@@ -966,11 +971,11 @@ For all unit tests:
 		\begin{table}[H]
 		\centering
 		\caption{Unit Tests - \texttt{ThinOut}}\label{ThinOut_unit}
-		\begin{tabular}{lll}
+		\begin{tabular}{llll}
 		\toprule
-		\multirow{2}{*}{\bf Test \#}  & \multicolumn{1}{c}{\bf Inputs}\\
+		\multirow{2}{*}{\bf Test \#}  & \multicolumn{1}{c}{\bf Inputs} & \multirow{2}{*}{\bf Description}\\
 		& \bf \texttt{factor}\\\midrule
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{ThinOut_0} & r1\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{ThinOut_0} & r1 & \multirow{5}{*}{Tests removing values within \texttt{factor} of each other from vector}\\
 		\refstepcounter{TestCounter}\arabic{TestCounter}\label{ThinOut_1} & r2\\
 		\refstepcounter{TestCounter}\arabic{TestCounter}\label{ThinOut_2} & r3\\
 		\refstepcounter{TestCounter}\arabic{TestCounter}\label{ThinOut_3} & r4\\
@@ -1014,11 +1019,11 @@ For all unit tests:
 		\begin{table}[H]
 		\centering
 		\caption{Unit Tests - \texttt{GetXsec}}\label{GetXsec_e_unit}
-		\begin{tabular}{llll}
+		\begin{tabular}{lllll}
 		\toprule
-		\multirow{2}{*}{\bf Test \#}  & \multicolumn{1}{c}{\bf Inputs}\\
+		\multirow{2}{*}{\bf Test \#}  & \multicolumn{1}{c}{\bf Inputs} & \multirow{2}{*}{\bf Description}\\
 		& \bf \texttt{e}  \\\midrule
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetXsec_e_0} & r1, r2, r3, r4, r5 \\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetXsec_e_0} & r1, r2, r3, r4, r5 & \multirow{5}{*}{Tests getting first y value of point with energy at least \texttt{e}} \\
 		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetXsec_e_1} & r1, r2, r3, r4, r5 \\
 		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetXsec_e_2} & r1, r2, r3, r4, r5 \\
 		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetXsec_e_3} & r1, r2, r3, r4, r5 \\
@@ -1064,11 +1069,11 @@ For all unit tests:
 		\begin{table}[H]
 		\centering
 		\caption{Unit Tests - \texttt{GetXsec}}\label{GetXsec_e_min_unit}
-		\begin{tabular}{llll}
+		\begin{tabular}{lllll}
 		\toprule
-		\multirow{2}{*}{\bf Test \#}  & \multicolumn{2}{c}{\bf Inputs}\\
+		\multirow{2}{*}{\bf Test \#}  & \multicolumn{2}{c}{\bf Inputs} & \multirow{2}{*}{\bf Description}\\
 		& \bf \texttt{e} & \bf \texttt{min} \\\midrule
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetXsec_e_min_0} & r1, r2, r3, r4, r5 & -1\\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetXsec_e_min_0} & r1, r2, r3, r4, r5 & -1 & \multirow{5}{*}{\parbox{6cm}{Tests getting first y value of point with energy at least \texttt{e}, starting at \texttt{min}}}\\
 		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetXsec_e_min_1} & r1, r2, r3, r4, r5 & 0\\
 		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetXsec_e_min_2} & r1, r2, r3, r4, r5 & n/2\\
 		\refstepcounter{TestCounter}\arabic{TestCounter}\label{GetXsec_e_min_3} & r1, r2, r3, r4, r5 & n-1\\
@@ -1103,7 +1108,8 @@ For all unit tests:
     	\end{figure}
 
 	\subsubsection{Expected vs. Actual output}
-		 We expected the results on the GPU to be the same as on the CPU. We expected this function to perform better on the GPU\\
+		 We expected the results on the GPU to be the same as on the CPU. We expected this function to perform better on the GPU.\\
+
 	 	The results on the GPU and CPU were both the same, as expected. This function performed better on the GPU as expected.
 
 \subsection{G4double Get15percentBorder()}
@@ -1115,11 +1121,11 @@ For all unit tests:
 		\begin{table}[H]
 		\centering
 		\caption{Unit Tests - \texttt{Get15percentBorder}}\label{Get15percentBorder_unit}
-		\begin{tabular}{lll}
+		\begin{tabular}{llll}
 		\toprule
-		\multirow{2}{*}{\bf Test \#}  & \multicolumn{1}{c}{\bf Inputs}\\
+		\multirow{2}{*}{\bf Test \#}  & \multicolumn{1}{c}{\bf Inputs} & \multirow{2}{*}{\bf Description}\\
 		& \bf \texttt{N/A}\\\midrule
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{Get15percentBorder_0} & N/A \\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{Get15percentBorder_0} & N/A & Tests getting first integral within 15\% of last data point \\
 		\bottomrule
 		\end{tabular}
 		\end{table}
@@ -1147,6 +1153,7 @@ For all unit tests:
 
 	\subsubsection{Expected vs. Actual output}
 		We expected the results on the GPU to be the same as on the CPU. We expected this function to take the same amount of time on the 			GPU as it would take on the CPU.\\
+		
 	 	The results on the GPU and CPU were both the same, as expected. The GPU version of this function actually took longer when compared to 		its CPU version counter part.
 		
 \subsection{G4double Get50percentBorder()}% Test Cases Done
@@ -1158,11 +1165,11 @@ For all unit tests:
 		\begin{table}[H]
 		\centering
 		\caption{Unit Tests - \texttt{Get50percentBorder}}\label{Get50percentBorder_unit}
-		\begin{tabular}{lll}
+		\begin{tabular}{llll}
 		\toprule
-		\multirow{2}{*}{\bf Test \#}  & \multicolumn{1}{c}{\bf Inputs}\\
+		\multirow{2}{*}{\bf Test \#}  & \multicolumn{1}{c}{\bf Inputs} & \multirow{2}{*}{\bf Description}\\
 		& \bf \texttt{N/A}\\\midrule
-		\refstepcounter{TestCounter}\arabic{TestCounter}\label{Get50percentBorder_0} & N/A \\
+		\refstepcounter{TestCounter}\arabic{TestCounter}\label{Get50percentBorder_0} & N/A & Tests getting first integral within 50\% of last data point\\
 		\bottomrule
 		\end{tabular}
 		\end{table}
@@ -1186,7 +1193,7 @@ Instead try something like ``Test\#XX (as a heading) then explain that
 parameter1=-1, parameter2=xyz ..." 
 and explain the expected vs. actual output.}
 \mmp{Added expected vs actual subsection for every function}
-
+\sd{Added description to each test in inputs section, test num in results table refs back to that table with description}
 	\subsubsection{Performance}
 		\begin{figure}[H]
     	\centering
@@ -1204,7 +1211,7 @@ and explain the expected vs. actual output.}
 % =============================== Section =============================== %
 \section{System Tests} \label{System Tests}
 \subsection{Summary of System Tests}
-System tests are performed by running the sample code packaged with the GEANT4 installation. The Hadr04 example will be run with different materials (i.e water, uranium) and varying number of events. The values and conditions that are changed per test are detailed in table \ref{Table_SystemTests}.\\
+System tests are performed by running the sample code packaged with the Geant4 installation. The Hadr04 example will be run with different materials (i.e water, uranium) and varying number of events. The values and conditions that are changed per test are detailed in table \ref{Table_SystemTests}.\\
 
 For each system test, a summary of the results is recorded. This consists of a section detailing the accuracy of the results, and a section covering performance.. The accuracy of the results will be based on the difference between the values generated on the GPU and the values generated on the CPU. The performance metric that is used is the time required to run each system test.
 
@@ -1215,7 +1222,7 @@ For each system test, a summary of the results is recorded. This consists of a s
 \begin{tabular}{c>{\raggedright\arraybackslash}p{2.8cm} >{\raggedright\arraybackslash}p{2.8cm}>{\raggedright\arraybackslash}p{3cm}>{\raggedright\arraybackslash}p{3.5cm}}
 
 \toprule
-\bf Test \# & \bf Name & \bf Inputs & \bf Same as non-GPU GEANT4 & \bf Description\\\midrule
+\bf Test \# & \bf Name & \bf Inputs & \bf Same as non-GPU Geant4 & \bf Description\\\midrule
 \refstepcounter{TestCounter}\arabic{TestCounter}\label{sys1}
 & System Test - Water, 2000 events
 & Events = 2000
@@ -1257,11 +1264,11 @@ Material = Uranium
 \end{table}
 \end{center}
 
-\ds{A boolean summary of whether the outputs were accurate (ie. ``Output is the same as CPU GEANT4" -- true/false could be useful instead of your current setup).}
+\ds{A boolean summary of whether the outputs were accurate (ie. ``Output is the same as CPU Geant4" -- true/false could be useful instead of your current setup).}
 \mmp{Changed to boolean summary}
 
 \subsection{System Test - Water, 2000 events}
-This test runs the Hadr04 example on both the GPU and the CPU. The code for the Hadr04 example is bundled with the GEANT4 installation.
+This test runs the Hadr04 example on both the GPU and the CPU. The code for the Hadr04 example is bundled with the Geant4 installation.
 	\subsubsection{Accuracy}
 	Test output for water, 2000 events:
 		\begin{table}[H]
@@ -1590,8 +1597,8 @@ Similarly, the following is a traceability table explicitly relating test cases 
 \caption{Tests and Modules Relationship}\label{Table_TestsAndModules}
 \\\toprule
 \bf Test \#  & \bf Description & \bf Module\\\midrule
-\ref{Init_0} - \ref{Get50percentBorder_0} & Unit tests & G4ParticleVector\\
-\ref{sys1} - \ref{sys5} & System tests & G4ParticleHPDataPoint, G4ParticleVector, CMake Files\\
+\ref{Init_0} - \ref{Get50percentBorder_0} & Unit tests & G4ParticleHPVector\\
+\ref{sys1} - \ref{sys5} & System tests & G4ParticleHPDataPoint, G4ParticleHPVector, CMake Files\\
 \bottomrule
 \end{longtable}
 \end{center}
