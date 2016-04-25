@@ -206,7 +206,7 @@ At this point, there should be 4 text files in the tests directory. These contai
 
 
 \subsubsection{Note About Random Results}
-Some of the tests run in \texttt{GenerateTestResults} are based off of random numbers, which differ between the CPU and GPU implementations. To counteract this, each of those tests is run multiple times and the result is averaged. When analyzing results for those functions, they are only marked as failed if the difference in the values of the GPU and CPU results are more than a specified tolerance. There are some functions that depend on random numbers that modify the data array. Since a hash is outputted and will differ no matter how small the difference in the values of the array are, before hashing the values are all rounded to a lower precision (10 decimal places).
+Some of the tests run in \texttt{GenerateTestResults} are based off of random numbers, which differ between the CPU and GPU implementations. To counteract this, each of those tests is run multiple times and the result is averaged. When analyzing results for those functions, they are only marked as failed if the difference in the values of the GPU and CPU results are more than a specified tolerance. There are some functions that depend on random numbers that modify the data array. Since a hash is outputted and will differ no matter how small the difference in the values of the array are, before hashing the values are all rounded to a lower precision (10 decimal places). This rounding to a lower precision is the tolerance.
 
 \subsection{Definition of Variables Used for Unit Testing}
 The following are variables that are used for multiple unit tests. Instead of defining them again for each unit test they are defined here only once. Other variables used for specific unit tests will be defined in their respective unit test sections\\
@@ -234,7 +234,7 @@ For all unit tests:
 \end{tabular}
 \end{table}
 
-\ds{Where do you define your tolerance?}
+\ds{Where do you define your tolerance?} \mmp{addressed where we define our tolerance in the note about random results}
 
 \subsection{void Init(istream \& aDataFile, G4int total, G4double ux, G4double uy)} 
 	Initializes the data in the current vector with \texttt{total} data points from \texttt{aDataFile}. Each data
