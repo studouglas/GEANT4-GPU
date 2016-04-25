@@ -1,9 +1,9 @@
 \documentclass[12pt]{article}
-\usepackage[margin=1.4in]{geometry}
-
+\usepackage[margin=1in]{geometry}
+\usepackage{booktabs}
 % Comments ------------------------------------------------ 
 \usepackage{xcolor}
-\newif\ifcomments\commentstrue
+\newif\ifcomments\commentsfalse
 
 \ifcomments \newcommand{\authornote}[3]{\textcolor{#1}{[#3 ---#2]}}
 \newcommand{\todo}[1]{\textcolor{red}{[TODO: #1]}} \else
@@ -17,33 +17,57 @@
 % ============================ BEGIN DOCUMENT =============================== %
 \begin{document}
 
-
-\title{\vspace{-4em}Problem Statement for GEANT4-GPU} \author{Stuart Douglas
-(1214422), Matthew Pagnan (1208693), \\ Rob Gorrie (1222547), Victor Reginato
-(1209975)}
-	
+% Title Page -----------------------------------------------------------------
+\title{
+\LARGE GEANT4-GPU:
+\\\vspace{10mm}
+\large \textbf{Problem Statment}
+\vspace{40mm}
+}
+\author{
+Stuart Douglas -- 1214422
+\\Matthew Pagnan -- 1208693
+\\Rob Gorrie -- 1222547
+\\Victor Reginato -- 1209975
+\vspace{10mm}
+}
+\date{\vfill \textbf{Version 1}\\ \today}
+% End Title Page -------------------------------------------------------------
+\pagenumbering{gobble}
 \maketitle
+\newpage
 
+\begin{table}[h]
+\centering
+\caption{Revision History}
+\begin{tabular}{p{9cm}ll}
+\toprule
+\textbf{Description of Changes} & \textbf{Author(s)} & \textbf{Date}\\\midrule
+Proper capitilization for Geant4, remove unnecessary text, clean up writing, title page on separate page & Stuart Douglas & 2016-04-24\\\bottomrule
+\end{tabular}
+\end{table}
 
-\noindent \textbf{Description of Problem}\\ GEANT-4 is a widely-used simulation
+\subsection*{Description of Problem}
+Geant4 is a widely-used simulation
 program used to simulate particle interactions. There are currently several
 members of McMaster's Engineering Physics department that use the program, and
 are being limited by the performance of the software. This means that they
-cannot simulate particle interactions that take place over the course of minutes
-(or even seconds), and they also can't simulate large numbers of particles.\\
+cannot simulate particle interactions with large numbers of particles.\\
 
-\noindent Increasing the runtime of the simulation or the number of particles
-would greatly increase the accuracy of their results, allowing the researchers
+\noindent Increasing the number of particles in a simulation 
+would increase the accuracy of their results, allowing the researchers
 to understand the systems they're modeling better. This is especially true when
 modeling complex systems, such as McMaster's nuclear reactor. Depending upon the
 level of success of the project, the solution could potentially benefit groups
-that use GEANT-4 outside of McMaster as well.\\
+that use Geant4 outside of McMaster as well.\\
 
-\noindent \textbf{Stakeholders}\\ The McMaster Engineering Physics Department is
-the main stakeholder of this project as they use GEANT-4 for their simulations
-of the nuclear reactor. If the project is extremely successful, and the code is submitted back to the GEANT-4 repository, CERN and other users of GEANT-4 would be considered stakeholders as well, as the changes we make would increase the performance of the application to all users.\\
+\subsection*{Stakeholders}
+The McMaster Engineering Physics Department is
+the main stakeholder of this project as they use Geant4 for their simulations
+of the nuclear reactor. If the project is extremely successful, and the code is submitted back to the Geant4 repository, CERN and other users of Geant4 would be considered stakeholders as well, as the changes we make would increase the performance of the application to all users.\\
 
-\noindent \textbf{Context \& Environment}\\ The project is designed on a 
-specific-need basis for McMaster's department of Engineering Physics. It aims to alleviate research problems in the field of physics, and will be used in simulations of McMaster's nuclear reactor. If the project is extremely successful, the changes could be incorporated into the GEANT-4 code, pushing its reach to all users of GEANT-4. Thus, the setting in which the software will be implemented is primarily academic; Engineering and Physics labs and offices, running on desktop computers. That said, there are no restrictions limiting the solution to purely scholastic uses, it is open to be used for all research that uses GEANT-4 for simulations. \ds{This last sentence is a bit awkward.}\\
+\subsection*{Context \& Environment}
+The project is designed on a 
+specific-need basis for McMaster's department of Engineering Physics. It aims to alleviate research problems in the field of physics, and will be used in simulations of McMaster's nuclear reactor. If the project is extremely successful, the changes could be incorporated into the Geant4 code, pushing its reach to all users of Geant4. Thus, the setting in which the software will be implemented is primarily academic; Engineering and Physics labs and offices, running on desktop computers. \ds{This last sentence is a bit awkward.} \authornote{green}{SD}{Removed awkward sentence}\\
  
 \end{document}

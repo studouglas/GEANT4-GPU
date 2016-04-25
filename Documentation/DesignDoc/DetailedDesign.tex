@@ -404,15 +404,15 @@ be stored and maintained on the CPU in this implementation and will be sent to t
 Note that hyphens in routine names, inputs, outputs, and exceptions are just for linebreaks due to the table size. The actual routine names, inputs, outputs, and exceptions do not have hyphens.
 
 \subsubsection{Access Program Syntax}% ================ Victor
-\begin{longtable}{p{0.28\textwidth}p{0.28\textwidth}p{0.28\textwidth}p{0.14\textwidth}}
+\begin{longtable}{p{0.28\textwidth}p{0.3\textwidth}p{0.26\textwidth}p{0.14\textwidth}}
 \caption{G4ParticleVector -- access program syntax}\label{Table_NeutronHPVectorInterface}\\
 \toprule
 \bf Routine Name & \bf Input & \bf Output & \bf Exceptions \\\midrule
 \arrayrulecolor{lightgray}
-SetInterpolationManager & const G4InterpolationManager \&  & & \\\hline
-SetInterpolationManager & G4InterpolationManager \&  & & \\\hline
-GetXsecList & G4double, G4int, G4ParticleHPDataPoint*, G4int & &\\\hline
-GetMinIndices\_CUDA & G4ParticleHPDataPoint* , int, double* , int, int* & &\\
+SetInterpolationManager & const G4InterpolationManager\&  & None, Void fucntion & \\\hline
+SetInterpolationManager & G4InterpolationManager\&  & None, Void function & \\\hline
+GetXsecList & G4double, G4int, G4ParticleHPDataPoint*, G4int & None, Void function &\\\hline
+GetMinIndices\_CUDA & G4ParticleHPDataPoint*, int, double*, int, int* & None, Void function &\\
 \arrayrulecolor{black}
 \bottomrule
 \end{longtable}
@@ -427,7 +427,7 @@ Note that hyphens in routine names and inputs are just for linebreaks due to the
 \arrayrulecolor{lightgray}
 SetInterpolation-Manager & G4Interpolation-Manager\& & sets \texttt{theManager} to the input \\\hline
 GetXsecList & G4double, G4int, G4ParticleHPDataPoint*, G4int & Takes a list of energies and finds their corresponding xSecs\\\hline
-GetMinIndices\_CUDA & G4ParticleHPDataPoint* , int, double* , int, int* & device function used to find the indexes for the query values given\\\hline
+GetMinIndices\_CUDA & G4ParticleHPDataPoint*, int, double*, int, int* & device function used to find the indexes for the query values given\\\hline
 \arrayrulecolor{black}
 \bottomrule
 \end{longtable}

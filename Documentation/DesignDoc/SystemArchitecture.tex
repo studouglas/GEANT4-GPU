@@ -78,7 +78,8 @@ All major edits to this document will be recorded in the table below.
 \arrayrulecolor{lightgray}
 Set up sections and filled out Introduction section & Matthew & 2015-12-15\\\hline
 Document structure adjustments & Stuart & 2016-1-8\\\hline
-Filled out Likely/Unlikely Changes section & Rob & 2016-1-9\\
+Filled out Likely/Unlikely Changes section & Rob & 2016-1-9\\\hline
+Added section explaining different implementation methods & Rob & 2016-4-25\\
 \arrayrulecolor{black}
 \bottomrule
 \end{tabularx}
@@ -230,6 +231,13 @@ G4HPNeutronVector was chosen to port to the GPU for two main reasons. The first 
 Geant4 organizes the processes for particles that it must manipulate into separate classes. These classes house functions appropriate to the mechanics surrounding those particles. These classes are the target for parallelization because they are where large arrays of particles and data are stored and manipulated (note: these are not the classes that represent the particles themselves, but the classes that store the functions germane to the given class of particles). These classes are referred to as models in the Geant4 codebase. There are over 100 of these `models' under the hadronic category alone (hadronic particles are those composed of quarks). The problem now is reduced to deciding which model(s) to integrate with the CUDA technology.
 	 
 The decision as to which model to integrate was made to satisfy stakeholder requirements. The problem at hand was proposed by Dr. Buijs and his graduate students from the Engineering Physics department at McMaster. Dr. Buijs' team uses Geant4 to model the university's local nuclear reactor. Their simulations very heavily depend on manipulating neutrons through the G4ParticleVector class. Therefore, this model was chosen for CUDA integration in an attempt to offer the most significant performance increases to the project stakeholders specifically.
+
+\subsection{Two Implementations}
+Over the course of the year, two different implementations were constructed and tested in order to weigh the different advantages and disadvantages. 
+
+The first implementation involved porting the entirety of GPParticleVector to the GPU. For each function of the class, a GPU implementation was written and was to be redirected to if the user had compiled with CUDA instantiated. This method of implementation proved very useful in initially determining which functions of G4ParticleVector would immediately benefit from GPU parallelization. 
+
+The second attempted implementation involved the construction of a buffered list that would accumulate calls to GetXSec (arguably the most important function in the class) and a few other functions. It would then send the data vector to the GPU and compute the calls in parallel. This second method was more specialized and focused, using the insight gained from the first implementation to approach the problem in, what we thought was, a more reasonable and appropriate manner. 
 
 \section{Likely and Unlikely Changes}
 Different aspects of the system are presented below in two lists, those that are likely to change in the future and those that are unlikely to change. Relative likelihood of changes in the same category may vary.
