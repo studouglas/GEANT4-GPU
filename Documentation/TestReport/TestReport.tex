@@ -273,7 +273,10 @@ For all unit tests:
     	\caption{Performance results for \texttt{Init} function}\label{figPerformanceInit}
     	\includegraphics[width=0.7\textwidth]{init_bar.png}
     	\includegraphics[width=0.7\textwidth]{init_line.png}
-   		\end{figure}
+   	\end{figure}
+	\subsubsection{Expected vs. Actual output}
+	We expected to see a performance increase as the size of the vector increased. We also expected the results on the GPU to be the same as on 		the CPU.\\
+	The actual output did show a performance increase as teh size of the vector grew, however it was not as large of an increase as we were 	 		expecting. The results on the GPU and CPU were both the same, as expected. 
 
 \subsection{G4ParticleHPVector \& operator = (const G4ParticleHPVector \& right)}
 	Create a new, temporary G4ParticleHPVector object and assign the current vector to it. Outputs the data and the integral from the new vector.
@@ -309,6 +312,10 @@ Or give a brief rundown of the system state, what the input to each parameter is
 		
 	\subsubsection{Performance}	
 		This method is not computationally heavy, so performance data was not included.
+
+	\subsubsection{Expected vs. Actual output}
+	 We expected the results on the GPU to be the same as on the CPU.\\
+	 The results on the GPU and CPU were both the same, as expected. 
 		
 \subsection{const G4ParticleHPDataPoint GetPoint(G4int i)}
 	
@@ -350,6 +357,10 @@ Or give a brief rundown of the system state, what the input to each parameter is
 		\end{table}
 	\subsubsection{Performance}
 		This method is not computationally heavy, so performance data was not included.
+
+	\subsubsection{Expected vs. Actual output}
+		 We expected the results on the GPU to be the same as on the CPU.\\
+	 	The results on the GPU and CPU were both the same, as expected.
 		
 \subsection{G4double GetX(G4int i)}
 	
@@ -393,6 +404,10 @@ Or give a brief rundown of the system state, what the input to each parameter is
 	\subsubsection{Performance}
 		This method is not computationally heavy, so performance data was not included.
 
+	\subsubsection{Expected vs. Actual output}
+		 We expected the results on the GPU to be the same as on the CPU.\\
+	 	The results on the GPU and CPU were both the same, as expected.
+
 \subsection{G4double GetEnergy(G4int i)} % Test cases finished
 	
 	Returns the energy at index \texttt{i} in the current vector. The \texttt{x} 
@@ -434,6 +449,9 @@ Or give a brief rundown of the system state, what the input to each parameter is
 
 	\subsubsection{Performance}
 		This method is not computationally heavy, so performance data was not included.
+	\subsubsection{Expected vs. Actual output}
+		 We expected the results on the GPU to be the same as on the CPU.\\
+	 	The results on the GPU and CPU were both the same, as expected.
 
 \subsection{G4double GetY(G4int i)}
 
@@ -477,6 +495,10 @@ Or give a brief rundown of the system state, what the input to each parameter is
 
 	\subsubsection{Performance}
 		This method is not computationally heavy, so performance data was not included.
+
+	\subsubsection{Expected vs. Actual output}
+		 We expected the results on the GPU to be the same as on the CPU.\\
+	 	The results on the GPU and CPU were both the same, as expected.
 		
 \subsection{G4double GetXsec(G4int i)} % Test cases finished
 	
@@ -519,6 +541,10 @@ Or give a brief rundown of the system state, what the input to each parameter is
 
 	\subsubsection{Performance}
 		This method is not computationally heavy, so performance data was not included.
+
+	\subsubsection{Expected vs. Actual output}
+		 We expected the results on the GPU to be the same as on the CPU.\\
+	 	The results on the GPU and CPU were both the same, as expected.
 		
 \subsection{void SetData(G4int i, G4double x, G4double y)}
 	
@@ -561,6 +587,10 @@ Or give a brief rundown of the system state, what the input to each parameter is
 
 	\subsubsection{Performance}
 		This method is not computationally heavy, so performance data was not included.
+
+	\subsubsection{Expected vs. Actual output}
+		 We expected the results on the GPU to be the same as on the CPU.\\
+	 	The results on the GPU and CPU were both the same, as expected.
 
 \subsection{void SetPoint(G4int i, const G4ParticleHPDataPoint \& it)}	
 	Sets the data point to \texttt{it} at index \texttt{i} in the current vector.
@@ -607,6 +637,10 @@ Or give a brief rundown of the system state, what the input to each parameter is
 	\subsubsection{Performance}
 		This method is not computationally heavy, so performance data was not included.
 
+	\subsubsection{Expected vs. Actual output}
+		 We expected the results on the GPU to be the same as on the CPU.\\
+	 	The results on the GPU and CPU were both the same, as expected.
+
 \subsection{void SetX(G4int i, G4double e)}
 	
 	Sets the energy at index \texttt{i} in the current vector. 
@@ -648,6 +682,10 @@ Or give a brief rundown of the system state, what the input to each parameter is
 
 	\subsubsection{Performance}
 		This function is not computationally heavy, so performance data was not included.
+
+	\subsubsection{Expected vs. Actual output}
+		 We expected the results on the GPU to be the same as on the CPU.\\
+	 	The results on the GPU and CPU were both the same, as expected.
 
 
 \subsection{void SetEnergy(G4int i, G4double e)}
@@ -691,6 +729,11 @@ Or give a brief rundown of the system state, what the input to each parameter is
 
 	\subsubsection{Performance}
 		This method is not computationally heavy, so performance data was not included.
+
+	\subsubsection{Expected vs. Actual output}
+		 We expected the results on the GPU to be the same as on the CPU.\\
+	 	The results on the GPU and CPU were both the same, as expected.
+
 \subsection{void SetY(G4int i, G4double e)} % Test cases finished
 	
 	Sets the xSec at index \texttt{i} in the current vector. 
@@ -732,6 +775,10 @@ Or give a brief rundown of the system state, what the input to each parameter is
 
 	\subsubsection{Performance}
 		This function is not computationally heavy, so performance data was not included.
+
+	\subsubsection{Expected vs. Actual output}
+		 We expected the results on the GPU to be the same as on the CPU.\\
+	 	The results on the GPU and CPU were both the same, as expected.
 
 
 \subsection{void SetXsec(G4int i, G4double e)}
@@ -776,6 +823,10 @@ Or give a brief rundown of the system state, what the input to each parameter is
 	\subsubsection{Performance}
 		This method is not computationally heavy, so performance data was not included.
 
+	\subsubsection{Expected vs. Actual output}
+		 We expected the results on the GPU to be the same as on the CPU.\\
+	 	The results on the GPU and CPU were both the same, as expected.
+
 \subsection{G4double Sample()}
 	
 	  Performs samples of the vector according to interpolation its interpolation scheme.
@@ -808,6 +859,10 @@ Or give a brief rundown of the system state, what the input to each parameter is
 
 	\subsubsection{Performance}
 		This method is not computationally heavy, so performance data was not included.
+
+	\subsubsection{Expected vs. Actual output}
+		 We expected the results on the GPU to be the same as on the CPU.\\
+	 	The results on the GPU and CPU were both the same, as expected.
 
 
 \subsection{G4double SampleLin()}% Test Cases Done
@@ -848,6 +903,10 @@ Or give a brief rundown of the system state, what the input to each parameter is
     	\includegraphics[width=0.7\textwidth]{samplelin_line.png}
     	\end{figure}
 	The extraneous point for 1509 entries where the GPU function is significantly slower can be attributed to the need to copy the data from the GPU memory back to CPU memory in this case.
+
+	\subsubsection{Expected vs. Actual output}
+		We expected the results on the GPU to be the same as on the CPU. We were also expecting to see SampleLin perform better on the GPU 			as the number of entries in the vector grew\\
+	 	The results on the GPU and CPU were both the same, as expected. SampleLin seems to appear to perform better after 100,000 entries.
 
 \subsection{void Times(G4double factor)} % Test Cases done
 	
@@ -894,6 +953,9 @@ Or give a brief rundown of the system state, what the input to each parameter is
     	\includegraphics[width=0.7\textwidth]{times_bar.png}
     	\includegraphics[width=0.7\textwidth]{times_line.png}
     	\end{figure}
+	\subsubsection{Expected vs. Actual output}
+		 We expected the results on the GPU to be the same as on the CPU. We expected the Times function to run much faster on the GPU 				compared to the CPU\\
+	 	The results on the GPU and CPU were both the same, as expected. After roughly 10000 entries the Times function runs faster on the GPU 			compared to the CPU just as expected.
 
 \subsection{void ThinOut(G4double precision)} % Test Cases done 
 	
@@ -935,6 +997,10 @@ Or give a brief rundown of the system state, what the input to each parameter is
 
 	\subsubsection{Performance}
 		This method is not computationally heavy, so performance data was not included.
+
+	\subsubsection{Expected vs. Actual output}
+		 We expected the results on the GPU to be the same as on the CPU.\\
+	 	The results on the GPU and CPU were both the same, as expected.
 
 
 
@@ -984,6 +1050,10 @@ Or give a brief rundown of the system state, what the input to each parameter is
     	\includegraphics[width=0.7\textwidth]{getxsec_e_line.png}
     	\end{figure}
 	The GPU function is significantly slower. This is due to the lack of a hashing function as on the CPU which dramatically speeds up the time to find the first element in the data with energy at least \emph{e}. It can be noted in figure \ref{figPerformanceGetXSec_e_min} that when a minimum value is pre-declared the performance gap is much smaller.
+
+	\subsubsection{Expected vs. Actual output}
+		 We expected the results on the GPU to be the same as on the CPU. We expected the function to run faster on the GPU compared to the 			CPU\\
+	 	The results on the GPU and CPU were both the same, as expected. Unfortunately, the function performed much worse on the GPU 				compared to the CPU.
 	
 \subsection{G4double GetXsec(G4double e, G4int min)}
 	Returns the first xSec from the current vector whose energy is greater than \texttt{e}. 
@@ -1031,6 +1101,10 @@ Or give a brief rundown of the system state, what the input to each parameter is
     	\includegraphics[width=0.7\textwidth]{getxsec_e_min_line.png}
     	\end{figure}
 
+	\subsubsection{Expected vs. Actual output}
+		 We expected the results on the GPU to be the same as on the CPU. We expected this function to perform better on the GPU\\
+	 	The results on the GPU and CPU were both the same, as expected. This function performed better on the GPU as expected.
+
 \subsection{G4double Get15percentBorder()}
 	
 	 Returns the integral from each data point to the last data point and returns the first one within 
@@ -1069,6 +1143,10 @@ Or give a brief rundown of the system state, what the input to each parameter is
     	\includegraphics[width=0.7\textwidth]{get15_bar.png}
     	\includegraphics[width=0.7\textwidth]{get15_line.png}
     	\end{figure}
+
+	\subsubsection{Expected vs. Actual output}
+		We expected the results on the GPU to be the same as on the CPU. We expected this function to take the same amount of time on the 			GPU as it would take on the CPU.\\
+	 	The results on the GPU and CPU were both the same, as expected. The GPU version of this function actually took longer when compared to 		its CPU version counter part.
 		
 \subsection{G4double Get50percentBorder()}% Test Cases Done
 	
@@ -1105,7 +1183,8 @@ Or give a brief rundown of the system state, what the input to each parameter is
 Seeing tables that say ``Test\#XX -- -- -- --" is not very intuitive or helpful. 
 Instead try something like ``Test\#XX (as a heading) then explain that 
 parameter1=-1, parameter2=xyz ..." 
-and explain the expected vs. actual output.}		
+and explain the expected vs. actual output.}
+\mmp{Added expected vs actual subsection for every function}
 
 	\subsubsection{Performance}
 		\begin{figure}[H]
@@ -1114,6 +1193,10 @@ and explain the expected vs. actual output.}
     	\includegraphics[width=0.7\textwidth]{get50_bar.png}
     	\includegraphics[width=0.7\textwidth]{get50_line.png}
     	\end{figure}
+
+	\subsubsection{Expected vs. Actual output}
+		 We expected the results on the GPU to be the same as on the CPU. We expected the performance to be the same on both GPU and CPU\\
+	 	The results on the GPU and CPU were both the same, as expected. The performance was the same, as expected on both CPU and GPU.
 
 		
 		
