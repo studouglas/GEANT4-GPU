@@ -108,6 +108,7 @@ Tables for specific unit and system tests have been omitted in order to keep thi
 \end{center}
 
 \section*{List of Figures}
+Described here are a list of figures used in this document.
 \begin{center}
 \begin{tabular}{cl}
 \toprule
@@ -124,6 +125,7 @@ Tables for specific unit and system tests have been omitted in order to keep thi
 \end{center}
 
 \section*{Definitions and Acronyms} % Matt
+This section contains a table of Definitions and Acronyms used within this document.
 \begin{table}[h]
 \centering
 \caption{Definitions and Acronyms}\label{Table_DefAndAcro}
@@ -141,9 +143,10 @@ Hadr04 & Example simulation installed by default with Geant4, used for system te
 \end{table}
 
 \ds{Your table is in the wrong place for this heading. You might want to add some text in before the table (referencing it) to avoid an empty, floating heading.}
+\mmp{Added text to fix floating table issue}
 
 % =============================== Section =============================== % ------------------------- Rob
-\section{Introduction}
+\section{Introduction}\label{Introduction}
 \subsection{Purpose of the Document}
 This document summarizes the testing and test conclusions of the GEANT4-GPU project. This document uses the implementation outlined in the test plan.
 
@@ -157,9 +160,10 @@ Neither the unit tests nor the system tests are concerned with the correctness o
 A basic knowledge of programming concepts and command-line tools is assumed, as well as familiarity with GEANT4.
 
 \subsection{Organization}
-\ds{Use refs for your section/figure/table numbering. That way they'll be auto-generated.}
+\ds{Use refs for your section/figure/table numbering. That way they'll be auto-generated.\\}
+\mmp{Added refs for section}
 
-In Section 4 we provide an introduction to this report. Section 5 describes the test cases which are carried out on each function. Section 6 describes system test cases that were carried out by our team. In section 7 traceability matrices to requirements and modules are documented. Section 8 provides a summary of changes made in response to the testing results.
+In Section \ref{Introduction} we provide an introduction to this report. Section \ref{Unit Testing} describes the test cases which are carried out on each function. Section \ref{System Tests} describes system test cases that were carried out by our team. In section \ref{Traceability} traceability matrices to requirements and modules are documented. Section \ref{Changes after Testing} provides a summary of changes made in response to the testing results.
 
 \subsection{Usability Testing}
 GEANT4-GPU is a back end implementation of already existing GEANT4 modules. Therefore users will not be interacting with is directly. Since there is no direct user interaction with GEANT4-GPU, usability tests do not fit the project and are not included.
@@ -168,7 +172,7 @@ GEANT4-GPU is a back end implementation of already existing GEANT4 modules. Ther
 The GEANT4-GPU functions are meant to mimic the already existing GEANT4 functions. Therefore the GEANT4-GPU functions must also mimic the the robustness of the GEANT4 functions. The accuracy section for unit tests has several unit tests designed to test the robustness of the functions, so robustness is included in accuracy results.
 
 % =============================== Section =============================== 
-\section{Unit Testing}
+\section{Unit Testing} \label{Unit Testing}
 \subsection{Use of Automated Testing}
 \subsubsection{Overview}
 Our unit testing system is semi-automated. The user runs a program to generate a test results text file, inputting whether or not Geant4 was compiled with CUDA enabled or disabled. Then, they recompile Geant4 in the opposite configuration (i.e. with CUDA enabled if previously disabled, and vice versa) and run the test program again. At this point there will be two test results text files, one for CUDA enabled, and one for CUDA disabled. In addition, two text files containing runtimes of all computationally-intensive functions are produced. After generating the files, a program to analyze the results is run outputting whether each test case passed or failed, and creating an Excel document (.csv) with the running times.
@@ -1114,7 +1118,7 @@ and explain the expected vs. actual output.}
 		
 		
 % =============================== Section =============================== %
-\section{System Tests}
+\section{System Tests} \label{System Tests}
 \subsection{Summary of System Tests}
 System tests are performed by running the sample code packaged with the GEANT4 installation. The Hadr04 example will be run with different materials (i.e water, uranium) and varying number of events. The values and conditions that are changed per test are detailed in table \ref{Table_SystemTests}.\\
 
@@ -1127,40 +1131,40 @@ For each system test, a summary of the results is recorded. This consists of a s
 \begin{tabular}{c>{\raggedright\arraybackslash}p{2.8cm} >{\raggedright\arraybackslash}p{2.8cm}>{\raggedright\arraybackslash}p{3cm}>{\raggedright\arraybackslash}p{3.5cm}}
 
 \toprule
-\bf Test \# & \bf Name & \bf Inputs & \bf Outputs & \bf Description\\\midrule
+\bf Test \# & \bf Name & \bf Inputs & \bf Same as non-GPU GEANT4 & \bf Description\\\midrule
 \refstepcounter{TestCounter}\arabic{TestCounter}\label{sys1}
 & System Test - Water, 2000 events
 & Events = 2000
 Material = Water
-& Same output as non-GPU GEANT4 
+& True 
 &  Hadr04 no changes\\\midrule
 
 \refstepcounter{TestCounter}\arabic{TestCounter}\label{sys2}
 & System Test - Uranium, 2000 events
 & Events = 2000
 Material = Uranium
-& Same output as non-GPU GEANT4 
+& True 
 & Hadr04 -- basic example\\\midrule
 
 \refstepcounter{TestCounter}\arabic{TestCounter}\label{sys3}
 & System Test - Water, 600 events
 & Events = 600
 Material = Water
-& Same output as non-GPU GEANT4 
+& True 
 & Hadr04 -- Shorter test \\\midrule
 
 \refstepcounter{TestCounter}\arabic{TestCounter}\label{sys4}
 & System Test - Uranium, 600 events
 & Events = 600
 Material = Uranium
-& Same output as non-GPU GEANT4 
+& True 
 & Hadr04 -- Shorter test \\\midrule
 
 \refstepcounter{TestCounter}\arabic{TestCounter}\label{sys5}
 & System Test - Uranium, 20000 events
 & Events = 20000
 Material = Uranium
-& Same output as non-GPU GEANT4 
+& True 
 & Hadr04 -- Long simulation stress Test\\
 
 \bottomrule
@@ -1170,6 +1174,7 @@ Material = Uranium
 \end{center}
 
 \ds{A boolean summary of whether the outputs were accurate (ie. ``Output is the same as CPU GEANT4" -- true/false could be useful instead of your current setup).}
+\mmp{Changed to boolean summary}
 
 \subsection{System Test - Water, 2000 events}
 This test runs the Hadr04 example on both the GPU and the CPU. The code for the Hadr04 example is bundled with the GEANT4 installation.
@@ -1475,7 +1480,7 @@ This test runs the Hadr04 example on both the GPU and the CPU including Uranium 
 		\end{table}		
 
 % =============================== Section =============================== %
-\section{Traceability}
+\section{Traceability}\label{Traceability}
 The following section is used to highlight the relations of implemented test cases to requirements and modules. In doing so, we hope to draw clear reasoning upon the inclusion of such tests. 
 
 \subsection{Requirements}
@@ -1509,7 +1514,7 @@ Similarly, the following is a traceability table explicitly relating test cases 
 
 % =============================== Section =============================== 
 % --------------------------- Stuart
-\section{Changes after Testing}
+\section{Changes after Testing}\label{Changes after Testing}
 Developing the unit testing system illuminated a variety of bugs and changes that needed to be made. These were predominantly related to edge cases -- trying to access indices in arrays that are negative or greater than the number of elements in the array was a common theme. Some of these edge cases were not covered by Geant4 itself, so the required change was made to the original Geant4 source code as well as the modified CUDA code.\\
 
 Aside from the handling of edge cases with if guards, there was one more significant change required to get the unit tests to pass. An important control flow statement in \texttt{GetXSec(e,min)} was supposed to branch if the difference between two values was below a certain threshold. Our implementation was missing a call to get the absolute value for this difference, and as such was returning the wrong result in cases where the second value was larger than the first.\\
