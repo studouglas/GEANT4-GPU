@@ -90,7 +90,8 @@ All major edits to this document will be recorded in the table below.
 \Xhline{2\arrayrulewidth}
 \bf Description of Changes & \bf Author & \bf Date\\\hline
 Initial draft of document & Stuart, Matthew, Rob, Victor & 2015-10-07\\
-Update for Rev0 presentation & Matt & 2016--08-02\\
+Update for Rev0 presentation & Matt & 2016-02-08\\
+Changes document based on Dan's comments & Victor & 2016-04-23\\
 \Xhline{2\arrayrulewidth}
 \end{tabular}
 \end{table}
@@ -104,7 +105,7 @@ Update for Rev0 presentation & Matt & 2016--08-02\\
 Physics researchers use software simulations to model how particles interact with environments, and to determine the effects of these interactions. Members of McMaster's Engineering Physics department use Geant4 -- a simulation toolkit developed by CERN. McMaster's researchers have developed their own fork of the software, G4-STORK, designed to study McMaster's nuclear reactor. Currently, running G4-STORK simulations (as well as other Geant4 simulations) that require many particles takes a long time to compute when run on the CPU. This limits researchers to smaller number of particles than are realistic, and prevents them from seeing the effects of longer time periods.
 
 \subsubsection{Goal of the project}
-The goal of this project is to significantly increase the computation speed of G4-STORK simulations, which should transfer well to other GEANT-4 projects. Increasing the speed will allow researchers to use more accurate models, to see the effects of longer time periods on the particles, and to generally increase their productivity. This will be achieved by porting the algorithms that currently run on the CPU to the GPU, taking advantage of the parallel power of the GPU's many cores.
+The goal of this project is to significantly increase the computation speed of Geant4 simulations, which should transfer to all projects written in Geant4. Increasing the speed will allow researchers to use more accurate models, to see the effects of longer time periods on the particles, and to generally increase their productivity. This will be achieved by porting the algorithms that currently run on the CPU to the GPU, taking advantage of the parallel power of the GPU's many cores.
 
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Stakeholders}\label{SubSec_Stakeholders} % Victor
@@ -134,7 +135,7 @@ Collaborators and GEANT-4 users external to McMaster could be potential stakehol
 Graduate students and professors from the McMaster Engineering Physics Department will be hands-on users of the product. They will all have familiarity with the existing product. 
 
 \subsubsection{Personas}
-Consider Tanner Thomson, a graduate student in the Engineering Physics Department. Tanner wants to study how particles in McMaster's nuclear reactor affect each other, given some specific starting conditions, and a very large number of particles. Tanner knows how to use the existing G4-STORK program, but it will take weeks to run the computations. Tanner inputs his desired number of particles and specific starting conditions into a G4-STORK simulation. He enables the GPU features of the new product, and successfully runs the simulation in a reasonable amount of time. He observes interesting results that would not have been feasible to obtain with the old product.\\
+Consider Tanner Thomson, a graduate student in the Engineering Physics Department. Tanner wants to study how particles in specific model affect each other, given some specific starting conditions, and a very large number of particles. Tanner knows how to use the existing Geant4 development kit, but it will take weeks to run the computations. Tanner inputs his desired number of particles and specific starting conditions into a Geant4 simulation. He enables the GPU features of the new product, and successfully runs the simulation in a reasonable amount of time. He observes interesting results that would not have been feasible to obtain with the old product.\\
 
 \subsubsection{Priorities Assigned to Users}
 Priority will be given to Wesley Ford, the graduate
@@ -147,7 +148,7 @@ student that proposed the project to Dr. Buijs. He will be the primary user of G
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Mandated Constraints} % Rob
 There are global constraints put in place by the existing software, the stakeholders, and the structure of 4ZP6. The project must be built upon the existing GEANT-4 code, which is used by G4-STORK to run the simulation. The final product must be able to run any code/simulation that ran on the existing software.\\ 
-The GPU code being used to speed up the simulation is only able to be run on a NVIDIA GPU. Therefore the software must run in parallel on a NVIDIA GPU. The GPU's must also have been made in 2008 or later since GPU's older than 2008 do not support CUDA. Newer GPU's are preferable since they will have better data transfer times. The NVIDIA GPU used must have a compute capability (version) of at least 1.3 because it needs to support double-precision floating-point operations.\\
+The GPU code being used to speed up the simulation is only able to be run on a NVIDIA GPU. Therefore the software must run in parallel on a NVIDIA GPU. The GPU's must also have been made in 2008 or later since GPU's older than 2008 do not support CUDA. Newer GPU's are preferable since they will have better data transfer times. The NVIDIA GPU used must have a compute capability (version) of at least 2.0  because it needs to support double-precision floating-point operations.\\
 Additionally, the final product needs to be completed by the end of April, 2016. If these global constraints are not met the final product is not acceptable.\\
 
 
@@ -462,7 +463,7 @@ NA -- The software is not used in safety critical environments. It is a tool for
 {Req_errorHandling}
 {ReqType_Performance}
 {PUC_simulatingParticles}
-{If an error occurs, the product will throw an exception with a description why the exception happened the same way GEANT4 would throw an exception}
+{If an error occurs, the product will throw an exception with a description why the exception happened the same way Geant4 would throw an exception}
 {Throwing an exception as a safeguard in case of an error}
 {When an error occurs an exception is thrown and the user it notified about it.}
 {Medium}
@@ -646,21 +647,24 @@ GEANT4-GPU is an extension of the current environment. The goal of GEANT4-GPU is
 \ds{You are describing design decisions, not effects on the current environment}\vr{Changed section to describe how design decisions effect the current environment}
 
 \subsubsection{Effects on the Installed Systems}
-The GEANT4-GPU extension interfaces with the system through 
+The GEANT4-GPU extension interfaces with the system by modifying cmake, the software used to build Geant4 on a given system. In order for a currently installed system to use the extension, a re-installation Geant4 with the modified source code is necessary. Projects already using Geant4 simply need to be rebuilt using the new installation of Geant4 based off GEANT4-GPU changes to the source. If a user wishes to use a different version of Geant4 with GEANT4-GPU, then the changes made in this extension would need to be copied over to the different version of Geant4.
 %Requirement \ref{Req_EasyChange} specifies the importance of creating a simple interface for the user to enable the changes in the new system, or revert to the previous one. Changes to the code will be isolated, and only used when they are manually enabled.
 \ds{Again you are talking about design. Here you should be detailing what your
 how your product interfaces with the existing system. Are there any potential
 conflicts that would need to be solved (i.e. by your design decision)?}
+\vs{Talked about the effects of our design decisions on currently installed versions of Geant4.}
 
 \subsubsection{Potential User Problems}
-Due to the separation of the changes and the existing product, users will not negatively respond to the changes, indeed they won't even notice them unless actively looking. To use the new product's features, users will enable them and then execute the program in an identical manner to how the existing software works (requirement \ref{Req_EasyChange}).
+Users may experience problems related to the currently installed graphics hardware on their system. They may not have a recent NVIDIA GPU, which could cause compatibility issues with GEANT4-GPU. Or they could not even have a NVIDIA GPU installed in their system. The user would need to check the requirements for GEANT4-GPU, and check the hardware installed on their system before attempting to use the extension.
+%Due to the separation of the changes and the existing product, users will not negatively respond to the changes, indeed they won't even notice them unless actively looking. To use the new product's features, users will enable them and then execute the program in an identical manner to how the existing software works (requirement \ref{Req_EasyChange}).
 \ds{You are again making design decisions instead of detailing potential problems
 to be solved by those decisions}
+\vr{Detailed potential problem for users when attempting to use the GEANT4-GPU extension}
 
 \subsubsection{Limitations of the Anticipated Implementation Environment That May Inhibit the New Product}
 To run the GP-GPU computations, specific hardware is required
 \ds{You should stop here, unless you explained (in the constraints section)
-why you need an NVIDIA card. Also, what is ``recent"?}\mmp{I explained why we need an NVIDIA card. did not explain recent. TODO}
+why you need an NVIDIA card. Also, what is ``recent"?}\mmp{I explained why we need an NVIDIA card. did not explain recent. TODO}\vr{Expanded on ``recent'' in the constraints section}
 (NVIDIA graphics card).
 
 \subsubsection{Follow-Up Problems}
@@ -731,7 +735,7 @@ There are currently no plans for extended requirements for future releases.
 
 % ----------------------------- Sub Section ----------------------------- %
 \subsection{Ideas for Solutions} % Rob
-Some solutions to a few potential problems have been breifly mentioned in the above section (see \ref{SubSec_NewProbs}). Outside of those, we can resolve usability issues with a well-written user manual, which will explain how to download the software (or for previous GEANT4 users, how to upgrade). We can also provide documentation which can distinguish if a certain user's machine is eligible for the software. \\
+Some solutions to a few potential problems have been breifly mentioned in the above section (see \ref{SubSec_NewProbs}). Outside of those, we can resolve usability issues with a well-written user manual, which will explain how to download the software (or for previous Geant4 users, how to upgrade). We can also provide documentation which can distinguish if a certain user's machine is eligible for the software. \\
 Additionally, in terms of organizational and production problems that may arise, we will schedule meetings with both our group and our supervisors. We can utilize well known software development procedures (such as an Agile strategy) to ease the managerial work required for development of the product to run smoothly.\\
 
 \end{document}
